@@ -1,0 +1,13 @@
+---
+const { members } = Astro.props;
+---
+<div class="team">
+  {members.map((m) => (
+    <article class="member">
+      <div class="member__media"><div class="ph"></div></div>
+      <div class="member__role">{m.role}</div>
+      <h3 class="member__name">{m.name}</h3>
+      <p class="member__bio">{m.bio}</p>
+    </article>
+  ))}
+</div>

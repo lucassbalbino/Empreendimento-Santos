@@ -1,0 +1,13 @@
+---
+const { title, minHeight } = Astro.props;
+---
+<section class="hero" style={minHeight ? `min-height:${minHeight}` : undefined}>
+  <div class="hero__bg"></div>
+  <div class="hero__overlay"></div>
+  <div class="hero__inner">
+    <div class="container">
+      <h1 class="display">{title}</h1>
+    </div>
+  </div>
+  <div class="hero__scroll"><span>Scroll</span><span class="line"></span></div>
+</section>

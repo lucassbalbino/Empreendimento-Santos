@@ -1,7 +1,76 @@
 ---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
+import CardScroller from '../components/CardScroller.astro';
+import BlockHead from '../components/BlockHead.astro';
+import Team from '../components/Team.astro';
+import ContactForm from '../components/ContactForm.astro';
+import home from '../data/home.json';
+
+// Mantém o <em> do meio do título "O Que Fazemos" como no mockup original.
+const fazemosTitle = home.oQueFazemos.title.replace(/—\s*(\S+)\s*—/, '— <em>$1</em> —');
 ---
-<!DOCTYPE html>
-<html lang="pt">
-<head><meta charset="UTF-8"><link rel="stylesheet" href="/styles.css"></head>
-<body><h1 class="display">Astro OK</h1></body>
-</html>
+<Base title="Mockup — Início">
+  <Hero title={home.hero.title} />
+
+  <!-- QUEM SOMOS -->
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div class="split__body">
+          <span class="eyebrow">{home.quemSomos.eyebrow}</span>
+          <h2 class="display">{home.quemSomos.title}</h2>
+          {home.quemSomos.paragrafos.map((p) => (<p>{p}</p>))}
+          <a class="btn" href="/sobre-nos">{home.quemSomos.botao}</a>
+        </div>
+        <div class="split__media"><div class="ph" data-label="Imagem 4:5"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O QUE FAZEMOS + CONTADORES -->
+  <section class="section section--alt">
+    <div class="container dofazemos">
+      <span class="eyebrow" style="justify-content:center">{home.oQueFazemos.eyebrow}</span>
+      <h2 class="display" set:html={fazemosTitle}></h2>
+      <Stats items={home.oQueFazemos.stats} />
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="section">
+    <div class="container">
+      <BlockHead eyebrow={home.portfolio.eyebrow} title={home.portfolio.title} lead={home.portfolio.lead} botao={home.portfolio.botao} href="/portfolio" />
+    </div>
+    <div class="container">
+      <CardScroller cards={home.portfolio.cards} />
+    </div>
+  </section>
+
+  <!-- TRACK RECORD -->
+  <section class="section section--dark">
+    <div class="container">
+      <BlockHead eyebrow={home.trackRecord.eyebrow} title={home.trackRecord.title} lead={home.trackRecord.lead} botao={home.trackRecord.botao} href="/portfolio" />
+    </div>
+    <div class="container">
+      <CardScroller cards={home.trackRecord.cards} dark={true} />
+    </div>
+  </section>
+
+  <!-- EQUIPA -->
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">{home.equipa.eyebrow}</span>
+      <h2 class="display display--sm">{home.equipa.title}</h2>
+      <Team members={home.equipa.members} />
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section" id="contacto">
+    <div class="container">
+      <ContactForm eyebrow={home.contacto.eyebrow} title={home.contacto.title} texto={home.contacto.texto} />
+    </div>
+  </section>
+</Base>

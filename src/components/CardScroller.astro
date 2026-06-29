@@ -1,0 +1,17 @@
+---
+const { cards, dark = false } = Astro.props;
+---
+<div class="scroller">
+  {cards.map((c) => (
+    <article class="card">
+      <div class="card__media">
+        <div class={dark ? "ph ph--dark" : "ph"}></div>
+        <div class="card__overlay">
+          <h3 class="card__title">{c.title}</h3>
+          <div class="card__meta">{c.meta}</div>
+          {c.cta && <span class="card__cta">{c.cta}</span>}
+        </div>
+      </div>
+    </article>
+  ))}
+</div>

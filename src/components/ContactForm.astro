@@ -1,0 +1,20 @@
+---
+const { eyebrow, title, texto } = Astro.props;
+---
+<div class="contact">
+  <div>
+    <span class="eyebrow">{eyebrow}</span>
+    <h2 class="display display--sm">{title}</h2>
+    <p class="muted" style="margin-top:1rem;max-width:40ch">{texto}</p>
+  </div>
+  <form class="contact__form" onsubmit="return false">
+    <div class="field"><label>Lorem</label><input type="text" placeholder="Lorem ipsum"></div>
+    <div class="field"><label>Ipsum</label><input type="email" placeholder="lorem@ipsum.com"></div>
+    <div class="field"><label>Dolor</label>
+      <select><option>Selecione — Lorem ipsum</option><option>Lorem 01</option><option>Lorem 02</option><option>Lorem 03</option></select>
+    </div>
+    <div class="field"><label>Mensagem</label><textarea placeholder="Lorem ipsum dolor sit amet…"></textarea></div>
+    <label class="check"><input type="checkbox"> Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.</label>
+    <button class="btn" type="submit">Lorem ipsum</button>
+  </form>
+</div>

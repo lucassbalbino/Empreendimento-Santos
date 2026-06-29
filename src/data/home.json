@@ -1,0 +1,62 @@
+{
+  "hero": { "title": "Lorem ipsum dolor sit amet" },
+  "quemSomos": {
+    "eyebrow": "Lorem Ipsum",
+    "title": "Lorem ipsum dolor sit amet consectetur",
+    "paragrafos": [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
+      "Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse."
+    ],
+    "botao": "Lorem ipsum"
+  },
+  "oQueFazemos": {
+    "eyebrow": "Lorem Ipsum",
+    "title": "Lorem — Ipsum — Dolor",
+    "stats": [
+      { "target": 120, "prefix": "", "suffix": "", "label": "Lorem ipsum" },
+      { "target": 2400, "prefix": "", "suffix": "", "label": "Dolor sit amet" },
+      { "target": 85, "prefix": "", "suffix": "", "label": "Consectetur" },
+      { "target": 350, "prefix": "+", "suffix": "", "label": "Adipiscing elit" },
+      { "target": 900, "prefix": "", "suffix": "K", "label": "Tempor incididunt" }
+    ]
+  },
+  "portfolio": {
+    "eyebrow": "Lorem Ipsum",
+    "title": "Lorem ipsum dolor",
+    "lead": "Consectetur adipiscing elit",
+    "botao": "Lorem ipsum",
+    "cards": [
+      { "title": "Lorem Ipsum", "meta": "Dolor sit amet, consectetur", "cta": "Lorem ipsum" },
+      { "title": "Dolor Sit", "meta": "Amet consectetur, adipiscing", "cta": "Lorem ipsum" },
+      { "title": "Amet Elit", "meta": "Sed do eiusmod, tempor", "cta": "Lorem ipsum" },
+      { "title": "Tempor Magna", "meta": "Incididunt ut, labore", "cta": "Lorem ipsum" },
+      { "title": "Aliqua Enim", "meta": "Ad minim, veniam quis", "cta": "Lorem ipsum" }
+    ]
+  },
+  "trackRecord": {
+    "eyebrow": "Lorem Ipsum",
+    "title": "Lorem ipsum dolor sit",
+    "lead": "Consectetur adipiscing",
+    "botao": "Lorem ipsum",
+    "cards": [
+      { "title": "Lorem Building", "meta": "Dolor sit amet, consectetur" },
+      { "title": "Ipsum Lofts", "meta": "Amet consectetur, adipiscing" },
+      { "title": "Dolor Plaza", "meta": "Sed do eiusmod, tempor" },
+      { "title": "Magna Court", "meta": "Incididunt ut, labore" },
+      { "title": "Aliqua House", "meta": "Ad minim, veniam quis" }
+    ]
+  },
+  "equipa": {
+    "eyebrow": "Lorem Ipsum",
+    "title": "Lorem ipsum dolor sit amet",
+    "members": [
+      { "role": "Lorem · Ipsum", "name": "Lorem Ipsum Dolor", "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud." },
+      { "role": "Dolor · Amet", "name": "Consectetur Adipiscing", "bio": "Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla." }
+    ]
+  },
+  "contacto": {
+    "eyebrow": "Lorem Ipsum",
+    "title": "Lorem ipsum dolor sit",
+    "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt."
+  }
+}
