@@ -1,0 +1,18 @@
+{
+  "name": "empresa-bela",
+  "version": "1.0.0",
+  "description": "Site Empresa Bela — Astro + Sveltia CMS",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "cms-proxy": "sveltia-cms-proxy-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "astro": "^4.16.19"
+  }
+}
