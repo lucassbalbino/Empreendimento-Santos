@@ -1,0 +1,32 @@
+---
+import site from '../data/site.json';
+const moradaLinhas = site.footer.morada.split('\n');
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <span class="logo">{site.brand.name} <small>{site.brand.suffix}</small></span>
+        <p>{site.footer.blurb}</p>
+        <div class="socials"><a href="#">FB</a><a href="#">IG</a><a href="#">IN</a></div>
+      </div>
+      <div class="footer-col">
+        <h4>Morada</h4>
+        <p>{moradaLinhas.map((linha, i) => (<>{i > 0 && <br />}{linha}</>))}</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contactos</h4>
+        <p><a href={`mailto:${site.footer.email}`}>{site.footer.email}</a><br><a href="#">{site.footer.telefone}</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <div class="news"><input type="email" placeholder="lorem@ipsum.com"><button>→</button></div>
+        <label class="check" style="margin-top:1rem;color:#a7abb1"><input type="checkbox"> Lorem ipsum dolor sit amet.</label>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{site.footer.copyright}</span>
+      <span>{site.footer.assinatura}</span>
+    </div>
+  </div>
+</footer>

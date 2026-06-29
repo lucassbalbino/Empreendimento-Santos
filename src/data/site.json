@@ -1,0 +1,11 @@
+{
+  "brand": { "name": "Logo", "suffix": "Lorem" },
+  "footer": {
+    "blurb": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.",
+    "morada": "Lorem ipsum nº 0\n0000-000 Lorem\nIpsum",
+    "email": "lorem@ipsum.com",
+    "telefone": "+000 000 000 000",
+    "copyright": "© 0000 Lorem Ipsum — Todos os direitos reservados",
+    "assinatura": "Lorem · Ipsum · Dolor"
+  }
+}
