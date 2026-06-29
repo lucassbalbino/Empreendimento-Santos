@@ -1,0 +1,258 @@
+backend:
+  name: github
+  repo: SEU_USUARIO/empresa-bela   # ajustar na publicação (ver docs/PUBLICACAO.md)
+  branch: main
+
+# Permite editar localmente na demonstração, sem GitHub.
+# Rodar:  npm run cms-proxy   (em outro terminal, junto com  npm run dev)
+local_backend: true
+
+media_folder: "public/images"
+public_folder: "/images"
+
+# Idioma do painel
+locale: pt
+
+collections:
+  # ---------------------------------------------------------------- INÍCIO
+  - name: home
+    label: "Página Início"
+    delete: false
+    files:
+      - name: home
+        label: "Conteúdo da Início"
+        file: "src/data/home.json"
+        fields:
+          - label: "Hero"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Título", name: title, widget: string }
+          - label: "Quem Somos"
+            name: quemSomos
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Parágrafos", name: paragrafos, widget: list, field: { label: "Parágrafo", name: texto, widget: text } }
+              - { label: "Texto do botão", name: botao, widget: string }
+          - label: "O Que Fazemos — Números"
+            name: oQueFazemos
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - label: "Contadores"
+                name: stats
+                widget: list
+                fields:
+                  - { label: "Valor", name: target, widget: number, value_type: int }
+                  - { label: "Prefixo", name: prefix, widget: string, required: false }
+                  - { label: "Sufixo", name: suffix, widget: string, required: false }
+                  - { label: "Rótulo", name: label, widget: string }
+          - label: "Portfólio (destaques)"
+            name: portfolio
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Subtítulo", name: lead, widget: string }
+              - { label: "Texto do botão", name: botao, widget: string }
+              - label: "Cards"
+                name: cards
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Título", name: title, widget: string }
+                  - { label: "Legenda", name: meta, widget: string }
+                  - { label: "Texto CTA", name: cta, widget: string, required: false }
+          - label: "Track Record"
+            name: trackRecord
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Subtítulo", name: lead, widget: string }
+              - { label: "Texto do botão", name: botao, widget: string }
+              - label: "Cards"
+                name: cards
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Título", name: title, widget: string }
+                  - { label: "Legenda", name: meta, widget: string }
+          - label: "Equipa"
+            name: equipa
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - label: "Membros"
+                name: members
+                widget: list
+                summary: "{{fields.name}}"
+                fields:
+                  - { label: "Função", name: role, widget: string }
+                  - { label: "Nome", name: name, widget: string }
+                  - { label: "Bio", name: bio, widget: text }
+          - label: "Contacto"
+            name: contacto
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Texto", name: texto, widget: text }
+
+  # ------------------------------------------------------------- PORTFÓLIO
+  - name: portfolio
+    label: "Página Portfólio"
+    delete: false
+    files:
+      - name: portfolio
+        label: "Conteúdo do Portfólio"
+        file: "src/data/portfolio.json"
+        fields:
+          - label: "Hero"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+          - label: "Introdução"
+            name: intro
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Subtítulo", name: lead, widget: string }
+          - label: "Projetos"
+            name: projetos
+            widget: list
+            summary: "{{fields.nome}}"
+            fields:
+              - { label: "Nome", name: nome, widget: string }
+              - { label: "Localização", name: localizacao, widget: string }
+              - { label: "Tipologia", name: tipologia, widget: string }
+              - { label: "Texto CTA", name: cta, widget: string, required: false }
+              - { label: "Foto", name: foto, widget: image, required: false }
+          - label: "Track Record"
+            name: trackRecord
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Subtítulo", name: lead, widget: string }
+              - { label: "Texto do botão", name: botao, widget: string }
+              - label: "Cards"
+                name: cards
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Título", name: title, widget: string }
+                  - { label: "Legenda", name: meta, widget: string }
+          - label: "Contacto"
+            name: contacto
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Texto", name: texto, widget: text }
+
+  # ------------------------------------------------------------- SOBRE NÓS
+  - name: sobre
+    label: "Página Sobre Nós"
+    delete: false
+    files:
+      - name: sobre
+        label: "Conteúdo do Sobre Nós"
+        file: "src/data/sobre.json"
+        fields:
+          - label: "Hero"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+          - label: "Quem Somos"
+            name: quemSomos
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Destaque", name: lead, widget: text }
+              - { label: "Parágrafo", name: paragrafo, widget: text }
+          - label: "O Que Fazemos — Verticais"
+            name: oQueFazemos
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: text }
+              - label: "Verticais"
+                name: verticais
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Número", name: n, widget: string }
+                  - { label: "Título", name: title, widget: string }
+                  - { label: "Texto", name: texto, widget: text }
+          - label: "Serviços"
+            name: servicos
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - label: "Serviços"
+                name: items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Título", name: title, widget: string }
+                  - { label: "Texto", name: texto, widget: text }
+                  - { label: "Texto do botão", name: botao, widget: string, required: false }
+          - label: "Equipa"
+            name: equipa
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - label: "Membros"
+                name: members
+                widget: list
+                summary: "{{fields.name}}"
+                fields:
+                  - { label: "Função", name: role, widget: string }
+                  - { label: "Nome", name: name, widget: string }
+                  - { label: "Bio", name: bio, widget: text }
+          - label: "Contacto"
+            name: contacto
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Texto", name: texto, widget: text }
+
+  # ------------------------------------------------- GERAL (header/footer)
+  - name: site
+    label: "Geral (logo e rodapé)"
+    delete: false
+    files:
+      - name: site
+        label: "Logo e Rodapé"
+        file: "src/data/site.json"
+        fields:
+          - label: "Marca"
+            name: brand
+            widget: object
+            fields:
+              - { label: "Nome", name: name, widget: string }
+              - { label: "Complemento", name: suffix, widget: string }
+          - label: "Rodapé"
+            name: footer
+            widget: object
+            fields:
+              - { label: "Texto", name: blurb, widget: text }
+              - { label: "Morada", name: morada, widget: text }
+              - { label: "E-mail", name: email, widget: string }
+              - { label: "Telefone", name: telefone, widget: string }
+              - { label: "Copyright", name: copyright, widget: string }
+              - { label: "Assinatura", name: assinatura, widget: string }
