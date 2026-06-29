@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import BlockHead from '../components/BlockHead.astro';
+import CardScroller from '../components/CardScroller.astro';
+import ContactForm from '../components/ContactForm.astro';
+import portfolio from '../data/portfolio.json';
+---
+<Base title="Mockup — Portfólio">
+  <!-- HERO (interno) -->
+  <section class="hero" style="min-height:62vh">
+    <div class="hero__bg"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner">
+      <div class="container">
+        <span class="eyebrow" style="color:#c8a878">{portfolio.hero.eyebrow}</span>
+        <h1 class="display hero__title-page">{portfolio.hero.title}</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRID DE PROJETOS -->
+  <section class="section">
+    <div class="container">
+      <BlockHead eyebrow={portfolio.intro.eyebrow} title={portfolio.intro.title} lead={portfolio.intro.lead} />
+      <div class="grid-projects">
+        {portfolio.projetos.map((p) => (
+          <article class="card">
+            <div class="card__media">
+              <div class="ph"></div>
+              <div class="card__overlay">
+                <h3 class="card__title">{p.nome}</h3>
+                <div class="card__meta">{p.localizacao} · {p.tipologia}</div>
+                {p.cta && <span class="card__cta">{p.cta}</span>}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK RECORD -->
+  <section class="section section--dark">
+    <div class="container">
+      <BlockHead eyebrow={portfolio.trackRecord.eyebrow} title={portfolio.trackRecord.title} lead={portfolio.trackRecord.lead} botao={portfolio.trackRecord.botao} href="#" />
+    </div>
+    <div class="container">
+      <CardScroller cards={portfolio.trackRecord.cards} dark={true} />
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section section--alt" id="contacto">
+    <div class="container">
+      <ContactForm eyebrow={portfolio.contacto.eyebrow} title={portfolio.contacto.title} texto={portfolio.contacto.texto} />
+    </div>
+  </section>
+</Base>
