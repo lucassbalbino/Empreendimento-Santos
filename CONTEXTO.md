@@ -3,6 +3,11 @@
 > Documento de contexto para continuar o trabalho no VSCode (ou com qualquer assistente de IA).
 > Registra a origem, os requisitos e as decisões já tomadas neste mockup.
 
+> ⚠️ **ANTES de qualquer alteração no site, consulte a pasta [`referencias/`](referencias/README.md).**
+> Comece pelo `referencias/README.md` e leia o material relevante (sites, imagens,
+> documentos) para trabalhar com o contexto visual e de conteúdo correto. As
+> referências têm prioridade sobre suposições. Ver **Seção 2**.
+
 ---
 
 ## 1. O que é
@@ -12,16 +17,25 @@ Público-alvo: **nobre, mas não luxuoso** (sóbrio, refinado, sem ostentação)
 
 O conteúdo é **100% placeholder** — serve para validar layout e estrutura antes de ter o material real do cliente.
 
-## 2. Site de referência (a "copiar")
+## 2. Referências (consultar SEMPRE antes de agir)
 
-Base estrutural e visual: **https://habitatinvest.pt/** (imobiliária/investimento, WordPress).
-Páginas analisadas:
+Todo o material de apoio do site fica na pasta **[`referencias/`](referencias/)**.
+Antes de propor ou fazer qualquer alteração, **leia `referencias/README.md`** e o
+conteúdo relevante das subpastas:
 
-- `https://habitatinvest.pt/` (Início)
-- `https://habitatinvest.pt/portfolio/`
-- `https://habitatinvest.pt/sobre-nos/`
+| Pasta                      | Conteúdo |
+|----------------------------|----------|
+| `referencias/sites/`       | Screenshots de sites de inspiração + `LINKS.md` (URLs de referência). |
+| `referencias/imagens/`     | Mood board, logo/marca, paleta, fotos de inspiração ou do cliente. |
+| `referencias/documentos/`  | Briefings, propostas, PDFs e textos do cliente. |
 
-Fidelidade pedida: **cópia fiel do layout, com ajustes que façam sentido** para a proposta do cliente.
+As referências têm **prioridade sobre suposições**: se algo na pasta contradiz o
+que está aqui ou o que você imaginaria, siga a referência.
+
+**Site de referência principal** (base estrutural e visual):
+**https://habitatinvest.pt/** (imobiliária/investimento, WordPress) — cópia fiel
+do layout, com ajustes que façam sentido para a proposta do cliente. As URLs
+analisadas e futuras referências de sites ficam em `referencias/sites/LINKS.md`.
 
 ## 3. Convenções de placeholder
 

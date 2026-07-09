@@ -231,6 +231,220 @@ collections:
               - { label: "Título", name: title, widget: string }
               - { label: "Texto", name: texto, widget: text }
 
+  # ------------------------------------------------------------- HISTÓRICO
+  - name: historico
+    label: "Página Histórico"
+    delete: false
+    files:
+      - name: historico
+        label: "Conteúdo do Histórico"
+        file: "src/data/historico.json"
+        fields:
+          - label: "Hero"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+          - label: "Introdução"
+            name: intro
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Subtítulo", name: lead, widget: string }
+          - label: "Números"
+            name: stats
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - label: "Contadores"
+                name: items
+                widget: list
+                fields:
+                  - { label: "Valor", name: target, widget: number, value_type: int }
+                  - { label: "Prefixo", name: prefix, widget: string, required: false }
+                  - { label: "Sufixo", name: suffix, widget: string, required: false }
+                  - { label: "Rótulo", name: label, widget: string }
+          - label: "Projetos concluídos"
+            name: projetos
+            widget: list
+            summary: "{{fields.nome}}"
+            fields:
+              - { label: "Nome", name: nome, widget: string }
+              - { label: "Localização", name: localizacao, widget: string }
+              - { label: "Tipologia", name: tipologia, widget: string }
+              - { label: "Texto CTA", name: cta, widget: string, required: false }
+              - { label: "Foto", name: foto, widget: image, required: false }
+          - label: "Contacto"
+            name: contacto
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Texto", name: texto, widget: text }
+
+  # ---------------------------------------------------------- SF PROPERTIES
+  - name: sfProperties
+    label: "Página SF Properties"
+    delete: false
+    files:
+      - name: sfProperties
+        label: "Conteúdo do SF Properties"
+        file: "src/data/sf-properties.json"
+        fields:
+          - label: "Hero"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+          - label: "Sobre a marca"
+            name: sobre
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Destaque", name: lead, widget: text }
+              - { label: "Parágrafo", name: paragrafo, widget: text }
+              - { label: "Texto do botão", name: botao, widget: string, required: false }
+          - label: "Serviços"
+            name: servicos
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - label: "Serviços"
+                name: items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Título", name: title, widget: string }
+                  - { label: "Texto", name: texto, widget: text }
+                  - { label: "Texto do botão", name: botao, widget: string, required: false }
+          - label: "Projetos em destaque"
+            name: projetos
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Subtítulo", name: lead, widget: string }
+              - label: "Projetos"
+                name: items
+                widget: list
+                summary: "{{fields.nome}}"
+                fields:
+                  - { label: "Nome", name: nome, widget: string }
+                  - { label: "Localização", name: localizacao, widget: string }
+                  - { label: "Tipologia", name: tipologia, widget: string }
+                  - { label: "Texto CTA", name: cta, widget: string, required: false }
+          - label: "Contacto"
+            name: contacto
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Texto", name: texto, widget: text }
+
+  # ---------------------------------------------------------------- EQUIPA
+  - name: equipa
+    label: "Página Equipa"
+    delete: false
+    files:
+      - name: equipa
+        label: "Conteúdo da Equipa"
+        file: "src/data/equipa.json"
+        fields:
+          - label: "Hero"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+          - label: "Direção"
+            name: direcao
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - label: "Membros"
+                name: members
+                widget: list
+                summary: "{{fields.name}}"
+                fields:
+                  - { label: "Função", name: role, widget: string }
+                  - { label: "Nome", name: name, widget: string }
+                  - { label: "Bio", name: bio, widget: text }
+          - label: "Equipa geral"
+            name: equipa
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - label: "Membros"
+                name: members
+                widget: list
+                summary: "{{fields.name}}"
+                fields:
+                  - { label: "Função", name: role, widget: string }
+                  - { label: "Nome", name: name, widget: string }
+                  - { label: "Bio", name: bio, widget: text }
+          - label: "Empresas do grupo"
+            name: grupo
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Nome da empresa", name: title, widget: string }
+              - label: "Membros"
+                name: members
+                widget: list
+                summary: "{{fields.name}}"
+                fields:
+                  - { label: "Função", name: role, widget: string }
+                  - { label: "Nome", name: name, widget: string }
+                  - { label: "Bio", name: bio, widget: text }
+          - label: "Contacto"
+            name: contacto
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Texto", name: texto, widget: text }
+
+  # ------------------------------------------------------------- CONTACTOS
+  - name: contactos
+    label: "Página Contactos"
+    delete: false
+    files:
+      - name: contactos
+        label: "Conteúdo dos Contactos"
+        file: "src/data/contactos.json"
+        fields:
+          - label: "Hero"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+          - label: "Contacto"
+            name: contacto
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Texto", name: texto, widget: text }
+              - { label: "E-mail", name: email, widget: string }
+              - { label: "Telefone", name: telefone, widget: string }
+          - label: "Onde Estamos"
+            name: onde
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Morada", name: morada, widget: text }
+              - { label: "Legenda do mapa", name: mapaLabel, widget: string }
+
   # ------------------------------------------------- GERAL (header/footer)
   - name: site
     label: "Geral (logo e rodapé)"

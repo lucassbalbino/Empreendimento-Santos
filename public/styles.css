@@ -310,11 +310,12 @@ ul{ list-style:none; }
 /* =====================================================================
    EQUIPA
    ===================================================================== */
-.team{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(28px,4vw,56px); margin-top:clamp(40px,5vw,64px); }
+.team{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(20px,2.4vw,34px); margin-top:clamp(40px,5vw,64px); }
+.team--lead{ grid-template-columns:repeat(2,minmax(0,1fr)); max-width:640px; gap:clamp(20px,2.4vw,34px); }
 .member__media .ph{ aspect-ratio:1/1; width:100%; }
-.member__role{ font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin:1.2rem 0 .4rem; font-weight:600; }
-.member__name{ font-family:var(--serif); font-weight:400; font-size:1.7rem; margin-bottom:1rem; }
-.member__bio{ color:var(--ink-soft); font-size:.95rem; max-width:48ch; }
+.member__role{ font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin:.9rem 0 .3rem; font-weight:600; }
+.member__name{ font-family:var(--serif); font-weight:400; font-size:1.2rem; margin-bottom:.6rem; }
+.member__bio{ color:var(--ink-soft); font-size:.85rem; max-width:100%; }
 
 /* =====================================================================
    CONTACTO
@@ -358,6 +359,7 @@ ul{ list-style:none; }
 @media (max-width: 1024px){
   .stats{ grid-template-columns:repeat(2,1fr); }
   .grid-projects{ grid-template-columns:repeat(2,1fr); }
+  .team{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:1fr 1fr; }
 }
 @media (max-width: 760px){

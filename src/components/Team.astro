@@ -1,7 +1,8 @@
 ---
-const { members } = Astro.props;
+const { members, variant } = Astro.props;
+const cls = variant ? `team team--${variant}` : 'team';
 ---
-<div class="team">
+<div class={cls}>
   {members.map((m) => (
     <article class="member">
       <div class="member__media"><div class="ph"></div></div>

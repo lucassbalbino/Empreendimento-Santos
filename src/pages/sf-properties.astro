@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import BlockHead from '../components/BlockHead.astro';
+import ContactForm from '../components/ContactForm.astro';
+import sf from '../data/sf-properties.json';
+---
+<Base title="Mockup — SF Properties">
+  <!-- HERO (interno) -->
+  <section class="hero" style="min-height:62vh">
+    <div class="hero__bg"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner">
+      <div class="container">
+        <span class="eyebrow" style="color:#c8a878">{sf.hero.eyebrow}</span>
+        <h1 class="display hero__title-page">{sf.hero.title}</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE A MARCA -->
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div class="split__media"><div class="ph" data-label="Imagem 4:5"></div></div>
+        <div class="split__body">
+          <span class="eyebrow">{sf.sobre.eyebrow}</span>
+          <h2 class="display display--sm">{sf.sobre.title}</h2>
+          <p class="lead" style="margin:1rem 0 1.4rem">{sf.sobre.lead}</p>
+          <p>{sf.sobre.paragrafo}</p>
+          {sf.sobre.botao && <a class="btn" href="#" style="margin-top:1.6rem">{sf.sobre.botao}</a>}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">{sf.servicos.eyebrow}</span>
+      <h2 class="display display--sm" style="margin-bottom:clamp(40px,5vw,72px)">{sf.servicos.title}</h2>
+      {sf.servicos.items.map((s) => (
+        <div class="service">
+          <div class="service__media"><div class="ph" data-label="Imagem 5:4"></div></div>
+          <div class="service__body">
+            <h3>{s.title}</h3>
+            <p>{s.texto}</p>
+            {s.botao && <a class="btn" href="#">{s.botao}</a>}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- PROJETOS EM DESTAQUE -->
+  <section class="section">
+    <div class="container">
+      <BlockHead eyebrow={sf.projetos.eyebrow} title={sf.projetos.title} lead={sf.projetos.lead} />
+      <div class="grid-projects">
+        {sf.projetos.items.map((p) => (
+          <article class="card">
+            <div class="card__media">
+              <div class="ph"></div>
+              <div class="card__overlay">
+                <h3 class="card__title">{p.nome}</h3>
+                <div class="card__meta">{p.localizacao} · {p.tipologia}</div>
+                {p.cta && <span class="card__cta">{p.cta}</span>}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section section--alt" id="contacto">
+    <div class="container">
+      <ContactForm eyebrow={sf.contacto.eyebrow} title={sf.contacto.title} texto={sf.contacto.texto} />
+    </div>
+  </section>
+</Base>

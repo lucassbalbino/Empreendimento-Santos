@@ -1,0 +1,16 @@
+{
+  "hero": { "eyebrow": "Lorem Ipsum", "title": "Contactos" },
+  "contacto": {
+    "eyebrow": "Lorem Ipsum",
+    "title": "Lorem ipsum dolor sit",
+    "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "email": "lorem@ipsum.com",
+    "telefone": "+000 000 000 000"
+  },
+  "onde": {
+    "eyebrow": "Lorem Ipsum",
+    "title": "Onde Estamos",
+    "morada": "Lorem ipsum nº 0\n0000-000 Lorem\nIpsum",
+    "mapaLabel": "Mapa — Lorem ipsum"
+  }
+}

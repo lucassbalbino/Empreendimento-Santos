@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactForm from '../components/ContactForm.astro';
+import contactos from '../data/contactos.json';
+const moradaLinhas = contactos.onde.morada.split('\n');
+---
+<Base title="Mockup — Contactos">
+  <!-- HERO (interno) -->
+  <section class="hero" style="min-height:62vh">
+    <div class="hero__bg"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner">
+      <div class="container">
+        <span class="eyebrow" style="color:#c8a878">{contactos.hero.eyebrow}</span>
+        <h1 class="display hero__title-page">{contactos.hero.title}</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section" id="contacto">
+    <div class="container">
+      <ContactForm eyebrow={contactos.contacto.eyebrow} title={contactos.contacto.title} texto={contactos.contacto.texto} />
+      <p class="muted" style="margin-top:2rem">
+        <a href={`mailto:${contactos.contacto.email}`}>{contactos.contacto.email}</a>
+        &nbsp;·&nbsp;
+        <a href={`tel:${contactos.contacto.telefone.replace(/\s+/g, '')}`}>{contactos.contacto.telefone}</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ONDE ESTAMOS -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="split">
+        <div class="split__body">
+          <span class="eyebrow">{contactos.onde.eyebrow}</span>
+          <h2 class="display display--sm">{contactos.onde.title}</h2>
+          <p class="lead" style="margin-top:1rem">{moradaLinhas.map((linha, i) => (<>{i > 0 && <br />}{linha}</>))}</p>
+        </div>
+        <div class="split__media"><div class="ph" data-label={contactos.onde.mapaLabel}></div></div>
+      </div>
+    </div>
+  </section>
+</Base>

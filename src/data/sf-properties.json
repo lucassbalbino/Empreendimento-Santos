@@ -1,0 +1,32 @@
+{
+  "hero": { "eyebrow": "Lorem Ipsum", "title": "SF Properties" },
+  "sobre": {
+    "eyebrow": "Lorem Ipsum",
+    "title": "Lorem ipsum dolor sit amet",
+    "lead": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "paragrafo": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.",
+    "botao": "Lorem ipsum"
+  },
+  "servicos": {
+    "eyebrow": "Lorem Ipsum",
+    "title": "Lorem ipsum dolor",
+    "items": [
+      { "title": "Lorem Ipsum", "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.", "botao": "Lorem ipsum" },
+      { "title": "Dolor Sit Amet", "texto": "Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.", "botao": "Lorem ipsum" }
+    ]
+  },
+  "projetos": {
+    "eyebrow": "Lorem Ipsum",
+    "title": "Lorem ipsum dolor sit",
+    "lead": "Consectetur adipiscing elit",
+    "items": [
+      { "nome": "Lorem Ipsum", "localizacao": "Dolor sit amet", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" },
+      { "nome": "Dolor Sit", "localizacao": "Consectetur", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" }
+    ]
+  },
+  "contacto": {
+    "eyebrow": "Lorem Ipsum",
+    "title": "Lorem ipsum dolor sit",
+    "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt."
+  }
+}
