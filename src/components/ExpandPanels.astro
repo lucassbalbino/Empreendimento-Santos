@@ -1,0 +1,15 @@
+---
+const { cards } = Astro.props;
+---
+<div class="panels">
+  {cards.map((c, i) => (
+    <article class={i === 0 ? "panel is-active" : "panel"}>
+      <img class="panel__bg" src="/images/hero-image.webp" alt="" loading="lazy" />
+      <span class="panel__label">{c.title}</span>
+      <div class="panel__content">
+        <h3 class="panel__title">{c.title}</h3>
+        <div class="panel__meta">{c.meta}</div>
+      </div>
+    </article>
+  ))}
+</div>

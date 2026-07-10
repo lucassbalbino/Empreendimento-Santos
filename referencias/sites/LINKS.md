@@ -17,8 +17,8 @@ Lista de sites que servem de inspiração para o projeto. Para cada um, anote
 
 ## Outros (adicione abaixo)
 
-<!--
-Exemplo:
-- **https://exemplo.com/** — o que observar: hero com vídeo, tipografia serifada,
-  grid de projetos em 2 colunas.
--->
+- **https://ogroup.com/** — imobiliária/investimento (WordPress).
+  Base principal de layout e estrutura. Páginas analisadas:
+  - `https://ogroup.com/our-team/the-oppenheim-group/` (página de contato)
+
+  - Fidelidade pedida: cópia fiel do layout da seção com id content office, é uma seção com vários pequenos cards um ao lado do outro, mas quando passo o mouse a imagem do card aumenta em uma janela maior, tenho também nas imagens da referência uma print

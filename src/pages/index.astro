@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Stats from '../components/Stats.astro';
 import CardScroller from '../components/CardScroller.astro';
+import ExpandPanels from '../components/ExpandPanels.astro';
 import BlockHead from '../components/BlockHead.astro';
 import Team from '../components/Team.astro';
 import ContactForm from '../components/ContactForm.astro';
@@ -12,7 +13,7 @@ import home from '../data/home.json';
 const fazemosTitle = home.oQueFazemos.title.replace(/—\s*(\S+)\s*—/, '— <em>$1</em> —');
 ---
 <Base title="Mockup — Início">
-  <Hero title={home.hero.title} />
+  <Hero title={home.hero.title} image={home.hero.imagem} />
 
   <!-- QUEM SOMOS -->
   <section class="section">
@@ -54,7 +55,7 @@ const fazemosTitle = home.oQueFazemos.title.replace(/—\s*(\S+)\s*—/, '— <e
       <BlockHead eyebrow={home.trackRecord.eyebrow} title={home.trackRecord.title} lead={home.trackRecord.lead} botao={home.trackRecord.botao} href="/portfolio" />
     </div>
     <div class="container">
-      <CardScroller cards={home.trackRecord.cards} dark={true} />
+      <ExpandPanels cards={home.trackRecord.cards} />
     </div>
   </section>
 

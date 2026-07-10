@@ -1,8 +1,11 @@
 ---
-const { title, minHeight } = Astro.props;
+const { title, minHeight, image } = Astro.props;
 ---
 <section class="hero" style={minHeight ? `min-height:${minHeight}` : undefined}>
-  <div class="hero__bg"></div>
+  <div
+    class={image ? 'hero__bg hero__bg--img' : 'hero__bg'}
+    style={image ? `background-image:url(${image})` : undefined}
+  ></div>
   <div class="hero__overlay"></div>
   <div class="hero__inner">
     <div class="container">

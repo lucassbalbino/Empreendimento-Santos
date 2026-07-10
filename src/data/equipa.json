@@ -1,45 +1,45 @@
 {
-  "hero": { "eyebrow": "Lorem Ipsum", "title": "Equipa" },
+  "hero": { "eyebrow": "As pessoas", "title": "Equipa" },
   "direcao": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit",
+    "eyebrow": "Direção",
+    "title": "Quem lidera o grupo",
     "members": [
-      { "role": "Lorem · Ipsum", "name": "Lorem Ipsum Dolor", "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud." },
-      { "role": "Dolor · Amet", "name": "Consectetur Adipiscing", "bio": "Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla." }
+      { "role": "Fundação · Direção-Geral", "name": "António Machado Santos", "bio": "Fundou a AMS Santos em 1990 e lidera a estratégia do grupo. Mais de três décadas dedicadas à promoção imobiliária e à construção em Portugal." },
+      { "role": "Arquitetura · Projeto", "name": "Marta Sousa", "bio": "Responsável pelo departamento de projeto, coordena o desenho de cada empreendimento, do conceito à compatibilização técnica com a obra." }
     ]
   },
   "equipa": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit amet",
+    "eyebrow": "Equipa técnica",
+    "title": "Quem constrói, todos os dias",
     "members": [
-      { "role": "Lorem · Ipsum", "name": "Lorem Ipsum", "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor." },
-      { "role": "Dolor · Sit", "name": "Dolor Amet", "bio": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi." },
-      { "role": "Amet · Elit", "name": "Consectetur Elit", "bio": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore." },
-      { "role": "Sed · Tempor", "name": "Adipiscing Sed", "bio": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia." },
-      { "role": "Labore · Magna", "name": "Eiusmod Tempor", "bio": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium." },
-      { "role": "Veniam · Nostrud", "name": "Incididunt Labore", "bio": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit." }
+      { "role": "Engenharia · Obra", "name": "Ricardo Nunes", "bio": "Diretor de obra, coordena a execução e o controlo de qualidade nos estaleiros do grupo." },
+      { "role": "Arquitetura · Projeto", "name": "Inês Carvalho", "bio": "Desenvolve os projetos de arquitetura, do conceito à compatibilização com as especialidades." },
+      { "role": "Comercial · Vendas", "name": "Pedro Almeida", "bio": "Acompanha clientes e investidores na escolha e aquisição de cada empreendimento." },
+      { "role": "Financeiro · Investimento", "name": "Sofia Mendes", "bio": "Responsável pela estruturação financeira e pelo controlo de gestão dos projetos." },
+      { "role": "Licenciamento · Urbanismo", "name": "João Ferreira", "bio": "Trata do licenciamento e da relação com as entidades ao longo de cada operação." },
+      { "role": "Qualidade · Segurança", "name": "Ana Rocha", "bio": "Garante o cumprimento das normas de qualidade e segurança em todas as fases da obra." }
     ]
   },
   "grupo": [
     {
       "title": "SF Properties",
       "members": [
-        { "role": "Lorem · Ipsum", "name": "Lorem Ipsum", "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor." },
-        { "role": "Dolor · Sit", "name": "Dolor Amet", "bio": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi." },
-        { "role": "Amet · Elit", "name": "Consectetur Elit", "bio": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore." }
+        { "role": "Direção · Mediação", "name": "Filipe Santos", "bio": "Lidera a mediação imobiliária do grupo, com foco no acompanhamento próximo de cada cliente." },
+        { "role": "Consultoria · Vendas", "name": "Carla Dias", "bio": "Consultora imobiliária, especialista em empreendimentos residenciais na Grande Lisboa." },
+        { "role": "Marketing · Comunicação", "name": "Tiago Lopes", "bio": "Responsável pela comunicação e divulgação dos empreendimentos em comercialização." }
       ]
     },
     {
-      "title": "Lorem Brokers",
+      "title": "Valflores",
       "members": [
-        { "role": "Sed · Tempor", "name": "Adipiscing Sed", "bio": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia." },
-        { "role": "Labore · Magna", "name": "Eiusmod Tempor", "bio": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium." }
+        { "role": "Direção · Mediação", "name": "Helena Costa", "bio": "Coordena a atividade de mediação da Valflores, com carteira própria de imóveis." },
+        { "role": "Consultoria · Vendas", "name": "Bruno Silva", "bio": "Consultor imobiliário dedicado a moradias e reabilitação na zona oeste." }
       ]
     }
   ],
   "contacto": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit",
-    "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt."
+    "eyebrow": "Contactos",
+    "title": "Quer trabalhar connosco?",
+    "texto": "Envie-nos a sua candidatura ou uma mensagem. Estamos sempre atentos a bons profissionais."
   }
 }

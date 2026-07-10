@@ -1,144 +1,145 @@
 {
   "hero": {
-    "title": "Empreendimento Santos"
+    "title": "Empreendimento Santos",
+    "imagem": "/images/hero-image.webp"
   },
   "quemSomos": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit amet consectetur",
+    "eyebrow": "Quem Somos",
+    "title": "Construímos para viver, investir e permanecer",
     "paragrafos": [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
-      "Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse."
+      "A AMS Santos é uma promotora e construtora com raízes em Lisboa. Há mais de três décadas que projetamos e edificamos empreendimentos residenciais e de serviços — do primeiro traço à entrega da chave.",
+      "Trabalhamos com rigor técnico e sentido estético: materiais nobres, execução cuidada e um compromisso firme com prazos e qualidade. Cada obra é pensada para durar e para valorizar quem nela vive."
     ],
-    "botao": "Lorem ipsum"
+    "botao": "Sobre nós"
   },
   "oQueFazemos": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem — Ipsum — Dolor",
+    "eyebrow": "O que fazemos",
+    "title": "Projetar — Construir — Entregar",
     "stats": [
       {
-        "target": 200,
+        "target": 35,
         "prefix": "",
         "suffix": "",
-        "label": "Lorem ipsum"
+        "label": "Anos de experiência"
+      },
+      {
+        "target": 120,
+        "prefix": "",
+        "suffix": "",
+        "label": "Obras concluídas"
       },
       {
         "target": 2400,
         "prefix": "",
         "suffix": "",
-        "label": "Dolor sit amet"
-      },
-      {
-        "target": 5000,
-        "prefix": "",
-        "suffix": "",
-        "label": "Lucas é bem legal"
-      },
-      {
-        "target": 2400,
-        "prefix": "",
-        "suffix": "",
-        "label": "Dolor sit amet"
+        "label": "Fogos entregues"
       },
       {
         "target": 85,
         "prefix": "",
         "suffix": "",
-        "label": "Consectetur"
+        "label": "Colaboradores"
+      },
+      {
+        "target": 18,
+        "prefix": "",
+        "suffix": "",
+        "label": "Prémios e distinções"
       },
       {
         "target": 350,
         "prefix": "+",
         "suffix": "",
-        "label": "Adipiscing elit"
+        "label": "Clientes satisfeitos"
       },
       {
         "target": 900,
         "prefix": "",
         "suffix": "K",
-        "label": "Tempor incididunt"
+        "label": "m² construídos"
       }
     ]
   },
   "portfolio": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor",
-    "lead": "Consectetur adipiscing elit",
-    "botao": "Lorem ipsum",
+    "eyebrow": "Portfolio",
+    "title": "Empreendimentos em destaque",
+    "lead": "Projetos residenciais e de serviços em comercialização",
+    "botao": "Ver portfólio",
     "cards": [
       {
-        "title": "Lorem Ipsum",
-        "meta": "Dolor sit amet, consectetur",
-        "cta": "Lorem ipsum"
+        "title": "Santos",
+        "meta": "Lisboa · T1 a T3",
+        "cta": "Ver empreendimento"
       },
       {
-        "title": "Dolor Sit",
-        "meta": "Amet consectetur, adipiscing",
-        "cta": "Lorem ipsum"
+        "title": "Santa Iria",
+        "meta": "Loures · T2 e T3",
+        "cta": "Ver empreendimento"
       },
       {
-        "title": "Amet Elit",
-        "meta": "Sed do eiusmod, tempor",
-        "cta": "Lorem ipsum"
+        "title": "Miraflores",
+        "meta": "Algés · T2 a T4",
+        "cta": "Ver empreendimento"
       },
       {
-        "title": "Tempor Magna",
-        "meta": "Incididunt ut, labore",
-        "cta": "Lorem ipsum"
+        "title": "Alto do Parque",
+        "meta": "Oeiras · Moradias",
+        "cta": "Ver empreendimento"
       },
       {
-        "title": "Aliqua Enim",
-        "meta": "Ad minim, veniam quis",
-        "cta": "Lorem ipsum"
+        "title": "Ribeira Offices",
+        "meta": "Lisboa · Escritórios",
+        "cta": "Ver empreendimento"
       }
     ]
   },
   "trackRecord": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit",
-    "lead": "Consectetur adipiscing",
-    "botao": "Lorem ipsum",
+    "eyebrow": "Histórico",
+    "title": "Obras que falam por nós",
+    "lead": "Uma seleção de empreendimentos concluídos e entregues",
+    "botao": "Ver histórico",
     "cards": [
       {
-        "title": "Lorem Building",
-        "meta": "Dolor sit amet, consectetur"
+        "title": "Edifício Restelo",
+        "meta": "Lisboa · Concluído 2019"
       },
       {
-        "title": "Ipsum Lofts",
-        "meta": "Amet consectetur, adipiscing"
+        "title": "Solar do Parque",
+        "meta": "Cascais · Concluído 2020"
       },
       {
-        "title": "Dolor Plaza",
-        "meta": "Sed do eiusmod, tempor"
+        "title": "Terraços do Tejo",
+        "meta": "Lisboa · Concluído 2021"
       },
       {
-        "title": "Magna Court",
-        "meta": "Incididunt ut, labore"
+        "title": "Quinta das Oliveiras",
+        "meta": "Sintra · Concluído 2022"
       },
       {
-        "title": "Aliqua House",
-        "meta": "Ad minim, veniam quis"
+        "title": "Miradouro Douro",
+        "meta": "Gaia · Concluído 2023"
       }
     ]
   },
   "equipa": {
-    "eyebrow": "Lucas é o Mais Legal que existe!!!",
-    "title": "Lorem ipsum dolor sit amet",
+    "eyebrow": "Equipa",
+    "title": "Pessoas que constroem com rigor e visão",
     "members": [
       {
-        "role": "Lorem · Ipsum",
-        "name": "Lorem Ipsum Dolor",
-        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud."
+        "role": "Fundação · Direção-Geral",
+        "name": "António Machado Santos",
+        "bio": "Fundou a AMS Santos em 1990 e lidera a estratégia do grupo. Mais de três décadas dedicadas à promoção imobiliária e à construção em Portugal."
       },
       {
-        "role": "Dolor · Amet",
-        "name": "Consectetur Adipiscing",
-        "bio": "Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla."
+        "role": "Arquitetura · Projeto",
+        "name": "Marta Sousa",
+        "bio": "Responsável pelo departamento de projeto, coordena o desenho de cada empreendimento, do conceito à compatibilização técnica com a obra."
       }
     ]
   },
   "contacto": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit",
-    "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt."
+    "eyebrow": "Contactos",
+    "title": "Vamos falar do seu próximo projeto",
+    "texto": "Quer conhecer um empreendimento ou discutir uma parceria? A nossa equipa responde com brevidade."
   }
 }

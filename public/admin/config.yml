@@ -28,6 +28,7 @@ collections:
             widget: object
             fields:
               - { label: "Título", name: title, widget: string }
+              - { label: "Imagem de fundo", name: imagem, widget: image, required: false }
           - label: "Quem Somos"
             name: quemSomos
             widget: object

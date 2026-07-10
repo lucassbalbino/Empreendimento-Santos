@@ -1,39 +1,39 @@
 {
-  "hero": { "eyebrow": "Lorem Ipsum", "title": "Sobre Nós" },
+  "hero": { "eyebrow": "Quem somos", "title": "Sobre Nós" },
   "quemSomos": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit amet",
-    "lead": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "paragrafo": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum."
+    "eyebrow": "A empresa",
+    "title": "Uma promotora com raízes e visão de longo prazo",
+    "lead": "Há mais de 35 anos a projetar, construir e entregar empreendimentos que resistem ao tempo.",
+    "paragrafo": "Nascida em Lisboa em 1990, a AMS Santos cresceu obra a obra, mantendo sempre a mesma exigência: rigor técnico, materiais nobres e uma relação próxima com quem confia em nós. Hoje reunimos promoção, construção e reabilitação sob o mesmo teto."
   },
   "oQueFazemos": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit amet\nconsectetur adipiscing",
+    "eyebrow": "Como trabalhamos",
+    "title": "Do primeiro traço\nà entrega da chave",
     "verticais": [
-      { "n": "01", "title": "Lorem Ipsum", "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim." },
-      { "n": "02", "title": "Dolor Sit", "texto": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute." },
-      { "n": "03", "title": "Amet Consectetur", "texto": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint." }
+      { "n": "01", "title": "Promoção", "texto": "Identificamos oportunidades, estruturamos o investimento e concebemos empreendimentos com valor duradouro para quem compra e para quem habita." },
+      { "n": "02", "title": "Construção", "texto": "Executamos com equipas próprias e parceiros de confiança, garantindo controlo de qualidade, cumprimento de prazos e segurança em cada fase da obra." },
+      { "n": "03", "title": "Reabilitação", "texto": "Devolvemos vida a edifícios com história, conciliando o respeito pelo existente com o conforto e a eficiência de uma construção atual." }
     ]
   },
   "servicos": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor",
+    "eyebrow": "Serviços",
+    "title": "O que oferecemos",
     "items": [
-      { "title": "Lorem Ipsum", "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.", "botao": "Lorem ipsum" },
-      { "title": "Dolor Sit Amet", "texto": "Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.", "botao": "Lorem ipsum" }
+      { "title": "Promoção imobiliária", "texto": "Da aquisição do terreno ao licenciamento e à comercialização, acompanhamos todo o ciclo do empreendimento com transparência e método.", "botao": "Ver empreendimentos" },
+      { "title": "Construção e reabilitação", "texto": "Construímos de raiz e reabilitamos, com um compromisso claro com a qualidade da execução, os prazos e o orçamento acordado.", "botao": "Falar connosco" }
     ]
   },
   "equipa": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit amet",
+    "eyebrow": "Direção",
+    "title": "Quem lidera a AMS Santos",
     "members": [
-      { "role": "Lorem · Ipsum", "name": "Lorem Ipsum Dolor", "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud." },
-      { "role": "Dolor · Amet", "name": "Consectetur Adipiscing", "bio": "Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla." }
+      { "role": "Fundação · Direção-Geral", "name": "António Machado Santos", "bio": "Fundou a AMS Santos em 1990 e lidera a estratégia do grupo. Mais de três décadas dedicadas à promoção imobiliária e à construção em Portugal." },
+      { "role": "Arquitetura · Projeto", "name": "Marta Sousa", "bio": "Responsável pelo departamento de projeto, coordena o desenho de cada empreendimento, do conceito à compatibilização técnica com a obra." }
     ]
   },
   "contacto": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit",
-    "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt."
+    "eyebrow": "Contactos",
+    "title": "Vamos falar do seu projeto",
+    "texto": "Quer conhecer um empreendimento ou discutir uma parceria? A nossa equipa responde com brevidade."
   }
 }

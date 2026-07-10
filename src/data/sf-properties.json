@@ -1,32 +1,32 @@
 {
-  "hero": { "eyebrow": "Lorem Ipsum", "title": "SF Properties" },
+  "hero": { "eyebrow": "Mediação imobiliária", "title": "SF Properties" },
   "sobre": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit amet",
-    "lead": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "paragrafo": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.",
-    "botao": "Lorem ipsum"
+    "eyebrow": "A marca",
+    "title": "A mediação imobiliária do grupo AMS Santos",
+    "lead": "A SF Properties acompanha quem procura casa ou investimento, com o rigor e a confiança que definem o grupo.",
+    "paragrafo": "Especializada em empreendimentos residenciais na Grande Lisboa, a SF Properties faz a ponte entre os projetos que construímos e as famílias e investidores que neles apostam — do primeiro contacto à escritura.",
+    "botao": "Falar com a equipa"
   },
   "servicos": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor",
+    "eyebrow": "Serviços",
+    "title": "Como ajudamos",
     "items": [
-      { "title": "Lorem Ipsum", "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.", "botao": "Lorem ipsum" },
-      { "title": "Dolor Sit Amet", "texto": "Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.", "botao": "Lorem ipsum" }
+      { "title": "Compra e venda", "texto": "Aconselhamos na compra e na venda de imóveis, com avaliação criteriosa e acompanhamento em todas as etapas do processo.", "botao": "Saber mais" },
+      { "title": "Investimento e arrendamento", "texto": "Apoiamos investidores na seleção de ativos e na gestão de arrendamento, com uma leitura atenta do mercado.", "botao": "Saber mais" }
     ]
   },
   "projetos": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit",
-    "lead": "Consectetur adipiscing elit",
+    "eyebrow": "Em comercialização",
+    "title": "Empreendimentos SF Properties",
+    "lead": "Uma seleção de imóveis disponíveis",
     "items": [
-      { "nome": "Lorem Ipsum", "localizacao": "Dolor sit amet", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" },
-      { "nome": "Dolor Sit", "localizacao": "Consectetur", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" }
+      { "nome": "Santos", "localizacao": "Lisboa · Santos", "tipologia": "T1 a T3 / 24 un.", "cta": "Ver empreendimento" },
+      { "nome": "Santa Iria", "localizacao": "Loures", "tipologia": "T2 e T3 / 40 un.", "cta": "Ver empreendimento" }
     ]
   },
   "contacto": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit",
-    "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt."
+    "eyebrow": "Contactos",
+    "title": "Procura casa ou investimento?",
+    "texto": "Fale com a equipa da SF Properties. Ajudamos a encontrar o imóvel certo para si."
   }
 }

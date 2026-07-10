@@ -8,13 +8,13 @@ const { eyebrow, title, texto } = Astro.props;
     <p class="muted" style="margin-top:1rem;max-width:40ch">{texto}</p>
   </div>
   <form class="contact__form" onsubmit="return false">
-    <div class="field"><label>Lorem</label><input type="text" placeholder="Lorem ipsum"></div>
-    <div class="field"><label>Ipsum</label><input type="email" placeholder="lorem@ipsum.com"></div>
-    <div class="field"><label>Dolor</label>
-      <select><option>Selecione — Lorem ipsum</option><option>Lorem 01</option><option>Lorem 02</option><option>Lorem 03</option></select>
+    <div class="field"><label>Nome</label><input type="text" placeholder="O seu nome"></div>
+    <div class="field"><label>Email</label><input type="email" placeholder="o.seu.email@exemplo.pt"></div>
+    <div class="field"><label>Assunto</label>
+      <select><option>Selecione — Assunto</option><option>Empreendimentos</option><option>Investimento</option><option>Outro assunto</option></select>
     </div>
-    <div class="field"><label>Mensagem</label><textarea placeholder="Lorem ipsum dolor sit amet…"></textarea></div>
-    <label class="check"><input type="checkbox"> Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.</label>
-    <button class="btn" type="submit">Lorem ipsum</button>
+    <div class="field"><label>Mensagem</label><textarea placeholder="Escreva aqui a sua mensagem…"></textarea></div>
+    <label class="check"><input type="checkbox"> Autorizo o tratamento dos meus dados para efeitos de contacto, nos termos da Política de Privacidade.</label>
+    <button class="btn" type="submit">Enviar mensagem</button>
   </form>
 </div>

@@ -7,16 +7,16 @@
 
 /* ---------- Tokens ---------- */
 :root{
-  --paper:      #f5f3ee;   /* fundo principal (off-white quente) */
-  --paper-alt:  #ece8df;   /* fundo de seção alternada */
-  --ink:        #20242a;   /* texto principal (slate quase preto) */
-  --ink-soft:   #5c6068;   /* texto secundário */
-  --ink-faint:  #9a9d9f;   /* labels discretos */
-  --line:       #d9d4c8;   /* linhas/divisores */
-  --accent:     #8a6f4e;   /* bronze/argila contido */
-  --accent-deep:#6f5839;
-  --dark:       #1b1e23;   /* seções escuras / hero */
-  --dark-soft:  #2a2e35;
+  --paper:      #f9f1e6;   /* fundo principal (marfim quente, toque de pêssego) */
+  --paper-alt:  #f0e2cd;   /* fundo de seção alternada (areia / ocre suave) */
+  --ink:        #23201b;   /* texto principal (quase preto quente) */
+  --ink-soft:   #6a6157;   /* texto secundário (castanho acinzentado) */
+  --ink-faint:  #a89c8b;   /* labels discretos */
+  --line:       #e4d6bf;   /* linhas/divisores (tan quente) */
+  --accent:     #b26717;   /* ocre/laranja da logo AMS Santos */
+  --accent-deep:#8a4e11;
+  --dark:       #1f1811;   /* seções escuras / hero (espresso quente) */
+  --dark-soft:  #2c2318;
 
   --maxw: 1280px;
   --gutter: clamp(20px, 5vw, 72px);
@@ -67,7 +67,7 @@ ul{ list-style:none; }
   background:var(--accent);
   opacity:.7;
 }
-.section--dark .eyebrow{ color:#c8a878; }
+.section--dark .eyebrow{ color:#d29a5a; }
 
 .display{
   font-family:var(--serif);
@@ -100,7 +100,7 @@ ul{ list-style:none; }
 .btn::after{ content:"\2192"; font-size:1rem; }
 .btn:hover{ gap:1.1rem; color:var(--accent); border-color:var(--accent); }
 .section--dark .btn{ color:var(--paper); border-color:rgba(255,255,255,.5); }
-.section--dark .btn:hover{ color:#d8b888; border-color:#d8b888; }
+.section--dark .btn:hover{ color:#e0a763; border-color:#e0a763; }
 
 /* Placeholder de imagem */
 .ph{
@@ -141,23 +141,21 @@ ul{ list-style:none; }
 }
 .site-header .container{ display:flex; align-items:center; justify-content:space-between; gap:2rem; }
 .site-header.scrolled{
-  background:rgba(245,243,238,.92);
+  background:rgba(249,241,230,.92);
   backdrop-filter:blur(10px);
   padding-block:.85rem;
   box-shadow:0 1px 0 var(--line);
 }
 
 .logo{
-  font-family:var(--serif);
-  font-size:1.45rem; font-weight:400; letter-spacing:.02em;
-  color:#fff; transition:color .4s var(--ease);
-  display:inline-flex; align-items:baseline; gap:.45rem;
+  display:inline-flex; align-items:center;
+  height:54px; transition:height .4s var(--ease);
 }
-.logo small{
-  font-family:var(--sans); font-size:.6rem; letter-spacing:.3em;
-  text-transform:uppercase; font-weight:600; opacity:.7;
-}
-.scrolled .logo{ color:var(--ink); }
+.logo__img{ height:100%; width:auto; display:block; }
+.logo__img--dark{ display:none; }
+.scrolled .logo{ height:44px; }
+.scrolled .logo__img--light{ display:none; }
+.scrolled .logo__img--dark{ display:block; }
 
 .nav{ display:flex; align-items:center; gap:2rem; }
 .nav__list{ display:flex; align-items:center; gap:1.7rem; }
@@ -167,7 +165,7 @@ ul{ list-style:none; }
   transition:color .3s var(--ease), opacity .3s var(--ease);
   position:relative; padding-block:.4rem;
 }
-.nav__list a:hover{ opacity:1; color:#d8b888; }
+.nav__list a:hover{ opacity:1; color:#e0a763; }
 .scrolled .nav__list a{ color:var(--ink); opacity:.85; }
 .scrolled .nav__list a:hover{ color:var(--accent); opacity:1; }
 .nav__lang{ font-size:.74rem; letter-spacing:.2em; font-weight:700; color:#fff; }
@@ -201,7 +199,7 @@ ul{ list-style:none; }
     repeating-linear-gradient(45deg,
       rgba(255,255,255,.03) 0, rgba(255,255,255,.03) 1px,
       transparent 1px, transparent 14px),
-    linear-gradient(180deg, #23272d 0%, #15171b 100%);
+    linear-gradient(180deg, #2a211a 0%, #140f0a 100%);
 }
 .hero__bg::after{
   content:"Imagem — Hero (full screen)";
@@ -209,6 +207,12 @@ ul{ list-style:none; }
   font-size:.78rem; letter-spacing:.3em; text-transform:uppercase;
   color:rgba(255,255,255,.22); font-weight:600;
 }
+.hero__bg--img{
+  background-size:cover; background-position:center; background-repeat:no-repeat;
+}
+.hero__bg--img::after{ content:none; }
+/* Hero com imagem panorâmica (2:1): reduz a altura para não cortar as laterais da foto. */
+.hero:has(.hero__bg--img){ min-height:clamp(460px, 62vh, 780px); }
 .hero__overlay{
   position:absolute; inset:0; z-index:1;
   background:linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.1) 45%, rgba(0,0,0,.65) 100%);
@@ -278,8 +282,104 @@ ul{ list-style:none; }
 }
 .card__title{ font-family:var(--serif); font-weight:400; font-size:1.5rem; line-height:1.1; }
 .card__meta{ font-size:.76rem; letter-spacing:.1em; opacity:.85; margin-top:.4rem; }
-.card__cta{ margin-top:1rem; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; font-weight:600; color:#d8b888; display:inline-flex; gap:.5rem; }
+.card__cta{ margin-top:1rem; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; font-weight:600; color:#e0a763; display:inline-flex; gap:.5rem; }
 .card__cta::after{ content:"\2192"; }
+
+/* =====================================================================
+   PAINÉIS EXPANSÍVEIS (dark section — efeito content-office)
+   Fileira de painéis estreitos; ao passar o pointer, o painel apontado
+   cresce e os outros encolhem. 100% CSS.
+   ===================================================================== */
+.panels{
+  display:flex; gap:6px;
+  height:clamp(380px,58vh,580px);
+  margin-top:clamp(28px,4vw,52px);
+}
+.panel{
+  position:relative;
+  flex:1 1 0; min-width:0;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.10);
+  cursor:pointer;
+  transition:flex-grow .6s var(--ease);
+}
+/* Painel aberto por padrão (como o "CONTACT US" da referência) */
+.panel.is-active{ flex-grow:6; }
+/* Ao apontar o grupo: colapsa todos; o apontado expande */
+.panels:hover .panel{ flex-grow:1; }
+.panels:hover .panel:hover{ flex-grow:6; }
+
+.panel__bg{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover;
+  transform:scale(1.02);
+  transition:transform .6s var(--ease);
+}
+.panel:hover .panel__bg,
+.panel.is-active .panel__bg{ transform:scale(1.06); }
+/* Escurecimento + toque de bronze por cima do placeholder */
+.panel::before{
+  content:""; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(to top,
+    rgba(15,17,20,.82) 0%,
+    rgba(15,17,20,.35) 45%,
+    rgba(138,111,78,.10) 100%);
+  transition:opacity .6s var(--ease);
+}
+
+/* Nome vertical (estado colapsado) */
+.panel__label{
+  position:absolute; z-index:2;
+  left:50%; bottom:1.4rem; transform:translateX(-50%);
+  writing-mode:vertical-rl; rotate:180deg;
+  white-space:nowrap;
+  font-family:var(--serif); font-weight:400;
+  font-size:1.15rem; letter-spacing:.06em;
+  color:var(--paper);
+  transition:opacity .35s var(--ease);
+}
+
+/* Conteúdo horizontal (estado expandido) */
+.panel__content{
+  position:absolute; z-index:2; inset:auto 0 0 0;
+  padding:clamp(20px,2vw,34px);
+  opacity:0; transform:translateY(12px);
+  transition:opacity .5s var(--ease), transform .5s var(--ease);
+  pointer-events:none;
+}
+.panel__title{
+  font-family:var(--serif); font-weight:400;
+  font-size:clamp(1.5rem,2.4vw,2.1rem); line-height:1.05;
+  color:var(--paper);
+}
+.panel__meta{
+  margin-top:.6rem;
+  font-size:.72rem; letter-spacing:.16em; text-transform:uppercase;
+  color:#e0a763; font-weight:600;
+  display:inline-flex; align-items:center; gap:.6rem;
+  white-space:nowrap;
+}
+.panel__meta::after{ content:"\2192"; font-size:1rem; }
+
+/* Troca label <-> conteúdo quando o painel está expandido */
+.panel.is-active .panel__label{ opacity:0; }
+.panel.is-active .panel__content{ opacity:1; transform:translateY(0); }
+.panels:hover .panel.is-active .panel__label{ opacity:1; }
+.panels:hover .panel.is-active .panel__content{ opacity:0; transform:translateY(12px); }
+.panels:hover .panel:hover .panel__label{ opacity:0; }
+.panels:hover .panel:hover .panel__content{ opacity:1; transform:translateY(0); }
+
+/* Responsivo: vira pilha vertical de cards, sem efeito de expansão */
+@media (max-width:720px){
+  .panels{ flex-direction:column; height:auto; gap:10px; }
+  .panel,
+  .panel.is-active,
+  .panels:hover .panel,
+  .panels:hover .panel:hover{ flex:0 0 auto; height:180px; }
+  .panel__label{ display:none; }
+  .panel__content,
+  .panels:hover .panel.is-active .panel__content{ opacity:1; transform:none; }
+}
 
 /* =====================================================================
    GRID de portfólio (página Portfólio)
@@ -342,15 +442,17 @@ ul{ list-style:none; }
 .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:clamp(28px,4vw,56px); }
 .footer-col h4{ font-size:.7rem; letter-spacing:.24em; text-transform:uppercase; color:#fff; margin-bottom:1.1rem; font-weight:600; }
 .footer-col p, .footer-col a{ font-size:.92rem; color:#a7abb1; line-height:1.8; }
-.footer-col a:hover{ color:#d8b888; }
-.footer-brand .logo{ color:#fff; margin-bottom:1.2rem; }
+.footer-col a:hover{ color:#e0a763; }
+.footer-brand .logo{ margin-bottom:1.2rem; }
+.footer-logo{ height:auto; }
+.footer-logo img{ height:82px; width:auto; display:block; }
 .socials{ display:flex; gap:.8rem; margin-top:1.2rem; }
 .socials a{ width:38px; height:38px; border:1px solid rgba(255,255,255,.2); border-radius:50%; display:grid; place-items:center; font-size:.62rem; letter-spacing:.05em; color:#cdd0d4; transition:all .3s var(--ease); }
-.socials a:hover{ border-color:#d8b888; color:#d8b888; }
+.socials a:hover{ border-color:#e0a763; color:#e0a763; }
 .news{ display:flex; border-bottom:1px solid rgba(255,255,255,.25); }
 .news input{ flex:1; background:none; border:0; color:#fff; padding:.6rem 0; font-size:.9rem; }
 .news input:focus{ outline:0; }
-.news button{ background:none; border:0; color:#d8b888; cursor:pointer; font-size:1.1rem; }
+.news button{ background:none; border:0; color:#e0a763; cursor:pointer; font-size:1.1rem; }
 .footer-bottom{ margin-top:clamp(40px,5vw,72px); padding-top:1.6rem; border-top:1px solid rgba(255,255,255,.12); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.72rem; letter-spacing:.08em; color:#7e828a; text-transform:uppercase; }
 
 /* =====================================================================

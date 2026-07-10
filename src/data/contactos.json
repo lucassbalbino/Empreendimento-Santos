@@ -1,16 +1,16 @@
 {
-  "hero": { "eyebrow": "Lorem Ipsum", "title": "Contactos" },
+  "hero": { "eyebrow": "Fale connosco", "title": "Contactos" },
   "contacto": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit",
-    "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "email": "lorem@ipsum.com",
-    "telefone": "+000 000 000 000"
+    "eyebrow": "Contactos",
+    "title": "Vamos falar do seu projeto",
+    "texto": "Preencha o formulário ou contacte-nos diretamente. Respondemos a todos os pedidos com a maior brevidade.",
+    "email": "geral@amssantos.pt",
+    "telefone": "+351 210 000 000"
   },
   "onde": {
-    "eyebrow": "Lorem Ipsum",
+    "eyebrow": "Onde estamos",
     "title": "Onde Estamos",
-    "morada": "Lorem ipsum nº 0\n0000-000 Lorem\nIpsum",
-    "mapaLabel": "Mapa — Lorem ipsum"
+    "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisboa\nPortugal",
+    "mapaLabel": "Mapa — Lisboa, Av. da Liberdade"
   }
 }

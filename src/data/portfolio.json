@@ -1,33 +1,31 @@
 {
-  "hero": { "eyebrow": "Lorem Ipsum", "title": "Portfólio" },
-  "intro": { "eyebrow": "Lorem Ipsum", "title": "Lorem ipsum dolor", "lead": "Consectetur adipiscing elit" },
-  "projetos": [
-    { "nome": "Lorem Ipsum", "localizacao": "Dolor sit amet", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" },
-    { "nome": "Dolor Sit", "localizacao": "Consectetur", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" },
-    { "nome": "Amet Elit", "localizacao": "Adipiscing", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" },
-    { "nome": "Tempor Magna", "localizacao": "Incididunt", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" },
-    { "nome": "Labore Aliqua", "localizacao": "Ut enim", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" },
-    { "nome": "Minim Veniam", "localizacao": "Quis nostrud", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" },
-    { "nome": "Aliquip Commodo", "localizacao": "Ex ea", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" },
-    { "nome": "Consequat Duis", "localizacao": "Aute irure", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" },
-    { "nome": "Voluptate Velit", "localizacao": "Esse cillum", "tipologia": "T0 a T0 / 00 un.", "cta": "Lorem ipsum" }
-  ],
-  "trackRecord": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit",
-    "lead": "Consectetur adipiscing",
-    "botao": "Lorem ipsum",
-    "cards": [
-      { "title": "Lorem Building", "meta": "Dolor sit amet, consectetur" },
-      { "title": "Ipsum Lofts", "meta": "Amet consectetur, adipiscing" },
-      { "title": "Dolor Plaza", "meta": "Sed do eiusmod, tempor" },
-      { "title": "Magna Court", "meta": "Incididunt ut, labore" },
-      { "title": "Aliqua House", "meta": "Ad minim, veniam quis" }
+  "hero": { "eyebrow": "Empreendimentos", "title": "Portfólio" },
+  "emDesenvolvimento": {
+    "eyebrow": "Em desenvolvimento",
+    "title": "Projetos em desenvolvimento",
+    "lead": "Empreendimentos em construção ou comercialização",
+    "projetos": [
+      { "nome": "Santos", "localizacao": "Lisboa · Santos", "tipologia": "T1 a T3 / 24 un.", "cta": "Ver empreendimento" },
+      { "nome": "Santa Iria", "localizacao": "Loures", "tipologia": "T2 e T3 / 40 un.", "cta": "Ver empreendimento" },
+      { "nome": "Miraflores", "localizacao": "Algés", "tipologia": "T2 a T4 / 32 un.", "cta": "Ver empreendimento" },
+      { "nome": "Alto do Parque", "localizacao": "Oeiras", "tipologia": "Moradias / 8 un.", "cta": "Ver empreendimento" },
+      { "nome": "Ribeira Offices", "localizacao": "Lisboa", "tipologia": "Escritórios / 1.200 m²", "cta": "Ver empreendimento" }
+    ]
+  },
+  "futuros": {
+    "eyebrow": "Próximos",
+    "title": "Projetos futuros",
+    "lead": "Empreendimentos em estudo e licenciamento",
+    "projetos": [
+      { "nome": "Jardins da Encosta", "localizacao": "Sintra", "tipologia": "T1 a T3 · Previsão 2027", "cta": "Saber mais" },
+      { "nome": "Marina Plaza", "localizacao": "Oeiras", "tipologia": "T2 a T4 · Previsão 2027", "cta": "Saber mais" },
+      { "nome": "Quinta Nova", "localizacao": "Cascais", "tipologia": "Moradias · Previsão 2028", "cta": "Saber mais" },
+      { "nome": "Foz Living", "localizacao": "Porto", "tipologia": "T1 a T3 · Previsão 2028", "cta": "Saber mais" }
     ]
   },
   "contacto": {
-    "eyebrow": "Lorem Ipsum",
-    "title": "Lorem ipsum dolor sit",
-    "texto": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt."
+    "eyebrow": "Contactos",
+    "title": "Interessado num empreendimento?",
+    "texto": "Fale connosco para agendar uma visita ou pedir informações. A nossa equipa responde com brevidade."
   }
 }

@@ -1,11 +1,11 @@
 {
-  "brand": { "name": "Logo", "suffix": "Lorem" },
+  "brand": { "name": "AMS", "suffix": "Santos" },
   "footer": {
-    "blurb": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.",
-    "morada": "Lorem ipsum nº 0\n0000-000 Lorem\nIpsum",
-    "email": "lorem@ipsum.com",
-    "telefone": "+000 000 000 000",
-    "copyright": "© 0000 Lorem Ipsum — Todos os direitos reservados",
-    "assinatura": "Lorem · Ipsum · Dolor"
+    "blurb": "Promoção imobiliária e construção civil. Concebemos, construímos e entregamos espaços feitos para durar.",
+    "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisboa\nPortugal",
+    "email": "geral@amssantos.pt",
+    "telefone": "+351 210 000 000",
+    "copyright": "© 2026 AMS Santos — Todos os direitos reservados",
+    "assinatura": "Promoção · Construção · Reabilitação"
   }
 }

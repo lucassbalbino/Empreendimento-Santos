@@ -1,7 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import BlockHead from '../components/BlockHead.astro';
-import Stats from '../components/Stats.astro';
 import ContactForm from '../components/ContactForm.astro';
 import historico from '../data/historico.json';
 ---
@@ -12,25 +10,9 @@ import historico from '../data/historico.json';
     <div class="hero__overlay"></div>
     <div class="hero__inner">
       <div class="container">
-        <span class="eyebrow" style="color:#c8a878">{historico.hero.eyebrow}</span>
+        <span class="eyebrow" style="color:#d29a5a">{historico.hero.eyebrow}</span>
         <h1 class="display hero__title-page">{historico.hero.title}</h1>
       </div>
-    </div>
-  </section>
-
-  <!-- INTRO -->
-  <section class="section">
-    <div class="container">
-      <BlockHead eyebrow={historico.intro.eyebrow} title={historico.intro.title} lead={historico.intro.lead} />
-    </div>
-  </section>
-
-  <!-- NÚMEROS -->
-  <section class="section section--dark">
-    <div class="container">
-      <span class="eyebrow">{historico.stats.eyebrow}</span>
-      <h2 class="display display--sm" style="margin-bottom:clamp(40px,5vw,72px)">{historico.stats.title}</h2>
-      <Stats items={historico.stats.items} />
     </div>
   </section>
 
