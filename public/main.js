@@ -19,19 +19,23 @@
     );
   }
 
-  // Animação dos contadores quando entram na viewport
+  // Animação dos contadores quando entram na viewport.
+  // Count-up com IntersectionObserver + easing (ref.: CountUp.js, MDN
+  // IntersectionObserver) e respeito por prefers-reduced-motion.
   const nums = document.querySelectorAll('.stat__num[data-target]');
   if (nums.length) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fmt = (el, value) =>
+      (el.dataset.prefix || '') + Math.round(value) + (el.dataset.suffix || '');
     const animate = (el) => {
       const target = parseFloat(el.dataset.target) || 0;
-      const prefix = el.dataset.prefix || '';
-      const suffix = el.dataset.suffix || '';
+      if (reduce) { el.textContent = fmt(el, target); return; }
       const dur = 1600;
       const start = performance.now();
       const step = (now) => {
         const p = Math.min((now - start) / dur, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = prefix + Math.round(target * eased) + suffix;
+        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        el.textContent = fmt(el, target * eased);
         if (p < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);

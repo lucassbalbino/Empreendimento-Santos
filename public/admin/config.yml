@@ -119,38 +119,40 @@ collections:
             fields:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
-          - label: "Introdução"
-            name: intro
+          - label: "Projetos em desenvolvimento"
+            name: emDesenvolvimento
             widget: object
             fields:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Subtítulo", name: lead, widget: string }
-          - label: "Projetos"
-            name: projetos
-            widget: list
-            summary: "{{fields.nome}}"
-            fields:
-              - { label: "Nome", name: nome, widget: string }
-              - { label: "Localização", name: localizacao, widget: string }
-              - { label: "Tipologia", name: tipologia, widget: string }
-              - { label: "Texto CTA", name: cta, widget: string, required: false }
-              - { label: "Foto", name: foto, widget: image, required: false }
-          - label: "Track Record"
-            name: trackRecord
-            widget: object
-            fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
-              - { label: "Título", name: title, widget: string }
-              - { label: "Subtítulo", name: lead, widget: string }
-              - { label: "Texto do botão", name: botao, widget: string }
-              - label: "Cards"
-                name: cards
+              - label: "Projetos"
+                name: projetos
                 widget: list
-                summary: "{{fields.title}}"
+                summary: "{{fields.nome}}"
                 fields:
-                  - { label: "Título", name: title, widget: string }
-                  - { label: "Legenda", name: meta, widget: string }
+                  - { label: "Nome", name: nome, widget: string }
+                  - { label: "Localização", name: localizacao, widget: string }
+                  - { label: "Tipologia", name: tipologia, widget: string }
+                  - { label: "Texto CTA", name: cta, widget: string, required: false }
+                  - { label: "Foto", name: foto, widget: image, required: false }
+          - label: "Projetos futuros"
+            name: futuros
+            widget: object
+            fields:
+              - { label: "Sobretítulo", name: eyebrow, widget: string }
+              - { label: "Título", name: title, widget: string }
+              - { label: "Subtítulo", name: lead, widget: string }
+              - label: "Projetos"
+                name: projetos
+                widget: list
+                summary: "{{fields.nome}}"
+                fields:
+                  - { label: "Nome", name: nome, widget: string }
+                  - { label: "Localização", name: localizacao, widget: string }
+                  - { label: "Tipologia", name: tipologia, widget: string }
+                  - { label: "Texto CTA", name: cta, widget: string, required: false }
+                  - { label: "Foto", name: foto, widget: image, required: false }
           - label: "Contacto"
             name: contacto
             widget: object
@@ -247,27 +249,6 @@ collections:
             fields:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
-          - label: "Introdução"
-            name: intro
-            widget: object
-            fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
-              - { label: "Título", name: title, widget: string }
-              - { label: "Subtítulo", name: lead, widget: string }
-          - label: "Números"
-            name: stats
-            widget: object
-            fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
-              - { label: "Título", name: title, widget: string }
-              - label: "Contadores"
-                name: items
-                widget: list
-                fields:
-                  - { label: "Valor", name: target, widget: number, value_type: int }
-                  - { label: "Prefixo", name: prefix, widget: string, required: false }
-                  - { label: "Sufixo", name: suffix, widget: string, required: false }
-                  - { label: "Rótulo", name: label, widget: string }
           - label: "Projetos concluídos"
             name: projetos
             widget: list

@@ -1,21 +1,5 @@
 {
   "hero": { "eyebrow": "O nosso percurso", "title": "Histórico" },
-  "intro": {
-    "eyebrow": "Percurso",
-    "title": "Mais de três décadas a construir",
-    "lead": "Desde 1990, cada obra concluída é uma referência do nosso compromisso com a qualidade."
-  },
-  "stats": {
-    "eyebrow": "Em números",
-    "title": "O nosso percurso",
-    "items": [
-      { "target": 35, "prefix": "", "suffix": "+", "label": "Anos de atividade" },
-      { "target": 120, "prefix": "", "suffix": "+", "label": "Obras concluídas" },
-      { "target": 2400, "prefix": "", "suffix": "", "label": "Fogos entregues" },
-      { "target": 25, "prefix": "", "suffix": "", "label": "Concelhos onde atuámos" },
-      { "target": 18, "prefix": "", "suffix": "", "label": "Prémios e distinções" }
-    ]
-  },
   "projetos": [
     { "nome": "Edifício Restelo", "localizacao": "Lisboa", "tipologia": "T2 a T4 / 22 un. · 2019", "cta": "Ver empreendimento" },
     { "nome": "Solar do Parque", "localizacao": "Cascais", "tipologia": "Moradias / 8 un. · 2020", "cta": "Ver empreendimento" },

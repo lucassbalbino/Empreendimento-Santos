@@ -20,37 +20,25 @@
         "target": 35,
         "prefix": "",
         "suffix": "",
-        "label": "Anos de experiência"
+        "label": "anos de experiência"
       },
       {
         "target": 120,
         "prefix": "",
         "suffix": "",
-        "label": "Obras concluídas"
+        "label": "obras concluídas"
       },
       {
         "target": 2400,
         "prefix": "",
         "suffix": "",
-        "label": "Fogos entregues"
-      },
-      {
-        "target": 85,
-        "prefix": "",
-        "suffix": "",
-        "label": "Colaboradores"
-      },
-      {
-        "target": 18,
-        "prefix": "",
-        "suffix": "",
-        "label": "Prémios e distinções"
+        "label": "fogos entregues"
       },
       {
         "target": 350,
         "prefix": "+",
         "suffix": "",
-        "label": "Clientes satisfeitos"
+        "label": "clientes satisfeitos"
       },
       {
         "target": 900,

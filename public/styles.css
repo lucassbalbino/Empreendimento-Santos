@@ -246,13 +246,23 @@ ul{ list-style:none; }
 
 .stats{
   display:grid; grid-template-columns:repeat(5,1fr);
-  gap:1px; margin-top:clamp(48px,6vw,86px);
-  background:var(--line); border:1px solid var(--line);
+  margin-top:clamp(48px,6vw,86px);
 }
-.stat{ background:var(--paper); padding:clamp(24px,3vw,40px) 1rem; text-align:center; }
-.section--alt .stat{ background:var(--paper-alt); }
-.stat__num{ font-family:var(--serif); font-weight:300; font-size:clamp(2rem,4vw,3.2rem); line-height:1; color:var(--ink); }
-.stat__label{ margin-top:.7rem; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); }
+.stat{ padding:clamp(20px,2.5vw,38px) 1rem; text-align:center; border-left:1px solid var(--line); }
+.stat:first-child{ border-left:0; }
+.stat__num{
+  font-family:var(--serif); font-weight:400;
+  font-size:clamp(2.4rem,4.6vw,3.7rem); line-height:1;
+  color:var(--accent); letter-spacing:.01em;
+  font-variant-numeric:tabular-nums;
+}
+.stat__label{ margin-top:.9rem; font-size:.86rem; letter-spacing:.01em; color:var(--ink-soft); }
+
+@media (max-width:860px){
+  .stats{ grid-template-columns:repeat(2,1fr); row-gap:clamp(26px,6vw,40px); }
+  .stat{ border-left:0; }
+  .stat:nth-child(even){ border-left:1px solid var(--line); }
+}
 
 /* =====================================================================
    CARROSSEL / SCROLLER de projetos (Portfolio & Track Record na home)
