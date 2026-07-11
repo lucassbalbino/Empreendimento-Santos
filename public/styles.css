@@ -16,7 +16,8 @@
   --accent:     #b26717;   /* ocre/laranja da logo AMS Santos */
   --accent-deep:#8a4e11;
   --dark:       #1f1811;   /* seções escuras / hero (espresso quente) */
-  --dark-soft:  #2c2318;
+  --dark-soft:  #0b0703;
+  
 
   --maxw: 1280px;
   --gutter: clamp(20px, 5vw, 72px);
@@ -90,6 +91,7 @@ ul{ list-style:none; }
 
 /* Botão / link de ação */
 .btn{
+  position:relative;
   display:inline-flex; align-items:center; gap:.7rem;
   font-size:.74rem; letter-spacing:.22em; text-transform:uppercase;
   font-weight:600; color:var(--ink);
@@ -98,9 +100,17 @@ ul{ list-style:none; }
   transition:gap .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
 }
 .btn::after{ content:"\2192"; font-size:1rem; }
-.btn:hover{ gap:1.1rem; color:var(--accent); border-color:var(--accent); }
+/* sublinhado accent que preenche da esquerda no hover (sobre a linha base) */
+.btn::before{
+  content:""; position:absolute; left:0; bottom:-1px; width:100%; height:1px;
+  background:var(--accent); transform:scaleX(0); transform-origin:left;
+  transition:transform .4s var(--ease);
+}
+.btn:hover::before{ transform:scaleX(1); }
+.btn:hover{ gap:1.1rem; color:var(--accent); }
 .section--dark .btn{ color:var(--paper); border-color:rgba(255,255,255,.5); }
-.section--dark .btn:hover{ color:#e0a763; border-color:#e0a763; }
+.section--dark .btn::before{ background:#e0a763; }
+.section--dark .btn:hover{ color:#e0a763; }
 
 /* Placeholder de imagem */
 .ph{
@@ -452,7 +462,8 @@ ul{ list-style:none; }
 .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:clamp(28px,4vw,56px); }
 .footer-col h4{ font-size:.7rem; letter-spacing:.24em; text-transform:uppercase; color:#fff; margin-bottom:1.1rem; font-weight:600; }
 .footer-col p, .footer-col a{ font-size:.92rem; color:#a7abb1; line-height:1.8; }
-.footer-col a:hover{ color:#e0a763; }
+.footer-col a{ background:linear-gradient(#e0a763,#e0a763) 0 100%/0 1px no-repeat; transition:background-size .35s var(--ease), color .3s var(--ease); }
+.footer-col a:hover{ color:#e0a763; background-size:100% 1px; }
 .footer-brand .logo{ margin-bottom:1.2rem; }
 .footer-logo{ height:auto; }
 .footer-logo img{ height:82px; width:auto; display:block; }
@@ -464,6 +475,59 @@ ul{ list-style:none; }
 .news input:focus{ outline:0; }
 .news button{ background:none; border:0; color:#e0a763; cursor:pointer; font-size:1.1rem; }
 .footer-bottom{ margin-top:clamp(40px,5vw,72px); padding-top:1.6rem; border-top:1px solid rgba(255,255,255,.12); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.72rem; letter-spacing:.08em; color:#7e828a; text-transform:uppercase; }
+
+/* =====================================================================
+   MICRO-INTERAÇÕES
+   ===================================================================== */
+
+/* 1) Revelar ao rolar — estado inicial só quando o JS marca html.reveal-ready,
+   evitando qualquer "flash". Fica inativo em prefers-reduced-motion. */
+html.reveal-ready :is(
+  .section .eyebrow, .section .display, .section .lead,
+  .split__body > p, .card, .stat, .vertical, .service, .member, .panels
+){
+  opacity:0; transform:translateY(16px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+html.reveal-ready :is(
+  .section .eyebrow, .section .display, .section .lead,
+  .split__body > p, .card, .stat, .vertical, .service, .member, .panels
+).is-visible{ opacity:1; transform:none; }
+
+/* 2) Sublinhado animado no menu + indicador da página atual */
+.nav__list a::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:1.5px;
+  background:currentColor; transform:scaleX(0); transform-origin:left;
+  transition:transform .35s var(--ease);
+}
+.nav__list a:hover::after,
+.nav__list a[aria-current="page"]::after{ transform:scaleX(1); }
+.nav__list a[aria-current="page"]{ color:#e0a763; opacity:1; }
+.scrolled .nav__list a[aria-current="page"]{ color:var(--accent); }
+
+/* 3) Hover dos cards: leve elevação + sombra + realce do overlay/CTA */
+.grid-projects .card, .scroller .card{
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.grid-projects .card:hover, .scroller .card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 44px -20px rgba(31,24,17,.5);
+}
+.card__overlay{ transition:background .4s var(--ease); }
+.card:hover .card__overlay{ background:linear-gradient(180deg,transparent,rgba(0,0,0,.88)); }
+.card__cta{ transition:gap .3s var(--ease); }
+.card:hover .card__cta{ gap:.9rem; }
+
+/* 4) Links de texto no conteúdo: sublinhado que cresce */
+.muted a{
+  background:linear-gradient(var(--accent),var(--accent)) 0 100%/0 1px no-repeat;
+  transition:background-size .35s var(--ease), color .3s var(--ease);
+}
+.muted a:hover{ background-size:100% 1px; color:var(--accent); }
+
+@media (prefers-reduced-motion: reduce){
+  .grid-projects .card:hover, .scroller .card:hover{ transform:none; box-shadow:none; }
+}
 
 /* =====================================================================
    RESPONSIVO

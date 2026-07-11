@@ -1,5 +1,14 @@
 ---
 import site from '../data/site.json';
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const links = [
+  { href: '/sobre-nos', label: 'Sobre Nós' },
+  { href: '/portfolio', label: 'Portfólio' },
+  { href: '/historico', label: 'Histórico' },
+  { href: '/sf-properties', label: 'SF Properties' },
+  { href: '/equipa', label: 'Equipa' },
+  { href: '/contactos', label: 'Contactos' },
+];
 ---
 <header class="site-header">
   <div class="container">
@@ -9,12 +18,9 @@ import site from '../data/site.json';
     </a>
     <nav class="nav">
       <ul class="nav__list">
-        <li><a href="/sobre-nos">Sobre Nós</a></li>
-        <li><a href="/portfolio">Portfólio</a></li>
-        <li><a href="/historico">Histórico</a></li>
-        <li><a href="/sf-properties">SF Properties</a></li>
-        <li><a href="/equipa">Equipa</a></li>
-        <li><a href="/contactos">Contactos</a></li>
+        {links.map((l) => (
+          <li><a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a></li>
+        ))}
       </ul>
       <span class="nav__lang">EN</span>
       <span class="nav__search">⌕</span>
