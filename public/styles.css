@@ -161,7 +161,7 @@ ul{ list-style:none; }
 .nav__list{ display:flex; align-items:center; gap:1.7rem; }
 .nav__list a{
   font-size:.74rem; letter-spacing:.2em; text-transform:uppercase;
-  font-weight:600; color:#fff; opacity:.9;
+  font-weight:600; color:#fff; opacity:.9; white-space:nowrap;
   transition:color .3s var(--ease), opacity .3s var(--ease);
   position:relative; padding-block:.4rem;
 }
@@ -473,8 +473,7 @@ ul{ list-style:none; }
   .grid-projects{ grid-template-columns:repeat(2,1fr); }
   .team{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:1fr 1fr; }
-}
-@media (max-width: 760px){
+  /* Menu vira hambúrguer já no tablet, onde o nav horizontal não cabe */
   .nav__list, .nav__lang, .nav__search{ display:none; }
   .nav-toggle{ display:flex; }
   .nav.open .nav__list{
@@ -482,6 +481,8 @@ ul{ list-style:none; }
     flex-direction:column; align-items:center; justify-content:center; gap:1.8rem; z-index:90;
   }
   .nav.open .nav__list a{ color:#fff; font-size:1rem; opacity:1; }
+}
+@media (max-width: 760px){
   .split, .service, .contact{ grid-template-columns:1fr; }
   .split--reverse .split__media, .service:nth-child(even) .service__media{ order:0; }
   .verticals{ grid-template-columns:1fr; }
