@@ -1,0 +1,387 @@
+{
+  "lista": [
+    {
+      "slug": "santos",
+      "nome": "Santos",
+      "grupo": "desenvolvimento",
+      "localizacao": "Lisboa · Santos",
+      "concelho": "Lisboa",
+      "tipologia": "T1 a T3",
+      "estado": "Em comercialização",
+      "entrega": "Entrega prevista 2026",
+      "resumo": "No coração de Santos, um edifício de habitação contemporânea que combina a traça lisboeta com acabamentos nobres e luz natural em todas as frações.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Santos, Lisboa" },
+        { "rotulo": "Tipologias", "valor": "T1 a T3" },
+        { "rotulo": "Frações", "valor": "24" },
+        { "rotulo": "Área bruta", "valor": "3 200 m²" },
+        { "rotulo": "Estacionamento", "valor": "Box privativa" },
+        { "rotulo": "Estado", "valor": "Em comercialização" }
+      ]
+    },
+    {
+      "slug": "santa-iria",
+      "nome": "Santa Iria",
+      "grupo": "desenvolvimento",
+      "localizacao": "Loures",
+      "concelho": "Loures",
+      "tipologia": "T2 e T3",
+      "estado": "Em construção",
+      "entrega": "Entrega prevista 2026",
+      "resumo": "Um conjunto residencial pensado para famílias, com áreas generosas, varandas amplas e espaços verdes comuns a poucos minutos de Lisboa.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Santa Iria, Loures" },
+        { "rotulo": "Tipologias", "valor": "T2 e T3" },
+        { "rotulo": "Frações", "valor": "40" },
+        { "rotulo": "Área bruta", "valor": "5 400 m²" },
+        { "rotulo": "Estacionamento", "valor": "1 a 2 lugares" },
+        { "rotulo": "Estado", "valor": "Em construção" }
+      ]
+    },
+    {
+      "slug": "miraflores",
+      "nome": "Miraflores",
+      "grupo": "desenvolvimento",
+      "localizacao": "Algés",
+      "concelho": "Oeiras",
+      "tipologia": "T2 a T4",
+      "estado": "Em comercialização",
+      "entrega": "Entrega prevista 2027",
+      "resumo": "Entre Lisboa e a linha de Cascais, um empreendimento de gama alta com tipologias amplas, terraços e vistas abertas sobre o rio.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Miraflores, Algés" },
+        { "rotulo": "Tipologias", "valor": "T2 a T4" },
+        { "rotulo": "Frações", "valor": "32" },
+        { "rotulo": "Área bruta", "valor": "6 100 m²" },
+        { "rotulo": "Estacionamento", "valor": "Até 2 lugares" },
+        { "rotulo": "Estado", "valor": "Em comercialização" }
+      ]
+    },
+    {
+      "slug": "alto-do-parque",
+      "nome": "Alto do Parque",
+      "grupo": "desenvolvimento",
+      "localizacao": "Oeiras",
+      "concelho": "Oeiras",
+      "tipologia": "Moradias",
+      "estado": "Em construção",
+      "entrega": "Entrega prevista 2026",
+      "resumo": "Oito moradias unifamiliares em banda, com jardim privativo e piscina, num enquadramento tranquilo e verde em Oeiras.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Alto do Parque, Oeiras" },
+        { "rotulo": "Tipologia", "valor": "Moradias T3 e T4" },
+        { "rotulo": "Moradias", "valor": "8" },
+        { "rotulo": "Área média", "valor": "260 m²" },
+        { "rotulo": "Exterior", "valor": "Jardim e piscina" },
+        { "rotulo": "Estado", "valor": "Em construção" }
+      ]
+    },
+    {
+      "slug": "ribeira-offices",
+      "nome": "Ribeira Offices",
+      "grupo": "desenvolvimento",
+      "localizacao": "Lisboa",
+      "concelho": "Lisboa",
+      "tipologia": "Escritórios",
+      "estado": "Em comercialização",
+      "entrega": "Entrega prevista 2026",
+      "resumo": "Um edifício de escritórios de nova geração junto ao rio, com plantas flexíveis, certificação energética elevada e áreas comuns de referência.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Ribeira, Lisboa" },
+        { "rotulo": "Uso", "valor": "Escritórios" },
+        { "rotulo": "Área locável", "valor": "1 200 m²" },
+        { "rotulo": "Pisos", "valor": "4" },
+        { "rotulo": "Certificação", "valor": "Energética A" },
+        { "rotulo": "Estado", "valor": "Em comercialização" }
+      ]
+    },
+    {
+      "slug": "jardins-da-encosta",
+      "nome": "Jardins da Encosta",
+      "grupo": "futuro",
+      "localizacao": "Sintra",
+      "concelho": "Sintra",
+      "tipologia": "T1 a T3",
+      "estado": "Em licenciamento",
+      "entrega": "Previsão 2027",
+      "resumo": "Um novo bairro residencial rodeado de verde na serra de Sintra, com percursos pedonais, comércio de proximidade e forte relação com a paisagem.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Sintra" },
+        { "rotulo": "Tipologias", "valor": "T1 a T3" },
+        { "rotulo": "Frações", "valor": "≈ 60" },
+        { "rotulo": "Estado", "valor": "Em licenciamento" },
+        { "rotulo": "Previsão", "valor": "2027" }
+      ]
+    },
+    {
+      "slug": "marina-plaza",
+      "nome": "Marina Plaza",
+      "grupo": "futuro",
+      "localizacao": "Oeiras",
+      "concelho": "Oeiras",
+      "tipologia": "T2 a T4",
+      "estado": "Em licenciamento",
+      "entrega": "Previsão 2027",
+      "resumo": "Frente ribeirinha em Oeiras: habitação, comércio e um passeio público que devolve a marina à cidade.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Oeiras" },
+        { "rotulo": "Tipologias", "valor": "T2 a T4" },
+        { "rotulo": "Frações", "valor": "≈ 45" },
+        { "rotulo": "Estado", "valor": "Em licenciamento" },
+        { "rotulo": "Previsão", "valor": "2027" }
+      ]
+    },
+    {
+      "slug": "quinta-nova",
+      "nome": "Quinta Nova",
+      "grupo": "futuro",
+      "localizacao": "Cascais",
+      "concelho": "Cascais",
+      "tipologia": "Moradias",
+      "estado": "Em estudo",
+      "entrega": "Previsão 2028",
+      "resumo": "Um condomínio de moradias exclusivas em Cascais, com desenho contemporâneo, privacidade e amplos espaços exteriores.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Cascais" },
+        { "rotulo": "Tipologia", "valor": "Moradias" },
+        { "rotulo": "Moradias", "valor": "≈ 12" },
+        { "rotulo": "Estado", "valor": "Em estudo" },
+        { "rotulo": "Previsão", "valor": "2028" }
+      ]
+    },
+    {
+      "slug": "foz-living",
+      "nome": "Foz Living",
+      "grupo": "futuro",
+      "localizacao": "Porto",
+      "concelho": "Porto",
+      "tipologia": "T1 a T3",
+      "estado": "Em estudo",
+      "entrega": "Previsão 2028",
+      "resumo": "Na Foz do Douro, um edifício residencial de linhas depuradas a poucos passos do mar, para quem procura o melhor do Porto.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Foz do Douro, Porto" },
+        { "rotulo": "Tipologias", "valor": "T1 a T3" },
+        { "rotulo": "Frações", "valor": "≈ 30" },
+        { "rotulo": "Estado", "valor": "Em estudo" },
+        { "rotulo": "Previsão", "valor": "2028" }
+      ]
+    },
+    {
+      "slug": "edificio-restelo",
+      "nome": "Edifício Restelo",
+      "grupo": "concluido",
+      "localizacao": "Lisboa",
+      "concelho": "Lisboa",
+      "tipologia": "T2 a T4",
+      "estado": "Concluído",
+      "entrega": "Concluído em 2019",
+      "resumo": "No Restelo, um edifício residencial de referência, com apartamentos amplos, acabamentos de qualidade e uma implantação que privilegia a luz e o sossego.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Restelo, Lisboa" },
+        { "rotulo": "Tipologias", "valor": "T2 a T4" },
+        { "rotulo": "Frações", "valor": "22" },
+        { "rotulo": "Área bruta", "valor": "4 100 m²" },
+        { "rotulo": "Conclusão", "valor": "2019" }
+      ]
+    },
+    {
+      "slug": "solar-do-parque",
+      "nome": "Solar do Parque",
+      "grupo": "concluido",
+      "localizacao": "Cascais",
+      "concelho": "Cascais",
+      "tipologia": "Moradias",
+      "estado": "Concluído",
+      "entrega": "Concluído em 2020",
+      "resumo": "Oito moradias em Cascais que unem a serenidade do parque envolvente ao conforto de uma construção cuidada até ao último detalhe.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Cascais" },
+        { "rotulo": "Tipologia", "valor": "Moradias" },
+        { "rotulo": "Moradias", "valor": "8" },
+        { "rotulo": "Área média", "valor": "240 m²" },
+        { "rotulo": "Conclusão", "valor": "2020" }
+      ]
+    },
+    {
+      "slug": "terracos-do-tejo",
+      "nome": "Terraços do Tejo",
+      "grupo": "concluido",
+      "localizacao": "Lisboa",
+      "concelho": "Lisboa",
+      "tipologia": "T1 a T3",
+      "estado": "Concluído",
+      "entrega": "Concluído em 2021",
+      "resumo": "Um edifício com amplos terraços debruçados sobre o Tejo, onde cada fração foi desenhada para aproveitar a vista e a luz do rio.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Lisboa" },
+        { "rotulo": "Tipologias", "valor": "T1 a T3" },
+        { "rotulo": "Frações", "valor": "34" },
+        { "rotulo": "Área bruta", "valor": "5 000 m²" },
+        { "rotulo": "Conclusão", "valor": "2021" }
+      ]
+    },
+    {
+      "slug": "quinta-das-oliveiras",
+      "nome": "Quinta das Oliveiras",
+      "grupo": "concluido",
+      "localizacao": "Sintra",
+      "concelho": "Sintra",
+      "tipologia": "T2 e T3",
+      "estado": "Concluído",
+      "entrega": "Concluído em 2022",
+      "resumo": "Habitação de baixa densidade em Sintra, integrada num olival preservado, para viver em contacto com a natureza sem abdicar da cidade.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Sintra" },
+        { "rotulo": "Tipologias", "valor": "T2 e T3" },
+        { "rotulo": "Frações", "valor": "26" },
+        { "rotulo": "Área bruta", "valor": "3 600 m²" },
+        { "rotulo": "Conclusão", "valor": "2022" }
+      ]
+    },
+    {
+      "slug": "miradouro-douro",
+      "nome": "Miradouro Douro",
+      "grupo": "concluido",
+      "localizacao": "Gaia",
+      "concelho": "Vila Nova de Gaia",
+      "tipologia": "T1 a T3",
+      "estado": "Concluído",
+      "entrega": "Concluído em 2023",
+      "resumo": "Sobre a encosta de Gaia, um empreendimento com vistas panorâmicas para o Douro e para a cidade do Porto, de arquitetura sóbria e atual.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Vila Nova de Gaia" },
+        { "rotulo": "Tipologias", "valor": "T1 a T3" },
+        { "rotulo": "Frações", "valor": "30" },
+        { "rotulo": "Área bruta", "valor": "4 500 m²" },
+        { "rotulo": "Conclusão", "valor": "2023" }
+      ]
+    },
+    {
+      "slug": "patio-de-benfica",
+      "nome": "Pátio de Benfica",
+      "grupo": "concluido",
+      "localizacao": "Lisboa",
+      "concelho": "Lisboa",
+      "tipologia": "T2 a T4",
+      "estado": "Concluído",
+      "entrega": "Concluído em 2018",
+      "resumo": "Em Benfica, um edifício organizado em torno de um pátio central ajardinado, que traz sossego e convívio ao centro do bairro.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Benfica, Lisboa" },
+        { "rotulo": "Tipologias", "valor": "T2 a T4" },
+        { "rotulo": "Frações", "valor": "18" },
+        { "rotulo": "Área bruta", "valor": "3 000 m²" },
+        { "rotulo": "Conclusão", "valor": "2018" }
+      ]
+    },
+    {
+      "slug": "jardim-das-amoreiras",
+      "nome": "Jardim das Amoreiras",
+      "grupo": "concluido",
+      "localizacao": "Lisboa",
+      "concelho": "Lisboa",
+      "tipologia": "T1 a T2",
+      "estado": "Concluído",
+      "entrega": "Concluído em 2017",
+      "resumo": "Junto ao jardim das Amoreiras, apartamentos compactos e bem resolvidos, ideais para quem quer viver no centro de Lisboa.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Amoreiras, Lisboa" },
+        { "rotulo": "Tipologias", "valor": "T1 a T2" },
+        { "rotulo": "Frações", "valor": "20" },
+        { "rotulo": "Área bruta", "valor": "2 200 m²" },
+        { "rotulo": "Conclusão", "valor": "2017" }
+      ]
+    },
+    {
+      "slug": "vale-verde",
+      "nome": "Vale Verde",
+      "grupo": "concluido",
+      "localizacao": "Oeiras",
+      "concelho": "Oeiras",
+      "tipologia": "Moradias",
+      "estado": "Concluído",
+      "entrega": "Concluído em 2016",
+      "resumo": "Um condomínio fechado de moradias em Oeiras, com amplos jardins e uma vivência tranquila e segura para as famílias.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Oeiras" },
+        { "rotulo": "Tipologia", "valor": "Moradias" },
+        { "rotulo": "Moradias", "valor": "10" },
+        { "rotulo": "Área média", "valor": "230 m²" },
+        { "rotulo": "Conclusão", "valor": "2016" }
+      ]
+    },
+    {
+      "slug": "alameda-living",
+      "nome": "Alameda Living",
+      "grupo": "concluido",
+      "localizacao": "Lisboa",
+      "concelho": "Lisboa",
+      "tipologia": "T2 a T3",
+      "estado": "Concluído",
+      "entrega": "Concluído em 2015",
+      "resumo": "Na Alameda, um edifício de habitação com fortes áreas comuns e comércio no piso térreo, a dinamizar uma das zonas mais centrais da cidade.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Alameda, Lisboa" },
+        { "rotulo": "Tipologias", "valor": "T2 a T3" },
+        { "rotulo": "Frações", "valor": "40" },
+        { "rotulo": "Área bruta", "valor": "5 600 m²" },
+        { "rotulo": "Conclusão", "valor": "2015" }
+      ]
+    },
+    {
+      "slug": "foz-atlantico",
+      "nome": "Foz Atlântico",
+      "grupo": "concluido",
+      "localizacao": "Porto",
+      "concelho": "Porto",
+      "tipologia": "T2 a T4",
+      "estado": "Concluído",
+      "entrega": "Concluído em 2014",
+      "resumo": "Na Foz do Porto, um edifício de gama alta a poucos metros do mar, com apartamentos amplos e acabamentos de exceção.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Foz, Porto" },
+        { "rotulo": "Tipologias", "valor": "T2 a T4" },
+        { "rotulo": "Frações", "valor": "28" },
+        { "rotulo": "Área bruta", "valor": "4 800 m²" },
+        { "rotulo": "Conclusão", "valor": "2014" }
+      ]
+    },
+    {
+      "slug": "quinta-do-sol",
+      "nome": "Quinta do Sol",
+      "grupo": "concluido",
+      "localizacao": "Loulé",
+      "concelho": "Loulé",
+      "tipologia": "Moradias",
+      "estado": "Concluído",
+      "entrega": "Concluído em 2013",
+      "resumo": "No Algarve, um conjunto de moradias com piscina e amplos espaços exteriores, pensadas para o clima e o estilo de vida do sul.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Loulé, Algarve" },
+        { "rotulo": "Tipologia", "valor": "Moradias" },
+        { "rotulo": "Moradias", "valor": "14" },
+        { "rotulo": "Área média", "valor": "250 m²" },
+        { "rotulo": "Conclusão", "valor": "2013" }
+      ]
+    },
+    {
+      "slug": "ribeira-nova",
+      "nome": "Ribeira Nova",
+      "grupo": "concluido",
+      "localizacao": "Porto",
+      "concelho": "Porto",
+      "tipologia": "T1 a T3",
+      "estado": "Concluído",
+      "entrega": "Concluído em 2012",
+      "resumo": "Na Ribeira do Porto, a reabilitação de um edifício histórico em habitação contemporânea, respeitando a memória e a traça originais.",
+      "factos": [
+        { "rotulo": "Localização", "valor": "Ribeira, Porto" },
+        { "rotulo": "Tipologias", "valor": "T1 a T3" },
+        { "rotulo": "Frações", "valor": "32" },
+        { "rotulo": "Área bruta", "valor": "4 200 m²" },
+        { "rotulo": "Conclusão", "valor": "2012" }
+      ]
+    }
+  ]
+}

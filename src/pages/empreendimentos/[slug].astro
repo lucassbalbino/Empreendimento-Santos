@@ -1,0 +1,143 @@
+---
+import Base from '../../layouts/Base.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import data from '../../data/empreendimentos.json';
+
+export function getStaticPaths() {
+  return data.lista.map((proj) => ({
+    params: { slug: proj.slug },
+    props: { proj, todos: data.lista },
+  }));
+}
+
+const { proj, todos } = Astro.props;
+
+const grupoLabel = {
+  desenvolvimento: 'Em desenvolvimento',
+  futuro: 'Projeto futuro',
+  concluido: 'Concluído',
+}[proj.grupo];
+
+const concluido = proj.grupo === 'concluido';
+const brandParagraph = concluido
+  ? `Entregue pela AMS Santos, o ${proj.nome} reflete o nosso compromisso com materiais nobres, execução rigorosa e uma atenção ao detalhe que se sente em cada espaço.`
+  : `Como em todos os empreendimentos AMS Santos, o ${proj.nome} nasce de um compromisso com materiais nobres, execução rigorosa e uma atenção ao detalhe que se sente em cada espaço.`;
+const ctaLabel = concluido ? 'Falar connosco' : (proj.grupo === 'desenvolvimento' ? 'Agendar visita' : 'Saber mais');
+
+const relacionados = todos.filter((p) => p.grupo === proj.grupo && p.slug !== proj.slug).slice(0, 3);
+---
+<Base
+  title={`Empreendimento — ${proj.nome}`}
+  description={`${proj.nome} — ${proj.localizacao} · ${proj.tipologia}. ${proj.resumo}`}
+>
+  <!-- HERO -->
+  <section class="hero emp-hero" style="min-height:68vh">
+    <div class="hero__bg"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner">
+      <div class="container">
+        <a class="emp-back" href="/portfolio">← Empreendimentos</a>
+        <span class="eyebrow" style="color:#d29a5a">{grupoLabel}</span>
+        <h1 class="display hero__title-page">{proj.nome}</h1>
+        <p class="emp-hero__meta">
+          {proj.localizacao} · {proj.tipologia}
+          <span class="emp-chip">{proj.estado}</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- O EMPREENDIMENTO -->
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div class="split__body">
+          <span class="eyebrow">O empreendimento</span>
+          <h2 class="display display--sm">{proj.entrega}</h2>
+          <p>{proj.resumo}</p>
+          <p>{brandParagraph}</p>
+          <a class="btn" href="#contacto">{ctaLabel}</a>
+        </div>
+        <div class="split__media"><div class="ph" data-label="Imagem 4:5"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARACTERÍSTICAS -->
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Características</span>
+      <h2 class="display display--sm">Ficha do empreendimento</h2>
+      <div class="facts">
+        {proj.factos.map((f) => (
+          <div class="fact">
+            <span class="fact__v">{f.valor}</span>
+            <span class="fact__r">{f.rotulo}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Galeria</span>
+      <h2 class="display display--sm">Imagens do empreendimento</h2>
+      <div class="gallery">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div class="ph" data-label={`Imagem ${i + 1}`}></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCALIZAÇÃO -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="split">
+        <div class="split__body">
+          <span class="eyebrow">Localização</span>
+          <h2 class="display display--sm">{proj.localizacao}</h2>
+          <p class="lead" style="margin-top:1rem">{proj.concelho}</p>
+        </div>
+        <div class="split__media"><div class="ph" data-label="Mapa"></div></div>
+      </div>
+    </div>
+  </section>
+
+  {relacionados.length > 0 && (
+    <!-- OUTROS EMPREENDIMENTOS -->
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow">Outros empreendimentos</span>
+        <h2 class="display display--sm">Continue a explorar</h2>
+        <div class="grid-projects">
+          {relacionados.map((p) => (
+            <a class="card" href={`/empreendimentos/${p.slug}`}>
+              <div class="card__media">
+                <div class="ph"></div>
+                <div class="card__overlay">
+                  <h3 class="card__title">{p.nome}</h3>
+                  <div class="card__meta">{p.localizacao} · {p.tipologia}</div>
+                  <span class="card__cta">Ver empreendimento</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CONTACTO -->
+  <section class="section" id="contacto">
+    <div class="container">
+      <ContactForm
+        eyebrow="Contactos"
+        title={`Interessado no ${proj.nome}?`}
+        texto="Fale connosco para agendar uma visita ou pedir mais informações sobre este empreendimento. A nossa equipa responde com brevidade."
+      />
+    </div>
+  </section>
+</Base>

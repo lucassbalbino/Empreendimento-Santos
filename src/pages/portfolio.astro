@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import BlockHead from '../components/BlockHead.astro';
 import ContactForm from '../components/ContactForm.astro';
 import portfolio from '../data/portfolio.json';
+import { slugify } from '../utils/slug.js';
 
 const secoes = [portfolio.emDesenvolvimento, portfolio.futuros];
 ---
@@ -26,7 +27,7 @@ const secoes = [portfolio.emDesenvolvimento, portfolio.futuros];
         <BlockHead eyebrow={s.eyebrow} title={s.title} lead={s.lead} />
         <div class="grid-projects">
           {s.projetos.map((p) => (
-            <article class="card">
+            <a class="card" href={`/empreendimentos/${slugify(p.nome)}`}>
               <div class="card__media">
                 <div class="ph"></div>
                 <div class="card__overlay">
@@ -35,7 +36,7 @@ const secoes = [portfolio.emDesenvolvimento, portfolio.futuros];
                   {p.cta && <span class="card__cta">{p.cta}</span>}
                 </div>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </div>

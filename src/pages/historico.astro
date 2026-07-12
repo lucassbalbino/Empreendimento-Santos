@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import ContactForm from '../components/ContactForm.astro';
 import historico from '../data/historico.json';
+import { slugify } from '../utils/slug.js';
 ---
 <Base title="Mockup — Histórico" description="O percurso da AMS Santos: uma seleção de empreendimentos concluídos e entregues desde 1990.">
   <!-- HERO (interno) -->
@@ -21,7 +22,7 @@ import historico from '../data/historico.json';
     <div class="container">
       <div class="grid-projects">
         {historico.projetos.map((p) => (
-          <article class="card">
+          <a class="card" href={`/empreendimentos/${slugify(p.nome)}`}>
             <div class="card__media">
               <div class="ph"></div>
               <div class="card__overlay">
@@ -30,7 +31,7 @@ import historico from '../data/historico.json';
                 {p.cta && <span class="card__cta">{p.cta}</span>}
               </div>
             </div>
-          </article>
+          </a>
         ))}
       </div>
     </div>

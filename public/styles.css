@@ -584,11 +584,55 @@ html.reveal-ready body.is-home .section--dark::after{ background:var(--dark); }
 html.reveal-ready body.is-home .section.is-visible::after{ transform:scaleY(0); }
 
 /* =====================================================================
+   PÁGINA DE EMPREENDIMENTO (detalhe)
+   ===================================================================== */
+/* Cards e painéis que passaram a ser links */
+a.card, a.panel{ text-decoration:none; color:inherit; }
+
+.emp-back{
+  display:inline-block; margin-bottom:1rem;
+  color:rgba(255,255,255,.8); text-decoration:none;
+  font-size:.85rem; letter-spacing:.02em;
+  transition:color .3s var(--ease);
+}
+.emp-back:hover{ color:#fff; }
+.emp-hero__meta{
+  margin-top:1rem; color:rgba(255,255,255,.92); font-size:1.05rem;
+  display:flex; align-items:center; gap:.9rem; flex-wrap:wrap;
+}
+.emp-chip{
+  display:inline-block; padding:.34em .95em;
+  border:1px solid rgba(255,255,255,.5); border-radius:999px;
+  font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+}
+
+/* Ficha / características */
+.facts{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(8px,1.2vw,14px); margin-top:2.5rem;
+}
+.fact{
+  background:var(--paper); border:1px solid var(--line); border-radius:12px;
+  padding:clamp(18px,2.2vw,30px); display:flex; flex-direction:column; gap:.45rem;
+}
+.section--alt .fact{ background:#fbf5ea; }
+.fact__v{ font-family:var(--serif); font-size:clamp(1.35rem,2.4vw,2rem); color:var(--ink); line-height:1.1; }
+.fact__r{ font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); }
+
+/* Galeria */
+.gallery{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(10px,1.4vw,18px); margin-top:2.5rem;
+}
+.gallery .ph{ aspect-ratio:4/3; }
+
+/* =====================================================================
    RESPONSIVO
    ===================================================================== */
 @media (max-width: 1024px){
   .stats{ grid-template-columns:repeat(2,1fr); }
   .grid-projects{ grid-template-columns:repeat(2,1fr); }
+  .facts, .gallery{ grid-template-columns:repeat(2,1fr); }
   .team{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:1fr 1fr; }
   /* Menu vira hambúrguer já no tablet, onde o nav horizontal não cabe */
@@ -607,6 +651,8 @@ html.reveal-ready body.is-home .section.is-visible::after{ transform:scaleY(0); 
   .team{ grid-template-columns:1fr; }
   .stats{ grid-template-columns:1fr; }
   .grid-projects{ grid-template-columns:1fr; }
+  .facts{ grid-template-columns:repeat(2,1fr); }
+  .gallery{ grid-template-columns:1fr; }
   .footer-grid{ grid-template-columns:1fr; }
   .scroller{ grid-auto-columns:minmax(260px,80%); }
 }
