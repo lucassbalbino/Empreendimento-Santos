@@ -6,6 +6,7 @@ const {
   description = 'AMS Santos — promoção imobiliária e construção civil em Lisboa. Concebemos, construímos e entregamos empreendimentos feitos para durar.',
   image = '/images/hero-image.webp',
 } = Astro.props;
+const isHome = Astro.url.pathname === '/';
 ---
 <!DOCTYPE html>
 <html lang="pt">
@@ -19,7 +20,7 @@ const {
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <meta name="theme-color" content="#1f1811">
+  <meta name="theme-color" content="#141414">
 
   <!-- Open Graph / partilha em redes sociais -->
   <meta property="og:type" content="website">
@@ -63,7 +64,7 @@ const {
     })();
   </script>
 </head>
-<body>
+<body class={isHome ? 'is-home' : undefined}>
   <Header />
   <slot />
   <Footer />

@@ -15,8 +15,8 @@
   --line:       #e4d6bf;   /* linhas/divisores (tan quente) */
   --accent:     #b26717;   /* ocre/laranja da logo AMS Santos */
   --accent-deep:#8a4e11;
-  --dark:       #1f1811;   /* seções escuras / hero (espresso quente) */
-  --dark-soft:  #0b0703;
+  --dark:       #141414;   /* seções escuras / hero (preto neutro, ref. modus) */
+  --dark-soft:  #0a0a0a;
   
 
   --maxw: 1280px;
@@ -49,6 +49,14 @@ ul{ list-style:none; }
 .section{ padding-block:var(--section-y); }
 .section--dark{ background:var(--dark); color:var(--paper); }
 .section--alt{ background:var(--paper-alt); }
+
+/* Scroll snap — apenas na home. 'proximity' para não prender em seções altas. */
+html:has(body.is-home){ scroll-snap-type: y proximity; }
+body.is-home .hero,
+body.is-home .section{ scroll-snap-align: start; }
+@media (prefers-reduced-motion: reduce){
+  html:has(body.is-home){ scroll-snap-type: none; }
+}
 
 .eyebrow{
   font-family:var(--sans);
@@ -209,7 +217,7 @@ ul{ list-style:none; }
     repeating-linear-gradient(45deg,
       rgba(255,255,255,.03) 0, rgba(255,255,255,.03) 1px,
       transparent 1px, transparent 14px),
-    linear-gradient(180deg, #2a211a 0%, #140f0a 100%);
+    linear-gradient(180deg, #1c1c1c 0%, #0a0a0a 100%);
 }
 .hero__bg::after{
   content:"Imagem — Hero (full screen)";
@@ -511,7 +519,7 @@ html.reveal-ready :is(
 }
 .grid-projects .card:hover, .scroller .card:hover{
   transform:translateY(-6px);
-  box-shadow:0 20px 44px -20px rgba(31,24,17,.5);
+  box-shadow:0 20px 44px -20px rgba(0,0,0,.5);
 }
 .card__overlay{ transition:background .4s var(--ease); }
 .card:hover .card__overlay{ background:linear-gradient(180deg,transparent,rgba(0,0,0,.88)); }
@@ -527,6 +535,33 @@ html.reveal-ready :is(
 
 @media (prefers-reduced-motion: reduce){
   .grid-projects .card:hover, .scroller .card:hover{ transform:none; box-shadow:none; }
+}
+
+/* =====================================================================
+   TRANSIÇÃO DA HOME — slide de cima para baixo (cópia do gesto do modus)
+   Ao entrar no viewport, cada elemento é desvendado de cima para baixo
+   (máscara clip-path) enquanto desce da posição superior até assentar.
+   Só na home; reutiliza o mesmo gatilho .reveal-ready / .is-visible.
+   ===================================================================== */
+html.reveal-ready body.is-home :is(
+  .section .eyebrow, .section .display, .section .lead,
+  .split__body > p, .card, .stat, .vertical, .service, .member, .panels
+){
+  opacity:0;
+  transform:translateY(-26px);
+  clip-path:inset(0 0 100% 0);
+  transition:opacity .85s var(--ease),
+             transform .85s var(--ease),
+             clip-path .85s var(--ease);
+  will-change:transform, clip-path;
+}
+html.reveal-ready body.is-home :is(
+  .section .eyebrow, .section .display, .section .lead,
+  .split__body > p, .card, .stat, .vertical, .service, .member, .panels
+).is-visible{
+  opacity:1;
+  transform:none;
+  clip-path:inset(0 0 0 0);
 }
 
 /* =====================================================================
