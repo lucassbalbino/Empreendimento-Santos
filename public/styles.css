@@ -229,8 +229,9 @@ body.is-home .section{ scroll-snap-align: start; }
   background-size:cover; background-position:center; background-repeat:no-repeat;
 }
 .hero__bg--img::after{ content:none; }
-/* Hero com imagem panorâmica (2:1): reduz a altura para não cortar as laterais da foto. */
-.hero:has(.hero__bg--img){ min-height:clamp(460px, 62vh, 780px); }
+/* Hero com imagem panorâmica (2:1): quase ecrã inteiro. Mais altura corta
+   um pouco mais as laterais da foto (fundo cover, centrado). */
+.hero:has(.hero__bg--img){ min-height:clamp(600px, 94vh, 1160px); }
 .hero__overlay{
   position:absolute; inset:0; z-index:1;
   background:linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.1) 45%, rgba(0,0,0,.65) 100%);
