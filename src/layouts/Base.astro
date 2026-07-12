@@ -45,7 +45,7 @@ const isHome = Astro.url.pathname === '/';
       if (!('IntersectionObserver' in window) ||
           window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       root.classList.add('reveal-ready');
-      var SEL = '.section .eyebrow, .section .display, .section .lead, .split__body > p, .card, .stat, .vertical, .service, .member, .panels';
+      var SEL = '.section, .section .eyebrow, .section .display, .section .lead, .split__body > p, .card, .stat, .vertical, .service, .member, .panels';
       function init() {
         var io = new IntersectionObserver(function (entries) {
           entries.forEach(function (e) {

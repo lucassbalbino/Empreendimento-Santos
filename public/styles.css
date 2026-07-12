@@ -565,6 +565,24 @@ html.reveal-ready body.is-home :is(
 }
 
 /* =====================================================================
+   TRANSIÇÃO ENTRE SECTIONS (home) — cortina que recolhe de cima para
+   baixo, revelando cada secção ao entrar (encaixe à la modus).
+   A cortina tem a cor de fundo da própria secção, logo lê-se como um
+   "wipe" limpo. Não usa transform na secção → não soma ao slide dos
+   elementos. Gated por reveal-ready (respeita prefers-reduced-motion).
+   ===================================================================== */
+body.is-home .section{ position:relative; }
+html.reveal-ready body.is-home .section::after{
+  content:""; position:absolute; inset:0; z-index:5; pointer-events:none;
+  background:var(--paper);
+  transform:scaleY(1); transform-origin:bottom;
+  transition:transform .9s var(--ease);
+}
+html.reveal-ready body.is-home .section--alt::after{ background:var(--paper-alt); }
+html.reveal-ready body.is-home .section--dark::after{ background:var(--dark); }
+html.reveal-ready body.is-home .section.is-visible::after{ transform:scaleY(0); }
+
+/* =====================================================================
    RESPONSIVO
    ===================================================================== */
 @media (max-width: 1024px){
