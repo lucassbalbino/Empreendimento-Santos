@@ -1,0 +1,87 @@
+{
+  "global": {
+    "color": {
+      "paper":        { "value": "#ffffff", "type": "color", "description": "Fundo principal (branco)" },
+      "paper-alt":    { "value": "#f5f4f2", "type": "color", "description": "Fundo de secção alternada" },
+      "ink":          { "value": "#121212", "type": "color", "description": "Texto principal (quase preto)" },
+      "ink-soft":     { "value": "#565654", "type": "color", "description": "Texto secundário" },
+      "ink-faint":    { "value": "#9a9997", "type": "color", "description": "Labels discretos" },
+      "line":         { "value": "#e8e7e4", "type": "color", "description": "Linhas / divisores" },
+      "accent":       { "value": "#ea5a17", "type": "color", "description": "Laranja vibrante (marca)" },
+      "accent-deep":  { "value": "#c1470c", "type": "color", "description": "Laranja profundo (hover)" },
+      "accent-on-dark": { "value": "#ff7d38", "type": "color", "description": "Laranja sobre fundos escuros" },
+      "dark":         { "value": "#141414", "type": "color", "description": "Secções escuras / hero" },
+      "dark-soft":    { "value": "#0a0a0a", "type": "color", "description": "Preto mais profundo" },
+      "on-dark":      { "value": "#ffffff", "type": "color", "description": "Texto sobre fundos escuros/laranja" },
+      "on-dark-soft": { "value": "#cdd0d4", "type": "color", "description": "Texto secundário sobre escuro" }
+    },
+    "fontFamily": {
+      "serif": { "value": "Fraunces", "type": "fontFamilies" },
+      "sans":  { "value": "Inter", "type": "fontFamilies" }
+    },
+    "fontWeight": {
+      "light":    { "value": "300", "type": "fontWeights" },
+      "regular":  { "value": "400", "type": "fontWeights" },
+      "medium":   { "value": "500", "type": "fontWeights" },
+      "semibold": { "value": "600", "type": "fontWeights" },
+      "bold":     { "value": "700", "type": "fontWeights" }
+    },
+    "fontSize": {
+      "hero":       { "value": "88", "type": "fontSizes", "description": "Hero interno (máx.). Responsivo: 42–88" },
+      "display":    { "value": "66", "type": "fontSizes", "description": "Títulos de secção (máx.). Responsivo: 34–66" },
+      "display-sm": { "value": "45", "type": "fontSizes", "description": "Títulos menores. Responsivo: 27–45" },
+      "stat":       { "value": "59", "type": "fontSizes", "description": "Números dos contadores" },
+      "h3":         { "value": "38", "type": "fontSizes" },
+      "card-title": { "value": "24", "type": "fontSizes" },
+      "lead":       { "value": "26", "type": "fontSizes", "description": "Parágrafo de destaque. Responsivo: 18–26" },
+      "body":       { "value": "16", "type": "fontSizes" },
+      "small":      { "value": "14", "type": "fontSizes" },
+      "eyebrow":    { "value": "12", "type": "fontSizes" }
+    },
+    "lineHeight": {
+      "tight":   { "value": "105%", "type": "lineHeights" },
+      "heading": { "value": "110%", "type": "lineHeights" },
+      "lead":    { "value": "140%", "type": "lineHeights" },
+      "body":    { "value": "160%", "type": "lineHeights" }
+    },
+    "letterSpacing": {
+      "eyebrow": { "value": "0.32em", "type": "letterSpacing" },
+      "label":   { "value": "0.14em", "type": "letterSpacing" },
+      "cta":     { "value": "0.22em", "type": "letterSpacing" }
+    },
+    "spacing": {
+      "4":       { "value": "4",   "type": "spacing" },
+      "8":       { "value": "8",   "type": "spacing" },
+      "12":      { "value": "12",  "type": "spacing" },
+      "16":      { "value": "16",  "type": "spacing" },
+      "24":      { "value": "24",  "type": "spacing" },
+      "32":      { "value": "32",  "type": "spacing" },
+      "48":      { "value": "48",  "type": "spacing" },
+      "64":      { "value": "64",  "type": "spacing" },
+      "96":      { "value": "96",  "type": "spacing" },
+      "128":     { "value": "128", "type": "spacing" },
+      "gutter":  { "value": "72",  "type": "spacing", "description": "Margem lateral do container (máx.)" },
+      "section": { "value": "120", "type": "spacing", "description": "Padding vertical de secção (máx.)" }
+    },
+    "sizing": {
+      "maxWidth": { "value": "1280", "type": "sizing", "description": "Largura máxima do container" }
+    },
+    "borderRadius": {
+      "md":   { "value": "12",  "type": "borderRadius" },
+      "pill": { "value": "999", "type": "borderRadius" }
+    },
+    "typography": {
+      "hero":       { "value": { "fontFamily": "Fraunces", "fontWeight": "300", "fontSize": "88", "lineHeight": "105%", "letterSpacing": "0" }, "type": "typography" },
+      "display":    { "value": { "fontFamily": "Fraunces", "fontWeight": "400", "fontSize": "66", "lineHeight": "110%", "letterSpacing": "0" }, "type": "typography" },
+      "display-sm": { "value": { "fontFamily": "Fraunces", "fontWeight": "400", "fontSize": "45", "lineHeight": "110%", "letterSpacing": "0" }, "type": "typography" },
+      "stat":       { "value": { "fontFamily": "Fraunces", "fontWeight": "400", "fontSize": "59", "lineHeight": "100%", "letterSpacing": "0" }, "type": "typography" },
+      "card-title": { "value": { "fontFamily": "Fraunces", "fontWeight": "400", "fontSize": "24", "lineHeight": "110%", "letterSpacing": "0" }, "type": "typography" },
+      "lead":       { "value": { "fontFamily": "Inter", "fontWeight": "400", "fontSize": "26", "lineHeight": "140%", "letterSpacing": "0" }, "type": "typography" },
+      "body":       { "value": { "fontFamily": "Inter", "fontWeight": "400", "fontSize": "16", "lineHeight": "160%", "letterSpacing": "0" }, "type": "typography" },
+      "eyebrow":    { "value": { "fontFamily": "Inter", "fontWeight": "600", "fontSize": "12", "lineHeight": "100%", "letterSpacing": "0.32em", "textCase": "uppercase" }, "type": "typography" },
+      "cta":        { "value": { "fontFamily": "Inter", "fontWeight": "600", "fontSize": "11", "lineHeight": "120%", "letterSpacing": "0.22em", "textCase": "uppercase" }, "type": "typography" }
+    }
+  },
+  "$themes": [],
+  "$metadata": { "tokenSetOrder": ["global"] }
+}
