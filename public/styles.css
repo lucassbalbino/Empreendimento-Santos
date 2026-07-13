@@ -50,6 +50,15 @@ ul{ list-style:none; }
 .section{ padding-block:var(--section-y); }
 .section--dark{ background:var(--dark); color:var(--paper); }
 .section--alt{ background:var(--paper-alt); }
+/* Faixa de acento: fundo laranja, bem marcante (preto/branco/laranja) */
+.section--accent{ background:var(--accent); color:#fff; }
+.section--accent .eyebrow{ color:#fff; }
+.section--accent .eyebrow::before{ background:#fff; opacity:.85; }
+.section--accent .display{ color:#fff; }
+.section--accent .dofazemos .display em{ color:#141414; }  /* palavra em destaque a preto */
+.section--accent .stat{ border-left-color:rgba(255,255,255,.28); }
+.section--accent .stat__num{ color:#fff; }
+.section--accent .stat__label{ color:rgba(255,255,255,.86); }
 
 /* Scroll snap — apenas na home. 'proximity' para não prender em seções altas. */
 html:has(body.is-home){ scroll-snap-type: y proximity; }
@@ -582,6 +591,7 @@ html.reveal-ready body.is-home .section::after{
 }
 html.reveal-ready body.is-home .section--alt::after{ background:var(--paper-alt); }
 html.reveal-ready body.is-home .section--dark::after{ background:var(--dark); }
+html.reveal-ready body.is-home .section--accent::after{ background:var(--accent); }
 html.reveal-ready body.is-home .section.is-visible::after{ transform:scaleY(0); }
 
 /* =====================================================================
