@@ -7,17 +7,18 @@
 
 /* ---------- Tokens ---------- */
 :root{
-  --paper:      #f9f1e6;   /* fundo principal (marfim quente, toque de pêssego) */
-  --paper-alt:  #f0e2cd;   /* fundo de seção alternada (areia / ocre suave) */
-  --ink:        #23201b;   /* texto principal (quase preto quente) */
-  --ink-soft:   #6a6157;   /* texto secundário (castanho acinzentado) */
-  --ink-faint:  #a89c8b;   /* labels discretos */
-  --line:       #e4d6bf;   /* linhas/divisores (tan quente) */
-  --accent:     #b26717;   /* ocre/laranja da logo AMS Santos */
-  --accent-deep:#8a4e11;
-  --dark:       #141414;   /* seções escuras / hero (preto neutro, ref. modus) */
+  --paper:      #ffffff;   /* fundo principal (branco) */
+  --paper-alt:  #f5f4f2;   /* fundo de seção alternada (cinza muito claro) */
+  --ink:        #121212;   /* texto principal (quase preto) */
+  --ink-soft:   #565654;   /* texto secundário */
+  --ink-faint:  #9a9997;   /* labels discretos */
+  --line:       #e8e7e4;   /* linhas/divisores */
+  --accent:     #ea5a17;   /* laranja vibrante (identidade AMS Santos) */
+  --accent-deep:#c1470c;
+  --accent-dk:  #ff7d38;   /* laranja sobre fundos escuros (mais brilhante) */
+  --dark:       #141414;   /* seções escuras / hero (preto neutro) */
   --dark-soft:  #0a0a0a;
-  
+
 
   --maxw: 1280px;
   --gutter: clamp(20px, 5vw, 72px);
@@ -76,7 +77,7 @@ body.is-home .section{ scroll-snap-align: start; }
   background:var(--accent);
   opacity:.7;
 }
-.section--dark .eyebrow{ color:#d29a5a; }
+.section--dark .eyebrow{ color:var(--accent-dk); }
 
 .display{
   font-family:var(--serif);
@@ -117,8 +118,8 @@ body.is-home .section{ scroll-snap-align: start; }
 .btn:hover::before{ transform:scaleX(1); }
 .btn:hover{ gap:1.1rem; color:var(--accent); }
 .section--dark .btn{ color:var(--paper); border-color:rgba(255,255,255,.5); }
-.section--dark .btn::before{ background:#e0a763; }
-.section--dark .btn:hover{ color:#e0a763; }
+.section--dark .btn::before{ background:var(--accent-dk); }
+.section--dark .btn:hover{ color:var(--accent-dk); }
 
 /* Placeholder de imagem */
 .ph{
@@ -183,7 +184,7 @@ body.is-home .section{ scroll-snap-align: start; }
   transition:color .3s var(--ease), opacity .3s var(--ease);
   position:relative; padding-block:.4rem;
 }
-.nav__list a:hover{ opacity:1; color:#e0a763; }
+.nav__list a:hover{ opacity:1; color:var(--accent-dk); }
 .scrolled .nav__list a{ color:var(--ink); opacity:.85; }
 .scrolled .nav__list a:hover{ color:var(--accent); opacity:1; }
 .nav__lang{ font-size:.74rem; letter-spacing:.2em; font-weight:700; color:#fff; }
@@ -311,7 +312,7 @@ body.is-home .section{ scroll-snap-align: start; }
 }
 .card__title{ font-family:var(--serif); font-weight:400; font-size:1.5rem; line-height:1.1; }
 .card__meta{ font-size:.76rem; letter-spacing:.1em; opacity:.85; margin-top:.4rem; }
-.card__cta{ margin-top:1rem; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; font-weight:600; color:#e0a763; display:inline-flex; gap:.5rem; }
+.card__cta{ margin-top:1rem; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; font-weight:600; color:var(--accent-dk); display:inline-flex; gap:.5rem; }
 .card__cta::after{ content:"\2192"; }
 
 /* =====================================================================
@@ -384,7 +385,7 @@ body.is-home .section{ scroll-snap-align: start; }
 .panel__meta{
   margin-top:.6rem;
   font-size:.72rem; letter-spacing:.16em; text-transform:uppercase;
-  color:#e0a763; font-weight:600;
+  color:var(--accent-dk); font-weight:600;
   display:inline-flex; align-items:center; gap:.6rem;
   white-space:nowrap;
 }
@@ -471,18 +472,18 @@ body.is-home .section{ scroll-snap-align: start; }
 .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:clamp(28px,4vw,56px); }
 .footer-col h4{ font-size:.7rem; letter-spacing:.24em; text-transform:uppercase; color:#fff; margin-bottom:1.1rem; font-weight:600; }
 .footer-col p, .footer-col a{ font-size:.92rem; color:#a7abb1; line-height:1.8; }
-.footer-col a{ background:linear-gradient(#e0a763,#e0a763) 0 100%/0 1px no-repeat; transition:background-size .35s var(--ease), color .3s var(--ease); }
-.footer-col a:hover{ color:#e0a763; background-size:100% 1px; }
+.footer-col a{ background:linear-gradient(var(--accent-dk),var(--accent-dk)) 0 100%/0 1px no-repeat; transition:background-size .35s var(--ease), color .3s var(--ease); }
+.footer-col a:hover{ color:var(--accent-dk); background-size:100% 1px; }
 .footer-brand .logo{ margin-bottom:1.2rem; }
 .footer-logo{ height:auto; }
 .footer-logo img{ height:82px; width:auto; display:block; }
 .socials{ display:flex; gap:.8rem; margin-top:1.2rem; }
 .socials a{ width:38px; height:38px; border:1px solid rgba(255,255,255,.2); border-radius:50%; display:grid; place-items:center; font-size:.62rem; letter-spacing:.05em; color:#cdd0d4; transition:all .3s var(--ease); }
-.socials a:hover{ border-color:#e0a763; color:#e0a763; }
+.socials a:hover{ border-color:var(--accent-dk); color:var(--accent-dk); }
 .news{ display:flex; border-bottom:1px solid rgba(255,255,255,.25); }
 .news input{ flex:1; background:none; border:0; color:#fff; padding:.6rem 0; font-size:.9rem; }
 .news input:focus{ outline:0; }
-.news button{ background:none; border:0; color:#e0a763; cursor:pointer; font-size:1.1rem; }
+.news button{ background:none; border:0; color:var(--accent-dk); cursor:pointer; font-size:1.1rem; }
 .footer-bottom{ margin-top:clamp(40px,5vw,72px); padding-top:1.6rem; border-top:1px solid rgba(255,255,255,.12); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.72rem; letter-spacing:.08em; color:#7e828a; text-transform:uppercase; }
 
 /* =====================================================================
@@ -511,7 +512,7 @@ html.reveal-ready :is(
 }
 .nav__list a:hover::after,
 .nav__list a[aria-current="page"]::after{ transform:scaleX(1); }
-.nav__list a[aria-current="page"]{ color:#e0a763; opacity:1; }
+.nav__list a[aria-current="page"]{ color:var(--accent-dk); opacity:1; }
 .scrolled .nav__list a[aria-current="page"]{ color:var(--accent); }
 
 /* 3) Hover dos cards: leve elevação + sombra + realce do overlay/CTA */
@@ -615,7 +616,7 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   background:var(--paper); border:1px solid var(--line); border-radius:12px;
   padding:clamp(18px,2.2vw,30px); display:flex; flex-direction:column; gap:.45rem;
 }
-.section--alt .fact{ background:#fbf5ea; }
+.section--alt .fact{ background:#ffffff; }
 .fact__v{ font-family:var(--serif); font-size:clamp(1.35rem,2.4vw,2rem); color:var(--ink); line-height:1.1; }
 .fact__r{ font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); }
 

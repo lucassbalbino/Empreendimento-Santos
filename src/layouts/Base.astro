@@ -5,8 +5,10 @@ const {
   title,
   description = 'AMS Santos — promoção imobiliária e construção civil em Lisboa. Concebemos, construímos e entregamos empreendimentos feitos para durar.',
   image = '/images/hero-image.webp',
+  palette,
 } = Astro.props;
 const isHome = Astro.url.pathname === '/';
+const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(Boolean).join(' ') || undefined;
 ---
 <!DOCTYPE html>
 <html lang="pt">
@@ -94,7 +96,7 @@ const isHome = Astro.url.pathname === '/';
     })();
   </script>
 </head>
-<body class={isHome ? 'is-home' : undefined}>
+<body class={bodyClass}>
   <Header />
   <slot />
   <Footer />
