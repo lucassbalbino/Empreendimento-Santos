@@ -13,7 +13,7 @@
   --ink-soft:   #565654;   /* texto secundário */
   --ink-faint:  #9a9997;   /* labels discretos */
   --line:       #e8e7e4;   /* linhas/divisores */
-  --accent:     #ea5a17;   /* laranja vibrante (identidade AMS Santos) */
+  --accent:     #ea5a17;   /* laranja vibrante (identidade AM Santos) */
   --accent-deep:#c1470c;
   --accent-dk:  #ff7d38;   /* laranja sobre fundos escuros (mais brilhante) */
   --dark:       #141414;   /* seções escuras / hero (preto neutro) */
@@ -284,6 +284,15 @@ body.is-home .section{ scroll-snap-align: start; }
   font-size:clamp(2.4rem,4.6vw,3.7rem); line-height:1;
   color:var(--accent); letter-spacing:.01em;
   font-variant-numeric:tabular-nums;
+  /* min-height alinha os rótulos entre o contador e os pilares de texto,
+     que têm corpos diferentes. */
+  display:flex; align-items:center; justify-content:center;
+  min-height:clamp(2.4rem,4.6vw,3.7rem);
+}
+/* Pilares não-numéricos: palavras precisam de corpo menor para caber na coluna. */
+.stat__num--word{
+  font-size:clamp(1.3rem,2.1vw,1.75rem);
+  line-height:1.15; overflow-wrap:break-word;
 }
 .stat__label{ margin-top:.9rem; font-size:.86rem; letter-spacing:.01em; color:var(--ink-soft); }
 
@@ -445,6 +454,20 @@ body.is-home .section{ scroll-snap-align: start; }
 .service__media .ph{ aspect-ratio:5/4; width:100%; }
 .service h3{ font-family:var(--serif); font-weight:400; font-size:clamp(1.7rem,3vw,2.4rem); margin:.6rem 0 1.2rem; }
 .service p{ color:var(--ink-soft); max-width:46ch; margin-bottom:1.4rem; }
+
+/* Gama de serviços (SF Properties) — "sob o mesmo teto", sem media. */
+.svc-list{
+  list-style:none; margin:0 0 clamp(48px,6vw,96px); padding:0;
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line); border-left:1px solid var(--line);
+}
+.svc-list__item{
+  border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+  padding:1.1rem 1.3rem; font-size:.95rem; color:var(--ink);
+}
+.svc-list__item::before{ content:"\2014"; color:var(--accent); margin-right:.6rem; }
+@media (max-width:860px){ .svc-list{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:560px){ .svc-list{ grid-template-columns:1fr; } }
 
 /* =====================================================================
    EQUIPA

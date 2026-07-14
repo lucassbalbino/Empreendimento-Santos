@@ -20,8 +20,8 @@ const grupoLabel = {
 
 const concluido = proj.grupo === 'concluido';
 const brandParagraph = concluido
-  ? `Entregue pela AMS Santos, o ${proj.nome} reflete o nosso compromisso com materiais nobres, execução rigorosa e uma atenção ao detalhe que se sente em cada espaço.`
-  : `Como em todos os empreendimentos AMS Santos, o ${proj.nome} nasce de um compromisso com materiais nobres, execução rigorosa e uma atenção ao detalhe que se sente em cada espaço.`;
+  ? `Entregue pela AM Santos, o ${proj.nome} reflete a excelência que procuramos em cada projeto executado: uma arquitetura moderna e funcional, com um foco inabalável no bem-estar e na qualidade.`
+  : `Como em todos os empreendimentos AM Santos, o ${proj.nome} nasce de uma visão centrada no conforto, na qualidade e na sustentabilidade — com a eficiência energética a guiar cada decisão de projeto.`;
 const ctaLabel = concluido ? 'Falar connosco' : (proj.grupo === 'desenvolvimento' ? 'Agendar visita' : 'Saber mais');
 
 const relacionados = todos.filter((p) => p.grupo === proj.grupo && p.slug !== proj.slug).slice(0, 3);

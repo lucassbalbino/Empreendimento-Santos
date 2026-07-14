@@ -5,53 +5,45 @@
   },
   "quemSomos": {
     "eyebrow": "Quem Somos",
-    "title": "Construímos para viver, investir e permanecer",
+    "title": "Construindo o futuro com qualidade e sustentabilidade",
     "paragrafos": [
-      "A AMS Santos é uma promotora e construtora com raízes em Lisboa. Há mais de três décadas que projetamos e edificamos empreendimentos residenciais e de serviços — do primeiro traço à entrega da chave.",
-      "Trabalhamos com rigor técnico e sentido estético: materiais nobres, execução cuidada e um compromisso firme com prazos e qualidade. Cada obra é pensada para durar e para valorizar quem nela vive."
+      "Com 20 anos de experiência no mercado imobiliário, a AM Santos destaca-se pela excelência em cada um dos projetos executados. Sob a liderança de António M Santos, a empresa reúne uma equipa de profissionais de arquitetura, engenharia, decoração e gestão imobiliária de alto nível.",
+      "Desde o seu início, a nossa visão é proporcionar conforto e qualidade a quem confia em nós, através de projetos que combinam uma arquitetura moderna e funcional com um foco inabalável no bem-estar e na qualidade."
     ],
     "botao": "Sobre nós"
   },
   "oQueFazemos": {
     "eyebrow": "O que fazemos",
-    "title": "Projetar — Construir — Entregar",
+    "title": "Qualidade — Conforto — Sustentabilidade",
     "stats": [
       {
-        "target": 35,
+        "target": 20,
         "prefix": "",
         "suffix": "",
         "label": "anos de experiência"
       },
       {
-        "target": 120,
-        "prefix": "",
-        "suffix": "",
-        "label": "obras concluídas"
+        "value": "Arquitetura",
+        "label": "conceito e projeto"
       },
       {
-        "target": 2400,
-        "prefix": "",
-        "suffix": "",
-        "label": "fogos entregues"
+        "value": "Engenharia",
+        "label": "execução em obra"
       },
       {
-        "target": 350,
-        "prefix": "+",
-        "suffix": "",
-        "label": "clientes satisfeitos"
+        "value": "Decoração",
+        "label": "interiores e acabamentos"
       },
       {
-        "target": 900,
-        "prefix": "",
-        "suffix": "K",
-        "label": "m² construídos"
+        "value": "Gestão",
+        "label": "imobiliária"
       }
     ]
   },
   "portfolio": {
     "eyebrow": "Portfolio",
     "title": "Empreendimentos em destaque",
-    "lead": "Projetos residenciais e de serviços em comercialização",
+    "lead": "Vários projetos em pipeline, na vanguarda da inovação arquitetónica",
     "botao": "Ver portfólio",
     "cards": [
       {
@@ -83,7 +75,7 @@
   },
   "trackRecord": {
     "eyebrow": "Histórico",
-    "title": "Obras que falam por nós",
+    "title": "Excelência em cada projeto executado",
     "lead": "Uma seleção de empreendimentos concluídos e entregues",
     "botao": "Ver histórico",
     "cards": [
@@ -111,17 +103,17 @@
   },
   "equipa": {
     "eyebrow": "Equipa",
-    "title": "Pessoas que constroem com rigor e visão",
+    "title": "Profissionais de alto nível, sob a mesma visão",
     "members": [
       {
-        "role": "Fundação · Direção-Geral",
-        "name": "António Machado Santos",
-        "bio": "Fundou a AMS Santos em 1990 e lidera a estratégia do grupo. Mais de três décadas dedicadas à promoção imobiliária e à construção em Portugal."
+        "role": "Liderança · Direção-Geral",
+        "name": "António M Santos",
+        "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário."
       },
       {
         "role": "Arquitetura · Projeto",
         "name": "Marta Sousa",
-        "bio": "Responsável pelo departamento de projeto, coordena o desenho de cada empreendimento, do conceito à compatibilização técnica com a obra."
+        "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra."
       }
     ]
   },

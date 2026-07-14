@@ -15,7 +15,7 @@
         { "rotulo": "Tipologias", "valor": "T1 a T3" },
         { "rotulo": "Frações", "valor": "24" },
         { "rotulo": "Área bruta", "valor": "3 200 m²" },
-        { "rotulo": "Estacionamento", "valor": "Box privativa" },
+        { "rotulo": "Arquiteto", "valor": "Box privativa" },
         { "rotulo": "Estado", "valor": "Em comercialização" }
       ]
     },
@@ -34,7 +34,7 @@
         { "rotulo": "Tipologias", "valor": "T2 e T3" },
         { "rotulo": "Frações", "valor": "40" },
         { "rotulo": "Área bruta", "valor": "5 400 m²" },
-        { "rotulo": "Estacionamento", "valor": "1 a 2 lugares" },
+        { "rotulo": "Arquiteto", "valor": "1 a 2 lugares" },
         { "rotulo": "Estado", "valor": "Em construção" }
       ]
     },
@@ -53,7 +53,7 @@
         { "rotulo": "Tipologias", "valor": "T2 a T4" },
         { "rotulo": "Frações", "valor": "32" },
         { "rotulo": "Área bruta", "valor": "6 100 m²" },
-        { "rotulo": "Estacionamento", "valor": "Até 2 lugares" },
+        { "rotulo": "Arquiteto", "valor": "Até 2 lugares" },
         { "rotulo": "Estado", "valor": "Em comercialização" }
       ]
     },

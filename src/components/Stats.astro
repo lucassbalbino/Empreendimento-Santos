@@ -4,7 +4,9 @@ const { items } = Astro.props;
 <div class="stats">
   {items.map((s) => (
     <div class="stat">
-      <div class="stat__num" data-target={s.target} data-prefix={s.prefix} data-suffix={s.suffix}>0</div>
+      {s.target != null
+        ? <div class="stat__num" data-target={s.target} data-prefix={s.prefix} data-suffix={s.suffix}>0</div>
+        : <div class="stat__num stat__num--word">{s.value}</div>}
       <div class="stat__label">{s.label}</div>
     </div>
   ))}

@@ -39,13 +39,36 @@ analisadas e futuras referências de sites ficam em `referencias/sites/LINKS.md`
 
 ## 3. Convenções de placeholder
 
+> ⚠️ **Já não é tudo placeholder.** O conteúdo textual sobre as **empresas**
+> (AM Santos e SF Properties) vem agora dos documentos do cliente — ver
+> [`referencias/documentos/TRANSCRICAO-empresas.md`](referencias/documentos/TRANSCRICAO-empresas.md),
+> que transcreve as duas imagens e regista os factos e os conflitos resolvidos.
+> **Não reintroduzir** dados que não constem desse documento (ano de fundação,
+> nº de obras/fogos/m², nº de clientes). Nomes de empreendimentos, pessoas
+> (exceto António M Santos), moradas, e-mail e telefone continuam placeholder.
+
 | Elemento        | Placeholder usado                          |
 |-----------------|--------------------------------------------|
 | Logo            | texto **"Logo"**                           |
 | Imagens         | caixa hachurada com rótulo **"Imagem"**    |
-| Textos          | **Lorem ipsum**                            |
+| Textos          | **Lorem ipsum** (exceto textos das empresas — ver acima) |
 | Itens de menu   | **Menu 01 … Menu 06**                      |
 | Números/stats   | animam de 0 até um alvo (`data-target`)    |
+
+### 3.1 Marca e factos assentes (dos documentos)
+
+| Facto | Valor |
+|---|---|
+| Marca | **AM Santos** (não "AMS Santos") |
+| Tagline | Construindo o futuro com qualidade e sustentabilidade |
+| Experiência | **20 anos** no mercado imobiliário (sem ano de fundação) |
+| Liderança | **António M Santos** |
+| Pilares | qualidade · conforto · sustentabilidade · eficiência energética |
+| SF Properties | "Estabelecer o padrão de excelência no sector imobiliário" — serviço completo sob o mesmo teto |
+
+> **CSS:** o site Astro usa **`public/styles.css`** e **`public/main.js`**.
+> O `styles.css` / `main.js` na raiz pertencem ao mockup HTML legado
+> (`index.html`, `portfolio.html`, `sobre-nos.html`) e **não** afetam o site.
 
 ## 4. Estrutura de arquivos
 

@@ -1,11 +1,11 @@
 {
-  "brand": { "name": "AMS", "suffix": "Santos" },
+  "brand": { "name": "AM", "suffix": "Santos" },
   "footer": {
-    "blurb": "Promoção imobiliária e construção civil. Concebemos, construímos e entregamos espaços feitos para durar.",
+    "blurb": "Construindo o futuro com qualidade e sustentabilidade. Arquitetura moderna e funcional, com um foco inabalável no bem-estar de quem habita.",
     "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisboa\nPortugal",
-    "email": "geral@amssantos.pt",
+    "email": "geral@amsantos.pt",
     "telefone": "+351 210 000 000",
-    "copyright": "© 2026 AMS Santos — Todos os direitos reservados",
-    "assinatura": "Promoção · Construção · Reabilitação"
+    "copyright": "© 2026 AM Santos — Todos os direitos reservados",
+    "assinatura": "Qualidade · Conforto · Sustentabilidade"
   }
 }

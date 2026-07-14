@@ -2,38 +2,38 @@
   "hero": { "eyebrow": "Quem somos", "title": "Sobre Nós" },
   "quemSomos": {
     "eyebrow": "A empresa",
-    "title": "Uma promotora com raízes e visão de longo prazo",
-    "lead": "Há mais de 35 anos a projetar, construir e entregar empreendimentos que resistem ao tempo.",
-    "paragrafo": "Nascida em Lisboa em 1990, a AMS Santos cresceu obra a obra, mantendo sempre a mesma exigência: rigor técnico, materiais nobres e uma relação próxima com quem confia em nós. Hoje reunimos promoção, construção e reabilitação sob o mesmo teto."
+    "title": "Construindo o futuro com qualidade e sustentabilidade",
+    "lead": "Com 20 anos de experiência no mercado imobiliário, a AM Santos destaca-se pela excelência em cada um dos projetos executados.",
+    "paragrafo": "Sob a liderança de António M Santos, a empresa reúne uma equipa de profissionais de arquitetura, engenharia, decoração e gestão imobiliária de alto nível. Desde o seu início, a nossa visão é proporcionar conforto e qualidade aos nossos clientes, através de projetos que combinam uma arquitetura moderna e funcional com um foco inabalável no bem-estar e na qualidade."
   },
   "oQueFazemos": {
     "eyebrow": "Como trabalhamos",
-    "title": "Do primeiro traço\nà entrega da chave",
+    "title": "Do conceito\nà entrega da chave",
     "verticais": [
-      { "n": "01", "title": "Promoção", "texto": "Identificamos oportunidades, estruturamos o investimento e concebemos empreendimentos com valor duradouro para quem compra e para quem habita." },
-      { "n": "02", "title": "Construção", "texto": "Executamos com equipas próprias e parceiros de confiança, garantindo controlo de qualidade, cumprimento de prazos e segurança em cada fase da obra." },
-      { "n": "03", "title": "Reabilitação", "texto": "Devolvemos vida a edifícios com história, conciliando o respeito pelo existente com o conforto e a eficiência de uma construção atual." }
+      { "n": "01", "title": "Qualidade", "texto": "A excelência em cada projeto executado é o que nos distingue. Uma equipa de alto nível em arquitetura, engenharia, decoração e gestão imobiliária acompanha cada fase, do primeiro traço ao último acabamento." },
+      { "n": "02", "title": "Conforto", "texto": "Projetamos para quem lá vai viver. Arquitetura moderna e funcional, com um foco inabalável no bem-estar — e o máximo conforto climático em cada residência concebida." },
+      { "n": "03", "title": "Sustentabilidade", "texto": "Uma abordagem eco-friendly, com materiais sustentáveis que aliam conforto, bem-estar e arquitetura moderna, reduzindo os custos de manutenção ao longo da vida do edifício." }
     ]
   },
   "servicos": {
-    "eyebrow": "Serviços",
-    "title": "O que oferecemos",
+    "eyebrow": "Visão",
+    "title": "O que nos move",
     "items": [
-      { "title": "Promoção imobiliária", "texto": "Da aquisição do terreno ao licenciamento e à comercialização, acompanhamos todo o ciclo do empreendimento com transparência e método.", "botao": "Ver empreendimentos" },
-      { "title": "Construção e reabilitação", "texto": "Construímos de raiz e reabilitamos, com um compromisso claro com a qualidade da execução, os prazos e o orçamento acordado.", "botao": "Falar connosco" }
+      { "title": "Na vanguarda da inovação arquitetónica", "texto": "Com vários projetos em pipeline, mantemo-nos na vanguarda da inovação arquitetónica, priorizando a qualidade, o conforto e a eficiência energética para garantir a satisfação dos nossos clientes.", "botao": "Ver empreendimentos" },
+      { "title": "Uma abordagem eco-friendly", "texto": "O nosso mais recente projeto foi concebido com materiais sustentáveis, para aliar conforto, bem-estar e arquitetura moderna — reduzindo os custos de manutenção e garantindo o máximo conforto climático.", "botao": "Falar connosco" }
     ]
   },
   "equipa": {
     "eyebrow": "Direção",
-    "title": "Quem lidera a AMS Santos",
+    "title": "Quem lidera a AM Santos",
     "members": [
-      { "role": "Fundação · Direção-Geral", "name": "António Machado Santos", "bio": "Fundou a AMS Santos em 1990 e lidera a estratégia do grupo. Mais de três décadas dedicadas à promoção imobiliária e à construção em Portugal." },
-      { "role": "Arquitetura · Projeto", "name": "Marta Sousa", "bio": "Responsável pelo departamento de projeto, coordena o desenho de cada empreendimento, do conceito à compatibilização técnica com a obra." }
+      { "role": "Liderança · Direção-Geral", "name": "António M Santos", "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário." },
+      { "role": "Arquitetura · Projeto", "name": "Marta Sousa", "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra." }
     ]
   },
   "contacto": {
     "eyebrow": "Contactos",
     "title": "Vamos falar do seu projeto",
-    "texto": "Quer conhecer um empreendimento ou discutir uma parceria? A nossa equipa responde com brevidade."
+    "texto": "A visão da AM Santos, centrada no conforto, qualidade e sustentabilidade, guiará os próximos projetos. Fale connosco."
   }
 }

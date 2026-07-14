@@ -3,7 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 const {
   title,
-  description = 'AMS Santos — promoção imobiliária e construção civil em Lisboa. Concebemos, construímos e entregamos empreendimentos feitos para durar.',
+  description = 'AM Santos — construindo o futuro com qualidade e sustentabilidade. 20 anos de experiência no mercado imobiliário, com arquitetura moderna e funcional.',
   image = '/images/hero-image.webp',
   palette,
 } = Astro.props;
@@ -18,7 +18,7 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
   <title>{title}</title>
   <meta name="description" content={description}>
 
-  <!-- Favicon (marca AMS Santos) -->
+  <!-- Favicon (marca AM Santos) -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,7 +26,7 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
 
   <!-- Open Graph / partilha em redes sociais -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="AMS Santos">
+  <meta property="og:site_name" content="AM Santos">
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
   <meta property="og:image" content={image}>

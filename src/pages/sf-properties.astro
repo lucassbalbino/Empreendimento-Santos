@@ -4,7 +4,7 @@ import BlockHead from '../components/BlockHead.astro';
 import ContactForm from '../components/ContactForm.astro';
 import sf from '../data/sf-properties.json';
 ---
-<Base title="Mockup — SF Properties" description="SF Properties — a mediação imobiliária do grupo AMS Santos. Compra, venda, investimento e arrendamento na Grande Lisboa.">
+<Base title="Mockup — SF Properties" description="SF Properties — estabelecer o padrão de excelência no sector imobiliário. Um conjunto completo de serviços sob o mesmo teto, do investimento à gestão de propriedades.">
   <!-- HERO (interno) -->
   <section class="hero" style="min-height:80vh">
     <div class="hero__bg"></div>
@@ -38,6 +38,10 @@ import sf from '../data/sf-properties.json';
     <div class="container">
       <span class="eyebrow">{sf.servicos.eyebrow}</span>
       <h2 class="display display--sm" style="margin-bottom:clamp(40px,5vw,72px)">{sf.servicos.title}</h2>
+      <span class="eyebrow">{sf.servicos.gamaTitle}</span>
+      <ul class="svc-list">
+        {sf.servicos.gama.map((g) => (<li class="svc-list__item">{g}</li>))}
+      </ul>
       {sf.servicos.items.map((s) => (
         <div class="service">
           <div class="service__media"><div class="ph" data-label="Imagem 5:4"></div></div>

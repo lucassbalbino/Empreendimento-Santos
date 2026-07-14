@@ -4,19 +4,19 @@
     "eyebrow": "Direção",
     "title": "Quem lidera o grupo",
     "members": [
-      { "role": "Fundação · Direção-Geral", "name": "António Machado Santos", "bio": "Fundou a AMS Santos em 1990 e lidera a estratégia do grupo. Mais de três décadas dedicadas à promoção imobiliária e à construção em Portugal." },
-      { "role": "Arquitetura · Projeto", "name": "Marta Sousa", "bio": "Responsável pelo departamento de projeto, coordena o desenho de cada empreendimento, do conceito à compatibilização técnica com a obra." }
+      { "role": "Liderança · Direção-Geral", "name": "António M Santos", "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário." },
+      { "role": "Arquitetura · Projeto", "name": "Marta Sousa", "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra." }
     ]
   },
   "equipa": {
     "eyebrow": "Equipa técnica",
     "title": "Quem constrói, todos os dias",
     "members": [
-      { "role": "Engenharia · Obra", "name": "Ricardo Nunes", "bio": "Diretor de obra, coordena a execução e o controlo de qualidade nos estaleiros do grupo." },
-      { "role": "Arquitetura · Projeto", "name": "Inês Carvalho", "bio": "Desenvolve os projetos de arquitetura, do conceito à compatibilização com as especialidades." },
-      { "role": "Comercial · Vendas", "name": "Pedro Almeida", "bio": "Acompanha clientes e investidores na escolha e aquisição de cada empreendimento." },
-      { "role": "Financeiro · Investimento", "name": "Sofia Mendes", "bio": "Responsável pela estruturação financeira e pelo controlo de gestão dos projetos." },
-      { "role": "Licenciamento · Urbanismo", "name": "João Ferreira", "bio": "Trata do licenciamento e da relação com as entidades ao longo de cada operação." },
+      { "role": "Engenharia · Obra", "name": "Ricardo Nunes", "bio": "Diretor de obra, coordena a execução e o controlo de qualidade que sustentam a excelência de cada projeto executado." },
+      { "role": "Arquitetura · Projeto", "name": "Inês Carvalho", "bio": "Desenvolve os projetos de arquitetura, conciliando desenho moderno e funcional com o conforto de quem vai habitar o espaço." },
+      { "role": "Decoração · Interiores", "name": "Pedro Almeida", "bio": "Trabalha os interiores e os acabamentos, para que cada residência traduza o conforto e a qualidade que definem a empresa." },
+      { "role": "Gestão imobiliária", "name": "Sofia Mendes", "bio": "Responsável pela gestão imobiliária e pelo acompanhamento dos projetos em pipeline, do estudo à comercialização." },
+      { "role": "Sustentabilidade · Eficiência", "name": "João Ferreira", "bio": "Conduz a abordagem eco-friendly: seleção de materiais sustentáveis, eficiência energética e conforto climático das residências." },
       { "role": "Qualidade · Segurança", "name": "Ana Rocha", "bio": "Garante o cumprimento das normas de qualidade e segurança em todas as fases da obra." }
     ]
   },
@@ -24,9 +24,9 @@
     {
       "title": "SF Properties",
       "members": [
-        { "role": "Direção · Mediação", "name": "Filipe Santos", "bio": "Lidera a mediação imobiliária do grupo, com foco no acompanhamento próximo de cada cliente." },
-        { "role": "Consultoria · Vendas", "name": "Carla Dias", "bio": "Consultora imobiliária, especialista em empreendimentos residenciais na Grande Lisboa." },
-        { "role": "Marketing · Comunicação", "name": "Tiago Lopes", "bio": "Responsável pela comunicação e divulgação dos empreendimentos em comercialização." }
+        { "role": "Direção · Mediação", "name": "Filipe Santos", "bio": "Lidera a SF Properties para além do papel tradicional de uma agência: um conjunto completo de serviços sob o mesmo teto, com apoio inabalável a cada cliente." },
+        { "role": "Consultoria · Vendas", "name": "Carla Dias", "bio": "Desenvolve ligações profundas com cada cliente para compreender preferências, aspirações e objetivos — e selecionar as propriedades que lhes correspondem." },
+        { "role": "Investimento · Aconselhamento", "name": "Tiago Lopes", "bio": "Acompanha o percurso imobiliário no que toca a investimento, financiamento e aconselhamento jurídico e fiscal." }
       ]
     },
     {

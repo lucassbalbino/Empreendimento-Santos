@@ -2,17 +2,29 @@
   "hero": { "eyebrow": "Mediação imobiliária", "title": "SF Properties" },
   "sobre": {
     "eyebrow": "A marca",
-    "title": "A mediação imobiliária do grupo AMS Santos",
-    "lead": "A SF Properties acompanha quem procura casa ou investimento, com o rigor e a confiança que definem o grupo.",
-    "paragrafo": "Especializada em empreendimentos residenciais na Grande Lisboa, a SF Properties faz a ponte entre os projetos que construímos e as famílias e investidores que neles apostam — do primeiro contacto à escritura.",
+    "title": "Estabelecer o padrão de excelência no sector imobiliário",
+    "lead": "A nossa visão é estabelecermo-nos como uma empresa de referência no mercado imobiliário, reconhecida pelo nosso desempenho excecional e pelo apoio inabalável a cada um dos nossos clientes.",
+    "paragrafo": "Vamos para além do papel tradicional de uma agência imobiliária, oferecendo uma gama abrangente de serviços que cobrem todos os aspectos do percurso imobiliário. A nossa abordagem baseia-se na construção de relações fortes, na promoção da empatia e na prestação de serviços personalizados, adaptados para satisfazer as necessidades únicas de cada cliente.",
     "botao": "Falar com a equipa"
   },
   "servicos": {
     "eyebrow": "Serviços",
-    "title": "Como ajudamos",
+    "title": "Um conjunto completo, sob o mesmo teto",
+    "gamaTitle": "A gama completa",
+    "gama": [
+      "Aquisição de propriedades",
+      "Investimentos",
+      "Financiamento",
+      "Aconselhamento jurídico e fiscal",
+      "Assistência à mudança",
+      "Serviços de concierge",
+      "Design arquitetónico",
+      "Decoração de interiores",
+      "Gestão de propriedades"
+    ],
     "items": [
-      { "title": "Compra e venda", "texto": "Aconselhamos na compra e na venda de imóveis, com avaliação criteriosa e acompanhamento em todas as etapas do processo.", "botao": "Saber mais" },
-      { "title": "Investimento e arrendamento", "texto": "Apoiamos investidores na seleção de ativos e na gestão de arrendamento, com uma leitura atenta do mercado.", "botao": "Saber mais" }
+      { "title": "Ligações profundas com cada cliente", "texto": "Na nossa essência, damos prioridade ao desenvolvimento de ligações profundas com os nossos clientes, para compreender as suas preferências, aspirações e objetivos. É isso que nos permite selecionar meticulosamente propriedades que se alinham com os seus requisitos.", "botao": "Saber mais" },
+      { "title": "Oportunidades para proprietários e compradores", "texto": "Essa seleção criteriosa cria uma multiplicidade de oportunidades de negócio tanto para os proprietários como para os compradores. Com o compromisso de prestar um serviço inigualável, dedicamo-nos a superar as expectativas e a criar parcerias duradouras.", "botao": "Saber mais" }
     ]
   },
   "projetos": {
@@ -27,6 +39,6 @@
   "contacto": {
     "eyebrow": "Contactos",
     "title": "Procura casa ou investimento?",
-    "texto": "Fale com a equipa da SF Properties. Ajudamos a encontrar o imóvel certo para si."
+    "texto": "Fale com a equipa da SF Properties. Dedicamo-nos a superar as expectativas e a criar parcerias duradouras no sector imobiliário."
   }
 }
