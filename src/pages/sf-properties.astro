@@ -1,8 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
 import BlockHead from '../components/BlockHead.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 import sf from '../data/sf-properties.json';
+import { todos } from '../utils/projetos.js';
+
+// A SF Properties faz a mediação dos residenciais do grupo que ainda não estão concluídos.
+const residenciais = todos
+  .filter((p) => p.grupo !== 'concluido' && !p.tipologia.startsWith('Armazéns') && !p.tipologia.startsWith('Hotel'))
+  .sort((a, b) => a.ano - b.ano);
 ---
 <Base title="Mockup — SF Properties" description="SF Properties — estabelecer o padrão de excelência no sector imobiliário. Um conjunto completo de serviços sob o mesmo teto, do investimento à gestão de propriedades.">
   <!-- HERO (interno) -->
@@ -60,18 +67,7 @@ import sf from '../data/sf-properties.json';
     <div class="container">
       <BlockHead eyebrow={sf.projetos.eyebrow} title={sf.projetos.title} lead={sf.projetos.lead} />
       <div class="grid-projects">
-        {sf.projetos.items.map((p) => (
-          <article class="card">
-            <div class="card__media">
-              <div class="ph"></div>
-              <div class="card__overlay">
-                <h3 class="card__title">{p.nome}</h3>
-                <div class="card__meta">{p.localizacao} · {p.tipologia}</div>
-                {p.cta && <span class="card__cta">{p.cta}</span>}
-              </div>
-            </div>
-          </article>
-        ))}
+        {residenciais.map((p) => (<ProjectCard proj={p} />))}
       </div>
     </div>
   </section>

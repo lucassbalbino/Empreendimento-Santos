@@ -262,6 +262,7 @@ body.is-home .section{ scroll-snap-align: start; }
    ===================================================================== */
 .split{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px,5vw,80px); align-items:center; }
 .split__media .ph{ aspect-ratio:4/5; width:100%; }
+.split__img{ aspect-ratio:4/5; width:100%; height:auto; object-fit:cover; display:block; }
 .split__body .display{ margin:.4rem 0 1.6rem; }
 .split__body p{ color:var(--ink-soft); max-width:46ch; margin-bottom:1.2rem; }
 .split--reverse .split__media{ order:2; }
@@ -323,13 +324,31 @@ body.is-home .section{ scroll-snap-align: start; }
 .card__media{ position:relative; aspect-ratio:3/4; overflow:hidden; }
 .card__media .ph{ position:absolute; inset:0; width:100%; height:100%; transition:transform .7s var(--ease); }
 .card:hover .card__media .ph{ transform:scale(1.05); }
+.card__img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
+.card:hover .card__img{ transform:scale(1.05); }
+/* Selo para imagens que ainda não retratam o empreendimento (imagemReal:false). */
+.img-prov{
+  position:absolute; top:.7rem; left:.7rem; z-index:2;
+  background:rgba(0,0,0,.6); color:#fff;
+  font-size:.56rem; letter-spacing:.16em; text-transform:uppercase; font-weight:600;
+  padding:.32rem .5rem;
+}
+/* No hero fica em baixo à direita, longe do título e do botão de voltar. */
+.img-prov--hero{
+  top:auto; left:auto; right:var(--gutter); bottom:1.4rem;
+  background:rgba(0,0,0,.5); backdrop-filter:blur(4px);
+}
+/* Scrim alto e em três paragens: com fotos reais por baixo, um título de duas
+   linhas subia para a zona transparente e ficava ilegível sobre céu claro. */
 .card__overlay{
-  position:absolute; inset:auto 0 0 0; z-index:2; padding:1.4rem;
-  background:linear-gradient(180deg,transparent,rgba(0,0,0,.78));
+  position:absolute; inset:auto 0 0 0; z-index:2; padding:3.4rem 1.4rem 1.4rem;
+  background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.5) 42%, rgba(0,0,0,.85) 100%);
   color:#fff;
 }
-.card__title{ font-family:var(--serif); font-weight:400; font-size:1.5rem; line-height:1.1; }
-.card__meta{ font-size:.76rem; letter-spacing:.1em; opacity:.85; margin-top:.4rem; }
+/* text-shadow além do scrim: as fotos variam muito (céu claro, campo, interiores)
+   e o gradiente sozinho não garante contraste em títulos/meta de duas linhas. */
+.card__title{ font-family:var(--serif); font-weight:400; font-size:1.5rem; line-height:1.1; text-shadow:0 1px 12px rgba(0,0,0,.55); }
+.card__meta{ font-size:.76rem; letter-spacing:.1em; opacity:.92; margin-top:.4rem; text-shadow:0 1px 10px rgba(0,0,0,.6); }
 .card__cta{ margin-top:1rem; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; font-weight:600; color:var(--accent-dk); display:inline-flex; gap:.5rem; }
 .card__cta::after{ content:"\2192"; }
 
@@ -556,7 +575,7 @@ html.reveal-ready :is(
   box-shadow:0 20px 44px -20px rgba(0,0,0,.5);
 }
 .card__overlay{ transition:background .4s var(--ease); }
-.card:hover .card__overlay{ background:linear-gradient(180deg,transparent,rgba(0,0,0,.88)); }
+.card:hover .card__overlay{ background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.62) 42%, rgba(0,0,0,.92) 100%); }
 .card__cta{ transition:gap .3s var(--ease); }
 .card:hover .card__cta{ gap:.9rem; }
 
@@ -659,6 +678,7 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   gap:clamp(10px,1.4vw,18px); margin-top:2.5rem;
 }
 .gallery .ph{ aspect-ratio:4/3; }
+.gallery__img{ aspect-ratio:4/3; width:100%; height:100%; object-fit:cover; display:block; }
 
 /* =====================================================================
    RESPONSIVO

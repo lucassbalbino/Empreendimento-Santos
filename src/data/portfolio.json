@@ -1,27 +1,15 @@
 {
+  "_nota": "Só textos da página. As listas de projetos vêm de empreendimentos.json (grupos 'desenvolvimento' e 'futuro').",
   "hero": { "eyebrow": "Empreendimentos", "title": "Portfólio" },
   "emDesenvolvimento": {
     "eyebrow": "Em desenvolvimento",
     "title": "Projetos em desenvolvimento",
-    "lead": "Empreendimentos em construção ou comercialização",
-    "projetos": [
-      { "nome": "Santos", "localizacao": "Lisboa · Santos", "tipologia": "T1 a T3 / 24 un.", "cta": "Ver empreendimento" },
-      { "nome": "Santa Iria", "localizacao": "Loures", "tipologia": "T2 e T3 / 40 un.", "cta": "Ver empreendimento" },
-      { "nome": "Miraflores", "localizacao": "Algés", "tipologia": "T2 a T4 / 32 un.", "cta": "Ver empreendimento" },
-      { "nome": "Alto do Parque", "localizacao": "Oeiras", "tipologia": "Moradias / 8 un.", "cta": "Ver empreendimento" },
-      { "nome": "Ribeira Offices", "localizacao": "Lisboa", "tipologia": "Escritórios / 1.200 m²", "cta": "Ver empreendimento" }
-    ]
+    "lead": "Empreendimentos em construção, em comercialização ou destinados a arrendamento"
   },
   "futuros": {
     "eyebrow": "Próximos",
     "title": "Projetos futuros",
-    "lead": "Empreendimentos em estudo e licenciamento",
-    "projetos": [
-      { "nome": "Jardins da Encosta", "localizacao": "Sintra", "tipologia": "T1 a T3 · Previsão 2027", "cta": "Saber mais" },
-      { "nome": "Marina Plaza", "localizacao": "Oeiras", "tipologia": "T2 a T4 · Previsão 2027", "cta": "Saber mais" },
-      { "nome": "Quinta Nova", "localizacao": "Cascais", "tipologia": "Moradias · Previsão 2028", "cta": "Saber mais" },
-      { "nome": "Foz Living", "localizacao": "Porto", "tipologia": "T1 a T3 · Previsão 2028", "cta": "Saber mais" }
-    ]
+    "lead": "Vários projetos em pipeline, na vanguarda da inovação arquitetónica"
   },
   "contacto": {
     "eyebrow": "Contactos",

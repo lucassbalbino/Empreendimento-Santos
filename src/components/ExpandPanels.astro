@@ -1,15 +1,14 @@
 ---
-import { slugify } from '../utils/slug.js';
-const { cards } = Astro.props;
+const { projetos } = Astro.props;
 ---
 <div class="panels">
-  {cards.map((c, i) => (
-    <a class={i === 0 ? "panel is-active" : "panel"} href={c.href ?? `/empreendimentos/${slugify(c.title)}`}>
-      <img class="panel__bg" src="/images/hero-image.webp" alt="" loading="lazy" />
-      <span class="panel__label">{c.title}</span>
+  {projetos.map((p, i) => (
+    <a class={i === 0 ? "panel is-active" : "panel"} href={`/empreendimentos/${p.slug}`}>
+      <img class="panel__bg" src={p.imagem ?? '/images/hero-image.webp'} alt="" loading="lazy" />
+      <span class="panel__label">{p.nome}</span>
       <div class="panel__content">
-        <h3 class="panel__title">{c.title}</h3>
-        <div class="panel__meta">{c.meta}</div>
+        <h3 class="panel__title">{p.nome}</h3>
+        <div class="panel__meta">{p.localizacao} · {p.entrega}</div>
       </div>
     </a>
   ))}

@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ContactForm from '../../components/ContactForm.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
 import data from '../../data/empreendimentos.json';
 
 export function getStaticPaths() {
@@ -12,19 +13,22 @@ export function getStaticPaths() {
 
 const { proj, todos } = Astro.props;
 
-const grupoLabel = {
-  desenvolvimento: 'Em desenvolvimento',
-  futuro: 'Projeto futuro',
-  concluido: 'Concluído',
-}[proj.grupo];
+// O grupo define onde o projeto é listado (um projeto vendido vai para o
+// histórico ainda que a obra decorra), por isso os textos abaixo derivam de
+// proj.estado — a obra em si — e nunca do grupo.
+const grupoLabel = proj.estado;
 
-const concluido = proj.grupo === 'concluido';
+const concluido = proj.estado === 'Concluído';
 const brandParagraph = concluido
   ? `Entregue pela AM Santos, o ${proj.nome} reflete a excelência que procuramos em cada projeto executado: uma arquitetura moderna e funcional, com um foco inabalável no bem-estar e na qualidade.`
   : `Como em todos os empreendimentos AM Santos, o ${proj.nome} nasce de uma visão centrada no conforto, na qualidade e na sustentabilidade — com a eficiência energética a guiar cada decisão de projeto.`;
-const ctaLabel = concluido ? 'Falar connosco' : (proj.grupo === 'desenvolvimento' ? 'Agendar visita' : 'Saber mais');
+const ctaLabel = concluido ? 'Falar connosco' : (proj.estado === 'Em construção' ? 'Agendar visita' : 'Saber mais');
 
 const relacionados = todos.filter((p) => p.grupo === proj.grupo && p.slug !== proj.slug).slice(0, 3);
+
+// Galeria: imagem principal + galeria própria. Só o Valflores Terraces e o CLT
+// têm fotos reais; nos restantes a imagem é provisória (ver imagemReal).
+const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
 ---
 <Base
   title={`Empreendimento — ${proj.nome}`}
@@ -32,8 +36,12 @@ const relacionados = todos.filter((p) => p.grupo === proj.grupo && p.slug !== pr
 >
   <!-- HERO -->
   <section class="hero emp-hero" style="min-height:80vh">
-    <div class="hero__bg"></div>
+    <div
+      class={proj.imagem ? 'hero__bg hero__bg--img' : 'hero__bg'}
+      style={proj.imagem ? `background-image:url(${proj.imagem})` : undefined}
+    ></div>
     <div class="hero__overlay"></div>
+    {proj.imagem && !proj.imagemReal && <span class="img-prov img-prov--hero">Imagem provisória</span>}
     <div class="hero__inner">
       <div class="container">
         <a class="emp-back" href="/portfolio">← Empreendimentos</a>
@@ -58,7 +66,11 @@ const relacionados = todos.filter((p) => p.grupo === proj.grupo && p.slug !== pr
           <p>{brandParagraph}</p>
           <a class="btn" href="#contacto">{ctaLabel}</a>
         </div>
-        <div class="split__media"><div class="ph" data-label="Imagem 4:5"></div></div>
+        <div class="split__media">
+          {proj.galeria?.[0]
+            ? <img class="split__img" src={proj.galeria[0]} alt={proj.nome} loading="lazy" />
+            : <div class="ph" data-label="Imagem 4:5"></div>}
+        </div>
       </div>
     </div>
   </section>
@@ -79,18 +91,20 @@ const relacionados = todos.filter((p) => p.grupo === proj.grupo && p.slug !== pr
     </div>
   </section>
 
-  <!-- GALERIA -->
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">Galeria</span>
-      <h2 class="display display--sm">Imagens do empreendimento</h2>
-      <div class="gallery">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div class="ph" data-label={`Imagem ${i + 1}`}></div>
-        ))}
+  {proj.galeria?.length > 0 && (
+    <!-- GALERIA (só quando há mesmo imagens deste empreendimento) -->
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow">Galeria</span>
+        <h2 class="display display--sm">Imagens do empreendimento</h2>
+        <div class="gallery">
+          {galeria.map((src, i) => (
+            <img class="gallery__img" src={src} alt={`${proj.nome} — imagem ${i + 1}`} loading="lazy" />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <!-- LOCALIZAÇÃO -->
   <section class="section section--alt">
@@ -113,18 +127,7 @@ const relacionados = todos.filter((p) => p.grupo === proj.grupo && p.slug !== pr
         <span class="eyebrow">Outros empreendimentos</span>
         <h2 class="display display--sm">Continue a explorar</h2>
         <div class="grid-projects">
-          {relacionados.map((p) => (
-            <a class="card" href={`/empreendimentos/${p.slug}`}>
-              <div class="card__media">
-                <div class="ph"></div>
-                <div class="card__overlay">
-                  <h3 class="card__title">{p.nome}</h3>
-                  <div class="card__meta">{p.localizacao} · {p.tipologia}</div>
-                  <span class="card__cta">Ver empreendimento</span>
-                </div>
-              </div>
-            </a>
-          ))}
+          {relacionados.map((p) => (<ProjectCard proj={p} />))}
         </div>
       </div>
     </section>

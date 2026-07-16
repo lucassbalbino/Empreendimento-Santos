@@ -94,7 +94,7 @@
 - **Unidades:** 39 Apartamentos
 - **Tipologia:** T3 / T4 / T5
 - **Descrição:** Edifício com 39 apartamentos T3, T3 duplex, T4, T4 duplex e T5 premium, com amplas áreas interiores e exteriores e excelente vista sobre a paisagem. Os apartamentos dos pisos superiores têm piscina exterior ajardinada. Vista desafogada e amplas varandas com vista para o Rio Tejo. Acabamentos interiores elegantes e nobres, espaços confortáveis e contemporâneos, ricos em luz natural.
-- **Estado:** Em construção / Em desenvolvimento
+- **Estado:** Em construção 
 
 ## 13. CLT – Centro Logístico do Tojal
 - **Localização:** St. Antão do Tojal, Loures
@@ -102,7 +102,7 @@
 - **Unidades:** 27 Armazéns
 - **Área:** 36.000 m²
 - **Descrição:** Novos armazéns de arquitetura moderna, inseridos em complexo empresarial vedado, com um total de 36.000 m² de espaço industrial, localizado em Santo Antão do Tojal, Loures. Áreas de 1.000 m² por armazém, 10 m de pé-direito, instalações sanitárias, escritório de 100 m² em open space (mezanine) e casa de banho, docas de carga e descarga para camiões e estacionamento exterior.
-- **Estado:** Em projeto / Em construção
+- **Estado:** Em construção
 
 ## 14. Valflores Residence
 - **Localização:** Santa Iria de Azóia, Loures

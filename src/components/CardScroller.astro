@@ -1,18 +1,7 @@
 ---
-import { slugify } from '../utils/slug.js';
-const { cards, dark = false } = Astro.props;
+import ProjectCard from './ProjectCard.astro';
+const { projetos, dark = false } = Astro.props;
 ---
 <div class="scroller">
-  {cards.map((c) => (
-    <a class="card" href={c.href ?? `/empreendimentos/${slugify(c.title)}`}>
-      <div class="card__media">
-        <div class={dark ? "ph ph--dark" : "ph"}></div>
-        <div class="card__overlay">
-          <h3 class="card__title">{c.title}</h3>
-          <div class="card__meta">{c.meta}</div>
-          {c.cta && <span class="card__cta">{c.cta}</span>}
-        </div>
-      </div>
-    </a>
-  ))}
+  {projetos.map((p) => (<ProjectCard proj={p} dark={dark} />))}
 </div>

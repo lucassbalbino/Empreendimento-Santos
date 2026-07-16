@@ -30,11 +30,7 @@
   "projetos": {
     "eyebrow": "Em comercialização",
     "title": "Empreendimentos SF Properties",
-    "lead": "Uma seleção de imóveis disponíveis",
-    "items": [
-      { "nome": "Santos", "localizacao": "Lisboa · Santos", "tipologia": "T1 a T3 / 24 un.", "cta": "Ver empreendimento" },
-      { "nome": "Santa Iria", "localizacao": "Loures", "tipologia": "T2 e T3 / 40 un.", "cta": "Ver empreendimento" }
-    ]
+    "lead": "Uma seleção de imóveis residenciais do grupo AM Santos"
   },
   "contacto": {
     "eyebrow": "Contactos",

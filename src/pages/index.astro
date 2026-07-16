@@ -8,9 +8,14 @@ import BlockHead from '../components/BlockHead.astro';
 import Team from '../components/Team.astro';
 import ContactForm from '../components/ContactForm.astro';
 import home from '../data/home.json';
+import { porGrupo } from '../utils/projetos.js';
 
 // Mantém o <em> do meio do título "O Que Fazemos" como no mockup original.
 const fazemosTitle = home.oQueFazemos.title.replace(/—\s*(\S+)\s*—/, '— <em>$1</em> —');
+
+// Destaques derivados da fonte única — em desenvolvimento primeiro, concluídos no histórico.
+const destaques = porGrupo('desenvolvimento').slice(0, 5);
+const concluidos = porGrupo('concluido').slice(0, 5);
 ---
 <Base title="Mockup — Início" description="AM Santos — construindo o futuro com qualidade e sustentabilidade. 20 anos de experiência, com uma equipa de arquitetura, engenharia, decoração e gestão imobiliária.">
   <Hero title={home.hero.title} image={home.hero.imagem} />
@@ -45,7 +50,7 @@ const fazemosTitle = home.oQueFazemos.title.replace(/—\s*(\S+)\s*—/, '— <e
       <BlockHead eyebrow={home.portfolio.eyebrow} title={home.portfolio.title} lead={home.portfolio.lead} botao={home.portfolio.botao} href="/portfolio" />
     </div>
     <div class="container">
-      <CardScroller cards={home.portfolio.cards} />
+      <CardScroller projetos={destaques} />
     </div>
   </section>
 
@@ -55,7 +60,7 @@ const fazemosTitle = home.oQueFazemos.title.replace(/—\s*(\S+)\s*—/, '— <e
       <BlockHead eyebrow={home.trackRecord.eyebrow} title={home.trackRecord.title} lead={home.trackRecord.lead} botao={home.trackRecord.botao} href="/portfolio" />
     </div>
     <div class="container">
-      <ExpandPanels cards={home.trackRecord.cards} />
+      <ExpandPanels projetos={concluidos} />
     </div>
   </section>
 

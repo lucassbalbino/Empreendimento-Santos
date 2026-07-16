@@ -1,8 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
+import BlockHead from '../components/BlockHead.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 import historico from '../data/historico.json';
-import { slugify } from '../utils/slug.js';
+import { porGrupo } from '../utils/projetos.js';
+
+const concluidos = porGrupo('concluido');
 ---
 <Base title="Mockup — Histórico" description="O percurso da AM Santos: uma seleção de empreendimentos concluídos e entregues ao longo de 20 anos no mercado imobiliário.">
   <!-- HERO (interno) -->
@@ -20,19 +24,9 @@ import { slugify } from '../utils/slug.js';
   <!-- PROJETOS CONCLUÍDOS -->
   <section class="section">
     <div class="container">
+      <BlockHead eyebrow={historico.concluidos.eyebrow} title={historico.concluidos.title} lead={historico.concluidos.lead} />
       <div class="grid-projects">
-        {historico.projetos.map((p) => (
-          <a class="card" href={`/empreendimentos/${slugify(p.nome)}`}>
-            <div class="card__media">
-              <div class="ph"></div>
-              <div class="card__overlay">
-                <h3 class="card__title">{p.nome}</h3>
-                <div class="card__meta">{p.localizacao} · {p.tipologia}</div>
-                {p.cta && <span class="card__cta">{p.cta}</span>}
-              </div>
-            </div>
-          </a>
-        ))}
+        {concluidos.map((p) => (<ProjectCard proj={p} />))}
       </div>
     </div>
   </section>

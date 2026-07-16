@@ -1,11 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
 import BlockHead from '../components/BlockHead.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 import portfolio from '../data/portfolio.json';
-import { slugify } from '../utils/slug.js';
+import { porGrupo } from '../utils/projetos.js';
 
-const secoes = [portfolio.emDesenvolvimento, portfolio.futuros];
+const secoes = [
+  { ...portfolio.emDesenvolvimento, projetos: porGrupo('desenvolvimento') },
+  { ...portfolio.futuros, projetos: porGrupo('futuro') },
+];
 ---
 <Base title="Mockup — Portfólio" description="Empreendimentos AM Santos em desenvolvimento e projetos futuros — vários projetos em pipeline, na vanguarda da inovação arquitetónica.">
   <!-- HERO (interno) -->
@@ -26,18 +30,7 @@ const secoes = [portfolio.emDesenvolvimento, portfolio.futuros];
       <div class="container">
         <BlockHead eyebrow={s.eyebrow} title={s.title} lead={s.lead} />
         <div class="grid-projects">
-          {s.projetos.map((p) => (
-            <a class="card" href={`/empreendimentos/${slugify(p.nome)}`}>
-              <div class="card__media">
-                <div class="ph"></div>
-                <div class="card__overlay">
-                  <h3 class="card__title">{p.nome}</h3>
-                  <div class="card__meta">{p.localizacao} · {p.tipologia}</div>
-                  {p.cta && <span class="card__cta">{p.cta}</span>}
-                </div>
-              </div>
-            </a>
-          ))}
+          {s.projetos.map((p) => (<ProjectCard proj={p} />))}
         </div>
       </div>
     </section>

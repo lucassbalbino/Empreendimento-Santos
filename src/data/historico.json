@@ -1,19 +1,11 @@
 {
+  "_nota": "Só textos da página. A lista de projetos vem de empreendimentos.json (grupo 'concluido').",
   "hero": { "eyebrow": "O nosso percurso", "title": "Histórico" },
-  "projetos": [
-    { "nome": "Edifício Restelo", "localizacao": "Lisboa", "tipologia": "T2 a T4 / 22 un. · 2019", "cta": "Ver empreendimento" },
-    { "nome": "Solar do Parque", "localizacao": "Cascais", "tipologia": "Moradias / 8 un. · 2020", "cta": "Ver empreendimento" },
-    { "nome": "Terraços do Tejo", "localizacao": "Lisboa", "tipologia": "T1 a T3 / 34 un. · 2021", "cta": "Ver empreendimento" },
-    { "nome": "Quinta das Oliveiras", "localizacao": "Sintra", "tipologia": "T2 e T3 / 26 un. · 2022", "cta": "Ver empreendimento" },
-    { "nome": "Miradouro Douro", "localizacao": "Gaia", "tipologia": "T1 a T3 / 30 un. · 2023", "cta": "Ver empreendimento" },
-    { "nome": "Pátio de Benfica", "localizacao": "Lisboa", "tipologia": "T2 a T4 / 18 un. · 2018", "cta": "Ver empreendimento" },
-    { "nome": "Jardim das Amoreiras", "localizacao": "Lisboa", "tipologia": "T1 a T2 / 20 un. · 2017", "cta": "Ver empreendimento" },
-    { "nome": "Vale Verde", "localizacao": "Oeiras", "tipologia": "Moradias / 10 un. · 2016", "cta": "Ver empreendimento" },
-    { "nome": "Alameda Living", "localizacao": "Lisboa", "tipologia": "T2 a T3 / 40 un. · 2015", "cta": "Ver empreendimento" },
-    { "nome": "Foz Atlântico", "localizacao": "Porto", "tipologia": "T2 a T4 / 28 un. · 2014", "cta": "Ver empreendimento" },
-    { "nome": "Quinta do Sol", "localizacao": "Loulé", "tipologia": "Moradias / 14 un. · 2013", "cta": "Ver empreendimento" },
-    { "nome": "Ribeira Nova", "localizacao": "Porto", "tipologia": "T1 a T3 / 32 un. · 2012", "cta": "Ver empreendimento" }
-  ],
+  "concluidos": {
+    "eyebrow": "Vendidos",
+    "title": "Excelência em cada projeto executado",
+    "lead": "Empreendimentos vendidos, de 2006 aos dias de hoje — concluídos e entregues ou já colocados no mercado"
+  },
   "contacto": {
     "eyebrow": "Contactos",
     "title": "Vamos falar do seu próximo projeto",

@@ -44,62 +44,13 @@
     "eyebrow": "Portfolio",
     "title": "Empreendimentos em destaque",
     "lead": "Vários projetos em pipeline, na vanguarda da inovação arquitetónica",
-    "botao": "Ver portfólio",
-    "cards": [
-      {
-        "title": "Santos",
-        "meta": "Lisboa · T1 a T3",
-        "cta": "Ver empreendimento"
-      },
-      {
-        "title": "Santa Iria",
-        "meta": "Loures · T2 e T3",
-        "cta": "Ver empreendimento"
-      },
-      {
-        "title": "Miraflores",
-        "meta": "Algés · T2 a T4",
-        "cta": "Ver empreendimento"
-      },
-      {
-        "title": "Alto do Parque",
-        "meta": "Oeiras · Moradias",
-        "cta": "Ver empreendimento"
-      },
-      {
-        "title": "Ribeira Offices",
-        "meta": "Lisboa · Escritórios",
-        "cta": "Ver empreendimento"
-      }
-    ]
+    "botao": "Ver portfólio"
   },
   "trackRecord": {
     "eyebrow": "Histórico",
     "title": "Excelência em cada projeto executado",
     "lead": "Uma seleção de empreendimentos concluídos e entregues",
-    "botao": "Ver histórico",
-    "cards": [
-      {
-        "title": "Edifício Restelo",
-        "meta": "Lisboa · Concluído 2019"
-      },
-      {
-        "title": "Solar do Parque",
-        "meta": "Cascais · Concluído 2020"
-      },
-      {
-        "title": "Terraços do Tejo",
-        "meta": "Lisboa · Concluído 2021"
-      },
-      {
-        "title": "Quinta das Oliveiras",
-        "meta": "Sintra · Concluído 2022"
-      },
-      {
-        "title": "Miradouro Douro",
-        "meta": "Gaia · Concluído 2023"
-      }
-    ]
+    "botao": "Ver histórico"
   },
   "equipa": {
     "eyebrow": "Equipa",
