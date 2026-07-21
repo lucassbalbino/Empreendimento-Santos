@@ -25,8 +25,12 @@
   const nums = document.querySelectorAll('.stat__num[data-target]');
   if (nums.length) {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // pt-PT usa ponto como separador de milhares (185.000), essencial para os
+    // valores de área lerem-se de relance.
     const fmt = (el, value) =>
-      (el.dataset.prefix || '') + Math.round(value) + (el.dataset.suffix || '');
+      (el.dataset.prefix || '') +
+      Math.round(value).toLocaleString('pt-PT') +
+      (el.dataset.suffix || '');
     const animate = (el) => {
       const target = parseFloat(el.dataset.target) || 0;
       if (reduce) { el.textContent = fmt(el, target); return; }

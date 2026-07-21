@@ -14,7 +14,10 @@ const secoes = [
 <Base title="Mockup — Portfólio" description="Empreendimentos AM Santos em desenvolvimento e projetos futuros — vários projetos em pipeline, na vanguarda da inovação arquitetónica.">
   <!-- HERO (interno) -->
   <section class="hero" style="min-height:80vh">
-    <div class="hero__bg"></div>
+    <div
+      class={portfolio.hero.imagem ? 'hero__bg hero__bg--img' : 'hero__bg'}
+      style={portfolio.hero.imagem ? `background-image:url(${portfolio.hero.imagem})` : undefined}
+    ></div>
     <div class="hero__overlay"></div>
     <div class="hero__inner">
       <div class="container">

@@ -1,7 +1,0 @@
----
-import ProjectCard from './ProjectCard.astro';
-const { projetos, dark = false } = Astro.props;
----
-<div class="scroller">
-  {projetos.map((p) => (<ProjectCard proj={p} dark={dark} />))}
-</div>

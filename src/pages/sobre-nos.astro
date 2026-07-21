@@ -9,7 +9,10 @@ const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
 <Base title="Mockup — Sobre Nós" description="Conheça a AM Santos: 20 anos de experiência no mercado imobiliário, sob a liderança de António M Santos, com foco na qualidade, no conforto e na sustentabilidade.">
   <!-- HERO (interno) -->
   <section class="hero" style="min-height:80vh">
-    <div class="hero__bg"></div>
+    <div
+      class={sobre.hero.imagem ? 'hero__bg hero__bg--img' : 'hero__bg'}
+      style={sobre.hero.imagem ? `background-image:url(${sobre.hero.imagem})` : undefined}
+    ></div>
     <div class="hero__overlay"></div>
     <div class="hero__inner">
       <div class="container">

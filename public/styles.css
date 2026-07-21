@@ -23,6 +23,9 @@
   --maxw: 1280px;
   --gutter: clamp(20px, 5vw, 72px);
   --section-y: clamp(72px, 9vw, 150px);
+  /* Espaçamento curto: usado *dentro* de um grupo narrativo, para que a
+     proximidade indique que as duas secções são o mesmo capítulo. */
+  --section-y-tight: clamp(28px, 3.4vw, 56px);
 
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -50,6 +53,9 @@ ul{ list-style:none; }
 .section{ padding-block:var(--section-y); }
 .section--dark{ background:var(--dark); color:var(--paper); }
 .section--alt{ background:var(--paper-alt); }
+/* Ritmo por grupos: aperta o espaço do lado que encosta à secção irmã. */
+.section--tight-top{ padding-top:var(--section-y-tight); }
+.section--tight-bottom{ padding-bottom:var(--section-y-tight); }
 /* Faixa de acento: fundo laranja, bem marcante (preto/branco/laranja) */
 .section--accent{ background:var(--accent); color:#fff; }
 .section--accent .eyebrow{ color:#fff; }
@@ -60,13 +66,9 @@ ul{ list-style:none; }
 .section--accent .stat__num{ color:#fff; }
 .section--accent .stat__label{ color:rgba(255,255,255,.86); }
 
-/* Scroll snap — apenas na home. 'proximity' para não prender em seções altas. */
-html:has(body.is-home){ scroll-snap-type: y proximity; }
-body.is-home .hero,
-body.is-home .section{ scroll-snap-align: start; }
-@media (prefers-reduced-motion: reduce){
-  html:has(body.is-home){ scroll-snap-type: none; }
-}
+/* Scroll snap desativado na home: fazia cada secção comportar-se como um
+   slide isolado, que é o oposto da leitura contínua que a página pede.
+   A continuidade passa a vir do ritmo de espaçamento e da costura (.seam). */
 
 .eyebrow{
   font-family:var(--sans);
@@ -257,6 +259,24 @@ body.is-home .section{ scroll-snap-align: start; }
 .hero__scroll .line{ width:1px; height:46px; background:rgba(255,255,255,.5); animation:scrollLine 2s var(--ease) infinite; transform-origin:top; }
 @keyframes scrollLine{ 0%{transform:scaleY(0)} 40%{transform:scaleY(1)} 100%{transform:scaleY(0); transform-origin:bottom} }
 
+/* Sticky reveal na hero da Home (estilo editorial): a imagem fica FIXA ao
+   viewport enquanto o conteúdo seguinte (.home-reveal) sobe por cima e a
+   cobre, como uma cortina sobre uma imagem parada. CSS puro — a imagem nunca
+   se move; o título e o indicador ficam com ela e são cobertos de baixo para
+   cima. A camada opaca garante que a imagem só se vê na hero, não por trás
+   das secções. */
+body.is-home .hero{ position:sticky; top:0; z-index:0; }
+.home-reveal{
+  position:relative; z-index:1; background:var(--paper);
+  /* Sombra no rebordo superior: o conteúdo parece deslizar POR CIMA da imagem
+     fixa, projetando sombra sobre ela ao cobri-la. */
+  box-shadow:0 -26px 50px -12px rgba(0,0,0,.45);
+}
+/* O footer vem do layout Base, fora do .home-reveal. Sem isto, a hero sticky
+   (elemento posicionado) pintaria por cima do footer. Empilha-o ao mesmo nível
+   da camada que cobre a imagem. */
+body.is-home .site-footer{ position:relative; z-index:1; }
+
 /* =====================================================================
    QUEM SOMOS (texto + imagem)
    ===================================================================== */
@@ -270,9 +290,93 @@ body.is-home .section{ scroll-snap-align: start; }
 /* =====================================================================
    O QUE FAZEMOS + contadores
    ===================================================================== */
+/* Alinhado à esquerda, como todas as outras secções da home: um eixo
+   vertical único que o olho segue do hero ao rodapé. */
+/* A frase encosta aos contadores (são a mesma unidade de leitura) e afasta-se
+   bem do bloco escuro que vem a seguir.
+   Vem depois de .section no ficheiro: mesma especificidade, ganha por ordem. */
+.section--fazemos{
+  padding-top:clamp(12px,1.4vw,24px);
+  padding-bottom:clamp(96px,11vw,190px);
+}
+
+/* Centrada em relação ao cartão dos contadores: ambos ocupam a caixa de
+   conteúdo do .container, logo centrar aqui alinha os dois eixos médios. */
 .dofazemos{ text-align:center; }
-.dofazemos .display{ margin:.4rem auto 0; max-width:18ch; }
+/* Uma linha só. O Fraunces tem optical sizing, por isso a largura por px de
+   corpo não é constante: ~17,1px em corpo grande mas ~18,8px em corpo
+   pequeno. 4,8vw é o coeficiente que cabe nos 90vw do .container em toda a
+   gama; o topo fica em 4rem porque acima de 1440px o .container deixa de
+   crescer (fica em 1280px). */
+.dofazemos .display{
+  margin:.4rem 0 0;
+  font-size:clamp(1.6rem, 4.8vw, 4rem);
+}
+/* Abaixo disto uma linha só exigiria ~15px de corpo, ilegível para um
+   título — deixa-se quebrar. */
+@media (min-width:700px){
+  .dofazemos .display{ white-space:nowrap; }
+}
 .dofazemos .display em{ font-style:normal; color:var(--accent); }
+
+/* ---------------------------------------------------------------------
+   CONTADORES (.seam) — faixa de números entre "Quem Somos" e "O Que
+   Fazemos". As duas secções vizinhas são brancas, por isso o cartão não
+   atravessa fronteira de cor nenhuma: a sua presença vem do corpo (altura
+   e escala dos números), da moldura e da sombra.
+   Fica fora de .section de propósito: a cortina de revelação
+   (body.is-home .section::after) não o deve tapar.
+   --------------------------------------------------------------------- */
+.seam{
+  position:relative;
+  background:var(--paper);
+  --thread:clamp(32px,4vw,64px);      /* respiro entre o "Quem Somos" e a faixa */
+  padding-top:var(--thread);
+}
+
+/* ---- Costura entre o "Quem Somos" e os contadores ----
+   Fio vertical que desce do vão entre as duas colunas do split e vai
+   encontrar o topo do cartão. Como as duas secções são brancas não há
+   fronteira de cor para atravessar: é o fio que faz a ligação.
+   Sobe para dentro do "Quem Somos" pelo padding que essa secção tem em
+   baixo (--section-y-tight), cobrindo assim o vão inteiro. */
+.seam::before{
+  content:"";
+  position:absolute; z-index:1; pointer-events:none;
+  left:calc(50% - .5px);             /* left, não transform: deixa o transform livre para a animação */
+  top:calc(-1 * var(--section-y-tight));
+  width:1px;
+  height:calc(var(--thread) + var(--section-y-tight));
+  background:linear-gradient(to bottom,
+    transparent 0, var(--line) 34%, var(--accent) 100%);
+}
+/* O fio desenha-se de cima para baixo ao entrar no ecrã. Gated por
+   .reveal-ready, que o Base.astro só liga quando o utilizador não pediu
+   menos movimento — sem isso o fio aparece já desenhado. O gatilho é o
+   .is-visible dos próprios contadores, via :has(), evitando ter de somar
+   o .seam ao seletor observado no Base.astro. */
+html.reveal-ready .seam::before{
+  transform:scaleY(0); transform-origin:top;
+  transition:transform .9s var(--ease) .1s;
+}
+html.reveal-ready .seam:has(.stat.is-visible)::before{ transform:scaleY(1); }
+.seam .stats{
+  margin-top:0;                      /* anula o respiro do uso normal */
+  background:var(--paper);
+  border:1px solid var(--line);
+  box-shadow:0 18px 44px -30px rgba(0,0,0,.4);
+}
+/* Mais corpo: a faixa é agora um elemento por direito próprio, não um
+   remate da secção anterior. */
+.seam .stat{ padding-block:clamp(34px,4.4vw,62px); }
+.seam .stat__num{ font-size:clamp(2.9rem,5.4vw,4.3rem); min-height:clamp(2.9rem,5.4vw,4.3rem); }
+.seam .stat__num--word{ font-size:clamp(1.45rem,2.4vw,2rem); }
+.seam .stat__label{ margin-top:1.1rem; }
+
+@media (max-width:860px){
+  .seam .stats{ box-shadow:none; }
+  .seam .stat{ padding-block:clamp(24px,5vw,34px); }
+}
 
 .stats{
   display:grid; grid-template-columns:repeat(5,1fr);
@@ -474,20 +578,6 @@ body.is-home .section{ scroll-snap-align: start; }
 .service h3{ font-family:var(--serif); font-weight:400; font-size:clamp(1.7rem,3vw,2.4rem); margin:.6rem 0 1.2rem; }
 .service p{ color:var(--ink-soft); max-width:46ch; margin-bottom:1.4rem; }
 
-/* Gama de serviços (SF Properties) — "sob o mesmo teto", sem media. */
-.svc-list{
-  list-style:none; margin:0 0 clamp(48px,6vw,96px); padding:0;
-  display:grid; grid-template-columns:repeat(3,1fr);
-  border-top:1px solid var(--line); border-left:1px solid var(--line);
-}
-.svc-list__item{
-  border-right:1px solid var(--line); border-bottom:1px solid var(--line);
-  padding:1.1rem 1.3rem; font-size:.95rem; color:var(--ink);
-}
-.svc-list__item::before{ content:"\2014"; color:var(--accent); margin-right:.6rem; }
-@media (max-width:860px){ .svc-list{ grid-template-columns:repeat(2,1fr); } }
-@media (max-width:560px){ .svc-list{ grid-template-columns:1fr; } }
-
 /* =====================================================================
    EQUIPA
    ===================================================================== */
@@ -547,13 +637,22 @@ html.reveal-ready :is(
   .section .eyebrow, .section .display, .section .lead,
   .split__body > p, .card, .stat, .vertical, .service, .member, .panels
 ){
-  opacity:0; transform:translateY(16px);
-  transition:opacity .7s var(--ease), transform .7s var(--ease);
+  opacity:0;
+  transform:translateY(26px);
+  clip-path:inset(100% 0 0 0);
+  transition:opacity .85s var(--ease),
+             transform .85s var(--ease),
+             clip-path .85s var(--ease);
+  will-change:transform, clip-path;
 }
 html.reveal-ready :is(
   .section .eyebrow, .section .display, .section .lead,
   .split__body > p, .card, .stat, .vertical, .service, .member, .panels
-).is-visible{ opacity:1; transform:none; }
+).is-visible{
+  opacity:1;
+  transform:none;
+  clip-path:inset(0 0 0 0);
+}
 
 /* 2) Sublinhado animado no menu + indicador da página atual */
 .nav__list a::after{
@@ -590,32 +689,6 @@ html.reveal-ready :is(
   .grid-projects .card:hover, .scroller .card:hover{ transform:none; box-shadow:none; }
 }
 
-/* =====================================================================
-   TRANSIÇÃO DA HOME — slide de cima para baixo (cópia do gesto do modus)
-   Ao entrar no viewport, cada elemento é desvendado de cima para baixo
-   (máscara clip-path) enquanto desce da posição superior até assentar.
-   Só na home; reutiliza o mesmo gatilho .reveal-ready / .is-visible.
-   ===================================================================== */
-html.reveal-ready body.is-home :is(
-  .section .eyebrow, .section .display, .section .lead,
-  .split__body > p, .card, .stat, .vertical, .service, .member, .panels
-){
-  opacity:0;
-  transform:translateY(-26px);
-  clip-path:inset(0 0 100% 0);
-  transition:opacity .85s var(--ease),
-             transform .85s var(--ease),
-             clip-path .85s var(--ease);
-  will-change:transform, clip-path;
-}
-html.reveal-ready body.is-home :is(
-  .section .eyebrow, .section .display, .section .lead,
-  .split__body > p, .card, .stat, .vertical, .service, .member, .panels
-).is-visible{
-  opacity:1;
-  transform:none;
-  clip-path:inset(0 0 0 0);
-}
 
 /* =====================================================================
    TRANSIÇÃO ENTRE SECTIONS (home) — cortina que recolhe de cima para
@@ -709,4 +782,332 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   .gallery{ grid-template-columns:1fr; }
   .footer-grid{ grid-template-columns:1fr; }
   .scroller{ grid-auto-columns:minmax(260px,80%); }
+}
+
+/* =====================================================================
+   JANELA MODAL DO EMPREENDIMENTO (histórico)
+   Layout: imagem/título à esquerda, informação à direita.
+   ===================================================================== */
+/* Card do histórico é um botão (abre o modal) — herda o visual do link-card. */
+button.card{
+  appearance:none; -webkit-appearance:none; border:0; padding:0; margin:0;
+  width:100%; text-align:left; font:inherit; color:inherit;
+  background:transparent; cursor:pointer;
+}
+
+html.emodal-open{ overflow:hidden; }
+
+.emodal{ position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; padding:clamp(12px,3vw,40px); }
+.emodal[hidden]{ display:none; }
+.emodal__backdrop{ position:absolute; inset:0; background:rgba(10,10,10,.62); backdrop-filter:blur(2px); }
+
+.emodal__dialog{
+  position:relative; z-index:1;
+  display:grid; grid-template-columns:1.05fr 1fr;
+  width:min(1040px,100%); max-height:min(680px,92vh);
+  background:var(--paper); border-radius:20px; overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.4);
+  animation:emodal-in .28s var(--ease);
+}
+@keyframes emodal-in{ from{ opacity:0; transform:translateY(14px) scale(.985); } to{ opacity:1; transform:none; } }
+
+/* Painel esquerdo — imagem escura com título e chips */
+.emodal__media{ position:relative; min-height:340px; background:var(--dark); overflow:hidden; display:flex; flex-direction:column; }
+.emodal__img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.emodal__media-grad{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,.78) 0%, rgba(10,10,10,.28) 34%, rgba(10,10,10,.22) 60%, rgba(10,10,10,.9) 100%); }
+.emodal__media-head{ position:relative; z-index:1; padding:clamp(24px,3vw,40px) clamp(24px,3vw,40px) 0; }
+.emodal__title{ font-family:var(--serif); font-weight:400; color:#fff; font-size:clamp(1.7rem,3vw,2.5rem); line-height:1.08; text-shadow:0 1px 14px rgba(0,0,0,.5); }
+.emodal__subtitle{ color:rgba(255,255,255,.9); font-size:.86rem; letter-spacing:.06em; margin-top:.55rem; text-shadow:0 1px 10px rgba(0,0,0,.5); }
+.emodal__chips{ position:relative; z-index:1; margin-top:auto; padding:clamp(20px,3vw,36px) clamp(24px,3vw,40px); display:flex; flex-wrap:wrap; gap:.5rem; }
+.emodal__chip{
+  display:inline-flex; align-items:center; padding:.42em 1em;
+  background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28); border-radius:999px;
+  color:#fff; font-size:.74rem; letter-spacing:.04em; backdrop-filter:blur(4px);
+}
+.emodal__media .img-prov{ z-index:2; }
+
+/* Painel direito — informação. min-height:0 + max-height próprio para o
+   overflow-y rolar dentro do diálogo (senão o grid estica e o rodapé é cortado). */
+.emodal__info{ position:relative; padding:clamp(28px,3.2vw,48px); overflow-y:auto; min-height:0; max-height:min(680px,92vh); }
+.emodal__close{
+  position:absolute; top:clamp(14px,1.6vw,22px); right:clamp(14px,1.6vw,22px);
+  width:40px; height:40px; border:0; border-radius:999px; background:transparent;
+  font-size:1.7rem; line-height:1; color:var(--ink); cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:background .25s var(--ease);
+}
+.emodal__close:hover{ background:var(--paper-alt); }
+.emodal__info-title{ font-family:var(--serif); font-weight:400; font-size:clamp(1.4rem,2.4vw,1.9rem); margin:.5rem 0 1rem; color:var(--ink); }
+.emodal__resumo{ color:var(--ink-soft); font-size:.95rem; margin-bottom:1.6rem; }
+.emodal__facts{ display:flex; flex-direction:column; gap:.5rem; }
+.emodal__fact{
+  display:flex; align-items:baseline; justify-content:space-between; gap:1rem;
+  border:1px solid var(--line); border-radius:12px; padding:.85rem 1.1rem;
+}
+.emodal__fact-label{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); }
+.emodal__fact-value{ font-family:var(--serif); font-size:1.05rem; color:var(--ink); text-align:right; }
+.emodal__footer{ margin-top:1.8rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+.emodal__entrega{ font-size:.8rem; letter-spacing:.04em; color:var(--ink-faint); }
+
+@media (max-width: 760px){
+  /* Empilha e deixa o diálogo inteiro rolar (imagem no topo, info em baixo). */
+  .emodal__dialog{ grid-template-columns:1fr; max-height:92vh; overflow-y:auto; }
+  .emodal__media{ min-height:0; height:clamp(200px,34vh,280px); }
+  .emodal__info{ max-height:none; overflow:visible; }
+  .emodal__chips{ margin-top:auto; }
+}
+@media (prefers-reduced-motion: reduce){
+  .emodal__dialog{ animation:none; }
+}
+
+/* =====================================================================
+   DEPOIMENTOS (carrossel com pilha de imagens 3D)
+   Componente src/components/Testimonials.astro. Config (cores/tamanhos)
+   chega por CSS custom properties --t-* definidas por instância.
+   ===================================================================== */
+/* padding-inline a zero: o carrossel tem de assentar no mesmo eixo vertical
+   que a eyebrow e o título da secção, e não 2rem à direita deles. */
+.testimonials{ width:100%; max-width:56rem; padding:2rem 0; outline:none; }
+.testimonials__grid{ display:grid; gap:5rem; }
+.testimonials__images{ position:relative; width:100%; height:24rem; perspective:1000px; }
+.testimonials__img{
+  position:absolute; width:100%; height:100%; object-fit:cover;
+  border-radius:.5rem; box-shadow:0 14px 40px rgba(0,0,0,.16); opacity:0;
+}
+/* Placeholder (membro sem foto): mesmo padrão diagonal do resto do site. */
+.testimonials__img--ph{
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(0,0,0,.035) 0, rgba(0,0,0,.035) 1px,
+      transparent 1px, transparent 11px),
+    var(--paper-alt);
+  border:1px solid var(--line);
+}
+.testimonials__img--ph::after{
+  content:"Foto"; position:absolute; inset:0; display:grid; place-items:center;
+  font-size:.7rem; letter-spacing:.28em; text-transform:uppercase; font-weight:600; color:var(--ink-faint);
+}
+/* Antes do JS: mostra o primeiro depoimento (fallback sem salto). */
+.testimonials__img[data-index="0"]{ opacity:1; z-index:3; }
+.testimonials__content{ display:flex; flex-direction:column; justify-content:space-between; }
+.testimonials__name{
+  font-family:var(--serif); font-weight:400; margin-bottom:.5rem; line-height:1.1;
+  color:var(--t-name,#000); font-size:var(--t-name-size,1.5rem);
+}
+.testimonials__designation{
+  margin-bottom:2rem; color:var(--t-designation,#6b7280); font-size:var(--t-designation-size,.8rem);
+  text-transform:uppercase; letter-spacing:.16em;
+}
+.testimonials__quote{ line-height:1.8; color:var(--t-quote,#4b5563); font-size:var(--t-quote-size,1.125rem); }
+.testimonials__body{ animation:testimonial-fade .5s var(--ease) both; }
+.testimonials__arrows{ display:flex; gap:1.5rem; padding-top:3rem; }
+.testimonials__arrow{
+  width:2.7rem; height:2.7rem; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; cursor:pointer; border:none;
+  background:var(--t-arrow-bg,#141414); color:var(--t-arrow-fg,#f1f1f7);
+  transition:background-color .3s;
+}
+.testimonials__arrow:hover{ background:var(--t-arrow-hover-bg,#00a6fb); }
+.testimonials__arrow svg{ width:28px; height:28px; }
+@keyframes testimonial-fade{
+  from{ opacity:0; transform:translateY(10px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+@media (min-width:768px){
+  .testimonials__grid{ grid-template-columns:1fr 1fr; }
+  .testimonials__arrows{ padding-top:0; }
+}
+@media (prefers-reduced-motion: reduce){
+  .testimonials__body{ animation:none; }
+  .testimonials__img{ transition:none !important; }
+}
+
+/* =====================================================================
+   DOUBLE SLIDER — secção Portfolio da home
+   Layout copiado de custom-double-slider.webflow.io (ver referencias/sites/
+   LINKS.md), com a altura reduzida: a referência ocupa o ecrã inteiro.
+   Slide de fundo full-bleed + fila de miniaturas dos PRÓXIMOS empreendimentos
+   sangrada pela borda direita. Sem autoplay.
+   ===================================================================== */
+.section--flush{ padding-block:0; }
+
+.dslider{
+  position:relative;
+  overflow:hidden;
+  min-height:clamp(560px, 76vh, 740px);
+  display:flex;
+  color:#fff;
+  background:var(--dark);
+}
+
+/* ---- Palco e slides ---- */
+.dslider__stage{ position:absolute; inset:0; }
+.dslider__slide{
+  position:absolute; inset:0;
+  opacity:0; visibility:hidden;
+  transition:opacity .8s var(--ease), visibility .8s;
+}
+.dslider__slide.is-active{ opacity:1; visibility:visible; }
+.dslider__img{
+  width:100%; height:100%; object-fit:cover;
+  transform:scale(1.06);
+  transition:transform 1.2s var(--ease);
+}
+.dslider__img--ph{ background:#1d1d1d; }
+.dslider__slide.is-active .dslider__img{ transform:scale(1); }
+/* Scrim: escurece o topo e o fundo para o texto branco e as legendas lerem
+   sempre, mesmo sobre céu claro. */
+.dslider__slide::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.28) 34%,
+                                     rgba(0,0,0,.42) 66%, rgba(0,0,0,.78) 100%);
+}
+
+/* ---- Bloco central (só o nome) ---- */
+.dslider__body{
+  position:absolute; inset:0; z-index:2;
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  text-align:center;
+  padding-inline:var(--gutter);
+  /* O nome ancora no terço superior, logo abaixo da faixa de topo, para deixar
+     o meio da imagem livre — o CTA vive no canto inferior esquerdo. */
+  padding-top:clamp(8.4rem, 17vh, 11rem);
+}
+/* Canto inferior esquerdo: o CTA do empreendimento e, por cima dele, o selo de
+   imagem provisória. Ficam fora do bloco central para o nome respirar sozinho e
+   longe do header e das miniaturas (que sangram pela direita). */
+.dslider__corner{
+  position:absolute; z-index:3;
+  left:var(--gutter); bottom:clamp(1.4rem, 3.5vh, 2.6rem);
+  display:flex; flex-direction:column; align-items:flex-start; gap:.8rem;
+}
+.dslider__corner .img-prov{ position:static; }
+/* Caixa de altura fixa (2 linhas do maior corpo): garante que a meta e o CTA
+   ficam sempre à mesma altura, quer o nome ocupe uma linha ou duas. */
+.dslider__head{
+  display:grid; place-items:center;
+  width:100%; min-height:clamp(5.2rem, 12vw, 8.6rem);
+}
+.dslider__name{
+  font-family:var(--serif); font-weight:300;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  line-height:1.05;
+  text-wrap:balance;
+  font-size:var(--name-size, clamp(2rem, 6vw, 5rem));
+  /* o letter-spacing empurra a última letra: compensa para ficar centrado */
+  margin-right:-.14em;
+}
+/* ---- Faixa superior: eyebrow + "Ver portfólio" ----
+   Encostada ao topo da imagem, mas ainda abaixo do header fixo (~72px = 4.5rem),
+   senão fica tapada por ele quando a secção passa por baixo do header. */
+.dslider__top{
+  position:absolute; z-index:3;
+  inset:clamp(4.8rem, 6.6vh, 5.2rem) var(--gutter) auto var(--gutter);
+  display:flex; align-items:center; justify-content:space-between; gap:1.5rem;
+}
+.dslider__eyebrow{ margin-bottom:0; }
+
+/* ---- Marca d'água (título da secção) ---- */
+.dslider__watermark{
+  position:absolute; z-index:1; left:-.06em; bottom:-.16em;
+  pointer-events:none; user-select:none;
+  font-family:var(--serif); font-weight:300;
+  text-transform:uppercase; letter-spacing:-.01em; line-height:.86;
+  font-size:clamp(4rem, 14vw, 12rem);
+  color:rgba(255,255,255,.06);
+  white-space:nowrap;
+}
+
+/* ---- Rodapé: setas + fila de miniaturas ----
+   A caixa atravessa toda a largura mas a metade esquerda é espaço vazio (as
+   setas são empurradas com margin-left:auto). Sem pointer-events:none essa
+   metade tapava o CTA do canto inferior esquerdo, que deixava de ser clicável. */
+.dslider__foot{
+  position:absolute; z-index:3;
+  inset:auto 0 clamp(1.4rem, 3.5vh, 2.6rem) var(--gutter);
+  display:flex; align-items:flex-end; gap:clamp(1rem, 2.5vw, 2rem);
+  pointer-events:none;
+}
+.dslider__arrows,
+.dslider__thumbs{ pointer-events:auto; }
+.dslider__arrows{
+  margin-left:auto;                       /* encosta as setas às miniaturas */
+  display:flex; align-items:center; gap:.8rem;
+  padding-bottom:clamp(1rem, 4vh, 2.4rem);
+}
+.dslider__arrow{
+  width:48px; height:48px; flex:none;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid rgba(255,255,255,.45); border-radius:50%;
+  background:transparent; color:#fff; cursor:pointer;
+  transition:background-color .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease);
+}
+.dslider__arrow:hover{ background:var(--accent); border-color:var(--accent); color:#fff; }
+.dslider__arrow svg{
+  width:20px; height:20px; fill:none; stroke:currentColor;
+  stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round;
+}
+.dslider__count{
+  display:none;
+  font-size:.72rem; letter-spacing:.22em; font-weight:600;
+  color:rgba(255,255,255,.7);
+}
+
+.dslider__thumbs{ flex:none; width:min(52vw, 780px); overflow:hidden; }
+.dslider__track{
+  display:flex; gap:clamp(.6rem, 1.2vw, 1rem);
+  transition:transform .8s var(--ease);
+  will-change:transform;
+}
+.dslider__track.is-instant{ transition:none; }
+.dslider__thumb{
+  position:relative; flex:none;
+  width:clamp(180px, 23vw, 340px); aspect-ratio:2 / 1;
+  padding:0; border:none; background:#1d1d1d; cursor:pointer;
+  overflow:hidden;
+  transition:opacity .4s var(--ease);
+}
+.dslider__thumb img{ width:100%; height:100%; object-fit:cover; }
+.dslider__thumb::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,.65) 100%);
+  transition:background .4s var(--ease);
+}
+.dslider__thumb:hover::after{ background:linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,.8) 100%); }
+.dslider__thumb-ph{ position:absolute; inset:0; background:#1d1d1d; }
+.dslider__thumb-label{
+  position:absolute; z-index:2; right:.9rem; bottom:.7rem;
+  font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; font-weight:600;
+  color:#fff; text-align:right;
+}
+
+/* ---- Ecrãs estreitos: sem fila de miniaturas, com contador ---- */
+@media (max-width: 900px){
+  .dslider{ min-height:clamp(480px, 64vh, 620px); }
+  /* Sobrepõe-se ao --name-size: em ecrãs estreitos manda a largura, não o nome. */
+  .dslider__name{ font-size:clamp(1.4rem, 7.4vw, 2.2rem); }
+  .dslider__head{ min-height:clamp(4.4rem, 19vw, 6rem); }
+  /* A faixa de topo empilha-se (eyebrow por cima do botão) e fica mais alta. */
+  .dslider__body{ padding-top:clamp(10rem, 24vh, 13rem); }
+  .dslider__top{ flex-direction:column; align-items:flex-start; gap:.8rem; }
+  /* Sem miniaturas, as setas ficam centradas em baixo: o CTA sobe para cima
+     delas e centra-se, em vez de disputar o canto esquerdo. */
+  .dslider__corner{
+    left:var(--gutter); right:var(--gutter);
+    bottom:clamp(5.6rem, 14vh, 7.4rem);
+    align-items:center; gap:.6rem;
+  }
+  .dslider__thumbs{ display:none; }
+  .dslider__foot{ inset:auto var(--gutter) clamp(1.4rem, 3.5vh, 2.6rem) var(--gutter); justify-content:center; }
+  .dslider__arrows{ margin:0 auto; padding-bottom:0; }
+  .dslider__count{ display:inline-block; margin-left:.6rem; }
+  .dslider__watermark{ font-size:clamp(3rem, 18vw, 6rem); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .dslider__slide,
+  .dslider__img,
+  .dslider__track{ transition:none !important; }
+  .dslider__slide.is-active .dslider__img,
+  .dslider__img{ transform:none; }
 }

@@ -1,7 +1,7 @@
 {
   "hero": {
     "title": "Empreendimento Santos",
-    "imagem": "/images/hero-image.webp"
+    "imagem": "/images/empreendimentos/obra-1.webp"
   },
   "quemSomos": {
     "eyebrow": "Quem Somos",
@@ -17,33 +17,40 @@
     "title": "Qualidade — Conforto — Sustentabilidade",
     "stats": [
       {
-        "target": 20,
+        "target": 17,
         "prefix": "",
         "suffix": "",
-        "label": "anos de experiência"
+        "label": "projetos"
       },
       {
-        "value": "Arquitetura",
-        "label": "conceito e projeto"
+        "target": 128,
+        "prefix": "",
+        "suffix": "",
+        "label": "unidades residenciais"
       },
       {
-        "value": "Engenharia",
-        "label": "execução em obra"
+        "target": 42,
+        "prefix": "",
+        "suffix": "",
+        "label": "unidades não residenciais"
       },
       {
-        "value": "Decoração",
-        "label": "interiores e acabamentos"
+        "target": 185000,
+        "prefix": "",
+        "suffix": "",
+        "label": "m² de construção"
       },
       {
-        "value": "Gestão",
-        "label": "imobiliária"
+        "target": 95,
+        "prefix": "",
+        "suffix": "",
+        "label": "milhões investidos"
       }
     ]
   },
   "portfolio": {
     "eyebrow": "Portfolio",
     "title": "Empreendimentos em destaque",
-    "lead": "Vários projetos em pipeline, na vanguarda da inovação arquitetónica",
     "botao": "Ver portfólio"
   },
   "trackRecord": {
@@ -59,12 +66,32 @@
       {
         "role": "Liderança · Direção-Geral",
         "name": "António M Santos",
-        "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário."
+        "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário.",
+        "foto": ""
       },
       {
         "role": "Arquitetura · Projeto",
         "name": "Marta Sousa",
-        "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra."
+        "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra.",
+        "foto": ""
+      },
+      {
+        "role": "Engenharia · Obra",
+        "name": "Ricardo Nunes",
+        "bio": "Diretor de obra, coordena a execução e o controlo de qualidade que sustentam a excelência de cada projeto executado.",
+        "foto": ""
+      },
+      {
+        "role": "Decoração · Interiores",
+        "name": "Pedro Almeida",
+        "bio": "Trabalha os interiores e os acabamentos, para que cada residência traduza o conforto e a qualidade que definem a empresa.",
+        "foto": ""
+      },
+      {
+        "role": "Gestão imobiliária",
+        "name": "Sofia Mendes",
+        "bio": "Responsável pela gestão imobiliária e pelo acompanhamento dos projetos em pipeline, do estudo à comercialização.",
+        "foto": ""
       }
     ]
   },

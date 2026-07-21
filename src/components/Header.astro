@@ -5,7 +5,7 @@ const links = [
   { href: '/sobre-nos', label: 'Sobre Nós' },
   { href: '/portfolio', label: 'Portfólio' },
   { href: '/historico', label: 'Histórico' },
-  { href: '/sf-properties', label: 'SF Properties' },
+  { href: 'https://www.sfproperties.pt/', label: 'SF Properties', external: true },
   { href: '/equipa', label: 'Equipa' },
   { href: '/contactos', label: 'Contactos' },
 ];
@@ -19,7 +19,11 @@ const links = [
     <nav class="nav">
       <ul class="nav__list">
         {links.map((l) => (
-          <li><a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a></li>
+          <li>
+            {l.external
+              ? <a href={l.href} target="_blank" rel="noopener">{l.label}</a>
+              : <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>}
+          </li>
         ))}
       </ul>
       <span class="nav__lang">EN</span>

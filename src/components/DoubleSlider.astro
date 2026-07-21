@@ -1,0 +1,168 @@
+---
+// Double slider (layout de referencias/sites/LINKS.md → custom-double-slider).
+// Slide de fundo full-bleed sincronizado com uma fila de miniaturas dos PRÓXIMOS
+// empreendimentos, sangrada pela borda direita. Sem autoplay: navegação manual
+// por setas, miniaturas, teclado (←/→) e swipe.
+const { projetos, eyebrow, titulo, botao, href = '/portfolio' } = Astro.props;
+
+// A fila de miniaturas é renderizada duas vezes para o deslize dar a volta sem
+// salto visível — o script trata do "snap" quando chega ao fim da 1.ª cópia.
+const thumbs = [...projetos, ...projetos];
+
+// O corpo do título encolhe com o nº de caracteres para que nenhum nome passe de
+// duas linhas. A caixa do título tem altura fixa (ver .dslider__head), por isso o
+// resto do bloco nunca se desloca entre slides.
+function nameSize(nome) {
+  const n = nome.length;
+  if (n > 30) return 'clamp(1.5rem, 3.4vw, 2.9rem)';
+  if (n > 20) return 'clamp(1.8rem, 4.4vw, 3.8rem)';
+  return 'clamp(2rem, 6vw, 5rem)';
+}
+---
+<div class="dslider" data-dslider aria-roledescription="carousel" aria-label={titulo}>
+  <div class="dslider__stage">
+    {projetos.map((p, i) => (
+      <article class="dslider__slide" data-slide aria-hidden={i !== 0 ? 'true' : undefined}>
+        {p.imagem
+          ? <img class="dslider__img" src={p.imagem} alt={p.nome} loading={i === 0 ? 'eager' : 'lazy'} />
+          : <div class="dslider__img dslider__img--ph"></div>}
+        <div class="dslider__corner">
+          {p.imagem && !p.imagemReal && <span class="img-prov">Imagem provisória</span>}
+          <a class="btn dslider__cta" href={`/empreendimentos/${p.slug}`}>Ver empreendimento</a>
+        </div>
+        <div class="dslider__body">
+          <div class="dslider__head">
+            <h3 class="dslider__name" style={`--name-size:${nameSize(p.nome)}`}>{p.nome}</h3>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <div class="dslider__top">
+    <span class="eyebrow dslider__eyebrow">{eyebrow}</span>
+    <a class="btn dslider__all" href={href}>{botao}</a>
+  </div>
+
+  <span class="dslider__watermark" aria-hidden="true">{titulo}</span>
+
+  <div class="dslider__foot">
+    <div class="dslider__arrows">
+      <button class="dslider__arrow" type="button" data-prev aria-label="Empreendimento anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m0 0 6-6m-6 6 6 6"/></svg>
+      </button>
+      <button class="dslider__arrow" type="button" data-next aria-label="Empreendimento seguinte">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m0 0-6-6m6 6-6 6"/></svg>
+      </button>
+      <span class="dslider__count" data-count aria-hidden="true"></span>
+    </div>
+    <div class="dslider__thumbs">
+      <div class="dslider__track" data-track>
+        {thumbs.map((p, i) => (
+          <button
+            class="dslider__thumb"
+            type="button"
+            data-thumb
+            data-target={i % projetos.length}
+            tabindex={i < projetos.length ? undefined : '-1'}
+            aria-hidden={i < projetos.length ? undefined : 'true'}
+          >
+            {p.imagem
+              ? <img src={p.imagem} alt="" loading="lazy" />
+              : <span class="dslider__thumb-ph"></span>}
+            <span class="dslider__thumb-label">{p.nome}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SWIPE_MIN = 40; // px — abaixo disto é toque, não swipe
+
+  document.querySelectorAll('[data-dslider]').forEach((root) => {
+    const slides = [...root.querySelectorAll('[data-slide]')];
+    const track = root.querySelector('[data-track]');
+    const thumbs = [...root.querySelectorAll('[data-thumb]')];
+    const count = root.querySelector('[data-count]');
+    const total = slides.length;
+    if (total < 2) return;
+
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let index = 0;
+    let pos = 1; // posição da fila, em nº de miniaturas (a fila começa no slide seguinte)
+
+    // Passo do deslize = largura real de uma miniatura + gap (ambos fluidos).
+    function step() {
+      if (!thumbs[0] || !thumbs[1]) return 0;
+      return thumbs[1].getBoundingClientRect().left - thumbs[0].getBoundingClientRect().left;
+    }
+
+    function setPos(p, animate) {
+      pos = p;
+      const smooth = animate && !calm.matches;
+      track.classList.toggle('is-instant', !smooth);
+      track.style.transform = `translate3d(${-pos * step()}px,0,0)`;
+      if (!smooth) void track.offsetWidth; // força o reflow antes de voltar a animar
+    }
+
+    function paint() {
+      slides.forEach((s, i) => {
+        s.classList.toggle('is-active', i === index);
+        if (i === index) s.removeAttribute('aria-hidden');
+        else s.setAttribute('aria-hidden', 'true');
+      });
+      thumbs.forEach((t) => t.classList.toggle('is-current', Number(t.dataset.target) === index));
+      if (count) count.textContent = `${String(index + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+    }
+
+    function go(next) {
+      const wrapFwd = index === total - 1 && next === 0;
+      const wrapBack = index === 0 && next === total - 1;
+      index = next;
+      paint();
+      // Nas voltas, salta primeiro para a posição equivalente na outra cópia da
+      // fila (visualmente idêntica) e só depois anima — senão a fila percorreria
+      // a lista inteira ao contrário à vista do utilizador. O salto é aplicado
+      // com um reflow forçado dentro de setPos(), e não com requestAnimationFrame:
+      // o rAF fica suspenso em abas em segundo plano e a fila ficaria desalinhada.
+      if (wrapFwd || wrapBack) {
+        setPos(wrapFwd ? 0 : total + 1, false);
+        setPos(wrapFwd ? 1 : total, true);
+      } else {
+        setPos(index + 1, true);
+      }
+    }
+
+    const nextOf = (d) => (index + d + total) % total;
+
+    root.querySelector('[data-prev]').addEventListener('click', () => go(nextOf(-1)));
+    root.querySelector('[data-next]').addEventListener('click', () => go(nextOf(1)));
+    thumbs.forEach((t) => t.addEventListener('click', () => go(Number(t.dataset.target))));
+
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(nextOf(-1)); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(nextOf(1)); }
+    });
+
+    // Swipe horizontal (só quando o gesto é claramente horizontal).
+    let startX = null;
+    let startY = 0;
+    const stage = root.querySelector('.dslider__stage');
+    stage.addEventListener('pointerdown', (e) => { startX = e.clientX; startY = e.clientY; });
+    stage.addEventListener('pointerup', (e) => {
+      if (startX === null) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      startX = null;
+      if (Math.abs(dx) < SWIPE_MIN || Math.abs(dx) < Math.abs(dy)) return;
+      go(nextOf(dx < 0 ? 1 : -1));
+    });
+
+    // O passo depende da largura da miniatura, que é fluida.
+    window.addEventListener('resize', () => setPos(pos, false), { passive: true });
+    paint();
+    setPos(1, false);
+  });
+</script>

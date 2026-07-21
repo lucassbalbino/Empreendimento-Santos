@@ -1,5 +1,9 @@
 {
-  "hero": { "eyebrow": "Quem somos", "title": "Sobre Nós" },
+  "hero": {
+    "eyebrow": "Quem somos",
+    "title": "Sobre Nós",
+    "imagem": "/images/empreendimentos/obra-2.webp"
+  },
   "quemSomos": {
     "eyebrow": "A empresa",
     "title": "Construindo o futuro com qualidade e sustentabilidade",
@@ -10,25 +14,53 @@
     "eyebrow": "Como trabalhamos",
     "title": "Do conceito\nà entrega da chave",
     "verticais": [
-      { "n": "01", "title": "Qualidade", "texto": "A excelência em cada projeto executado é o que nos distingue. Uma equipa de alto nível em arquitetura, engenharia, decoração e gestão imobiliária acompanha cada fase, do primeiro traço ao último acabamento." },
-      { "n": "02", "title": "Conforto", "texto": "Projetamos para quem lá vai viver. Arquitetura moderna e funcional, com um foco inabalável no bem-estar — e o máximo conforto climático em cada residência concebida." },
-      { "n": "03", "title": "Sustentabilidade", "texto": "Uma abordagem eco-friendly, com materiais sustentáveis que aliam conforto, bem-estar e arquitetura moderna, reduzindo os custos de manutenção ao longo da vida do edifício." }
+      {
+        "n": "01",
+        "title": "Qualidade",
+        "texto": "A excelência em cada projeto executado é o que nos distingue. Uma equipa de alto nível em arquitetura, engenharia, decoração e gestão imobiliária acompanha cada fase, do primeiro traço ao último acabamento."
+      },
+      {
+        "n": "02",
+        "title": "Conforto",
+        "texto": "Projetamos para quem lá vai viver. Arquitetura moderna e funcional, com um foco inabalável no bem-estar — e o máximo conforto climático em cada residência concebida."
+      },
+      {
+        "n": "03",
+        "title": "Sustentabilidade",
+        "texto": "Uma abordagem eco-friendly, com materiais sustentáveis que aliam conforto, bem-estar e arquitetura moderna, reduzindo os custos de manutenção ao longo da vida do edifício."
+      }
     ]
   },
   "servicos": {
     "eyebrow": "Visão",
     "title": "O que nos move",
     "items": [
-      { "title": "Na vanguarda da inovação arquitetónica", "texto": "Com vários projetos em pipeline, mantemo-nos na vanguarda da inovação arquitetónica, priorizando a qualidade, o conforto e a eficiência energética para garantir a satisfação dos nossos clientes.", "botao": "Ver empreendimentos" },
-      { "title": "Uma abordagem eco-friendly", "texto": "O nosso mais recente projeto foi concebido com materiais sustentáveis, para aliar conforto, bem-estar e arquitetura moderna — reduzindo os custos de manutenção e garantindo o máximo conforto climático.", "botao": "Falar connosco" }
+      {
+        "title": "Na vanguarda da inovação arquitetónica",
+        "texto": "Com vários projetos em pipeline, mantemo-nos na vanguarda da inovação arquitetónica, priorizando a qualidade, o conforto e a eficiência energética para garantir a satisfação dos nossos clientes.",
+        "botao": "Ver empreendimentos"
+      },
+      {
+        "title": "Uma abordagem eco-friendly",
+        "texto": "O nosso mais recente projeto foi concebido com materiais sustentáveis, para aliar conforto, bem-estar e arquitetura moderna — reduzindo os custos de manutenção e garantindo o máximo conforto climático.",
+        "botao": "Falar connosco"
+      }
     ]
   },
   "equipa": {
     "eyebrow": "Direção",
     "title": "Quem lidera a AM Santos",
     "members": [
-      { "role": "Liderança · Direção-Geral", "name": "António M Santos", "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário." },
-      { "role": "Arquitetura · Projeto", "name": "Marta Sousa", "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra." }
+      {
+        "role": "Liderança · Direção-Geral",
+        "name": "António M Santos",
+        "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário."
+      },
+      {
+        "role": "Arquitetura · Projeto",
+        "name": "Marta Sousa",
+        "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra."
+      }
     ]
   },
   "contacto": {

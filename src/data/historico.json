@@ -1,6 +1,6 @@
 {
   "_nota": "Só textos da página. A lista de projetos vem de empreendimentos.json (grupo 'concluido').",
-  "hero": { "eyebrow": "O nosso percurso", "title": "Histórico" },
+  "hero": { "eyebrow": "O nosso percurso", "title": "Histórico", "imagem": "" },
   "concluidos": {
     "eyebrow": "Vendidos",
     "title": "Excelência em cada projeto executado",

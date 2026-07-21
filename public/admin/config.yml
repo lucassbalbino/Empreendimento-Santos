@@ -43,30 +43,24 @@ collections:
             fields:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
-              - label: "Contadores"
+              - label: "Números / destaques"
                 name: stats
                 widget: list
+                summary: "{{fields.label}}"
+                hint: "Cada item é um contador numérico (preencha 'Número') OU uma palavra-destaque (preencha 'Texto'). Não preencha os dois."
                 fields:
-                  - { label: "Valor", name: target, widget: number, value_type: int }
+                  - { label: "Número (contador)", name: target, widget: number, value_type: int, required: false, hint: "Contador animado, ex.: 20. Deixe vazio se usar 'Texto'." }
                   - { label: "Prefixo", name: prefix, widget: string, required: false }
                   - { label: "Sufixo", name: suffix, widget: string, required: false }
+                  - { label: "Texto (palavra-destaque)", name: value, widget: string, required: false, hint: "Alternativa ao número, ex.: Arquitetura. Deixe vazio se usar 'Número'." }
                   - { label: "Rótulo", name: label, widget: string }
           - label: "Portfólio (destaques)"
             name: portfolio
             widget: object
             fields:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
-              - { label: "Título", name: title, widget: string }
-              - { label: "Subtítulo", name: lead, widget: string }
+              - { label: "Título", name: title, widget: string, hint: "Aparece como marca d'água grande no fundo do slider." }
               - { label: "Texto do botão", name: botao, widget: string }
-              - label: "Cards"
-                name: cards
-                widget: list
-                summary: "{{fields.title}}"
-                fields:
-                  - { label: "Título", name: title, widget: string }
-                  - { label: "Legenda", name: meta, widget: string }
-                  - { label: "Texto CTA", name: cta, widget: string, required: false }
           - label: "Track Record"
             name: trackRecord
             widget: object
@@ -75,13 +69,6 @@ collections:
               - { label: "Título", name: title, widget: string }
               - { label: "Subtítulo", name: lead, widget: string }
               - { label: "Texto do botão", name: botao, widget: string }
-              - label: "Cards"
-                name: cards
-                widget: list
-                summary: "{{fields.title}}"
-                fields:
-                  - { label: "Título", name: title, widget: string }
-                  - { label: "Legenda", name: meta, widget: string }
           - label: "Equipa"
             name: equipa
             widget: object
@@ -96,6 +83,7 @@ collections:
                   - { label: "Função", name: role, widget: string }
                   - { label: "Nome", name: name, widget: string }
                   - { label: "Bio", name: bio, widget: text }
+                  - { label: "Foto", name: foto, widget: image, required: false }
           - label: "Contacto"
             name: contacto
             widget: object
@@ -103,6 +91,60 @@ collections:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Texto", name: texto, widget: text }
+
+  # ------------------------------------------------------- EMPREENDIMENTOS
+  # Fonte única dos projetos. As páginas Histórico e Portfólio derivam desta
+  # lista pelo campo "grupo" (não há listas de projetos nessas páginas).
+  - name: empreendimentos
+    label: "Empreendimentos (projetos)"
+    delete: false
+    files:
+      - name: empreendimentos
+        label: "Lista de empreendimentos"
+        file: "src/data/empreendimentos.json"
+        fields:
+          # Notas internas do ficheiro — ocultas, mas preservadas ao guardar.
+          - { label: "Nota interna", name: _nota, widget: hidden }
+          - { label: "Regra de grupo", name: _grupo, widget: hidden }
+          - label: "Empreendimentos"
+            name: lista
+            widget: list
+            summary: "{{fields.nome}} — {{fields.grupo}}"
+            fields:
+              - { label: "Slug (URL)", name: slug, widget: string, hint: "Identificador na ligação /empreendimentos/… — evite alterar depois de publicado." }
+              - { label: "Nome", name: nome, widget: string }
+              - label: "Grupo (onde aparece no site)"
+                name: grupo
+                widget: select
+                hint: "Define em que página o projeto é listado."
+                options:
+                  - { label: "Histórico (vendido / concluído)", value: concluido }
+                  - { label: "Portfólio — Em desenvolvimento", value: desenvolvimento }
+                  - { label: "Portfólio — Projetos futuros", value: futuro }
+              - { label: "Ano", name: ano, widget: number, value_type: int }
+              - { label: "Localização", name: localizacao, widget: string }
+              - { label: "Concelho", name: concelho, widget: string, required: false }
+              - { label: "Tipologia", name: tipologia, widget: string }
+              - { label: "Unidades", name: unidades, widget: string, required: false }
+              - { label: "Estado (obra)", name: estado, widget: string, required: false, hint: "Ex.: Concluído, Em construção, Em projeto." }
+              - { label: "Situação comercial", name: comercial, widget: string, required: false, hint: "Ex.: Vendido, Em comercialização, Arrendamento." }
+              - { label: "Entrega", name: entrega, widget: string, required: false }
+              - { label: "Resumo", name: resumo, widget: text }
+              - { label: "Imagem principal", name: imagem, widget: image, required: false }
+              - { label: "A imagem retrata mesmo este empreendimento?", name: imagemReal, widget: boolean, default: false, hint: "Desligado = imagem provisória (mostra o selo no card)." }
+              - label: "Galeria"
+                name: galeria
+                widget: list
+                required: false
+                field: { label: "Imagem", name: imagem, widget: image }
+              - label: "Factos (ficha técnica)"
+                name: factos
+                widget: list
+                required: false
+                summary: "{{fields.rotulo}}: {{fields.valor}}"
+                fields:
+                  - { label: "Rótulo", name: rotulo, widget: string }
+                  - { label: "Valor", name: valor, widget: string }
 
   # ------------------------------------------------------------- PORTFÓLIO
   - name: portfolio
@@ -113,12 +155,14 @@ collections:
         label: "Conteúdo do Portfólio"
         file: "src/data/portfolio.json"
         fields:
+          - { label: "Nota interna", name: _nota, widget: hidden }
           - label: "Hero"
             name: hero
             widget: object
             fields:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
+              - { label: "Imagem de fundo", name: imagem, widget: image, required: false }
           - label: "Projetos em desenvolvimento"
             name: emDesenvolvimento
             widget: object
@@ -126,16 +170,6 @@ collections:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Subtítulo", name: lead, widget: string }
-              - label: "Projetos"
-                name: projetos
-                widget: list
-                summary: "{{fields.nome}}"
-                fields:
-                  - { label: "Nome", name: nome, widget: string }
-                  - { label: "Localização", name: localizacao, widget: string }
-                  - { label: "Tipologia", name: tipologia, widget: string }
-                  - { label: "Texto CTA", name: cta, widget: string, required: false }
-                  - { label: "Foto", name: foto, widget: image, required: false }
           - label: "Projetos futuros"
             name: futuros
             widget: object
@@ -143,16 +177,6 @@ collections:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Subtítulo", name: lead, widget: string }
-              - label: "Projetos"
-                name: projetos
-                widget: list
-                summary: "{{fields.nome}}"
-                fields:
-                  - { label: "Nome", name: nome, widget: string }
-                  - { label: "Localização", name: localizacao, widget: string }
-                  - { label: "Tipologia", name: tipologia, widget: string }
-                  - { label: "Texto CTA", name: cta, widget: string, required: false }
-                  - { label: "Foto", name: foto, widget: image, required: false }
           - label: "Contacto"
             name: contacto
             widget: object
@@ -176,6 +200,7 @@ collections:
             fields:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
+              - { label: "Imagem de fundo", name: imagem, widget: image, required: false }
           - label: "Quem Somos"
             name: quemSomos
             widget: object
@@ -243,84 +268,21 @@ collections:
         label: "Conteúdo do Histórico"
         file: "src/data/historico.json"
         fields:
+          - { label: "Nota interna", name: _nota, widget: hidden }
           - label: "Hero"
             name: hero
             widget: object
             fields:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
-          - label: "Projetos concluídos"
-            name: projetos
-            widget: list
-            summary: "{{fields.nome}}"
-            fields:
-              - { label: "Nome", name: nome, widget: string }
-              - { label: "Localização", name: localizacao, widget: string }
-              - { label: "Tipologia", name: tipologia, widget: string }
-              - { label: "Texto CTA", name: cta, widget: string, required: false }
-              - { label: "Foto", name: foto, widget: image, required: false }
-          - label: "Contacto"
-            name: contacto
-            widget: object
-            fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
-              - { label: "Título", name: title, widget: string }
-              - { label: "Texto", name: texto, widget: text }
-
-  # ---------------------------------------------------------- SF PROPERTIES
-  - name: sfProperties
-    label: "Página SF Properties"
-    delete: false
-    files:
-      - name: sfProperties
-        label: "Conteúdo do SF Properties"
-        file: "src/data/sf-properties.json"
-        fields:
-          - label: "Hero"
-            name: hero
-            widget: object
-            fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
-              - { label: "Título", name: title, widget: string }
-          - label: "Sobre a marca"
-            name: sobre
-            widget: object
-            fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
-              - { label: "Título", name: title, widget: string }
-              - { label: "Destaque", name: lead, widget: text }
-              - { label: "Parágrafo", name: paragrafo, widget: text }
-              - { label: "Texto do botão", name: botao, widget: string, required: false }
-          - label: "Serviços"
-            name: servicos
-            widget: object
-            fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
-              - { label: "Título", name: title, widget: string }
-              - label: "Serviços"
-                name: items
-                widget: list
-                summary: "{{fields.title}}"
-                fields:
-                  - { label: "Título", name: title, widget: string }
-                  - { label: "Texto", name: texto, widget: text }
-                  - { label: "Texto do botão", name: botao, widget: string, required: false }
-          - label: "Projetos em destaque"
-            name: projetos
+              - { label: "Imagem de fundo", name: imagem, widget: image, required: false }
+          - label: "Cabeçalho da secção (concluídos)"
+            name: concluidos
             widget: object
             fields:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Subtítulo", name: lead, widget: string }
-              - label: "Projetos"
-                name: items
-                widget: list
-                summary: "{{fields.nome}}"
-                fields:
-                  - { label: "Nome", name: nome, widget: string }
-                  - { label: "Localização", name: localizacao, widget: string }
-                  - { label: "Tipologia", name: tipologia, widget: string }
-                  - { label: "Texto CTA", name: cta, widget: string, required: false }
           - label: "Contacto"
             name: contacto
             widget: object
@@ -344,6 +306,7 @@ collections:
             fields:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
+              - { label: "Imagem de fundo", name: imagem, widget: image, required: false }
           - label: "Direção"
             name: direcao
             widget: object
@@ -409,6 +372,7 @@ collections:
             fields:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
+              - { label: "Imagem de fundo", name: imagem, widget: image, required: false }
           - label: "Contacto"
             name: contacto
             widget: object

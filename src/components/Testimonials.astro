@@ -1,0 +1,173 @@
+---
+// Carrossel de depoimentos com pilha de imagens 3D (esquerda/centro/direita),
+// autoplay, setas, navegação por teclado e animação do texto palavra-a-palavra.
+// Reescrita nativa em Astro (sem React) do componente "circular-testimonials".
+// Estilos em public/styles.css (.testimonials*); interação por JS abaixo.
+interface Testimonial {
+  quote: string;
+  name: string;
+  designation: string;
+  src: string;
+}
+interface Colors {
+  name?: string;
+  designation?: string;
+  testimony?: string;
+  arrowBackground?: string;
+  arrowForeground?: string;
+  arrowHoverBackground?: string;
+}
+interface FontSizes {
+  name?: string;
+  designation?: string;
+  quote?: string;
+}
+interface Props {
+  testimonials: Testimonial[];
+  autoplay?: boolean;
+  colors?: Colors;
+  fontSizes?: FontSizes;
+}
+
+const { testimonials, autoplay = true, colors = {}, fontSizes = {} } = Astro.props;
+
+// Defaults idênticos ao componente original.
+const c = {
+  name: colors.name ?? '#000',
+  designation: colors.designation ?? '#6b7280',
+  testimony: colors.testimony ?? '#4b5563',
+  arrowBg: colors.arrowBackground ?? '#141414',
+  arrowFg: colors.arrowForeground ?? '#f1f1f7',
+  arrowHoverBg: colors.arrowHoverBackground ?? '#00a6fb',
+};
+const f = {
+  name: fontSizes.name ?? '1.5rem',
+  designation: fontSizes.designation ?? '0.925rem',
+  quote: fontSizes.quote ?? '1.125rem',
+};
+
+// Config passada por CSS custom properties (cores/tamanhos por instância).
+const vars = [
+  `--t-name:${c.name}`, `--t-designation:${c.designation}`, `--t-quote:${c.testimony}`,
+  `--t-arrow-bg:${c.arrowBg}`, `--t-arrow-fg:${c.arrowFg}`, `--t-arrow-hover-bg:${c.arrowHoverBg}`,
+  `--t-name-size:${f.name}`, `--t-designation-size:${f.designation}`, `--t-quote-size:${f.quote}`,
+].join(';');
+
+const first = testimonials[0];
+---
+<div class="testimonials" style={vars} data-autoplay={autoplay ? 'true' : 'false'} tabindex="0" aria-roledescription="carrossel de depoimentos">
+  <div class="testimonials__grid">
+    <div class="testimonials__images">
+      {testimonials.map((t, i) => (
+        t.src
+          ? <img class="testimonials__img" src={t.src} alt={t.name} data-index={i} loading="lazy" />
+          : <div class="testimonials__img testimonials__img--ph" data-index={i} aria-hidden="true"></div>
+      ))}
+    </div>
+    <div class="testimonials__content">
+      <div class="testimonials__body">
+        <h3 class="testimonials__name">{first?.name}</h3>
+        <p class="testimonials__designation">{first?.designation}</p>
+        <p class="testimonials__quote">{first?.quote}</p>
+      </div>
+      <div class="testimonials__arrows">
+        <button class="testimonials__arrow" type="button" data-dir="prev" aria-label="Depoimento anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+        </button>
+        <button class="testimonials__arrow" type="button" data-dir="next" aria-label="Próximo depoimento">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" class="testimonials__data" set:html={JSON.stringify(testimonials)}></script>
+</div>
+
+<script is:inline>
+  (function () {
+    var EASE = 'cubic-bezier(.22,.61,.36,1)';
+    function calcGap(w) {
+      var minW = 1024, maxW = 1456, minG = 60, maxG = 86;
+      if (w <= minW) return minG;
+      if (w >= maxW) return Math.max(minG, maxG + 0.06018 * (w - maxW));
+      return minG + (maxG - minG) * ((w - minW) / (maxW - minW));
+    }
+
+    function initOne(root) {
+      if (root.dataset.ready) return;
+      root.dataset.ready = '1';
+
+      var items;
+      try { items = JSON.parse(root.querySelector('.testimonials__data').textContent); }
+      catch (e) { return; }
+      if (!items || !items.length) return;
+
+      var wrap = root.querySelector('.testimonials__images');
+      var imgs = Array.prototype.slice.call(root.querySelectorAll('.testimonials__img'));
+      var nameEl = root.querySelector('.testimonials__name');
+      var desEl = root.querySelector('.testimonials__designation');
+      var quoteEl = root.querySelector('.testimonials__quote');
+      var body = root.querySelector('.testimonials__body');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var n = items.length;
+      var active = 0;
+      var timer = null;
+
+      function layout() {
+        var gap = calcGap(wrap.offsetWidth || 1200);
+        var stick = gap * 0.32;
+        imgs.forEach(function (img, i) {
+          img.style.transition = 'all 0.8s ' + EASE;
+          var isLeft = (active - 1 + n) % n === i;
+          var isRight = (active + 1) % n === i;
+          if (i === active) {
+            img.style.zIndex = 3; img.style.opacity = 1; img.style.pointerEvents = 'auto';
+            img.style.transform = 'translateX(0px) translateY(0px) scale(1) rotateY(0deg)';
+          } else if (isLeft) {
+            img.style.zIndex = 2; img.style.opacity = 1; img.style.pointerEvents = 'auto';
+            img.style.transform = 'translateX(-' + gap + 'px) translateY(-' + stick + 'px) scale(0.9) rotateY(8deg)';
+          } else if (isRight) {
+            img.style.zIndex = 2; img.style.opacity = 1; img.style.pointerEvents = 'auto';
+            img.style.transform = 'translateX(' + gap + 'px) translateY(-' + stick + 'px) scale(0.9) rotateY(-8deg)';
+          } else {
+            img.style.zIndex = 1; img.style.opacity = 0; img.style.pointerEvents = 'none';
+            img.style.transform = '';
+          }
+        });
+      }
+
+      function update() {
+        var t = items[active];
+        nameEl.textContent = t.name;
+        desEl.textContent = t.designation;
+        quoteEl.textContent = t.quote;
+        if (!reduce) { body.style.animation = 'none'; void body.offsetWidth; body.style.animation = ''; }
+        layout();
+      }
+
+      function go(dir) { active = (active + dir + n) % n; stopAuto(); update(); }
+      function startAuto() {
+        if (root.getAttribute('data-autoplay') !== 'true') return;
+        stopAuto();
+        timer = setInterval(function () { active = (active + 1) % n; update(); }, 5000);
+      }
+      function stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
+
+      root.querySelector('[data-dir="next"]').addEventListener('click', function () { go(1); });
+      root.querySelector('[data-dir="prev"]').addEventListener('click', function () { go(-1); });
+      root.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') go(-1);
+        if (e.key === 'ArrowRight') go(1);
+      });
+      window.addEventListener('resize', layout, { passive: true });
+
+      layout();
+      update();
+      startAuto();
+    }
+
+    function initAll() { document.querySelectorAll('.testimonials').forEach(initOne); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
+    else initAll();
+  })();
+</script>

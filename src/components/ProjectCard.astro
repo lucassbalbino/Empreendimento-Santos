@@ -1,9 +1,14 @@
 ---
-// Card de empreendimento. Usa proj.slug (e não slugify do nome) para o link,
-// por isso a listagem e a página de detalhe não podem divergir.
-const { proj, dark = false } = Astro.props;
+// Card de empreendimento. Por defeito liga à página de detalhe (proj.slug), por
+// isso a listagem e a página de detalhe não podem divergir. Com modal={true} não
+// navega: é um botão que abre a janela de detalhe na própria página (histórico).
+const { proj, dark = false, modal = false } = Astro.props;
+const Tag = modal ? 'button' : 'a';
+const attrs = modal
+  ? { type: 'button', class: 'card card--modal', 'data-slug': proj.slug }
+  : { class: 'card', href: `/empreendimentos/${proj.slug}` };
 ---
-<a class="card" href={`/empreendimentos/${proj.slug}`}>
+<Tag {...attrs}>
   <div class="card__media">
     {proj.imagem
       ? <img class="card__img" src={proj.imagem} alt={proj.nome} loading="lazy" />
@@ -12,7 +17,7 @@ const { proj, dark = false } = Astro.props;
     <div class="card__overlay">
       <h3 class="card__title">{proj.nome}</h3>
       <div class="card__meta">{proj.localizacao} · {proj.tipologia}</div>
-      <span class="card__cta">Ver empreendimento</span>
+      <span class="card__cta">{modal ? 'Ver detalhes' : 'Ver empreendimento'}</span>
     </div>
   </div>
-</a>
+</Tag>

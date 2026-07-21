@@ -2,26 +2,42 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Stats from '../components/Stats.astro';
-import CardScroller from '../components/CardScroller.astro';
+import DoubleSlider from '../components/DoubleSlider.astro';
 import ExpandPanels from '../components/ExpandPanels.astro';
 import BlockHead from '../components/BlockHead.astro';
-import Team from '../components/Team.astro';
+import Testimonials from '../components/Testimonials.astro';
 import ContactForm from '../components/ContactForm.astro';
 import home from '../data/home.json';
-import { porGrupo } from '../utils/projetos.js';
+import { porGrupo, emDestaque } from '../utils/projetos.js';
 
 // Mantém o <em> do meio do título "O Que Fazemos" como no mockup original.
 const fazemosTitle = home.oQueFazemos.title.replace(/—\s*(\S+)\s*—/, '— <em>$1</em> —');
 
-// Destaques derivados da fonte única — em desenvolvimento primeiro, concluídos no histórico.
-const destaques = porGrupo('desenvolvimento').slice(0, 5);
+// Destaques derivados da fonte única — em construção e em projeto no slider,
+// concluídos no histórico.
+const destaques = emDestaque(8);
 const concluidos = porGrupo('concluido').slice(0, 5);
+
+// Equipa como carrossel: cada card é um membro (foto | nome | cargo | bio).
+const equipaCards = home.equipa.members.map((m) => ({
+  quote: m.bio,
+  name: m.name,
+  designation: m.role,
+  src: m.foto || '',
+}));
 ---
 <Base title="Mockup — Início" description="AM Santos — construindo o futuro com qualidade e sustentabilidade. 20 anos de experiência, com uma equipa de arquitetura, engenharia, decoração e gestão imobiliária.">
   <Hero title={home.hero.title} image={home.hero.imagem} />
 
+  <!-- Camada que sobe e cobre a hero fixa (sticky reveal). Fundo opaco para a
+       imagem estática só se ver na hero, nunca por trás das secções. -->
+  <div class="home-reveal">
+
+  <!-- GRUPO 1 · IDENTIDADE — "Quem Somos" e "O Que Fazemos" são o mesmo
+       capítulo, por isso encostam-se (espaçamento curto entre ambos). -->
+
   <!-- QUEM SOMOS -->
-  <section class="section">
+  <section class="section section--tight-bottom">
     <div class="container">
       <div class="split">
         <div class="split__body">
@@ -35,27 +51,39 @@ const concluidos = porGrupo('concluido').slice(0, 5);
     </div>
   </section>
 
-  <!-- O QUE FAZEMOS + CONTADORES -->
-  <section class="section section--accent">
-    <div class="container dofazemos">
-      <span class="eyebrow" style="justify-content:center">{home.oQueFazemos.eyebrow}</span>
-      <h2 class="display" set:html={fazemosTitle}></h2>
+  <!-- CONTADORES — faixa de números entre as duas secções do capítulo da
+       identidade. Fora de <section> para escapar à cortina de revelação. -->
+  <div class="seam">
+    <div class="container">
       <Stats items={home.oQueFazemos.stats} />
+    </div>
+  </div>
+
+  <!-- O QUE FAZEMOS — sobre o mesmo branco do "Quem Somos": os dois são o
+       mesmo capítulo. O laranja vive nos números e nas eyebrows, em toda a
+       página, em vez de saturar uma só secção. -->
+  <section class="section section--fazemos">
+    <div class="container dofazemos">
+      <h2 class="display" set:html={fazemosTitle}></h2>
     </div>
   </section>
 
+  <!-- GRUPO 2 · OBRA — portfolio e histórico partilham o bloco escuro e
+       encostam-se, para se lerem como um único capítulo. -->
+
   <!-- PORTFOLIO -->
-  <section class="section">
-    <div class="container">
-      <BlockHead eyebrow={home.portfolio.eyebrow} title={home.portfolio.title} lead={home.portfolio.lead} botao={home.portfolio.botao} href="/portfolio" />
-    </div>
-    <div class="container">
-      <CardScroller projetos={destaques} />
-    </div>
+  <section class="section section--dark section--flush">
+    <DoubleSlider
+      projetos={destaques}
+      eyebrow={home.portfolio.eyebrow}
+      titulo={home.portfolio.title}
+      botao={home.portfolio.botao}
+      href="/portfolio"
+    />
   </section>
 
   <!-- TRACK RECORD -->
-  <section class="section section--dark">
+  <section class="section section--dark section--tight-top">
     <div class="container">
       <BlockHead eyebrow={home.trackRecord.eyebrow} title={home.trackRecord.title} lead={home.trackRecord.lead} botao={home.trackRecord.botao} href="/portfolio" />
     </div>
@@ -64,19 +92,36 @@ const concluidos = porGrupo('concluido').slice(0, 5);
     </div>
   </section>
 
-  <!-- EQUIPA -->
-  <section class="section section--alt">
+  <!-- GRUPO 3 · PESSOAS — equipa e contacto encostam-se: conhecer quem
+       faz e falar com quem faz são o mesmo movimento. -->
+
+  <!-- EQUIPA (carrossel: cada card é um membro) -->
+  <section class="section section--alt section--tight-bottom">
     <div class="container">
       <span class="eyebrow">{home.equipa.eyebrow}</span>
-      <h2 class="display display--sm">{home.equipa.title}</h2>
-      <Team members={home.equipa.members} />
+      <h2 class="display display--sm" style="margin-bottom:clamp(32px,4vw,56px)">{home.equipa.title}</h2>
+      <Testimonials
+        testimonials={equipaCards}
+        autoplay={true}
+        colors={{
+          name: 'var(--ink)',
+          designation: 'var(--ink-faint)',
+          testimony: 'var(--ink-soft)',
+          arrowBackground: 'var(--dark)',
+          arrowForeground: 'var(--paper)',
+          arrowHoverBackground: 'var(--accent)',
+        }}
+        fontSizes={{ name: '1.9rem', designation: '0.8rem', quote: '1.2rem' }}
+      />
     </div>
   </section>
 
   <!-- CONTACTO -->
-  <section class="section" id="contacto">
+  <section class="section section--tight-top" id="contacto">
     <div class="container">
       <ContactForm eyebrow={home.contacto.eyebrow} title={home.contacto.title} texto={home.contacto.texto} />
     </div>
   </section>
+
+  </div><!-- /.home-reveal -->
 </Base>
