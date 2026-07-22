@@ -54,33 +54,47 @@
   async function run(href) {
     if (busy) return;
     busy = true;
+    try {
+      let doc = null;
+      try { doc = await fetchDoc(href); } catch (_) {}
+      const url = doc ? heroUrlFromDoc(doc) : null;
+      await preloadImg(url);
 
-    let doc = null;
-    try { doc = await fetchDoc(href); } catch (_) {}
-    const url = doc ? heroUrlFromDoc(doc) : null;
-    await preloadImg(url);
+      imgLayer.style.backgroundImage = url ? `url("${url}")` : '';
+      curtain.classList.toggle('curtain--solid', !url);
+      curtain.classList.add('curtain--active');
 
-    imgLayer.style.backgroundImage = url ? `url("${url}")` : '';
-    curtain.classList.toggle('curtain--solid', !url);
-    curtain.classList.add('curtain--active');
+      // Desce a cobrir, segura um instante no cover.
+      await slide('-100%', '0', DOWN);
+      await new Promise((r) => setTimeout(r, HOLD));
 
-    // Desce a cobrir, segura um instante no cover.
-    await slide('-100%', '0', DOWN);
-    await new Promise((r) => setTimeout(r, HOLD));
+      // Troca a página POR BAIXO da cortina (coberta) e espera montar.
+      // Failsafe: se `astro:page-load` não disparar (falha de navegação), não
+      // deixar a cortina presa — rejeita ao fim de 5s e cai no catch.
+      let timer;
+      const swapped = new Promise((resolve, reject) => {
+        const h = () => { clearTimeout(timer); document.removeEventListener('astro:page-load', h); resolve(); };
+        document.addEventListener('astro:page-load', h);
+        timer = setTimeout(() => {
+          document.removeEventListener('astro:page-load', h);
+          reject(new Error('astro:page-load timeout'));
+        }, 5000);
+      });
+      navigate(href);
+      await swapped;
 
-    // Troca a página POR BAIXO da cortina (coberta) e espera montar.
-    const swapped = new Promise((resolve) => {
-      const h = () => { document.removeEventListener('astro:page-load', h); resolve(); };
-      document.addEventListener('astro:page-load', h);
-    });
-    navigate(href);
-    await swapped;
-
-    // Revela: a cortina sai por baixo, descobrindo a nova página (hero no topo).
-    await slide('0', '100%', UP);
-    curtain.classList.remove('curtain--active', 'curtain--solid');
-    imgLayer.style.backgroundImage = '';
-    busy = false;
+      // Revela: a cortina sai por baixo, descobrindo a nova página (hero no topo).
+      await slide('0', '100%', UP);
+    } catch (err) {
+      // Navegação falhou/expirou: garante que o utilizador chega ao destino
+      // com uma navegação normal, em vez de ficar preso sob a cortina.
+      window.location.href = href;
+      return;
+    } finally {
+      curtain.classList.remove('curtain--active', 'curtain--solid');
+      imgLayer.style.backgroundImage = '';
+      busy = false;
+    }
   }
 
   // "Menu + botões principais": links do header OU .btn, internos, mesma origem.
