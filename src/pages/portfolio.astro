@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import BlockHead from '../components/BlockHead.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactForm from '../components/ContactForm.astro';
+import Stitch from '../components/Stitch.astro';
 import portfolio from '../data/portfolio.json';
 import { porGrupo } from '../utils/projetos.js';
 
@@ -27,17 +28,24 @@ const secoes = [
     </div>
   </section>
 
-  <!-- PROJETOS: EM DESENVOLVIMENTO + FUTUROS -->
+  <!-- PROJETOS: EM DESENVOLVIMENTO + FUTUROS. Costura na fronteira de cor
+       entre o 1.º bloco (branco) e o 2.º (cinza). -->
   {secoes.map((s, i) => (
-    <section class={i === 1 ? "section section--alt" : "section"}>
-      <div class="container">
-        <BlockHead eyebrow={s.eyebrow} title={s.title} lead={s.lead} />
-        <div class="grid-projects">
-          {s.projetos.map((p) => (<ProjectCard proj={p} />))}
+    <>
+      {i === 1 && <Stitch variant="light" />}
+      <section class={i === 1 ? "section section--alt" : "section"}>
+        <div class="container">
+          <BlockHead eyebrow={s.eyebrow} title={s.title} lead={s.lead} />
+          <div class="grid-projects">
+            {s.projetos.map((p) => (<ProjectCard proj={p} />))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   ))}
+
+  <!-- COSTURA · Futuros (cinza) → Contacto (branco) -->
+  <Stitch variant="alt" />
 
   <!-- CONTACTO -->
   <section class="section" id="contacto">

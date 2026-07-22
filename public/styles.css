@@ -22,10 +22,16 @@
 
   --maxw: 1280px;
   --gutter: clamp(20px, 5vw, 72px);
-  --section-y: clamp(72px, 9vw, 150px);
+  /* Ritmo: mais distância de scroll por gesto. Cada elemento passa a percorrer
+     a sua animação ao longo de mais píxeis, o que se lê como suavidade — é o
+     segundo maior fator, depois do scroll interpolado. */
+  --section-y: clamp(110px, 13vw, 220px);
   /* Espaçamento curto: usado *dentro* de um grupo narrativo, para que a
      proximidade indique que as duas secções são o mesmo capítulo. */
   --section-y-tight: clamp(28px, 3.4vw, 56px);
+  /* Altura da cunha diagonal (.stitch). Global porque o conteúdo que desce
+     para dentro do corte (ver .section--panels-cut) precisa da mesma medida. */
+  --stitch-rise: clamp(40px, 4.6vw, 72px);
 
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -35,7 +41,15 @@
 
 /* ---------- Reset ---------- */
 *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
-html{ scroll-behavior:smooth; -webkit-font-smoothing:antialiased; }
+/* scroll-behavior fica em `auto`: só afeta saltos programáticos e âncoras,
+   nunca a roda do rato, e entrava em conflito com o scroll interpolado do
+   Lenis (ver Base.astro). A suavidade real vem do Lenis. */
+html{ -webkit-font-smoothing:antialiased; }
+/* Regras mínimas exigidas pelo Lenis (equivalente ao lenis.css do pacote). */
+html.lenis, html.lenis body{ height:auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped{ overflow:clip; }
+.lenis.lenis-smooth [data-lenis-prevent]{ overscroll-behavior:contain; }
+.lenis.lenis-smooth iframe{ pointer-events:none; }
 body{
   font-family:var(--sans);
   background:var(--paper);
@@ -203,7 +217,7 @@ ul{ list-style:none; }
 .nav__search{
   width:34px; height:34px; border:1px solid rgba(255,255,255,.4);
   border-radius:50%; display:grid; place-items:center; color:#fff;
-  transition:all .3s var(--ease);
+  transition:border-color .3s var(--ease), color .3s var(--ease);
 }
 .scrolled .nav__search{ border-color:var(--line); color:var(--ink); }
 
@@ -212,7 +226,7 @@ ul{ list-style:none; }
   display:none; flex-direction:column; gap:5px; background:none; border:0;
   cursor:pointer; padding:6px;
 }
-.nav-toggle span{ width:26px; height:2px; background:#fff; transition:all .3s var(--ease); }
+.nav-toggle span{ width:26px; height:2px; background:#fff; transition:background-color .3s var(--ease), transform .3s var(--ease); }
 .scrolled .nav-toggle span{ background:var(--ink); }
 
 /* =====================================================================
@@ -259,22 +273,29 @@ ul{ list-style:none; }
 .hero__scroll .line{ width:1px; height:46px; background:rgba(255,255,255,.5); animation:scrollLine 2s var(--ease) infinite; transform-origin:top; }
 @keyframes scrollLine{ 0%{transform:scaleY(0)} 40%{transform:scaleY(1)} 100%{transform:scaleY(0); transform-origin:bottom} }
 
-/* Sticky reveal na hero da Home (estilo editorial): a imagem fica FIXA ao
-   viewport enquanto o conteúdo seguinte (.home-reveal) sobe por cima e a
-   cobre, como uma cortina sobre uma imagem parada. CSS puro — a imagem nunca
-   se move; o título e o indicador ficam com ela e são cobertos de baixo para
-   cima. A camada opaca garante que a imagem só se vê na hero, não por trás
-   das secções. */
-body.is-home .hero{ position:sticky; top:0; z-index:0; }
+/* Hero da Home quase ancorada: a imagem fica praticamente parada no viewport,
+   deslocando-se apenas ~15% do scroll (deriva subtil, não "arrastada"). A hero
+   está em fluxo normal, por isso o h1 sai por cima do ecrã com o scroll em vez
+   de ficar preso e ser tapado pela secção seguinte.
+
+   A caixa não precisa de ser esticada: como a imagem desce 85% do scroll e a
+   parte de cima da hero sai do ecrã a 100%, a caixa `inset:0` nunca deixa
+   vazio — o topo dela desce sempre menos do que o topo visível da hero. Manter
+   `inset:0` preserva o enquadramento `cover` centrado da foto.
+   Sem JS (ou com prefers-reduced-motion) --hero-parallax fica a 0 e a imagem
+   comporta-se como um fundo normal. */
+body.is-home .hero__bg--img{
+  transform:translate3d(0, var(--hero-parallax, 0px), 0);
+  will-change:transform;
+}
 .home-reveal{
   position:relative; z-index:1; background:var(--paper);
-  /* Sombra no rebordo superior: o conteúdo parece deslizar POR CIMA da imagem
-     fixa, projetando sombra sobre ela ao cobri-la. */
+  /* Sombra no rebordo superior: separa o conteúdo da imagem da hero, que se
+     move mais devagar por baixo. */
   box-shadow:0 -26px 50px -12px rgba(0,0,0,.45);
 }
-/* O footer vem do layout Base, fora do .home-reveal. Sem isto, a hero sticky
-   (elemento posicionado) pintaria por cima do footer. Empilha-o ao mesmo nível
-   da camada que cobre a imagem. */
+/* O footer vem do layout Base, fora do .home-reveal. Mantém-no na mesma camada
+   do conteúdo, acima da hero. */
 body.is-home .site-footer{ position:relative; z-index:1; }
 
 /* =====================================================================
@@ -377,6 +398,90 @@ html.reveal-ready .seam:has(.stat.is-visible)::before{ transform:scaleY(1); }
   .seam .stats{ box-shadow:none; }
   .seam .stat{ padding-block:clamp(24px,5vw,34px); }
 }
+
+/* ---------------------------------------------------------------------
+   COSTURA DIAGONAL (.stitch) — remate entre secções de cor diferente.
+   Um triângulo da cor da secção ANTERIOR desce sobre o topo da seguinte
+   (linha de telhado / blueprint) e um fio laranja cose o corte na
+   diagonal. Vive fora de <section>, por isso a cortina de revelação
+   (body.is-home .section::after) não o tapa; sobrepõe-se ao topo da
+   secção seguinte por z-index, sem cortar a caixa nem o conteúdo.
+   --------------------------------------------------------------------- */
+.stitch{
+  position:relative; z-index:6;   /* acima da cortina (::after z-index:5) */
+  height:0;                        /* não ocupa espaço: as secções continuam a encostar */
+}
+.stitch__cut{
+  position:absolute; left:0; top:0; width:100%;
+  height:var(--stitch-rise);
+  display:block; pointer-events:none; overflow:visible;
+}
+.stitch--light .stitch__wedge{ fill:var(--paper); }     /* branco sobre a secção seguinte */
+.stitch--alt   .stitch__wedge{ fill:var(--paper-alt); } /* cinza-claro (.section--alt) sobre a seguinte */
+.stitch--dark  .stitch__wedge{ fill:var(--dark); }      /* escuro sobre a Equipa */
+.stitch__thread{
+  fill:none; stroke:var(--accent); stroke-width:2.5;
+  vector-effect:non-scaling-stroke;   /* espessura constante apesar do preserveAspectRatio:none */
+  stroke-dasharray:none;   /* por defeito: desenhada inteira (sem JS / reduced-motion) */
+}
+.stitch--dark .stitch__thread{ stroke:var(--accent-dk); }  /* mais brilho sobre escuro */
+/* Progresso ligado ao scroll: o script da home escreve --draw (0→1) em cada
+   .stitch conforme a costura sobe pelo ecrã, e a faixa laranja avança na
+   diagonal. Ativo só com html.stitch-scroll (JS on e sem reduced-motion).
+   Um ÚNICO traço a crescer da origem do caminho (canto inferior esquerdo): o
+   dash tem comprimento --draw e o gap (2) é maior que o caminho (pathLength=1),
+   por isso não há padrão periódico nem resíduo no canto oposto no início. */
+html.stitch-scroll .stitch__thread{ stroke-dasharray:var(--draw,0) 2; }
+
+@media (max-width:640px){
+  :root{ --stitch-rise:clamp(26px,5vw,44px); }
+}
+
+/* ---- Costura VERTICAL (.stitch--vseam) — entre Equipa e Contacto ----
+   As duas secções são o mesmo capítulo ("Pessoas") e quase da mesma cor, por
+   isso aqui a costura UNE em vez de cortar: um fio vertical laranja no eixo
+   central que desce a atravessar a fronteira, no idioma do .seam original.
+   É da família .stitch, logo o script da home também lhe escreve --draw e o
+   fio cresce de cima para baixo com o scroll. */
+.stitch--vseam{ --vthread:clamp(96px,13vh,176px); }
+.stitch--vseam::before{
+  content:""; position:absolute; z-index:6; pointer-events:none;
+  left:calc(50% - 1px);
+  top:calc(-1 * var(--section-y-tight));      /* nasce dentro do fundo da Equipa */
+  width:2px;
+  height:calc(var(--vthread) + var(--section-y-tight));
+  background:linear-gradient(to bottom,
+    transparent 0, var(--accent) 20%, var(--accent) 82%, transparent 100%);
+  transform:scaleY(1); transform-origin:top;   /* por defeito: fio inteiro (sem JS / reduced-motion) */
+}
+html.stitch-scroll .stitch--vseam::before{ transform:scaleY(var(--draw,1)); }
+
+/* ---- Costura por MARCA D'ÁGUA (.seam-wm) — Portfolio → Histórico ----
+   Reutiliza a MESMA linguagem da antiga watermark do slider (Fraunces, ténue,
+   uppercase, tracking apertado), agora com a marca "Empreendimentos Santos"
+   assente na fronteira (metade em cada secção) a coser os dois blocos escuros.
+   Fora de <section> para escapar à cortina de revelação; sangra pelos bordos
+   (body tem overflow-x:hidden). */
+/* Faixa à largura toda, assente na fronteira; translateY(-50%) põe o centro do
+   bloco de 2 linhas sobre a linha de junção (Empreendimentos acima, Santos
+   abaixo). O .container dá a mesma margem lateral que o resto do site. */
+.seam-wm__wrap{
+  position:absolute; inset:0 0 auto 0;
+  transform:translateY(-50%);
+  z-index:6; pointer-events:none;
+}
+.seam-wm__text{
+  display:block; text-align:right;      /* Santos (e Empreendimentos) alinhados à margem direita */
+  user-select:none;
+  font-family:var(--serif); font-weight:300;
+  text-transform:uppercase; letter-spacing:-.01em; line-height:.9;
+  font-size:clamp(2rem, 7.6vw, 7rem);   /* cabe inteiro no .container, sem cortar palavras */
+  color:rgba(255,255,255,.06);          /* branco ténue sobre preto (= watermark original) */
+}
+.seam-wm__text > span{ display:block; }
+/* Aparece suavemente com o scroll (tem a classe .stitch, logo o script escreve
+   --draw). Sem JS / reduced-motion: fica visível (regra base acima). */
+html.stitch-scroll .seam-wm__text{ opacity:var(--draw,1); }
 
 .stats{
   display:grid; grid-template-columns:repeat(5,1fr);
@@ -540,9 +645,37 @@ html.reveal-ready .seam:has(.stat.is-visible)::before{ transform:scaleY(1); }
 .panels:hover .panel:hover .panel__label{ opacity:0; }
 .panels:hover .panel:hover .panel__content{ opacity:1; transform:translateY(0); }
 
+/* ---- Variante "cortada" (Histórico, na home) ----------------------------
+   Os painéis crescem em altura, sangram de bordo a bordo (saem do .container)
+   e o seu bordo inferior é recortado (clip-path) na MESMA diagonal da costura,
+   ficando RENTE à linha transversal — sem a atravessar nem parar antes dela.
+   A secção perde o padding de baixo e os painéis recuperam-no com margem
+   negativa.
+   flow-root: sem BFC próprio, essa margem negativa colapsava com a da secção e
+   puxava a costura para cima em vez de fazer os painéis descer. */
+.section--panels-cut{ padding-bottom:0; display:flow-root; }
+.section--panels-cut .panels{
+  position:relative; z-index:7;   /* acima da cunha (6), abaixo do fio (8) */
+  /* Descem exatamente a altura da cunha para lá da fronteira... */
+  height:calc(clamp(460px,72vh,760px) + var(--stitch-rise));
+  margin-bottom:calc(-1 * var(--stitch-rise));
+  /* ...e o bordo inferior é recortado NA MESMA diagonal da costura: à direita
+     rente à fronteira, à esquerda uma cunha abaixo. Assim cada card termina
+     sobre a linha transversal, sem a atravessar nem parar antes dela. O fio
+     (z-index 8) bainha esse bordo por cima. */
+  clip-path:polygon(0 0, 100% 0, 100% calc(100% - var(--stitch-rise)), 0 100%);
+}
+/* O clip remove até --stitch-rise do fundo (máximo na borda direita de cada
+   card). Sobe o rótulo e o conteúdo essa medida — mais uma folga — para nenhum
+   texto cair na zona recortada, seja qual for o card expandido. */
+.section--panels-cut .panel__label{ bottom:calc(1.4rem + var(--stitch-rise)); }
+.section--panels-cut .panel__content{ bottom:calc(var(--stitch-rise) + .4rem); }
+.stitch--thread-top{ z-index:8; }
+
 /* Responsivo: vira pilha vertical de cards, sem efeito de expansão */
 @media (max-width:720px){
-  .panels{ flex-direction:column; height:auto; gap:10px; }
+  .panels,
+  .section--panels-cut .panels{ flex-direction:column; height:auto; gap:10px; }
   .panel,
   .panel.is-active,
   .panels:hover .panel,
@@ -619,7 +752,7 @@ html.reveal-ready .seam:has(.stat.is-visible)::before{ transform:scaleY(1); }
 .footer-logo{ height:auto; }
 .footer-logo img{ height:82px; width:auto; display:block; }
 .socials{ display:flex; gap:.8rem; margin-top:1.2rem; }
-.socials a{ width:38px; height:38px; border:1px solid rgba(255,255,255,.2); border-radius:50%; display:grid; place-items:center; font-size:.62rem; letter-spacing:.05em; color:#cdd0d4; transition:all .3s var(--ease); }
+.socials a{ width:38px; height:38px; border:1px solid rgba(255,255,255,.2); border-radius:50%; display:grid; place-items:center; font-size:.62rem; letter-spacing:.05em; color:#cdd0d4; transition:border-color .3s var(--ease), color .3s var(--ease); }
 .socials a:hover{ border-color:var(--accent-dk); color:var(--accent-dk); }
 .news{ display:flex; border-bottom:1px solid rgba(255,255,255,.25); }
 .news input{ flex:1; background:none; border:0; color:#fff; padding:.6rem 0; font-size:.9rem; }
@@ -632,18 +765,27 @@ html.reveal-ready .seam:has(.stat.is-visible)::before{ transform:scaleY(1); }
    ===================================================================== */
 
 /* 1) Revelar ao rolar — estado inicial só quando o JS marca html.reveal-ready,
-   evitando qualquer "flash". Fica inativo em prefers-reduced-motion. */
+   evitando qualquer "flash". Fica inativo em prefers-reduced-motion.
+
+   Só `transform` e `opacity`: são as duas propriedades que o compositor da GPU
+   resolve sem repintar. O `clip-path` que aqui estava obrigava a repintar cada
+   elemento revelado a cada frame — era o item mais caro do site e corria em
+   todo o lado. A máscara que ele dava é substituída pelo wrapper .reveal-mask
+   abaixo, onde for preciso.
+
+   Durações separadas: a opacidade resolve-se depressa (.32s) e o deslocamento
+   continua muito depois (1.1s). O elemento *aparece* rápido e só depois
+   *assenta* — é isto que se lê como fluido. Durações iguais leem-se como
+   lentas. */
 html.reveal-ready :is(
   .section .eyebrow, .section .display, .section .lead,
   .split__body > p, .card, .stat, .vertical, .service, .member, .panels
 ){
   opacity:0;
   transform:translateY(26px);
-  clip-path:inset(100% 0 0 0);
-  transition:opacity .85s var(--ease),
-             transform .85s var(--ease),
-             clip-path .85s var(--ease);
-  will-change:transform, clip-path;
+  transition:opacity .32s var(--ease),
+             transform 1.1s var(--ease);
+  will-change:transform, opacity;
 }
 html.reveal-ready :is(
   .section .eyebrow, .section .display, .section .lead,
@@ -651,7 +793,38 @@ html.reveal-ready :is(
 ).is-visible{
   opacity:1;
   transform:none;
-  clip-path:inset(0 0 0 0);
+}
+
+/* Máscara reutilizável: envolve o elemento e corta-o com overflow, para o
+   filho poder subir por trás de um limite fixo sem animar clip-path. É a
+   técnica que dá o reveal "por trás de uma aresta" a custo zero de repintura.
+   Uso: <div class="reveal-mask"><algo class="…"></algo></div> */
+.reveal-mask{ overflow:hidden; }
+
+/* Wipe da esquerda para a direita: a imagem surge revelando-se da borda
+   esquerda até à direita ao entrar no ecrã. Gated por reveal-ready (respeita
+   prefers-reduced-motion). Reutilizável em qualquer .split__media/imagem. */
+html.reveal-ready .reveal-wipe-lr{
+  clip-path:inset(0 100% 0 0);
+  transition:clip-path .95s var(--ease);
+  will-change:clip-path;
+}
+html.reveal-ready .reveal-wipe-lr.is-visible{ clip-path:inset(0 0 0 0); }
+
+/* Revelação lenta de baixo para cima, para imagens grandes que merecem ser
+   vistas a entrar (ex.: "Quem Somos" da home). Movimento mais demorado que o
+   reveal genérico, mas com o mesmo princípio: opacidade rápida, deslocamento
+   lento, e nada de clip-path. Gated por reveal-ready. */
+html.reveal-ready .reveal-rise-slow{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity .4s var(--ease),
+             transform 1.8s var(--ease);
+  will-change:transform, opacity;
+}
+html.reveal-ready .reveal-rise-slow.is-visible{
+  opacity:1;
+  transform:none;
 }
 
 /* 2) Sublinhado animado no menu + indicador da página atual */
@@ -866,7 +1039,7 @@ html.emodal-open{ overflow:hidden; }
    ===================================================================== */
 /* padding-inline a zero: o carrossel tem de assentar no mesmo eixo vertical
    que a eyebrow e o título da secção, e não 2rem à direita deles. */
-.testimonials{ width:100%; max-width:56rem; padding:2rem 0; outline:none; }
+.testimonials{ width:100%; max-width:none; padding:2rem 0; outline:none; }
 .testimonials__grid{ display:grid; gap:5rem; }
 .testimonials__images{ position:relative; width:100%; height:24rem; perspective:1000px; }
 .testimonials__img{
@@ -888,7 +1061,7 @@ html.emodal-open{ overflow:hidden; }
 }
 /* Antes do JS: mostra o primeiro depoimento (fallback sem salto). */
 .testimonials__img[data-index="0"]{ opacity:1; z-index:3; }
-.testimonials__content{ display:flex; flex-direction:column; justify-content:space-between; }
+.testimonials__content{ display:flex; flex-direction:column; justify-content:flex-start; }
 .testimonials__name{
   font-family:var(--serif); font-weight:400; margin-bottom:.5rem; line-height:1.1;
   color:var(--t-name,#000); font-size:var(--t-name-size,1.5rem);
@@ -897,7 +1070,7 @@ html.emodal-open{ overflow:hidden; }
   margin-bottom:2rem; color:var(--t-designation,#6b7280); font-size:var(--t-designation-size,.8rem);
   text-transform:uppercase; letter-spacing:.16em;
 }
-.testimonials__quote{ line-height:1.8; color:var(--t-quote,#4b5563); font-size:var(--t-quote-size,1.125rem); }
+.testimonials__quote{ line-height:1.8; color:var(--t-quote,#4b5563); font-size:var(--t-quote-size,1.125rem); max-width:62ch; }
 .testimonials__body{ animation:testimonial-fade .5s var(--ease) both; }
 .testimonials__arrows{ display:flex; gap:1.5rem; padding-top:3rem; }
 .testimonials__arrow{
@@ -913,8 +1086,8 @@ html.emodal-open{ overflow:hidden; }
   to{ opacity:1; transform:translateY(0); }
 }
 @media (min-width:768px){
-  .testimonials__grid{ grid-template-columns:1fr 1fr; }
-  .testimonials__arrows{ padding-top:0; }
+  /* Coluna das imagens compacta à esquerda; o texto absorve a largura extra. */
+  .testimonials__grid{ grid-template-columns:minmax(0,26rem) 1fr; }
 }
 @media (prefers-reduced-motion: reduce){
   .testimonials__body{ animation:none; }
@@ -933,7 +1106,7 @@ html.emodal-open{ overflow:hidden; }
 .dslider{
   position:relative;
   overflow:hidden;
-  min-height:clamp(560px, 76vh, 740px);
+  min-height:clamp(680px, 92vh, 900px);
   display:flex;
   color:#fff;
   background:var(--dark);
@@ -1007,16 +1180,6 @@ html.emodal-open{ overflow:hidden; }
 }
 .dslider__eyebrow{ margin-bottom:0; }
 
-/* ---- Marca d'água (título da secção) ---- */
-.dslider__watermark{
-  position:absolute; z-index:1; left:-.06em; bottom:-.16em;
-  pointer-events:none; user-select:none;
-  font-family:var(--serif); font-weight:300;
-  text-transform:uppercase; letter-spacing:-.01em; line-height:.86;
-  font-size:clamp(4rem, 14vw, 12rem);
-  color:rgba(255,255,255,.06);
-  white-space:nowrap;
-}
 
 /* ---- Rodapé: setas + fila de miniaturas ----
    A caixa atravessa toda a largura mas a metade esquerda é espaço vazio (as
@@ -1083,7 +1246,7 @@ html.emodal-open{ overflow:hidden; }
 
 /* ---- Ecrãs estreitos: sem fila de miniaturas, com contador ---- */
 @media (max-width: 900px){
-  .dslider{ min-height:clamp(480px, 64vh, 620px); }
+  .dslider{ min-height:clamp(580px, 78vh, 760px); }
   /* Sobrepõe-se ao --name-size: em ecrãs estreitos manda a largura, não o nome. */
   .dslider__name{ font-size:clamp(1.4rem, 7.4vw, 2.2rem); }
   .dslider__head{ min-height:clamp(4.4rem, 19vw, 6rem); }
@@ -1101,7 +1264,6 @@ html.emodal-open{ overflow:hidden; }
   .dslider__foot{ inset:auto var(--gutter) clamp(1.4rem, 3.5vh, 2.6rem) var(--gutter); justify-content:center; }
   .dslider__arrows{ margin:0 auto; padding-bottom:0; }
   .dslider__count{ display:inline-block; margin-left:.6rem; }
-  .dslider__watermark{ font-size:clamp(3rem, 18vw, 6rem); }
 }
 
 @media (prefers-reduced-motion: reduce){

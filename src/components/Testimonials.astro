@@ -117,7 +117,9 @@ const first = testimonials[0];
         var gap = calcGap(wrap.offsetWidth || 1200);
         var stick = gap * 0.32;
         imgs.forEach(function (img, i) {
-          img.style.transition = 'all 0.8s ' + EASE;
+          // Só transform e opacity mudam aqui; declará-las explicitamente evita
+          // que o browser vigie todas as propriedades ('all').
+          img.style.transition = 'transform 0.8s ' + EASE + ', opacity 0.8s ' + EASE;
           var isLeft = (active - 1 + n) % n === i;
           var isRight = (active + 1) % n === i;
           if (i === active) {

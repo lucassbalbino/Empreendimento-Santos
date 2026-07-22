@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Team from '../components/Team.astro';
 import ContactForm from '../components/ContactForm.astro';
+import Stitch from '../components/Stitch.astro';
 import equipa from '../data/equipa.json';
 ---
 <Base title="Mockup — Equipa" description="A equipa da AM Santos — profissionais de arquitetura, engenharia, decoração e gestão imobiliária de alto nível, e as empresas do grupo (SF Properties e Valflores).">
@@ -29,6 +30,9 @@ import equipa from '../data/equipa.json';
     </div>
   </section>
 
+  <!-- COSTURA · Direção (branco) → Equipa geral (cinza) -->
+  <Stitch variant="light" />
+
   <!-- EQUIPA GERAL -->
   <section class="section section--alt">
     <div class="container">
@@ -38,15 +42,23 @@ import equipa from '../data/equipa.json';
     </div>
   </section>
 
-  <!-- EMPRESAS DO GRUPO -->
-  {equipa.grupo.map((g) => (
-    <section class="section">
-      <div class="container">
-        <h2 class="display display--sm" style="margin-bottom:clamp(28px,4vw,56px)">{g.title}</h2>
-        <Team members={g.members} />
-      </div>
-    </section>
+  <!-- EMPRESAS DO GRUPO. Costura na fronteira de cor antes do 1.º bloco
+       (cinza → branco). Entre as empresas (branco → branco) não há corte:
+       não há cor a coser. -->
+  {equipa.grupo.map((g, i) => (
+    <>
+      {i === 0 && <Stitch variant="alt" />}
+      <section class="section">
+        <div class="container">
+          <h2 class="display display--sm" style="margin-bottom:clamp(28px,4vw,56px)">{g.title}</h2>
+          <Team members={g.members} />
+        </div>
+      </section>
+    </>
   ))}
+
+  <!-- COSTURA · Empresas do grupo (branco) → Contacto (cinza) -->
+  <Stitch variant="light" />
 
   <!-- CONTACTO -->
   <section class="section section--alt" id="contacto">

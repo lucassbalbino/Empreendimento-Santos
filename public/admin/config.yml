@@ -37,6 +37,7 @@ collections:
               - { label: "Título", name: title, widget: string }
               - { label: "Parágrafos", name: paragrafos, widget: list, field: { label: "Parágrafo", name: texto, widget: text } }
               - { label: "Texto do botão", name: botao, widget: string }
+              - { label: "Imagem", name: imagem, widget: image, required: false, hint: "Vertical 4:5. Se vazio, mostra o marcador de imagem." }
           - label: "O Que Fazemos — Números"
             name: oQueFazemos
             widget: object

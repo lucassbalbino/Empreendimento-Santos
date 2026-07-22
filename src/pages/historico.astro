@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import BlockHead from '../components/BlockHead.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactForm from '../components/ContactForm.astro';
+import Stitch from '../components/Stitch.astro';
 import historico from '../data/historico.json';
 import { porGrupo } from '../utils/projetos.js';
 
@@ -49,6 +50,9 @@ const modalData = concluidos.map((p) => ({
       </div>
     </div>
   </section>
+
+  <!-- COSTURA · Concluídos (branco) → Contacto (cinza) -->
+  <Stitch variant="light" />
 
   <!-- CONTACTO -->
   <section class="section section--alt" id="contacto">

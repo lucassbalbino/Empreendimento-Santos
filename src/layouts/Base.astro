@@ -47,7 +47,7 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
       if (!('IntersectionObserver' in window) ||
           window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       root.classList.add('reveal-ready');
-      var SEL = '.section, .section .eyebrow, .section .display, .section .lead, .split__body > p, .card, .stat, .vertical, .service, .member, .panels';
+      var SEL = '.section, .section .eyebrow, .section .display, .section .lead, .split__body > p, .card, .stat, .vertical, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
       function init() {
         var els = Array.prototype.slice.call(document.querySelectorAll(SEL));
         els.forEach(function (el) {
@@ -100,6 +100,93 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
   <Header />
   <slot />
   <Footer />
+  <!-- Costura ligada ao scroll: a faixa laranja de cada .stitch avança na
+       diagonal conforme a costura sobe pelo ecrã. Escreve --draw (0→1) por
+       costura; a regra html.stitch-scroll mapeia-o para o stroke-dashoffset.
+       Vive no layout para correr em TODAS as páginas (a home e as internas
+       partilham a mesma linguagem de costura). Sai cedo se não houver .stitch.
+       Reduced-motion: não ativa (a faixa fica desenhada pela regra base). -->
+  <script is:inline>
+    (function () {
+      var root = document.documentElement;
+      var stitches = document.querySelectorAll('.stitch');
+      if (!stitches.length) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      function update() {
+        var vh = window.innerHeight || root.clientHeight;
+        var start = vh * 0.92;   // a faixa começa a avançar quando a costura entra por baixo
+        var end = vh * 0.42;     // e completa-se quando chega a meio do ecrã
+        for (var i = 0; i < stitches.length; i++) {
+          var top = stitches[i].getBoundingClientRect().top;
+          var p = (start - top) / (start - end);
+          p = p < 0 ? 0 : p > 1 ? 1 : p;
+          stitches[i].style.setProperty('--draw', p.toFixed(4));
+        }
+      }
+      update();                          // define --draw antes de ativar: sem flash
+      root.classList.add('stitch-scroll');
+      var ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () { update(); ticking = false; });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      window.addEventListener('pageshow', update);
+    })();
+  </script>
+  <!-- Scroll interpolado (Lenis) + parallax da hero.
+
+       O browser move a página aos degraus: cada volta de roda é um salto seco.
+       O Lenis guarda um alvo virtual e aproxima a posição real desse alvo a
+       cada frame, transformando o degrau num deslize que desacelera. É daqui
+       que vem a fluidez — nenhuma transição CSS a consegue imitar, porque o
+       que está a saltar é a própria posição do scroll.
+
+       O parallax da hero corre DENTRO do evento do Lenis (e não num listener
+       de scroll com rAF próprio) para a imagem e a página serem pintadas no
+       mesmo frame; caso contrário a imagem fica um frame atrás e tremelica.
+
+       Tudo isto é progressivo: sem JS, ou com prefers-reduced-motion, fica o
+       scroll nativo e --hero-parallax a 0. -->
+  <script>
+    import Lenis from 'lenis';
+
+    const DRIFT = 0.15;  // fração do scroll que a imagem da hero percorre
+    const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Parallax da hero (só na home, onde existe imagem de fundo).
+    const bg = document.querySelector('.hero__bg--img');
+    const hero = bg?.closest('.hero');
+    const moverHero = (y) => {
+      // Fora da hero não há nada visível para deslocar.
+      if (!hero || y > hero.offsetHeight) return;
+      bg.style.setProperty('--hero-parallax', y * (1 - DRIFT) + 'px');
+    };
+
+    if (quieto) {
+      // Sem scroll interpolado: a hero fica um fundo normal e a página usa o
+      // scroll do browser, como o utilizador pediu.
+      document.documentElement.classList.add('sem-lenis');
+    } else {
+      const lenis = new Lenis({
+        // ~1s para assentar. Mais baixo fica preguiçoso, mais alto volta a
+        // parecer o salto nativo.
+        lerp: 0.1,
+        wheelMultiplier: 1,
+        touchMultiplier: 1.6,
+        // Em touch o gesto nativo já tem inércia própria do sistema; duplicá-la
+        // dá a sensação de "sabão".
+        smoothWheel: true,
+        syncTouch: false,
+      });
+      lenis.on('scroll', ({ scroll }) => moverHero(scroll));
+      const frame = (t) => { lenis.raf(t); requestAnimationFrame(frame); };
+      requestAnimationFrame(frame);
+      moverHero(window.scrollY);
+    }
+  </script>
   <script is:inline src="/main.js"></script>
   <!-- Cloudflare Web Analytics — substituir TOKEN ao publicar -->
   <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js"

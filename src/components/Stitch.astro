@@ -1,0 +1,16 @@
+---
+// Costura diagonal entre duas secções de cor diferente: uma cunha da cor da
+// secção ANTERIOR (variant) desce sobre o topo da seguinte e um fio laranja
+// cose o corte na diagonal, desenhado com o scroll (ver .stitch no styles.css
+// e o script stitch-scroll no Base.astro). Vive FORA de <section>.
+//   variant="light"  → cunha branca  (.section acima)
+//   variant="alt"    → cunha cinza   (.section--alt acima)
+//   variant="dark"   → cunha escura  (.section--dark acima)
+const { variant = 'light' } = Astro.props;
+---
+<div class={`stitch stitch--${variant}`}>
+  <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+    <polygon class="stitch__wedge" points="0,0 1000,0 0,60"></polygon>
+    <line class="stitch__thread" x1="0" y1="60" x2="1000" y2="0" pathLength="1"></line>
+  </svg>
+</div>

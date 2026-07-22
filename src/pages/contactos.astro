@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import ContactForm from '../components/ContactForm.astro';
+import Stitch from '../components/Stitch.astro';
 import contactos from '../data/contactos.json';
 const moradaLinhas = contactos.onde.morada.split('\n');
 ---
@@ -31,6 +32,9 @@ const moradaLinhas = contactos.onde.morada.split('\n');
       </p>
     </div>
   </section>
+
+  <!-- COSTURA · Contacto (branco) → Onde Estamos (cinza) -->
+  <Stitch variant="light" />
 
   <!-- ONDE ESTAMOS -->
   <section class="section section--alt">
