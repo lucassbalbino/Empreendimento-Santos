@@ -6,3 +6,97 @@
 <div id="page-curtain" class="curtain" aria-hidden="true" transition:persist="page-curtain">
   <div class="curtain__img"></div>
 </div>
+
+<script>
+  import { navigate } from 'astro:transitions/client';
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const DOWN = 650, HOLD = 120, UP = 600;
+  const EASE = 'cubic-bezier(.7,0,.2,1)';
+
+  const curtain = document.getElementById('page-curtain');
+  const imgLayer = curtain.querySelector('.curtain__img');
+  let busy = false;
+
+  // Lê a URL da hero image do documento de destino (inline background-image).
+  function heroUrlFromDoc(doc) {
+    const bg = doc.querySelector('.hero__bg--img');
+    if (!bg) return null;
+    const s = bg.getAttribute('style') || '';
+    const m = s.match(/url\((['"]?)(.*?)\1\)/);
+    return m ? m[2] : null;
+  }
+
+  async function fetchDoc(href) {
+    const res = await fetch(href, { headers: { Accept: 'text/html' } });
+    const html = await res.text();
+    return new DOMParser().parseFromString(html, 'text/html');
+  }
+
+  // Não bloquear para sempre se a imagem falhar/demorar.
+  function preloadImg(url) {
+    return new Promise((resolve) => {
+      if (!url) return resolve();
+      const im = new Image();
+      im.onload = im.onerror = () => resolve();
+      im.src = url;
+      setTimeout(resolve, 1200);
+    });
+  }
+
+  function slide(from, to, d) {
+    return curtain.animate(
+      [{ transform: `translateY(${from})` }, { transform: `translateY(${to})` }],
+      { duration: d, easing: EASE, fill: 'forwards' }
+    ).finished;
+  }
+
+  async function run(href) {
+    if (busy) return;
+    busy = true;
+
+    let doc = null;
+    try { doc = await fetchDoc(href); } catch (_) {}
+    const url = doc ? heroUrlFromDoc(doc) : null;
+    await preloadImg(url);
+
+    imgLayer.style.backgroundImage = url ? `url("${url}")` : '';
+    curtain.classList.toggle('curtain--solid', !url);
+    curtain.classList.add('curtain--active');
+
+    // Desce a cobrir, segura um instante no cover.
+    await slide('-100%', '0', DOWN);
+    await new Promise((r) => setTimeout(r, HOLD));
+
+    // Troca a página POR BAIXO da cortina (coberta) e espera montar.
+    const swapped = new Promise((resolve) => {
+      const h = () => { document.removeEventListener('astro:page-load', h); resolve(); };
+      document.addEventListener('astro:page-load', h);
+    });
+    navigate(href);
+    await swapped;
+
+    // Revela: a cortina sai por baixo, descobrindo a nova página (hero no topo).
+    await slide('0', '100%', UP);
+    curtain.classList.remove('curtain--active', 'curtain--solid');
+    imgLayer.style.backgroundImage = '';
+    busy = false;
+  }
+
+  // "Menu + botões principais": links do header OU .btn, internos, mesma origem.
+  function qualifies(a) {
+    if (!a || a.target === '_blank' || a.hasAttribute('data-no-curtain')) return false;
+    if (a.origin !== location.origin) return false;
+    if (new URL(a.href).pathname === location.pathname) return false; // mesma página / âncora
+    return !!a.closest('.site-header') || a.classList.contains('btn');
+  }
+
+  document.addEventListener('click', (e) => {
+    if (reduce || e.defaultPrevented || e.button !== 0 ||
+        e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest && e.target.closest('a[href]');
+    if (!a || !qualifies(a)) return;
+    e.preventDefault();
+    run(a.href);
+  });
+</script>
