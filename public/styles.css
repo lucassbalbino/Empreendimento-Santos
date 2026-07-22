@@ -20,8 +20,8 @@
   --dark-soft:  #0a0a0a;
 
 
-  --maxw: 1280px;
-  --gutter: clamp(20px, 5vw, 72px);
+  --maxw: 1480px;
+  --gutter: clamp(18px, 3.4vw, 52px);
   /* Ritmo: mais distância de scroll por gesto. Cada elemento passa a percorrer
      a sua animação ao longo de mais píxeis, o que se lê como suavidade — é o
      segundo maior fator, depois do scroll interpolado. */
@@ -520,7 +520,7 @@ html.stitch-scroll .seam-wm__text{ opacity:var(--draw,1); }
 .block-head__text .lead{ font-size:1.05rem; margin-top:.4rem; }
 
 .scroller{
-  display:grid; grid-auto-flow:column; grid-auto-columns:minmax(300px,33%);
+  display:grid; grid-auto-flow:column; grid-auto-columns:minmax(340px,36%);
   gap:clamp(16px,2vw,28px); overflow-x:auto; scroll-snap-type:x mandatory;
   padding-bottom:1.5rem; margin-inline:calc(var(--gutter)*-1); padding-inline:var(--gutter);
   scrollbar-width:thin;
@@ -1272,4 +1272,31 @@ html.emodal-open{ overflow:hidden; }
   .dslider__track{ transition:none !important; }
   .dslider__slide.is-active .dslider__img,
   .dslider__img{ transform:none; }
+}
+
+/* ===== Cortina de transição entre páginas =====================================
+   Overlay fixo que desce a cobrir o ecrã, troca o DOM por baixo, e revela.
+   Repousa fora do ecrã (acima) e escondido; só fica visível durante a troca. */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;              /* acima do header e de tudo */
+  transform: translateY(-100%);
+  visibility: hidden;
+  pointer-events: none;
+  background: var(--dark);    /* fundo enquanto a imagem carrega / fallback */
+  will-change: transform;
+}
+.curtain--active { visibility: visible; }
+.curtain__img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+/* Sem imagem de destino: cortina sólida da marca. */
+.curtain--solid .curtain__img { background: var(--dark); }
+
+@media (prefers-reduced-motion: reduce) {
+  .curtain { display: none; }  /* sem cortina; navegação direta */
 }

@@ -1,0 +1,8 @@
+---
+// Overlay que desce a cobrir o ecrã na troca de página. `transition:persist`
+// mantém o MESMO elemento vivo através da troca de DOM, para a animação
+// continuar por cima do swap. A lógica entra na Task 6.
+---
+<div id="page-curtain" class="curtain" aria-hidden="true" transition:persist="page-curtain">
+  <div class="curtain__img"></div>
+</div>

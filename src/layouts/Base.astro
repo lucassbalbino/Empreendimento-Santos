@@ -2,6 +2,7 @@
 import { ViewTransitions } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PageCurtain from '../components/PageCurtain.astro';
 const {
   title,
   description = 'AM Santos — construindo o futuro com qualidade e sustentabilidade. 20 anos de experiência no mercado imobiliário, com arquitetura moderna e funcional.',
@@ -106,6 +107,7 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
   <Header />
   <slot />
   <Footer />
+  <PageCurtain />
   <!-- Costura ligada ao scroll: a faixa laranja de cada .stitch avança na
        diagonal conforme a costura sobe pelo ecrã. Escreve --draw (0→1) por
        costura; a regra html.stitch-scroll mapeia-o para o stroke-dashoffset.
@@ -120,8 +122,8 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       function update() {
         var vh = window.innerHeight || root.clientHeight;
-        var start = vh * 0.92;   // a faixa começa a avançar quando a costura entra por baixo
-        var end = vh * 0.42;     // e completa-se quando chega a meio do ecrã
+        var start = vh * 1.00;   // começa a avançar assim que a costura assoma pelo fundo
+        var end = vh * 0.30;     // e só completa perto do topo — desenho longo e gradual
         for (var i = 0; i < stitches.length; i++) {
           var top = stitches[i].getBoundingClientRect().top;
           var p = (start - top) / (start - end);
