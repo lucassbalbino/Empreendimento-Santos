@@ -1,60 +1,64 @@
-/* Interações do mockup — header on-scroll, menu mobile, contadores */
+/* Interações do mockup — header on-scroll, menu mobile, contadores.
+   Re-executa a cada navegação suave (ViewTransitions), por isso liga os
+   globais uma só vez (guarda __amsInit) e refaz o setup por `astro:page-load`. */
 (function () {
-  // Header muda ao rolar
-  const header = document.querySelector('.site-header');
-  const onScroll = () => {
-    if (!header) return;
-    header.classList.toggle('scrolled', window.scrollY > 60);
-  };
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+  if (window.__amsInit) return;   // script re-executa no soft-nav; ligar 1x
+  window.__amsInit = true;
 
-  // Menu mobile
-  const toggle = document.querySelector('.nav-toggle');
-  const nav = document.querySelector('.nav');
-  if (toggle && nav) {
-    toggle.addEventListener('click', () => nav.classList.toggle('open'));
-    nav.querySelectorAll('.nav__list a').forEach((a) =>
-      a.addEventListener('click', () => nav.classList.remove('open'))
-    );
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Header muda ao rolar (listener global permanente).
+  function updateHeader() {
+    var header = document.querySelector('.site-header');
+    if (header) header.classList.toggle('scrolled', window.scrollY > 60);
+  }
+  window.addEventListener('scroll', updateHeader, { passive: true });
+
+  // Menu mobile — liga por elemento, evitando duplicar em elementos já ligados.
+  function bindMenu() {
+    var toggle = document.querySelector('.nav-toggle');
+    var nav = document.querySelector('.nav');
+    if (toggle && nav && !toggle.dataset.bound) {
+      toggle.dataset.bound = '1';
+      toggle.addEventListener('click', function () { nav.classList.toggle('open'); });
+      nav.querySelectorAll('.nav__list a').forEach(function (a) {
+        a.addEventListener('click', function () { nav.classList.remove('open'); });
+      });
+    }
   }
 
-  // Animação dos contadores quando entram na viewport.
-  // Count-up com IntersectionObserver + easing (ref.: CountUp.js, MDN
-  // IntersectionObserver) e respeito por prefers-reduced-motion.
-  const nums = document.querySelectorAll('.stat__num[data-target]');
-  if (nums.length) {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // pt-PT usa ponto como separador de milhares (185.000), essencial para os
-    // valores de área lerem-se de relance.
-    const fmt = (el, value) =>
-      (el.dataset.prefix || '') +
+  // pt-PT usa ponto como separador de milhares (185.000).
+  function fmt(el, value) {
+    return (el.dataset.prefix || '') +
       Math.round(value).toLocaleString('pt-PT') +
       (el.dataset.suffix || '');
-    const animate = (el) => {
-      const target = parseFloat(el.dataset.target) || 0;
-      if (reduce) { el.textContent = fmt(el, target); return; }
-      const dur = 1600;
-      const start = performance.now();
-      const step = (now) => {
-        const p = Math.min((now - start) / dur, 1);
-        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
-        el.textContent = fmt(el, target * eased);
-        if (p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            animate(e.target);
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-    nums.forEach((n) => io.observe(n));
   }
+  function animate(el) {
+    var target = parseFloat(el.dataset.target) || 0;
+    if (reduce) { el.textContent = fmt(el, target); return; }
+    var dur = 1600;
+    var start = performance.now();
+    var step = function (now) {
+      var p = Math.min((now - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+      el.textContent = fmt(el, target * eased);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  // Contadores: IO novo por página (os elementos são novos após a troca).
+  function bindCounters() {
+    var nums = document.querySelectorAll('.stat__num[data-target]');
+    if (!nums.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    nums.forEach(function (n) { io.observe(n); });
+  }
+
+  function onPage() { updateHeader(); bindMenu(); bindCounters(); }
+  // Dispara na 1.ª carga e em cada navegação suave.
+  document.addEventListener('astro:page-load', onPage);
 })();
