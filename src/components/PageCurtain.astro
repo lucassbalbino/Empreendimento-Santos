@@ -51,6 +51,17 @@
     ).finished;
   }
 
+  // Texto da hero entra depois de assentar — só na navegação por cortina, para
+  // não afetar a 1.ª carga (onde a hero aparece normalmente).
+  function revealHeroText() {
+    const inner = document.querySelector('.hero .hero__inner');
+    if (!inner) return;
+    inner.animate(
+      [{ opacity: 0, transform: 'translateY(24px)' }, { opacity: 1, transform: 'translateY(0)' }],
+      { duration: 600, easing: 'cubic-bezier(.2,.6,.2,1)', fill: 'backwards' }
+    );
+  }
+
   async function run(href) {
     if (busy) return;
     busy = true;
@@ -83,7 +94,8 @@
       navigate(href);
       await swapped;
 
-      // Revela: a cortina sai por baixo, descobrindo a nova página (hero no topo).
+      // Revela: a cortina sai por baixo e o texto da hero entra a acompanhar.
+      revealHeroText();
       await slide('0', '100%', UP);
     } catch (err) {
       // Navegação falhou/expirou: garante que o utilizador chega ao destino
