@@ -50,51 +50,55 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
           window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       root.classList.add('reveal-ready');
       var SEL = '.section, .section .eyebrow, .section .display, .section .lead, .split__body > p, .card, .stat, .vertical, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
-      function init() {
-        var els = Array.prototype.slice.call(document.querySelectorAll(SEL));
+      var els = [];
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+      // Fail-safe: revela o que está no viewport mesmo com o IO suspenso (aba em
+      // 2.º plano, bfcache, throttling). Lê sempre a lista `els` atual.
+      function revealInView() {
+        var vh = window.innerHeight || root.clientHeight;
+        for (var j = 0; j < els.length; j++) {
+          var el = els[j];
+          if (el.classList.contains('is-visible')) continue;
+          var r = el.getBoundingClientRect();
+          if (r.top < vh * 0.92 && r.bottom > 0) { el.classList.add('is-visible'); io.unobserve(el); }
+        }
+      }
+      var last = 0;
+      function onScroll() {
+        var now = Date.now();
+        if (now - last < 100) return;
+        last = now;
+        revealInView();
+      }
+
+      // Globais UMA só vez (o script inline corre só uma vez).
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      window.addEventListener('pageshow', revealInView);
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) revealInView();
+      });
+
+      // Por página: re-selecionar elementos novos, dar delay em cascata, observar.
+      function setup() {
+        els = Array.prototype.slice.call(document.querySelectorAll(SEL));
         els.forEach(function (el) {
           var sibs = el.parentNode ? el.parentNode.children : [el];
           var i = Array.prototype.indexOf.call(sibs, el);
           el.style.transitionDelay = (Math.min(i, 6) * 70) + 'ms';
+          io.observe(el);
         });
-        function reveal(el) { el.classList.add('is-visible'); }
-        // Gatilho principal: IntersectionObserver (revela ao entrar).
-        var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) {
-            if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); }
-          });
-        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-        els.forEach(function (el) { io.observe(el); });
-        // Fail-safe: revela o que está no viewport mesmo que o IO esteja
-        // suspenso (aba em 2.º plano ao carregar, bfcache, throttling).
-        // Garante que o conteúdo nunca fica preso escondido/coberto.
-        function revealInView() {
-          var vh = window.innerHeight || root.clientHeight;
-          for (var j = 0; j < els.length; j++) {
-            var el = els[j];
-            if (el.classList.contains('is-visible')) continue;
-            var r = el.getBoundingClientRect();
-            if (r.top < vh * 0.92 && r.bottom > 0) { reveal(el); io.unobserve(el); }
-          }
-        }
-        // Throttle por tempo (não rAF, que é suspenso em abas ocultas).
-        var last = 0;
-        function onScroll() {
-          var now = Date.now();
-          if (now - last < 100) return;
-          last = now;
-          revealInView();
-        }
         revealInView();
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', onScroll, { passive: true });
-        window.addEventListener('pageshow', revealInView);
-        document.addEventListener('visibilitychange', function () {
-          if (!document.hidden) revealInView();
-        });
       }
-      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-      else init();
+
+      // `astro:page-load` dispara na 1.ª carga e em cada navegação suave.
+      document.addEventListener('astro:page-load', setup);
     })();
   </script>
 </head>
