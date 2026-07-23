@@ -40,6 +40,18 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
+
+  <!-- Gate do preloader: liga is-loading ANTES do paint, só na 1.ª carga real
+       (não em soft-nav nem com prefers-reduced-motion). Evita flash de conteúdo. -->
+  <script is:inline>
+    (function () {
+      try {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var seen = sessionStorage.getItem('ams-preloaded');
+        if (!reduce && !seen) document.documentElement.classList.add('is-loading');
+      } catch (e) {}
+    })();
+  </script>
   <ViewTransitions />
 
   <!-- Revelar-ao-rolar: marca reveal-ready antes do paint (sem flash).
@@ -210,6 +222,53 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
     }
 
     document.addEventListener('astro:page-load', iniciarLenis);
+  </script>
+  <!-- Preloader: contador 0→100 (sobe até 99, window.load leva a 100, teto 2,5s)
+       e saída por wipe para cima. Só corre se o gate ligou is-loading. -->
+  <script is:inline>
+    (function () {
+      var root = document.documentElement;
+      if (!root.classList.contains('is-loading')) return;  // não é 1.ª carga / reduced-motion
+      var pre = document.getElementById('preloader');
+      if (!pre) { root.classList.remove('is-loading'); return; }
+      var bar = pre.querySelector('.preloader__bar');
+      var num = pre.querySelector('.preloader__num');
+
+      var shown = 0, target = 0, loaded = false, raf, ended = false;
+      var t0 = Date.now();
+
+      function complete() { loaded = true; target = 100; }
+
+      function tick() {
+        var elapsed = Date.now() - t0;
+        if (!loaded) {
+          var ramp = Math.min(99, (elapsed / 1200) * 99);  // sobe até 99 em ~1,2s
+          if (ramp > target) target = ramp;
+        }
+        shown += (target - shown) * 0.12;                  // easing suave até ao alvo
+        var v = Math.min(100, Math.round(shown));
+        if (num) num.textContent = v;
+        if (bar) bar.style.transform = 'scaleX(' + (v / 100) + ')';
+        if (target >= 100 && v >= 100) { finish(); return; }
+        raf = requestAnimationFrame(tick);
+      }
+
+      function finish() {
+        if (ended) return; ended = true;
+        cancelAnimationFrame(raf);
+        pre.classList.add('preloader--out');               // wipe para cima (CSS transition)
+        try { sessionStorage.setItem('ams-preloaded', '1'); } catch (e) {}
+        setTimeout(function () {
+          root.classList.remove('is-loading');             // destrava o scroll
+          pre.remove();
+        }, 800);                                            // = duração da transição
+      }
+
+      if (document.readyState === 'complete') complete();
+      else window.addEventListener('load', complete);
+      setTimeout(complete, 2500);                           // teto: nunca ficar preso
+      raf = requestAnimationFrame(tick);
+    })();
   </script>
   <script is:inline src="/main.js"></script>
   <!-- Cloudflare Web Analytics — substituir TOKEN ao publicar -->
