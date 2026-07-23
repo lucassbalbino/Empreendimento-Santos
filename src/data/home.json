@@ -50,14 +50,14 @@
     ]
   },
   "portfolio": {
-    "eyebrow": "Portfolio",
+    "eyebrow": "Em curso e em projeto",
     "title": "Empreendimentos em destaque",
     "botao": "Ver portfólio"
   },
   "trackRecord": {
-    "eyebrow": "Histórico",
-    "title": "Excelência em cada projeto executado",
-    "lead": "Uma seleção de empreendimentos concluídos e entregues",
+    "eyebrow": "Vendidos",
+    "title": "20 anos a construir e a entregar",
+    "lead": "Empreendimentos vendidos ao longo de 20 anos — dos já entregues aos que ainda estão em construção. Clique para ver cada um.",
     "botao": "Ver histórico"
   },
   "equipa": {

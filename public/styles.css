@@ -479,6 +479,7 @@ html.stitch-scroll .stitch--vseam::before{ transform:scaleY(var(--draw,1)); }
   color:rgba(255,255,255,.06);          /* branco ténue sobre preto (= watermark original) */
 }
 .seam-wm__text > span{ display:block; }
+.seam-wm__text > span:first-child{ text-align:left; }  /* Empreendimentos à esquerda; Santos mantém-se à direita */
 /* Aparece suavemente com o scroll (tem a classe .stitch, logo o script escreve
    --draw). Sem JS / reduced-motion: fica visível (regra base acima). */
 html.stitch-scroll .seam-wm__text{ opacity:var(--draw,1); }
