@@ -104,6 +104,10 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
   </script>
 </head>
 <body class={bodyClass}>
+  <div id="preloader" class="preloader" aria-hidden="true">
+    <div class="preloader__bar"></div>
+    <div class="preloader__count"><span class="preloader__num">0</span></div>
+  </div>
   <Header />
   <slot />
   <Footer />

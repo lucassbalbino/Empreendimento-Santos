@@ -1301,3 +1301,43 @@ html.emodal-open{ overflow:hidden; }
 @media (prefers-reduced-motion: reduce) {
   .curtain { display: none; }  /* sem cortina; navegação direta */
 }
+
+/* ===== Preloader (só na 1.ª carga) ===========================================
+   Escondido por defeito: sem JS, ou em navegação suave, não aparece. O script
+   inline liga html.is-loading só na 1.ª carga real (ver Base.astro). */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;                 /* acima da cortina e do header */
+  display: none;
+  background: var(--paper);       /* branco/papel da marca */
+  color: var(--ink);
+  clip-path: inset(0 0 0 0);      /* base para a transição de saída animar */
+  transition: clip-path .8s cubic-bezier(.8,0,.2,1);
+  will-change: clip-path;
+}
+html.is-loading .preloader { display: block; }
+html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
+
+.preloader__bar {
+  position: absolute; top: 0; left: 0;
+  height: 4px; width: 100%;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+.preloader__count {
+  position: absolute;
+  left: clamp(16px, 4vw, 48px);
+  bottom: clamp(12px, 3vh, 40px);
+  font-size: clamp(3rem, 12vw, 9rem);
+  line-height: .9;
+  font-variant-numeric: tabular-nums;
+}
+/* Saída: wipe para cima, igual à cortina. */
+.preloader--out { clip-path: inset(0 0 100% 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader { display: none !important; }
+}
