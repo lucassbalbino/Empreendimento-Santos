@@ -1286,9 +1286,8 @@ html.emodal-open{ overflow:hidden; }
   visibility: hidden;
   pointer-events: none;
   background: var(--dark);        /* fundo enquanto a imagem carrega / fallback */
-  will-change: clip-path;
 }
-.curtain--active { visibility: visible; }
+.curtain--active { visibility: visible; will-change: clip-path; }
 .curtain__img {
   position: absolute;
   inset: 0;

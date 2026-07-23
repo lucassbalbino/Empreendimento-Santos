@@ -74,6 +74,7 @@
   async function run(href) {
     if (busy) return;
     busy = true;
+    window.__amsCurtainBusy = true;
     try {
       let doc = null;
       try { doc = await fetchDoc(href); } catch (_) {}
@@ -125,6 +126,7 @@
       curtain.classList.remove('curtain--active', 'curtain--solid');
       imgLayer.style.backgroundImage = '';
       busy = false;
+      window.__amsCurtainBusy = false;
     }
   }
 

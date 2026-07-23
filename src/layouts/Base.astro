@@ -212,6 +212,13 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
         syncTouch: false,
       });
       window.__amsLenis = lenis;
+
+      // Se o preloader ou a cortina estão a decorrer, a nova instância nasce
+      // parada; quem os controla chama start() quando termina.
+      if (document.documentElement.classList.contains('is-loading') || window.__amsCurtainBusy) {
+        lenis.stop();
+      }
+
       lenis.on('scroll', ({ scroll }) => moverHero(scroll));
 
       // Loop rAF único e permanente; lê sempre a instância atual (module-scope).
@@ -265,6 +272,7 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
         pre.classList.add('preloader--out');               // wipe para cima (CSS transition)
         try { sessionStorage.setItem('ams-preloaded', '1'); } catch (e) {}
         setTimeout(function () {
+          window.__amsLenis?.start();   // liberta o scroll ao sair o preloader
           root.classList.remove('is-loading');             // destrava o scroll
           pre.remove();
         }, 800);                                            // = duração da transição
