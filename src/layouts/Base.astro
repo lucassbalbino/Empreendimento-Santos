@@ -199,6 +199,7 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
 
       if (quieto) {
         document.documentElement.classList.add('sem-lenis');
+        window.__amsLenis = undefined;
         return;
       }
       document.documentElement.classList.remove('sem-lenis');
@@ -210,6 +211,7 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
         smoothWheel: true,
         syncTouch: false,
       });
+      window.__amsLenis = lenis;
       lenis.on('scroll', ({ scroll }) => moverHero(scroll));
 
       // Loop rAF único e permanente; lê sempre a instância atual (module-scope).

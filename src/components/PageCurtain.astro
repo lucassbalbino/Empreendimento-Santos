@@ -91,6 +91,7 @@
         { duration: DOWN, easing: EASE }
       );
       // Cobre: a hero image de destino entra por wipe de baixo para cima até tapar.
+      window.__amsLenis?.stop();
       await clipWipe(COVER_FROM, COVERED, DOWN);
       await new Promise((r) => setTimeout(r, HOLD));
 
@@ -112,6 +113,9 @@
       // Revela: a cortina sai por baixo e o texto da hero entra a acompanhar.
       revealHeroText();
       await clipWipe(COVERED, REVEALED, UP);
+      // Depois do swap já existe uma instância NOVA do Lenis (recriada no
+      // astro:page-load); retomamos essa.
+      window.__amsLenis?.start();
     } catch (err) {
       // Navegação falhou/expirou: garante que o utilizador chega ao destino
       // com uma navegação normal, em vez de ficar preso sob a cortina.
