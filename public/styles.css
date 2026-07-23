@@ -751,7 +751,7 @@ html.stitch-scroll .seam-wm__text{ opacity:var(--draw,1); }
 .footer-col a:hover{ color:var(--accent-dk); background-size:100% 1px; }
 .footer-brand .logo{ margin-bottom:1.2rem; }
 .footer-logo{ height:auto; }
-.footer-logo img{ height:82px; width:auto; display:block; }
+.footer-logo img{ height:60px; width:auto; display:block; }
 .socials{ display:flex; gap:.8rem; margin-top:1.2rem; }
 .socials a{ width:38px; height:38px; border:1px solid rgba(255,255,255,.2); border-radius:50%; display:grid; place-items:center; font-size:.62rem; letter-spacing:.05em; color:#cdd0d4; transition:border-color .3s var(--ease), color .3s var(--ease); }
 .socials a:hover{ border-color:var(--accent-dk); color:var(--accent-dk); }
