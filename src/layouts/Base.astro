@@ -240,17 +240,21 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
       function complete() { loaded = true; target = 100; }
 
       function tick() {
-        var elapsed = Date.now() - t0;
-        if (!loaded) {
-          var ramp = Math.min(99, (elapsed / 1200) * 99);  // sobe até 99 em ~1,2s
-          if (ramp > target) target = ramp;
+        try {
+          var elapsed = Date.now() - t0;
+          if (!loaded) {
+            var ramp = Math.min(99, (elapsed / 1200) * 99);  // sobe até 99 em ~1,2s
+            if (ramp > target) target = ramp;
+          }
+          shown += (target - shown) * 0.12;                  // easing suave até ao alvo
+          var v = Math.min(100, Math.round(shown));
+          if (num) num.textContent = v;
+          if (bar) bar.style.transform = 'scaleX(' + (v / 100) + ')';
+          if (target >= 100 && v >= 100) { finish(); return; }
+          raf = requestAnimationFrame(tick);
+        } catch (e) {
+          finish();   // um erro no loop não pode deixar o preloader preso
         }
-        shown += (target - shown) * 0.12;                  // easing suave até ao alvo
-        var v = Math.min(100, Math.round(shown));
-        if (num) num.textContent = v;
-        if (bar) bar.style.transform = 'scaleX(' + (v / 100) + ')';
-        if (target >= 100 && v >= 100) { finish(); return; }
-        raf = requestAnimationFrame(tick);
       }
 
       function finish() {
@@ -267,6 +271,7 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
       if (document.readyState === 'complete') complete();
       else window.addEventListener('load', complete);
       setTimeout(complete, 2500);                           // teto: nunca ficar preso
+      setTimeout(finish, 4000);     // teto duro: força a saída mesmo se o loop parar
       raf = requestAnimationFrame(tick);
     })();
   </script>
