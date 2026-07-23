@@ -1281,12 +1281,12 @@ html.emodal-open{ overflow:hidden; }
 .curtain {
   position: fixed;
   inset: 0;
-  z-index: 9999;              /* acima do header e de tudo */
-  transform: translateY(-100%);
+  z-index: 9999;                  /* acima do header e de tudo */
+  clip-path: inset(100% 0 0 0);   /* recolhida no fundo, invisível em repouso */
   visibility: hidden;
   pointer-events: none;
-  background: var(--dark);    /* fundo enquanto a imagem carrega / fallback */
-  will-change: transform;
+  background: var(--dark);        /* fundo enquanto a imagem carrega / fallback */
+  will-change: clip-path;
 }
 .curtain--active { visibility: visible; }
 .curtain__img {

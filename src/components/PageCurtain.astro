@@ -11,8 +11,11 @@
   import { navigate } from 'astro:transitions/client';
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const DOWN = 650, HOLD = 120, UP = 600;
-  const EASE = 'cubic-bezier(.7,0,.2,1)';
+  // Movimento lento e bem visível: a imagem da hero desce devagar e
+  // materializa-se (fade) enquanto desce, a assentar no fim — não cai de golpe.
+  // Easing com desaceleração (easeOut) para suavizar a chegada.
+  const DOWN = 1200, HOLD = 250, UP = 850;
+  const EASE = 'cubic-bezier(.8,0,.2,1)'; // "wipeFront" — valor exato da referência
 
   const curtain = document.getElementById('page-curtain');
   const imgLayer = curtain.querySelector('.curtain__img');
@@ -44,9 +47,15 @@
     });
   }
 
-  function slide(from, to, d) {
+  // Estados de clip-path do wipe (inset top right bottom left):
+  //  COVER_FROM: colada ao fundo, invisível → COVERED: tapa tudo → REVEALED: sai pelo topo.
+  const COVER_FROM = 'inset(100% 0 0 0)';
+  const COVERED    = 'inset(0 0 0 0)';
+  const REVEALED   = 'inset(0 0 100% 0)';
+
+  function clipWipe(from, to, d) {
     return curtain.animate(
-      [{ transform: `translateY(${from})` }, { transform: `translateY(${to})` }],
+      [{ clipPath: from }, { clipPath: to }],
       { duration: d, easing: EASE, fill: 'forwards' }
     ).finished;
   }
@@ -75,8 +84,14 @@
       curtain.classList.toggle('curtain--solid', !url);
       curtain.classList.add('curtain--active');
 
-      // Desce a cobrir, segura um instante no cover.
-      await slide('-100%', '0', DOWN);
+      // Desce a cobrir; a imagem materializa-se (fade 0→1) enquanto desce,
+      // para a hero da página nova entrar bem visível, não só a deslizar.
+      imgLayer.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        { duration: DOWN, easing: EASE }
+      );
+      // Cobre: a hero image de destino entra por wipe de baixo para cima até tapar.
+      await clipWipe(COVER_FROM, COVERED, DOWN);
       await new Promise((r) => setTimeout(r, HOLD));
 
       // Troca a página POR BAIXO da cortina (coberta) e espera montar.
@@ -96,7 +111,7 @@
 
       // Revela: a cortina sai por baixo e o texto da hero entra a acompanhar.
       revealHeroText();
-      await slide('0', '100%', UP);
+      await clipWipe(COVERED, REVEALED, UP);
     } catch (err) {
       // Navegação falhou/expirou: garante que o utilizador chega ao destino
       // com uma navegação normal, em vez de ficar preso sob a cortina.
