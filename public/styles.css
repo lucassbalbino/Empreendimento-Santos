@@ -255,9 +255,10 @@ ul{ list-style:none; }
   background-size:cover; background-position:center; background-repeat:no-repeat;
 }
 .hero__bg--img::after{ content:none; }
-/* Hero com imagem panorâmica (2:1): quase ecrã inteiro. Mais altura corta
-   um pouco mais as laterais da foto (fundo cover, centrado). */
-.hero:has(.hero__bg--img){ min-height:clamp(600px, 94vh, 1160px); }
+/* Hero com imagem: ecrã inteiro, para coincidir com a cortina de transição
+   (que cobre 100vh) — a cortina é retirada sobre a hero sem salto. Mais altura
+   corta um pouco mais as laterais da foto (fundo cover, centrado). */
+.hero:has(.hero__bg--img){ min-height:100vh; }
 .hero__overlay{
   position:absolute; inset:0; z-index:1;
   background:linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.1) 45%, rgba(0,0,0,.65) 100%);
@@ -1296,6 +1297,13 @@ html.emodal-open{ overflow:hidden; }
 }
 /* Sem imagem de destino: cortina sólida da marca. */
 .curtain--solid .curtain__img { background: var(--dark); }
+/* Mesma gradação do .hero__overlay: a cortina (imagem) coincide com a hero real
+   por baixo, para a remoção instantânea da cortina ficar sem costura. Só com
+   imagem (na sólida não faz sentido). */
+.curtain:not(.curtain--solid) .curtain__img::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.1) 45%, rgba(0,0,0,.65) 100%);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .curtain { display: none; }  /* sem cortina; navegação direta */
@@ -1312,7 +1320,7 @@ html.emodal-open{ overflow:hidden; }
   background: var(--paper);       /* branco/papel da marca */
   color: var(--ink);
   clip-path: inset(0 0 0 0);      /* base para a transição de saída animar */
-  transition: clip-path .8s cubic-bezier(.8,0,.2,1);
+  transition: clip-path 1.5s cubic-bezier(.8,0,.2,1);
   will-change: clip-path;
 }
 html.is-loading .preloader { display: block; }

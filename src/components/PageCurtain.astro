@@ -14,7 +14,7 @@
   // Movimento lento e bem visível: a imagem da hero desce devagar e
   // materializa-se (fade) enquanto desce, a assentar no fim — não cai de golpe.
   // Easing com desaceleração (easeOut) para suavizar a chegada.
-  const DOWN = 1200, HOLD = 250, UP = 850;
+  const DOWN = 2400, HOLD = 450;
   const EASE = 'cubic-bezier(.8,0,.2,1)'; // "wipeFront" — valor exato da referência
 
   const curtain = document.getElementById('page-curtain');
@@ -48,10 +48,9 @@
   }
 
   // Estados de clip-path do wipe (inset top right bottom left):
-  //  COVER_FROM: colada ao fundo, invisível → COVERED: tapa tudo → REVEALED: sai pelo topo.
+  //  COVER_FROM: colada ao fundo, invisível → COVERED: tapa tudo.
   const COVER_FROM = 'inset(100% 0 0 0)';
   const COVERED    = 'inset(0 0 0 0)';
-  const REVEALED   = 'inset(0 0 100% 0)';
 
   function clipWipe(from, to, d) {
     return curtain.animate(
@@ -111,9 +110,11 @@
       navigate(href);
       await swapped;
 
-      // Revela: a cortina sai por baixo e o texto da hero entra a acompanhar.
+      // Transição de um só tempo: a página nova (hero full-screen, MESMA imagem
+      // e MESMA gradação) já está por baixo da cortina. Não há segundo wipe — a
+      // cortina é retirada (a imagem coincide, sem costura) e os elementos da
+      // hero entram a acompanhar: a imagem "vem com os elementos".
       revealHeroText();
-      await clipWipe(COVERED, REVEALED, UP);
       // Depois do swap já existe uma instância NOVA do Lenis (recriada no
       // astro:page-load); retomamos essa.
       window.__amsLenis?.start();
@@ -124,6 +125,10 @@
       return;
     } finally {
       curtain.classList.remove('curtain--active', 'curtain--solid');
+      // Cancela o fill:forwards do cover (e o fade da imagem): a cortina volta ao
+      // repouso do CSS — clip-path inset(100%…) = invisível. Sem isto, a próxima
+      // transição começaria com a cortina a tapar tudo por um frame (flash).
+      curtain.getAnimations({ subtree: true }).forEach((a) => a.cancel());
       imgLayer.style.backgroundImage = '';
       busy = false;
       window.__amsCurtainBusy = false;
@@ -138,6 +143,12 @@
     return !!a.closest('.site-header') || a.classList.contains('btn');
   }
 
+  // CAPTURA: o router do Astro (ViewTransitions) escuta o click em bubble e faz
+  // preventDefault primeiro; se a cortina escutasse em bubble, veria
+  // defaultPrevented=true e desistia (a cortina nunca corria — só o crossfade do
+  // Astro, "quase instantâneo"). Em captura corremos ANTES do Astro: fazemos
+  // preventDefault e é o Astro que depois vê defaultPrevented e desiste; a
+  // navegação passa a ser conduzida por nós (run → navigate).
   document.addEventListener('click', (e) => {
     if (reduce || e.defaultPrevented || e.button !== 0 ||
         e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -145,5 +156,5 @@
     if (!a || !qualifies(a)) return;
     e.preventDefault();
     run(a.href);
-  });
+  }, { capture: true });
 </script>

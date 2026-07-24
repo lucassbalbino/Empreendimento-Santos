@@ -245,16 +245,15 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
 
       var shown = 0, target = 0, loaded = false, raf, ended = false;
       var t0 = Date.now();
+      var RAMP = 4800;   // duração base do contador (ritmo dramático, indep. da velocidade de carga)
 
-      function complete() { loaded = true; target = 100; }
+      function complete() { loaded = true; }   // deixa o contador passar dos 99 até 100
 
       function tick() {
         try {
           var elapsed = Date.now() - t0;
-          if (!loaded) {
-            var ramp = Math.min(99, (elapsed / 1200) * 99);  // sobe até 99 em ~1,2s
-            if (ramp > target) target = ramp;
-          }
+          var cap = loaded ? 100 : 99;                       // só passa dos 99 quando carregado
+          target = Math.min(cap, (elapsed / RAMP) * 100);    // o ritmo é dado pelo RAMP
           shown += (target - shown) * 0.12;                  // easing suave até ao alvo
           var v = Math.min(100, Math.round(shown));
           if (num) num.textContent = v;
@@ -275,13 +274,13 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
           window.__amsLenis?.start();   // liberta o scroll ao sair o preloader
           root.classList.remove('is-loading');             // destrava o scroll
           pre.remove();
-        }, 800);                                            // = duração da transição
+        }, 1500);                                           // = duração da transição de saída
       }
 
       if (document.readyState === 'complete') complete();
       else window.addEventListener('load', complete);
       setTimeout(complete, 2500);                           // teto: nunca ficar preso
-      setTimeout(finish, 4000);     // teto duro: força a saída mesmo se o loop parar
+      setTimeout(finish, 7000);     // teto duro: força a saída mesmo se o loop parar (> RAMP + saída)
       raf = requestAnimationFrame(tick);
     })();
   </script>
