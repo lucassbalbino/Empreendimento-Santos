@@ -19,6 +19,33 @@ uniforme, com travagem firme no fim. A 2.ª secção ("Futuros") fica inalterada
   (fade branco terminado), para se ver o percurso completo. Em carga direta /
   refresh (sem cortina) arranca de imediato.
 
+## Bug atual a corrigir de caminho: navbar não anima
+
+Hoje, entrar no portfólio **pela navbar** (caminho da cortina / fade branco) não
+mostra transição nos cards — só o **refresh** anima. Causa:
+
+- Os cards do 1.º bloco estão *acima da dobra*. No swap, `earlyIO.observe(w)` é
+  chamado no `astro:page-load` e o callback do observer dispara quase de
+  imediato — **antes** de o estado inicial `translateY(100%)` ser pintado num
+  frame próprio. Sem frame de partida, a transição não interpola → o card
+  **salta** para o lugar, ainda por trás da cortina → ao levantar, já está
+  assente = "sem transição".
+- No refresh isto não acontece: o parse→paint inicial garante o frame de partida
+  antes de o script correr.
+- O fix `5c48e7e` (observer assíncrono) só resolve reveals **por scroll** (o
+  elemento foi pintado em repouso muito antes de entrar em vista). Para um bloco
+  já em vista no momento da navegação, o callback chega cedo demais. O próprio
+  commit anota que a confirmação visual do soft-nav ficou por fazer.
+
+O design abaixo corrige isto: a entrada do 1.º bloco só dispara **depois de um
+frame inicial garantidamente pintado** (gate da cortina na navbar; `rAF` na
+carga direta), pelo que o slide pesado anima também via navbar.
+
+> Nota de verificação: esta limitação de timing **não é testável** na aba
+> automatizada deste ambiente — ela suspende `requestAnimationFrame`/WAAPI
+> (memória `browser-verify-hidden-tab`). A confirmação visual é feita pelo
+> utilizador numa aba em 1.º plano. Validação por classe continua fiável.
+
 ## Estado atual (ponto de partida)
 
 - **Cards** (`.card-rise` em `public/styles.css`): sobem `translateY(100%) → 0`
@@ -71,11 +98,14 @@ tratada por uma entrada dedicada:
   `.is-entered` à `.section--flat-top` (dispara o título). Mantém o binding
   `transitionend` (propertyName `transform`) → `.is-open` para reabrir a
   moldura (`overflow:visible`) e a sombra do hover não ser cortada.
-- **Gate da cortina:** se `window.__amsCurtainBusy` for `true` (navegação por
-  cortina em curso), espera (poll curto) até voltar a `false` — i.e. o fade
-  terminou — e só então chama `fireFirstBlock()`. Se for falsy (carga direta),
-  dispara num `requestAnimationFrame` (garante que o estado escondido já pintou
-  antes de resolver, senão a transição salta).
+- **Gate da cortina + frame pintado (corrige a navbar):** a classe-gatilho só é
+  adicionada depois de um frame inicial (`translateY(100%)` / `translateY(80px)`)
+  estar **garantidamente pintado** — é isto que faltava e fazia a navbar saltar.
+  - Se `window.__amsCurtainBusy` for `true` (cortina em curso), espera (poll
+    curto, ~50ms) até voltar a `false` — o fade terminou; já passaram centenas de
+    ms / vários frames desde o swap → estado inicial pintado. Só então dispara.
+  - Se for falsy (carga direta / refresh), dispara após **double-`rAF`**, para
+    garantir que o estado escondido pintou num frame próprio antes de resolver.
 - Fora de `reveal-ready` (reduced-motion / sem IO): 1.ª secção entra já assente
   (`.is-risen` + `.is-open` + `.is-entered`), sem transição — como hoje.
 
