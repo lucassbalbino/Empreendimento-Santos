@@ -116,6 +116,20 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
 
       // `astro:page-load` dispara na 1.ª carga e em cada navegação suave.
       document.addEventListener('astro:page-load', setup);
+
+      // Repor reveal-ready em cada soft-nav. O Astro, no swap da View Transition,
+      // substitui os atributos do <html> pelos do documento novo (que não tem
+      // reveal-ready), e este script inline — idêntico entre páginas — é
+      // deduplicado, por isso NÃO volta a correr para a re-adicionar. Sem isto,
+      // ao navegar pela navbar todas as regras `html.reveal-ready` deixam de
+      // aplicar e os reveals/entradas saltam (aparecem já assentes). `after-swap`
+      // corre depois do swap e ANTES do paint e do astro:page-load — repõe a
+      // classe a tempo de o estado inicial pintar e a transição animar. (Estamos
+      // já depois do guard de reduced-motion / IO, por isso só se repõe quando
+      // o reveal está ativo.)
+      document.addEventListener('astro:after-swap', function () {
+        root.classList.add('reveal-ready');
+      });
     })();
   </script>
 </head>
