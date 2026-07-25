@@ -86,8 +86,16 @@ const secoes = [
       }
 
       // Dispara o slide pesado do 1.º bloco: título (.is-entered na secção) +
-      // cards (.is-risen). Só chamado quando o estado inicial já pintou.
+      // cards (.is-risen).
+      // FORÇA UM REFLOW antes de adicionar as classes: é isto que faz a subida
+      // animar em vez de saltar. Em soft-nav / View Transition, o DOM é inserido
+      // e as classes seriam adicionadas no MESMO tick — o browser resolveria
+      // início e fim juntos e a transição não teria ponto de partida (salto
+      // seco, "apenas o fade"). Ler offsetHeight obriga o browser a comprometer
+      // já o estado ESCONDIDO (translateY(80px)/100%) como baseline; a seguir a
+      // troca de classe interpola a partir daí. (Mais fiável do que esperar rAF.)
       function enterFirstBlock(first) {
+        void first.offsetHeight; // reflow: compromete o estado escondido
         first.classList.add('is-entered');
         first.querySelectorAll('.card-rise').forEach(function (w) {
           var card = w.querySelector('.card');
