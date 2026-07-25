@@ -43,14 +43,23 @@ const secoes = [
   </section>
 
   <script is:inline>
-    // Reveal PRÓPRIO dos cards do portfólio. Duas razões para não usar só o
-    // reveal geral do Base.astro:
-    //  1) Mais cedo: dispara ~15% ANTES de o card entrar (rootMargin positivo),
-    //     em vez dos ~6% já dentro do reveal geral.
-    //  2) Anima em soft-nav: a subida é disparada por .is-risen a partir do
-    //     callback ASSÍNCRONO do observer (depois do paint), por isso a transição
-    //     corre sempre. O .is-visible do reveal geral entra síncrono no
-    //     astro:page-load (antes do paint em soft-nav) e faria a subida saltar.
+    // Reveal PRÓPRIO dos cards do portfólio. Dois caminhos distintos:
+    //
+    //  1.º BLOCO (.section--flat-top, acima da dobra): faz o SLIDE PESADO de
+    //     entrada (título + cards) e SÓ dispara depois de um frame inicial
+    //     garantidamente pintado. É isto que corrige a navbar: o card está em
+    //     vista no instante da navegação, por isso o callback do observer chega
+    //     cedo demais (antes do estado inicial pintar) e a subida saltava — só
+    //     o refresh animava, porque aí o parse→paint garante o frame de partida.
+    //     Gate: espera a cortina levantar (__amsCurtainBusy volta a false) na
+    //     navegação por cortina; double-rAF na carga direta. Aí o estado inicial
+    //     já pintou → o slide anima sempre, incl. via navbar.
+    //
+    //  RESTANTES .card-rise (2.º bloco, "Futuros"): reveal por SCROLL via
+    //     observer, disparado ~15% ANTES de entrar (rootMargin positivo). Aqui o
+    //     card foi pintado em repouso muito antes de entrar em vista, por isso o
+    //     callback assíncrono já cai depois do paint — sem salto.
+    //
     // Init UMA vez (o script re-corre em cada nav para o portfólio); o listener
     // astro:page-load persiste e chama setup em cada nav, como o Base.astro.
     (function () {
@@ -66,27 +75,71 @@ const secoes = [
           }, { threshold: 0, rootMargin: '0px 0px 15% 0px' })
         : null;
 
+      // Reabrir a moldura no fim da subida (transform) para a sombra do hover
+      // não ser cortada pelo overflow:hidden. once: a subida é única.
+      function bindOpen(w, card) {
+        card.addEventListener('transitionend', function onRise(e) {
+          if (e.propertyName !== 'transform') return;
+          w.classList.add('is-open');
+          card.removeEventListener('transitionend', onRise);
+        });
+      }
+
+      // Dispara o slide pesado do 1.º bloco: título (.is-entered na secção) +
+      // cards (.is-risen). Só chamado quando o estado inicial já pintou.
+      function enterFirstBlock(first) {
+        first.classList.add('is-entered');
+        first.querySelectorAll('.card-rise').forEach(function (w) {
+          var card = w.querySelector('.card');
+          if (card) bindOpen(w, card);
+          w.classList.add('is-risen');
+        });
+      }
+
+      // Espera um frame inicial garantidamente pintado antes de disparar:
+      //  - cortina em curso (navbar): poll até __amsCurtainBusy voltar a false
+      //    (fade terminado = já passaram vários frames desde o swap);
+      //  - carga direta / soft-nav sem cortina: double-rAF (garante 1 paint do
+      //    estado inicial entre os dois rAF).
+      function whenPainted(cb) {
+        if (window.__amsCurtainBusy) {
+          var id = setInterval(function () {
+            if (!window.__amsCurtainBusy) { clearInterval(id); cb(); }
+          }, 50);
+        } else {
+          requestAnimationFrame(function () { requestAnimationFrame(cb); });
+        }
+      }
+
       function setup() {
+        var reveal = earlyIO && root.classList.contains('reveal-ready');
+
+        // 1.º bloco: entrada dedicada e gated. enterBound marcado já (síncrono)
+        // para o 2.º setup() da mesma nav não re-agendar.
+        var first = document.querySelector('.section--flat-top');
+        if (first && !first.dataset.enterBound) {
+          first.dataset.enterBound = '1';
+          if (!reveal) {
+            // Sem reveal-ready (reduced-motion / sem IO): entra já assente.
+            first.classList.add('is-entered');
+            first.querySelectorAll('.card-rise').forEach(function (w) {
+              w.classList.add('is-risen', 'is-open');
+            });
+          } else {
+            whenPainted(function () { enterFirstBlock(first); });
+          }
+        }
+
+        // Restantes .card-rise (2.º bloco): reveal por scroll via observer.
         document.querySelectorAll('.card-rise').forEach(function (w) {
           if (w.dataset.riseBound) return;
+          if (w.closest('.section--flat-top')) return; // 1.º bloco tratado acima
           w.dataset.riseBound = '1';
           var card = w.querySelector('.card');
           if (!card) return;
-          // Sem reveal-ready (reduced-motion / sem IO): sobe já, sem transição.
-          if (!earlyIO || !root.classList.contains('reveal-ready')) {
-            w.classList.add('is-risen', 'is-open');
-            return;
-          }
-          // Observa a MOLDURA (é nela que .is-risen vive). Callback assíncrono
-          // = já depois do paint do estado inicial → a subida anima.
+          if (!reveal) { w.classList.add('is-risen', 'is-open'); return; }
           earlyIO.observe(w);
-          // once: a subida é única; sem isto o listener re-dispararia a cada
-          // hover (o hover também transiciona transform) — inofensivo, mas sujo.
-          card.addEventListener('transitionend', function onRise(e) {
-            if (e.propertyName !== 'transform') return;
-            w.classList.add('is-open');
-            card.removeEventListener('transitionend', onRise);
-          });
+          bindOpen(w, card);
         });
       }
 
