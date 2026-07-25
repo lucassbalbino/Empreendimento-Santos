@@ -868,8 +868,7 @@ html.stitch-scroll .seam-wm__text{ opacity:var(--draw,1); }
    *assenta* — é isto que se lê como fluido. Durações iguais leem-se como
    lentas. */
 html.reveal-ready :is(
-  .section .eyebrow, .section .display, .section .lead,
-  .split__body > p, .quemsomos__intro > p, .card, .stat, .vertical, .service, .member, .panels
+  .card, .stat, .vertical, .service, .member, .panels
 ){
   opacity:0;
   transform:translateY(26px);
@@ -878,8 +877,7 @@ html.reveal-ready :is(
   will-change:transform, opacity;
 }
 html.reveal-ready :is(
-  .section .eyebrow, .section .display, .section .lead,
-  .split__body > p, .quemsomos__intro > p, .card, .stat, .vertical, .service, .member, .panels
+  .card, .stat, .vertical, .service, .member, .panels
 ).is-visible{
   opacity:1;
   transform:none;
