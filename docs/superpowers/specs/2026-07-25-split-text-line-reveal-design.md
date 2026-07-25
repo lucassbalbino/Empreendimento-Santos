@@ -9,17 +9,21 @@ Adicionar uma animação de *split text* por todo o site: cada bloco de texto de
 secção parte-se **por linha** e cada linha desliza de baixo para cima a partir de
 uma máscara (`overflow:hidden`), em cascata. "Pesada" no pedido original refere-se
 à **cobertura** (o efeito em todo o lado). O movimento é pesado e cinemático —
-mais lento e com mais assentamento que o reveal base do site (~1000ms, stagger
-~120ms).
+mais lento e com mais assentamento que o reveal base do site (~1200ms, stagger
+~150ms), e dispara **mais tarde** que o reveal base (o texto entra em frame só
+quando já está bem dentro do ecrã).
 
 ## Decisões fechadas
 
 - **Efeito:** *line mask reveal* — cada linha medida sobe (`translateY(110%)→0`)
   clipada por uma máscara. Só `transform` (regra da casa: animar só
   transform/opacity; aqui dispensa opacity porque a máscara já esconde).
-- **Peso:** pesado e cinemático — duração ~1000ms, stagger ~120ms entre linhas,
+- **Peso:** pesado e cinemático — duração ~1200ms, stagger ~150ms entre linhas,
   easing com desaceleração forte (`cubic-bezier(.16,1,.3,1)` — arranque rápido,
   assentamento demorado).
+- **Gatilho tardio:** o line-split usa um IntersectionObserver **próprio**, com
+  margem inferior mais negativa que o reveal base, para o texto só entrar quando
+  já está bem dentro do ecrã (não logo à beira de baixo).
 - **Direção:** de baixo para cima (coerente com o reveal existente).
 - **Biblioteca:** `split-type` (dep npm pequena), pela medição robusta de linhas,
   suporte a markup inline (links/`<strong>` dentro de parágrafos) e re-split no
@@ -77,17 +81,19 @@ CSS:
 .line__inner {
   display: block;
   transform: translateY(110%);
-  transition: transform 1s cubic-bezier(.16,1,.3,1);
-  transition-delay: calc(var(--i) * 120ms);
+  transition: transform 1.2s cubic-bezier(.16,1,.3,1);
+  transition-delay: calc(var(--i) * 150ms);
 }
 .is-revealed .line__inner { transform: translateY(0); }
 ```
 
 ## Comportamento
 
-- **Gatilho:** IntersectionObserver (mesmo padrão/threshold do reveal existente)
-  adiciona `.is-revealed` ao elemento quando entra em vista → linhas sobem em
-  cascata (~1000ms cada, stagger ~120ms).
+- **Gatilho (tardio):** IntersectionObserver próprio com margem inferior mais
+  negativa que o reveal base (ex.: `rootMargin: '0px 0px -25% 0px'`, contra os
+  `-6%` do reveal) — o elemento só revela quando já subiu bem para dentro do
+  ecrã. Ao entrar, adiciona `.is-revealed` → linhas sobem em cascata (~1200ms
+  cada, stagger ~150ms).
 - **Resize:** debounce → `split.revert()` + re-split + re-wrap. Se o elemento já
   estava revelado, repor visível **sem** re-animar (capturar o estado antes de
   reverter e reaplicar `.is-revealed` sem transição, ex.: forçar reflow ou aplicar
