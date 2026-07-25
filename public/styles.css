@@ -894,7 +894,7 @@ html.reveal-ready :is(
    A .line clipa (overflow), a .line__inner sobe de translateY(110%) até 0. Só
    transform. Estado escondido gated por .split-ready (posta pelo JS por elemento)
    -> sem JS, nada disto se aplica e o texto fica legível. */
-.line { overflow: hidden; }
+.split-ready .line { overflow: hidden; }   /* scoping: não colidir com outros .line (ex.: hero__scroll) */
 .split-ready .line__inner {
   display: block;
   transform: translateY(110%);              /* escondida por baixo da máscara */
