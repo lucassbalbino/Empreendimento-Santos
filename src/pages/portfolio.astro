@@ -41,4 +41,24 @@ const secoes = [
       <ContactForm eyebrow={portfolio.contacto.eyebrow} title={portfolio.contacto.title} texto={portfolio.contacto.texto} />
     </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      var root = document.documentElement;
+      function setup() {
+        document.querySelectorAll('.card-rise').forEach(function (w) {
+          if (w.dataset.riseBound) return;
+          w.dataset.riseBound = '1';
+          var card = w.querySelector('.card');
+          if (!card) return;
+          // Sem reveal-ready (reduced-motion / sem IO): a moldura abre já.
+          if (!root.classList.contains('reveal-ready')) { w.classList.add('is-open'); return; }
+          card.addEventListener('transitionend', function (e) {
+            if (e.propertyName === 'transform') w.classList.add('is-open');
+          });
+        });
+      }
+      document.addEventListener('astro:page-load', setup);
+    })();
+  </script>
 </Base>

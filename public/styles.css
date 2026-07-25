@@ -935,6 +935,9 @@ html.reveal-ready .card-rise .card.is-visible{ transform:translateY(0); }
 /* cascata por coluna (grelha de 3): esquerda → direita */
 html.reveal-ready .card-rise:nth-child(3n+2) .card{ transition-delay:.09s; }
 html.reveal-ready .card-rise:nth-child(3n+3) .card{ transition-delay:.18s; }
+/* Depois da subida assentar, reabrir a moldura para o hover (elevação +
+   sombra) não ser cortado pelo overflow:hidden. */
+html.reveal-ready .card-rise.is-open{ overflow:visible; }
 
 /* 2) Sublinhado animado no menu + indicador da página atual */
 .nav__list a::after{
