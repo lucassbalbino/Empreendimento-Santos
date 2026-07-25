@@ -131,10 +131,16 @@ html.reveal-ready .card-rise:nth-child(3n+3) .card{ transition-delay:.18s; }
 html.reveal-ready .card-rise.is-open{ overflow:visible; }
 ```
 
-Notas de especificidade: `html.reveal-ready .card-rise .card` = (0,3,1), acima da regra
-genérica `html.reveal-ready :is(… .card …)` = (0,2,1), por isso estes cards usam a
-subida grande (`translateY(100%)`) e ficam opacos, em vez do reveal genérico de 26px
-com fade.
+Notas de especificidade: `html.reveal-ready .card-rise .card` = (0,3,1) **empata** com a
+regra genérica `html.reveal-ready :is(… .card …)`, que também é (0,3,1) — porque `:is()`
+assume a especificidade do seu argumento mais específico (`.section .eyebrow` = (0,2,0)),
+não a de `.card`. O empate é resolvido por **ordem de origem**: como este bloco vem depois
+no ficheiro, vence, e estes cards usam a subida grande (`translateY(100%)`, opacos) em vez
+do reveal genérico de 26px com fade.
+
+Cascata: o reveal geral do `Base.astro` escreve um `transition-delay` **inline** em cada
+`.card` (índice de irmão = 0, pois o `.card` é filho único da moldura → `0ms`), e inline
+vence qualquer selector. Por isso as delays da cascata levam `!important`.
 
 ### `src/layouts/Base.astro`
 

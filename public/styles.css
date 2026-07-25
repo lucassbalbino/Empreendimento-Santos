@@ -921,22 +921,35 @@ html.reveal-ready .reveal-rise-slow.is-visible{
    O branco é o fundo estático da secção, visível através da moldura; só o
    card se move. Disparado pelo mesmo IntersectionObserver do reveal geral
    (a 1.ª linha sobe ao carregar, as seguintes ao entrar no ecrã).
-   Especificidade acima da regra genérica de .card, para usar a subida
-   grande (translateY(100%)) e ficar opaco, em vez do reveal de 26px. */
+
+   Estas regras empatam em especificidade com a regra genérica de .card
+   ((0,3,1)) e vencem por ordem de origem (este bloco vem depois), passando
+   a usar a subida grande (translateY(100%)) e opaca em vez do reveal de 26px.
+
+   O .card é um <a> (inline); precisa de display:block para preencher a
+   moldura. Fica FORA do gate reveal-ready, senão em reduced-motion (sem
+   reveal-ready) o card voltava a inline e a grelha partia-se. */
+.card-rise .card{ display:block; }
 html.reveal-ready .card-rise{ overflow:hidden; }
 html.reveal-ready .card-rise .card{
-  display:block;
   opacity:1;
   transform:translateY(100%);
-  transition:transform 1.2s cubic-bezier(.16,1,.3,1);
+  /* box-shadow no transition para o hover (sombra) continuar a suavizar —
+     o shorthand aqui substitui o do .card base, que já a incluía. */
+  transition:transform 1.2s cubic-bezier(.16,1,.3,1), box-shadow .5s var(--ease);
   will-change:transform;
 }
 html.reveal-ready .card-rise .card.is-visible{ transform:translateY(0); }
-/* cascata por coluna (grelha de 3): esquerda → direita */
-html.reveal-ready .card-rise:nth-child(3n+2) .card{ transition-delay:.09s; }
-html.reveal-ready .card-rise:nth-child(3n+3) .card{ transition-delay:.18s; }
-/* Depois da subida assentar, reabrir a moldura para o hover (elevação +
-   sombra) não ser cortado pelo overflow:hidden. */
+/* Cascata por coluna (grelha de 3): esquerda → direita. !important porque o
+   reveal geral do Base.astro escreve um transition-delay INLINE em cada .card
+   (índice de irmão = 0, pois o .card é filho único da moldura), e inline vence
+   qualquer selector sem !important. */
+html.reveal-ready .card-rise:nth-child(3n+2) .card{ transition-delay:.09s !important; }
+html.reveal-ready .card-rise:nth-child(3n+3) .card{ transition-delay:.18s !important; }
+/* Depois da subida assentar, reabrir a moldura para a sombra do hover não ser
+   cortada pelo overflow:hidden. (A elevação translateY(-6px) do hover é
+   suprimida site-wide pela regra genérica .is-visible{transform:none} — isto
+   só garante que a sombra aparece inteira.) */
 html.reveal-ready .card-rise.is-open{ overflow:visible; }
 
 /* 2) Sublinhado animado no menu + indicador da página atual */

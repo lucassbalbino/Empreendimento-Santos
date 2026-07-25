@@ -53,8 +53,12 @@ const secoes = [
           if (!card) return;
           // Sem reveal-ready (reduced-motion / sem IO): a moldura abre já.
           if (!root.classList.contains('reveal-ready')) { w.classList.add('is-open'); return; }
-          card.addEventListener('transitionend', function (e) {
-            if (e.propertyName === 'transform') w.classList.add('is-open');
+          // once: a subida é única; sem isto o listener re-dispararia a cada
+          // hover (o hover também transiciona transform) — inofensivo, mas sujo.
+          card.addEventListener('transitionend', function onRise(e) {
+            if (e.propertyName !== 'transform') return;
+            w.classList.add('is-open');
+            card.removeEventListener('transitionend', onRise);
           });
         });
       }
