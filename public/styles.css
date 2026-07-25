@@ -996,6 +996,39 @@ html.reveal-ready .section--flat-top.is-entered .block-head :is(.eyebrow, .displ
   transform:none !important;
 }
 
+/* h1 do 1.º bloco (portfólio + histórico): maior que o .display--sm, para dar
+   mais destaque ao título de abertura. Especificidade (0,3,1) vence
+   .block-head .display e .display--sm. */
+.section--flat-top .block-head .display{
+  font-size:clamp(2.5rem, 6vw, 4.6rem);
+}
+
+/* Cards do 1.º bloco do HISTÓRICO — entram DEPOIS do título (não antes).
+   O reveal genérico do Base adiciona .is-visible SÍNCRONO no astro:page-load,
+   por isso os cards subiam logo, muito antes do título (que espera a cortina).
+   Aqui a entrada é gated pela mesma .is-entered da secção (script do histórico,
+   já depois da cortina) e atrasada para arrancar a seguir ao título. Sem wrapper
+   .card-rise, para não mexer na estrutura da grelha de que a modal depende.
+   Só afeta o histórico: o portfólio usa .card-rise (não .card--modal).
+   Especificidade .section--flat-top .grid-projects .card--modal (0,3,1) vence
+   .card.is-visible (0,2,0); transition-delay com !important vence o delay inline
+   que o Base escreve em cada card. */
+html.reveal-ready .section--flat-top .grid-projects .card--modal{
+  opacity:0;
+  transform:translateY(52px);
+  transition:opacity .5s var(--ease),
+             transform 1.4s cubic-bezier(.1,.25,.25,1);
+  transition-delay:.9s !important;
+  will-change:transform, opacity;
+}
+html.reveal-ready .section--flat-top.is-entered .grid-projects .card--modal{
+  opacity:1;
+  transform:none;
+}
+/* Cascata por coluna (grelha de 3): esquerda → direita, a seguir ao título. */
+html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(3n+2){ transition-delay:1.05s !important; }
+html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(3n+3){ transition-delay:1.2s !important; }
+
 /* 2) Sublinhado animado no menu + indicador da página atual */
 .nav__list a::after{
   content:""; position:absolute; left:0; right:0; bottom:0; height:1.5px;

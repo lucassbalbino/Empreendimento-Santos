@@ -25,26 +25,13 @@ const modalData = concluidos.map((p) => ({
   factos: p.factos,
 }));
 ---
-<Base title="Mockup — Histórico" description="O percurso da AM Santos: uma seleção de empreendimentos concluídos e entregues ao longo de 20 anos no mercado imobiliário.">
-  <!-- HERO (interno) -->
-  <section class="hero" style="min-height:100vh">
-    <div
-      class={historico.hero.imagem ? 'hero__bg hero__bg--img' : 'hero__bg'}
-      style={historico.hero.imagem ? `background-image:url(${historico.hero.imagem})` : undefined}
-    ></div>
-    <div class="hero__overlay"></div>
-    <div class="hero__inner">
-      <div class="container">
-        <span class="eyebrow" style="color:var(--accent-dk)">{historico.hero.eyebrow}</span>
-        <h1 class="display hero__title-page">{historico.hero.title}</h1>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJETOS CONCLUÍDOS -->
-  <section class="section">
+<Base flat title="Mockup — Histórico" description="O percurso da AM Santos: uma seleção de empreendimentos concluídos e entregues ao longo de 20 anos no mercado imobiliário.">
+  <!-- PROJETOS CONCLUÍDOS. Como o portfólio: sem hero — a página abre direto no
+       bloco de cards (fade branco na entrada, cabeçalho centrado e slide pesado).
+       O cabeçalho é o h1 da página. -->
+  <section class="section section--centered-head section--flat-top">
     <div class="container">
-      <BlockHead eyebrow={historico.concluidos.eyebrow} title={historico.concluidos.title} lead={historico.concluidos.lead} />
+      <BlockHead eyebrow={historico.concluidos.eyebrow} title={historico.concluidos.title} lead={historico.concluidos.lead} as="h1" />
       <div class="grid-projects">
         {concluidos.map((p) => (<ProjectCard proj={p} modal={true} />))}
       </div>
@@ -291,6 +278,56 @@ const modalData = concluidos.map((p) => ({
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && currentCard) close();
       });
+    })();
+  </script>
+
+  <script is:inline>
+    // Entrada pesada do cabeçalho (como o 1.º bloco do portfólio). Só o
+    // cabeçalho: os cards mantêm o reveal normal do Base e a modal fica intocada.
+    // O CSS gera .section--flat-top .block-head :is(.eyebrow,.display,.lead) em
+    // opacity:0 até .is-entered — sem este script o cabeçalho fica invisível.
+    // Dispara SÓ depois de um frame inicial pintado (gate da cortina / rAF), o
+    // que evita o salto na navbar (o bloco está acima da dobra). Init UMA vez; o
+    // listener astro:page-load persiste e chama setup em cada nav.
+    (function () {
+      if (window.__amsHistRise) return;
+      window.__amsHistRise = true;
+      var root = document.documentElement;
+
+      // FORÇA UM REFLOW antes de .is-entered: compromete o estado escondido
+      // (translateY(80px)) como baseline para a transição interpolar a partir daí,
+      // em vez de resolver início e fim no mesmo tick (salto seco).
+      function enterFirstBlock(first) {
+        void first.offsetHeight;
+        first.classList.add('is-entered');
+      }
+
+      // Espera um frame garantidamente pintado: cortina em curso (navbar) → poll
+      // até __amsCurtainBusy voltar a false; carga direta / soft-nav → double-rAF.
+      function whenPainted(cb) {
+        if (window.__amsCurtainBusy) {
+          var id = setInterval(function () {
+            if (!window.__amsCurtainBusy) { clearInterval(id); cb(); }
+          }, 50);
+        } else {
+          requestAnimationFrame(function () { requestAnimationFrame(cb); });
+        }
+      }
+
+      function setup() {
+        var reveal = ('IntersectionObserver' in window) && root.classList.contains('reveal-ready');
+        var first = document.querySelector('.section--flat-top');
+        if (!first || first.dataset.enterBound) return;
+        first.dataset.enterBound = '1';
+        if (!reveal) {
+          first.classList.add('is-entered');       // reduced-motion: assenta já
+        } else {
+          whenPainted(function () { enterFirstBlock(first); });
+        }
+      }
+
+      document.addEventListener('astro:page-load', setup);
+      setup();
     })();
   </script>
 </Base>
