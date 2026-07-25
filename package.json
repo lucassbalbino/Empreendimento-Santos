@@ -14,7 +14,8 @@
   "license": "ISC",
   "dependencies": {
     "astro": "^4.16.19",
-    "lenis": "^1.3.25"
+    "lenis": "^1.3.25",
+    "split-type": "^0.3.4"
   },
   "devDependencies": {
     "decap-server": "^3.9.1"
