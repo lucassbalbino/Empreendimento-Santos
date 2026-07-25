@@ -8,9 +8,10 @@ const {
   description = 'AM Santos — construindo o futuro com qualidade e sustentabilidade. 20 anos de experiência no mercado imobiliário, com arquitetura moderna e funcional.',
   image = '/images/hero-image.webp',
   palette,
+  flat = false,
 } = Astro.props;
 const isHome = Astro.url.pathname === '/';
-const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(Boolean).join(' ') || undefined;
+const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-${palette}`].filter(Boolean).join(' ') || undefined;
 ---
 <!DOCTYPE html>
 <html lang="pt">
@@ -25,6 +26,9 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
   <link rel="icon" type="image/png" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="theme-color" content="#141414">
+  <!-- Site só claro: impede o modo escuro automático do browser de escurecer as
+       cores quando o SO está em dark mode (sinal dado antes do CSS carregar). -->
+  <meta name="color-scheme" content="only light">
 
   <!-- Open Graph / partilha em redes sociais -->
   <meta property="og:type" content="website">
@@ -62,7 +66,7 @@ const bodyClass = [isHome && 'is-home', palette && `palette-${palette}`].filter(
       if (!('IntersectionObserver' in window) ||
           window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       root.classList.add('reveal-ready');
-      var SEL = '.section, .section .eyebrow, .section .display, .section .lead, .split__body > p, .card, .stat, .vertical, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
+      var SEL = '.section, .section .eyebrow, .section .display, .section .lead, .split__body > p, .quemsomos__intro > p, .card, .stat, .vertical, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
       var els = [];
 
       var io = new IntersectionObserver(function (entries) {

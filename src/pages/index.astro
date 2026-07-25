@@ -37,21 +37,18 @@ const equipaCards = home.equipa.members.map((m) => ({
        capítulo, por isso encostam-se (espaçamento curto entre ambos). -->
 
   <!-- QUEM SOMOS -->
-  <section class="section section--tight-bottom">
+  <section class="section section--tight-bottom quemsomos">
     <div class="container">
-      <div class="split">
-        <div class="split__body">
-          <span class="eyebrow">{home.quemSomos.eyebrow}</span>
-          <h2 class="display">{home.quemSomos.title}</h2>
-          {home.quemSomos.paragrafos.map((p) => (<p>{p}</p>))}
-          <a class="btn" href="/sobre-nos">{home.quemSomos.botao}</a>
-        </div>
-        <div class="split__media reveal-rise-slow">
-          {home.quemSomos.imagem
-            ? <img class="split__img" src={home.quemSomos.imagem} alt="Fachada de empreendimento AM Santos" loading="lazy" />
-            : <div class="ph" data-label="Imagem 4:5"></div>}
-        </div>
+      <div class="quemsomos__intro">
+        <span class="eyebrow">{home.quemSomos.eyebrow}</span>
+        <h2 class="display">{home.quemSomos.title}</h2>
+        <a class="btn" href="/sobre-nos">{home.quemSomos.botao}</a>
       </div>
+    </div>
+    <div class="quemsomos__media reveal-rise-slow">
+      {home.quemSomos.imagem
+        ? <img class="quemsomos__img" src={home.quemSomos.imagem} alt="Fachada de empreendimento AM Santos" loading="lazy" />
+        : <div class="ph" data-label="Imagem 16:9"></div>}
     </div>
   </section>
 
@@ -97,20 +94,20 @@ const equipaCards = home.equipa.members.map((m) => ({
     />
   </section>
 
-  <!-- COSTURA · Portfolio → Histórico. Reutiliza a linguagem da watermark do
-       slider (Fraunces, ténue) com a marca "Empreendimentos Santos", assente na
-       fronteira a coser as duas secções escuras. Fora de <section> para escapar
-       à cortina de revelação. -->
-  <div class="stitch seam-wm" aria-hidden="true">
-    <div class="seam-wm__wrap">
-      <div class="container">
-        <span class="seam-wm__text"><span>Empreendimentos</span><span>Santos</span></span>
-      </div>
-    </div>
+  <!-- COSTURA · fronteira de cor escuro → branco (Portfolio → Histórico).
+       Triângulo escuro (cor do Portfolio) desce sobre o topo branco do
+       Histórico e o fio laranja cose o corte na diagonal. Fora de <section>
+       para escapar à cortina de revelação. -->
+  <div class="stitch stitch--dark">
+    <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+      <polygon class="stitch__wedge" points="0,0 1000,0 0,60"></polygon>
+      <line class="stitch__thread" x1="0" y1="60" x2="1000" y2="0" pathLength="1"></line>
+    </svg>
   </div>
 
-  <!-- TRACK RECORD -->
-  <section class="section section--dark section--tight-top section--panels-cut">
+  <!-- TRACK RECORD (Histórico) — secção branca autónoma: sai do bloco escuro
+       da Obra, com mais respiro no topo. Ver .section--panels-cut. -->
+  <section class="section section--panels-cut">
     <div class="container">
       <BlockHead eyebrow={home.trackRecord.eyebrow} title={home.trackRecord.title} lead={home.trackRecord.lead} botao={home.trackRecord.botao} href="/portfolio" />
     </div>
@@ -119,19 +116,17 @@ const equipaCards = home.equipa.members.map((m) => ({
     <ExpandPanels projetos={concluidos} />
   </section>
 
-  <!-- COSTURA · fronteira de cor escuro → claro. Triângulo escuro (cor do
-       bloco da Obra) desce sobre o topo da Equipa e o fio laranja cose o
-       corte na diagonal.
-       Duas camadas: os painéis do Histórico são recortados por esta mesma
-       diagonal e ficam RENTES a ela, por isso têm de assentar por cima da
-       cunha (senão eram tapados por ela) e por baixo do fio, que passa a
-       bainhar o bordo dos cards. Ver .section--panels-cut. -->
-  <div class="stitch stitch--dark">
+  <!-- COSTURA · fronteira de cor branco → cinza (Histórico → Equipa).
+       Triângulo branco (cor do Histórico) desce sobre o topo do bloco seguinte
+       e o fio laranja cose o corte na diagonal.
+       Duas camadas: os painéis (z7) descem RENTES a esta diagonal, entre a
+       cunha (z6) e o fio (z8). Ver .section--panels-cut. -->
+  <div class="stitch stitch--light">
     <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
       <polygon class="stitch__wedge" points="0,0 1000,0 0,60"></polygon>
     </svg>
   </div>
-  <div class="stitch stitch--dark stitch--thread-top">
+  <div class="stitch stitch--light stitch--thread-top">
     <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
       <line class="stitch__thread" x1="0" y1="60" x2="1000" y2="0" pathLength="1"></line>
     </svg>

@@ -11,7 +11,7 @@
       "Desde o seu início, a nossa visão é proporcionar conforto e qualidade a quem confia em nós, através de projetos que combinam uma arquitetura moderna e funcional com um foco inabalável no bem-estar e na qualidade."
     ],
     "botao": "Sobre nós",
-    "imagem": "/images/sobre-fachada.webp"
+    "imagem": "/images/template-sobre.jpg"
   },
   "oQueFazemos": {
     "eyebrow": "O que fazemos",
@@ -68,19 +68,19 @@
         "role": "Liderança · Direção-Geral",
         "name": "António M Santos",
         "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário.",
-        "foto": ""
+        "foto": "images/perfil-3.jpg"
       },
       {
         "role": "Arquitetura · Projeto",
         "name": "Marta Sousa",
         "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra.",
-        "foto": ""
+        "foto": "images/perfil-2.jpg"
       },
       {
         "role": "Engenharia · Obra",
         "name": "Ricardo Nunes",
         "bio": "Diretor de obra, coordena a execução e o controlo de qualidade que sustentam a excelência de cada projeto executado.",
-        "foto": ""
+        "foto": "images/perfil-1.jpg"
       },
       {
         "role": "Decoração · Interiores",

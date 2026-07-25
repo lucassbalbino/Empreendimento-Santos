@@ -5,9 +5,9 @@ import ContactForm from '../components/ContactForm.astro';
 import Stitch from '../components/Stitch.astro';
 import equipa from '../data/equipa.json';
 ---
-<Base title="Mockup — Equipa" description="A equipa da AM Santos — profissionais de arquitetura, engenharia, decoração e gestão imobiliária de alto nível, e as empresas do grupo (SF Properties e Valflores).">
+<Base title="Mockup — Equipa" description="A equipa da AM Santos — profissionais de arquitetura, engenharia, decoração e gestão imobiliária de alto nível.">
   <!-- HERO (interno) -->
-  <section class="hero" style="min-height:80vh">
+  <section class="hero" style="min-height:100vh">
     <div
       class={equipa.hero.imagem ? 'hero__bg hero__bg--img' : 'hero__bg'}
       style={equipa.hero.imagem ? `background-image:url(${equipa.hero.imagem})` : undefined}
@@ -42,26 +42,11 @@ import equipa from '../data/equipa.json';
     </div>
   </section>
 
-  <!-- EMPRESAS DO GRUPO. Costura na fronteira de cor antes do 1.º bloco
-       (cinza → branco). Entre as empresas (branco → branco) não há corte:
-       não há cor a coser. -->
-  {equipa.grupo.map((g, i) => (
-    <>
-      {i === 0 && <Stitch variant="alt" />}
-      <section class="section">
-        <div class="container">
-          <h2 class="display display--sm" style="margin-bottom:clamp(28px,4vw,56px)">{g.title}</h2>
-          <Team members={g.members} />
-        </div>
-      </section>
-    </>
-  ))}
-
-  <!-- COSTURA · Empresas do grupo (branco) → Contacto (cinza) -->
-  <Stitch variant="light" />
+  <!-- COSTURA · Equipa geral (cinza) → Contacto (branco) -->
+  <Stitch variant="alt" />
 
   <!-- CONTACTO -->
-  <section class="section section--alt" id="contacto">
+  <section class="section" id="contacto">
     <div class="container">
       <ContactForm eyebrow={equipa.contacto.eyebrow} title={equipa.contacto.title} texto={equipa.contacto.texto} />
     </div>

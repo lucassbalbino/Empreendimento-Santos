@@ -27,7 +27,7 @@ const modalData = concluidos.map((p) => ({
 ---
 <Base title="Mockup — Histórico" description="O percurso da AM Santos: uma seleção de empreendimentos concluídos e entregues ao longo de 20 anos no mercado imobiliário.">
   <!-- HERO (interno) -->
-  <section class="hero" style="min-height:80vh">
+  <section class="hero" style="min-height:100vh">
     <div
       class={historico.hero.imagem ? 'hero__bg hero__bg--img' : 'hero__bg'}
       style={historico.hero.imagem ? `background-image:url(${historico.hero.imagem})` : undefined}
@@ -61,31 +61,35 @@ const modalData = concluidos.map((p) => ({
     </div>
   </section>
 
-  <!-- JANELA MODAL DO EMPREENDIMENTO (aberta pelos cards acima) -->
-  <div class="emodal" id="emodal" hidden>
-    <div class="emodal__backdrop" data-emodal-close></div>
-    <div class="emodal__dialog" role="dialog" aria-modal="true" aria-labelledby="emodal-title">
-      <!-- Painel esquerdo: imagem + título + specs rápidas -->
-      <div class="emodal__media">
-        <img class="emodal__img" id="emodal-img" src="" alt="" />
-        <span class="img-prov" id="emodal-prov" hidden>Imagem provisória</span>
-        <div class="emodal__media-grad"></div>
-        <div class="emodal__media-head">
-          <h2 class="emodal__title" id="emodal-title"></h2>
-          <p class="emodal__subtitle" id="emodal-subtitle"></p>
-        </div>
-        <div class="emodal__chips" id="emodal-chips"></div>
-      </div>
-      <!-- Painel direito: informação sobre o projeto -->
-      <div class="emodal__info">
-        <button class="emodal__close" type="button" data-emodal-close aria-label="Fechar">&times;</button>
-        <span class="eyebrow" id="emodal-eyebrow"></span>
-        <h3 class="emodal__info-title">Sobre o empreendimento</h3>
-        <p class="emodal__resumo" id="emodal-resumo"></p>
-        <div class="emodal__facts" id="emodal-facts"></div>
-        <div class="emodal__footer">
-          <span class="emodal__entrega" id="emodal-entrega"></span>
-          <a class="btn" href="/contactos">Falar connosco</a>
+  <!-- PAINEL INLINE DO EMPREENDIMENTO. Vive aqui escondido; ao clicar num card
+       o JS insere-o na grelha, a seguir ao último card da linha do card clicado. -->
+  <div id="epanel-holder" hidden>
+    <div class="epanel" id="epanel" hidden>
+      <div class="epanel__wrap">
+        <div class="epanel__inner" role="region" aria-labelledby="emodal-title">
+          <!-- Painel esquerdo: imagem + título + specs rápidas -->
+          <div class="emodal__media">
+            <img class="emodal__img" id="emodal-img" src="" alt="" />
+            <span class="img-prov" id="emodal-prov" hidden>Imagem provisória</span>
+            <div class="emodal__media-grad"></div>
+            <div class="emodal__media-head">
+              <h2 class="emodal__title" id="emodal-title"></h2>
+              <p class="emodal__subtitle" id="emodal-subtitle"></p>
+            </div>
+            <div class="emodal__chips" id="emodal-chips"></div>
+          </div>
+          <!-- Painel direito: informação sobre o projeto -->
+          <div class="emodal__info">
+            <button class="emodal__close" type="button" data-emodal-close aria-label="Fechar">&times;</button>
+            <span class="eyebrow" id="emodal-eyebrow"></span>
+            <h3 class="emodal__info-title">Sobre o empreendimento</h3>
+            <p class="emodal__resumo" id="emodal-resumo"></p>
+            <div class="emodal__facts" id="emodal-facts"></div>
+            <div class="emodal__footer">
+              <span class="emodal__entrega" id="emodal-entrega"></span>
+              <a class="btn" href="/contactos">Falar connosco</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -95,14 +99,19 @@ const modalData = concluidos.map((p) => ({
 
   <script is:inline>
     (function () {
-      var modal = document.getElementById('emodal');
+      var panel = document.getElementById('epanel');
+      var holder = document.getElementById('epanel-holder');
+      var grid = document.querySelector('.grid-projects');
       var dataEl = document.getElementById('emodal-data');
-      if (!modal || !dataEl) return;
+      if (!panel || !holder || !grid || !dataEl) return;
 
       var projetos = {};
       try {
         JSON.parse(dataEl.textContent).forEach(function (p) { projetos[p.slug] = p; });
       } catch (e) { return; }
+
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var DUR = 820; // ligeiramente acima da transição CSS de .epanel__wrap (.8s)
 
       var el = {
         img: document.getElementById('emodal-img'),
@@ -114,11 +123,11 @@ const modalData = concluidos.map((p) => ({
         resumo: document.getElementById('emodal-resumo'),
         facts: document.getElementById('emodal-facts'),
         entrega: document.getElementById('emodal-entrega'),
-        dialog: modal.querySelector('.emodal__dialog'),
-        close: modal.querySelector('.emodal__close'),
+        close: panel.querySelector('.emodal__close'),
       };
 
-      var lastFocus = null;
+      var currentCard = null;   // card cujo painel está aberto (ou a fechar)
+      var closeTimer = null;
 
       function chip(text) {
         var s = document.createElement('span');
@@ -158,40 +167,129 @@ const modalData = concluidos.map((p) => ({
 
         el.facts.textContent = '';
         (p.factos || []).forEach(function (f) {
+          if (f.rotulo === 'Arquitetura' || f.rotulo === 'Estado') return;
           el.facts.appendChild(factRow(f.rotulo, f.valor));
         });
       }
 
-      function open(slug, trigger) {
-        var p = projetos[slug];
+      function lenisResize() {
+        var l = window.__amsLenis;
+        if (l && typeof l.resize === 'function') l.resize();
+      }
+
+      // Leva a página até ao topo do painel (fica junto ao topo, abaixo do header).
+      // Deslize longo com ease-in-out marcado, para um efeito mais dramático.
+      function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+      function scrollToPanel() {
+        var lenis = window.__amsLenis;
+        if (!reduce && lenis && typeof lenis.scrollTo === 'function') {
+          lenis.scrollTo(panel, { offset: -96, duration: 1.2, easing: easeInOutCubic });
+        } else {
+          panel.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+        }
+      }
+
+      // Alvo absoluto (topo do painel) e limite de scroll actuais — para saber se
+      // o alvo fica clampado enquanto o painel ainda não expandiu (últimas linhas).
+      function panelTargetY() {
+        var l = window.__amsLenis;
+        var cur = l ? l.scroll : window.scrollY;
+        return panel.getBoundingClientRect().top + cur - 96;
+      }
+      function maxScroll() {
+        var l = window.__amsLenis;
+        if (l && typeof l.limit === 'number') return l.limit;
+        return document.documentElement.scrollHeight - window.innerHeight;
+      }
+
+      // Último card na mesma linha visual do card dado (mesmo offsetTop), para o
+      // painel de largura total abrir por baixo da linha inteira — em 3/2/1 colunas.
+      function lastInRow(card) {
+        var cards = grid.querySelectorAll('.card--modal');
+        var top = card.offsetTop, last = card;
+        for (var i = 0; i < cards.length; i++) {
+          if (cards[i].offsetTop === top) last = cards[i];
+        }
+        return last;
+      }
+
+      // Arranca o painel da grelha para o holder, sem animação (troca de card).
+      function detach() {
+        if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+        panel.classList.remove('is-open');
+        panel.hidden = true;
+        holder.appendChild(panel);
+        currentCard = null;
+      }
+
+      function open(card) {
+        var p = projetos[card.getAttribute('data-slug')];
         if (!p) return;
+        if (card === currentCard) { close(); return; } // toggle
+
+        detach();          // fecha instantâneo qualquer painel já aberto
         fill(p);
-        lastFocus = trigger || null;
-        modal.hidden = false;
-        document.documentElement.classList.add('emodal-open');
-        el.dialog.scrollTop = 0;
-        var info = modal.querySelector('.emodal__info');
-        if (info) info.scrollTop = 0;
-        el.close.focus();
+
+        var anchor = lastInRow(card);
+        grid.insertBefore(panel, anchor.nextSibling);
+        panel.hidden = false;
+        void panel.offsetHeight;            // reflow: garante o estado 0fr antes de animar
+        panel.classList.add('is-open');
+        currentCard = card;
+
+        // Scroll imediato (feedback) e, quando o painel acaba de expandir, um
+        // resize + scroll de correção — a página já tem a altura final, por isso
+        // o alvo deixa de ser clampado mesmo para cards das últimas linhas.
+        // Só corrigimos (resize + novo scroll) se o alvo ficou clampado por a
+        // página ainda ser curta — assim o deslize dramático não é interrompido
+        // a meio nos cards que já alcançam o painel à primeira.
+        var clamped = panelTargetY() > maxScroll() + 2;
+        scrollToPanel();
+        if (clamped) {
+          setTimeout(function () {
+            if (currentCard !== card) return;
+            lenisResize();
+            scrollToPanel();
+          }, reduce ? 0 : DUR);
+        }
       }
 
       function close() {
-        modal.hidden = true;
-        document.documentElement.classList.remove('emodal-open');
-        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
-        lastFocus = null;
+        if (!currentCard) return;
+        panel.classList.remove('is-open');
+        currentCard = null;
+        if (closeTimer) clearTimeout(closeTimer);
+        closeTimer = setTimeout(function () {
+          panel.hidden = true;
+          holder.appendChild(panel);
+          lenisResize();
+          closeTimer = null;
+        }, reduce ? 0 : DUR);
       }
 
-      document.querySelectorAll('.card--modal').forEach(function (card) {
-        card.addEventListener('click', function () { open(card.getAttribute('data-slug'), card); });
+      // Reposiciona o painel na linha certa quando o nº de colunas muda.
+      var rT = null;
+      window.addEventListener('resize', function () {
+        if (!currentCard || panel.hidden) return;
+        if (rT) clearTimeout(rT);
+        rT = setTimeout(function () {
+          if (!currentCard) return;
+          var anchor = lastInRow(currentCard);
+          if (anchor.nextSibling !== panel) grid.insertBefore(panel, anchor.nextSibling);
+          lenisResize();
+        }, 150);
       });
 
-      modal.querySelectorAll('[data-emodal-close]').forEach(function (btn) {
+      grid.querySelectorAll('.card--modal').forEach(function (card) {
+        card.addEventListener('click', function () { open(card); });
+      });
+
+      panel.querySelectorAll('[data-emodal-close]').forEach(function (btn) {
         btn.addEventListener('click', close);
       });
 
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && !modal.hidden) close();
+        if (e.key === 'Escape' && currentCard) close();
       });
     })();
   </script>

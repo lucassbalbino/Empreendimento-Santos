@@ -1,10 +1,11 @@
 ---
-const { eyebrow, title, lead, botao, href = "#" } = Astro.props;
+const { eyebrow, title, lead, botao, href = "#", as = "h2" } = Astro.props;
+const Title = as;
 ---
 <div class="block-head">
   <div class="block-head__text">
     <span class="eyebrow">{eyebrow}</span>
-    <h2 class="display display--sm">{title}</h2>
+    <Title class="display display--sm">{title}</Title>
     {lead && <p class="lead">{lead}</p>}
   </div>
   {botao && <a class="btn" href={href}>{botao}</a>}

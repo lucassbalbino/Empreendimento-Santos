@@ -14,7 +14,7 @@
   // Movimento lento e bem visível: a imagem da hero desce devagar e
   // materializa-se (fade) enquanto desce, a assentar no fim — não cai de golpe.
   // Easing com desaceleração (easeOut) para suavizar a chegada.
-  const DOWN = 2400, HOLD = 450;
+  const DOWN = 1200, HOLD = 150;
   const EASE = 'cubic-bezier(.8,0,.2,1)'; // "wipeFront" — valor exato da referência
 
   const curtain = document.getElementById('page-curtain');
@@ -36,21 +36,30 @@
     return new DOMParser().parseFromString(html, 'text/html');
   }
 
-  // Não bloquear para sempre se a imagem falhar/demorar.
+  // Não bloquear para sempre se a imagem falhar/demorar. `decode()` garante que o
+  // bitmap fica pronto a pintar no 1.º frame: sem isto, o elemento novo da hero
+  // pode entrar por decodificar no instante em que a cortina se levanta e vê-se o
+  // branco do body por baixo por 1–2 frames (o flash que quebra o smooth).
+  // Failsafe por timeout para nunca prender a transição se o decode falhar/demorar.
   function preloadImg(url) {
     return new Promise((resolve) => {
       if (!url) return resolve();
       const im = new Image();
-      im.onload = im.onerror = () => resolve();
       im.src = url;
-      setTimeout(resolve, 1200);
+      if (im.decode) im.decode().then(resolve, resolve);
+      else im.onload = im.onerror = () => resolve();
+      setTimeout(resolve, 1500);
     });
   }
 
   // Estados de clip-path do wipe (inset top right bottom left):
-  //  COVER_FROM: colada ao fundo, invisível → COVERED: tapa tudo.
-  const COVER_FROM = 'inset(100% 0 0 0)';
-  const COVERED    = 'inset(0 0 0 0)';
+  //  ambos partem invisíveis (recolhidos numa aresta) e crescem até COVERED.
+  //  UP:   recolhida no fundo (top 100%) → sobe de baixo para cima.
+  //  DOWN: recolhida no topo (bottom 100%) → desce de cima para baixo.
+  //  A origem decide a direção: navbar (header) desce; o resto sobe.
+  const COVER_FROM_UP   = 'inset(100% 0 0 0)';
+  const COVER_FROM_DOWN = 'inset(0 0 100% 0)';
+  const COVERED         = 'inset(0 0 0 0)';
 
   function clipWipe(from, to, d) {
     return curtain.animate(
@@ -65,12 +74,12 @@
     const inner = document.querySelector('.hero .hero__inner');
     if (!inner) return;
     inner.animate(
-      [{ opacity: 0, transform: 'translateY(24px)' }, { opacity: 1, transform: 'translateY(0)' }],
-      { duration: 600, easing: 'cubic-bezier(.2,.6,.2,1)', fill: 'backwards' }
+      [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'translateY(0)' }],
+      { duration: 400, easing: 'cubic-bezier(.2,.6,.2,1)', fill: 'backwards' }
     );
   }
 
-  async function run(href) {
+  async function run(href, dir) {
     if (busy) return;
     busy = true;
     window.__amsCurtainBusy = true;
@@ -90,9 +99,10 @@
         [{ opacity: 0 }, { opacity: 1 }],
         { duration: DOWN, easing: EASE }
       );
-      // Cobre: a hero image de destino entra por wipe de baixo para cima até tapar.
+      // Cobre: wipe até tapar. Sentido conforme a origem do click (navbar desce).
+      const coverFrom = dir === 'down' ? COVER_FROM_DOWN : COVER_FROM_UP;
       window.__amsLenis?.stop();
-      await clipWipe(COVER_FROM, COVERED, DOWN);
+      await clipWipe(coverFrom, COVERED, DOWN);
       await new Promise((r) => setTimeout(r, HOLD));
 
       // Troca a página POR BAIXO da cortina (coberta) e espera montar.
@@ -109,6 +119,14 @@
       });
       navigate(href);
       await swapped;
+
+      // Espera a hero nova COMPOR mesmo antes de levantar a cortina. Na home a
+      // hero tem `will-change:transform` (body.is-home): é promovida a uma camada
+      // GPU própria, cuja 1.ª rasterização chega um frame depois do swap. Sem esta
+      // espera a cortina retirava-se sobre a camada ainda vazia e via-se o branco
+      // do body por um frame (o flash). Dois rAF = a camada já compôs. A cortina
+      // continua a tapar durante estes ~2 frames.
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
 
       // Transição de um só tempo: a página nova (hero full-screen, MESMA imagem
       // e MESMA gradação) já está por baixo da cortina. Não há segundo wipe — a
@@ -155,6 +173,7 @@
     const a = e.target.closest && e.target.closest('a[href]');
     if (!a || !qualifies(a)) return;
     e.preventDefault();
-    run(a.href);
+    // Navbar (qualquer link do header) → cortina desce do topo; resto → sobe.
+    run(a.href, a.closest('.site-header') ? 'down' : 'up');
   }, { capture: true });
 </script>

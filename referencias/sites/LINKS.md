@@ -32,3 +32,13 @@ Lista de sites que servem de inspiração para o projeto. Para cada um, anote
 
 - **https://custom-double-slider.webflow.io/** —
   - Fidelidade pedida: cópia fiel do layout da seção de double slider para os empreendimentos, se preciso, apenas diminua a proporção da section para ela não se tornar muito grande
+
+
+- **https://kononenkogroup.com/** —
+  - eu gosto de basicamente tudo nesse site, é um site vivo com as suas animações, e com a sua estética única, analise esse site e copie principalmente as suas animações. A home tem as sections centralizadas, as letras entram em frame a medida que scrolla com uma animção muito fluida, as imagens ocupam toda o frame em estilo lanis paralax.
+
+  - `https://kononenkogroup.com/work/` (página de portfolio), analise bem as animações dos cards entrando na tela, sem header, ou bg image, apenas os cards.
+
+
+
+

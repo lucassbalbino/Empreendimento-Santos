@@ -20,23 +20,6 @@
       { "role": "Qualidade · Segurança", "name": "Ana Rocha", "bio": "Garante o cumprimento das normas de qualidade e segurança em todas as fases da obra." }
     ]
   },
-  "grupo": [
-    {
-      "title": "SF Properties",
-      "members": [
-        { "role": "Direção · Mediação", "name": "Filipe Santos", "bio": "Lidera a SF Properties para além do papel tradicional de uma agência: um conjunto completo de serviços sob o mesmo teto, com apoio inabalável a cada cliente." },
-        { "role": "Consultoria · Vendas", "name": "Carla Dias", "bio": "Desenvolve ligações profundas com cada cliente para compreender preferências, aspirações e objetivos — e selecionar as propriedades que lhes correspondem." },
-        { "role": "Investimento · Aconselhamento", "name": "Tiago Lopes", "bio": "Acompanha o percurso imobiliário no que toca a investimento, financiamento e aconselhamento jurídico e fiscal." }
-      ]
-    },
-    {
-      "title": "Valflores",
-      "members": [
-        { "role": "Direção · Mediação", "name": "Helena Costa", "bio": "Coordena a atividade de mediação da Valflores, com carteira própria de imóveis." },
-        { "role": "Consultoria · Vendas", "name": "Bruno Silva", "bio": "Consultor imobiliário dedicado a moradias e reabilitação na zona oeste." }
-      ]
-    }
-  ],
   "contacto": {
     "eyebrow": "Contactos",
     "title": "Quer trabalhar connosco?",

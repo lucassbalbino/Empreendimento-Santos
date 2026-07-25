@@ -7,6 +7,10 @@
 
 /* ---------- Tokens ---------- */
 :root{
+  /* Site só claro: impede o "modo escuro automático" do browser (Chrome/Edge)
+     de inverter/escurecer as cores quando o SO está em dark mode. */
+  color-scheme: only light;
+
   --paper:      #ffffff;   /* fundo principal (branco) */
   --paper-alt:  #f5f4f2;   /* fundo de seção alternada (cinza muito claro) */
   --ink:        #121212;   /* texto principal (quase preto) */
@@ -45,6 +49,11 @@
    nunca a roda do rato, e entrava em conflito com o scroll interpolado do
    Lenis (ver Base.astro). A suavidade real vem do Lenis. */
 html{ -webkit-font-smoothing:antialiased; }
+/* Esconde a barra de scroll vertical da página (o scroll continua a funcionar).
+   Só afeta a lateral do documento; os scrollers internos (.scroller) mantêm a
+   sua própria barra estilizada. */
+html{ scrollbar-width:none; }
+html::-webkit-scrollbar{ width:0; height:0; }
 /* Regras mínimas exigidas pelo Lenis (equivalente ao lenis.css do pacote). */
 html.lenis, html.lenis body{ height:auto; }
 .lenis:not(.lenis-autoToggle).lenis-stopped{ overflow:clip; }
@@ -236,6 +245,11 @@ ul{ list-style:none; }
   position:relative; min-height:100vh;
   display:flex; align-items:flex-end;
   color:#fff; overflow:hidden;
+  /* Fundo escuro por baixo da imagem: na home a hero tem will-change:transform e
+     é promovida a uma camada GPU cuja 1.ª rasterização pode chegar um frame
+     depois do swap. Sem esta cor, esse frame deixaria ver o branco do body (o
+     flash); com ela, o pior caso é escuro — a condizer com a cortina, imperceptível. */
+  background-color:var(--dark);
 }
 .hero__bg{
   position:absolute; inset:0; z-index:0;
@@ -309,6 +323,56 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .split__body p{ color:var(--ink-soft); max-width:46ch; margin-bottom:1.2rem; }
 .split--reverse .split__media{ order:2; }
 
+/* ---- "Quem Somos" da home: composição editorial + imagem full-bleed por
+   baixo, no idioma do site de referência (kononenkogroup). O bloco vive dentro
+   do .container; a imagem é filha directa da <section>, fora do container, e
+   ocupa toda a largura do ecrã. A eyebrow ancora o canto superior esquerdo, o
+   título grande fica ao centro e o botão ancora o canto inferior direito. ---- */
+.quemsomos__intro{
+  display:flex; flex-direction:column;
+  gap:clamp(30px,5vw,68px);
+}
+.quemsomos__intro .eyebrow{ align-self:flex-start; margin-bottom:0; }  /* canto superior esquerdo */
+.quemsomos__intro .display{
+  align-self:center; text-align:center;
+  max-width:20ch; margin:0;
+  font-size:clamp(2.8rem, 8vw, 6.4rem);   /* maior que o .display base */
+}
+.quemsomos__intro .btn{ align-self:flex-end; }                          /* canto inferior direito */
+
+.quemsomos__media{
+  margin-top:clamp(40px,6vw,96px);
+  /* Full-bleed (bordo a bordo), mais achatada: rácio largo baixa a altura sem
+     mexer na largura. */
+  position:relative; aspect-ratio:21/9;
+  overflow:clip;   /* recorta o parallax SEM criar scroll container (senão o view() mede a imagem contra esta moldura e o progress fica preso) */
+}
+.quemsomos__img,
+.quemsomos__media .ph{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; display:block;
+}
+
+/* Parallax "à la hero": a imagem desloca-se mais devagar que a moldura ao
+   passar pelo ecrã — a mesma deriva subtil da hero quase ancorada, mas sem JS,
+   pela timeline de scroll da própria vista. O scale dá folga para o
+   deslocamento não abrir vazios. Gated por reduced-motion e por @supports:
+   sem suporte fica imagem `cover` estática, sem buracos. */
+@media (prefers-reduced-motion: no-preference){
+  @supports (animation-timeline: view()){
+    .quemsomos__img{
+      animation:quemsomos-parallax linear both;
+      animation-timeline:view();
+      will-change:transform;
+    }
+  }
+}
+@keyframes quemsomos-parallax{
+  from{ transform:scale(1.28) translateY(-11%); }
+  to{   transform:scale(1.28) translateY(11%);  }
+}
+
 /* =====================================================================
    O QUE FAZEMOS + contadores
    ===================================================================== */
@@ -352,7 +416,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .seam{
   position:relative;
   background:var(--paper);
-  --thread:clamp(32px,4vw,64px);      /* respiro entre o "Quem Somos" e a faixa */
+  --thread:clamp(56px,6.5vw,104px);   /* respiro entre o "Quem Somos" e a faixa */
   padding-top:var(--thread);
 }
 
@@ -521,6 +585,13 @@ html.stitch-scroll .seam-wm__text{ opacity:var(--draw,1); }
 .block-head .display{ margin-top:.3rem; }
 .block-head__text .lead{ font-size:1.05rem; margin-top:.4rem; }
 
+/* Cabeçalho centrado (portfólio): empilha eyebrow + título + lead ao centro,
+   em vez do layout partido esquerda/direita do .block-head base. */
+.section--centered-head .block-head{ flex-direction:column; align-items:center; text-align:center; }
+.section--centered-head .block-head__text{ display:flex; flex-direction:column; align-items:center; }
+.section--centered-head .block-head__text .eyebrow::before{ display:none; }
+.section--centered-head .block-head__text .lead{ max-width:56ch; }
+
 .scroller{
   display:grid; grid-auto-flow:column; grid-auto-columns:minmax(340px,36%);
   gap:clamp(16px,2vw,28px); overflow-x:auto; scroll-snap-type:x mandatory;
@@ -650,26 +721,43 @@ html.stitch-scroll .seam-wm__text{ opacity:var(--draw,1); }
 /* ---- Variante "cortada" (Histórico, na home) ----------------------------
    Os painéis crescem em altura, sangram de bordo a bordo (saem do .container)
    e o seu bordo inferior é recortado (clip-path) na MESMA diagonal da costura,
-   ficando RENTE à linha transversal — sem a atravessar nem parar antes dela.
-   A secção perde o padding de baixo e os painéis recuperam-no com margem
-   negativa.
+   ficando RENTE à linha transversal. A secção perde o padding de baixo e os
+   painéis recuperam-no com margem negativa. O CTA fica ABAIXO da costura, já no
+   cinza (ver .panels-cta).
    flow-root: sem BFC próprio, essa margem negativa colapsava com a da secção e
    puxava a costura para cima em vez de fazer os painéis descer. */
-.section--panels-cut{ padding-bottom:0; display:flow-root; }
+.section--panels-cut{ padding-top:clamp(140px,15vw,260px); padding-bottom:0; display:flow-root; }
+/* Cabeçalho do Histórico (home) no molde do "Quem Somos": eyebrow em cima à
+   esquerda, título centrado, botão em baixo à direita. Os três maiores e mais
+   presentes que o base. */
+.section--panels-cut .block-head{ flex-direction:column; align-items:stretch; }
+.section--panels-cut .block-head__text{ display:flex; flex-direction:column; }
+.section--panels-cut .block-head__text .eyebrow{
+  align-self:flex-start;
+  font-size:.92rem;                        /* base .72rem */
+}
+.section--panels-cut .block-head__text .eyebrow::before{ width:54px; }  /* traço mais longo (base 34px) */
+.section--panels-cut .block-head__text .display{
+  align-self:center; text-align:center;
+  font-size:clamp(2.4rem,5vw,4rem);        /* acima do display--sm, bem presente */
+}
+.section--panels-cut .block-head__text .lead{ align-self:center; text-align:center; max-width:56ch; }
+.section--panels-cut .block-head .btn{
+  align-self:flex-end;
+  font-size:.95rem;                        /* base .74rem */
+}
+.section--panels-cut .block-head .btn::after{ font-size:1.25rem; }  /* seta a condizer */
 .section--panels-cut .panels{
   position:relative; z-index:7;   /* acima da cunha (6), abaixo do fio (8) */
   /* Descem exatamente a altura da cunha para lá da fronteira... */
   height:calc(clamp(460px,72vh,760px) + var(--stitch-rise));
   margin-bottom:calc(-1 * var(--stitch-rise));
   /* ...e o bordo inferior é recortado NA MESMA diagonal da costura: à direita
-     rente à fronteira, à esquerda uma cunha abaixo. Assim cada card termina
-     sobre a linha transversal, sem a atravessar nem parar antes dela. O fio
-     (z-index 8) bainha esse bordo por cima. */
+     rente à fronteira, à esquerda uma cunha abaixo. O fio (z8) bainha o bordo. */
   clip-path:polygon(0 0, 100% 0, 100% calc(100% - var(--stitch-rise)), 0 100%);
 }
-/* O clip remove até --stitch-rise do fundo (máximo na borda direita de cada
-   card). Sobe o rótulo e o conteúdo essa medida — mais uma folga — para nenhum
-   texto cair na zona recortada, seja qual for o card expandido. */
+/* Sobe o rótulo e o conteúdo --stitch-rise para nenhum texto cair na zona
+   recortada, seja qual for o card expandido. */
 .section--panels-cut .panel__label{ bottom:calc(1.4rem + var(--stitch-rise)); }
 .section--panels-cut .panel__content{ bottom:calc(var(--stitch-rise) + .4rem); }
 .stitch--thread-top{ z-index:8; }
@@ -781,7 +869,7 @@ html.stitch-scroll .seam-wm__text{ opacity:var(--draw,1); }
    lentas. */
 html.reveal-ready :is(
   .section .eyebrow, .section .display, .section .lead,
-  .split__body > p, .card, .stat, .vertical, .service, .member, .panels
+  .split__body > p, .quemsomos__intro > p, .card, .stat, .vertical, .service, .member, .panels
 ){
   opacity:0;
   transform:translateY(26px);
@@ -791,7 +879,7 @@ html.reveal-ready :is(
 }
 html.reveal-ready :is(
   .section .eyebrow, .section .display, .section .lead,
-  .split__body > p, .card, .stat, .vertical, .service, .member, .panels
+  .split__body > p, .quemsomos__intro > p, .card, .stat, .vertical, .service, .member, .panels
 ).is-visible{
   opacity:1;
   transform:none;
@@ -970,21 +1058,24 @@ button.card{
   background:transparent; cursor:pointer;
 }
 
-html.emodal-open{ overflow:hidden; }
+/* Painel inline do empreendimento: acordeão dentro de .grid-projects. Aberto
+   pelos cards .card--modal (historico); ocupa a linha inteira e é inserido por
+   JS a seguir ao último card da linha do card clicado. A altura anima com o
+   truque grid 0fr → 1fr; o inner clipa o conteúdo durante o colapso. */
+.epanel{ grid-column:1 / -1; }
+.epanel[hidden]{ display:none; }
 
-.emodal{ position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; padding:clamp(12px,3vw,40px); }
-.emodal[hidden]{ display:none; }
-.emodal__backdrop{ position:absolute; inset:0; background:rgba(10,10,10,.62); backdrop-filter:blur(2px); }
+.epanel__wrap{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .8s var(--ease); }
+.epanel.is-open .epanel__wrap{ grid-template-rows:1fr; }
 
-.emodal__dialog{
-  position:relative; z-index:1;
+.epanel__inner{
+  overflow:hidden; min-height:0;
   display:grid; grid-template-columns:1.05fr 1fr;
-  width:min(1040px,100%); max-height:min(680px,92vh);
-  background:var(--paper); border-radius:20px; overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,.4);
-  animation:emodal-in .28s var(--ease);
+  background:var(--paper); border:1px solid var(--line);
+  box-shadow:0 24px 60px rgba(0,0,0,.16);
 }
-@keyframes emodal-in{ from{ opacity:0; transform:translateY(14px) scale(.985); } to{ opacity:1; transform:none; } }
+/* Inline não tem cap de altura: a coluna de info cresce com o conteúdo. */
+.epanel .emodal__info{ max-height:none; overflow:visible; }
 
 /* Painel esquerdo — imagem escura com título e chips */
 .emodal__media{ position:relative; min-height:340px; background:var(--dark); overflow:hidden; display:flex; flex-direction:column; }
@@ -1016,7 +1107,7 @@ html.emodal-open{ overflow:hidden; }
 .emodal__facts{ display:flex; flex-direction:column; gap:.5rem; }
 .emodal__fact{
   display:flex; align-items:baseline; justify-content:space-between; gap:1rem;
-  border:1px solid var(--line); border-radius:12px; padding:.85rem 1.1rem;
+  border:1px solid var(--line); padding:.85rem 1.1rem;
 }
 .emodal__fact-label{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); }
 .emodal__fact-value{ font-family:var(--serif); font-size:1.05rem; color:var(--ink); text-align:right; }
@@ -1024,14 +1115,14 @@ html.emodal-open{ overflow:hidden; }
 .emodal__entrega{ font-size:.8rem; letter-spacing:.04em; color:var(--ink-faint); }
 
 @media (max-width: 760px){
-  /* Empilha e deixa o diálogo inteiro rolar (imagem no topo, info em baixo). */
-  .emodal__dialog{ grid-template-columns:1fr; max-height:92vh; overflow-y:auto; }
+  /* Empilha (imagem no topo, info em baixo) — a grelha já é de 1 coluna aqui. */
+  .epanel__inner{ grid-template-columns:1fr; }
   .emodal__media{ min-height:0; height:clamp(200px,34vh,280px); }
   .emodal__info{ max-height:none; overflow:visible; }
   .emodal__chips{ margin-top:auto; }
 }
 @media (prefers-reduced-motion: reduce){
-  .emodal__dialog{ animation:none; }
+  .epanel__wrap{ transition:none; }
 }
 
 /* =====================================================================
@@ -1104,6 +1195,11 @@ html.emodal-open{ overflow:hidden; }
    sangrada pela borda direita. Sem autoplay.
    ===================================================================== */
 .section--flush{ padding-block:0; }
+
+/* Primeira secção de uma página sem hero (body.no-hero): o header é fixo e
+   sólido desde o topo, por isso damos folga extra para o título não encostar
+   à barra. */
+.no-hero .section--flat-top{ padding-top:calc(var(--section-y) + clamp(20px, 3vw, 48px)); }
 
 .dslider{
   position:relative;
@@ -1276,6 +1372,14 @@ html.emodal-open{ overflow:hidden; }
   .dslider__img{ transform:none; }
 }
 
+/* A cortina É a transição toda. O crossfade nativo da View Transition do Astro é
+   redundante e ainda corre ~250ms DEPOIS do swap, no top layer (acima de tudo,
+   até da nav): quando a cortina se retira, esse crossfade está a terminar por
+   cima e lê-se como um flash. Desligamo-lo — o swap passa a ser instantâneo por
+   baixo da cortina. (O projeto não usa transition:name/animate, nada a perder.) */
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; }
+
 /* ===== Cortina de transição entre páginas =====================================
    Overlay fixo que desce a cobrir o ecrã, troca o DOM por baixo, e revela.
    Repousa fora do ecrã (acima) e escondido; só fica visível durante a troca. */
@@ -1304,6 +1408,30 @@ html.emodal-open{ overflow:hidden; }
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.1) 45%, rgba(0,0,0,.65) 100%);
 }
+
+/* Durante a transição, a nav fica POR CIMA da cortina (z-index > .curtain): a
+   barra de navegação não desaparece enquanto a página é trocada por baixo — fica
+   fixa enquanto a cortina faz o wipe. A cortina tem transition:persist e mantém
+   .curtain--active através do swap, por isso o :has() vale de forma contínua. */
+body:has(#page-curtain.curtain--active) .site-header { z-index: 10000; }
+
+/* Durante a cortina, o header assenta sobre a hero (escura) de destino. Mesmo que
+   a página que se deixa estivesse rolada (.scrolled preso, com o scroll congelado),
+   a nav volta ao aspeto "sobre hero": fundo transparente, texto e logo claros —
+   senão a barra creme do .scrolled contrasta com a cortina escura e quebra o wipe.
+   Ao retirar-se a cortina a página nova já está no topo, por isso não há salto. */
+body:has(#page-curtain.curtain--active) .site-header.scrolled{
+  background:transparent; backdrop-filter:none; box-shadow:none;
+  padding-block:1.4rem;               /* tamanho de descanso, não o compacto */
+}
+body:has(#page-curtain.curtain--active) .scrolled .logo{ height:54px; }
+body:has(#page-curtain.curtain--active) .scrolled .nav__list a{ color:#fff; opacity:.9; }
+body:has(#page-curtain.curtain--active) .scrolled .nav__list a[aria-current="page"]{ color:var(--accent-dk); opacity:1; }
+body:has(#page-curtain.curtain--active) .scrolled .nav__lang{ color:#fff; }
+body:has(#page-curtain.curtain--active) .scrolled .nav__search{ border-color:rgba(255,255,255,.4); color:#fff; }
+body:has(#page-curtain.curtain--active) .scrolled .nav-toggle span{ background:#fff; }
+body:has(#page-curtain.curtain--active) .scrolled .logo__img--light{ display:block; }
+body:has(#page-curtain.curtain--active) .scrolled .logo__img--dark{ display:none; }
 
 @media (prefers-reduced-motion: reduce) {
   .curtain { display: none; }  /* sem cortina; navegação direta */

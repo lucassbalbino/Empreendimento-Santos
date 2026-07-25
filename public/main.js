@@ -10,7 +10,9 @@
   // Header muda ao rolar (listener global permanente).
   function updateHeader() {
     var header = document.querySelector('.site-header');
-    if (header) header.classList.toggle('scrolled', window.scrollY > 60);
+    // Páginas sem hero (body.no-hero) nascem com o header sólido: sem imagem
+    // escura por baixo, o estado transparente/logo-claro ficaria ilegível.
+    if (header) header.classList.toggle('scrolled', document.body.classList.contains('no-hero') || window.scrollY > 60);
   }
   window.addEventListener('scroll', updateHeader, { passive: true });
 

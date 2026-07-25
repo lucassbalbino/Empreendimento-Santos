@@ -12,30 +12,16 @@ const secoes = [
   { ...portfolio.futuros, projetos: porGrupo('futuro') },
 ];
 ---
-<Base title="Mockup — Portfólio" description="Empreendimentos AM Santos em desenvolvimento e projetos futuros — vários projetos em pipeline, na vanguarda da inovação arquitetónica.">
-  <!-- HERO (interno) -->
-  <section class="hero" style="min-height:80vh">
-    <div
-      class={portfolio.hero.imagem ? 'hero__bg hero__bg--img' : 'hero__bg'}
-      style={portfolio.hero.imagem ? `background-image:url(${portfolio.hero.imagem})` : undefined}
-    ></div>
-    <div class="hero__overlay"></div>
-    <div class="hero__inner">
-      <div class="container">
-        <span class="eyebrow" style="color:var(--accent-dk)">{portfolio.hero.eyebrow}</span>
-        <h1 class="display hero__title-page">{portfolio.hero.title}</h1>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJETOS: EM DESENVOLVIMENTO + FUTUROS. Costura na fronteira de cor
-       entre o 1.º bloco (branco) e o 2.º (cinza). -->
+<Base flat title="Mockup — Portfólio" description="Empreendimentos AM Santos em desenvolvimento e projetos futuros — vários projetos em pipeline, na vanguarda da inovação arquitetónica.">
+  <!-- PROJETOS: EM DESENVOLVIMENTO + FUTUROS. Sem hero — a página abre direto
+       nos cards. Costura na fronteira de cor entre o 1.º bloco (branco) e o
+       2.º (cinza). -->
   {secoes.map((s, i) => (
     <>
       {i === 1 && <Stitch variant="light" />}
-      <section class={i === 1 ? "section section--alt" : "section"}>
+      <section class={`section section--centered-head ${i === 1 ? "section--alt" : "section--flat-top"}`}>
         <div class="container">
-          <BlockHead eyebrow={s.eyebrow} title={s.title} lead={s.lead} />
+          <BlockHead eyebrow={s.eyebrow} title={s.title} lead={s.lead} as={i === 0 ? 'h1' : 'h2'} />
           <div class="grid-projects">
             {s.projetos.map((p) => (<ProjectCard proj={p} />))}
           </div>
