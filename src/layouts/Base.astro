@@ -250,6 +250,10 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
 
     document.addEventListener('astro:page-load', iniciarLenis);
   </script>
+  <!-- Split-text por linha: parte o texto de secção e revela linha-a-linha. -->
+  <script>
+    import '../scripts/split-reveal.js';
+  </script>
   <!-- Preloader: contador 0→100 (sobe até 99, window.load leva a 100, teto 2,5s)
        e saída por wipe para cima. Só corre se o gate ligou is-loading. -->
   <script is:inline>
