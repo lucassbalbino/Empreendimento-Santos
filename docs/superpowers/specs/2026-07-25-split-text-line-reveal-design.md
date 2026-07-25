@@ -8,15 +8,18 @@
 Adicionar uma animação de *split text* por todo o site: cada bloco de texto de
 secção parte-se **por linha** e cada linha desliza de baixo para cima a partir de
 uma máscara (`overflow:hidden`), em cascata. "Pesada" no pedido original refere-se
-à **cobertura** (o efeito em todo o lado), não ao peso do movimento — o movimento
-acompanha o timing atual do site (~600ms, stagger ~80ms).
+à **cobertura** (o efeito em todo o lado). O movimento é pesado e cinemático —
+mais lento e com mais assentamento que o reveal base do site (~1000ms, stagger
+~120ms).
 
 ## Decisões fechadas
 
 - **Efeito:** *line mask reveal* — cada linha medida sobe (`translateY(110%)→0`)
   clipada por uma máscara. Só `transform` (regra da casa: animar só
   transform/opacity; aqui dispensa opacity porque a máscara já esconde).
-- **Peso:** médio, a par do site — duração ~600ms, stagger ~80ms entre linhas.
+- **Peso:** pesado e cinemático — duração ~1000ms, stagger ~120ms entre linhas,
+  easing com desaceleração forte (`cubic-bezier(.16,1,.3,1)` — arranque rápido,
+  assentamento demorado).
 - **Direção:** de baixo para cima (coerente com o reveal existente).
 - **Biblioteca:** `split-type` (dep npm pequena), pela medição robusta de linhas,
   suporte a markup inline (links/`<strong>` dentro de parágrafos) e re-split no
@@ -74,8 +77,8 @@ CSS:
 .line__inner {
   display: block;
   transform: translateY(110%);
-  transition: transform .6s cubic-bezier(.2,.6,.2,1);
-  transition-delay: calc(var(--i) * 80ms);
+  transition: transform 1s cubic-bezier(.16,1,.3,1);
+  transition-delay: calc(var(--i) * 120ms);
 }
 .is-revealed .line__inner { transform: translateY(0); }
 ```
@@ -84,7 +87,7 @@ CSS:
 
 - **Gatilho:** IntersectionObserver (mesmo padrão/threshold do reveal existente)
   adiciona `.is-revealed` ao elemento quando entra em vista → linhas sobem em
-  cascata.
+  cascata (~1000ms cada, stagger ~120ms).
 - **Resize:** debounce → `split.revert()` + re-split + re-wrap. Se o elemento já
   estava revelado, repor visível **sem** re-animar (capturar o estado antes de
   reverter e reaplicar `.is-revealed` sem transição, ex.: forçar reflow ou aplicar
