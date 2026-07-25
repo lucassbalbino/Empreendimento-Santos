@@ -24,6 +24,9 @@ Máscara por card + `translateY(100%) → 0`, disparada pelo reveal existente.
   inferior da moldura.
 - O card mantém-se **opaco** durante a subida (`opacity:1`); é a máscara que o esconde.
   Lê-se como cortina, não como fade.
+- **O fundo branco não anima.** Não há cortina branca a deslizar: o branco é o fundo
+  estático da secção, visível através da moldura. O único elemento em movimento é o
+  card. O "efeito cortina" é inteiramente a subida dos cards.
 
 ### Porquê máscara e não `clip-path`
 
