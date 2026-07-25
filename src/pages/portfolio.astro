@@ -43,18 +43,25 @@ const secoes = [
   </section>
 
   <script is:inline>
+    // Reveal PRÓPRIO dos cards do portfólio. Duas razões para não usar só o
+    // reveal geral do Base.astro:
+    //  1) Mais cedo: dispara ~15% ANTES de o card entrar (rootMargin positivo),
+    //     em vez dos ~6% já dentro do reveal geral.
+    //  2) Anima em soft-nav: a subida é disparada por .is-risen a partir do
+    //     callback ASSÍNCRONO do observer (depois do paint), por isso a transição
+    //     corre sempre. O .is-visible do reveal geral entra síncrono no
+    //     astro:page-load (antes do paint em soft-nav) e faria a subida saltar.
+    // Init UMA vez (o script re-corre em cada nav para o portfólio); o listener
+    // astro:page-load persiste e chama setup em cada nav, como o Base.astro.
     (function () {
+      if (window.__amsPortfolioRise) return;
+      window.__amsPortfolioRise = true;
       var root = document.documentElement;
 
-      // Reveal PRÓPRIO dos cards do portfólio: dispara ~15% ANTES de o card
-      // entrar no ecrã (margem inferior positiva), para a subida começar mais
-      // cedo do que o reveal global do Base.astro (que só dispara aos ~6% já
-      // dentro). Só cá; o reveal global fica intacto. O global também os observa,
-      // mas este dispara primeiro e `is-visible` é idempotente.
       var earlyIO = ('IntersectionObserver' in window)
         ? new IntersectionObserver(function (entries) {
             entries.forEach(function (e) {
-              if (e.isIntersecting) { e.target.classList.add('is-visible'); earlyIO.unobserve(e.target); }
+              if (e.isIntersecting) { e.target.classList.add('is-risen'); earlyIO.unobserve(e.target); }
             });
           }, { threshold: 0, rootMargin: '0px 0px 15% 0px' })
         : null;
@@ -65,10 +72,14 @@ const secoes = [
           w.dataset.riseBound = '1';
           var card = w.querySelector('.card');
           if (!card) return;
-          // Sem reveal-ready (reduced-motion / sem IO): a moldura abre já.
-          if (!root.classList.contains('reveal-ready')) { w.classList.add('is-open'); return; }
-          // Gatilho antecipado (só com reveal-ready, senão os cards já nascem assentes).
-          if (earlyIO) earlyIO.observe(card);
+          // Sem reveal-ready (reduced-motion / sem IO): sobe já, sem transição.
+          if (!earlyIO || !root.classList.contains('reveal-ready')) {
+            w.classList.add('is-risen', 'is-open');
+            return;
+          }
+          // Observa a MOLDURA (é nela que .is-risen vive). Callback assíncrono
+          // = já depois do paint do estado inicial → a subida anima.
+          earlyIO.observe(w);
           // once: a subida é única; sem isto o listener re-dispararia a cada
           // hover (o hover também transiciona transform) — inofensivo, mas sujo.
           card.addEventListener('transitionend', function onRise(e) {
@@ -78,7 +89,11 @@ const secoes = [
           });
         });
       }
+
       document.addEventListener('astro:page-load', setup);
+      // Também já: se o astro:page-load desta navegação já disparou antes deste
+      // script correr, o listener acima não o apanharia.
+      setup();
     })();
   </script>
 </Base>
