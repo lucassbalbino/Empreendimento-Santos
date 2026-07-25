@@ -57,6 +57,53 @@ function init() {
     instances.length = 0;
   }
 
+  // Re-parte no resize (a quebra de linha muda com a largura). Preserva o que já
+  // estava revelado e repõe-no sem re-animar (.split-instant desliga a transição).
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const revealed = new Set(
+        instances.filter((x) => x.el.classList.contains('is-revealed')).map((x) => x.el)
+      );
+      // teardown local (não podemos chamar o teardown de page-load: queremos
+      // reobservar seletivamente).
+      instances.forEach(({ el, split }) => {
+        io.unobserve(el);
+        try { split.revert(); } catch (_) {}
+        el.classList.remove('split-ready', 'is-revealed');
+      });
+      instances.length = 0;
+      document.querySelectorAll(SEL).forEach((el) => {
+        const split = splitOne(el);
+        instances.push({ el, split });
+        if (revealed.has(el)) {
+          el.classList.add('split-instant');
+          void el.offsetHeight;                 // reflow: fixa o estado escondido
+          el.classList.add('is-revealed');
+          requestAnimationFrame(() => el.classList.remove('split-instant'));
+        } else {
+          io.observe(el);
+        }
+      });
+    }, 150);
+  }, { passive: true });
+
+  // Fail-safe por scroll: se o IO estiver suspenso, revela o que já passou o
+  // limiar tardio (top a ~75% da altura, a condizer com o rootMargin -25%).
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const now = Date.now();
+    if (now - lastScroll < 120) return;
+    lastScroll = now;
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    instances.forEach(({ el }) => {
+      if (el.classList.contains('is-revealed')) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < vh * 0.75 && r.bottom > 0) { reveal(el); io.unobserve(el); }
+    });
+  }, { passive: true });
+
   // Re-parte a cada página (soft-nav): o DOM é novo. Espera as fontes para medir
   // as quebras de linha certas (sem re-medição/flash).
   document.addEventListener('astro:page-load', () => {
