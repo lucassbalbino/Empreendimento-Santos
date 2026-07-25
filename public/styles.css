@@ -1434,8 +1434,11 @@ button.card{
   background-size: cover;
   background-position: center;
 }
-/* Sem imagem de destino: cortina sólida da marca. */
-.curtain--solid .curtain__img { background: var(--dark); }
+/* Sem imagem de destino (só o portfólio, página sem hero): cortina BRANCA.
+   O caminho sólido faz um fade branco simples (não o wipe escuro), por isso a
+   cor é o papel do site — a página branca por baixo esbate sem costura. */
+.curtain--solid { background: var(--paper); }
+.curtain--solid .curtain__img { background: var(--paper); }
 /* Mesma gradação do .hero__overlay: a cortina (imagem) coincide com a hero real
    por baixo, para a remoção instantânea da cortina ficar sem costura. Só com
    imagem (na sólida não faz sentido). */
@@ -1448,25 +1451,25 @@ button.card{
    barra de navegação não desaparece enquanto a página é trocada por baixo — fica
    fixa enquanto a cortina faz o wipe. A cortina tem transition:persist e mantém
    .curtain--active através do swap, por isso o :has() vale de forma contínua. */
-body:has(#page-curtain.curtain--active) .site-header { z-index: 10000; }
+body:has(#page-curtain.curtain--active:not(.curtain--solid)) .site-header { z-index: 10000; }
 
 /* Durante a cortina, o header assenta sobre a hero (escura) de destino. Mesmo que
    a página que se deixa estivesse rolada (.scrolled preso, com o scroll congelado),
    a nav volta ao aspeto "sobre hero": fundo transparente, texto e logo claros —
    senão a barra creme do .scrolled contrasta com a cortina escura e quebra o wipe.
    Ao retirar-se a cortina a página nova já está no topo, por isso não há salto. */
-body:has(#page-curtain.curtain--active) .site-header.scrolled{
+body:has(#page-curtain.curtain--active:not(.curtain--solid)) .site-header.scrolled{
   background:transparent; backdrop-filter:none; box-shadow:none;
   padding-block:1.4rem;               /* tamanho de descanso, não o compacto */
 }
-body:has(#page-curtain.curtain--active) .scrolled .logo{ height:54px; }
-body:has(#page-curtain.curtain--active) .scrolled .nav__list a{ color:#fff; opacity:.9; }
-body:has(#page-curtain.curtain--active) .scrolled .nav__list a[aria-current="page"]{ color:var(--accent-dk); opacity:1; }
-body:has(#page-curtain.curtain--active) .scrolled .nav__lang{ color:#fff; }
-body:has(#page-curtain.curtain--active) .scrolled .nav__search{ border-color:rgba(255,255,255,.4); color:#fff; }
-body:has(#page-curtain.curtain--active) .scrolled .nav-toggle span{ background:#fff; }
-body:has(#page-curtain.curtain--active) .scrolled .logo__img--light{ display:block; }
-body:has(#page-curtain.curtain--active) .scrolled .logo__img--dark{ display:none; }
+body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .logo{ height:54px; }
+body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .nav__list a{ color:#fff; opacity:.9; }
+body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .nav__list a[aria-current="page"]{ color:var(--accent-dk); opacity:1; }
+body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .nav__lang{ color:#fff; }
+body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .nav__search{ border-color:rgba(255,255,255,.4); color:#fff; }
+body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .nav-toggle span{ background:#fff; }
+body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .logo__img--light{ display:block; }
+body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .logo__img--dark{ display:none; }
 
 @media (prefers-reduced-motion: reduce) {
   .curtain { display: none; }  /* sem cortina; navegação direta */

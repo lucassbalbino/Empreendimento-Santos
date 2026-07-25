@@ -15,6 +15,9 @@
   // materializa-se (fade) enquanto desce, a assentar no fim — não cai de golpe.
   // Easing com desaceleração (easeOut) para suavizar a chegada.
   const DOWN = 1200, HOLD = 150;
+  // Caminho sólido (portfólio, sem hero): em vez do wipe escuro, um fade branco
+  // curto — a cortina branca esbate a cobrir e a esbater a revelar.
+  const FADE = 420;
   const EASE = 'cubic-bezier(.8,0,.2,1)'; // "wipeFront" — valor exato da referência
 
   const curtain = document.getElementById('page-curtain');
@@ -89,20 +92,31 @@
       const url = doc ? heroUrlFromDoc(doc) : null;
       await preloadImg(url);
 
+      const solid = !url;
       imgLayer.style.backgroundImage = url ? `url("${url}")` : '';
-      curtain.classList.toggle('curtain--solid', !url);
+      curtain.classList.toggle('curtain--solid', solid);
       curtain.classList.add('curtain--active');
-
-      // Desce a cobrir; a imagem materializa-se (fade 0→1) enquanto desce,
-      // para a hero da página nova entrar bem visível, não só a deslizar.
-      imgLayer.animate(
-        [{ opacity: 0 }, { opacity: 1 }],
-        { duration: DOWN, easing: EASE }
-      );
-      // Cobre: wipe até tapar. Sentido conforme a origem do click (navbar desce).
-      const coverFrom = dir === 'down' ? COVER_FROM_DOWN : COVER_FROM_UP;
       window.__amsLenis?.stop();
-      await clipWipe(coverFrom, COVERED, DOWN);
+
+      if (solid) {
+        // Fade branco: a cortina cobre TODO o ecrã (clip fixo em COVERED) e
+        // materializa-se por opacidade, em vez do wipe. Sem direção (dir é
+        // irrelevante no fade). fill:forwards para o finally repor o repouso.
+        await curtain.animate(
+          [{ clipPath: COVERED, opacity: 0 }, { clipPath: COVERED, opacity: 1 }],
+          { duration: FADE, easing: EASE, fill: 'forwards' }
+        ).finished;
+      } else {
+        // Desce a cobrir; a imagem materializa-se (fade 0→1) enquanto desce,
+        // para a hero da página nova entrar bem visível, não só a deslizar.
+        imgLayer.animate(
+          [{ opacity: 0 }, { opacity: 1 }],
+          { duration: DOWN, easing: EASE }
+        );
+        // Cobre: wipe até tapar. Sentido conforme a origem do click (navbar desce).
+        const coverFrom = dir === 'down' ? COVER_FROM_DOWN : COVER_FROM_UP;
+        await clipWipe(coverFrom, COVERED, DOWN);
+      }
       await new Promise((r) => setTimeout(r, HOLD));
 
       // Troca a página POR BAIXO da cortina (coberta) e espera montar.
@@ -128,14 +142,24 @@
       // continua a tapar durante estes ~2 frames.
       await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
 
-      // Transição de um só tempo: a página nova (hero full-screen, MESMA imagem
-      // e MESMA gradação) já está por baixo da cortina. Não há segundo wipe — a
-      // cortina é retirada (a imagem coincide, sem costura) e os elementos da
-      // hero entram a acompanhar: a imagem "vem com os elementos".
-      revealHeroText();
       // Depois do swap já existe uma instância NOVA do Lenis (recriada no
       // astro:page-load); retomamos essa.
       window.__amsLenis?.start();
+
+      if (solid) {
+        // Revela por fade: a cortina branca esbate sobre o portfólio (branco)
+        // por baixo — sem costura. A seguir os cards fazem a sua subida.
+        await curtain.animate(
+          [{ clipPath: COVERED, opacity: 1 }, { clipPath: COVERED, opacity: 0 }],
+          { duration: FADE, easing: EASE, fill: 'forwards' }
+        ).finished;
+      } else {
+        // Transição de um só tempo: a página nova (hero full-screen, MESMA imagem
+        // e MESMA gradação) já está por baixo da cortina. Não há segundo wipe — a
+        // cortina é retirada (a imagem coincide, sem costura) e os elementos da
+        // hero entram a acompanhar: a imagem "vem com os elementos".
+        revealHeroText();
+      }
     } catch (err) {
       // Navegação falhou/expirou: garante que o utilizador chega ao destino
       // com uma navegação normal, em vez de ficar preso sob a cortina.
