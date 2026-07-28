@@ -1617,9 +1617,9 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 .wm--dark .bar, .wm--dark .tab{ fill:#f2efe9; }
 
 /* ===== Divisor-assinatura (3 linhas + encaixe) — 2ª vaga ===== */
-.divider{ position:relative; display:flex; flex-direction:column; gap:4px; max-width:340px; margin:1.6rem 0; padding-top:14px; }
-.divider__line{ height:1px; background:rgba(18,18,18,.16); }
-.divider__line--strong{ background:var(--ink); }
+.divider{ position:relative; display:flex; flex-direction:column; gap:6px; max-width:340px; margin:1.8rem 0; padding-top:16px; }
+.divider__line{ height:3px; background:rgba(18,18,18,.5); }
+.divider__line--strong{ height:4px; background:var(--ink); }
 .divider__tab{ position:absolute; top:0; left:0; width:52px; height:6px; background:var(--accent); }
 
 /* ===== Moldura de imagem (encaixe preto + fio laranja) — 2ª vaga ===== */
