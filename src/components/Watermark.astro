@@ -1,0 +1,16 @@
+---
+interface Props {
+  variant?: 'line' | 'fill' | 'dark';
+  side?: 'l' | 'r';
+  size?: 'sm' | 'md' | 'lg';
+}
+const { variant = 'line', side = 'r', size = 'md' } = Astro.props;
+---
+<div class="wm-layer" aria-hidden="true">
+  <svg class={`wm wm--${variant} wm--${side} wm--${size}`} viewBox="0 0 100 92" preserveAspectRatio="xMidYMid meet">
+    <rect class="bar" x="20" y="14" width="62" height="18"></rect>
+    <rect class="bar" x="20" y="37" width="62" height="18"></rect>
+    <rect class="bar" x="20" y="60" width="62" height="18"></rect>
+    <rect class="tab" x="4" y="30" width="20" height="16"></rect>
+  </svg>
+</div>

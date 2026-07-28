@@ -1599,3 +1599,19 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 @media (prefers-reduced-motion: reduce) {
   .preloader { display: none !important; }
 }
+
+/* ===== Marca-d'água do símbolo — identidade (spec 2026-07-28) ===== */
+.has-wm{ position:relative; z-index:0; }
+.wm-layer{ position:absolute; inset:0; overflow:clip; pointer-events:none; z-index:-1; }
+.wm{ position:absolute; top:50%; transform:translateY(-50%); }
+.wm--l{ left:-6%; }
+.wm--r{ right:-6%; }
+.wm--sm{ width:min(24%,210px); }
+.wm--md{ width:min(34%,320px); }
+.wm--lg{ width:min(46%,440px); }
+.wm--line{ opacity:.5; }
+.wm--line .bar, .wm--line .tab{ fill:none; stroke:var(--accent); stroke-width:2.4; vector-effect:non-scaling-stroke; }
+.wm--fill{ opacity:.07; }
+.wm--fill .bar, .wm--fill .tab{ fill:var(--accent); }
+.wm--dark{ opacity:.08; }
+.wm--dark .bar, .wm--dark .tab{ fill:#f2efe9; }

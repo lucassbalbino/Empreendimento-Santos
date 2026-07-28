@@ -7,6 +7,7 @@ import ExpandPanels from '../components/ExpandPanels.astro';
 import BlockHead from '../components/BlockHead.astro';
 import Testimonials from '../components/Testimonials.astro';
 import ContactForm from '../components/ContactForm.astro';
+import Watermark from '../components/Watermark.astro';
 import home from '../data/home.json';
 import { porGrupo, emDestaque } from '../utils/projetos.js';
 
@@ -38,7 +39,8 @@ const equipaCards = home.equipa.members.map((m) => ({
 
   <!-- QUEM SOMOS -->
   <section class="section section--tight-bottom quemsomos">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="line" side="l" size="md" />
       <div class="quemsomos__intro">
         <span class="eyebrow">{home.quemSomos.eyebrow}</span>
         <h2 class="display">{home.quemSomos.title}</h2>
