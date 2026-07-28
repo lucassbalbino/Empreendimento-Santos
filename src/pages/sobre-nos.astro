@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Team from '../components/Team.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Stitch from '../components/Stitch.astro';
+import Watermark from '../components/Watermark.astro';
 import sobre from '../data/sobre.json';
 
 const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
@@ -16,6 +17,7 @@ const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
     ></div>
     <div class="hero__overlay"></div>
     <div class="hero__inner">
+      <Watermark variant="dark" side="r" size="lg" />
       <div class="container">
         <span class="eyebrow" style="color:#d29a5a">{sobre.hero.eyebrow}</span>
         <h1 class="display hero__title-page">{sobre.hero.title}</h1>
@@ -25,7 +27,8 @@ const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
 
   <!-- QUEM SOMOS -->
   <section class="section">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="line" side="l" size="md" />
       <div class="split split--reverse">
         <div class="split__media reveal-wipe-lr"><div class="ph" data-label="Imagem 4:5"></div></div>
         <div class="split__body">
@@ -43,7 +46,8 @@ const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
 
   <!-- O QUE FAZEMOS — VERTICAIS -->
   <section class="section section--alt">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="fill" side="r" size="md" />
       <span class="eyebrow">{sobre.oQueFazemos.eyebrow}</span>
       <h2 class="display display--sm" set:html={fazemosTitle}></h2>
       <div class="verticals">
@@ -63,7 +67,8 @@ const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
 
   <!-- SERVIÇOS -->
   <section class="section">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="line" side="l" size="md" />
       <span class="eyebrow">{sobre.servicos.eyebrow}</span>
       <h2 class="display display--sm" style="margin-bottom:clamp(40px,5vw,72px)">{sobre.servicos.title}</h2>
       {sobre.servicos.items.map((s) => (
@@ -84,7 +89,8 @@ const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
 
   <!-- EQUIPA -->
   <section class="section section--alt">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="fill" side="r" size="md" />
       <span class="eyebrow">{sobre.equipa.eyebrow}</span>
       <h2 class="display display--sm">{sobre.equipa.title}</h2>
       <Team members={sobre.equipa.members} />
@@ -96,7 +102,8 @@ const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
 
   <!-- CONTACTO -->
   <section class="section" id="contacto">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="line" side="l" size="sm" />
       <ContactForm eyebrow={sobre.contacto.eyebrow} title={sobre.contacto.title} texto={sobre.contacto.texto} />
     </div>
   </section>
