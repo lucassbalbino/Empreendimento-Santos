@@ -223,12 +223,6 @@ ul{ list-style:none; }
 .scrolled .nav__list a:hover{ color:var(--accent); opacity:1; }
 .nav__lang{ font-size:.74rem; letter-spacing:.2em; font-weight:700; color:#fff; }
 .scrolled .nav__lang{ color:var(--ink); }
-.nav__search{
-  width:34px; height:34px; border:1px solid rgba(255,255,255,.4);
-  border-radius:50%; display:grid; place-items:center; color:#fff;
-  transition:border-color .3s var(--ease), color .3s var(--ease);
-}
-.scrolled .nav__search{ border-color:var(--line); color:var(--ink); }
 
 /* Botão hambúrguer */
 .nav-toggle{
@@ -1153,7 +1147,7 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   .team{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:1fr 1fr; }
   /* Menu vira hambúrguer já no tablet, onde o nav horizontal não cabe */
-  .nav__list, .nav__lang, .nav__search{ display:none; }
+  .nav__list, .nav__lang{ display:none; }
   .nav-toggle{ display:flex; }
   .nav.open .nav__list{
     display:flex; position:fixed; inset:0; background:var(--dark);
@@ -1558,7 +1552,6 @@ body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .logo{ he
 body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .nav__list a{ color:#fff; opacity:.9; }
 body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .nav__list a[aria-current="page"]{ color:var(--accent-dk); opacity:1; }
 body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .nav__lang{ color:#fff; }
-body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .nav__search{ border-color:rgba(255,255,255,.4); color:#fff; }
 body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .nav-toggle span{ background:#fff; }
 body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .logo__img--light{ display:block; }
 body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .logo__img--dark{ display:none; }
