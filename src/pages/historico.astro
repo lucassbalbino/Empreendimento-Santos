@@ -4,6 +4,7 @@ import BlockHead from '../components/BlockHead.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Stitch from '../components/Stitch.astro';
+import Watermark from '../components/Watermark.astro';
 import historico from '../data/historico.json';
 import { porGrupo } from '../utils/projetos.js';
 
@@ -30,7 +31,8 @@ const modalData = concluidos.map((p) => ({
        bloco de cards (fade branco na entrada, cabeçalho centrado e slide pesado).
        O cabeçalho é o h1 da página. -->
   <section class="section section--centered-head section--flat-top">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="line" side="r" size="md" />
       <BlockHead eyebrow={historico.concluidos.eyebrow} title={historico.concluidos.title} lead={historico.concluidos.lead} as="h1" />
       <div class="grid-projects">
         {concluidos.map((p) => (<ProjectCard proj={p} modal={true} />))}
@@ -43,7 +45,8 @@ const modalData = concluidos.map((p) => ({
 
   <!-- CONTACTO -->
   <section class="section section--alt" id="contacto">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="fill" side="l" size="sm" />
       <ContactForm eyebrow={historico.contacto.eyebrow} title={historico.contacto.title} texto={historico.contacto.texto} />
     </div>
   </section>
