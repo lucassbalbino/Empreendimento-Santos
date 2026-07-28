@@ -1615,3 +1615,18 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 .wm--fill .bar, .wm--fill .tab{ fill:var(--accent); }
 .wm--dark{ opacity:.08; }
 .wm--dark .bar, .wm--dark .tab{ fill:#f2efe9; }
+
+/* ===== Divisor-assinatura (3 linhas + encaixe) — 2ª vaga ===== */
+.divider{ position:relative; display:flex; flex-direction:column; gap:4px; max-width:340px; margin:1.6rem 0; padding-top:14px; }
+.divider__line{ height:1px; background:rgba(18,18,18,.16); }
+.divider__line--strong{ background:var(--ink); }
+.divider__tab{ position:absolute; top:0; left:0; width:52px; height:6px; background:var(--accent); }
+
+/* ===== Moldura de imagem (encaixe preto + fio laranja) — 2ª vaga ===== */
+.frame{ position:relative; }
+.frame__tab{ position:absolute; top:38%; left:-14px; width:22px; height:34px; background:var(--ink); z-index:3; }
+.frame__bar{ position:absolute; top:0; right:0; width:56px; height:5px; background:var(--accent); z-index:3; }
+/* Quando a Frame envolve a media, torna-se o item da grelha .split — herda a
+   ordenação que era da .split__media. */
+.split--reverse .frame{ order:2; }
+@media (max-width:760px){ .split--reverse .frame{ order:0; } }

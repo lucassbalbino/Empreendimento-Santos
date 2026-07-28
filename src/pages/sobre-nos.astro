@@ -3,6 +3,8 @@ import Base from '../layouts/Base.astro';
 import Team from '../components/Team.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Stitch from '../components/Stitch.astro';
+import Divider from '../components/Divider.astro';
+import Frame from '../components/Frame.astro';
 import Watermark from '../components/Watermark.astro';
 import sobre from '../data/sobre.json';
 
@@ -30,11 +32,14 @@ const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
     <div class="container has-wm">
       <Watermark variant="line" side="l" size="md" />
       <div class="split split--reverse">
-        <div class="split__media reveal-wipe-lr"><div class="ph" data-label="Imagem 4:5"></div></div>
+        <Frame>
+          <div class="split__media reveal-wipe-lr"><div class="ph" data-label="Imagem 4:5"></div></div>
+        </Frame>
         <div class="split__body">
           <span class="eyebrow">{sobre.quemSomos.eyebrow}</span>
           <h2 class="display display--sm">{sobre.quemSomos.title}</h2>
           <p class="lead" style="margin:1rem 0 1.4rem">{sobre.quemSomos.lead}</p>
+          <Divider />
           <p>{sobre.quemSomos.paragrafo}</p>
         </div>
       </div>
@@ -70,7 +75,8 @@ const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
     <div class="container has-wm">
       <Watermark variant="line" side="l" size="md" />
       <span class="eyebrow">{sobre.servicos.eyebrow}</span>
-      <h2 class="display display--sm" style="margin-bottom:clamp(40px,5vw,72px)">{sobre.servicos.title}</h2>
+      <h2 class="display display--sm" style="margin-bottom:clamp(20px,2.5vw,32px)">{sobre.servicos.title}</h2>
+      <Divider style="margin-bottom:clamp(40px,5vw,72px)" />
       {sobre.servicos.items.map((s) => (
         <div class="service">
           <div class="service__media"><div class="ph" data-label="Imagem 5:4"></div></div>

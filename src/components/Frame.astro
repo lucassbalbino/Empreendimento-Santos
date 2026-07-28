@@ -1,0 +1,10 @@
+---
+// Moldura de imagem: o encaixe preto (como o bloco que sai do logótipo) + um
+// fio laranja no topo. Envolve a media SEM a cortar, para o encaixe poder sair
+// para fora mesmo quando a imagem faz o wipe (clip-path) por dentro.
+---
+<div class="frame">
+  <span class="frame__tab" aria-hidden="true"></span>
+  <span class="frame__bar" aria-hidden="true"></span>
+  <slot />
+</div>

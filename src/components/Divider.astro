@@ -1,0 +1,13 @@
+---
+// Divisor-assinatura: três linhas empilhadas (o ritmo do símbolo da marca) com
+// o encaixe laranja à esquerda. Usar DENTRO do conteúdo, nunca nas fronteiras
+// entre secções (essas são da costura diagonal). Assume fundo claro.
+// Reencaminha atributos (ex.: style, class) para o elemento raiz.
+const { class: className, ...rest } = Astro.props;
+---
+<div class:list={["divider", className]} aria-hidden="true" {...rest}>
+  <span class="divider__line divider__line--strong"></span>
+  <span class="divider__line"></span>
+  <span class="divider__line"></span>
+  <span class="divider__tab"></span>
+</div>
