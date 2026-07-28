@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Stitch from '../components/Stitch.astro';
+import Watermark from '../components/Watermark.astro';
 import contactos from '../data/contactos.json';
 const moradaLinhas = contactos.onde.morada.split('\n');
 ---
@@ -14,6 +15,7 @@ const moradaLinhas = contactos.onde.morada.split('\n');
     ></div>
     <div class="hero__overlay"></div>
     <div class="hero__inner">
+      <Watermark variant="dark" side="r" size="lg" />
       <div class="container">
         <span class="eyebrow" style="color:#d29a5a">{contactos.hero.eyebrow}</span>
         <h1 class="display hero__title-page">{contactos.hero.title}</h1>
@@ -23,7 +25,8 @@ const moradaLinhas = contactos.onde.morada.split('\n');
 
   <!-- CONTACTO -->
   <section class="section" id="contacto">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="line" side="l" size="md" />
       <ContactForm eyebrow={contactos.contacto.eyebrow} title={contactos.contacto.title} texto={contactos.contacto.texto} />
       <p class="muted" style="margin-top:2rem">
         <a href={`mailto:${contactos.contacto.email}`}>{contactos.contacto.email}</a>
@@ -38,7 +41,8 @@ const moradaLinhas = contactos.onde.morada.split('\n');
 
   <!-- ONDE ESTAMOS -->
   <section class="section section--alt">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="fill" side="r" size="md" />
       <div class="split">
         <div class="split__body">
           <span class="eyebrow">{contactos.onde.eyebrow}</span>
