@@ -66,7 +66,8 @@ const equipaCards = home.equipa.members.map((m) => ({
        mesmo capítulo. O laranja vive nos números e nas eyebrows, em toda a
        página, em vez de saturar uma só secção. -->
   <section class="section section--fazemos">
-    <div class="container dofazemos">
+    <div class="container has-wm dofazemos">
+      <Watermark variant="fill" side="r" size="md" />
       <h2 class="display" set:html={fazemosTitle}></h2>
     </div>
   </section>
@@ -110,7 +111,8 @@ const equipaCards = home.equipa.members.map((m) => ({
   <!-- TRACK RECORD (Histórico) — secção branca autónoma: sai do bloco escuro
        da Obra, com mais respiro no topo. Ver .section--panels-cut. -->
   <section class="section section--panels-cut">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="fill" side="r" size="md" />
       <BlockHead eyebrow={home.trackRecord.eyebrow} title={home.trackRecord.title} lead={home.trackRecord.lead} botao={home.trackRecord.botao} href="/portfolio" />
     </div>
     <!-- Fora do .container de propósito: os painéis sangram de bordo a bordo e
@@ -139,7 +141,8 @@ const equipaCards = home.equipa.members.map((m) => ({
 
   <!-- EQUIPA (carrossel: cada card é um membro) -->
   <section class="section section--alt section--tight-bottom">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="line" side="l" size="md" />
       <span class="eyebrow">{home.equipa.eyebrow}</span>
       <h2 class="display display--sm" style="margin-bottom:clamp(32px,4vw,56px)">{home.equipa.title}</h2>
       <Testimonials
@@ -165,7 +168,8 @@ const equipaCards = home.equipa.members.map((m) => ({
 
   <!-- CONTACTO -->
   <section class="section section--tight-top" id="contacto">
-    <div class="container">
+    <div class="container has-wm">
+      <Watermark variant="line" side="r" size="sm" />
       <ContactForm eyebrow={home.contacto.eyebrow} title={home.contacto.title} texto={home.contacto.texto} />
     </div>
   </section>
