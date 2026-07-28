@@ -79,7 +79,15 @@ function nameSize(nome) {
 <script>
   const SWIPE_MIN = 40; // px — abaixo disto é toque, não swipe
 
-  document.querySelectorAll('[data-dslider]').forEach((root) => {
+  // Com <ViewTransitions /> os scripts de módulo só correm UMA vez. Por isso o
+  // setup religa-se a astro:page-load (1.ª carga + cada nav suave) — senão a
+  // home aberta por navegação suave nunca pintava o slide activo e a imagem
+  // ficava invisível (só aparecia no refresh). A guarda por dataset impede
+  // religar o mesmo DOM duas vezes.
+  function setup() {
+   document.querySelectorAll('[data-dslider]').forEach((root) => {
+    if (root.dataset.dsliderBound) return;
+    root.dataset.dsliderBound = '1';
     const slides = [...root.querySelectorAll('[data-slide]')];
     const track = root.querySelector('[data-track]');
     const thumbs = [...root.querySelectorAll('[data-thumb]')];
@@ -162,5 +170,11 @@ function nameSize(nome) {
     window.addEventListener('resize', () => setPos(pos, false), { passive: true });
     paint();
     setPos(1, false);
-  });
+   });
+  }
+
+  document.addEventListener('astro:page-load', setup);
+  // Também já: se o astro:page-load desta navegação já disparou antes deste
+  // script correr, o listener acima não o apanharia.
+  setup();
 </script>
