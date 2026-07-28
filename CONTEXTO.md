@@ -66,29 +66,32 @@ analisadas e futuras referências de sites ficam em `referencias/sites/LINKS.md`
 | Pilares | qualidade · conforto · sustentabilidade · eficiência energética |
 | SF Properties | "Estabelecer o padrão de excelência no sector imobiliário" — serviço completo sob o mesmo teto |
 
-> **CSS:** o site Astro usa **`public/styles.css`** e **`public/main.js`**.
-> O `styles.css` / `main.js` na raiz pertencem ao mockup HTML legado
-> (`index.html`, `portfolio.html`, `sobre-nos.html`) e **não** afetam o site.
+> **CSS/JS:** o site Astro usa **`public/styles.css`** e **`public/main.js`**.
 
 ## 4. Estrutura de arquivos
 
 ```
 mockup/
-├── index.html        # Início
-├── portfolio.html    # Portfólio
-├── sobre-nos.html    # Sobre Nós
-├── styles.css        # Design system + todos os componentes
-├── main.js           # Header on-scroll, menu mobile, contadores
+├── src/
+│   ├── pages/         # rotas (.astro): index, portfolio, sobre-nos, contactos, equipa, historico, empreendimentos/[slug]
+│   ├── layouts/       # Base.astro (shell comum, carrega /styles.css e /main.js)
+│   ├── components/    # Header, Hero, Footer, ProjectCard, Team, … (.astro)
+│   ├── data/          # conteúdo editável (.json): site, home, portfolio, equipa, …
+│   ├── scripts/       # split-reveal.js e afins
+│   └── utils/         # helpers (slug, projetos)
+├── public/
+│   ├── styles.css     # design system + todos os componentes (CSS vivo)
+│   ├── main.js        # header on-scroll, menu mobile, contadores
+│   ├── admin/         # painel Sveltia CMS (index.html + config.yml)
+│   └── images/        # imagens do site
 └── CONTEXTO.md        # este arquivo
 ```
 
-Navegação ativa entre as 3 páginas: logo → Início · Menu 01 → Sobre · Menu 02 → Portfólio.
-
 ## 5. Seções por página
 
-- **index.html** — Hero · Quem Somos · O Que Fazemos + contadores · Portfólio (carrossel) · Track Record (seção escura) · Equipa · Contacto · Footer
-- **portfolio.html** — Hero · Grid de projetos · Track Record · Contacto · Footer
-- **sobre-nos.html** — Hero · Quem Somos · 3 verticais de atuação · Serviços (linhas alternadas) · Equipa · Contacto · Footer
+- **index** — Hero · Quem Somos · O Que Fazemos + contadores · Portfólio (carrossel) · Track Record (seção escura) · Equipa · Contacto · Footer
+- **portfolio** — Hero · Grid de projetos · Track Record · Contacto · Footer
+- **sobre-nos** — Hero · Quem Somos · 3 verticais de atuação · Serviços (linhas alternadas) · Equipa · Contacto · Footer
 
 ## 6. Decisões de design
 
@@ -102,10 +105,12 @@ Navegação ativa entre as 3 páginas: logo → Início · Menu 01 → Sobre · 
 
 ## 7. Como rodar localmente
 
-1. Abrir a pasta `Empresa Bela` no VSCode.
-2. Instalar a extensão **Live Server**.
-3. Abrir `index.html` e clicar em **Go Live**.
-   (ou simplesmente abrir os `.html` no navegador — não há build.)
+Projeto **Astro** (tem build). Na pasta `mockup/`:
+
+1. `npm install` (só na primeira vez).
+2. `npm run dev` → abre em `http://localhost:4321`.
+3. `npm run build` gera o site estático em `dist/`.
+   - Painel do CMS em modo local: `npm run cms-proxy` + `http://localhost:4321/admin/index.html`.
 
 ## 8. Próximos passos / pendências
 
