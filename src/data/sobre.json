@@ -13,23 +13,18 @@
   "oQueFazemos": {
     "eyebrow": "Como trabalhamos",
     "title": "Do conceito\nà entrega da chave",
-    "verticais": [
-      {
-        "n": "01",
-        "title": "Qualidade",
-        "texto": "A excelência em cada projeto executado é o que nos distingue. Uma equipa de alto nível em arquitetura, engenharia, decoração e gestão imobiliária acompanha cada fase, do primeiro traço ao último acabamento."
-      },
-      {
-        "n": "02",
-        "title": "Conforto",
-        "texto": "Projetamos para quem lá vai viver. Arquitetura moderna e funcional, com um foco inabalável no bem-estar — e o máximo conforto climático em cada residência concebida."
-      },
-      {
-        "n": "03",
-        "title": "Sustentabilidade",
-        "texto": "Uma abordagem eco-friendly, com materiais sustentáveis que aliam conforto, bem-estar e arquitetura moderna, reduzindo os custos de manutenção ao longo da vida do edifício."
-      }
-    ]
+    "imagens": {
+      "colunaA": [
+        "/images/empreendimentos/valflores-terraces.webp",
+        "/images/empreendimentos/valflores-terraces-aerea.webp",
+        "/images/empreendimentos/interior-1.webp"
+      ],
+      "colunaB": [
+        "/images/empreendimentos/clt-tojal.webp",
+        "/images/empreendimentos/interior-2.webp"
+      ]
+    },
+    "paragrafo": "A excelência em cada um dos **17 projetos** que já executámos é o que nos distingue — do primeiro traço ao último acabamento, com uma equipa de alto nível em arquitetura, engenharia, decoração e gestão imobiliária a acompanhar cada fase. Projetamos para quem lá vai viver: arquitetura moderna e funcional, com foco no bem-estar e no máximo conforto climático, já concretizada em **185.000 m² de construção**. Fazemo-lo com uma abordagem eco-friendly e materiais sustentáveis que reduzem os custos de manutenção ao longo da vida do edifício — sustentada por **95 milhões de euros investidos** ao longo do nosso percurso."
   },
   "servicos": {
     "eyebrow": "Visão",
