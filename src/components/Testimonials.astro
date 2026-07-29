@@ -29,6 +29,8 @@ interface Props {
   fontSizes?: FontSizes;
 }
 
+import Divider from './Divider.astro';
+
 const { testimonials, autoplay = true, colors = {}, fontSizes = {} } = Astro.props;
 
 // Defaults idênticos ao componente original.
@@ -68,6 +70,7 @@ const first = testimonials[0];
       <div class="testimonials__body">
         <h3 class="testimonials__name">{first?.name}</h3>
         <p class="testimonials__designation">{first?.designation}</p>
+        <Divider class="testimonials__divider" />
         <p class="testimonials__quote">{first?.quote}</p>
       </div>
       <div class="testimonials__arrows">

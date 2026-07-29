@@ -44,7 +44,6 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
     <div class="hero__overlay"></div>
     {proj.imagem && !proj.imagemReal && <span class="img-prov img-prov--hero">Imagem provisória</span>}
     <div class="hero__inner">
-      <Watermark variant="dark" side="r" size="lg" />
       <div class="container">
         <a class="emp-back" href="/portfolio">← Empreendimentos</a>
         <span class="eyebrow" style="color:#d29a5a">{grupoLabel}</span>
@@ -60,7 +59,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
   <!-- O EMPREENDIMENTO -->
   <section class="section">
     <div class="container has-wm">
-      <Watermark variant="line" side="l" size="md" />
+      <Watermark variant="line" side="r" size="md" y="top" />
       <div class="split">
         <div class="split__body">
           <span class="eyebrow">O empreendimento</span>
@@ -81,7 +80,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
   <!-- CARACTERÍSTICAS -->
   <section class="section section--alt">
     <div class="container has-wm">
-      <Watermark variant="fill" side="r" size="md" />
+      <Watermark variant="line" side="r" size="sm" y="bottom" />
       <span class="eyebrow">Características</span>
       <h2 class="display display--sm">Ficha do empreendimento</h2>
       <div class="facts">
@@ -99,7 +98,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
     <!-- GALERIA (só quando há mesmo imagens deste empreendimento) -->
     <section class="section">
       <div class="container has-wm">
-        <Watermark variant="line" side="l" size="md" />
+        <Watermark variant="line" side="r" size="md" y="top" />
         <span class="eyebrow">Galeria</span>
         <h2 class="display display--sm">Imagens do empreendimento</h2>
         <div class="gallery">
@@ -114,7 +113,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
   <!-- LOCALIZAÇÃO -->
   <section class="section section--alt">
     <div class="container has-wm">
-      <Watermark variant="fill" side="r" size="md" />
+      <Watermark variant="line" side="r" size="md" y="top" />
       <div class="split">
         <div class="split__body">
           <span class="eyebrow">Localização</span>
@@ -130,7 +129,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
     <!-- OUTROS EMPREENDIMENTOS -->
     <section class="section">
       <div class="container has-wm">
-        <Watermark variant="line" side="l" size="md" />
+        <Watermark variant="line" side="l" size="md" y="bottom" />
         <span class="eyebrow">Outros empreendimentos</span>
         <h2 class="display display--sm">Continue a explorar</h2>
         <div class="grid-projects">
@@ -143,7 +142,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
   <!-- CONTACTO -->
   <section class="section" id="contacto">
     <div class="container has-wm">
-      <Watermark variant="fill" side="r" size="sm" />
+      <Watermark variant="line" side="l" size="sm" y="bottom" />
       <ContactForm
         eyebrow="Contactos"
         title={`Interessado no ${proj.nome}?`}

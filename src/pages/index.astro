@@ -38,9 +38,9 @@ const equipaCards = home.equipa.members.map((m) => ({
        capítulo, por isso encostam-se (espaçamento curto entre ambos). -->
 
   <!-- QUEM SOMOS -->
-  <section class="section section--tight-bottom quemsomos">
+  <section class="section section--tight-top section--tight-bottom quemsomos">
     <div class="container has-wm">
-      <Watermark variant="line" side="l" size="md" />
+      <Watermark variant="line" side="r" size="lg" y="bottom" />
       <div class="quemsomos__intro">
         <span class="eyebrow">{home.quemSomos.eyebrow}</span>
         <h2 class="display">{home.quemSomos.title}</h2>
@@ -65,21 +65,19 @@ const equipaCards = home.equipa.members.map((m) => ({
   <!-- O QUE FAZEMOS — sobre o mesmo branco do "Quem Somos": os dois são o
        mesmo capítulo. O laranja vive nos números e nas eyebrows, em toda a
        página, em vez de saturar uma só secção. -->
-  <section class="section section--fazemos">
-    <div class="container has-wm dofazemos">
-      <Watermark variant="fill" side="r" size="md" />
+  <section class="section section--fazemos has-wm">
+    <Watermark variant="fill" side="l" size="lg" y="bottom" />
+    <div class="container dofazemos">
       <h2 class="display" set:html={fazemosTitle}></h2>
     </div>
   </section>
 
   <!-- COSTURA · fronteira de cor branco → escuro. Triângulo branco (cor da
-       secção anterior) desce sobre o topo do Portfolio e um fio laranja cose o
-       corte na diagonal, desenhado ao revelar. Fica fora de <section> para
-       escapar à cortina de revelação. -->
+       secção anterior) desce sobre o topo do Portfolio, cortando a fronteira na
+       diagonal. Fica fora de <section> para escapar à cortina de revelação. -->
   <div class="stitch stitch--light">
     <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
       <polygon class="stitch__wedge" points="0,0 1000,0 0,60"></polygon>
-      <line class="stitch__thread" x1="0" y1="60" x2="1000" y2="0" pathLength="1"></line>
     </svg>
   </div>
 
@@ -99,12 +97,11 @@ const equipaCards = home.equipa.members.map((m) => ({
 
   <!-- COSTURA · fronteira de cor escuro → branco (Portfolio → Histórico).
        Triângulo escuro (cor do Portfolio) desce sobre o topo branco do
-       Histórico e o fio laranja cose o corte na diagonal. Fora de <section>
+       Histórico, cortando a fronteira na diagonal. Fora de <section>
        para escapar à cortina de revelação. -->
   <div class="stitch stitch--dark">
     <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
       <polygon class="stitch__wedge" points="0,0 1000,0 0,60"></polygon>
-      <line class="stitch__thread" x1="0" y1="60" x2="1000" y2="0" pathLength="1"></line>
     </svg>
   </div>
 
@@ -112,7 +109,7 @@ const equipaCards = home.equipa.members.map((m) => ({
        da Obra, com mais respiro no topo. Ver .section--panels-cut. -->
   <section class="section section--panels-cut">
     <div class="container has-wm">
-      <Watermark variant="fill" side="r" size="md" />
+      <Watermark variant="line" side="r" size="lg" y="bottom" />
       <BlockHead eyebrow={home.trackRecord.eyebrow} title={home.trackRecord.title} lead={home.trackRecord.lead} botao={home.trackRecord.botao} href="/portfolio" />
     </div>
     <!-- Fora do .container de propósito: os painéis sangram de bordo a bordo e
@@ -121,18 +118,12 @@ const equipaCards = home.equipa.members.map((m) => ({
   </section>
 
   <!-- COSTURA · fronteira de cor branco → cinza (Histórico → Equipa).
-       Triângulo branco (cor do Histórico) desce sobre o topo do bloco seguinte
-       e o fio laranja cose o corte na diagonal.
-       Duas camadas: os painéis (z7) descem RENTES a esta diagonal, entre a
-       cunha (z6) e o fio (z8). Ver .section--panels-cut. -->
+       Triângulo branco (cor do Histórico) desce sobre o topo do bloco seguinte,
+       cortando a fronteira na diagonal. Os painéis (z7) descem RENTES a esta
+       diagonal, sobre a cunha (z6). Ver .section--panels-cut. -->
   <div class="stitch stitch--light">
     <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
       <polygon class="stitch__wedge" points="0,0 1000,0 0,60"></polygon>
-    </svg>
-  </div>
-  <div class="stitch stitch--light stitch--thread-top">
-    <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
-      <line class="stitch__thread" x1="0" y1="60" x2="1000" y2="0" pathLength="1"></line>
     </svg>
   </div>
 
@@ -142,7 +133,6 @@ const equipaCards = home.equipa.members.map((m) => ({
   <!-- EQUIPA (carrossel: cada card é um membro) -->
   <section class="section section--alt section--tight-bottom">
     <div class="container has-wm">
-      <Watermark variant="line" side="l" size="md" />
       <span class="eyebrow">{home.equipa.eyebrow}</span>
       <h2 class="display display--sm" style="margin-bottom:clamp(32px,4vw,56px)">{home.equipa.title}</h2>
       <Testimonials
@@ -161,21 +151,13 @@ const equipaCards = home.equipa.members.map((m) => ({
     </div>
   </section>
 
-  <!-- COSTURA VERTICAL · Equipa → Contacto. Mesma cor, mesmo capítulo
-       ("Pessoas"): um fio vertical laranja que UNE (não corta), no idioma do
-       .seam original. Da família .stitch, cresce com o scroll via --draw. -->
-  <div class="stitch stitch--vseam"></div>
-
   <!-- CONTACTO -->
   <section class="section section--tight-top" id="contacto">
     <div class="container has-wm">
-      <Watermark variant="line" side="r" size="sm" />
+      <Watermark variant="line" side="l" size="md" y="bottom" />
       <ContactForm eyebrow={home.contacto.eyebrow} title={home.contacto.title} texto={home.contacto.texto} />
     </div>
   </section>
 
   </div><!-- /.home-reveal -->
-
-  <!-- O script que anima as costuras (stitch-scroll) vive no Base.astro,
-       partilhado por todas as páginas. -->
 </Base>

@@ -15,7 +15,6 @@ import equipa from '../data/equipa.json';
     ></div>
     <div class="hero__overlay"></div>
     <div class="hero__inner">
-      <Watermark variant="dark" side="r" size="lg" />
       <div class="container">
         <span class="eyebrow" style="color:#d29a5a">{equipa.hero.eyebrow}</span>
         <h1 class="display hero__title-page">{equipa.hero.title}</h1>
@@ -26,7 +25,7 @@ import equipa from '../data/equipa.json';
   <!-- DIREÇÃO -->
   <section class="section">
     <div class="container has-wm">
-      <Watermark variant="line" side="l" size="md" />
+      <Watermark variant="line" side="r" size="lg" y="top" />
       <span class="eyebrow">{equipa.direcao.eyebrow}</span>
       <h2 class="display display--sm">{equipa.direcao.title}</h2>
       <Team members={equipa.direcao.members} variant="lead" />
@@ -39,7 +38,7 @@ import equipa from '../data/equipa.json';
   <!-- EQUIPA GERAL -->
   <section class="section section--alt">
     <div class="container has-wm">
-      <Watermark variant="fill" side="r" size="md" />
+      <Watermark variant="fill" side="l" size="lg" y="bottom" />
       <span class="eyebrow">{equipa.equipa.eyebrow}</span>
       <h2 class="display display--sm">{equipa.equipa.title}</h2>
       <Team members={equipa.equipa.members} />
@@ -52,7 +51,6 @@ import equipa from '../data/equipa.json';
   <!-- CONTACTO -->
   <section class="section" id="contacto">
     <div class="container has-wm">
-      <Watermark variant="line" side="l" size="sm" />
       <ContactForm eyebrow={equipa.contacto.eyebrow} title={equipa.contacto.title} texto={equipa.contacto.texto} />
     </div>
   </section>

@@ -54,6 +54,11 @@ html{ -webkit-font-smoothing:antialiased; }
    sua própria barra estilizada. */
 html{ scrollbar-width:none; }
 html::-webkit-scrollbar{ width:0; height:0; }
+/* Trava o transbordo horizontal na borda da página: as marcas-d'água (.wm)
+   sangram para fora das secções/containers (overflow:visible na .wm-layer) e
+   escapariam ao clip do body — que não as contém porque resolvem contra o ICB.
+   `clip` corta na borda sem criar barra de scroll nem quebrar o header fixo. */
+html{ overflow-x:clip; }
 /* Regras mínimas exigidas pelo Lenis (equivalente ao lenis.css do pacote). */
 html.lenis, html.lenis body{ height:auto; }
 .lenis:not(.lenis-autoToggle).lenis-stopped{ overflow:clip; }
@@ -115,7 +120,7 @@ ul{ list-style:none; }
 
 .display{
   font-family:var(--serif);
-  font-weight:300;
+  font-weight:500;
   line-height:1.05;
   letter-spacing:-.01em;
   font-size:clamp(2.1rem, 5.2vw, 4.1rem);
@@ -326,7 +331,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   display:flex; flex-direction:column;
   gap:clamp(30px,5vw,68px);
 }
-.quemsomos__intro .eyebrow{ align-self:flex-start; margin-bottom:0; }  /* canto superior esquerdo */
+.quemsomos__intro .eyebrow{ align-self:center; margin-bottom:0; }  /* centrado, por cima do título */
 .quemsomos__intro .display{
   align-self:center; text-align:center;
   max-width:20ch; margin:0;
@@ -339,7 +344,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   /* Full-bleed (bordo a bordo), mais achatada: rácio largo baixa a altura sem
      mexer na largura. */
   position:relative; aspect-ratio:21/9;
-  overflow:clip;   /* recorta o parallax SEM criar scroll container (senão o view() mede a imagem contra esta moldura e o progress fica preso) */
+  overflow:clip;   /* recorta a imagem ampliada/deslocada do parallax (clip, não hidden, para não criar scroll container) */
 }
 .quemsomos__img,
 .quemsomos__media .ph{
@@ -348,23 +353,17 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   object-fit:cover; display:block;
 }
 
-/* Parallax "à la hero": a imagem desloca-se mais devagar que a moldura ao
-   passar pelo ecrã — a mesma deriva subtil da hero quase ancorada, mas sem JS,
-   pela timeline de scroll da própria vista. O scale dá folga para o
-   deslocamento não abrir vazios. Gated por reduced-motion e por @supports:
-   sem suporte fica imagem `cover` estática, sem buracos. */
-@media (prefers-reduced-motion: no-preference){
-  @supports (animation-timeline: view()){
-    .quemsomos__img{
-      animation:quemsomos-parallax linear both;
-      animation-timeline:view();
-      will-change:transform;
-    }
-  }
-}
-@keyframes quemsomos-parallax{
-  from{ transform:scale(1.28) translateY(-11%); }
-  to{   transform:scale(1.28) translateY(11%);  }
+/* Parallax conduzido pelo Lenis (JS), como a hero: a imagem desliza mais
+   devagar que a moldura e fica quase ancorada ao passar pelo ecrã. O Base.astro
+   escreve --qs-parallax (px) a cada frame do Lenis; o scale(1.45) dá a folga que
+   o deslocamento consome, para nunca abrir vazios. A ordem (translate depois
+   scale) mantém --qs-parallax em px de ecrã, sem ser multiplicado pelo scale.
+   Sem JS ou com prefers-reduced-motion --qs-parallax fica a 0 e a imagem fica
+   estática (cover ampliado, sem buracos). Mantém-se sincronizado com o scroll
+   fluido porque corre no mesmo evento do Lenis que a hero. */
+.quemsomos__img{
+  transform:translate3d(0, var(--qs-parallax, 0px), 0) scale(1.45);
+  will-change:transform;
 }
 
 /* =====================================================================
@@ -461,8 +460,8 @@ html.reveal-ready .seam:has(.stat.is-visible)::before{ transform:scaleY(1); }
 /* ---------------------------------------------------------------------
    COSTURA DIAGONAL (.stitch) — remate entre secções de cor diferente.
    Um triângulo da cor da secção ANTERIOR desce sobre o topo da seguinte
-   (linha de telhado / blueprint) e um fio laranja cose o corte na
-   diagonal. Vive fora de <section>, por isso a cortina de revelação
+   (linha de telhado / blueprint), cortando a fronteira na diagonal. Vive
+   fora de <section>, por isso a cortina de revelação
    (body.is-home .section::after) não o tapa; sobrepõe-se ao topo da
    secção seguinte por z-index, sem cortar a caixa nem o conteúdo.
    --------------------------------------------------------------------- */
@@ -478,70 +477,10 @@ html.reveal-ready .seam:has(.stat.is-visible)::before{ transform:scaleY(1); }
 .stitch--light .stitch__wedge{ fill:var(--paper); }     /* branco sobre a secção seguinte */
 .stitch--alt   .stitch__wedge{ fill:var(--paper-alt); } /* cinza-claro (.section--alt) sobre a seguinte */
 .stitch--dark  .stitch__wedge{ fill:var(--dark); }      /* escuro sobre a Equipa */
-.stitch__thread{
-  fill:none; stroke:var(--accent); stroke-width:2.5;
-  vector-effect:non-scaling-stroke;   /* espessura constante apesar do preserveAspectRatio:none */
-  stroke-dasharray:none;   /* por defeito: desenhada inteira (sem JS / reduced-motion) */
-}
-.stitch--dark .stitch__thread{ stroke:var(--accent-dk); }  /* mais brilho sobre escuro */
-/* Progresso ligado ao scroll: o script da home escreve --draw (0→1) em cada
-   .stitch conforme a costura sobe pelo ecrã, e a faixa laranja avança na
-   diagonal. Ativo só com html.stitch-scroll (JS on e sem reduced-motion).
-   Um ÚNICO traço a crescer da origem do caminho (canto inferior esquerdo): o
-   dash tem comprimento --draw e o gap (2) é maior que o caminho (pathLength=1),
-   por isso não há padrão periódico nem resíduo no canto oposto no início. */
-html.stitch-scroll .stitch__thread{ stroke-dasharray:var(--draw,0) 2; }
 
 @media (max-width:640px){
   :root{ --stitch-rise:clamp(26px,5vw,44px); }
 }
-
-/* ---- Costura VERTICAL (.stitch--vseam) — entre Equipa e Contacto ----
-   As duas secções são o mesmo capítulo ("Pessoas") e quase da mesma cor, por
-   isso aqui a costura UNE em vez de cortar: um fio vertical laranja no eixo
-   central que desce a atravessar a fronteira, no idioma do .seam original.
-   É da família .stitch, logo o script da home também lhe escreve --draw e o
-   fio cresce de cima para baixo com o scroll. */
-.stitch--vseam{ --vthread:clamp(96px,13vh,176px); }
-.stitch--vseam::before{
-  content:""; position:absolute; z-index:6; pointer-events:none;
-  left:calc(50% - 1px);
-  top:calc(-1 * var(--section-y-tight));      /* nasce dentro do fundo da Equipa */
-  width:2px;
-  height:calc(var(--vthread) + var(--section-y-tight));
-  background:linear-gradient(to bottom,
-    transparent 0, var(--accent) 20%, var(--accent) 82%, transparent 100%);
-  transform:scaleY(1); transform-origin:top;   /* por defeito: fio inteiro (sem JS / reduced-motion) */
-}
-html.stitch-scroll .stitch--vseam::before{ transform:scaleY(var(--draw,1)); }
-
-/* ---- Costura por MARCA D'ÁGUA (.seam-wm) — Portfolio → Histórico ----
-   Reutiliza a MESMA linguagem da antiga watermark do slider (Fraunces, ténue,
-   uppercase, tracking apertado), agora com a marca "Empreendimentos Santos"
-   assente na fronteira (metade em cada secção) a coser os dois blocos escuros.
-   Fora de <section> para escapar à cortina de revelação; sangra pelos bordos
-   (body tem overflow-x:hidden). */
-/* Faixa à largura toda, assente na fronteira; translateY(-50%) põe o centro do
-   bloco de 2 linhas sobre a linha de junção (Empreendimentos acima, Santos
-   abaixo). O .container dá a mesma margem lateral que o resto do site. */
-.seam-wm__wrap{
-  position:absolute; inset:0 0 auto 0;
-  transform:translateY(-50%);
-  z-index:6; pointer-events:none;
-}
-.seam-wm__text{
-  display:block; text-align:right;      /* Santos (e Empreendimentos) alinhados à margem direita */
-  user-select:none;
-  font-family:var(--serif); font-weight:300;
-  text-transform:uppercase; letter-spacing:-.01em; line-height:.9;
-  font-size:clamp(2rem, 7.6vw, 7rem);   /* cabe inteiro no .container, sem cortar palavras */
-  color:rgba(255,255,255,.06);          /* branco ténue sobre preto (= watermark original) */
-}
-.seam-wm__text > span{ display:block; }
-.seam-wm__text > span:first-child{ text-align:left; }  /* Empreendimentos à esquerda; Santos mantém-se à direita */
-/* Aparece suavemente com o scroll (tem a classe .stitch, logo o script escreve
-   --draw). Sem JS / reduced-motion: fica visível (regra base acima). */
-html.stitch-scroll .seam-wm__text{ opacity:var(--draw,1); }
 
 .stats{
   display:grid; grid-template-columns:repeat(5,1fr);
@@ -742,19 +681,18 @@ html.stitch-scroll .seam-wm__text{ opacity:var(--draw,1); }
 }
 .section--panels-cut .block-head .btn::after{ font-size:1.25rem; }  /* seta a condizer */
 .section--panels-cut .panels{
-  position:relative; z-index:7;   /* acima da cunha (6), abaixo do fio (8) */
+  position:relative; z-index:7;   /* acima da cunha (6) */
   /* Descem exatamente a altura da cunha para lá da fronteira... */
   height:calc(clamp(460px,72vh,760px) + var(--stitch-rise));
   margin-bottom:calc(-1 * var(--stitch-rise));
   /* ...e o bordo inferior é recortado NA MESMA diagonal da costura: à direita
-     rente à fronteira, à esquerda uma cunha abaixo. O fio (z8) bainha o bordo. */
+     rente à fronteira, à esquerda uma cunha abaixo. */
   clip-path:polygon(0 0, 100% 0, 100% calc(100% - var(--stitch-rise)), 0 100%);
 }
 /* Sobe o rótulo e o conteúdo --stitch-rise para nenhum texto cair na zona
    recortada, seja qual for o card expandido. */
 .section--panels-cut .panel__label{ bottom:calc(1.4rem + var(--stitch-rise)); }
 .section--panels-cut .panel__content{ bottom:calc(var(--stitch-rise) + .4rem); }
-.stitch--thread-top{ z-index:8; }
 
 /* Responsivo: vira pilha vertical de cards, sem efeito de expansão */
 @media (max-width:720px){
@@ -836,8 +774,9 @@ html.stitch-scroll .seam-wm__text{ opacity:var(--draw,1); }
 .footer-logo{ height:auto; }
 .footer-logo img{ height:60px; width:auto; display:block; }
 .socials{ display:flex; gap:.8rem; margin-top:1.2rem; }
-.socials a{ width:38px; height:38px; border:1px solid rgba(255,255,255,.2); border-radius:50%; display:grid; place-items:center; font-size:.62rem; letter-spacing:.05em; color:#cdd0d4; transition:border-color .3s var(--ease), color .3s var(--ease); }
-.socials a:hover{ border-color:var(--accent-dk); color:var(--accent-dk); }
+.socials a{ display:grid; place-items:center; color:#cdd0d4; transition:color .35s var(--ease), transform .35s var(--ease); }
+.socials a svg{ width:26px; height:26px; }
+.socials a:hover{ color:var(--accent-dk); transform:translateY(-2px); }
 .news{ display:flex; border-bottom:1px solid rgba(255,255,255,.25); }
 .news input{ flex:1; background:none; border:0; color:#fff; padding:.6rem 0; font-size:.9rem; }
 .news input:focus{ outline:0; }
@@ -1255,10 +1194,10 @@ button.card{
    que a eyebrow e o título da secção, e não 2rem à direita deles. */
 .testimonials{ width:100%; max-width:none; padding:2rem 0; outline:none; }
 .testimonials__grid{ display:grid; gap:5rem; }
-.testimonials__images{ position:relative; width:100%; height:24rem; perspective:1000px; }
+.testimonials__images{ position:relative; width:100%; height:38rem; perspective:1000px; }
 .testimonials__img{
   position:absolute; width:100%; height:100%; object-fit:cover;
-  border-radius:.5rem; box-shadow:0 14px 40px rgba(0,0,0,.16); opacity:0;
+  border-radius:0; box-shadow:0 14px 40px rgba(0,0,0,.16); opacity:0;
 }
 /* Placeholder (membro sem foto): mesmo padrão diagonal do resto do site. */
 .testimonials__img--ph{
@@ -1284,6 +1223,7 @@ button.card{
   margin-bottom:2rem; color:var(--t-designation,#6b7280); font-size:var(--t-designation-size,.8rem);
   text-transform:uppercase; letter-spacing:.16em;
 }
+.testimonials__divider{ margin-bottom:1.6rem; }
 .testimonials__quote{ line-height:1.8; color:var(--t-quote,#4b5563); font-size:var(--t-quote-size,1.125rem); max-width:62ch; }
 .testimonials__body{ animation:testimonial-fade .5s var(--ease) both; }
 .testimonials__arrows{ display:flex; gap:1.5rem; padding-top:3rem; }
@@ -1301,7 +1241,7 @@ button.card{
 }
 @media (min-width:768px){
   /* Coluna das imagens compacta à esquerda; o texto absorve a largura extra. */
-  .testimonials__grid{ grid-template-columns:minmax(0,26rem) 1fr; }
+  .testimonials__grid{ grid-template-columns:minmax(0,32rem) 1fr; }
 }
 @media (prefers-reduced-motion: reduce){
   .testimonials__body{ animation:none; }
@@ -1316,6 +1256,9 @@ button.card{
    sangrada pela borda direita. Sem autoplay.
    ===================================================================== */
 .section--flush{ padding-block:0; }
+/* flow-root: sem BFC próprio, a margem negativa do card colapsava com a da
+   secção e puxava a costura para cima em vez de fazer o card descer. */
+.section--dark.section--flush{ display:flow-root; }
 
 /* Primeira secção de uma página sem hero (body.no-hero): o header é fixo e
    sólido desde o topo, por isso damos folga extra para o título não encostar
@@ -1323,11 +1266,20 @@ button.card{
 .no-hero .section--flat-top{ padding-top:calc(var(--section-y) + clamp(20px, 3vw, 48px)); }
 
 .dslider{
-  position:relative;
+  position:relative; z-index:7;   /* acima da cunha (6) */
   overflow:hidden;
-  min-height:clamp(680px, 92vh, 900px);
+  /* Desce exatamente a altura da cunha para lá da fronteira e o bordo inferior é
+     recortado NA MESMA diagonal da costura — assim a própria imagem preenche o
+     triângulo até à linha transversal, em vez de a cunha ficar em cor chapada
+     abaixo do card. Mesmo idioma dos painéis do Histórico (.section--panels-cut). */
+  min-height:calc(clamp(680px, 92vh, 900px) + var(--stitch-rise));
+  margin-bottom:calc(-1 * var(--stitch-rise));
+  clip-path:polygon(0 0, 100% 0, 100% calc(100% - var(--stitch-rise)), 0 100%);
   display:flex;
   color:#fff;
+  /* Sem o scrim a escurecer a imagem, uma sombra leve mantém o texto branco a ler
+     sobre céus claros. */
+  text-shadow:0 2px 22px rgba(0,0,0,.55);
   background:var(--dark);
 }
 
@@ -1346,13 +1298,6 @@ button.card{
 }
 .dslider__img--ph{ background:#1d1d1d; }
 .dslider__slide.is-active .dslider__img{ transform:scale(1); }
-/* Scrim: escurece o topo e o fundo para o texto branco e as legendas lerem
-   sempre, mesmo sobre céu claro. */
-.dslider__slide::after{
-  content:""; position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.28) 34%,
-                                     rgba(0,0,0,.42) 66%, rgba(0,0,0,.78) 100%);
-}
 
 /* ---- Bloco central (só o nome) ---- */
 .dslider__body{
@@ -1369,7 +1314,9 @@ button.card{
    longe do header e das miniaturas (que sangram pela direita). */
 .dslider__corner{
   position:absolute; z-index:3;
-  left:var(--gutter); bottom:clamp(1.4rem, 3.5vh, 2.6rem);
+  /* +stitch-rise: o card desce a cunha e é recortado na diagonal, por isso o
+     conteúdo sobe a mesma medida para não cair na zona cortada. */
+  left:var(--gutter); bottom:calc(clamp(1.4rem, 3.5vh, 2.6rem) + var(--stitch-rise));
   display:flex; flex-direction:column; align-items:flex-start; gap:.8rem;
 }
 .dslider__corner .img-prov{ position:static; }
@@ -1406,7 +1353,7 @@ button.card{
    metade tapava o CTA do canto inferior esquerdo, que deixava de ser clicável. */
 .dslider__foot{
   position:absolute; z-index:3;
-  inset:auto 0 clamp(1.4rem, 3.5vh, 2.6rem) var(--gutter);
+  inset:auto 0 calc(clamp(1.4rem, 3.5vh, 2.6rem) + var(--stitch-rise)) var(--gutter);
   display:flex; align-items:flex-end; gap:clamp(1rem, 2.5vw, 2rem);
   pointer-events:none;
 }
@@ -1465,7 +1412,7 @@ button.card{
 
 /* ---- Ecrãs estreitos: sem fila de miniaturas, com contador ---- */
 @media (max-width: 900px){
-  .dslider{ min-height:clamp(580px, 78vh, 760px); }
+  .dslider{ min-height:calc(clamp(580px, 78vh, 760px) + var(--stitch-rise)); }
   /* Sobrepõe-se ao --name-size: em ecrãs estreitos manda a largura, não o nome. */
   .dslider__name{ font-size:clamp(1.4rem, 7.4vw, 2.2rem); }
   .dslider__head{ min-height:clamp(4.4rem, 19vw, 6rem); }
@@ -1476,11 +1423,11 @@ button.card{
      delas e centra-se, em vez de disputar o canto esquerdo. */
   .dslider__corner{
     left:var(--gutter); right:var(--gutter);
-    bottom:clamp(5.6rem, 14vh, 7.4rem);
+    bottom:calc(clamp(5.6rem, 14vh, 7.4rem) + var(--stitch-rise));
     align-items:center; gap:.6rem;
   }
   .dslider__thumbs{ display:none; }
-  .dslider__foot{ inset:auto var(--gutter) clamp(1.4rem, 3.5vh, 2.6rem) var(--gutter); justify-content:center; }
+  .dslider__foot{ inset:auto var(--gutter) calc(clamp(1.4rem, 3.5vh, 2.6rem) + var(--stitch-rise)) var(--gutter); justify-content:center; }
   .dslider__arrows{ margin:0 auto; padding-bottom:0; }
   .dslider__count{ display:inline-block; margin-left:.6rem; }
 }
@@ -1602,8 +1549,11 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 
 /* ===== Marca-d'água do símbolo — identidade (spec 2026-07-28) ===== */
 .has-wm{ position:relative; z-index:0; }
-.wm-layer{ position:absolute; inset:0; overflow:clip; pointer-events:none; z-index:-1; }
-.wm{ position:absolute; top:50%; transform:translateY(-50%); }
+.wm-layer{ position:absolute; inset:0; overflow:visible; pointer-events:none; z-index:-1; }
+.wm{ position:absolute; }
+.wm--mid{ top:50%; transform:translateY(-50%); }
+.wm--top{ top:6%; }
+.wm--bottom{ bottom:6%; }
 .wm--l{ left:-6%; }
 .wm--r{ right:-6%; }
 .wm--sm{ width:min(24%,210px); }
@@ -1618,14 +1568,21 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 
 /* ===== Divisor-assinatura (3 linhas + encaixe) — 2ª vaga ===== */
 .divider{ position:relative; display:flex; flex-direction:column; gap:6px; max-width:340px; margin:1.8rem 0; padding-top:16px; }
-.divider__line{ height:3px; background:rgba(18,18,18,.5); }
+.divider__line{ height:4px; background:var(--ink); }
 .divider__line--strong{ height:4px; background:var(--ink); }
 .divider__tab{ position:absolute; top:0; left:0; width:52px; height:6px; background:var(--accent); }
 
 /* ===== Moldura de imagem (encaixe preto + fio laranja) — 2ª vaga ===== */
 .frame{ position:relative; }
 .frame__tab{ position:absolute; top:38%; left:-14px; width:22px; height:34px; background:var(--ink); z-index:3; }
-.frame__bar{ position:absolute; top:0; right:0; width:56px; height:5px; background:var(--accent); z-index:3; }
+/* 3 faixas com as proporções de altura da marca do logótipo
+   (topo→base ~74:126:189, a mais alta em baixo), todas pretas e mais
+   subtis (bloco menor/estreito), frestas transparentes. */
+.frame__bar{ position:absolute; top:0; right:0; width:40px; height:25px; z-index:3;
+  background:linear-gradient(to bottom,
+    var(--accent) 0 4px, transparent 4px 6px,
+    var(--accent) 6px 13px, transparent 13px 15px,
+    var(--accent) 15px 25px); }
 /* Quando a Frame envolve a media, torna-se o item da grelha .split — herda a
    ordenação que era da .split__media. */
 .split--reverse .frame{ order:2; }

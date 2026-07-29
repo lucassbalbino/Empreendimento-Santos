@@ -42,7 +42,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 
   <!-- Gate do preloader: liga is-loading ANTES do paint, só na 1.ª carga real
@@ -142,42 +142,6 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
   <slot />
   <Footer />
   <PageCurtain />
-  <!-- Costura ligada ao scroll: a faixa laranja de cada .stitch avança na
-       diagonal conforme a costura sobe pelo ecrã. Escreve --draw (0→1) por
-       costura; a regra html.stitch-scroll mapeia-o para o stroke-dashoffset.
-       Vive no layout para correr em TODAS as páginas (a home e as internas
-       partilham a mesma linguagem de costura). Sai cedo se não houver .stitch.
-       Reduced-motion: não ativa (a faixa fica desenhada pela regra base). -->
-  <script is:inline>
-    (function () {
-      var root = document.documentElement;
-      var stitches = document.querySelectorAll('.stitch');
-      if (!stitches.length) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      function update() {
-        var vh = window.innerHeight || root.clientHeight;
-        var start = vh * 1.00;   // começa a avançar assim que a costura assoma pelo fundo
-        var end = vh * 0.30;     // e só completa perto do topo — desenho longo e gradual
-        for (var i = 0; i < stitches.length; i++) {
-          var top = stitches[i].getBoundingClientRect().top;
-          var p = (start - top) / (start - end);
-          p = p < 0 ? 0 : p > 1 ? 1 : p;
-          stitches[i].style.setProperty('--draw', p.toFixed(4));
-        }
-      }
-      update();                          // define --draw antes de ativar: sem flash
-      root.classList.add('stitch-scroll');
-      var ticking = false;
-      function onScroll() {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () { update(); ticking = false; });
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
-      window.addEventListener('pageshow', update);
-    })();
-  </script>
   <!-- Scroll interpolado (Lenis) + parallax da hero.
 
        O browser move a página aos degraus: cada volta de roda é um salto seco.
@@ -222,6 +186,27 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
       }
       document.documentElement.classList.remove('sem-lenis');
 
+      // Parallax da imagem "Quem Somos" (home): o mesmo movimento ancorado da
+      // hero, mas a meio da página — a deriva depende da distância do centro da
+      // moldura ao centro do ecrã. Corre no evento do Lenis (como a hero) para
+      // ficar colada ao scroll fluido. Clampada à folga do scale(1.45) da
+      // imagem para nunca abrir vazios (a folga muda com o rácio ecrã/imagem,
+      // sobretudo em telemóvel, onde a moldura fica baixa).
+      const QS_FACTOR = 0.16;   // fração da distância-ao-centro que a imagem deriva
+      const QS_SCALE = 1.45;    // = scale de .quemsomos__img em styles.css
+      const qsImg = document.querySelector('.quemsomos__img');
+      const qsMedia = qsImg?.closest('.quemsomos__media');
+      const moverQuem = () => {
+        if (!qsImg || !qsMedia) return;
+        const r = qsMedia.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;   // fora de vista
+        const dist = (r.top + r.height / 2) - window.innerHeight / 2;
+        const folga = r.height * (QS_SCALE - 1) / 2;              // px disponíveis de cada lado
+        let off = -dist * QS_FACTOR;
+        if (off > folga) off = folga; else if (off < -folga) off = -folga;
+        qsImg.style.setProperty('--qs-parallax', off.toFixed(1) + 'px');
+      };
+
       lenis = new Lenis({
         lerp: 0.1,
         wheelMultiplier: 1,
@@ -237,7 +222,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
         lenis.stop();
       }
 
-      lenis.on('scroll', ({ scroll }) => moverHero(scroll));
+      lenis.on('scroll', ({ scroll }) => { moverHero(scroll); moverQuem(); });
 
       // Loop rAF único e permanente; lê sempre a instância atual (module-scope).
       if (!loopIniciado) {
@@ -246,6 +231,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
         loopIniciado = true;
       }
       moverHero(window.scrollY);
+      moverQuem();
     }
 
     document.addEventListener('astro:page-load', iniciarLenis);
