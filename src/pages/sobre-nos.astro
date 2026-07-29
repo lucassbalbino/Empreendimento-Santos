@@ -9,6 +9,7 @@ import Watermark from '../components/Watermark.astro';
 import sobre from '../data/sobre.json';
 
 const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
+const fazemosParagrafo = sobre.oQueFazemos.paragrafo.replace(/\*\*(.*?)\*\*/g, '<em class="comotrabalhamos__num">$1</em>');
 ---
 <Base title="Mockup — Sobre Nós" description="Conheça a AM Santos: 20 anos de experiência no mercado imobiliário, sob a liderança de António M Santos, com foco na qualidade, no conforto e na sustentabilidade.">
   <!-- HERO (interno) -->
@@ -47,20 +48,28 @@ const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
   <!-- COSTURA · Quem Somos (branco) → O Que Fazemos (cinza) -->
   <Stitch variant="light" />
 
-  <!-- O QUE FAZEMOS — VERTICAIS -->
+  <!-- O QUE FAZEMOS — grelha de imagens em parallax + parágrafo -->
   <section class="section section--alt">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="md" y="top" />
-      <span class="eyebrow">{sobre.oQueFazemos.eyebrow}</span>
-      <h2 class="display display--sm" set:html={fazemosTitle}></h2>
-      <div class="verticals">
-        {sobre.oQueFazemos.verticais.map((v) => (
-          <div class="vertical">
-            <div class="vertical__n">{v.n}</div>
-            <h3>{v.title}</h3>
-            <p>{v.texto}</p>
+      <div class="split comotrabalhamos">
+        <div class="comotrabalhamos__grid">
+          <div class="comotrabalhamos__col comotrabalhamos__col--a">
+            {sobre.oQueFazemos.imagens.colunaA.map((src) => (
+              <img src={src} alt="Empreendimento AM Santos" loading="lazy" />
+            ))}
           </div>
-        ))}
+          <div class="comotrabalhamos__col comotrabalhamos__col--b">
+            {sobre.oQueFazemos.imagens.colunaB.map((src) => (
+              <img src={src} alt="Empreendimento AM Santos" loading="lazy" />
+            ))}
+          </div>
+        </div>
+        <div class="split__body">
+          <span class="eyebrow">{sobre.oQueFazemos.eyebrow}</span>
+          <h2 class="display display--sm" set:html={fazemosTitle}></h2>
+          <p class="comotrabalhamos__paragrafo" set:html={fazemosParagrafo}></p>
+        </div>
       </div>
     </div>
   </section>
