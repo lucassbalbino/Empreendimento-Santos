@@ -36,7 +36,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
   description={`${proj.nome} — ${proj.localizacao} · ${proj.tipologia}. ${proj.resumo}`}
 >
   <!-- HERO -->
-  <section class="hero emp-hero" style="min-height:80vh">
+  <section class="hero emp-hero">
     <div
       class={proj.imagem ? 'hero__bg hero__bg--img' : 'hero__bg'}
       style={proj.imagem ? `background-image:url(${proj.imagem})` : undefined}
@@ -59,7 +59,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
   <!-- O EMPREENDIMENTO -->
   <section class="section">
     <div class="container has-wm">
-      <Watermark variant="line" side="r" size="md" y="top" />
+      <Watermark variant="line" side="r" size="lg" y="top" />
       <div class="split">
         <div class="split__body">
           <span class="eyebrow">O empreendimento</span>
@@ -80,7 +80,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
   <!-- CARACTERÍSTICAS -->
   <section class="section section--alt">
     <div class="container has-wm">
-      <Watermark variant="line" side="r" size="sm" y="bottom" />
+      <Watermark variant="line" side="r" size="lg" y="bottom" />
       <span class="eyebrow">Características</span>
       <h2 class="display display--sm">Ficha do empreendimento</h2>
       <div class="facts">
