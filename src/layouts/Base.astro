@@ -225,14 +225,14 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
         const r = ctGrid.getBoundingClientRect();
         if (r.bottom < 0 || r.top > window.innerHeight) return;   // fora de vista
         const dist = (r.top + r.height / 2) - window.innerHeight / 2;
-        const upBoundA = Math.max(0, ctGrid.clientHeight - (ctColA.offsetTop + ctColA.scrollHeight));
-        const downBoundA = Math.max(0, ctColA.offsetTop);
-        const upBoundB = Math.max(0, ctGrid.clientHeight - (ctColB.offsetTop + ctColB.scrollHeight));
-        const downBoundB = Math.max(0, ctColB.offsetTop);
+        const minOffA = ctGrid.clientHeight - ctColA.scrollHeight - ctColA.offsetTop;
+        const maxOffA = -ctColA.offsetTop;
+        const minOffB = ctGrid.clientHeight - ctColB.scrollHeight - ctColB.offsetTop;
+        const maxOffB = -ctColB.offsetTop;
         let offA = -dist * CT_FACTOR_A;
         let offB = -dist * CT_FACTOR_B;
-        if (offA > downBoundA) offA = downBoundA; else if (offA < -upBoundA) offA = -upBoundA;
-        if (offB > downBoundB) offB = downBoundB; else if (offB < -upBoundB) offB = -upBoundB;
+        if (offA > maxOffA) offA = maxOffA; else if (offA < minOffA) offA = minOffA;
+        if (offB > maxOffB) offB = maxOffB; else if (offB < minOffB) offB = minOffB;
         ctColA.style.setProperty('--ct-parallax-a', offA.toFixed(1) + 'px');
         ctColB.style.setProperty('--ct-parallax-b', offB.toFixed(1) + 'px');
       };
