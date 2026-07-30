@@ -207,6 +207,32 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
         qsImg.style.setProperty('--qs-parallax', off.toFixed(1) + 'px');
       };
 
+      // "Como trabalhamos" (Sobre Nós): grelha masonry de 2 colunas, cada
+      // uma a deslocar-se a uma fração diferente da distância ao centro do
+      // ecrã — mesmo princípio do moverQuem, mas com duas colunas
+      // independentes em vez de uma imagem só. A folga é calculada a partir
+      // da altura real de cada coluna (scrollHeight), não de um scale fixo,
+      // porque cada coluna tem um número diferente de fotos.
+      const CT_FACTOR_A = 0.10;
+      const CT_FACTOR_B = 0.20;
+      const ctGrid = document.querySelector('.comotrabalhamos__grid');
+      const ctColA = ctGrid?.querySelector('.comotrabalhamos__col--a');
+      const ctColB = ctGrid?.querySelector('.comotrabalhamos__col--b');
+      const moverComoTrabalhamos = () => {
+        if (!ctGrid || !ctColA || !ctColB) return;
+        const r = ctGrid.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;   // fora de vista
+        const dist = (r.top + r.height / 2) - window.innerHeight / 2;
+        const folgaA = Math.max(0, (ctColA.scrollHeight - ctGrid.clientHeight) / 2);
+        const folgaB = Math.max(0, (ctColB.scrollHeight - ctGrid.clientHeight) / 2);
+        let offA = -dist * CT_FACTOR_A;
+        let offB = -dist * CT_FACTOR_B;
+        if (offA > folgaA) offA = folgaA; else if (offA < -folgaA) offA = -folgaA;
+        if (offB > folgaB) offB = folgaB; else if (offB < -folgaB) offB = -folgaB;
+        ctColA.style.setProperty('--ct-parallax-a', offA.toFixed(1) + 'px');
+        ctColB.style.setProperty('--ct-parallax-b', offB.toFixed(1) + 'px');
+      };
+
       lenis = new Lenis({
         lerp: 0.1,
         wheelMultiplier: 1,
@@ -222,7 +248,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
         lenis.stop();
       }
 
-      lenis.on('scroll', ({ scroll }) => { moverHero(scroll); moverQuem(); });
+      lenis.on('scroll', ({ scroll }) => { moverHero(scroll); moverQuem(); moverComoTrabalhamos(); });
 
       // Loop rAF único e permanente; lê sempre a instância atual (module-scope).
       if (!loopIniciado) {
@@ -232,6 +258,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
       }
       moverHero(window.scrollY);
       moverQuem();
+      moverComoTrabalhamos();
     }
 
     document.addEventListener('astro:page-load', iniciarLenis);
