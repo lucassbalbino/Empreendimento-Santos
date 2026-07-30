@@ -714,14 +714,48 @@ html.reveal-ready .seam:has(.stat.is-visible)::before{ transform:scaleY(1); }
 .grid-projects .card__media{ aspect-ratio:4/5; }
 
 /* =====================================================================
-   VERTICAIS (3 áreas de atuação — Sobre Nós)
+   COMO TRABALHAMOS — grelha de imagens em parallax (masonry, 2 colunas a
+   velocidades diferentes) + parágrafo com os contadores embutidos
+   (Sobre Nós). Substitui as antigas "verticais".
    ===================================================================== */
-.verticals{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border-block:1px solid var(--line); margin-top:clamp(40px,5vw,70px); }
-.vertical{ background:var(--paper); padding:clamp(28px,3vw,46px); }
-.section--alt .vertical{ background:var(--paper-alt); }
-.vertical__n{ font-family:var(--serif); font-size:1rem; color:var(--accent); }
-.vertical h3{ font-family:var(--serif); font-weight:400; font-size:1.6rem; margin:.6rem 0 1rem; }
-.vertical p{ color:var(--ink-soft); font-size:.95rem; }
+.comotrabalhamos__grid{
+  position:relative;
+  aspect-ratio:4/5;
+  overflow:clip;   /* clip, não hidden: não criar scroll container que prenda o parallax */
+}
+.comotrabalhamos__col{
+  position:absolute;
+  width:47%;
+  display:flex;
+  flex-direction:column;
+  gap:clamp(10px,1.4vw,18px);
+  will-change:transform;
+}
+/* Desfasamento vertical entre colunas: dá o efeito masonry. */
+.comotrabalhamos__col--a{
+  left:0; top:-6%;
+  transform:translate3d(0, var(--ct-parallax-a, 0px), 0);
+}
+.comotrabalhamos__col--b{
+  right:0; top:9%;
+  transform:translate3d(0, var(--ct-parallax-b, 0px), 0);
+}
+.comotrabalhamos__col img{
+  width:100%; display:block;
+  aspect-ratio:3/4; object-fit:cover;
+}
+
+.comotrabalhamos__paragrafo{
+  margin-top:1.2rem;
+  color:var(--ink-soft);
+}
+/* Números embutidos no texto corrido, sem contador animado — mesma técnica
+   de destaque que .dofazemos .display em (cor da marca, sem itálico). */
+.comotrabalhamos__num{
+  font-style:normal;
+  font-weight:600;
+  color:var(--accent);
+}
 
 /* =====================================================================
    SERVIÇOS (linhas alternadas — Sobre Nós)
@@ -801,7 +835,7 @@ html.reveal-ready .seam:has(.stat.is-visible)::before{ transform:scaleY(1); }
    *assenta* — é isto que se lê como fluido. Durações iguais leem-se como
    lentas. */
 html.reveal-ready :is(
-  .card, .stat, .vertical, .service, .member, .panels
+  .card, .stat, .comotrabalhamos__paragrafo, .service, .member, .panels
 ){
   opacity:0;
   transform:translateY(26px);
@@ -810,7 +844,7 @@ html.reveal-ready :is(
   will-change:transform, opacity;
 }
 html.reveal-ready :is(
-  .card, .stat, .vertical, .service, .member, .panels
+  .card, .stat, .comotrabalhamos__paragrafo, .service, .member, .panels
 ).is-visible{
   opacity:1;
   transform:none;
@@ -1097,7 +1131,6 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
 @media (max-width: 760px){
   .split, .service, .contact{ grid-template-columns:1fr; }
   .split--reverse .split__media, .service:nth-child(even) .service__media{ order:0; }
-  .verticals{ grid-template-columns:1fr; }
   .team{ grid-template-columns:1fr; }
   .stats{ grid-template-columns:1fr; }
   .grid-projects{ grid-template-columns:1fr; }
