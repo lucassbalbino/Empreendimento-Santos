@@ -210,20 +210,25 @@ collections:
               - { label: "Título", name: title, widget: string }
               - { label: "Destaque", name: lead, widget: text }
               - { label: "Parágrafo", name: paragrafo, widget: text }
-          - label: "O Que Fazemos — Verticais"
+          - label: "O Que Fazemos"
             name: oQueFazemos
             widget: object
             fields:
               - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: text }
-              - label: "Verticais"
-                name: verticais
-                widget: list
-                summary: "{{fields.title}}"
+              - label: "Imagens"
+                name: imagens
+                widget: object
                 fields:
-                  - { label: "Número", name: n, widget: string }
-                  - { label: "Título", name: title, widget: string }
-                  - { label: "Texto", name: texto, widget: text }
+                  - label: "Coluna A"
+                    name: colunaA
+                    widget: list
+                    field: { label: "Imagem", name: imagem, widget: image }
+                  - label: "Coluna B"
+                    name: colunaB
+                    widget: list
+                    field: { label: "Imagem", name: imagem, widget: image }
+              - { label: "Parágrafo", name: paragrafo, widget: text }
           - label: "Serviços"
             name: servicos
             widget: object

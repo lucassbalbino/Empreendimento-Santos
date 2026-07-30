@@ -336,8 +336,8 @@ ao array.** É isso que o botão "+ Adicionar" do painel faz por baixo.
 
 No projeto, são listas: `home.oQueFazemos.stats` (contadores),
 `home.portfolio.cards`, `home.trackRecord.cards`, `home.equipa.members`,
-`portfolio.projetos`, `sobre.oQueFazemos.verticais`, `sobre.servicos.items`,
-`sobre.equipa.members`.
+`portfolio.projetos`, `sobre.oQueFazemos.imagens.colunaA` (fotos da grelha),
+`sobre.servicos.items`, `sobre.equipa.members`.
 
 **Item vs. tipo de seção (a distinção-chave):**
 - Adicionar **um item** a uma lista existente → o **cliente** faz, no painel.

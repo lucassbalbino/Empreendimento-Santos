@@ -28,6 +28,8 @@ em código. Tudo o que você salvar entra no ar automaticamente.
 2. Clique nele, escolha **enviar imagem** e selecione o arquivo do seu computador.
 3. **Salvar / Publicar**.
 
+Nota: em **Sobre Nós → O Que Fazemos**, as fotos da grelha (2 colunas) trocam-se da mesma forma, e o parágrafo com os números (projetos, m², investimento) edita-se como texto normal.
+
 ## 4. Adicionar um card novo (projeto, serviço, membro)
 
 Essas listas têm um botão **"+ Adicionar"**:
@@ -35,7 +37,6 @@ Essas listas têm um botão **"+ Adicionar"**:
 - **Portfólio → Projetos**: adiciona um apartamento/empreendimento novo
   (nome, localização, tipologia, foto, descrição).
 - **Sobre Nós → Serviços**: adiciona um serviço novo.
-- **Sobre Nós → Verticais**: adiciona uma área de atuação.
 - **Início / Sobre Nós → Equipa → Membros**: adiciona uma pessoa.
 - **Início → Números**: adiciona um contador.
 

@@ -91,7 +91,7 @@ mockup/
 
 - **index** — Hero · Quem Somos · O Que Fazemos + contadores · Portfólio (carrossel) · Track Record (seção escura) · Equipa · Contacto · Footer
 - **portfolio** — Hero · Grid de projetos · Track Record · Contacto · Footer
-- **sobre-nos** — Hero · Quem Somos · 3 verticais de atuação · Serviços (linhas alternadas) · Equipa · Contacto · Footer
+- **sobre-nos** — Hero · Quem Somos · Como Trabalhamos (grelha masonry de fotos + parágrafo com contadores) · Serviços (linhas alternadas) · Equipa · Contacto · Footer
 
 ## 6. Decisões de design
 

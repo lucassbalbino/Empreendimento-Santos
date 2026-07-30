@@ -66,7 +66,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
       if (!('IntersectionObserver' in window) ||
           window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       root.classList.add('reveal-ready');
-      var SEL = '.section, .card, .stat, .comotrabalhamos__paragrafo, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
+      var SEL = '.section, .card, .stat, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
       var els = [];
 
       var io = new IntersectionObserver(function (entries) {
@@ -210,9 +210,11 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
       // "Como trabalhamos" (Sobre Nós): grelha masonry de 2 colunas, cada
       // uma a deslocar-se a uma fração diferente da distância ao centro do
       // ecrã — mesmo princípio do moverQuem, mas com duas colunas
-      // independentes em vez de uma imagem só. A folga é calculada a partir
-      // da altura real de cada coluna (scrollHeight), não de um scale fixo,
-      // porque cada coluna tem um número diferente de fotos.
+      // independentes em vez de uma imagem só. As colunas não estão
+      // centradas na grelha (--a tem top:-6%, --b tem top:9%), por isso a
+      // folga não pode ser simétrica: calculamos os limites reais a partir
+      // do offsetTop de cada coluna — pode subir até a base tocar a base da
+      // grelha, e descer até o topo tocar y=0.
       const CT_FACTOR_A = 0.10;
       const CT_FACTOR_B = 0.20;
       const ctGrid = document.querySelector('.comotrabalhamos__grid');
@@ -223,12 +225,14 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
         const r = ctGrid.getBoundingClientRect();
         if (r.bottom < 0 || r.top > window.innerHeight) return;   // fora de vista
         const dist = (r.top + r.height / 2) - window.innerHeight / 2;
-        const folgaA = Math.max(0, (ctColA.scrollHeight - ctGrid.clientHeight) / 2);
-        const folgaB = Math.max(0, (ctColB.scrollHeight - ctGrid.clientHeight) / 2);
+        const upBoundA = Math.max(0, ctGrid.clientHeight - (ctColA.offsetTop + ctColA.scrollHeight));
+        const downBoundA = Math.max(0, ctColA.offsetTop);
+        const upBoundB = Math.max(0, ctGrid.clientHeight - (ctColB.offsetTop + ctColB.scrollHeight));
+        const downBoundB = Math.max(0, ctColB.offsetTop);
         let offA = -dist * CT_FACTOR_A;
         let offB = -dist * CT_FACTOR_B;
-        if (offA > folgaA) offA = folgaA; else if (offA < -folgaA) offA = -folgaA;
-        if (offB > folgaB) offB = folgaB; else if (offB < -folgaB) offB = -folgaB;
+        if (offA > downBoundA) offA = downBoundA; else if (offA < -upBoundA) offA = -upBoundA;
+        if (offB > downBoundB) offB = downBoundB; else if (offB < -upBoundB) offB = -upBoundB;
         ctColA.style.setProperty('--ct-parallax-a', offA.toFixed(1) + 'px');
         ctColB.style.setProperty('--ct-parallax-b', offB.toFixed(1) + 'px');
       };
