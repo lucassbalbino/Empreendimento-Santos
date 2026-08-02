@@ -6,10 +6,10 @@ import Stitch from '../components/Stitch.astro';
 import Divider from '../components/Divider.astro';
 import Frame from '../components/Frame.astro';
 import Watermark from '../components/Watermark.astro';
+import TitleSplit from '../components/TitleSplit.astro';
+import Stats from '../components/Stats.astro';
 import sobre from '../data/sobre.json';
-
-const fazemosTitle = sobre.oQueFazemos.title.replace(/\n/g, '<br>');
-const fazemosParagrafo = sobre.oQueFazemos.paragrafo.replace(/\*\*(.*?)\*\*/g, '<em class="comotrabalhamos__num">$1</em>');
+import home from '../data/home.json';
 ---
 <Base title="Mockup — Sobre Nós" description="Conheça a AM Santos: 20 anos de experiência no mercado imobiliário, sob a liderança de António M Santos, com foco na qualidade, no conforto e na sustentabilidade.">
   <!-- HERO (interno) -->
@@ -21,8 +21,7 @@ const fazemosParagrafo = sobre.oQueFazemos.paragrafo.replace(/\*\*(.*?)\*\*/g, '
     <div class="hero__overlay"></div>
     <div class="hero__inner">
       <div class="container">
-        <span class="eyebrow" style="color:#d29a5a">{sobre.hero.eyebrow}</span>
-        <h1 class="display hero__title-page">{sobre.hero.title}</h1>
+        <TitleSplit text={sobre.hero.title} tag="h1" class="hero__title-page title-split--hero" />
       </div>
     </div>
   </section>
@@ -35,8 +34,7 @@ const fazemosParagrafo = sobre.oQueFazemos.paragrafo.replace(/\*\*(.*?)\*\*/g, '
           <div class="split__media reveal-wipe-lr"><div class="ph" data-label="Imagem 4:5"></div></div>
         </Frame>
         <div class="split__body">
-          <span class="eyebrow">{sobre.quemSomos.eyebrow}</span>
-          <h2 class="display display--sm">{sobre.quemSomos.title}</h2>
+          <TitleSplit text={sobre.quemSomos.title} />
           <p class="lead" style="margin:1rem 0 1.4rem">{sobre.quemSomos.lead}</p>
           <Divider />
           <p>{sobre.quemSomos.paragrafo}</p>
@@ -45,45 +43,37 @@ const fazemosParagrafo = sobre.oQueFazemos.paragrafo.replace(/\*\*(.*?)\*\*/g, '
     </div>
   </section>
 
-  <!-- COSTURA · Quem Somos (branco) → O Que Fazemos (cinza) -->
-  <Stitch variant="light" />
-
-  <!-- O QUE FAZEMOS — grelha de imagens em parallax + parágrafo -->
-  <section class="section section--alt">
+  <!-- O QUE FAZEMOS — grelha de imagens em cascata + parágrafo.
+       Sem costura nas fronteiras: esta secção entra e sai a direito. -->
+  <section class="section section--dark">
     <div class="container has-wm">
-      <Watermark variant="line" side="r" size="md" y="top" />
+      <Watermark variant="dark" side="r" size="md" y="top" />
       <div class="split comotrabalhamos">
         <div class="comotrabalhamos__grid">
           <div class="comotrabalhamos__col comotrabalhamos__col--a">
-            {sobre.oQueFazemos.imagens.colunaA.map((src) => (
+            {[...sobre.oQueFazemos.imagens.colunaA, ...sobre.oQueFazemos.imagens.colunaA].map((src) => (
               <img src={src} alt="" loading="lazy" />
             ))}
           </div>
           <div class="comotrabalhamos__col comotrabalhamos__col--b">
-            {sobre.oQueFazemos.imagens.colunaB.map((src) => (
+            {[...sobre.oQueFazemos.imagens.colunaB, ...sobre.oQueFazemos.imagens.colunaB].map((src) => (
               <img src={src} alt="" loading="lazy" />
             ))}
           </div>
         </div>
         <div class="split__body">
-          <span class="eyebrow">{sobre.oQueFazemos.eyebrow}</span>
-          <h2 class="display display--sm" set:html={fazemosTitle}></h2>
-          <p class="comotrabalhamos__paragrafo" set:html={fazemosParagrafo}></p>
+          <TitleSplit text={sobre.oQueFazemos.title} />
+          <Stats items={home.oQueFazemos.stats} class="stats--compact" />
         </div>
       </div>
     </div>
   </section>
 
-  <!-- COSTURA · O Que Fazemos (cinza) → Serviços (branco) -->
-  <Stitch variant="alt" />
-
   <!-- SERVIÇOS -->
   <section class="section">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="md" y="top" />
-      <span class="eyebrow">{sobre.servicos.eyebrow}</span>
-      <h2 class="display display--sm" style="margin-bottom:clamp(20px,2.5vw,32px)">{sobre.servicos.title}</h2>
-      <Divider style="margin-bottom:clamp(40px,5vw,72px)" />
+      <TitleSplit text={sobre.servicos.title} style="margin-bottom:clamp(20px,2.5vw,32px)" />
       {sobre.servicos.items.map((s) => (
         <div class="service">
           <div class="service__media"><div class="ph" data-label="Imagem 5:4"></div></div>
@@ -91,6 +81,7 @@ const fazemosParagrafo = sobre.oQueFazemos.paragrafo.replace(/\*\*(.*?)\*\*/g, '
             <h3>{s.title}</h3>
             <p>{s.texto}</p>
             {s.botao && <a class="btn" href="#">{s.botao}</a>}
+            <Divider style="margin-bottom:clamp(40px,5vw,72px)" />
           </div>
         </div>
       ))}
@@ -101,23 +92,22 @@ const fazemosParagrafo = sobre.oQueFazemos.paragrafo.replace(/\*\*(.*?)\*\*/g, '
   <Stitch variant="light" />
 
   <!-- EQUIPA -->
-  <section class="section section--alt">
+  <section class="section section--dark">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="md" y="top" />
-      <span class="eyebrow">{sobre.equipa.eyebrow}</span>
-      <h2 class="display display--sm">{sobre.equipa.title}</h2>
+      <TitleSplit text={sobre.equipa.title} />
       <Team members={sobre.equipa.members} />
     </div>
   </section>
 
   <!-- COSTURA · Equipa (cinza) → Contacto (branco) -->
-  <Stitch variant="alt" />
+  <Stitch variant="dark" />
 
   <!-- CONTACTO -->
   <section class="section" id="contacto">
     <div class="container has-wm">
       <Watermark variant="line" side="l" size="md" y="bottom" />
-      <ContactForm eyebrow={sobre.contacto.eyebrow} title={sobre.contacto.title} texto={sobre.contacto.texto} />
+      <ContactForm title={sobre.contacto.title} texto={sobre.contacto.texto} />
     </div>
   </section>
 </Base>

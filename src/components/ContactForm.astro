@@ -1,10 +1,10 @@
 ---
-const { eyebrow, title, texto } = Astro.props;
+import TitleSplit from './TitleSplit.astro';
+const { title, texto } = Astro.props;
 ---
 <div class="contact">
   <div>
-    <span class="eyebrow">{eyebrow}</span>
-    <h2 class="display display--sm">{title}</h2>
+    <TitleSplit text={title} />
     <p class="muted" style="margin-top:1rem;max-width:40ch">{texto}</p>
   </div>
   <form class="contact__form" onsubmit="return false">

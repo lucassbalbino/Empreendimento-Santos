@@ -41,8 +41,8 @@ altura `clamp(560px, 76vh, 740px)`.
 
 Elementos:
 
-- **Faixa superior**: eyebrow `home.portfolio.eyebrow` ("Portfolio") à esquerda;
-  botão `home.portfolio.botao` ("Ver portfólio") → `/portfolio` à direita.
+- **Faixa superior**: botão `home.portfolio.botao` ("Ver portfólio") →
+  `/portfolio` à direita.
 - **Imagem de fundo**: `object-fit: cover` com gradiente escuro por cima para
   garantir contraste do texto branco.
 - **Bloco central**: nome do empreendimento em caixa alta,

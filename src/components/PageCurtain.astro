@@ -177,12 +177,16 @@
     }
   }
 
-  // "Menu + botões principais": links do header OU .btn, internos, mesma origem.
+  // "Menu + botões principais + cards de empreendimento": links do header, .btn
+  // ou .card, internos, mesma origem. O card leva à página de detalhe, que tem
+  // hero com imagem — logo apanha o mesmo wipe de imagem das páginas de conteúdo
+  // (sobre-nós, equipa…), não o fade branco. Os cards de modal (histórico) são
+  // <button>, não entram aqui.
   function qualifies(a) {
     if (!a || a.target === '_blank' || a.hasAttribute('data-no-curtain')) return false;
     if (a.origin !== location.origin) return false;
     if (new URL(a.href).pathname === location.pathname) return false; // mesma página / âncora
-    return !!a.closest('.site-header') || a.classList.contains('btn');
+    return !!a.closest('.site-header') || a.classList.contains('btn') || a.classList.contains('card');
   }
 
   // CAPTURA: o router do Astro (ViewTransitions) escuta o click em bubble e faz

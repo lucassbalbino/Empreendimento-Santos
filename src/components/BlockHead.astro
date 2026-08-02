@@ -1,11 +1,10 @@
 ---
-const { eyebrow, title, lead, botao, href = "#", as = "h2" } = Astro.props;
-const Title = as;
+import TitleSplit from './TitleSplit.astro';
+const { title, lead, botao, href = "#", as = "h2" } = Astro.props;
 ---
 <div class="block-head">
   <div class="block-head__text">
-    <span class="eyebrow">{eyebrow}</span>
-    <Title class="display display--sm">{title}</Title>
+    <TitleSplit text={title} tag={as} />
     {lead && <p class="lead">{lead}</p>}
   </div>
   {botao && <a class="btn" href={href}>{botao}</a>}

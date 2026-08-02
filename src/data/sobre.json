@@ -1,18 +1,15 @@
 {
   "hero": {
-    "eyebrow": "Quem somos",
     "title": "Sobre Nós",
     "imagem": "/images/template-sobre.jpg"
   },
   "quemSomos": {
-    "eyebrow": "A empresa",
     "title": "Construindo o futuro com qualidade e sustentabilidade",
     "lead": "Com 20 anos de experiência no mercado imobiliário, a AM Santos destaca-se pela excelência em cada um dos projetos executados.",
     "paragrafo": "Sob a liderança de António M Santos, a empresa reúne uma equipa de profissionais de arquitetura, engenharia, decoração e gestão imobiliária de alto nível. Desde o seu início, a nossa visão é proporcionar conforto e qualidade aos nossos clientes, através de projetos que combinam uma arquitetura moderna e funcional com um foco inabalável no bem-estar e na qualidade."
   },
   "oQueFazemos": {
-    "eyebrow": "Como trabalhamos",
-    "title": "Do conceito\nà entrega da chave",
+    "title": "20 anos de solidez",
     "imagens": {
       "colunaA": [
         "/images/empreendimentos/valflores-terraces.webp",
@@ -23,11 +20,9 @@
         "/images/empreendimentos/clt-tojal.webp",
         "/images/empreendimentos/interior-2.webp"
       ]
-    },
-    "paragrafo": "A excelência em cada um dos **17 projetos** que já executámos é o que nos distingue — do primeiro traço ao último acabamento, com uma equipa de alto nível em arquitetura, engenharia, decoração e gestão imobiliária a acompanhar cada fase. Projetamos para quem lá vai viver: arquitetura moderna e funcional, com foco no bem-estar e no máximo conforto climático, já concretizada em **185.000 m² de construção**. Fazemo-lo com uma abordagem eco-friendly e materiais sustentáveis que reduzem os custos de manutenção ao longo da vida do edifício — sustentada por **95 milhões de euros investidos** ao longo do nosso percurso."
+    }
   },
   "servicos": {
-    "eyebrow": "Visão",
     "title": "O que nos move",
     "items": [
       {
@@ -43,7 +38,6 @@
     ]
   },
   "equipa": {
-    "eyebrow": "Direção",
     "title": "Quem lidera a AM Santos",
     "members": [
       {
@@ -59,7 +53,6 @@
     ]
   },
   "contacto": {
-    "eyebrow": "Contactos",
     "title": "Vamos falar do seu projeto",
     "texto": "A visão da AM Santos, centrada no conforto, qualidade e sustentabilidade, guiará os próximos projetos. Fale connosco."
   }

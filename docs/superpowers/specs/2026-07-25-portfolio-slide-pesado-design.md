@@ -52,7 +52,7 @@ carga direta), pelo que o slide pesado anima também via navbar.
   em `1.2s cubic-bezier(.16,1,.3,1)`, cascata por coluna (`+.09s / +.18s`).
   Disparados por `.is-risen`, adicionada pelo callback **assíncrono** do
   observer de `src/pages/portfolio.astro` (padrão que evita o salto em soft-nav).
-- **Título** (`.block-head` → `.eyebrow/.display/.lead`): usa o reveal genérico
+- **Título** (`.block-head` → `.display/.lead`): usa o reveal genérico
   do `Base.astro` — `.is-visible` síncrono, sobe apenas `26px`, transform `1.1s`.
   É leve e, por ser síncrono, saltaria se lhe déssemos um percurso grande.
 - `section--flat-top` só existe na 1.ª secção do portfólio → seletores CSS
@@ -62,7 +62,7 @@ carga direta), pelo que o slide pesado anima também via navbar.
 
 Easing partilhado (quase-linear com travagem): `cubic-bezier(.1,.25,.25,1)`.
 
-- **Título** (`eyebrow/display/lead` da 1.ª secção):
+- **Título** (`display/lead` da 1.ª secção):
   `translateY(80px) → 0`, opacidade `~.45s`, transform `~1.9s`, arranque a t=0.
 - **Cards** (1.ª secção): `translateY(100%) → 0` (percurso máximo já existente),
   transform `~2s`, `transition-delay` base `~.8s` + cascata por coluna

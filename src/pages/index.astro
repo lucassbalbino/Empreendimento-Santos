@@ -8,6 +8,7 @@ import BlockHead from '../components/BlockHead.astro';
 import Testimonials from '../components/Testimonials.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Watermark from '../components/Watermark.astro';
+import TitleSplit from '../components/TitleSplit.astro';
 import home from '../data/home.json';
 import { porGrupo, emDestaque } from '../utils/projetos.js';
 
@@ -42,8 +43,7 @@ const equipaCards = home.equipa.members.map((m) => ({
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="lg" y="bottom" />
       <div class="quemsomos__intro">
-        <span class="eyebrow">{home.quemSomos.eyebrow}</span>
-        <h2 class="display">{home.quemSomos.title}</h2>
+        <TitleSplit text={home.quemSomos.title} class="title-split--center" />
         <a class="btn" href="/sobre-nos">{home.quemSomos.botao}</a>
       </div>
     </div>
@@ -54,17 +54,9 @@ const equipaCards = home.equipa.members.map((m) => ({
     </div>
   </section>
 
-  <!-- CONTADORES — faixa de números entre as duas secções do capítulo da
-       identidade. Fora de <section> para escapar à cortina de revelação. -->
-  <div class="seam">
-    <div class="container">
-      <Stats items={home.oQueFazemos.stats} />
-    </div>
-  </div>
-
   <!-- O QUE FAZEMOS — sobre o mesmo branco do "Quem Somos": os dois são o
-       mesmo capítulo. O laranja vive nos números e nas eyebrows, em toda a
-       página, em vez de saturar uma só secção. -->
+       mesmo capítulo. O laranja vive nos números, em toda a página, em vez
+       de saturar uma só secção. -->
   <section class="section section--fazemos has-wm">
     <Watermark variant="fill" side="l" size="lg" y="bottom" />
     <div class="container dofazemos">
@@ -84,11 +76,21 @@ const equipaCards = home.equipa.members.map((m) => ({
   <!-- GRUPO 2 · OBRA — portfolio e histórico partilham o bloco escuro e
        encostam-se, para se lerem como um único capítulo. -->
 
+  <!-- CONTADORES — abrem o capítulo da Obra, já dentro do escuro: os números
+       são a credencial que antecede o portfolio. A cunha branca da costura
+       desce sobre eles. Fora de <section> para escapar à cortina de
+       revelação; o fundo é o mesmo do Portfolio, por isso lê-se como um só
+       bloco. -->
+  <div class="seam seam--dark">
+    <div class="container">
+      <Stats items={home.oQueFazemos.stats} />
+    </div>
+  </div>
+
   <!-- PORTFOLIO -->
   <section class="section section--dark section--flush">
     <DoubleSlider
       projetos={destaques}
-      eyebrow={home.portfolio.eyebrow}
       titulo={home.portfolio.title}
       botao={home.portfolio.botao}
       href="/portfolio"
@@ -110,7 +112,7 @@ const equipaCards = home.equipa.members.map((m) => ({
   <section class="section section--panels-cut">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="lg" y="bottom" />
-      <BlockHead eyebrow={home.trackRecord.eyebrow} title={home.trackRecord.title} lead={home.trackRecord.lead} botao={home.trackRecord.botao} href="/portfolio" />
+      <BlockHead title={home.trackRecord.title} lead={home.trackRecord.lead} />
     </div>
     <!-- Fora do .container de propósito: os painéis sangram de bordo a bordo e
          descem para dentro da costura diagonal (ver .section--panels-cut). -->
@@ -127,14 +129,21 @@ const equipaCards = home.equipa.members.map((m) => ({
     </svg>
   </div>
 
+  <!-- CTA do Histórico: vive ABAIXO da costura, já no cinza, encostado à
+       direita (o lado onde a diagonal está rente à fronteira). -->
+  <div class="panels-cta">
+    <div class="container">
+      <a class="btn" href="/portfolio">{home.trackRecord.botao}</a>
+    </div>
+  </div>
+
   <!-- GRUPO 3 · PESSOAS — equipa e contacto encostam-se: conhecer quem
        faz e falar com quem faz são o mesmo movimento. -->
 
   <!-- EQUIPA (carrossel: cada card é um membro) -->
-  <section class="section section--alt section--tight-bottom">
+  <section class="section section--alt section--tight-top section--tight-bottom">
     <div class="container has-wm">
-      <span class="eyebrow">{home.equipa.eyebrow}</span>
-      <h2 class="display display--sm" style="margin-bottom:clamp(32px,4vw,56px)">{home.equipa.title}</h2>
+      <TitleSplit text={home.equipa.title} style="margin-bottom:clamp(32px,4vw,56px)" />
       <Testimonials
         testimonials={equipaCards}
         autoplay={true}
@@ -155,7 +164,7 @@ const equipaCards = home.equipa.members.map((m) => ({
   <section class="section section--tight-top" id="contacto">
     <div class="container has-wm">
       <Watermark variant="line" side="l" size="md" y="bottom" />
-      <ContactForm eyebrow={home.contacto.eyebrow} title={home.contacto.title} texto={home.contacto.texto} />
+      <ContactForm title={home.contacto.title} texto={home.contacto.texto} />
     </div>
   </section>
 

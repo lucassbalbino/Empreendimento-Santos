@@ -2,7 +2,7 @@
 
 ## Contexto
 
-Na página `sobre-nos.astro`, a secção "O QUE FAZEMOS — VERTICAIS" (eyebrow "Como trabalhamos", `sobre.oQueFazemos`) mostra hoje 3 cartões (Qualidade, Conforto, Sustentabilidade) em `.verticals`. Não há nenhuma imagem nem dado numérico nesta secção — os contadores (17 projetos, 128 unidades residenciais, 42 unidades não residenciais, 185.000 m² de construção, 95 milhões investidos) só existem hoje em `home.json` / `<Stats>`, na página inicial.
+Na página `sobre-nos.astro`, a secção "O QUE FAZEMOS — VERTICAIS" (`sobre.oQueFazemos`) mostra hoje 3 cartões (Qualidade, Conforto, Sustentabilidade) em `.verticals`. Não há nenhuma imagem nem dado numérico nesta secção — os contadores (17 projetos, 128 unidades residenciais, 42 unidades não residenciais, 185.000 m² de construção, 95 milhões investidos) só existem hoje em `home.json` / `<Stats>`, na página inicial.
 
 Referência visual: [truekindskincare.com/philosophy](https://truekindskincare.com/philosophy) — grid de imagens em parallax a ocupar metade do ecrã, texto corrido (não tiles) na outra metade, com números embutidos na prosa.
 
@@ -11,7 +11,7 @@ Referência visual: [truekindskincare.com/philosophy](https://truekindskincare.c
 Substituir a grelha de 3 cartões por um layout a duas metades:
 
 - **Metade esquerda** — grid de imagens em parallax (masonry, 2 colunas desfasadas), com fotos reais de empreendimentos, cada coluna a deslocar-se a uma velocidade diferente ao scroll.
-- **Metade direita** — eyebrow + título atuais, seguidos de um único parágrafo corrido que funde o texto das 3 verticais (Qualidade/Conforto/Sustentabilidade) com os contadores, embutidos como frases completas (não tiles, sem animação de contagem).
+- **Metade direita** — título atual, seguido de um único parágrafo corrido que funde o texto das 3 verticais (Qualidade/Conforto/Sustentabilidade) com os contadores, embutidos como frases completas (não tiles, sem animação de contagem).
 
 ## Conteúdo
 
@@ -41,10 +41,10 @@ Um único parágrafo corrido, substituindo `verticais`, algo como:
 
 ## Componentes / CSS
 
-- Novo bloco `.comotrabalhamos` (grid 2 colunas, como `.split`): `.comotrabalhamos__grid` (metade esquerda, masonry 2 colunas) + `.comotrabalhamos__body` (metade direita, eyebrow/título/parágrafo).
+- Novo bloco `.comotrabalhamos` (grid 2 colunas, como `.split`): `.comotrabalhamos__grid` (metade esquerda, masonry 2 colunas) + `.comotrabalhamos__body` (metade direita, título/parágrafo).
 - `.comotrabalhamos__grid`: `overflow:clip` (não `hidden`, mesma razão documentada em `quemsomos__media` — não criar scroll container que prenda o `view()`/parallax).
 - Imagens com `object-fit:cover`, `scale(1.2–1.3)` (folga para o deslocamento do parallax, análogo ao `scale(1.45)` do `qsImg` mas ajustado à amplitude menor de cada foto individual).
-- Números no parágrafo: `<strong class="accent">` ou span com a cor laranja já usada nas eyebrows/números do site.
+- Números no parágrafo: `<strong class="accent">` ou span com a cor laranja já usada nos números do site.
 
 ## Comportamento (parallax)
 

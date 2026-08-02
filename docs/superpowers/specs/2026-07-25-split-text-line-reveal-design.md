@@ -32,17 +32,16 @@ quando já está bem dentro do ecrã).
 ## Âmbito — o que anima
 
 **Entra no line-split (texto de secção):**
-- `.eyebrow`
 - Headings de secção: `.display` (h1/h2 fora da hero), `h2`, `h3`
 - `.lead`
 - Parágrafos de prosa de secção: `.split__body > p`, `.quemsomos__intro > p`
 
-Nota: eyebrows e headings `h2` que estão **diretamente** na secção (ex.: o
-`.eyebrow` + `h2` antes dos verticais) fazem line-split; o que está **dentro** de
-cards não (ver a seguir).
+Nota: headings `h2` que estão **diretamente** na secção (ex.: o `h2` antes
+dos verticais) fazem line-split; o que está **dentro** de cards não (ver a
+seguir).
 
 **Fica de fora (deliberado):**
-- **Hero** (`.hero__title-page` / h1 da hero, eyebrow da hero) — mantém a entrada
+- **Hero** (`.hero__title-page` / h1 da hero) — mantém a entrada
   própria via `revealHeroText()` da cortina (`PageCurtain.astro`). Aplicar
   line-split por cima lutaria com a coreografia da cortina.
 - **Cards repetidos** (`.card`, `.stat`, `.member`, `.service`, `.vertical`) e

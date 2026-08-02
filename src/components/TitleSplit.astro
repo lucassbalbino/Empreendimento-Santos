@@ -1,0 +1,22 @@
+---
+// Título em duas partes: linha de contexto (Economica) + palavra final em
+// destaque (Kompot Display), replicando o conceito de "Quem Somos".
+// `text` sem espaços (uma só palavra) cai automaticamente na variante
+// title-split--word-only (não há linha para separar).
+interface Props {
+  text: string;
+  tag?: 'h1' | 'h2';
+  class?: string;
+  [attr: string]: any;
+}
+const { text, tag = 'h2', class: extraClass = '', ...rest } = Astro.props;
+const words = text.trim().split(/\s+/);
+const lead = words.slice(0, -1).join(' ');
+const word = words.at(-1);
+const Tag = tag;
+const classes = ['title-split', extraClass, !lead ? 'title-split--word-only' : ''].filter(Boolean).join(' ');
+---
+<Tag class={classes} {...rest}>
+  {lead && <span class="title-split__lead">{lead} </span>}
+  <span class="title-split__word">{word}</span>
+</Tag>

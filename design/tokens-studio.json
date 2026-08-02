@@ -35,8 +35,7 @@
       "card-title": { "value": "24", "type": "fontSizes" },
       "lead":       { "value": "26", "type": "fontSizes", "description": "Parágrafo de destaque. Responsivo: 18–26" },
       "body":       { "value": "16", "type": "fontSizes" },
-      "small":      { "value": "14", "type": "fontSizes" },
-      "eyebrow":    { "value": "12", "type": "fontSizes" }
+      "small":      { "value": "14", "type": "fontSizes" }
     },
     "lineHeight": {
       "tight":   { "value": "105%", "type": "lineHeights" },
@@ -45,7 +44,6 @@
       "body":    { "value": "160%", "type": "lineHeights" }
     },
     "letterSpacing": {
-      "eyebrow": { "value": "0.32em", "type": "letterSpacing" },
       "label":   { "value": "0.14em", "type": "letterSpacing" },
       "cta":     { "value": "0.22em", "type": "letterSpacing" }
     },
@@ -78,7 +76,6 @@
       "card-title": { "value": { "fontFamily": "Fraunces", "fontWeight": "400", "fontSize": "24", "lineHeight": "110%", "letterSpacing": "0" }, "type": "typography" },
       "lead":       { "value": { "fontFamily": "Inter", "fontWeight": "400", "fontSize": "26", "lineHeight": "140%", "letterSpacing": "0" }, "type": "typography" },
       "body":       { "value": { "fontFamily": "Inter", "fontWeight": "400", "fontSize": "16", "lineHeight": "160%", "letterSpacing": "0" }, "type": "typography" },
-      "eyebrow":    { "value": { "fontFamily": "Inter", "fontWeight": "600", "fontSize": "12", "lineHeight": "100%", "letterSpacing": "0.32em", "textCase": "uppercase" }, "type": "typography" },
       "cta":        { "value": { "fontFamily": "Inter", "fontWeight": "600", "fontSize": "11", "lineHeight": "120%", "letterSpacing": "0.22em", "textCase": "uppercase" }, "type": "typography" }
     }
   },

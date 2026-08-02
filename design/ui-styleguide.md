@@ -20,7 +20,7 @@ Referência para trabalhar a UI/UX no Figma. Os valores vêm de
 | `ink-soft` | `#565654` | Texto secundário |
 | `ink-faint` | `#9a9997` | Labels discretos |
 | `line` | `#e8e7e4` | Linhas / divisores |
-| **`accent`** | **`#ea5a17`** | **Laranja vibrante (marca)** — eyebrows, botões, links |
+| **`accent`** | **`#ea5a17`** | **Laranja vibrante (marca)** — botões, links |
 | `accent-deep` | `#c1470c` | Laranja profundo (hover / sweep) |
 | `accent-on-dark` | `#ff7d38` | Laranja sobre fundos escuros (mais brilhante) |
 | `dark` | `#141414` | Secções escuras / hero |
@@ -49,7 +49,6 @@ Duas famílias (Google Fonts) — **instala ambas no Figma**:
 | Título de card | Fraunces | 400 | 24 | 110% | — | |
 | Lead | Inter | 400 | 26 (resp. 18–26) | 140% | — | |
 | Corpo | Inter | 400 | 16 | 160% | — | |
-| Eyebrow | Inter | 600 | 12 | 100% | 0.32em | MAIÚSCULAS + traço 34×1px antes |
 | CTA / meta | Inter | 600 | 11 | 120% | 0.22em | MAIÚSCULAS |
 
 ---
@@ -70,19 +69,16 @@ Duas famílias (Google Fonts) — **instala ambas no Figma**:
 **Botão (`.btn`)** — texto Inter, com seta `→`; underline/sweep a `accent`
 no hover. Variante sobre escuro: borda branca translúcida, texto branco.
 
-**Eyebrow** — traço horizontal (34×1px, `accent`) + label MAIÚSCULAS 12px,
-tracking 0.32em, cor `accent` (branco em secções escuras/laranja).
-
 **Card de projeto** — média com `aspect-ratio` 3/4 (4/5 nas grelhas);
 overlay com gradiente escuro em baixo; título (Fraunces 24), meta e CTA
 (`accent-on-dark`). Todo o card é clicável (link para o empreendimento).
 
 **Hero** — imagem full-bleed + overlay escuro (gradiente top/bottom);
 conteúdo alinhado em baixo. Alturas: **home 94vh**, **internas 80vh**.
-Título a branco; eyebrow a `accent-on-dark`; indicador "Scroll" em baixo.
+Título a branco; indicador "Scroll" em baixo.
 
 **Faixa de acento (`.section--accent`)** — fundo `accent` a toda a largura;
-eyebrow + título + números a branco; palavra de destaque do título a
+título + números a branco; palavra de destaque do título a
 preto (`#141414`); divisores verticais a `rgba(255,255,255,.28)`.
 
 **Ficha de factos (`.facts`)** — grelha de cartões brancos, borda `line`,

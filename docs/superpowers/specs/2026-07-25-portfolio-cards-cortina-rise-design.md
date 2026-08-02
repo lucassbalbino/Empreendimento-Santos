@@ -133,7 +133,7 @@ html.reveal-ready .card-rise.is-open{ overflow:visible; }
 
 Notas de especificidade: `html.reveal-ready .card-rise .card` = (0,3,1) **empata** com a
 regra genérica `html.reveal-ready :is(… .card …)`, que também é (0,3,1) — porque `:is()`
-assume a especificidade do seu argumento mais específico (`.section .eyebrow` = (0,2,0)),
+assume a especificidade do seu argumento mais específico (`.section .display` = (0,2,0)),
 não a de `.card`. O empate é resolvido por **ordem de origem**: como este bloco vem depois
 no ficheiro, vence, e estes cards usam a subida grande (`translateY(100%)`, opacos) em vez
 do reveal genérico de 26px com fade.

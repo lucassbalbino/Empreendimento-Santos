@@ -42,7 +42,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600;700&family=Economica:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 
   <!-- Gate do preloader: liga is-loading ANTES do paint, só na 1.ª carga real
@@ -207,36 +207,6 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
         qsImg.style.setProperty('--qs-parallax', off.toFixed(1) + 'px');
       };
 
-      // "Como trabalhamos" (Sobre Nós): grelha masonry de 2 colunas, cada
-      // uma a deslocar-se a uma fração diferente da distância ao centro do
-      // ecrã — mesmo princípio do moverQuem, mas com duas colunas
-      // independentes em vez de uma imagem só. As colunas não estão
-      // centradas na grelha (--a tem top:-6%, --b tem top:9%), por isso a
-      // folga não pode ser simétrica: calculamos os limites reais a partir
-      // do offsetTop de cada coluna — pode subir até a base tocar a base da
-      // grelha, e descer até o topo tocar y=0.
-      const CT_FACTOR_A = 0.10;
-      const CT_FACTOR_B = 0.20;
-      const ctGrid = document.querySelector('.comotrabalhamos__grid');
-      const ctColA = ctGrid?.querySelector('.comotrabalhamos__col--a');
-      const ctColB = ctGrid?.querySelector('.comotrabalhamos__col--b');
-      const moverComoTrabalhamos = () => {
-        if (!ctGrid || !ctColA || !ctColB) return;
-        const r = ctGrid.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > window.innerHeight) return;   // fora de vista
-        const dist = (r.top + r.height / 2) - window.innerHeight / 2;
-        const minOffA = ctGrid.clientHeight - ctColA.scrollHeight - ctColA.offsetTop;
-        const maxOffA = -ctColA.offsetTop;
-        const minOffB = ctGrid.clientHeight - ctColB.scrollHeight - ctColB.offsetTop;
-        const maxOffB = -ctColB.offsetTop;
-        let offA = -dist * CT_FACTOR_A;
-        let offB = -dist * CT_FACTOR_B;
-        if (offA > maxOffA) offA = maxOffA; else if (offA < minOffA) offA = minOffA;
-        if (offB > maxOffB) offB = maxOffB; else if (offB < minOffB) offB = minOffB;
-        ctColA.style.setProperty('--ct-parallax-a', offA.toFixed(1) + 'px');
-        ctColB.style.setProperty('--ct-parallax-b', offB.toFixed(1) + 'px');
-      };
-
       lenis = new Lenis({
         lerp: 0.1,
         wheelMultiplier: 1,
@@ -252,7 +222,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
         lenis.stop();
       }
 
-      lenis.on('scroll', ({ scroll }) => { moverHero(scroll); moverQuem(); moverComoTrabalhamos(); });
+      lenis.on('scroll', ({ scroll }) => { moverHero(scroll); moverQuem(); });
 
       // Loop rAF único e permanente; lê sempre a instância atual (module-scope).
       if (!loopIniciado) {
@@ -262,7 +232,6 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
       }
       moverHero(window.scrollY);
       moverQuem();
-      moverComoTrabalhamos();
     }
 
     document.addEventListener('astro:page-load', iniciarLenis);

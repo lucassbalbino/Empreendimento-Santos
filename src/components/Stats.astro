@@ -1,7 +1,7 @@
 ---
-const { items } = Astro.props;
+const { items, class: className } = Astro.props;
 ---
-<div class="stats">
+<div class:list={['stats', className]}>
   {items.map((s) => (
     <div class="stat">
       {s.target != null && s.target !== ''

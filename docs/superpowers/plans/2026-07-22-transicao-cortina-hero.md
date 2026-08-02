@@ -178,7 +178,7 @@ Em `src/layouts/Base.astro`, substituir todo o bloco `<script is:inline>` do rev
       if (!('IntersectionObserver' in window) ||
           window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       root.classList.add('reveal-ready');
-      var SEL = '.section, .section .eyebrow, .section .display, .section .lead, .split__body > p, .card, .stat, .vertical, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
+      var SEL = '.section, .section .display, .section .lead, .split__body > p, .card, .stat, .vertical, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
       var els = [];
 
       var io = new IntersectionObserver(function (entries) {

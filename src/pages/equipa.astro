@@ -4,6 +4,7 @@ import Team from '../components/Team.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Stitch from '../components/Stitch.astro';
 import Watermark from '../components/Watermark.astro';
+import TitleSplit from '../components/TitleSplit.astro';
 import equipa from '../data/equipa.json';
 ---
 <Base title="Mockup — Equipa" description="A equipa da AM Santos — profissionais de arquitetura, engenharia, decoração e gestão imobiliária de alto nível.">
@@ -16,8 +17,7 @@ import equipa from '../data/equipa.json';
     <div class="hero__overlay"></div>
     <div class="hero__inner">
       <div class="container">
-        <span class="eyebrow" style="color:#d29a5a">{equipa.hero.eyebrow}</span>
-        <h1 class="display hero__title-page">{equipa.hero.title}</h1>
+        <TitleSplit text={equipa.hero.title} tag="h1" class="hero__title-page title-split--hero" />
       </div>
     </div>
   </section>
@@ -26,8 +26,7 @@ import equipa from '../data/equipa.json';
   <section class="section">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="lg" y="top" />
-      <span class="eyebrow">{equipa.direcao.eyebrow}</span>
-      <h2 class="display display--sm">{equipa.direcao.title}</h2>
+      <TitleSplit text={equipa.direcao.title} />
       <Team members={equipa.direcao.members} variant="lead" />
     </div>
   </section>
@@ -39,8 +38,7 @@ import equipa from '../data/equipa.json';
   <section class="section section--alt">
     <div class="container has-wm">
       <Watermark variant="fill" side="l" size="lg" y="bottom" />
-      <span class="eyebrow">{equipa.equipa.eyebrow}</span>
-      <h2 class="display display--sm">{equipa.equipa.title}</h2>
+      <TitleSplit text={equipa.equipa.title} />
       <Team members={equipa.equipa.members} />
     </div>
   </section>
@@ -51,7 +49,7 @@ import equipa from '../data/equipa.json';
   <!-- CONTACTO -->
   <section class="section" id="contacto">
     <div class="container has-wm">
-      <ContactForm eyebrow={equipa.contacto.eyebrow} title={equipa.contacto.title} texto={equipa.contacto.texto} />
+      <ContactForm title={equipa.contacto.title} texto={equipa.contacto.texto} />
     </div>
   </section>
 </Base>

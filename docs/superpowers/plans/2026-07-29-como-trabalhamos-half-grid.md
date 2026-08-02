@@ -32,7 +32,6 @@ Replace lines 13-32 of `src/data/sobre.json` (the whole `"oQueFazemos": { ... }`
 
 ```json
   "oQueFazemos": {
-    "eyebrow": "Como trabalhamos",
     "title": "Do conceito\nà entrega da chave",
     "imagens": {
       "colunaA": [
@@ -57,7 +56,7 @@ Run:
 ```bash
 node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync('src/data/sobre.json','utf8')).oQueFazemos))"
 ```
-Expected output: `[ 'eyebrow', 'title', 'imagens', 'paragrafo' ]`
+Expected output: `[ 'title', 'imagens', 'paragrafo' ]`
 
 - [ ] **Step 3: Confirm the referenced image files exist**
 
@@ -113,7 +112,6 @@ Replace the block at lines 50-66:
   <section class="section section--alt">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="md" y="top" />
-      <span class="eyebrow">{sobre.oQueFazemos.eyebrow}</span>
       <h2 class="display display--sm" set:html={fazemosTitle}></h2>
       <div class="verticals">
         {sobre.oQueFazemos.verticais.map((v) => (
@@ -149,7 +147,6 @@ with:
           </div>
         </div>
         <div class="split__body">
-          <span class="eyebrow">{sobre.oQueFazemos.eyebrow}</span>
           <h2 class="display display--sm" set:html={fazemosTitle}></h2>
           <p class="comotrabalhamos__paragrafo" set:html={fazemosParagrafo}></p>
         </div>

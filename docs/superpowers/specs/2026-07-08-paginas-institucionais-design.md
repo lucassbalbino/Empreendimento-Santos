@@ -65,8 +65,8 @@ Dados: `src/data/sf-properties.json` — `hero`, `sobre`, `servicos`,
 4. Empresas do grupo (subtítulos, cada um com a sua grelha `Team`)
 5. Formulário de contacto
 
-Dados: `src/data/equipa.json` — `hero`, `direcao{eyebrow,title,members[]}`,
-`equipa{eyebrow,title,members[]}`, `grupo[]{title, members[]}`, `contacto`.
+Dados: `src/data/equipa.json` — `hero`, `direcao{title,members[]}`,
+`equipa{title,members[]}`, `grupo[]{title, members[]}`, `contacto`.
 
 ### 4. Contactos — `/contactos` (base: Contactos)
 1. Hero interno

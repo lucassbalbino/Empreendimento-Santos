@@ -1,14 +1,12 @@
 {
-  "hero": { "eyebrow": "Fale connosco", "title": "Contactos", "imagem": "" },
+  "hero": { "title": "Contactos", "imagem": "" },
   "contacto": {
-    "eyebrow": "Contactos",
     "title": "Vamos falar do seu projeto",
     "texto": "Preencha o formulário ou contacte-nos diretamente. Respondemos a todos os pedidos com a maior brevidade.",
     "email": "geral@amsantos.pt",
     "telefone": "+351 210 000 000"
   },
   "onde": {
-    "eyebrow": "Onde estamos",
     "title": "Onde Estamos",
     "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisboa\nPortugal",
     "mapaLabel": "Mapa — Lisboa, Av. da Liberdade"

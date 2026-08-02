@@ -1,13 +1,11 @@
 {
   "_nota": "Só textos da página. A lista de projetos vem de empreendimentos.json (grupo 'concluido').",
-  "hero": { "eyebrow": "O nosso percurso", "title": "Histórico", "imagem": "" },
+  "hero": { "title": "Histórico", "imagem": "" },
   "concluidos": {
-    "eyebrow": "Vendidos",
     "title": "20 anos a construir e a entregar",
     "lead": "Empreendimentos vendidos, de 2006 aos dias de hoje — dos já entregues aos que ainda estão em construção. Clique num projeto para ver os detalhes."
   },
   "contacto": {
-    "eyebrow": "Contactos",
     "title": "Vamos falar do seu próximo projeto",
     "texto": "Quer conhecer melhor o nosso trabalho ou discutir uma parceria? A nossa equipa responde com brevidade."
   }

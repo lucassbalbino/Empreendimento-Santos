@@ -4,7 +4,6 @@
     "imagem": "/images/empreendimentos/obra-1.webp"
   },
   "quemSomos": {
-    "eyebrow": "Quem Somos",
     "title": "Construindo o futuro com qualidade e sustentabilidade",
     "paragrafos": [
       "Com 20 anos de experiência no mercado imobiliário, a AM Santos destaca-se pela excelência em cada um dos projetos executados. Sob a liderança de António M Santos, a empresa reúne uma equipa de profissionais de arquitetura, engenharia, decoração e gestão imobiliária de alto nível.",
@@ -14,7 +13,6 @@
     "imagem": "/images/template-sobre.jpg"
   },
   "oQueFazemos": {
-    "eyebrow": "O que fazemos",
     "title": "Qualidade — Conforto — Sustentabilidade",
     "stats": [
       {
@@ -50,18 +48,15 @@
     ]
   },
   "portfolio": {
-    "eyebrow": "Em curso e em projeto",
     "title": "Empreendimentos em destaque",
     "botao": "Ver portfólio"
   },
   "trackRecord": {
-    "eyebrow": "Vendidos",
     "title": "20 anos a construir e a entregar",
     "lead": "Empreendimentos vendidos ao longo de 20 anos — dos já entregues aos que ainda estão em construção. Clique para ver cada um.",
     "botao": "Ver histórico"
   },
   "equipa": {
-    "eyebrow": "Equipa",
     "title": "Profissionais de alto nível, sob a mesma visão",
     "members": [
       {
@@ -97,7 +92,6 @@
     ]
   },
   "contacto": {
-    "eyebrow": "Contactos",
     "title": "Vamos falar do seu próximo projeto",
     "texto": "Quer conhecer um empreendimento ou discutir uma parceria? A nossa equipa responde com brevidade."
   }

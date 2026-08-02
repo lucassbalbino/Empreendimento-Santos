@@ -33,7 +33,6 @@ collections:
             name: quemSomos
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Parágrafos", name: paragrafos, widget: list, field: { label: "Parágrafo", name: texto, widget: text } }
               - { label: "Texto do botão", name: botao, widget: string }
@@ -42,7 +41,6 @@ collections:
             name: oQueFazemos
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - label: "Números / destaques"
                 name: stats
@@ -59,14 +57,12 @@ collections:
             name: portfolio
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string, hint: "Aparece como marca d'água grande no fundo do slider." }
               - { label: "Texto do botão", name: botao, widget: string }
           - label: "Track Record"
             name: trackRecord
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Subtítulo", name: lead, widget: string }
               - { label: "Texto do botão", name: botao, widget: string }
@@ -74,7 +70,6 @@ collections:
             name: equipa
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - label: "Membros"
                 name: members
@@ -89,7 +84,6 @@ collections:
             name: contacto
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Texto", name: texto, widget: text }
 
@@ -161,28 +155,24 @@ collections:
             name: hero
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Imagem de fundo", name: imagem, widget: image, required: false }
           - label: "Projetos em desenvolvimento"
             name: emDesenvolvimento
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Subtítulo", name: lead, widget: string }
           - label: "Projetos futuros"
             name: futuros
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Subtítulo", name: lead, widget: string }
           - label: "Contacto"
             name: contacto
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Texto", name: texto, widget: text }
 
@@ -199,14 +189,12 @@ collections:
             name: hero
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Imagem de fundo", name: imagem, widget: image, required: false }
           - label: "Quem Somos"
             name: quemSomos
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Destaque", name: lead, widget: text }
               - { label: "Parágrafo", name: paragrafo, widget: text }
@@ -214,7 +202,6 @@ collections:
             name: oQueFazemos
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: text }
               - label: "Imagens"
                 name: imagens
@@ -233,7 +220,6 @@ collections:
             name: servicos
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - label: "Serviços"
                 name: items
@@ -247,7 +233,6 @@ collections:
             name: equipa
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - label: "Membros"
                 name: members
@@ -261,7 +246,6 @@ collections:
             name: contacto
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Texto", name: texto, widget: text }
 
@@ -279,21 +263,18 @@ collections:
             name: hero
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Imagem de fundo", name: imagem, widget: image, required: false }
           - label: "Cabeçalho da secção (concluídos)"
             name: concluidos
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Subtítulo", name: lead, widget: string }
           - label: "Contacto"
             name: contacto
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Texto", name: texto, widget: text }
 
@@ -310,14 +291,12 @@ collections:
             name: hero
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Imagem de fundo", name: imagem, widget: image, required: false }
           - label: "Direção"
             name: direcao
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - label: "Membros"
                 name: members
@@ -331,7 +310,6 @@ collections:
             name: equipa
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - label: "Membros"
                 name: members
@@ -359,7 +337,6 @@ collections:
             name: contacto
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Texto", name: texto, widget: text }
 
@@ -376,14 +353,12 @@ collections:
             name: hero
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Imagem de fundo", name: imagem, widget: image, required: false }
           - label: "Contacto"
             name: contacto
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Texto", name: texto, widget: text }
               - { label: "E-mail", name: email, widget: string }
@@ -392,7 +367,6 @@ collections:
             name: onde
             widget: object
             fields:
-              - { label: "Sobretítulo", name: eyebrow, widget: string }
               - { label: "Título", name: title, widget: string }
               - { label: "Morada", name: morada, widget: text }
               - { label: "Legenda do mapa", name: mapaLabel, widget: string }

@@ -15,7 +15,7 @@ baixo. O conteúdo/layout é o mesmo da modal atual.
 
 - **Acordeão na linha:** o painel abre logo por baixo do card clicado, à largura da
   linha inteira. Só um aberto de cada vez.
-- **Conteúdo igual à modal atual:** imagem grande + título + chips à esquerda; eyebrow
+- **Conteúdo igual à modal atual:** imagem grande + título + chips à esquerda; estado
   + resumo + factos + entrega + botão à direita.
 - **Toggle:** clicar de novo no card já aberto fecha o painel.
 - **Scroll suave** até ao painel ao abrir (respeitando `prefers-reduced-motion`).

@@ -3,7 +3,7 @@
 // Slide de fundo full-bleed sincronizado com uma fila de miniaturas dos PRÓXIMOS
 // empreendimentos, sangrada pela borda direita. Sem autoplay: navegação manual
 // por setas, miniaturas, teclado (←/→) e swipe.
-const { projetos, eyebrow, titulo, botao, href = '/portfolio' } = Astro.props;
+const { projetos, titulo, botao, href = '/portfolio' } = Astro.props;
 
 // A fila de miniaturas é renderizada duas vezes para o deslize dar a volta sem
 // salto visível — o script trata do "snap" quando chega ao fim da 1.ª cópia.
@@ -40,7 +40,6 @@ function nameSize(nome) {
   </div>
 
   <div class="dslider__top">
-    <span class="eyebrow dslider__eyebrow">{eyebrow}</span>
     <a class="btn dslider__all" href={href}>{botao}</a>
   </div>
 

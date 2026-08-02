@@ -1,7 +1,6 @@
 {
-  "hero": { "eyebrow": "As pessoas", "title": "Equipa", "imagem": "" },
+  "hero": { "title": "Equipa", "imagem": "" },
   "direcao": {
-    "eyebrow": "Direção",
     "title": "Quem lidera o grupo",
     "members": [
       { "role": "Liderança · Direção-Geral", "name": "António M Santos", "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário." },
@@ -9,7 +8,6 @@
     ]
   },
   "equipa": {
-    "eyebrow": "Equipa técnica",
     "title": "Quem constrói, todos os dias",
     "members": [
       { "role": "Engenharia · Obra", "name": "Ricardo Nunes", "bio": "Diretor de obra, coordena a execução e o controlo de qualidade que sustentam a excelência de cada projeto executado." },
@@ -21,7 +19,6 @@
     ]
   },
   "contacto": {
-    "eyebrow": "Contactos",
     "title": "Quer trabalhar connosco?",
     "texto": "Envie-nos a sua candidatura ou uma mensagem. Estamos sempre atentos a bons profissionais."
   }

@@ -28,7 +28,7 @@ entusiasmo (a marca-d'água na secção escura).
     fundos de **painel** (`--paper-alt`) e onde se quer mais calor.
   - **Escuro (`dark`)** — `fill` a off-white (`--on-dark`/`#f2efe9`), opacidade
     ~0.08. Nas secções escuras o símbolo é **off-white, não laranja** — o brilho
-    vem do contraste com o fundo, e evita colidir com o laranja das eyebrows/costura.
+    vem do contraste com o fundo, e evita colidir com o laranja da costura.
 - **Sistema de variação** (a regra que impede a monotonia): **nunca o mesmo
   carimbo duas vezes seguidas**. Varia-se por secção:
   - **Afinação:** contorno nas claras, preenchido nas de painel/escuras.
@@ -146,8 +146,6 @@ referência.
 Estes elementos do kit foram desenhados e mostrados no mockup, mas ficam para
 depois:
 
-- **Selo no eyebrow** — o mini-símbolo antes de cada rótulo `.eyebrow`.
-  (Alta cobertura, baixo risco — bom candidato a próxima vaga.)
 - **Divisor-assinatura de 3 linhas** — dentro do conteúdo (nunca nas fronteiras
   entre secções, que já são da costura).
 - **Moldura de imagem com encaixe** — só nas imagens editoriais grandes.

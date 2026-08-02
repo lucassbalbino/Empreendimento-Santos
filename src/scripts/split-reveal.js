@@ -11,9 +11,9 @@ if (!reduce && 'IntersectionObserver' in window) init();
 
 function init() {
   // Exatamente os seletores libertados do block-reveal (texto de secção). Exclui
-  // a hero (.hero, não .section) e os cards (não têm .eyebrow/.display/.lead nem
+  // a hero (.hero, não .section) e os cards (não têm .display/.lead nem
   // .split__body>p / .quemsomos__intro>p).
-  const SEL = '.section .eyebrow, .section .display, .section .lead, .split__body > p, .quemsomos__intro > p';
+  const SEL = '.section .display, .section .lead, .split__body > p, .quemsomos__intro > p';
   const REVEAL_MARGIN = '0px 0px -25% 0px'; // tardio: só quando bem dentro do ecrã
   const instances = []; // { el, split }
 

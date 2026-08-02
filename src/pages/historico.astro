@@ -33,7 +33,7 @@ const modalData = concluidos.map((p) => ({
   <section class="section section--centered-head section--flat-top">
    <Watermark variant="line" side="r" size="lg" y="top" />
     <div class="container has-wm">
-      <BlockHead eyebrow={historico.concluidos.eyebrow} title={historico.concluidos.title} lead={historico.concluidos.lead} as="h1" />
+      <BlockHead title={historico.concluidos.title} lead={historico.concluidos.lead} as="h1" />
       <div class="grid-projects">
         {concluidos.map((p) => (<ProjectCard proj={p} modal={true} />))}
       </div>
@@ -47,7 +47,7 @@ const modalData = concluidos.map((p) => ({
   <section class="section section--alt" id="contacto">
     <div class="container has-wm">
       <Watermark variant="line" side="l" size="md" y="bottom" />
-      <ContactForm eyebrow={historico.contacto.eyebrow} title={historico.contacto.title} texto={historico.contacto.texto} />
+      <ContactForm title={historico.contacto.title} texto={historico.contacto.texto} />
     </div>
   </section>
 
@@ -71,7 +71,7 @@ const modalData = concluidos.map((p) => ({
           <!-- Painel direito: informação sobre o projeto -->
           <div class="emodal__info">
             <button class="emodal__close" type="button" data-emodal-close aria-label="Fechar">&times;</button>
-            <span class="eyebrow" id="emodal-eyebrow"></span>
+            <span class="emodal__estado" id="emodal-estado"></span>
             <h3 class="emodal__info-title">Sobre o empreendimento</h3>
             <p class="emodal__resumo" id="emodal-resumo"></p>
             <div class="emodal__facts" id="emodal-facts"></div>
@@ -109,7 +109,7 @@ const modalData = concluidos.map((p) => ({
         title: document.getElementById('emodal-title'),
         subtitle: document.getElementById('emodal-subtitle'),
         chips: document.getElementById('emodal-chips'),
-        eyebrow: document.getElementById('emodal-eyebrow'),
+        estado: document.getElementById('emodal-estado'),
         resumo: document.getElementById('emodal-resumo'),
         facts: document.getElementById('emodal-facts'),
         entrega: document.getElementById('emodal-entrega'),
@@ -146,7 +146,7 @@ const modalData = concluidos.map((p) => ({
         el.prov.hidden = !(p.imagem && !p.imagemReal);
         el.title.textContent = p.nome;
         el.subtitle.textContent = [p.localizacao, p.tipologia].filter(Boolean).join(' · ');
-        el.eyebrow.textContent = p.estado || 'Empreendimento';
+        el.estado.textContent = p.estado || 'Empreendimento';
         el.resumo.textContent = p.resumo || '';
         el.entrega.textContent = p.entrega || '';
 
@@ -287,7 +287,7 @@ const modalData = concluidos.map((p) => ({
   <script is:inline>
     // Entrada pesada do cabeçalho (como o 1.º bloco do portfólio). Só o
     // cabeçalho: os cards mantêm o reveal normal do Base e a modal fica intocada.
-    // O CSS gera .section--flat-top .block-head :is(.eyebrow,.display,.lead) em
+    // O CSS gera .section--flat-top .block-head :is(.display,.lead) em
     // opacity:0 até .is-entered — sem este script o cabeçalho fica invisível.
     // Dispara SÓ depois de um frame inicial pintado (gate da cortina / rAF), o
     // que evita o salto na navbar (o bloco está acima da dobra). Init UMA vez; o

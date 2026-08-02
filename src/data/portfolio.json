@@ -1,18 +1,15 @@
 {
   "_nota": "Só textos da página. As listas de projetos vêm de empreendimentos.json (grupos 'desenvolvimento' e 'futuro').",
-  "hero": { "eyebrow": "Empreendimentos", "title": "Portfólio", "imagem": "" },
+  "hero": { "title": "Portfólio", "imagem": "" },
   "emDesenvolvimento": {
-    "eyebrow": "Em desenvolvimento",
     "title": "Projetos em desenvolvimento",
     "lead": "Empreendimentos em construção, em comercialização ou destinados a arrendamento"
   },
   "futuros": {
-    "eyebrow": "Próximos",
     "title": "Projetos futuros",
     "lead": "Vários projetos em pipeline, na vanguarda da inovação arquitetónica"
   },
   "contacto": {
-    "eyebrow": "Contactos",
     "title": "Interessado num empreendimento?",
     "texto": "Fale connosco para agendar uma visita ou pedir informações. A nossa equipa responde com brevidade."
   }

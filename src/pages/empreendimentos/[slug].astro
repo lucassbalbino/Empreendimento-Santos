@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import ContactForm from '../../components/ContactForm.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import Watermark from '../../components/Watermark.astro';
+import TitleSplit from '../../components/TitleSplit.astro';
 import data from '../../data/empreendimentos.json';
 
 export function getStaticPaths() {
@@ -13,11 +14,6 @@ export function getStaticPaths() {
 }
 
 const { proj, todos } = Astro.props;
-
-// O grupo define onde o projeto é listado (um projeto vendido vai para o
-// histórico ainda que a obra decorra), por isso os textos abaixo derivam de
-// proj.estado — a obra em si — e nunca do grupo.
-const grupoLabel = proj.estado;
 
 const concluido = proj.estado === 'Concluído';
 const brandParagraph = concluido
@@ -46,8 +42,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
     <div class="hero__inner">
       <div class="container">
         <a class="emp-back" href="/portfolio">← Empreendimentos</a>
-        <span class="eyebrow" style="color:#d29a5a">{grupoLabel}</span>
-        <h1 class="display hero__title-page">{proj.nome}</h1>
+        <TitleSplit text={proj.nome} tag="h1" class="hero__title-page title-split--hero" />
         <p class="emp-hero__meta">
           {proj.localizacao} · {proj.tipologia}
           <span class="emp-chip">{proj.estado}</span>
@@ -62,8 +57,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
       <Watermark variant="line" side="r" size="lg" y="top" />
       <div class="split">
         <div class="split__body">
-          <span class="eyebrow">O empreendimento</span>
-          <h2 class="display display--sm">{proj.entrega}</h2>
+          <TitleSplit text={proj.entrega} />
           <p>{proj.resumo}</p>
           <p>{brandParagraph}</p>
           <a class="btn" href="#contacto">{ctaLabel}</a>
@@ -81,8 +75,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
   <section class="section section--alt">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="lg" y="bottom" />
-      <span class="eyebrow">Características</span>
-      <h2 class="display display--sm">Ficha do empreendimento</h2>
+      <TitleSplit text="Ficha do empreendimento" />
       <div class="facts">
         {proj.factos.map((f) => (
           <div class="fact">
@@ -99,8 +92,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
     <section class="section">
       <div class="container has-wm">
         <Watermark variant="line" side="r" size="md" y="top" />
-        <span class="eyebrow">Galeria</span>
-        <h2 class="display display--sm">Imagens do empreendimento</h2>
+        <TitleSplit text="Imagens do empreendimento" />
         <div class="gallery">
           {galeria.map((src, i) => (
             <img class="gallery__img" src={src} alt={`${proj.nome} — imagem ${i + 1}`} loading="lazy" />
@@ -116,8 +108,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
       <Watermark variant="line" side="r" size="md" y="top" />
       <div class="split">
         <div class="split__body">
-          <span class="eyebrow">Localização</span>
-          <h2 class="display display--sm">{proj.localizacao}</h2>
+          <TitleSplit text={proj.localizacao} />
           <p class="lead" style="margin-top:1rem">{proj.concelho}</p>
         </div>
         <div class="split__media"><div class="ph" data-label="Mapa"></div></div>
@@ -130,8 +121,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
     <section class="section">
       <div class="container has-wm">
         <Watermark variant="line" side="l" size="md" y="bottom" />
-        <span class="eyebrow">Outros empreendimentos</span>
-        <h2 class="display display--sm">Continue a explorar</h2>
+        <TitleSplit text="Continue a explorar" />
         <div class="grid-projects">
           {relacionados.map((p) => (<ProjectCard proj={p} />))}
         </div>
@@ -144,7 +134,6 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
     <div class="container has-wm">
       <Watermark variant="line" side="l" size="sm" y="bottom" />
       <ContactForm
-        eyebrow="Contactos"
         title={`Interessado no ${proj.nome}?`}
         texto="Fale connosco para agendar uma visita ou pedir mais informações sobre este empreendimento. A nossa equipa responde com brevidade."
       />

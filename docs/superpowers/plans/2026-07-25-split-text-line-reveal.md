@@ -72,13 +72,13 @@ Move os seletores de texto de secção para fora do reveal de blocos, para o lin
 - Modify: `public/styles.css:870-886` (blocos `:is(...)` do reveal)
 
 **Interfaces:**
-- Produces: os seletores `.section .eyebrow, .section .display, .section .lead, .split__body > p, .quemsomos__intro > p` deixam de ter qualquer animação de reveal — ficam disponíveis para o módulo da Task 4 (que usa exatamente estes seletores).
+- Produces: os seletores `.section .display, .section .lead, .split__body > p, .quemsomos__intro > p` deixam de ter qualquer animação de reveal — ficam disponíveis para o módulo da Task 4 (que usa exatamente estes seletores).
 
 - [ ] **Step 1: Remover os seletores de texto da lista `SEL` do reveal (Base.astro)**
 
 Em `src/layouts/Base.astro`, linha 69, substituir:
 ```js
-      var SEL = '.section, .section .eyebrow, .section .display, .section .lead, .split__body > p, .quemsomos__intro > p, .card, .stat, .vertical, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
+      var SEL = '.section, .section .display, .section .lead, .split__body > p, .quemsomos__intro > p, .card, .stat, .vertical, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
 ```
 por:
 ```js
@@ -90,7 +90,7 @@ por:
 Em `public/styles.css`, substituir o bloco (linhas ~870-886):
 ```css
 html.reveal-ready :is(
-  .section .eyebrow, .section .display, .section .lead,
+  .section .display, .section .lead,
   .split__body > p, .quemsomos__intro > p, .card, .stat, .vertical, .service, .member, .panels
 ){
   opacity:0;
@@ -100,7 +100,7 @@ html.reveal-ready :is(
   will-change:transform, opacity;
 }
 html.reveal-ready :is(
-  .section .eyebrow, .section .display, .section .lead,
+  .section .display, .section .lead,
   .split__body > p, .quemsomos__intro > p, .card, .stat, .vertical, .service, .member, .panels
 ).is-visible{
   opacity:1;
@@ -133,7 +133,7 @@ Run (num terminal à parte):
 npm run dev
 ```
 Abrir `http://localhost:4321/sobre-nos` numa **aba visível**. Rolar até às secções abaixo da hero.
-Expected: eyebrows, títulos (`.display`/`h2`), `.lead` e parágrafos de prosa aparecem **normalmente** e legíveis (já não fazem fade-rise; ainda não fazem line-split). Cards (`.vertical`, `.stat`, etc.) continuam a fazer o fade-rise como antes.
+Expected: títulos (`.display`/`h2`), `.lead` e parágrafos de prosa aparecem **normalmente** e legíveis (já não fazem fade-rise; ainda não fazem line-split). Cards (`.vertical`, `.stat`, etc.) continuam a fazer o fade-rise como antes.
 
 - [ ] **Step 4: Commit**
 
@@ -222,9 +222,9 @@ if (!reduce && 'IntersectionObserver' in window) init();
 
 function init() {
   // Exatamente os seletores libertados do block-reveal (texto de secção). Exclui
-  // a hero (.hero, não .section) e os cards (não têm .eyebrow/.display/.lead nem
+  // a hero (.hero, não .section) e os cards (não têm .display/.lead nem
   // .split__body>p / .quemsomos__intro>p).
-  const SEL = '.section .eyebrow, .section .display, .section .lead, .split__body > p, .quemsomos__intro > p';
+  const SEL = '.section .display, .section .lead, .split__body > p, .quemsomos__intro > p';
   const REVEAL_MARGIN = '0px 0px -25% 0px'; // tardio: só quando bem dentro do ecrã
   const instances = []; // { el, split }
 

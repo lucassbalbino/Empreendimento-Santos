@@ -192,7 +192,6 @@ git commit -m "feat: base layout with header/footer driven by site.json"
 {
   "hero": { "title": "Lorem ipsum dolor sit amet" },
   "quemSomos": {
-    "eyebrow": "Lorem Ipsum",
     "title": "Lorem ipsum dolor sit amet consectetur",
     "paragrafos": [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
@@ -201,7 +200,6 @@ git commit -m "feat: base layout with header/footer driven by site.json"
     "botao": "Lorem ipsum"
   },
   "oQueFazemos": {
-    "eyebrow": "Lorem Ipsum",
     "title": "Lorem — Ipsum — Dolor",
     "stats": [
       { "target": 120, "prefix": "", "suffix": "", "label": "Lorem ipsum" },
@@ -212,7 +210,7 @@ git commit -m "feat: base layout with header/footer driven by site.json"
     ]
   },
   "portfolio": {
-    "eyebrow": "Lorem Ipsum", "title": "Lorem ipsum dolor", "lead": "Consectetur adipiscing elit", "botao": "Lorem ipsum",
+    "title": "Lorem ipsum dolor", "lead": "Consectetur adipiscing elit", "botao": "Lorem ipsum",
     "cards": [
       { "title": "Lorem Ipsum", "meta": "Dolor sit amet, consectetur", "cta": "Lorem ipsum" },
       { "title": "Dolor Sit", "meta": "Amet consectetur, adipiscing", "cta": "Lorem ipsum" },
@@ -222,7 +220,7 @@ git commit -m "feat: base layout with header/footer driven by site.json"
     ]
   },
   "trackRecord": {
-    "eyebrow": "Lorem Ipsum", "title": "Lorem ipsum dolor sit", "lead": "Consectetur adipiscing", "botao": "Lorem ipsum",
+    "title": "Lorem ipsum dolor sit", "lead": "Consectetur adipiscing", "botao": "Lorem ipsum",
     "cards": [
       { "title": "Lorem Building", "meta": "Dolor sit amet, consectetur" },
       { "title": "Ipsum Lofts", "meta": "Amet consectetur, adipiscing" },
@@ -232,7 +230,7 @@ git commit -m "feat: base layout with header/footer driven by site.json"
     ]
   },
   "equipa": {
-    "eyebrow": "Lorem Ipsum", "title": "Lorem ipsum dolor sit amet",
+    "title": "Lorem ipsum dolor sit amet",
     "members": [
       { "role": "Lorem · Ipsum", "name": "Lorem Ipsum Dolor", "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud." },
       { "role": "Dolor · Amet", "name": "Consectetur Adipiscing", "bio": "Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla." }
@@ -300,7 +298,6 @@ import home from '../data/home.json';
   <!-- Quem Somos: portar markup das linhas 46-60 ligando a home.quemSomos -->
   <section class="section section--alt">
     <div class="container dofazemos">
-      <span class="eyebrow" style="justify-content:center">{home.oQueFazemos.eyebrow}</span>
       <h2 class="display" set:html={home.oQueFazemos.title.replace('Ipsum', '<em>Ipsum</em>')}></h2>
       <Stats items={home.oQueFazemos.stats} />
     </div>
@@ -313,7 +310,6 @@ import home from '../data/home.json';
     <div class="container"><CardScroller cards={home.trackRecord.cards} dark={true} /></div>
   </section>
   <section class="section section--alt"><div class="container">
-    <span class="eyebrow">{home.equipa.eyebrow}</span>
     <h2 class="display display--sm">{home.equipa.title}</h2>
     <Team members={home.equipa.members} />
   </div></section>
@@ -450,7 +446,6 @@ collections:
             name: oQueFazemos
             widget: object
             fields:
-              - { label: Sobretítulo, name: eyebrow, widget: string }
               - { label: Título, name: title, widget: string }
               - label: Contadores
                 name: stats
@@ -464,7 +459,6 @@ collections:
             name: portfolio
             widget: object
             fields:
-              - { label: Sobretítulo, name: eyebrow, widget: string }
               - { label: Título, name: title, widget: string }
               - { label: Subtítulo, name: lead, widget: string }
               - { label: Texto do botão, name: botao, widget: string }
@@ -479,7 +473,6 @@ collections:
             name: equipa
             widget: object
             fields:
-              - { label: Sobretítulo, name: eyebrow, widget: string }
               - { label: Título, name: title, widget: string }
               - label: Membros
                 name: members
