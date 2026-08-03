@@ -26,32 +26,31 @@ Abra **`http://localhost:4321`** (site) e
 
 ---
 
-## 1. Subir o código para o GitHub
+## 1. Código no GitHub — feito
 
-1. Crie uma conta gratuita em <https://github.com> (se ainda não tiver).
-2. Crie um repositório novo, ex.: **`empresa-bela`** (pode ser privado).
-3. No terminal, dentro da pasta do projeto:
-
-```bash
-git remote add origin https://github.com/SEU_USUARIO/empresa-bela.git
-git branch -M main
-git push -u origin main
-```
-
-4. No arquivo **`public/admin/config.yml`**, troque a linha
-   `repo: SEU_USUARIO/empresa-bela` pelo seu usuário/repositório reais e
-   faça commit + push.
+Repositório: <https://github.com/lucassbalbino/Empreendimento-Santos> (branch
+`main`). O `repo:` em `public/admin/config.yml` já aponta para ele.
 
 ## 2. Publicar na Cloudflare Pages
 
-1. Crie conta gratuita em <https://dash.cloudflare.com>.
-2. **Workers & Pages → Create → Pages → Connect to Git** e selecione o repositório.
+**Estado atual:** existe um projeto `empreendimento-santos` na Cloudflare Pages
+(`empreendimento-santos.pages.dev`), mas foi criado via `wrangler pages deploy`
+(CLI), **sem** ligação ao Git — ou seja, cada atualização exige rodar
+`npm run build && npx wrangler pages deploy dist --project-name=empreendimento-santos`
+manualmente.
+
+Para automatizar (republica sozinho a cada push):
+
+1. Dashboard da Cloudflare → **Workers & Pages → empreendimento-santos → Settings
+   → Builds → Connect to Git** (ou recriar o projeto via **Create → Pages →
+   Connect to Git**, se a opção de conectar um projeto já existente não estiver
+   disponível).
+2. Selecionar o repositório `lucassbalbino/Empreendimento-Santos`, branch `main`.
 3. Configurações de build:
    - **Framework preset:** Astro
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
-4. **Save and Deploy.** Em ~1 min o site fica no ar num endereço `*.pages.dev`.
-5. (Opcional) Aponte seu domínio próprio em **Custom domains**.
+4. **Save and Deploy.**
 
 A partir daqui, todo push no GitHub republica o site automaticamente — e é isso
 que o painel faz quando o cliente clica em "Publicar".
@@ -59,35 +58,43 @@ que o painel faz quando o cliente clica em "Publicar".
 ## 3. Login do cliente no painel (OAuth do GitHub)
 
 O Sveltia precisa de um "porteiro" OAuth para o login. O jeito mais simples é o
-worker oficial da Cloudflare:
+worker oficial da Cloudflare, `sveltia-cms-auth`.
 
-1. Em <https://github.com/settings/developers> → **OAuth Apps → New OAuth App**:
-   - **Homepage URL:** o endereço do seu site (ex.: `https://empresa-bela.pages.dev`)
-   - **Authorization callback URL:** `https://<seu-worker>.workers.dev/callback`
-     (preencha depois de criar o worker, no passo seguinte)
-   - Anote o **Client ID** e gere um **Client Secret**.
-2. Crie o worker de OAuth (Sveltia recomenda o
-   **`sveltia-cms-auth`** — instruções em
-   <https://github.com/sveltia/sveltia-cms-auth>):
-   - Faça o deploy do worker na sua conta Cloudflare.
-   - Configure as variáveis `GITHUB_CLIENT_ID` e `GITHUB_CLIENT_SECRET`.
-   - Copie a URL do worker e cole no **callback URL** do passo 1.
-3. No `public/admin/config.yml`, aponte o backend para o worker, ex.:
+**Estado atual:** o `public/admin/config.yml` já aponta para o repositório real
+(`lucassbalbino/Empreendimento-Santos`) e para o worker publicado. Faltam só os
+passos 3.2 e 3.3 abaixo (criar o OAuth App e configurar os secrets).
 
-```yaml
-backend:
-  name: github
-  repo: SEU_USUARIO/empresa-bela
-  branch: main
-  base_url: https://<seu-worker>.workers.dev
+### 3.1 Deploy do worker — feito
+
+Worker publicado em <https://sveltia-cms-auth.lucascharlesbalbino.workers.dev>
+(código de <https://github.com/sveltia/sveltia-cms-auth>).
+
+### 3.2 Criar o GitHub OAuth App (manual)
+
+Em <https://github.com/settings/developers> → **OAuth Apps → New OAuth App**:
+
+- **Homepage URL:** `https://empreendimento-santos.pages.dev`
+- **Authorization callback URL:** `https://sveltia-cms-auth.lucascharlesbalbino.workers.dev/callback`
+- Anotar o **Client ID** e gerar um **Client Secret**.
+
+### 3.3 Configurar os secrets do worker (manual, recomendado pelo dashboard)
+
+No dashboard da Cloudflare → Workers & Pages → `sveltia-cms-auth` → Settings →
+Variables → adicionar (usando o botão **Encrypt** para o secret):
+
+- `GITHUB_CLIENT_ID`: o Client ID do passo 3.2
+- `GITHUB_CLIENT_SECRET`: o Client Secret do passo 3.2 (encriptado)
+
+Alternativa via terminal (o secret fica no histórico do shell, por isso o
+dashboard é mais seguro):
+
+```bash
+npx wrangler secret put GITHUB_CLIENT_ID --name sveltia-cms-auth
+npx wrangler secret put GITHUB_CLIENT_SECRET --name sveltia-cms-auth
 ```
 
-4. (Opcional, mais simples) Em vez do OAuth próprio, dá para usar **Cloudflare
-   Access** ou hospedar via Netlify com Git Gateway. Para a maioria dos casos,
-   o `sveltia-cms-auth` é o caminho recomendado.
-
-Pronto: o cliente acessa `seusite.com/admin`, clica em **Login**, autoriza pelo
-GitHub uma única vez, e passa a editar.
+Pronto: o cliente acessa `empreendimento-santos.pages.dev/admin`, clica em
+**Login**, autoriza pelo GitHub uma única vez, e passa a editar.
 
 ## 4. Ativar o Cloudflare Web Analytics
 

@@ -1,7 +1,8 @@
 backend:
   name: github
-  repo: SEU_USUARIO/empresa-bela   # ajustar na publicação (ver docs/PUBLICACAO.md)
+  repo: lucassbalbino/Empreendimento-Santos
   branch: main
+  base_url: https://sveltia-cms-auth.lucascharlesbalbino.workers.dev
 
 # Permite editar localmente na demonstração, sem GitHub.
 # Rodar:  npm run cms-proxy   (em outro terminal, junto com  npm run dev)
