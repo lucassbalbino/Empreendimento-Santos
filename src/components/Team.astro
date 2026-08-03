@@ -5,7 +5,11 @@ const cls = variant ? `team team--${variant}` : 'team';
 <div class={cls}>
   {members.map((m) => (
     <article class="member">
-      <div class="member__media"><div class="ph"></div></div>
+      <div class="member__media">
+        {m.foto
+          ? <img src={m.foto} alt={m.name} loading="lazy" />
+          : <div class="ph"></div>}
+      </div>
       <div class="member__role">{m.role}</div>
       <h3 class="member__name">{m.name}</h3>
       <p class="member__bio">{m.bio}</p>

@@ -1,5 +1,5 @@
 {
-  "hero": { "title": "Equipa", "imagem": "" },
+  "hero": { "title": "Equipa", "imagem": "images/team-pic.jpg" },
   "direcao": {
     "title": "Quem lidera o grupo",
     "members": [
