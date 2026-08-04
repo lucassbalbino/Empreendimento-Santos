@@ -14,6 +14,8 @@
   },
   "oQueFazemos": {
     "title": "Qualidade — Conforto — Sustentabilidade",
+    "statsTitle": "Em números",
+    "statsLead": "Duas décadas de experiência traduzidas em resultado: cada projeto executado, cada metro quadrado construído e cada milhão investido reflete o mesmo compromisso da AM Santos com a qualidade e a sustentabilidade.",
     "stats": [
       {
         "target": 17,
@@ -22,16 +24,10 @@
         "label": "projetos"
       },
       {
-        "target": 128,
+        "target": 170,
         "prefix": "",
         "suffix": "",
-        "label": "unidades residenciais"
-      },
-      {
-        "target": 42,
-        "prefix": "",
-        "suffix": "",
-        "label": "unidades não residenciais"
+        "label": "unidades residenciais e não residenciais"
       },
       {
         "target": 185000,

@@ -50,7 +50,8 @@
   }
   // Contadores: IO novo por página (os elementos são novos após a troca).
   function bindCounters() {
-    var nums = document.querySelectorAll('.stat__num[data-target]');
+    // .fact__v: contadores da home, que usam a grelha da ficha (.facts/.fact).
+    var nums = document.querySelectorAll('.stat__num[data-target], .fact__v[data-target]');
     if (!nums.length) return;
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {

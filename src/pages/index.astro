@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import Stats from '../components/Stats.astro';
 import DoubleSlider from '../components/DoubleSlider.astro';
 import ExpandPanels from '../components/ExpandPanels.astro';
 import BlockHead from '../components/BlockHead.astro';
@@ -73,21 +72,10 @@ const equipaCards = home.equipa.members.map((m) => ({
     </svg>
   </div>
 
-  <!-- GRUPO 2 · OBRA — portfolio e histórico partilham o bloco escuro e
-       encostam-se, para se lerem como um único capítulo. -->
+  <!-- GRUPO 2 · OBRA — portfolio, contadores e histórico partilham o bloco
+       escuro e encostam-se, para se lerem como um único capítulo. -->
 
-  <!-- CONTADORES — abrem o capítulo da Obra, já dentro do escuro: os números
-       são a credencial que antecede o portfolio. A cunha branca da costura
-       desce sobre eles. Fora de <section> para escapar à cortina de
-       revelação; o fundo é o mesmo do Portfolio, por isso lê-se como um só
-       bloco. -->
-  <div class="seam seam--dark">
-    <div class="container">
-      <Stats items={home.oQueFazemos.stats} />
-    </div>
-  </div>
-
-  <!-- PORTFOLIO -->
+  <!-- PORTFOLIO — abre o capítulo da Obra. -->
   <section class="section section--dark section--flush">
     <DoubleSlider
       projetos={destaques}
@@ -97,8 +85,41 @@ const equipaCards = home.equipa.members.map((m) => ({
     />
   </section>
 
-  <!-- COSTURA · fronteira de cor escuro → branco (Portfolio → Histórico).
-       Triângulo escuro (cor do Portfolio) desce sobre o topo branco do
+  <!-- CONTADORES — entre o Portfolio e o Histórico: os números são a
+       credencial que fecha a apresentação dos empreendimentos antes do
+       track record. Layout a duas colunas (ver estudiobase2.com): texto
+       grande alinhado à esquerda de um lado, contadores grandes do outro —
+       em vez do cartão pequeno/centrado anterior. Os contadores continuam a
+       usar .fact__v[data-target] para o main.js animar; só o dimensionamento
+       e a moldura mudaram.
+       Sem tight-top: a margem negativa do .dslider (Portfolio) já puxa esta
+       secção para cima do stitch-rise, o que basta para as duas se lerem
+       coladas no mesmo bloco escuro. Sem tight-bottom: o Histórico a seguir
+       (já noutra secção, além da costura) precisa do respiro normal. -->
+  <section class="section section--dark">
+    <div class="container has-wm">
+      <Watermark variant="line" side="r" size="lg" y="bottom" />
+      <div class="contadores">
+        <div class="contadores__text">
+          <TitleSplit text={home.oQueFazemos.statsTitle} />
+          <p class="lead">{home.oQueFazemos.statsLead}</p>
+        </div>
+        <div class="facts facts--contadores">
+          {home.oQueFazemos.stats.map((s) => (
+            <div class="fact">
+              {s.target != null && s.target !== ''
+                ? <span class="fact__v" data-target={s.target} data-prefix={s.prefix} data-suffix={s.suffix}>0</span>
+                : <span class="fact__v">{s.value}</span>}
+              <span class="fact__r">{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COSTURA · fronteira de cor escuro → branco (Contadores → Histórico).
+       Triângulo escuro (cor dos Contadores) desce sobre o topo branco do
        Histórico, cortando a fronteira na diagonal. Fora de <section>
        para escapar à cortina de revelação. -->
   <div class="stitch stitch--dark">
@@ -112,7 +133,7 @@ const equipaCards = home.equipa.members.map((m) => ({
   <section class="section section--panels-cut">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="lg" y="bottom" />
-      <BlockHead title={home.trackRecord.title} lead={home.trackRecord.lead} />
+      <BlockHead title={home.trackRecord.title} lead={home.trackRecord.lead} titleClass="title-split--fill" />
     </div>
     <!-- Fora do .container de propósito: os painéis sangram de bordo a bordo e
          descem para dentro da costura diagonal (ver .section--panels-cut). -->

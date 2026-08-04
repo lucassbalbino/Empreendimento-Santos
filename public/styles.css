@@ -384,10 +384,11 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 /* ---- "Quem Somos" da home: composição editorial + imagem full-bleed por
    baixo, no idioma do site de referência (kononenkogroup). O bloco vive dentro
    do .container; a imagem é filha directa da <section>, fora do container, e
-   ocupa toda a largura do ecrã. O título grande fica ao centro e o botão
-   ancora o canto inferior direito. ---- */
+   ocupa toda a largura do ecrã. Título e botão ficam centrados como um único
+   bloco, com a mesma distância da secção acima (padding-top) e abaixo (antes
+   da imagem começar), para o título ficar centrado no ecrã visível. ---- */
 .quemsomos__intro{
-  display:flex; flex-direction:column;
+  display:flex; flex-direction:column; align-items:center;
   gap:clamp(30px,5vw,68px);
 }
 .quemsomos__intro .display{
@@ -395,7 +396,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   max-width:20ch; margin:0;
   font-size:clamp(2.8rem, 8vw, 6.4rem);   /* maior que o .display base */
 }
-.quemsomos__intro .btn{ align-self:flex-end; }                          /* canto inferior direito */
+.quemsomos__intro .btn{ align-self:center; }
 
 .title-split--center{
   align-self:center; align-items:center;
@@ -405,8 +406,25 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   font-size:clamp(3.2rem, 9vw, 7.2rem);   /* maior que a variante da secção "Sobre Nós" */
 }
 
+/* Variante "preenchida" (Histórico, na home): a palavra grande dita a
+   largura do bloco (align-items fica no default — stretch — em vez de
+   centrar cada linha à sua largura própria como o --center acima); a linha
+   pequena é justificada (text-align-last) para se esticar exatamente até
+   essa largura. Resultado: frase menor em cima, frase maior em baixo, as
+   duas com a mesma largura visual. */
+.title-split--fill{
+  align-self:center; text-align:center; max-width:70ch; margin:0;
+}
+.title-split--fill .title-split__lead{
+  display:block; width:100%; text-align:justify; text-align-last:justify;
+}
+.title-split--fill .title-split__word{
+  display:block; width:100%;
+  font-size:clamp(3.4rem, 8vw, 6.4rem);   /* imponente: acima do tamanho base do title-split */
+}
+
 .quemsomos__media{
-  margin-top:clamp(40px,6vw,96px);
+  margin-top:var(--section-y-tight);
   /* Full-bleed (bordo a bordo), mais achatada: rácio largo baixa a altura sem
      mexer na largura. */
   position:relative; aspect-ratio:21/9;
@@ -464,91 +482,53 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .dofazemos .display em{ font-style:normal; color:var(--accent); }
 
-/* ---------------------------------------------------------------------
-   CONTADORES (.seam) — faixa de números entre "Quem Somos" e "O Que
-   Fazemos". As duas secções vizinhas são brancas, por isso o cartão não
-   atravessa fronteira de cor nenhuma: a sua presença vem do corpo (altura
-   e escala dos números), da moldura e da sombra.
-   Fica fora de .section de propósito: a cortina de revelação
-   (body.is-home .section::after) não o deve tapar.
-   --------------------------------------------------------------------- */
-.seam{
-  position:relative;
-  background:var(--paper);
-  --thread:clamp(56px,6.5vw,104px);   /* respiro entre o "Quem Somos" e a faixa */
-  padding-top:var(--thread);
+/* Duas colunas: texto (título + parágrafo grande, alinhado à esquerda) de
+   um lado, contadores grandes do outro — no idioma do site de referência
+   (estudiobase2.com), mas sem centrar nada: o eixo de leitura esquerdo
+   mantém-se igual ao resto da home. */
+.contadores{
+  display:grid;
+  grid-template-columns:minmax(240px,34%) 1fr;
+  align-items:start;
+  gap:clamp(32px,5vw,64px);
 }
+.contadores__text .title-split{ margin-top:0; }
+.contadores__text .lead{ max-width:34ch; }
 
-/* ---- Costura entre o "Quem Somos" e os contadores ----
-   Fio vertical que desce do vão entre as duas colunas do split e vai
-   encontrar o topo do cartão. Como as duas secções são brancas não há
-   fronteira de cor para atravessar: é o fio que faz a ligação.
-   Sobe para dentro do "Quem Somos" pelo padding que essa secção tem em
-   baixo (--section-y-tight), cobrindo assim o vão inteiro. */
-.seam::before{
-  content:"";
-  position:absolute; z-index:1; pointer-events:none;
-  left:calc(50% - .5px);             /* left, não transform: deixa o transform livre para a animação */
-  top:calc(-1 * var(--section-y-tight));
-  width:1px;
-  height:calc(var(--thread) + var(--section-y-tight));
-  background:linear-gradient(to bottom,
-    transparent 0, var(--line) 34%, var(--accent) 100%);
+/* Contadores sem cartão: só o número (grande) e o rótulo por baixo, com um
+   traço fino a assinalar cada célula — a credencial lê-se pelos números, não
+   pela caixa. 2×2 em vez de 4 numa linha: a coluna é mais estreita agora que
+   partilha a secção com o texto, e os números grandes precisam do espaço.
+   Escreve-se .facts.facts--contadores (duas classes) de propósito: sozinho,
+   .facts--contadores tem a MESMA especificidade que o .facts das media
+   queries do bloco RESPONSIVO, que vem depois no ficheiro e ganhava por
+   ordem — a grelha voltaria a 2 colunas antes do previsto. */
+.facts.facts--contadores{
+  grid-template-columns:repeat(2,1fr);
+  gap:clamp(28px,3vw,48px) clamp(20px,2.4vw,40px);
 }
-/* O fio desenha-se de cima para baixo ao entrar no ecrã. Gated por
-   .reveal-ready, que o Base.astro só liga quando o utilizador não pediu
-   menos movimento — sem isso o fio aparece já desenhado. O gatilho é o
-   .is-visible dos próprios contadores, via :has(), evitando ter de somar
-   o .seam ao seletor observado no Base.astro. */
-html.reveal-ready .seam::before{
-  transform:scaleY(0); transform-origin:top;
-  transition:transform .9s var(--ease) .1s;
+.facts--contadores .fact{
+  background:none; border:0; border-radius:0;
+  padding:clamp(16px,1.8vw,24px) 0 0;
+  border-top:1px solid rgba(255,255,255,.2);
+  gap:.6rem;
 }
-html.reveal-ready .seam:has(.stat.is-visible)::before{ transform:scaleY(1); }
-.seam .stats{
-  margin-top:0;                      /* anula o respiro do uso normal */
-  background:var(--paper);
-  border:1px solid var(--line);
-  box-shadow:0 18px 44px -30px rgba(0,0,0,.4);
+.facts--contadores .fact__v{
+  font-size:clamp(3rem,5.6vw,5.4rem);
+  color:var(--accent-dk);
+  line-height:1;
 }
-/* Mais corpo: a faixa é agora um elemento por direito próprio, não um
-   remate da secção anterior. */
-.seam .stat{ padding-block:clamp(34px,4.4vw,62px); }
-.seam .stat__num{ font-size:clamp(2.9rem,5.4vw,4.3rem); min-height:clamp(2.9rem,5.4vw,4.3rem); }
-.seam .stat__num--word{ font-size:clamp(1.45rem,2.4vw,2rem); }
-.seam .stat__label{ margin-top:1.1rem; }
-
-@media (max-width:860px){
-  .seam .stats{ box-shadow:none; }
-  .seam .stat{ padding-block:clamp(24px,5vw,34px); }
+.facts--contadores .fact__r{
+  font-size:.78rem; letter-spacing:.08em; line-height:1.4; max-width:22ch;
+  color:rgba(255,255,255,.72);
 }
-
-/* ---- Variante escura: os contadores abrem o capítulo da Obra ----
-   Aqui não há cartão nenhum. A faixa É o fundo escuro do Portfolio, e os
-   números vivem diretamente sobre ele — o peso vem do contraste e da
-   escala, não de uma moldura. O laranja recua para os rótulos, deixando os
-   números em branco: sobre o escuro, o branco é que é o gesto forte.
-   A cascata de entrada já vem de borracha do Base.astro, que escreve
-   transition-delay inline por índice de irmão (70ms). */
-.seam--dark{
-  background:var(--dark);
-  color:var(--paper);
-  padding-bottom:var(--thread);
-}
-/* O fio vertical era a ligação entre duas secções brancas. Aqui a fronteira
-   já é feita pela cunha da costura, e o fio atravessá-la-ia. */
-.seam--dark::before{ content:none; }
-.seam--dark .stats{
-  background:none;
-  border:0;
-  box-shadow:none;
-}
-.seam--dark .stat{ border-left-color:rgba(255,255,255,.18); }
-.seam--dark .stat__num{ color:var(--paper); }
-.seam--dark .stat__label{ color:var(--accent); }
 
 @media (max-width:1024px){
-  .seam--dark .stat:nth-child(even){ border-left-color:rgba(255,255,255,.18); }
+  .contadores{ grid-template-columns:1fr; }
+  .contadores__text .lead{ max-width:52ch; }
+}
+@media (max-width:520px){
+  .facts.facts--contadores{ grid-template-columns:1fr; }
 }
 
 /* ---------------------------------------------------------------------
@@ -760,12 +740,8 @@ html.reveal-ready .seam:has(.stat.is-visible)::before{ transform:scaleY(1); }
    centrados, maiores e mais presentes que o base. O botão não vive aqui —
    está na .panels-cta, abaixo da costura. */
 .section--panels-cut .block-head{ flex-direction:column; align-items:stretch; }
-.section--panels-cut .block-head__text{ display:flex; flex-direction:column; }
-.section--panels-cut .block-head__text .display{
-  align-self:center; text-align:center;
-  font-size:clamp(2.4rem,5vw,4rem);        /* acima do display--sm, bem presente */
-}
-.section--panels-cut .block-head__text .lead{ align-self:center; text-align:center; max-width:56ch; }
+.section--panels-cut .block-head__text{ display:flex; flex-direction:column; align-items:center; }
+.section--panels-cut .block-head__text .lead{ margin-top:.6rem; text-align:center; max-width:56ch; }
 /* CTA do Histórico: faixa própria, já do lado cinza da costura. Toma a cor da
    secção seguinte (Equipa) para a fronteira diagonal continuar a ser a única
    linha visível; o botão encosta à direita, onde a diagonal está rente ao topo. */
@@ -885,18 +861,33 @@ html.reveal-ready .seam:has(.stat.is-visible)::before{ transform:scaleY(1); }
    números menores que os da faixa cheia da home. */
 .stats--compact{
   grid-template-columns:repeat(2,1fr);
-  column-gap:clamp(20px,2.6vw,32px);
-  row-gap:clamp(26px,3.6vw,40px);
+  column-gap:clamp(18px,2.2vw,28px);
+  row-gap:clamp(18px,2.2vw,28px);
   margin-top:.3rem;
 }
-.stats--compact .stat{ border-left:0; padding:0; text-align:left; }
-.stats--compact .stat__num{
-  justify-content:flex-start;
-  font-size:clamp(2.4rem,3.6vw,3.6rem);
-  min-height:clamp(2.4rem,3.6vw,3.6rem);
+/* Cada pilar ganha moldura própria (fio + fio laranja no topo, eco da .frame
+   das imagens) em vez de flutuar solto — lê-se como quadro de confiança,
+   não como lista de números. */
+.stats--compact .stat{
+  position:relative;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.04);
+  padding:clamp(26px,3.2vw,42px) clamp(22px,2.6vw,32px);
+  text-align:center;
+  overflow:hidden;
 }
-.stats--compact .stat__num--word{ font-size:clamp(1.3rem,2vw,1.75rem); }
-.stats--compact .stat__label{ margin-top:.7rem; font-size:.92rem; }
+.stats--compact .stat::before{
+  content:"";
+  position:absolute; top:0; left:0; width:100%; height:3px;
+  background:var(--accent-dk);
+}
+.stats--compact .stat__num{
+  justify-content:center;
+  font-size:clamp(3rem,4.8vw,5rem);
+  min-height:clamp(3rem,4.8vw,5rem);
+}
+.stats--compact .stat__num--word{ font-size:clamp(1.6rem,2.4vw,2.2rem); }
+.stats--compact .stat__label{ margin-top:.8rem; font-size:1rem; }
 @media (max-width:640px){
   .stats--compact{ grid-template-columns:1fr; }
 }
