@@ -5,15 +5,32 @@
   },
   "quemSomos": {
     "title": "Construindo o futuro com qualidade e sustentabilidade",
-    "paragrafos": [
-      "Com 20 anos de experiência no mercado imobiliário, a AM Santos destaca-se pela excelência em cada um dos projetos executados. Sob a liderança de António M Santos, a empresa reúne uma equipa de profissionais de arquitetura, engenharia, decoração e gestão imobiliária de alto nível.",
-      "Desde o seu início, a nossa visão é proporcionar conforto e qualidade a quem confia em nós, através de projetos que combinam uma arquitetura moderna e funcional com um foco inabalável no bem-estar e na qualidade."
+    "meta": [
+      { "value": "20 anos", "label": "de experiência no mercado" },
+      { "value": "António M Santos", "label": "Direção-geral" },
+      { "value": "5 áreas", "label": "arquitetura, engenharia, decoração, obra e gestão imobiliária" }
     ],
+    "paragrafo": "Construímos para durar: soluções sustentáveis, materiais de confiança e um controlo rigoroso de qualidade em cada fase da obra, para que o resultado final seja tão sólido quanto os 20 anos de história que o sustentam.",
     "botao": "Sobre nós",
     "imagem": "/images/template-sobre.jpg"
   },
   "oQueFazemos": {
     "title": "Qualidade — Conforto — Sustentabilidade",
+    "lead": "Do estudo do terreno à entrega das chaves, a AM Santos desenha, constrói e acompanha cada empreendimento com a mesma exigência — para que qualidade, conforto e sustentabilidade deixem de ser promessas e passem a ser critérios verificáveis em cada metro quadrado.",
+    "pilares": [
+      {
+        "title": "Qualidade",
+        "texto": "Cada projeto é acompanhado desde o desenho até à obra concluída, com um controlo rigoroso de materiais e acabamentos em todas as fases."
+      },
+      {
+        "title": "Conforto",
+        "texto": "Espaços pensados para o dia a dia de quem os habita, com uma arquitetura funcional que privilegia luz, circulação e bem-estar."
+      },
+      {
+        "title": "Sustentabilidade",
+        "texto": "Soluções energeticamente eficientes e materiais duráveis, que reduzem o impacto ambiental e os custos de manutenção a longo prazo."
+      }
+    ],
     "statsTitle": "Em números",
     "statsLead": "Duas décadas de experiência traduzidas em resultado: cada projeto executado, cada metro quadrado construído e cada milhão investido reflete o mesmo compromisso da AM Santos com a qualidade e a sustentabilidade.",
     "stats": [

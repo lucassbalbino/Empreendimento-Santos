@@ -118,6 +118,7 @@ const modalData = concluidos.map((p) => ({
 
       var currentCard = null;   // card cujo painel está aberto (ou a fechar)
       var closeTimer = null;
+      var openTimer = null;     // correção de scroll agendada (linhas clampadas)
 
       function chip(text) {
         var s = document.createElement('span');
@@ -203,7 +204,10 @@ const modalData = concluidos.map((p) => ({
         return last;
       }
 
-      // Arranca o painel da grelha para o holder, sem animação (troca de card).
+      // Arranca o painel da grelha para o holder, sem animação. Só usado
+      // quando não há nenhum painel visível para fechar em transição (1.ª
+      // abertura, ou o painel já estava escondido) — nunca para trocar de
+      // card com um painel a meio do ecrã.
       function detach() {
         if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
         panel.classList.remove('is-open');
@@ -212,12 +216,10 @@ const modalData = concluidos.map((p) => ({
         currentCard = null;
       }
 
-      function open(card) {
-        var p = projetos[card.getAttribute('data-slug')];
-        if (!p) return;
-        if (card === currentCard) { close(); return; } // toggle
-
-        detach();          // fecha instantâneo qualquer painel já aberto
+      // Move o painel (já preenchido) para a linha do card e faz a animação
+      // de abertura + scroll. Extraído de open() para poder correr de
+      // imediato ou só depois de uma animação de fecho terminar.
+      function reveal(card, p) {
         fill(p);
 
         var anchor = lastInRow(card);
@@ -235,17 +237,48 @@ const modalData = concluidos.map((p) => ({
         // a meio nos cards que já alcançam o painel à primeira.
         var clamped = panelTargetY() > maxScroll() + 2;
         scrollToPanel();
+        if (openTimer) clearTimeout(openTimer);
         if (clamped) {
-          setTimeout(function () {
+          openTimer = setTimeout(function () {
             if (currentCard !== card) return;
             lenisResize();
             scrollToPanel();
+            openTimer = null;
           }, reduce ? 0 : DUR);
         }
       }
 
-      function close() {
-        if (!currentCard) return;
+      function open(card) {
+        var p = projetos[card.getAttribute('data-slug')];
+        if (!p) return;
+        if (card === currentCard) { close(); return; } // toggle
+
+        // Qualquer plano anterior (correção de scroll agendada, fecho a
+        // meio) deixa de valer — só a última abertura clicada é que conta.
+        if (openTimer) { clearTimeout(openTimer); openTimer = null; }
+
+        if (currentCard) {
+          // Já há um painel aberto noutra linha: fecha-o com animação e só
+          // move/reabre depois — em vez do salto seco de trocar de sítio a
+          // meio do ecrã sem transição.
+          close(function () { reveal(card, p); });
+        } else if (!panel.hidden && closeTimer) {
+          // Painel ainda a meio do fecho (currentCard já é null): cancela o
+          // fecho e reaproveita-o já aberto na nova linha.
+          clearTimeout(closeTimer);
+          closeTimer = null;
+          reveal(card, p);
+        } else {
+          detach();
+          reveal(card, p);
+        }
+      }
+
+      // `after` corre só depois do painel acabar de colapsar — usado para
+      // encadear uma reabertura noutra linha sem cortar a animação de fecho.
+      function close(after) {
+        if (openTimer) { clearTimeout(openTimer); openTimer = null; }
+        if (!currentCard) { if (after) after(); return; }
         panel.classList.remove('is-open');
         currentCard = null;
         if (closeTimer) clearTimeout(closeTimer);
@@ -254,6 +287,7 @@ const modalData = concluidos.map((p) => ({
           holder.appendChild(panel);
           lenisResize();
           closeTimer = null;
+          if (after) after();
         }, reduce ? 0 : DUR);
       }
 
@@ -275,7 +309,7 @@ const modalData = concluidos.map((p) => ({
       });
 
       panel.querySelectorAll('[data-emodal-close]').forEach(function (btn) {
-        btn.addEventListener('click', close);
+        btn.addEventListener('click', function () { close(); });
       });
 
       document.addEventListener('keydown', function (e) {

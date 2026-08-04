@@ -142,6 +142,42 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
   <slot />
   <Footer />
   <PageCurtain />
+  <!-- Costura ligada ao scroll: a faixa laranja de cada .stitch avança na
+       diagonal conforme a costura sobe pelo ecrã. Escreve --draw (0→1) por
+       costura; a regra html.stitch-scroll mapeia-o para o stroke-dashoffset.
+       Vive no layout para correr em TODAS as páginas (a home e as internas
+       partilham a mesma linguagem de costura). Sai cedo se não houver .stitch.
+       Reduced-motion: não ativa (a faixa fica desenhada pela regra base). -->
+  <script is:inline>
+    (function () {
+      var root = document.documentElement;
+      var stitches = document.querySelectorAll('.stitch');
+      if (!stitches.length) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      function update() {
+        var vh = window.innerHeight || root.clientHeight;
+        var start = vh * 1.00;   // começa a avançar assim que a costura assoma pelo fundo
+        var end = vh * 0.30;     // e só completa perto do topo — desenho longo e gradual
+        for (var i = 0; i < stitches.length; i++) {
+          var top = stitches[i].getBoundingClientRect().top;
+          var p = (start - top) / (start - end);
+          p = p < 0 ? 0 : p > 1 ? 1 : p;
+          stitches[i].style.setProperty('--draw', p.toFixed(4));
+        }
+      }
+      update();                          // define --draw antes de ativar: sem flash
+      root.classList.add('stitch-scroll');
+      var ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () { update(); ticking = false; });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      window.addEventListener('pageshow', update);
+    })();
+  </script>
   <!-- Scroll interpolado (Lenis) + parallax da hero.
 
        O browser move a página aos degraus: cada volta de roda é um salto seco.
@@ -253,7 +289,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
 
       var shown = 0, target = 0, loaded = false, raf, ended = false;
       var t0 = Date.now();
-      var RAMP = 4800;   // duração base do contador (ritmo dramático, indep. da velocidade de carga)
+      var RAMP = 2400;   // duração base do contador (ritmo dramático, indep. da velocidade de carga)
 
       function complete() { loaded = true; }   // deixa o contador passar dos 99 até 100
 
@@ -282,13 +318,13 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
           window.__amsLenis?.start();   // liberta o scroll ao sair o preloader
           root.classList.remove('is-loading');             // destrava o scroll
           pre.remove();
-        }, 1500);                                           // = duração da transição de saída
+        }, 750);                                            // = duração da transição de saída
       }
 
       if (document.readyState === 'complete') complete();
       else window.addEventListener('load', complete);
-      setTimeout(complete, 2500);                           // teto: nunca ficar preso
-      setTimeout(finish, 7000);     // teto duro: força a saída mesmo se o loop parar (> RAMP + saída)
+      setTimeout(complete, 1250);                           // teto: nunca ficar preso
+      setTimeout(finish, 3500);     // teto duro: força a saída mesmo se o loop parar (> RAMP + saída)
       raf = requestAnimationFrame(tick);
     })();
   </script>

@@ -402,8 +402,11 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   align-self:center; align-items:center;
   text-align:center; max-width:60ch; margin:0;
 }
+.title-split--center .title-split__lead{
+  font-size:clamp(1.5rem, 2.8vw, 2.2rem);
+}
 .title-split--center .title-split__word{
-  font-size:clamp(3.2rem, 9vw, 7.2rem);   /* maior que a variante da secção "Sobre Nós" */
+  font-size:clamp(3.6rem, 10vw, 8.2rem);   /* maior que a variante da secção "Sobre Nós" */
 }
 
 /* Variante "preenchida" (Histórico, na home): a palavra grande dita a
@@ -450,6 +453,55 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   will-change:transform;
 }
 
+/* Bloco editorial sob o título: meta (dados) à esquerda, parágrafo único à
+   direita — os dois arrancam na mesma linha da grelha (nenhum dos dois tem
+   margin-top), e o parágrafo ocupa toda a largura que sobra das 12 colunas,
+   em vez de dividir o espaço com mais texto. */
+.quemsomos__editorial{
+  display:grid;
+  grid-template-columns:repeat(12, 1fr);
+  column-gap:clamp(20px,2.6vw,40px);
+  margin-top:clamp(56px,7vw,108px);
+}
+.quemsomos__meta{
+  grid-column:1 / 5;
+  display:flex; flex-direction:column;
+  gap:clamp(26px,3vw,42px);
+}
+.qmeta{ border-top:1px solid var(--line); padding-top:.85rem; }
+.qmeta__v{
+  display:block; font-family:var(--serif); color:var(--ink);
+  font-size:clamp(1.5rem,2.4vw,2.1rem); line-height:1.1;
+}
+.qmeta__l{
+  display:block; margin-top:.4rem; max-width:26ch;
+  font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);
+}
+/* Maior e mais leve que um parágrafo normal — preenche a coluna 6/13 (o
+   espaço delimitado ao lado da meta) com o peso visual que antes vinha de
+   três blocos de texto mais pequenos. */
+.quemsomos__p{
+  grid-column:6 / 13;
+  align-self:start;
+  color:var(--ink-soft);
+  font-family:var(--serif); font-weight:300;
+  line-height:1.5;
+  font-size:clamp(1.5rem,2.6vw,2.3rem);
+}
+@media (max-width:1100px){
+  .quemsomos__p{ grid-column:5 / 13; }
+}
+@media (max-width:760px){
+  .quemsomos__editorial{ grid-template-columns:1fr; row-gap:clamp(28px,6vw,40px); }
+  .quemsomos__meta{ grid-column:1; flex-direction:row; flex-wrap:wrap; gap:clamp(20px,5vw,32px); }
+  .qmeta{ flex:1 1 40%; }
+  .quemsomos__p{ grid-column:1; font-size:clamp(1.3rem,5vw,1.7rem); }
+  /* Empilhado, o bloco editorial fica alto de mais para a marca-d'água
+     "bottom" não cruzar o texto — some, tal como a marca-d'água do
+     "O Que Fazemos" (ver .dofazemos.has-wm .wm-layer). */
+  .quemsomos .has-wm .wm-layer{ display:none; }
+}
+
 /* =====================================================================
    O QUE FAZEMOS + contadores
    ===================================================================== */
@@ -460,7 +512,9 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    Vem depois de .section no ficheiro: mesma especificidade, ganha por ordem. */
 .section--fazemos{
   padding-top:clamp(12px,1.4vw,24px);
-  padding-bottom:clamp(96px,11vw,190px);
+  /* Curto de propósito: esta secção e o Portfolio a seguir (via costura)
+     conversam entre si como o mesmo gesto, em vez de se afastarem. */
+  padding-bottom:var(--section-y-tight);
 }
 
 /* Centrada em relação ao cartão dos contadores: ambos ocupam a caixa de
@@ -468,12 +522,12 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .dofazemos{ text-align:center; }
 /* Uma linha só. O Fraunces tem optical sizing, por isso a largura por px de
    corpo não é constante: ~17,1px em corpo grande mas ~18,8px em corpo
-   pequeno. 4,8vw é o coeficiente que cabe nos 90vw do .container em toda a
-   gama; o topo fica em 4rem porque acima de 1440px o .container deixa de
+   pequeno. 6,2vw é o coeficiente que cabe nos 90vw do .container em toda a
+   gama; o topo fica em 5.2rem porque acima de 1440px o .container deixa de
    crescer (fica em 1280px). */
 .dofazemos .display{
   margin:.4rem 0 0;
-  font-size:clamp(1.6rem, 4.8vw, 4rem);
+  font-size:clamp(2.1rem, 6.2vw, 5.2rem);
 }
 /* Abaixo disto uma linha só exigiria ~15px de corpo, ilegível para um
    título — deixa-se quebrar. */
@@ -481,6 +535,55 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   .dofazemos .display{ white-space:nowrap; }
 }
 .dofazemos .display em{ font-style:normal; color:var(--accent); }
+
+.dofazemos__lead{
+  max-width:58ch; margin:clamp(20px,2.6vw,32px) auto 0;
+  color:var(--ink-soft); line-height:1.75;
+  font-size:clamp(1rem,1.3vw,1.15rem);
+}
+/* Em ecrãs estreitos o parágrafo ocupa quase toda a largura do container,
+   onde a marca-d'água "fill" (sólida) passaria por cima do texto em vez de
+   ficar na margem — esconde-se, tal como as marcas-d'água de outras secções
+   já não têm espaço de sobra a partir daqui. */
+@media (max-width:640px){
+  .dofazemos.has-wm .wm-layer{ display:none; }
+}
+
+/* Três cartões em colunas iguais (mesma largura, mesmo gap) — alinhados entre
+   si — mas sem partilhar a linha de base: cada .pilar--n sobe/desce um valor
+   próprio (ver margin-top abaixo), o do meio mais baixo que os outros dois,
+   para não ler como uma grelha estática. */
+.dofazemos__pilares{
+  display:grid;
+  grid-template-columns:repeat(12, 1fr);
+  column-gap:clamp(20px,2.6vw,40px);
+  margin-top:clamp(64px,7.4vw,116px);
+}
+.pilar{
+  display:flex; flex-direction:column; gap:.7rem;
+  background:var(--dark);
+  border-radius:16px;
+  padding:clamp(28px,3vw,40px) clamp(24px,2.8vw,34px);
+}
+.pilar__n{
+  font-family:var(--serif); font-size:.85rem; letter-spacing:.06em;
+  color:var(--accent-dk);
+}
+.pilar__t{ font-family:var(--serif); font-weight:500; color:var(--paper); font-size:clamp(1.3rem,2vw,1.7rem); }
+.pilar__x{ color:rgba(255,255,255,.78); line-height:1.65; font-size:.95rem; }
+
+.pilar--1{ grid-column:1 / 5; }
+.pilar--2{ grid-column:5 / 9; margin-top:clamp(52px,6.4vw,92px); }
+.pilar--3{ grid-column:9 / 13; margin-top:clamp(18px,2.4vw,32px); }
+@media (max-width:1100px){
+  .pilar--1{ grid-column:1 / 7; }
+  .pilar--2{ grid-column:7 / 13; margin-top:clamp(64px,8vw,100px); }
+  .pilar--3{ grid-column:2 / 10; margin-top:clamp(40px,5vw,64px); }
+}
+@media (max-width:760px){
+  .dofazemos__pilares{ grid-template-columns:1fr; row-gap:clamp(32px,7vw,44px); }
+  .pilar--1, .pilar--2, .pilar--3{ grid-column:1; margin-top:0; }
+}
 
 /* Duas colunas: texto (título + parágrafo grande, alinhado à esquerda) de
    um lado, contadores grandes do outro — no idioma do site de referência
@@ -510,17 +613,17 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .facts--contadores .fact{
   background:none; border:0; border-radius:0;
   padding:clamp(16px,1.8vw,24px) 0 0;
-  border-top:1px solid rgba(255,255,255,.2);
+  border-top:1px solid var(--ink);
   gap:.6rem;
 }
 .facts--contadores .fact__v{
   font-size:clamp(3rem,5.6vw,5.4rem);
-  color:var(--accent-dk);
+  color:var(--ink);
   line-height:1;
 }
 .facts--contadores .fact__r{
   font-size:.78rem; letter-spacing:.08em; line-height:1.4; max-width:22ch;
-  color:rgba(255,255,255,.72);
+  color:var(--ink-soft);
 }
 
 @media (max-width:1024px){
@@ -534,8 +637,8 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 /* ---------------------------------------------------------------------
    COSTURA DIAGONAL (.stitch) — remate entre secções de cor diferente.
    Um triângulo da cor da secção ANTERIOR desce sobre o topo da seguinte
-   (linha de telhado / blueprint), cortando a fronteira na diagonal. Vive
-   fora de <section>, por isso a cortina de revelação
+   (linha de telhado / blueprint) e um fio laranja cose o corte na
+   diagonal. Vive fora de <section>, por isso a cortina de revelação
    (body.is-home .section::after) não o tapa; sobrepõe-se ao topo da
    secção seguinte por z-index, sem cortar a caixa nem o conteúdo.
    --------------------------------------------------------------------- */
@@ -551,6 +654,19 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .stitch--light .stitch__wedge{ fill:var(--paper); }     /* branco sobre a secção seguinte */
 .stitch--alt   .stitch__wedge{ fill:var(--paper-alt); } /* cinza-claro (.section--alt) sobre a seguinte */
 .stitch--dark  .stitch__wedge{ fill:var(--dark); }      /* escuro sobre a Equipa */
+.stitch__thread{
+  fill:none; stroke:var(--accent); stroke-width:2.5;
+  vector-effect:non-scaling-stroke;   /* espessura constante apesar do preserveAspectRatio:none */
+  stroke-dasharray:none;   /* por defeito: desenhada inteira (sem JS / reduced-motion) */
+}
+.stitch--dark .stitch__thread{ stroke:var(--accent-dk); }  /* mais brilho sobre escuro */
+/* Progresso ligado ao scroll: o script da home escreve --draw (0→1) em cada
+   .stitch conforme a costura sobe pelo ecrã, e a faixa laranja avança na
+   diagonal. Ativo só com html.stitch-scroll (JS on e sem reduced-motion).
+   Um ÚNICO traço a crescer da origem do caminho (canto inferior esquerdo): o
+   dash tem comprimento --draw e o gap (2) é maior que o caminho (pathLength=1),
+   por isso não há padrão periódico nem resíduo no canto oposto no início. */
+html.stitch-scroll .stitch__thread{ stroke-dasharray:var(--draw,0) 2; }
 
 @media (max-width:640px){
   :root{ --stitch-rise:clamp(26px,5vw,44px); }
@@ -1690,7 +1806,7 @@ body:has(#page-curtain.curtain--active:not(.curtain--solid)) .scrolled .logo__im
   background: var(--paper);       /* branco/papel da marca */
   color: var(--ink);
   clip-path: inset(0 0 0 0);      /* base para a transição de saída animar */
-  transition: clip-path 1.5s cubic-bezier(.8,0,.2,1);
+  transition: clip-path .75s cubic-bezier(.8,0,.2,1);
   will-change: clip-path;
 }
 html.is-loading .preloader { display: block; }

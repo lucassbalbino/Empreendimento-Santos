@@ -39,11 +39,26 @@ const equipaCards = home.equipa.members.map((m) => ({
 
   <!-- QUEM SOMOS -->
   <section class="section section--tight-top section--tight-bottom quemsomos">
-    <div class="container has-wm">
-      <Watermark variant="line" side="r" size="lg" y="bottom" />
-      <div class="quemsomos__intro">
+    <div class="container">
+      <div class="quemsomos__intro has-wm">
+        <Watermark variant="line" side="r" size="lg" y="bottom" />
         <TitleSplit text={home.quemSomos.title} class="title-split--center" />
         <a class="btn" href="/sobre-nos">{home.quemSomos.botao}</a>
+      </div>
+
+      <!-- Bloco editorial: meta à esquerda (grid de dados), parágrafo único à
+           direita, alinhado à mesma linha do topo da meta e a preencher todo
+           o espaço que sobra na grelha de 12 colunas. -->
+      <div class="quemsomos__editorial">
+        <div class="quemsomos__meta">
+          {home.quemSomos.meta.map((m) => (
+            <div class="qmeta">
+              <span class="qmeta__v">{m.value}</span>
+              <span class="qmeta__l">{m.label}</span>
+            </div>
+          ))}
+        </div>
+        <p class="quemsomos__p">{home.quemSomos.paragrafo}</p>
       </div>
     </div>
     <div class="quemsomos__media reveal-rise-slow">
@@ -56,10 +71,25 @@ const equipaCards = home.equipa.members.map((m) => ({
   <!-- O QUE FAZEMOS — sobre o mesmo branco do "Quem Somos": os dois são o
        mesmo capítulo. O laranja vive nos números, em toda a página, em vez
        de saturar uma só secção. -->
-  <section class="section section--fazemos has-wm">
-    <Watermark variant="fill" side="l" size="lg" y="bottom" />
-    <div class="container dofazemos">
+  <section class="section section--fazemos">
+    <div class="container dofazemos has-wm">
+      <Watermark variant="fill" side="l" size="lg" y="mid" />
       <h2 class="display" set:html={fazemosTitle}></h2>
+      <p class="dofazemos__lead">{home.oQueFazemos.lead}</p>
+    </div>
+    <!-- Três pilares em colunas desalinhadas — cada um começa numa coluna e
+         numa altura diferente (ver .pilar--n), sem seguir a mesma linha de
+         base, tal como as fases de "O Que Fazemos" do site de referência. -->
+    <div class="container">
+      <div class="dofazemos__pilares">
+        {home.oQueFazemos.pilares.map((p, i) => (
+          <div class={`pilar pilar--${i + 1}`}>
+            <span class="pilar__n">0{i + 1}</span>
+            <h3 class="pilar__t">{p.title}</h3>
+            <p class="pilar__x">{p.texto}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -69,6 +99,7 @@ const equipaCards = home.equipa.members.map((m) => ({
   <div class="stitch stitch--light">
     <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
       <polygon class="stitch__wedge" points="0,0 1000,0 0,60"></polygon>
+      <line class="stitch__thread" x1="0" y1="60" x2="1000" y2="0" pathLength="1"></line>
     </svg>
   </div>
 
@@ -92,11 +123,14 @@ const equipaCards = home.equipa.members.map((m) => ({
        em vez do cartão pequeno/centrado anterior. Os contadores continuam a
        usar .fact__v[data-target] para o main.js animar; só o dimensionamento
        e a moldura mudaram.
-       Sem tight-top: a margem negativa do .dslider (Portfolio) já puxa esta
-       secção para cima do stitch-rise, o que basta para as duas se lerem
-       coladas no mesmo bloco escuro. Sem tight-bottom: o Histórico a seguir
-       (já noutra secção, além da costura) precisa do respiro normal. -->
-  <section class="section section--dark">
+       Secção branca de propósito: um intervalo claro entre dois blocos
+       escuros (Portfolio acima, Histórico abaixo). Sem tight-top: a margem
+       negativa do .dslider (Portfolio) já puxa esta secção para cima do
+       stitch-rise — a cunha escura do slider fica agora visível sobre este
+       branco, no mesmo idioma das costuras diagonais da página. Sem
+       tight-bottom: o Histórico a seguir (já noutra secção, além da
+       costura) precisa do respiro normal. -->
+  <section class="section">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="lg" y="bottom" />
       <div class="contadores">
@@ -118,35 +152,39 @@ const equipaCards = home.equipa.members.map((m) => ({
     </div>
   </section>
 
-  <!-- COSTURA · fronteira de cor escuro → branco (Contadores → Histórico).
-       Triângulo escuro (cor dos Contadores) desce sobre o topo branco do
+  <!-- COSTURA · fronteira de cor branco → escuro (Contadores → Histórico).
+       Triângulo branco (cor dos Contadores) desce sobre o topo escuro do
        Histórico, cortando a fronteira na diagonal. Fora de <section>
        para escapar à cortina de revelação. -->
-  <div class="stitch stitch--dark">
+  <div class="stitch stitch--light">
     <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
       <polygon class="stitch__wedge" points="0,0 1000,0 0,60"></polygon>
+      <line class="stitch__thread" x1="0" y1="60" x2="1000" y2="0" pathLength="1"></line>
     </svg>
   </div>
 
-  <!-- TRACK RECORD (Histórico) — secção branca autónoma: sai do bloco escuro
-       da Obra, com mais respiro no topo. Ver .section--panels-cut. -->
-  <section class="section section--panels-cut">
+  <!-- TRACK RECORD (Histórico) — secção escura autónoma: sai do branco dos
+       Contadores, com mais respiro no topo. Ver .section--panels-cut. -->
+  <section class="section section--dark section--panels-cut">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="lg" y="bottom" />
       <BlockHead title={home.trackRecord.title} lead={home.trackRecord.lead} titleClass="title-split--fill" />
     </div>
     <!-- Fora do .container de propósito: os painéis sangram de bordo a bordo e
-         descem para dentro da costura diagonal (ver .section--panels-cut). -->
+         descem para dentro da costura diagonal (ver .section--panels-cut). A
+         costura (.stitch) é sempre full-width; painéis inset na margem do
+         container deixavam um pedaço da cunha solto fora dos cards. -->
     <ExpandPanels projetos={concluidos} />
   </section>
 
-  <!-- COSTURA · fronteira de cor branco → cinza (Histórico → Equipa).
-       Triângulo branco (cor do Histórico) desce sobre o topo do bloco seguinte,
+  <!-- COSTURA · fronteira de cor escuro → cinza (Histórico → Equipa).
+       Triângulo escuro (cor do Histórico) desce sobre o topo do bloco seguinte,
        cortando a fronteira na diagonal. Os painéis (z7) descem RENTES a esta
        diagonal, sobre a cunha (z6). Ver .section--panels-cut. -->
-  <div class="stitch stitch--light">
+  <div class="stitch stitch--dark">
     <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
       <polygon class="stitch__wedge" points="0,0 1000,0 0,60"></polygon>
+      <line class="stitch__thread" x1="0" y1="60" x2="1000" y2="0" pathLength="1"></line>
     </svg>
   </div>
 
