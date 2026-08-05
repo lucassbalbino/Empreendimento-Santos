@@ -38,7 +38,7 @@
   /* Ritmo: mais distância de scroll por gesto. Cada elemento passa a percorrer
      a sua animação ao longo de mais píxeis, o que se lê como suavidade — é o
      segundo maior fator, depois do scroll interpolado. */
-  --section-y: clamp(110px, 13vw, 220px);
+  --section-y: clamp(140px, 15.5vw, 260px);
   /* Espaçamento curto: usado *dentro* de um grupo narrativo, para que a
      proximidade indique que as duas secções são o mesmo capítulo. */
   --section-y-tight: clamp(28px, 3.4vw, 56px);
@@ -223,7 +223,7 @@ ul{ list-style:none; }
 .site-header{
   position:fixed; inset:0 0 auto 0; z-index:100;
   padding-block:1.4rem;
-  transition:background .4s var(--ease), padding .4s var(--ease), box-shadow .4s var(--ease);
+  transition:background .7s var(--ease), padding .7s var(--ease), box-shadow .7s var(--ease), transform .6s var(--ease);
 }
 .site-header .container{ display:flex; align-items:center; justify-content:space-between; gap:2rem; }
 .site-header.scrolled{
@@ -232,10 +232,11 @@ ul{ list-style:none; }
   padding-block:.85rem;
   box-shadow:0 1px 0 var(--line);
 }
+.site-header--hidden{ transform:translateY(-100%); }
 
 .logo{
   display:inline-flex; align-items:center;
-  height:54px; transition:height .4s var(--ease);
+  height:54px; transition:height .7s var(--ease);
 }
 .logo__img{ height:100%; width:auto; display:block; }
 .logo__img--dark{ display:none; }
@@ -497,8 +498,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   .qmeta{ flex:1 1 40%; }
   .quemsomos__p{ grid-column:1; font-size:clamp(1.3rem,5vw,1.7rem); }
   /* Empilhado, o bloco editorial fica alto de mais para a marca-d'água
-     "bottom" não cruzar o texto — some, tal como a marca-d'água do
-     "O Que Fazemos" (ver .dofazemos.has-wm .wm-layer). */
+     "bottom" não cruzar o texto — some. */
   .quemsomos .has-wm .wm-layer{ display:none; }
 }
 
@@ -506,47 +506,80 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    O QUE FAZEMOS + contadores
    ===================================================================== */
 /* Alinhado à esquerda, como todas as outras secções da home: um eixo
-   vertical único que o olho segue do hero ao rodapé. */
-/* A frase encosta aos contadores (são a mesma unidade de leitura) e afasta-se
-   bem do bloco escuro que vem a seguir.
-   Vem depois de .section no ficheiro: mesma especificidade, ganha por ordem. */
-.section--fazemos{
-  padding-top:clamp(12px,1.4vw,24px);
-  /* Curto de propósito: esta secção e o Portfolio a seguir (via costura)
-     conversam entre si como o mesmo gesto, em vez de se afastarem. */
-  padding-bottom:var(--section-y-tight);
+   vertical único que o olho segue do hero ao rodapé.
+   Sem padding próprio: fica com o padding-block cheio de .section (default),
+   de propósito. Esta secção vem logo a seguir ao Portfolio, cuja margem
+   negativa (.dslider) já a puxa para cima do stitch-rise — um padding-top
+   apertado cortaria o título/lead debaixo da cunha escura do slider. O
+   padding-bottom cheio dá também o respiro normal antes da costura para o
+   Histórico. */
+
+/* Alinhado à esquerda (como o resto da home, sem centrar nada). */
+.dofazemos{ text-align:left; }
+
+/* Cabeçalho a duas colunas inspirado no kononenkogroup.com: as 3 palavras do
+   título e o lead são dois blocos grandes lado a lado, com larguras
+   diferentes (7/12 vs 5/12) mas alinhados pelo topo do texto. */
+.dofazemos__head{
+  display:grid;
+  grid-template-columns:repeat(12, 1fr);
+  column-gap:clamp(20px,2.6vw,40px);
 }
 
-/* Centrada em relação ao cartão dos contadores: ambos ocupam a caixa de
-   conteúdo do .container, logo centrar aqui alinha os dois eixos médios. */
-.dofazemos{ text-align:center; }
-/* Uma linha só. O Fraunces tem optical sizing, por isso a largura por px de
-   corpo não é constante: ~17,1px em corpo grande mas ~18,8px em corpo
-   pequeno. 6,2vw é o coeficiente que cabe nos 90vw do .container em toda a
-   gama; o topo fica em 5.2rem porque acima de 1440px o .container deixa de
-   crescer (fica em 1280px). */
-.dofazemos .display{
-  margin:.4rem 0 0;
-  font-size:clamp(2.1rem, 6.2vw, 5.2rem);
+/* As 3 palavras do título ("Qualidade — Conforto — Sustentabilidade") como
+   lista numerada, uma a seguir à outra, no idioma dos mini cards dos
+   Contadores (.facts--contadores .fact): sem caixa, só um traço fino
+   (border-top) a separar cada item. */
+.dofazemos__words{
+  grid-column:1 / 8;
+  align-self:start;
+  margin:0;
+  display:flex; flex-direction:column;
 }
-/* Abaixo disto uma linha só exigiria ~15px de corpo, ilegível para um
-   título — deixa-se quebrar. */
-@media (min-width:700px){
-  .dofazemos .display{ white-space:nowrap; }
+.dofazemos__word{
+  display:flex; align-items:baseline;
+  gap:clamp(16px,2vw,28px);
+  padding:clamp(14px,1.8vw,22px) 0;
+  border-top:1px solid var(--line);
 }
-.dofazemos .display em{ font-style:normal; color:var(--accent); }
+.dofazemos__words .dofazemos__word:last-child{ border-bottom:1px solid var(--line); }
+.dofazemos__word-n{
+  font-family:var(--serif); font-size:.9rem; letter-spacing:.06em;
+  color:var(--accent-dk);
+}
+.dofazemos__word-t{
+  font-family:var(--serif); font-weight:500; color:var(--ink);
+  line-height:1.05; letter-spacing:-.01em;
+  font-size:clamp(2rem, 4.2vw, 3.6rem);
+}
+/* A palavra do meio ("Conforto") mantém a cor de destaque que tinha na
+   frase corrida original. */
+.dofazemos__word:nth-child(2) .dofazemos__word-t{ color:var(--accent); }
 
+/* Grande como as palavras do título (não uma legenda pequena) mas mais
+   leve — o mesmo contraste peso/tamanho que .quemsomos__p usa para o
+   parágrafo editorial. padding-top (em vez de margin) alinha o início do
+   texto com o início do texto da 1ª palavra, que só começa depois do
+   border-top + padding-top do .dofazemos__word. */
 .dofazemos__lead{
-  max-width:58ch; margin:clamp(20px,2.6vw,32px) auto 0;
-  color:var(--ink-soft); line-height:1.75;
-  font-size:clamp(1rem,1.3vw,1.15rem);
+  grid-column:8 / 13;
+  align-self:start;
+  margin-top:0;
+  padding-top:clamp(14px,1.8vw,22px);
+  color:var(--ink-soft);
+  font-family:var(--serif); font-weight:300;
+  line-height:1.6;
+  font-size:clamp(1.25rem,2vw,1.7rem);
 }
-/* Em ecrãs estreitos o parágrafo ocupa quase toda a largura do container,
-   onde a marca-d'água "fill" (sólida) passaria por cima do texto em vez de
-   ficar na margem — esconde-se, tal como as marcas-d'água de outras secções
-   já não têm espaço de sobra a partir daqui. */
-@media (max-width:640px){
-  .dofazemos.has-wm .wm-layer{ display:none; }
+@media (max-width:1100px){
+  .dofazemos__words{ grid-column:1 / 8; }
+  .dofazemos__lead{ grid-column:8 / 13; }
+}
+@media (max-width:760px){
+  .dofazemos__head{ grid-template-columns:1fr; row-gap:clamp(8px,3vw,16px); }
+  .dofazemos__words,
+  .dofazemos__lead{ grid-column:1; }
+  .dofazemos__lead{ padding-top:0; font-size:clamp(1.15rem,4.4vw,1.4rem); }
 }
 
 /* Três cartões em colunas iguais (mesma largura, mesmo gap) — alinhados entre
@@ -892,6 +925,12 @@ html.stitch-scroll .stitch__thread{ stroke-dasharray:var(--draw,0) 2; }
   .panel:hover{ flex:0 0 auto; height:180px; }
   .panel__label{ display:none; }
   .panel__content{ opacity:1; transform:none; }
+  /* A pilha vertical já não tem a largura total de um único painel para a
+     diagonal da costura fazer sentido — o clip-path/margem negativa do
+     desktop (pensados para 5 painéis lado a lado) cortavam uma fatia do
+     último card e empurravam toda a pilha para cima do CTA. Sem os dois, o
+     último card fica inteiro e a pilha já não trespassa a costura. */
+  .section--panels-cut .panels{ clip-path:none; margin-bottom:0; }
 }
 
 /* =====================================================================
@@ -1373,11 +1412,23 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   .team{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:1fr 1fr; }
   /* Menu vira hambúrguer já no tablet, onde o nav horizontal não cabe */
-  .nav__list, .nav__lang{ display:none; }
+  .nav__lang{ display:none; }
   .nav-toggle{ display:flex; }
-  .nav.open .nav__list{
-    display:flex; position:fixed; inset:0; background:var(--dark);
+  /* Painel fica sempre no DOM em display:flex — abrir/fechar anima opacity+transform
+     em vez de saltar via display:none, com visibility a sair da árvore de foco só
+     depois da transição terminar (fecho fica tão suave quanto a abertura). */
+  .nav__list{
+    position:fixed; inset:0; background:var(--dark);
     flex-direction:column; align-items:center; justify-content:center; gap:1.8rem; z-index:90;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transform:translateY(-14px) scale(.98);
+    transition:opacity .45s var(--ease), transform .45s var(--ease), visibility 0s linear .45s;
+  }
+  .nav.open .nav__list{
+    display:flex;
+    opacity:1; visibility:visible; pointer-events:auto;
+    transform:translateY(0) scale(1);
+    transition:opacity .4s var(--ease), transform .4s var(--ease), visibility 0s linear;
   }
   .nav.open .nav__list a{ color:#fff; font-size:1rem; opacity:1; }
 }

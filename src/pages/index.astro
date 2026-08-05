@@ -11,8 +11,10 @@ import TitleSplit from '../components/TitleSplit.astro';
 import home from '../data/home.json';
 import { porGrupo, emDestaque } from '../utils/projetos.js';
 
-// Mantém o <em> do meio do título "O Que Fazemos" como no mockup original.
-const fazemosTitle = home.oQueFazemos.title.replace(/—\s*(\S+)\s*—/, '— <em>$1</em> —');
+// O título "O Que Fazemos" ("Qualidade — Conforto — Sustentabilidade") vira
+// lista numerada (ver .dofazemos__words) em vez de frase corrida — cada
+// palavra à volta dos travessões é o seu próprio item.
+const fazemosWords = home.oQueFazemos.title.split(/\s*—\s*/);
 
 // Destaques derivados da fonte única — em construção e em projeto no slider,
 // concluídos no histórico.
@@ -34,8 +36,9 @@ const equipaCards = home.equipa.members.map((m) => ({
        imagem estática só se ver na hero, nunca por trás das secções. -->
   <div class="home-reveal">
 
-  <!-- GRUPO 1 · IDENTIDADE — "Quem Somos" e "O Que Fazemos" são o mesmo
-       capítulo, por isso encostam-se (espaçamento curto entre ambos). -->
+  <!-- GRUPO 1 · IDENTIDADE — "Quem Somos" e "Contadores" seguem-se aqui
+       (espaçamento curto entre ambos). "O Que Fazemos" passou a fechar o
+       capítulo da Obra, a seguir ao Portfolio (ver abaixo). -->
 
   <!-- QUEM SOMOS -->
   <section class="section section--tight-top section--tight-bottom quemsomos">
@@ -68,71 +71,15 @@ const equipaCards = home.equipa.members.map((m) => ({
     </div>
   </section>
 
-  <!-- O QUE FAZEMOS — sobre o mesmo branco do "Quem Somos": os dois são o
-       mesmo capítulo. O laranja vive nos números, em toda a página, em vez
-       de saturar uma só secção. -->
-  <section class="section section--fazemos">
-    <div class="container dofazemos has-wm">
-      <Watermark variant="fill" side="l" size="lg" y="mid" />
-      <h2 class="display" set:html={fazemosTitle}></h2>
-      <p class="dofazemos__lead">{home.oQueFazemos.lead}</p>
-    </div>
-    <!-- Três pilares em colunas desalinhadas — cada um começa numa coluna e
-         numa altura diferente (ver .pilar--n), sem seguir a mesma linha de
-         base, tal como as fases de "O Que Fazemos" do site de referência. -->
-    <div class="container">
-      <div class="dofazemos__pilares">
-        {home.oQueFazemos.pilares.map((p, i) => (
-          <div class={`pilar pilar--${i + 1}`}>
-            <span class="pilar__n">0{i + 1}</span>
-            <h3 class="pilar__t">{p.title}</h3>
-            <p class="pilar__x">{p.texto}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- COSTURA · fronteira de cor branco → escuro. Triângulo branco (cor da
-       secção anterior) desce sobre o topo do Portfolio, cortando a fronteira na
-       diagonal. Fica fora de <section> para escapar à cortina de revelação. -->
-  <div class="stitch stitch--light">
-    <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
-      <polygon class="stitch__wedge" points="0,0 1000,0 0,60"></polygon>
-      <line class="stitch__thread" x1="0" y1="60" x2="1000" y2="0" pathLength="1"></line>
-    </svg>
-  </div>
-
-  <!-- GRUPO 2 · OBRA — portfolio, contadores e histórico partilham o bloco
-       escuro e encostam-se, para se lerem como um único capítulo. -->
-
-  <!-- PORTFOLIO — abre o capítulo da Obra. -->
-  <section class="section section--dark section--flush">
-    <DoubleSlider
-      projetos={destaques}
-      titulo={home.portfolio.title}
-      botao={home.portfolio.botao}
-      href="/portfolio"
-    />
-  </section>
-
-  <!-- CONTADORES — entre o Portfolio e o Histórico: os números são a
-       credencial que fecha a apresentação dos empreendimentos antes do
-       track record. Layout a duas colunas (ver estudiobase2.com): texto
-       grande alinhado à esquerda de um lado, contadores grandes do outro —
-       em vez do cartão pequeno/centrado anterior. Os contadores continuam a
-       usar .fact__v[data-target] para o main.js animar; só o dimensionamento
-       e a moldura mudaram.
-       Secção branca de propósito: um intervalo claro entre dois blocos
-       escuros (Portfolio acima, Histórico abaixo). Sem tight-top: a margem
-       negativa do .dslider (Portfolio) já puxa esta secção para cima do
-       stitch-rise — a cunha escura do slider fica agora visível sobre este
-       branco, no mesmo idioma das costuras diagonais da página. Sem
-       tight-bottom: o Histórico a seguir (já noutra secção, além da
-       costura) precisa do respiro normal. -->
+  <!-- CONTADORES — entre o "Quem Somos" e o Portfolio: os números abrem o
+       capítulo da Obra antes dos empreendimentos. Layout a duas colunas (ver
+       estudiobase2.com): texto grande alinhado à esquerda de um lado,
+       contadores grandes do outro. Os contadores continuam a usar
+       .fact__v[data-target] para o main.js animar.
+       Secção branca de propósito: um intervalo claro entre o "Quem Somos" e
+       o bloco escuro do Portfolio. -->
   <section class="section">
-    <div class="container has-wm">
-      <Watermark variant="line" side="r" size="lg" y="bottom" />
+    <div class="container">
       <div class="contadores">
         <div class="contadores__text">
           <TitleSplit text={home.oQueFazemos.statsTitle} />
@@ -152,8 +99,69 @@ const equipaCards = home.equipa.members.map((m) => ({
     </div>
   </section>
 
-  <!-- COSTURA · fronteira de cor branco → escuro (Contadores → Histórico).
-       Triângulo branco (cor dos Contadores) desce sobre o topo escuro do
+  <!-- COSTURA · fronteira de cor branco → escuro. Triângulo branco (cor da
+       secção anterior) desce sobre o topo do Portfolio, cortando a fronteira na
+       diagonal. Fica fora de <section> para escapar à cortina de revelação. -->
+  <div class="stitch stitch--light">
+    <svg class="stitch__cut" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+      <polygon class="stitch__wedge" points="0,0 1000,0 0,60"></polygon>
+      <line class="stitch__thread" x1="0" y1="60" x2="1000" y2="0" pathLength="1"></line>
+    </svg>
+  </div>
+
+  <!-- GRUPO 2 · OBRA — portfolio, "o que fazemos" e histórico partilham o
+       bloco escuro e encostam-se, para se lerem como um único capítulo. -->
+
+  <!-- PORTFOLIO — abre o capítulo da Obra. -->
+  <section class="section section--dark section--flush">
+    <DoubleSlider
+      projetos={destaques}
+      titulo={home.portfolio.title}
+      botao={home.portfolio.botao}
+      href="/portfolio"
+    />
+  </section>
+
+  <!-- O QUE FAZEMOS — entre o Portfolio e o Histórico: fecha a apresentação
+       dos empreendimentos com os pilares de atuação antes do track record.
+       Sobre o mesmo branco que fecha o capítulo da Obra. O laranja vive nos
+       números, em toda a página, em vez de saturar uma só secção. Sem
+       tight-top: a margem negativa do .dslider (Portfolio) já puxa esta
+       secção para cima do stitch-rise — a cunha escura do slider fica agora
+       visível sobre este branco, no mesmo idioma das costuras diagonais da
+       página. -->
+  <section class="section section--fazemos">
+    <div class="container dofazemos">
+      <div class="dofazemos__head">
+        <h2 class="dofazemos__words">
+          {fazemosWords.map((w, i) => (
+            <span class="dofazemos__word">
+              <span class="dofazemos__word-n">0{i + 1}</span>
+              <span class="dofazemos__word-t">{w}</span>
+            </span>
+          ))}
+        </h2>
+        <p class="dofazemos__lead">{home.oQueFazemos.lead}</p>
+      </div>
+    </div>
+    <!-- Três pilares em colunas desalinhadas — cada um começa numa coluna e
+         numa altura diferente (ver .pilar--n), sem seguir a mesma linha de
+         base, tal como as fases de "O Que Fazemos" do site de referência. -->
+    <div class="container">
+      <div class="dofazemos__pilares">
+        {home.oQueFazemos.pilares.map((p, i) => (
+          <div class={`pilar pilar--${i + 1}`}>
+            <span class="pilar__n">0{i + 1}</span>
+            <h3 class="pilar__t">{p.title}</h3>
+            <p class="pilar__x">{p.texto}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- COSTURA · fronteira de cor branco → escuro (O Que Fazemos → Histórico).
+       Triângulo branco (cor de "O Que Fazemos") desce sobre o topo escuro do
        Histórico, cortando a fronteira na diagonal. Fora de <section>
        para escapar à cortina de revelação. -->
   <div class="stitch stitch--light">

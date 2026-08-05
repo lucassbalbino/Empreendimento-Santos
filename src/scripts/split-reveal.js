@@ -11,9 +11,23 @@ if (!reduce && 'IntersectionObserver' in window) init();
 
 function init() {
   // Exatamente os seletores libertados do block-reveal (texto de secção). Exclui
-  // a hero (.hero, não .section) e os cards (não têm .display/.lead nem
-  // .split__body>p / .quemsomos__intro>p).
-  const SEL = '.section .display, .section .lead, .split__body > p, .quemsomos__intro > p';
+  // a hero (.hero, não .section) — já tem a sua própria entrada, coreografada
+  // com o preloader/cortina — e os cards de projeto (carrossel com a sua
+  // própria animação).
+  // .quemsomos__p / .dofazemos__lead / .pilar__x — os parágrafos editoriais do
+  // "Quem Somos" e "O Que Fazemos" (home), no mesmo idioma do site de
+  // referência (kononenkogroup): texto que sobe linha a linha ao entrar no ecrã.
+  // .title-split__lead/__word — os dois "andares" de qualquer título TitleSplit
+  // dentro de uma .section (em todo o site); cada span é filho de um flex
+  // container (.title-split), por isso já é "blockificado" e aceita as .line
+  // que o split-type insere sem quebrar o layout.
+  // .qmeta__v/__l — os itens da meta do "Quem Somos" (valor + rótulo).
+  // .muted — parágrafo secundário do contacto (ContactForm) e da página de
+  // contactos.
+  const SEL = '.section .display, .section .lead, .split__body > p, .quemsomos__intro > p, ' +
+    '.quemsomos__p, .dofazemos__lead, .pilar__x, ' +
+    '.section .title-split__lead, .section .title-split__word, ' +
+    '.qmeta__v, .qmeta__l, .section .muted';
   const REVEAL_MARGIN = '0px 0px -25% 0px'; // tardio: só quando bem dentro do ecrã
   const instances = []; // { el, split }
 

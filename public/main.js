@@ -8,11 +8,23 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Header muda ao rolar (listener global permanente).
+  var lastScrollY = window.scrollY;
   function updateHeader() {
     var header = document.querySelector('.site-header');
+    if (!header) return;
+    var scrollY = window.scrollY;
     // Páginas sem hero (body.no-hero) nascem com o header sólido: sem imagem
     // escura por baixo, o estado transparente/logo-claro ficaria ilegível.
-    if (header) header.classList.toggle('scrolled', document.body.classList.contains('no-hero') || window.scrollY > 60);
+    header.classList.toggle('scrolled', document.body.classList.contains('no-hero') || scrollY > 60);
+
+    // Esconde ao rolar para baixo, mostra ao rolar para cima. Só some depois
+    // de um limiar para não oscilar logo no topo; menu mobile aberto nunca esconde.
+    var nav = document.querySelector('.nav');
+    var menuOpen = nav && nav.classList.contains('open');
+    if (!menuOpen) {
+      header.classList.toggle('site-header--hidden', scrollY > lastScrollY && scrollY > 120);
+    }
+    lastScrollY = scrollY;
   }
   window.addEventListener('scroll', updateHeader, { passive: true });
 
