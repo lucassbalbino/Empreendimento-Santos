@@ -20,3 +20,78 @@ const classes = ['title-split', extraClass, !lead ? 'title-split--word-only' : '
   {lead && <span class="title-split__lead">{lead} </span>}
   <span class="title-split__word">{word}</span>
 </Tag>
+
+<script>
+  // .title-split--fit / --fill: iguala a largura visual das duas
+  // linhas ajustando o font-size (em vez de esticar o espaçamento entre
+  // palavras/letras via justify). Em vez de esticar só a linha mais estreita até à mais larga
+  // (o que, com textos muito desproporcionados, engordava demasiado a linha
+  // pequena e quebrava a hierarquia entre as duas), ambas as linhas movem-se
+  // a meio caminho — para a média geométrica das duas larguras — para que o
+  // ajuste fique repartido e nenhuma das linhas mude de tamanho de forma
+  // exagerada. Cada linha fica ainda limitada a ±35% do seu tamanho base
+  // (MIN_SCALE/MAX_SCALE): com textos muito desiguais (ex.: um "lead" de uma
+  // só palavra curta contra uma palavra final bem mais longa) igualar a
+  // largura por completo obrigaria a um salto de tamanho tão grande que
+  // inverteria a hierarquia (linha pequena maior do que a palavra grande) —
+  // preferível ficar com as larguras próximas, não exatamente iguais, do que
+  // partir o desenho.
+  const MIN_SCALE = 0.6;
+  const MAX_SCALE = 1.65;
+  const clampScale = (n) => Math.min(MAX_SCALE, Math.max(MIN_SCALE, n));
+
+  function syncFitTitles() {
+    document.querySelectorAll('.title-split--fit, .title-split--fill').forEach((el) => {
+      const lead = el.querySelector('.title-split__lead');
+      const word = el.querySelector('.title-split__word');
+      if (!(lead instanceof HTMLElement) || !(word instanceof HTMLElement)) return;
+
+      lead.style.fontSize = '';
+      word.style.fontSize = '';
+      const leadBase = parseFloat(getComputedStyle(lead).fontSize);
+      const wordBase = parseFloat(getComputedStyle(word).fontSize);
+
+      // O font-size não escala com uma largura perfeitamente linear (kerning,
+      // hinting), por isso repete-se o ajuste algumas vezes para convergir
+      // as duas linhas para a mesma largura em vez de confiar num único
+      // cálculo aproximado.
+      let leadScale = 1;
+      let wordScale = 1;
+      for (let i = 0; i < 4; i++) {
+        const leadWidth = lead.getBoundingClientRect().width;
+        const wordWidth = word.getBoundingClientRect().width;
+        if (!leadWidth || !wordWidth) return;
+
+        const targetWidth = Math.sqrt(leadWidth * wordWidth);
+        leadScale = clampScale((leadScale * targetWidth) / leadWidth);
+        wordScale = clampScale((wordScale * targetWidth) / wordWidth);
+        lead.style.fontSize = `${leadBase * leadScale}px`;
+        word.style.fontSize = `${wordBase * wordScale}px`;
+      }
+
+      // Em ecrãs estreitos, o ajuste acima pode pedir um tamanho que já não
+      // cabe no espaço disponível (as linhas nunca quebram — ver
+      // white-space:nowrap no CSS). Em vez de deixar transbordar, encolhe as
+      // duas linhas na mesma proporção até caberem, mantendo a largura igual
+      // entre elas.
+      const available = el.parentElement.getBoundingClientRect().width;
+      const widest = Math.max(lead.getBoundingClientRect().width, word.getBoundingClientRect().width);
+      if (widest > available) {
+        const shrink = available / widest;
+        lead.style.fontSize = `${parseFloat(lead.style.fontSize) * shrink}px`;
+        word.style.fontSize = `${parseFloat(word.style.fontSize) * shrink}px`;
+      }
+    });
+  }
+
+  let raf = 0;
+  function scheduleSync() {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(syncFitTitles);
+  }
+
+  scheduleSync();
+  document.fonts?.ready.then(scheduleSync);
+  window.addEventListener('resize', scheduleSync);
+  document.addEventListener('astro:after-swap', scheduleSync);
+</script>

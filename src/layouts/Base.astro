@@ -42,7 +42,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600;700&family=Economica:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600;700&family=Economica:wght@400;700&family=Barlow+Condensed:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 
   <!-- Gate do preloader: liga is-loading ANTES do paint, só na 1.ª carga real
@@ -142,42 +142,6 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
   <slot />
   <Footer />
   <PageCurtain />
-  <!-- Costura ligada ao scroll: a faixa laranja de cada .stitch avança na
-       diagonal conforme a costura sobe pelo ecrã. Escreve --draw (0→1) por
-       costura; a regra html.stitch-scroll mapeia-o para o stroke-dashoffset.
-       Vive no layout para correr em TODAS as páginas (a home e as internas
-       partilham a mesma linguagem de costura). Sai cedo se não houver .stitch.
-       Reduced-motion: não ativa (a faixa fica desenhada pela regra base). -->
-  <script is:inline>
-    (function () {
-      var root = document.documentElement;
-      var stitches = document.querySelectorAll('.stitch');
-      if (!stitches.length) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      function update() {
-        var vh = window.innerHeight || root.clientHeight;
-        var start = vh * 1.00;   // começa a avançar assim que a costura assoma pelo fundo
-        var end = vh * 0.30;     // e só completa perto do topo — desenho longo e gradual
-        for (var i = 0; i < stitches.length; i++) {
-          var top = stitches[i].getBoundingClientRect().top;
-          var p = (start - top) / (start - end);
-          p = p < 0 ? 0 : p > 1 ? 1 : p;
-          stitches[i].style.setProperty('--draw', p.toFixed(4));
-        }
-      }
-      update();                          // define --draw antes de ativar: sem flash
-      root.classList.add('stitch-scroll');
-      var ticking = false;
-      function onScroll() {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () { update(); ticking = false; });
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
-      window.addEventListener('pageshow', update);
-    })();
-  </script>
   <!-- Scroll interpolado (Lenis) + parallax da hero.
 
        O browser move a página aos degraus: cada volta de roda é um salto seco.

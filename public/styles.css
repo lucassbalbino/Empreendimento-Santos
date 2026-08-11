@@ -38,14 +38,10 @@
   /* Ritmo: mais distância de scroll por gesto. Cada elemento passa a percorrer
      a sua animação ao longo de mais píxeis, o que se lê como suavidade — é o
      segundo maior fator, depois do scroll interpolado. */
-  --section-y: clamp(140px, 15.5vw, 260px);
+  --section-y: clamp(168px, 18vw, 300px);
   /* Espaçamento curto: usado *dentro* de um grupo narrativo, para que a
      proximidade indique que as duas secções são o mesmo capítulo. */
-  --section-y-tight: clamp(28px, 3.4vw, 56px);
-  /* Altura da cunha diagonal (.stitch). Global porque o conteúdo que desce
-     para dentro do corte (ver .section--panels-cut) precisa da mesma medida. */
-  --stitch-rise: clamp(40px, 4.6vw, 72px);
-
+  --section-y-tight: clamp(36px, 4.2vw, 68px);
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
@@ -410,25 +406,57 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   font-size:clamp(3.6rem, 10vw, 8.2rem);   /* maior que a variante da secção "Sobre Nós" */
 }
 
-/* Variante "preenchida" (Histórico, na home): a palavra grande dita a
-   largura do bloco (align-items fica no default — stretch — em vez de
-   centrar cada linha à sua largura própria como o --center acima); a linha
-   pequena é justificada (text-align-last) para se esticar exatamente até
-   essa largura. Resultado: frase menor em cima, frase maior em baixo, as
-   duas com a mesma largura visual. */
 .title-split--fill{
   align-self:center; text-align:center; max-width:70ch; margin:0;
 }
-.title-split--fill .title-split__lead{
-  display:block; width:100%; text-align:justify; text-align-last:justify;
-}
 .title-split--fill .title-split__word{
-  display:block; width:100%;
   font-size:clamp(3.4rem, 8vw, 6.4rem);   /* imponente: acima do tamanho base do title-split */
 }
 
+/* Variantes "ajustadas" — --fit (esquerda, "Sobre Nós" da página) e --fill
+   (centrada, Histórico na home): as duas linhas ficam com a mesma largura
+   visual sem depender do pai nem de esticar o espaçamento das palavras (isso
+   fica para o JS abaixo, que ajusta o font-size das duas linhas até se
+   encontrarem a meio caminho). Cada linha encolhe à sua própria largura
+   natural (align-self:flex-start em vez do stretch por omissão do flex
+   column) para que a medição em JS capture o texto real, não a caixa
+   esticada — a caixa do título em si (width:fit-content) e o
+   text-align:center tratam de repor o alinhamento visual pretendido em cada
+   variante. O --center (Quem Somos/"Sobre Nós" da home) fica de fora deste
+   mecanismo — volta ao padrão, com a mesma fonte (Economica) das restantes
+   secções do site. */
+.title-split--fit,
+.title-split--fill{
+  width:fit-content; max-width:100%;
+}
+.title-split--fit .title-split__lead,
+.title-split--fit .title-split__word,
+.title-split--fill .title-split__lead,
+.title-split--fill .title-split__word{
+  align-self:flex-start;
+  white-space:nowrap;   /* cada linha é sempre 1 linha — o JS mede/ajusta a assumir isto */
+}
+/* Economica só existe nos pesos 400/700 (sem "light"), por isso a linha de
+   contexto troca para Barlow Condensed 300 nestas variantes "ajustadas" —
+   mesma personalidade estreita, mas com um peso realmente fino. */
+.title-split--fit .title-split__lead,
+.title-split--fill .title-split__lead{
+  font-family:"Barlow Condensed", var(--sans);
+  font-weight:300;
+  letter-spacing:.04em;
+}
+.title-split--fit .title-split__lead{
+  font-size:clamp(1.2rem, 2.2vw, 1.8rem);
+}
+.title-split--fit .title-split__word{
+  font-size:clamp(2.3rem, 5.3vw, 4.1rem);
+}
+
 .quemsomos__media{
-  margin-top:var(--section-y-tight);
+  /* Mais espaço do que --section-y-tight: esta imagem fecha a secção e fica
+     colada ao texto de cima com o token curto — precisa do respiro de uma
+     imagem grande, não do respiro "mesmo capítulo" entre duas secções. */
+  margin-top:clamp(72px,8.4vw,136px);
   /* Full-bleed (bordo a bordo), mais achatada: rácio largo baixa a altura sem
      mexer na largura. */
   position:relative; aspect-ratio:21/9;
@@ -507,12 +535,9 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    ===================================================================== */
 /* Alinhado à esquerda, como todas as outras secções da home: um eixo
    vertical único que o olho segue do hero ao rodapé.
-   Sem padding próprio: fica com o padding-block cheio de .section (default),
-   de propósito. Esta secção vem logo a seguir ao Portfolio, cuja margem
-   negativa (.dslider) já a puxa para cima do stitch-rise — um padding-top
-   apertado cortaria o título/lead debaixo da cunha escura do slider. O
-   padding-bottom cheio dá também o respiro normal antes da costura para o
-   Histórico. */
+   Sem padding-top próprio (ver .section--seam-top): a .seam antes desta
+   secção já deu o respiro do topo. O padding-bottom cheio dá o respiro
+   normal antes do Histórico. */
 
 /* Alinhado à esquerda (como o resto da home, sem centrar nada). */
 .dofazemos{ text-align:left; }
@@ -552,9 +577,6 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   line-height:1.05; letter-spacing:-.01em;
   font-size:clamp(2rem, 4.2vw, 3.6rem);
 }
-/* A palavra do meio ("Conforto") mantém a cor de destaque que tinha na
-   frase corrida original. */
-.dofazemos__word:nth-child(2) .dofazemos__word-t{ color:var(--accent); }
 
 /* Grande como as palavras do título (não uma legenda pequena) mas mais
    leve — o mesmo contraste peso/tamanho que .quemsomos__p usa para o
@@ -594,16 +616,17 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .pilar{
   display:flex; flex-direction:column; gap:.7rem;
-  background:var(--dark);
+  background:var(--paper);
+  border:1px solid var(--dark);
   border-radius:16px;
   padding:clamp(28px,3vw,40px) clamp(24px,2.8vw,34px);
 }
 .pilar__n{
   font-family:var(--serif); font-size:.85rem; letter-spacing:.06em;
-  color:var(--accent-dk);
+  color:var(--accent);
 }
-.pilar__t{ font-family:var(--serif); font-weight:500; color:var(--paper); font-size:clamp(1.3rem,2vw,1.7rem); }
-.pilar__x{ color:rgba(255,255,255,.78); line-height:1.65; font-size:.95rem; }
+.pilar__t{ font-family:var(--serif); font-weight:500; color:var(--ink); font-size:clamp(1.3rem,2vw,1.7rem); }
+.pilar__x{ color:var(--ink-soft); line-height:1.65; font-size:.95rem; }
 
 .pilar--1{ grid-column:1 / 5; }
 .pilar--2{ grid-column:5 / 9; margin-top:clamp(52px,6.4vw,92px); }
@@ -668,41 +691,61 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 
 /* ---------------------------------------------------------------------
-   COSTURA DIAGONAL (.stitch) — remate entre secções de cor diferente.
-   Um triângulo da cor da secção ANTERIOR desce sobre o topo da seguinte
-   (linha de telhado / blueprint) e um fio laranja cose o corte na
-   diagonal. Vive fora de <section>, por isso a cortina de revelação
-   (body.is-home .section::after) não o tapa; sobrepõe-se ao topo da
-   secção seguinte por z-index, sem cortar a caixa nem o conteúdo.
-   --------------------------------------------------------------------- */
-.stitch{
-  position:relative; z-index:6;   /* acima da cortina (::after z-index:5) */
-  height:0;                        /* não ocupa espaço: as secções continuam a encostar */
+   SEAM (.seam) — costura horizontal entre secções (ref. estudiobase2.com).
+   Marca a fronteira entre duas secções: uma linha fina cortada ao meio por
+   uma marca "+" e, por baixo, uma legenda a três colunas (rótulo da secção
+   seguinte · marca · ano) — o mesmo ritmo editorial repetido a cada
+   capítulo da página, em vez de um separador gráfico pesado. Toda fronteira
+   entre secções da home fica reta: sem cunhas nem cortes diagonais. Ocupa
+   o próprio espaço: é o intervalo entre secções, por isso a secção
+   seguinte não deve duplicar padding-top (ver .section--seam-top). */
+.seam{
+  /* Fundo próprio (em vez de transparente): a .seam pertence ao tom da
+     secção que ABRE a seguir, não à que fecha antes dela — assim continua
+     visualmente ligada mesmo quando essa secção anterior já fechou a sua
+     própria caixa de cor uns pixels acima (ex.: .panels-cta → Equipa). */
+  background:var(--paper);
+  padding-top:clamp(80px,8.8vw,128px);
+  padding-bottom:clamp(112px,12.5vw,180px);
 }
-.stitch__cut{
-  position:absolute; left:0; top:0; width:100%;
-  height:var(--stitch-rise);
-  display:block; pointer-events:none; overflow:visible;
+.seam__rule{ position:relative; border-top:1px solid var(--line); }
+.seam__mark{
+  position:absolute; top:0; left:50%; transform:translate(-50%,-50%);
+  background:inherit; color:var(--ink-faint);
+  font-size:.8rem; line-height:1; padding:0 .6em;
 }
-.stitch--light .stitch__wedge{ fill:var(--paper); }     /* branco sobre a secção seguinte */
-.stitch--alt   .stitch__wedge{ fill:var(--paper-alt); } /* cinza-claro (.section--alt) sobre a seguinte */
-.stitch--dark  .stitch__wedge{ fill:var(--dark); }      /* escuro sobre a Equipa */
-.stitch__thread{
-  fill:none; stroke:var(--accent); stroke-width:2.5;
-  vector-effect:non-scaling-stroke;   /* espessura constante apesar do preserveAspectRatio:none */
-  stroke-dasharray:none;   /* por defeito: desenhada inteira (sem JS / reduced-motion) */
+.seam__meta{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  margin-top:2.2rem;
+  font-family:var(--sans); font-size:.92rem; letter-spacing:.02em; color:var(--ink-faint);
 }
-.stitch--dark .stitch__thread{ stroke:var(--accent-dk); }  /* mais brilho sobre escuro */
-/* Progresso ligado ao scroll: o script da home escreve --draw (0→1) em cada
-   .stitch conforme a costura sobe pelo ecrã, e a faixa laranja avança na
-   diagonal. Ativo só com html.stitch-scroll (JS on e sem reduced-motion).
-   Um ÚNICO traço a crescer da origem do caminho (canto inferior esquerdo): o
-   dash tem comprimento --draw e o gap (2) é maior que o caminho (pathLength=1),
-   por isso não há padrão periódico nem resíduo no canto oposto no início. */
-html.stitch-scroll .stitch__thread{ stroke-dasharray:var(--draw,0) 2; }
+.seam__label{ display:inline-flex; align-items:center; gap:.6rem; color:var(--ink); font-weight:600; }
+.seam__label::before{ content:""; width:6px; height:6px; flex:none; background:var(--accent); }
+.seam__brand{ white-space:nowrap; }
+.seam__index{ white-space:nowrap; font-variant-numeric:tabular-nums; }
+
+.seam--alt{ background:var(--paper-alt); }
+.seam--dark{ background:var(--dark); }
+.seam--dark .seam__rule{ border-top-color:rgba(255,255,255,.16); }
+.seam--dark .seam__mark{ color:rgba(255,255,255,.4); }
+.seam--dark .seam__meta{ color:rgba(255,255,255,.5); }
+.seam--dark .seam__label{ color:var(--paper); }
+
+/* Respiro extra no topo: para quando a .seam fecha um bloco de imagem (a foto
+   da "Quem Somos", o slider do Portfolio, os painéis do Histórico, o
+   carrossel da Equipa) — uma imagem grande pede mais ar antes da régua do que
+   uma transição só de texto. Só o padding-top cresce: é o espaço ENTRE a
+   imagem e a linha, não o espaço depois dela. */
+.seam--loose{ padding-top:clamp(128px,14.5vw,208px); }
+
+/* A secção seguinte à .seam já recebeu o respiro do topo por ela — evita
+   somar o padding-top do .section base por cima. */
+.section--seam-top{ padding-top:0; }
 
 @media (max-width:640px){
-  :root{ --stitch-rise:clamp(26px,5vw,44px); }
+  .seam{ padding-top:clamp(48px,9vw,64px); padding-bottom:clamp(72px,13vw,104px); }
+  .seam--loose{ padding-top:clamp(64px,13.5vw,96px); }
+  .seam__brand{ display:none; }
 }
 
 .stats{
@@ -863,37 +906,24 @@ html.stitch-scroll .stitch__thread{ stroke-dasharray:var(--draw,0) 2; }
   font-size:clamp(1.5rem,2.4vw,2.1rem); line-height:1.05;
   color:var(--paper);
 }
-.panel__meta{
-  margin-top:.6rem;
-  font-size:.72rem; letter-spacing:.16em; text-transform:uppercase;
-  color:var(--accent-dk); font-weight:600;
-  display:inline-flex; align-items:center; gap:.6rem;
-  white-space:nowrap;
-}
-.panel__meta::after{ content:"\2192"; font-size:1rem; }
 
 /* Troca label <-> conteúdo quando o painel está expandido */
 .panel:hover .panel__label{ opacity:0; }
 .panel:hover .panel__content{ opacity:1; transform:translateY(0); }
 
 /* ---- Variante "cortada" (Histórico, na home) ----------------------------
-   Os painéis crescem em altura, sangram de bordo a bordo (saem do .container)
-   e o seu bordo inferior é recortado (clip-path) na MESMA diagonal da costura,
-   ficando RENTE à linha transversal. A secção perde o padding de baixo e os
-   painéis recuperam-no com margem negativa. O CTA fica ABAIXO da costura, já no
-   cinza (ver .panels-cta).
-   flow-root: sem BFC próprio, essa margem negativa colapsava com a da secção e
-   puxava a costura para cima em vez de fazer os painéis descer. */
-.section--panels-cut{ padding-top:clamp(140px,15vw,260px); padding-bottom:0; display:flow-root; }
+   Os painéis crescem em altura e sangram de bordo a bordo (saem do
+   .container), rente ao fundo reto da secção. O CTA fica logo a seguir,
+   já no cinza (ver .panels-cta). */
+.section--panels-cut{ padding-top:clamp(140px,15vw,260px); padding-bottom:0; }
 /* Cabeçalho do Histórico (home) no molde do "Quem Somos": título e lead
    centrados, maiores e mais presentes que o base. O botão não vive aqui —
-   está na .panels-cta, abaixo da costura. */
+   está na .panels-cta, a seguir aos painéis. */
 .section--panels-cut .block-head{ flex-direction:column; align-items:stretch; }
 .section--panels-cut .block-head__text{ display:flex; flex-direction:column; align-items:center; }
 .section--panels-cut .block-head__text .lead{ margin-top:.6rem; text-align:center; max-width:56ch; }
-/* CTA do Histórico: faixa própria, já do lado cinza da costura. Toma a cor da
-   secção seguinte (Equipa) para a fronteira diagonal continuar a ser a única
-   linha visível; o botão encosta à direita, onde a diagonal está rente ao topo. */
+/* CTA do Histórico: faixa própria, já do lado cinza (cor da secção seguinte,
+   Equipa); o botão encosta à direita. */
 .panels-cta{
   background:var(--paper-alt);
   padding-top:clamp(36px,5vw,64px);
@@ -903,19 +933,7 @@ html.stitch-scroll .stitch__thread{ stroke-dasharray:var(--draw,0) 2; }
   font-size:.95rem;                        /* base .74rem */
 }
 .panels-cta .btn::after{ font-size:1.25rem; }  /* seta a condizer */
-.section--panels-cut .panels{
-  position:relative; z-index:7;   /* acima da cunha (6) */
-  /* Descem exatamente a altura da cunha para lá da fronteira... */
-  height:calc(clamp(460px,72vh,760px) + var(--stitch-rise));
-  margin-bottom:calc(-1 * var(--stitch-rise));
-  /* ...e o bordo inferior é recortado NA MESMA diagonal da costura: à direita
-     rente à fronteira, à esquerda uma cunha abaixo. */
-  clip-path:polygon(0 0, 100% 0, 100% calc(100% - var(--stitch-rise)), 0 100%);
-}
-/* Sobe o rótulo e o conteúdo --stitch-rise para nenhum texto cair na zona
-   recortada, seja qual for o card expandido. */
-.section--panels-cut .panel__label{ bottom:calc(1.4rem + var(--stitch-rise)); }
-.section--panels-cut .panel__content{ bottom:calc(var(--stitch-rise) + .4rem); }
+.section--panels-cut .panels{ height:clamp(460px,72vh,760px); }
 
 /* Responsivo: vira pilha vertical de cards, sem efeito de expansão */
 @media (max-width:720px){
@@ -925,12 +943,6 @@ html.stitch-scroll .stitch__thread{ stroke-dasharray:var(--draw,0) 2; }
   .panel:hover{ flex:0 0 auto; height:180px; }
   .panel__label{ display:none; }
   .panel__content{ opacity:1; transform:none; }
-  /* A pilha vertical já não tem a largura total de um único painel para a
-     diagonal da costura fazer sentido — o clip-path/margem negativa do
-     desktop (pensados para 5 painéis lado a lado) cortavam uma fatia do
-     último card e empurravam toda a pilha para cima do CTA. Sem os dois, o
-     último card fica inteiro e a pilha já não trespassa a costura. */
-  .section--panels-cut .panels{ clip-path:none; margin-bottom:0; }
 }
 
 /* =====================================================================
@@ -1462,7 +1474,7 @@ button.card{
 .epanel{ grid-column:1 / -1; }
 .epanel[hidden]{ display:none; }
 
-.epanel__wrap{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .8s var(--ease); }
+.epanel__wrap{ display:grid; grid-template-rows:0fr; transition:grid-template-rows 1.3s var(--ease); }
 .epanel.is-open .epanel__wrap{ grid-template-rows:1fr; }
 
 .epanel__inner{
@@ -1593,9 +1605,6 @@ button.card{
    sangrada pela borda direita. Sem autoplay.
    ===================================================================== */
 .section--flush{ padding-block:0; }
-/* flow-root: sem BFC próprio, a margem negativa do card colapsava com a da
-   secção e puxava a costura para cima em vez de fazer o card descer. */
-.section--dark.section--flush{ display:flow-root; }
 
 /* Primeira secção de uma página sem hero (body.no-hero): o header é fixo e
    sólido desde o topo, por isso damos folga extra para o título não encostar
@@ -1603,100 +1612,124 @@ button.card{
 .no-hero .section--flat-top{ padding-top:calc(var(--section-y) + clamp(20px, 3vw, 48px)); }
 
 .dslider{
-  position:relative; z-index:7;   /* acima da cunha (6) */
+  position:relative;
   overflow:hidden;
-  /* Desce exatamente a altura da cunha para lá da fronteira e o bordo inferior é
-     recortado NA MESMA diagonal da costura — assim a própria imagem preenche o
-     triângulo até à linha transversal, em vez de a cunha ficar em cor chapada
-     abaixo do card. Mesmo idioma dos painéis do Histórico (.section--panels-cut). */
-  min-height:calc(clamp(680px, 92vh, 900px) + var(--stitch-rise));
-  margin-bottom:calc(-1 * var(--stitch-rise));
-  clip-path:polygon(0 0, 100% 0, 100% calc(100% - var(--stitch-rise)), 0 100%);
+  min-height:clamp(780px, 100vh, 1080px);
   display:flex;
   color:#fff;
-  /* Sem o scrim a escurecer a imagem, uma sombra leve mantém o texto branco a ler
-     sobre céus claros. */
-  text-shadow:0 2px 22px rgba(0,0,0,.55);
+  /* O scrim (.dslider__scrim) já faz o trabalho pesado de legibilidade; esta
+     sombra é só o acabamento fino sobre a zona de transição do véu. */
+  text-shadow:0 1px 10px rgba(0,0,0,.32);
   background:var(--dark);
 }
 
-/* ---- Palco e slides ---- */
+/* ---- Palco e slides ----
+   O crossfade lento (.8s) vive só na FOTO (.dslider__img), não no slide
+   inteiro: se o slide todo (foto + nome) desvanecesse junto, o nome
+   passava .8s a subir de opacidade ao mesmo tempo que sobe de posição
+   (line-mask), e lia-se como as letras a "escurecerem" antes de chegarem
+   ao branco vivo. Aqui o slide troca quase instantâneo (.15s, só para não
+   sobrepor o nome a sair com o a entrar) — a foto continua a dissolver-se
+   devagar por baixo, mas o texto já entra a 100% de opacidade, sempre na
+   cor final, e a única animação que se vê nele é o próprio slide-up. */
 .dslider__stage{ position:absolute; inset:0; }
 .dslider__slide{
   position:absolute; inset:0;
   opacity:0; visibility:hidden;
-  transition:opacity .8s var(--ease), visibility .8s;
+  transition:opacity .15s linear, visibility .15s;
 }
 .dslider__slide.is-active{ opacity:1; visibility:visible; }
 .dslider__img{
   width:100%; height:100%; object-fit:cover;
+  opacity:0;
   transform:scale(1.06);
-  transition:transform 1.2s var(--ease);
+  transition:opacity .8s var(--ease), transform 1.2s var(--ease);
 }
 .dslider__img--ph{ background:#1d1d1d; }
-.dslider__slide.is-active .dslider__img{ transform:scale(1); }
+.dslider__slide.is-active .dslider__img{ opacity:1; transform:scale(1); }
 
-/* ---- Bloco central (só o nome) ---- */
-.dslider__body{
-  position:absolute; inset:0; z-index:2;
-  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
-  text-align:center;
-  padding-inline:var(--gutter);
-  /* O nome ancora no terço superior, logo abaixo da faixa de topo, para deixar
-     o meio da imagem livre — o CTA vive no canto inferior esquerdo. */
-  padding-top:clamp(8.4rem, 17vh, 11rem);
+/* Véu sobre o palco (não por slide — ver comentário no markup): escurece topo
+   e base, onde vive o texto, e deixa o meio da fotografia respirar; o wash
+   horizontal da esquerda serve o bloco de informação. */
+.dslider__scrim{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    /* topo: separa o rótulo da secção do céu da fotografia */
+    linear-gradient(180deg, rgba(10,10,10,.50) 0%, rgba(10,10,10,.07) 26%, transparent 46%),
+    /* esquerda: depois de saírem eyebrow, meta e CTA, é a única zona com
+       texto — é este wash, e não a base, que sustenta o nome */
+    linear-gradient(96deg, rgba(10,10,10,.60) 0%, rgba(10,10,10,.20) 36%, transparent 60%),
+    /* base, leve: assenta a imagem e nada mais. O peso anterior (.74→.90) já
+       não tem texto para servir e era o que se via através da fila de
+       miniaturas, deixando-as sujas. */
+    linear-gradient(180deg, transparent 66%, rgba(10,10,10,.38) 100%);
 }
-/* Canto inferior esquerdo: o CTA do empreendimento e, por cima dele, o selo de
-   imagem provisória. Ficam fora do bloco central para o nome respirar sozinho e
-   longe do header e das miniaturas (que sangram pela direita). */
-.dslider__corner{
+
+/* ---- Rótulo da secção (topo-esquerdo) ----
+   Encostado ao topo da imagem, mas ainda abaixo do header fixo (~72px = 4.5rem),
+   senão fica tapada por ele quando a secção passa por baixo do header. Mesmo
+   idioma de .emodal__estado (traço + maiúsculas espaçadas), já no ficheiro. */
+.dslider__label{
   position:absolute; z-index:3;
-  /* +stitch-rise: o card desce a cunha e é recortado na diagonal, por isso o
-     conteúdo sobe a mesma medida para não cair na zona cortada. */
-  left:var(--gutter); bottom:calc(clamp(1.4rem, 3.5vh, 2.6rem) + var(--stitch-rise));
-  display:flex; flex-direction:column; align-items:flex-start; gap:.8rem;
+  top:clamp(4.8rem, 6.6vh, 5.2rem); left:var(--gutter);
+  display:flex; align-items:center; gap:.9rem;
+  font-family:var(--sans);
+  font-size:.72rem; letter-spacing:.28em; text-transform:uppercase;
+  font-weight:600; color:rgba(255,255,255,.72);
 }
-.dslider__corner .img-prov{ position:static; }
-/* Caixa de altura fixa (2 linhas do maior corpo): garante que a meta e o CTA
-   ficam sempre à mesma altura, quer o nome ocupe uma linha ou duas. */
-.dslider__head{
-  display:grid; place-items:center;
-  width:100%; min-height:clamp(5.2rem, 12vw, 8.6rem);
+.dslider__label::before{
+  content:""; width:34px; height:1px; flex:none;
+  background:currentColor; opacity:.7;
 }
+
+/* ---- Botão "Ver portfólio" + nome (canto inferior esquerdo) ----
+   O botão fica ACIMA do nome, os dois empilhados no mesmo canto — em vez de
+   viver junto das setas do lado direito. O bloco está ancorado por `bottom`
+   fixo (o mesmo respiro pequeno de sempre — o nome fica o mais abaixo
+   possível), NUNCA por `top`: quando o nome quebra em duas linhas, é o
+   próprio fluxo normal do flex que o empurra para cima a partir desse
+   ancoradouro fixo, afastando-o do botão sem calcular a altura de mais nada.
+   40vw de largura para o nome não avançar sobre a coluna das miniaturas. */
+.dslider__info{
+  position:absolute; z-index:3;
+  left:var(--gutter); bottom:clamp(1.6rem, 4vh, 3rem);
+  max-width:min(46ch, 40vw);
+  display:flex; flex-direction:column; align-items:flex-start;
+  gap:clamp(.7rem, 1.8vh, 1.2rem);
+}
+.dslider__all{ white-space:nowrap; }
 .dslider__name{
   font-family:var(--serif); font-weight:300;
   text-transform:uppercase;
-  letter-spacing:.14em;
-  line-height:1.05;
+  letter-spacing:.05em;
+  line-height:1.04;
   text-wrap:balance;
-  font-size:var(--name-size, clamp(2rem, 6vw, 5rem));
-  /* o letter-spacing empurra a última letra: compensa para ficar centrado */
-  margin-right:-.14em;
+  font-size:var(--name-size, clamp(2.2rem, 5.4vw, 5rem));
 }
-/* ---- Faixa superior: "Ver portfólio" ----
-   Encostada ao topo da imagem, mas ainda abaixo do header fixo (~72px = 4.5rem),
-   senão fica tapada por ele quando a secção passa por baixo do header. */
-.dslider__top{
-  position:absolute; z-index:3;
-  inset:clamp(4.8rem, 6.6vh, 5.2rem) var(--gutter) auto var(--gutter);
-  display:flex; align-items:center; justify-content:flex-end; gap:1.5rem;
-}
-
+/* Sem sublinhado nem cor própria: o link tem de ser indistinguível do nome
+   estático, senão volta a ler-se como um botão — o botão já é o de cima.
+   display:block: é este elemento (e não o <h3>) que o JS do componente
+   parte por linha — mesma técnica do split-reveal.js (ver .line/.line__inner
+   mais abaixo) — e precisa de ser "blockificado" para aceitar as .line que o
+   split-type insere sem quebrar o layout, tal como os spans do TitleSplit. */
+.dslider__name a{ display:block; color:inherit; transition:color .3s var(--ease); }
+.dslider__name a:hover{ color:var(--accent-dk); }
 
 /* ---- Rodapé: setas + fila de miniaturas ----
    A caixa atravessa toda a largura mas a metade esquerda é espaço vazio (as
-   setas são empurradas com margin-left:auto). Sem pointer-events:none essa
-   metade tapava o CTA do canto inferior esquerdo, que deixava de ser clicável. */
+   setas são empurradas com margin-left:auto). O pointer-events:none nessa
+   metade evita que ela apanhe cliques destinados ao bloco botão+nome, que
+   vive por cima, no mesmo canto esquerdo. */
 .dslider__foot{
   position:absolute; z-index:3;
-  inset:auto 0 calc(clamp(1.4rem, 3.5vh, 2.6rem) + var(--stitch-rise)) var(--gutter);
+  inset:auto 0 clamp(1.4rem, 3.5vh, 2.6rem) var(--gutter);
   display:flex; align-items:flex-end; gap:clamp(1rem, 2.5vw, 2rem);
   pointer-events:none;
 }
 .dslider__arrows,
 .dslider__thumbs{ pointer-events:auto; }
 .dslider__arrows{
-  margin-left:auto;                       /* encosta as setas às miniaturas */
+  margin-left:auto;                       /* encosta o grupo às miniaturas */
   display:flex; align-items:center; gap:.8rem;
   padding-bottom:clamp(1rem, 4vh, 2.4rem);
 }
@@ -1712,13 +1745,8 @@ button.card{
   width:20px; height:20px; fill:none; stroke:currentColor;
   stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round;
 }
-.dslider__count{
-  display:none;
-  font-size:.72rem; letter-spacing:.22em; font-weight:600;
-  color:rgba(255,255,255,.7);
-}
 
-.dslider__thumbs{ flex:none; width:min(52vw, 780px); overflow:hidden; }
+.dslider__thumbs{ flex:none; width:min(42vw, 620px); overflow:hidden; }
 .dslider__track{
   display:flex; gap:clamp(.6rem, 1.2vw, 1rem);
   transition:transform .8s var(--ease);
@@ -1727,43 +1755,46 @@ button.card{
 .dslider__track.is-instant{ transition:none; }
 .dslider__thumb{
   position:relative; flex:none;
-  width:clamp(180px, 23vw, 340px); aspect-ratio:2 / 1;
+  width:clamp(150px, 17vw, 260px); aspect-ratio:2 / 1;
   padding:0; border:none; background:#1d1d1d; cursor:pointer;
   overflow:hidden;
-  transition:opacity .4s var(--ease);
 }
 .dslider__thumb img{ width:100%; height:100%; object-fit:cover; }
+/* is-current já era aplicada pelo JS mas não tinha CSS nenhum — era um
+   estado invisível. Sem legenda por baixo, o destaque da miniatura activa é
+   o único sinal de onde estamos.
+   Feito com um véu PRÓPRIO e opaco, e nunca com opacity na miniatura: a
+   opacidade deixava passar o scrim do slider por trás e as miniaturas
+   apanhavam a máscara em vez de ficarem só mais escuras.
+   O hover NÃO clareia: clarear era o mesmo sinal que marca a activa, e as
+   duas leituras confundiam-se. Passa a ser uma borda laranja — muda de
+   canal (cor em vez de luz), por isso lê-se sozinha. A borda vive no véu, e
+   não na miniatura, para o box-sizing:border-box a manter dentro da caixa
+   sem redimensionar a imagem no hover. */
 .dslider__thumb::after{
   content:""; position:absolute; inset:0;
-  background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,.65) 100%);
-  transition:background .4s var(--ease);
+  background:rgba(10,10,10,.32);
+  border:2px solid transparent;
+  transition:background .4s var(--ease), border-color .3s var(--ease);
 }
-.dslider__thumb:hover::after{ background:linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,.8) 100%); }
+.dslider__thumb.is-current::after{ background:rgba(10,10,10,0); }
+.dslider__thumb:hover::after{ border-color:var(--accent); }
 .dslider__thumb-ph{ position:absolute; inset:0; background:#1d1d1d; }
-.dslider__thumb-label{
-  position:absolute; z-index:2; right:.9rem; bottom:.7rem;
-  font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; font-weight:600;
-  color:#fff; text-align:right;
-}
 
-/* ---- Ecrãs estreitos: sem fila de miniaturas, com contador ---- */
+/* ---- Ecrãs estreitos: sem fila de miniaturas ---- */
 @media (max-width: 900px){
-  .dslider{ min-height:calc(clamp(580px, 78vh, 760px) + var(--stitch-rise)); }
-  /* Sobrepõe-se ao --name-size: em ecrãs estreitos manda a largura, não o nome. */
-  .dslider__name{ font-size:clamp(1.4rem, 7.4vw, 2.2rem); }
-  .dslider__head{ min-height:clamp(4.4rem, 19vw, 6rem); }
-  .dslider__body{ padding-top:clamp(10rem, 24vh, 13rem); }
-  /* Sem miniaturas, as setas ficam centradas em baixo: o CTA sobe para cima
-     delas e centra-se, em vez de disputar o canto esquerdo. */
-  .dslider__corner{
-    left:var(--gutter); right:var(--gutter);
-    bottom:calc(clamp(5.6rem, 14vh, 7.4rem) + var(--stitch-rise));
-    align-items:center; gap:.6rem;
+  .dslider{ min-height:clamp(680px, 90vh, 880px); }
+  /* O bloco botão+nome estica de gutter a gutter (right passa a existir,
+     max-width solta-se): em ecrãs estreitos manda a largura, não o texto.
+     Sobe também para dar lugar à barra de setas, que aqui passa para a
+     faixa de baixo a toda a largura (ver .dslider__foot). */
+  .dslider__info{
+    right:var(--gutter); max-width:none;
+    bottom:clamp(5.4rem, 13vh, 7rem);
   }
+  .dslider__name{ font-size:clamp(1.6rem, 7.4vw, 2.6rem); }
   .dslider__thumbs{ display:none; }
-  .dslider__foot{ inset:auto var(--gutter) calc(clamp(1.4rem, 3.5vh, 2.6rem) + var(--stitch-rise)) var(--gutter); justify-content:center; }
-  .dslider__arrows{ margin:0 auto; padding-bottom:0; }
-  .dslider__count{ display:inline-block; margin-left:.6rem; }
+  .dslider__foot{ inset:auto var(--gutter) clamp(1.4rem, 3.5vh, 2.6rem) var(--gutter); }
 }
 
 @media (prefers-reduced-motion: reduce){

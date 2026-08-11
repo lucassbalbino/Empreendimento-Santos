@@ -3,7 +3,6 @@ import Base from '../layouts/Base.astro';
 import BlockHead from '../components/BlockHead.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactForm from '../components/ContactForm.astro';
-import Stitch from '../components/Stitch.astro';
 import Watermark from '../components/Watermark.astro';
 import portfolio from '../data/portfolio.json';
 import { porGrupo } from '../utils/projetos.js';
@@ -19,7 +18,6 @@ const secoes = [
        2.º (preto). -->
   {secoes.map((s, i) => (
     <>
-      {i === 1 && <Stitch variant="light" />}
       <section class={`section section--centered-head ${i === 1 ? "section--dark section--tight-top section--tight-bottom" : "section--flat-top"}`}>
         <div class="container has-wm">
           <Watermark variant={i === 1 ? "dark" : "fill"} side={i === 0 ? "l" : "l"} size="lg" y="top" />
@@ -33,9 +31,6 @@ const secoes = [
       </section>
     </>
   ))}
-
-  <!-- COSTURA · Futuros (preto) → Contacto (branco) -->
-  <Stitch variant="dark" />
 
   <!-- CONTACTO -->
   <section class="section" id="contacto">

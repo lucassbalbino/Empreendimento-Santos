@@ -9,14 +9,14 @@ const { projetos, titulo, botao, href = '/portfolio' } = Astro.props;
 // salto visível — o script trata do "snap" quando chega ao fim da 1.ª cópia.
 const thumbs = [...projetos, ...projetos];
 
-// O corpo do título encolhe com o nº de caracteres para que nenhum nome passe de
-// duas linhas. A caixa do título tem altura fixa (ver .dslider__head), por isso o
-// resto do bloco nunca se desloca entre slides.
+// O corpo do título encolhe com o nº de caracteres para que nenhum nome passe
+// de duas linhas dentro dos 40vw onde vive (ver .dslider__name) — a partir
+// daí a leitura sofre mais do que ganha em impacto.
 function nameSize(nome) {
   const n = nome.length;
-  if (n > 30) return 'clamp(1.5rem, 3.4vw, 2.9rem)';
-  if (n > 20) return 'clamp(1.8rem, 4.4vw, 3.8rem)';
-  return 'clamp(2rem, 6vw, 5rem)';
+  if (n > 30) return 'clamp(1.5rem, 3.2vw, 2.9rem)';
+  if (n > 20) return 'clamp(1.9rem, 3.9vw, 3.4rem)';
+  return 'clamp(2.2rem, 5.4vw, 5rem)';
 }
 ---
 <div class="dslider" data-dslider aria-roledescription="carousel" aria-label={titulo}>
@@ -26,22 +26,36 @@ function nameSize(nome) {
         {p.imagem
           ? <img class="dslider__img" src={p.imagem} alt={p.nome} loading={i === 0 ? 'eager' : 'lazy'} />
           : <div class="dslider__img dslider__img--ph"></div>}
-        <div class="dslider__corner">
-          {p.imagem && !p.imagemReal && <span class="img-prov">Imagem provisória</span>}
-          <a class="btn dslider__cta" href={`/empreendimentos/${p.slug}`}>Ver empreendimento</a>
-        </div>
-        <div class="dslider__body">
-          <div class="dslider__head">
-            <h3 class="dslider__name" style={`--name-size:${nameSize(p.nome)}`}>{p.nome}</h3>
-          </div>
+        <!-- Botão "Ver portfólio" + nome, empilhados no canto inferior
+             esquerdo (o botão em cima). O bloco está ancorado por `bottom`
+             fixo, não por `top`: quando o nome quebra em duas linhas, é o
+             próprio fluxo normal que o empurra para cima, afastando-o do
+             botão sem precisar de calcular a altura de nada. Vive dentro do
+             slide, por isso desvanece com ele.
+             O próprio nome é o link para o empreendimento: esta é a única
+             passagem da home para a página de detalhe, e sem ela o slide não
+             levava a lado nenhum. Sem sublinhado — o link tem de se ler como
+             o nome, não como um botão à parte. -->
+        <div class="dslider__info">
+          <a class="btn dslider__all" href={href}>{botao}</a>
+          <h3 class="dslider__name" style={`--name-size:${nameSize(p.nome)}`}>
+            <a href={`/empreendimentos/${p.slug}`}>{p.nome}</a>
+          </h3>
         </div>
       </article>
     ))}
   </div>
 
-  <div class="dslider__top">
-    <a class="btn dslider__all" href={href}>{botao}</a>
-  </div>
+  <!-- Véu único sobre o palco, e não por slide: se vivesse dentro do slide
+       desapareceria durante o crossfade e o texto ficava um instante nu.
+       Fica ABAIXO das miniaturas (z-index 1 contra 3), por isso nunca as
+       cobre. Serve o rótulo no topo e o nome à esquerda; a base é leve. -->
+  <div class="dslider__scrim" aria-hidden="true"></div>
+
+  <!-- Rótulo da section: a home tem título em todas as outras secções e esta
+       não tinha nenhum. Fica no topo-esquerdo, abaixo do header fixo, em corpo
+       pequeno — dá âncora sem disputar com o nome do empreendimento. -->
+  <p class="dslider__label">{titulo}</p>
 
   <div class="dslider__foot">
     <div class="dslider__arrows">
@@ -51,7 +65,6 @@ function nameSize(nome) {
       <button class="dslider__arrow" type="button" data-next aria-label="Empreendimento seguinte">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m0 0-6-6m6 6-6 6"/></svg>
       </button>
-      <span class="dslider__count" data-count aria-hidden="true"></span>
     </div>
     <div class="dslider__thumbs">
       <div class="dslider__track" data-track>
@@ -67,7 +80,6 @@ function nameSize(nome) {
             {p.imagem
               ? <img src={p.imagem} alt="" loading="lazy" />
               : <span class="dslider__thumb-ph"></span>}
-            <span class="dslider__thumb-label">{p.nome}</span>
           </button>
         ))}
       </div>
@@ -76,7 +88,14 @@ function nameSize(nome) {
 </div>
 
 <script>
+  import SplitType from 'split-type';
+
   const SWIPE_MIN = 40; // px — abaixo disto é toque, não swipe
+  // Depois de o crossfade da imagem (.dslider__slide, .8s) terminar: só aí o
+  // nome de saída é reposto ao estado escondido, para o snap instantâneo
+  // (sem transição) nunca ser visto — a esta altura o slide já está a 0 de
+  // opacidade de qualquer forma.
+  const NAME_HIDE_DELAY = 850;
 
   // Com <ViewTransitions /> os scripts de módulo só correm UMA vez. Por isso o
   // setup religa-se a astro:page-load (1.ª carga + cada nav suave) — senão a
@@ -97,6 +116,43 @@ function nameSize(nome) {
     const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
     let index = 0;
     let pos = 1; // posição da fila, em nº de miniaturas (a fila começa no slide seguinte)
+
+    // O nome de cada slide anima como os títulos de secção: split por linha,
+    // cada linha sobe de baixo de uma máscara. Reutiliza as MESMAS classes/CSS
+    // de src/scripts/split-reveal.js (.line/.line__inner/.split-ready/
+    // .is-revealed) — só que aqui repete a cada troca de slide, e não uma vez
+    // só ao entrar em vista. Alvo é a <a> (texto puro), não o <h3> que a
+    // envolve — split-type parte o elemento que recebe, e um <h3> com um link
+    // lá dentro não é o mesmo "texto plano" que o resto do site sempre lhe dá.
+    const names = slides.map((s) => s.querySelector('.dslider__name a'));
+    if (!calm.matches) {
+      names.forEach((el) => {
+        if (!el) return;
+        const split = new SplitType(el, { types: 'lines' });
+        split.lines.forEach((line, i) => {
+          const inner = document.createElement('span');
+          inner.className = 'line__inner';
+          inner.style.setProperty('--i', i);
+          while (line.firstChild) inner.appendChild(line.firstChild);
+          line.appendChild(inner);
+        });
+        el.classList.add('split-ready');
+      });
+    }
+
+    function revealName(i) {
+      names[i]?.classList.add('is-revealed');
+    }
+    // Snap instantâneo ao estado escondido (sem transição): usado só depois
+    // do crossfade da imagem já ter terminado, nunca a meio dele.
+    function hideName(i) {
+      const el = names[i];
+      if (!el) return;
+      el.classList.add('split-instant');
+      el.classList.remove('is-revealed');
+      void el.offsetHeight; // força o reflow antes de reativar a transição
+      el.classList.remove('split-instant');
+    }
 
     // Passo do deslize = largura real de uma miniatura + gap (ambos fluidos).
     function step() {
@@ -123,10 +179,18 @@ function nameSize(nome) {
     }
 
     function go(next) {
+      const prev = index;
       const wrapFwd = index === total - 1 && next === 0;
       const wrapBack = index === 0 && next === total - 1;
       index = next;
       paint();
+      revealName(index);
+      // Só esconde o nome de saída depois de ele já estar invisível (ver
+      // NAME_HIDE_DELAY). Confere `prev !== index` no momento em que o timeout
+      // dispara: numa ida-e-volta rápida (A → B → A antes dos 850ms), o slide A
+      // já voltou a ser o activo e já foi revelado de novo — sem esta guarda,
+      // este hide tardio apagava-o outra vez por cima da revelação nova.
+      setTimeout(() => { if (prev !== index) hideName(prev); }, NAME_HIDE_DELAY);
       // Nas voltas, salta primeiro para a posição equivalente na outra cópia da
       // fila (visualmente idêntica) e só depois anima — senão a fila percorreria
       // a lista inteira ao contrário à vista do utilizador. O salto é aplicado
@@ -169,6 +233,24 @@ function nameSize(nome) {
     window.addEventListener('resize', () => setPos(pos, false), { passive: true });
     paint();
     setPos(1, false);
+
+    // 1.ª revelação do nome (slide inicial): só quando a secção entra bem no
+    // ecrã, com o mesmo gatilho tardio do resto do site (ver REVEAL_MARGIN em
+    // split-reveal.js) — não assim que a página carrega, que a secção pode
+    // estar bem abaixo da dobra. As trocas seguintes (go()) já não passam por
+    // aqui: nessa altura o utilizador está a olhar mesmo para o slider.
+    if (!calm.matches) {
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) { revealName(index); io.unobserve(e.target); }
+          });
+        }, { threshold: 0, rootMargin: '0px 0px -25% 0px' });
+        io.observe(root);
+      } else {
+        revealName(index);
+      }
+    }
    });
   }
 
