@@ -7,12 +7,13 @@ interface Props {
   text: string;
   tag?: 'h1' | 'h2';
   class?: string;
+  wordCount?: number;
   [attr: string]: any;
 }
-const { text, tag = 'h2', class: extraClass = '', ...rest } = Astro.props;
+const { text, tag = 'h2', class: extraClass = '', wordCount = 1, ...rest } = Astro.props;
 const words = text.trim().split(/\s+/);
-const lead = words.slice(0, -1).join(' ');
-const word = words.at(-1);
+const lead = words.slice(0, -wordCount).join(' ');
+const word = words.slice(-wordCount).join(' ');
 const Tag = tag;
 const classes = ['title-split', extraClass, !lead ? 'title-split--word-only' : ''].filter(Boolean).join(' ');
 ---
@@ -22,7 +23,7 @@ const classes = ['title-split', extraClass, !lead ? 'title-split--word-only' : '
 </Tag>
 
 <script>
-  // .title-split--fit / --fill: iguala a largura visual das duas
+  // .title-split--fit / --fill / --center: iguala a largura visual das duas
   // linhas ajustando o font-size (em vez de esticar o espaçamento entre
   // palavras/letras via justify). Em vez de esticar só a linha mais estreita até à mais larga
   // (o que, com textos muito desproporcionados, engordava demasiado a linha
@@ -41,7 +42,7 @@ const classes = ['title-split', extraClass, !lead ? 'title-split--word-only' : '
   const clampScale = (n) => Math.min(MAX_SCALE, Math.max(MIN_SCALE, n));
 
   function syncFitTitles() {
-    document.querySelectorAll('.title-split--fit, .title-split--fill').forEach((el) => {
+    document.querySelectorAll('.title-split--fit, .title-split--fill, .title-split--center').forEach((el) => {
       const lead = el.querySelector('.title-split__lead');
       const word = el.querySelector('.title-split__word');
       if (!(lead instanceof HTMLElement) || !(word instanceof HTMLElement)) return;

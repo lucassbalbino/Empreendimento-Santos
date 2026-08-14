@@ -47,7 +47,6 @@ const equipaCards = home.equipa.members.map((m) => ({
       <div class="quemsomos__intro has-wm">
         <Watermark variant="line" side="r" size="lg" y="bottom" />
         <TitleSplit text={home.quemSomos.title} class="title-split--center" />
-        <a class="btn" href="/sobre-nos">{home.quemSomos.botao}</a>
       </div>
 
       <!-- Bloco editorial: meta à esquerda (grid de dados), parágrafo único à
@@ -63,6 +62,11 @@ const equipaCards = home.equipa.members.map((m) => ({
           ))}
         </div>
         <p class="quemsomos__p">{home.quemSomos.paragrafo}</p>
+      </div>
+
+      <!-- CTA no canto inferior direito do bloco de texto, antes da imagem. -->
+      <div class="quemsomos__cta">
+        <a class="btn" href="/sobre-nos">{home.quemSomos.botao}</a>
       </div>
     </div>
     <div class="quemsomos__media reveal-rise-slow">
@@ -160,19 +164,19 @@ const equipaCards = home.equipa.members.map((m) => ({
   <section class="section section--dark section--panels-cut">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="lg" y="bottom" />
-      <BlockHead title={home.trackRecord.title} lead={home.trackRecord.lead} titleClass="title-split--fill" />
+      <BlockHead title={home.trackRecord.title} lead={home.trackRecord.lead} titleClass="title-split--center" titleWordCount={5} />
     </div>
     <!-- Fora do .container de propósito: os painéis sangram de bordo a bordo
          (ver .section--panels-cut). -->
     <ExpandPanels projetos={concluidos} />
-  </section>
 
-  <!-- CTA do Histórico: vive já no cinza da Equipa, encostado à direita. -->
-  <div class="panels-cta">
-    <div class="container">
-      <a class="btn" href="/portfolio">{home.trackRecord.botao}</a>
+    <!-- CTA do Histórico: fica já dentro da área escura, encostado à direita. -->
+    <div class="panels-cta">
+      <div class="container">
+        <a class="btn" href="/portfolio">{home.trackRecord.botao}</a>
+      </div>
     </div>
-  </div>
+  </section>
 
   <!-- GRUPO 3 · PESSOAS — equipa e contacto encostam-se: conhecer quem
        faz e falar com quem faz são o mesmo movimento. -->
@@ -183,7 +187,6 @@ const equipaCards = home.equipa.members.map((m) => ({
   <!-- EQUIPA (carrossel: cada card é um membro) -->
   <section class="section section--alt section--seam-top section--tight-bottom">
     <div class="container has-wm">
-      <TitleSplit text={home.equipa.title} class="title-split--fit" style="margin-top:0;margin-bottom:clamp(32px,4vw,56px)" />
       <Testimonials
         testimonials={equipaCards}
         autoplay={true}

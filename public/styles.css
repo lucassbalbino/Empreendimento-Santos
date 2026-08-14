@@ -393,17 +393,33 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   max-width:20ch; margin:0;
   font-size:clamp(2.8rem, 8vw, 6.4rem);   /* maior que o .display base */
 }
-.quemsomos__intro .btn{ align-self:center; }
+/* CTA "Sobre Nós": fora do bloco centrado do título, no canto inferior
+   direito de todo o bloco de texto da secção (depois do editorial, antes da
+   imagem full-bleed). */
+.quemsomos__cta{
+  display:flex; justify-content:flex-end;
+  margin-top:clamp(28px, 4vw, 56px);
+}
 
 .title-split--center{
   align-self:center; align-items:center;
-  text-align:center; max-width:60ch; margin:0;
+  text-align:center; margin:0;
 }
-.title-split--center .title-split__lead{
-  font-size:clamp(1.5rem, 2.8vw, 2.2rem);
-}
+/* Título "Sobre Nós" da home: o texto todo tem a mesma forma da palavra final
+   (Kompot Display, maiúsculas, bold) em vez de duas linhas com estilos
+   diferentes. Junta-se ao mecanismo --fit/--fill abaixo (JS equaliza a
+   largura das duas linhas) para que a linha "lead" (mais palavras, mais
+   estreita por palavra) e a palavra final (uma só palavra, mais larga) não
+   fiquem com larguras muito díspares — sem isso, a frase cabe nas duas linhas
+   mas ficam desequilibradas visualmente. */
+.title-split--center .title-split__lead,
 .title-split--center .title-split__word{
-  font-size:clamp(3.6rem, 10vw, 8.2rem);   /* maior que a variante da secção "Sobre Nós" */
+  font-family:"Kompot Display", var(--serif);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.02em;
+  line-height:1.1;
+  font-size:clamp(2.3rem, 4.6vw, 4.2rem);
 }
 
 .title-split--fill{
@@ -413,26 +429,27 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   font-size:clamp(3.4rem, 8vw, 6.4rem);   /* imponente: acima do tamanho base do title-split */
 }
 
-/* Variantes "ajustadas" — --fit (esquerda, "Sobre Nós" da página) e --fill
-   (centrada, Histórico na home): as duas linhas ficam com a mesma largura
-   visual sem depender do pai nem de esticar o espaçamento das palavras (isso
-   fica para o JS abaixo, que ajusta o font-size das duas linhas até se
-   encontrarem a meio caminho). Cada linha encolhe à sua própria largura
-   natural (align-self:flex-start em vez do stretch por omissão do flex
-   column) para que a medição em JS capture o texto real, não a caixa
-   esticada — a caixa do título em si (width:fit-content) e o
-   text-align:center tratam de repor o alinhamento visual pretendido em cada
-   variante. O --center (Quem Somos/"Sobre Nós" da home) fica de fora deste
-   mecanismo — volta ao padrão, com a mesma fonte (Economica) das restantes
-   secções do site. */
+/* Variantes "ajustadas" — --fit (esquerda, "Sobre Nós" da página), --fill
+   (centrada, Histórico na home) e --center (Quem Somos/"Sobre Nós" da home):
+   as duas linhas ficam com a mesma largura visual sem depender do pai nem de
+   esticar o espaçamento das palavras (isso fica para o JS abaixo, que ajusta
+   o font-size das duas linhas até se encontrarem a meio caminho). Cada linha
+   encolhe à sua própria largura natural (align-self:flex-start em vez do
+   stretch por omissão do flex column) para que a medição em JS capture o
+   texto real, não a caixa esticada — a caixa do título em si
+   (width:fit-content) e o text-align:center tratam de repor o alinhamento
+   visual pretendido em cada variante. */
 .title-split--fit,
-.title-split--fill{
+.title-split--fill,
+.title-split--center{
   width:fit-content; max-width:100%;
 }
 .title-split--fit .title-split__lead,
 .title-split--fit .title-split__word,
 .title-split--fill .title-split__lead,
-.title-split--fill .title-split__word{
+.title-split--fill .title-split__word,
+.title-split--center .title-split__lead,
+.title-split--center .title-split__word{
   align-self:flex-start;
   white-space:nowrap;   /* cada linha é sempre 1 linha — o JS mede/ajusta a assumir isto */
 }
@@ -806,9 +823,16 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .card{ scroll-snap-align:start; background:transparent; }
 .card__media{ position:relative; aspect-ratio:3/4; overflow:hidden; }
 .card__media .ph{ position:absolute; inset:0; width:100%; height:100%; transition:transform .7s var(--ease); }
-.card:hover .card__media .ph{ transform:scale(1.05); }
+.card:hover .card__media .ph{ transform:scale(1.22); }
 .card__img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
-.card:hover .card__img{ transform:scale(1.05); }
+.card:hover .card__img{ transform:scale(1.22); }
+/* Máscara fosca sobre a imagem ao passar o rato, para destacar o título por cima. */
+.card__media::after{
+  content:""; position:absolute; inset:0; z-index:1;
+  background:rgba(15,15,15,.42); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);
+  opacity:0; transition:opacity .4s var(--ease); pointer-events:none;
+}
+.card:hover .card__media::after{ opacity:1; }
 /* Selo para imagens que ainda não retratam o empreendimento (imagemReal:false). */
 .img-prov{
   position:absolute; top:.7rem; left:.7rem; z-index:2;
@@ -830,10 +854,9 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 /* text-shadow além do scrim: as fotos variam muito (céu claro, campo, interiores)
    e o gradiente sozinho não garante contraste em títulos/meta de duas linhas. */
-.card__title{ font-family:var(--serif); font-weight:400; font-size:1.5rem; line-height:1.1; text-shadow:0 1px 12px rgba(0,0,0,.55); }
+.card__title{ font-family:var(--serif); font-weight:400; font-size:1.5rem; line-height:1.1; text-shadow:0 1px 12px rgba(0,0,0,.55); transition:color .3s var(--ease); }
+.card:hover .card__title{ color:var(--accent-dk); }
 .card__meta{ font-size:.76rem; letter-spacing:.1em; opacity:.92; margin-top:.4rem; text-shadow:0 1px 10px rgba(0,0,0,.6); }
-.card__cta{ margin-top:1rem; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; font-weight:600; color:var(--accent-dk); display:inline-flex; gap:.5rem; }
-.card__cta::after{ content:"\2192"; }
 
 /* =====================================================================
    PAINÉIS EXPANSÍVEIS (dark section — efeito content-office)
@@ -919,14 +942,15 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 /* Cabeçalho do Histórico (home) no molde do "Quem Somos": título e lead
    centrados, maiores e mais presentes que o base. O botão não vive aqui —
    está na .panels-cta, a seguir aos painéis. */
-.section--panels-cut .block-head{ flex-direction:column; align-items:stretch; }
+.section--panels-cut .block-head{ flex-direction:column; align-items:stretch; margin-bottom:clamp(72px,10vw,150px); }
 .section--panels-cut .block-head__text{ display:flex; flex-direction:column; align-items:center; }
 .section--panels-cut .block-head__text .lead{ margin-top:.6rem; text-align:center; max-width:56ch; }
-/* CTA do Histórico: faixa própria, já do lado cinza (cor da secção seguinte,
-   Equipa); o botão encosta à direita. */
+/* CTA do Histórico: continua dentro da área escura da secção (herda cores
+   de .section--dark .btn); o botão encosta à direita, com respiro antes
+   da .seam que fecha o capítulo. */
 .panels-cta{
-  background:var(--paper-alt);
   padding-top:clamp(36px,5vw,64px);
+  padding-bottom:clamp(56px,7vw,96px);
 }
 .panels-cta .container{ display:flex; justify-content:flex-end; }
 .panels-cta .btn{
@@ -1336,8 +1360,6 @@ html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(3n+3)
 }
 .card__overlay{ transition:background .4s var(--ease); }
 .card:hover .card__overlay{ background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.62) 42%, rgba(0,0,0,.92) 100%); }
-.card__cta{ transition:gap .3s var(--ease); }
-.card:hover .card__cta{ gap:.9rem; }
 
 /* 4) Links de texto no conteúdo: sublinhado que cresce */
 .muted a{

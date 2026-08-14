@@ -1,10 +1,10 @@
 ---
 import TitleSplit from './TitleSplit.astro';
-const { title, lead, botao, href = "#", as = "h2", titleClass = "" } = Astro.props;
+const { title, lead, botao, href = "#", as = "h2", titleClass = "", titleWordCount = 1 } = Astro.props;
 ---
 <div class="block-head">
   <div class="block-head__text">
-    <TitleSplit text={title} tag={as} class={titleClass} />
+    <TitleSplit text={title} tag={as} class={titleClass} wordCount={titleWordCount} />
     {lead && <p class="lead">{lead}</p>}
   </div>
   {botao && <a class="btn" href={href}>{botao}</a>}

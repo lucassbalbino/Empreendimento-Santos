@@ -65,12 +65,11 @@
     "botao": "Ver portfólio"
   },
   "trackRecord": {
-    "title": "20 anos a construir e a entregar",
-    "lead": "Empreendimentos vendidos ao longo de 20 anos — dos já entregues aos que ainda estão em construção. Clique para ver cada um.",
+    "title": "Empreendimentos entregues ao longo de 20 anos",
+    "lead": "Uma amostra dos empreendimentos já concluídos e entregues. Clique para ver cada um.",
     "botao": "Ver histórico"
   },
   "equipa": {
-    "title": "Profissionais de alto nível, sob a mesma visão",
     "members": [
       {
         "role": "Liderança · Direção-Geral",
