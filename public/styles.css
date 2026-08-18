@@ -811,6 +811,10 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .seam--dark .seam__label::before{ background:var(--accent-dk); }
 .seam--dark .seam__brand{ color:var(--paper); }
 .seam--dark .seam__index{ color:rgba(255,255,255,.78); }
+/* O © declara a própria cor (--accent-text, pensado para fundos claros), por
+   isso NÃO herda o branco do .seam__index acima — tem de ser reposto aqui, no
+   tom de acento para escuro, como o quadrado do rótulo já faz. */
+.seam--dark .seam__copy{ color:var(--accent-dk); }
 
 /* Respiro extra no topo: para quando a .seam fecha um bloco de imagem (a foto
    da "Quem Somos", o slider do Portfolio, os painéis do Histórico, o
