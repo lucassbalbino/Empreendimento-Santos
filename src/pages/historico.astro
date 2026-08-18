@@ -26,14 +26,14 @@ const modalData = concluidos.map((p) => ({
   factos: p.factos,
 }));
 ---
-<Base flat palette="test-b46511" title="Mockup — Histórico" description="O percurso da AM Santos: uma seleção de empreendimentos concluídos e entregues ao longo de 20 anos no mercado imobiliário.">
+<Base flat title="Mockup — Histórico" description="O percurso da AM Santos: uma seleção de empreendimentos concluídos e entregues ao longo de 20 anos no mercado imobiliário.">
   <!-- PROJETOS CONCLUÍDOS. Como o portfólio: sem hero — a .seam--top, na
        mesma .container do título, funciona como eyebrow do h1 logo a seguir
        (a página abre direto no bloco de cards: fade branco na entrada,
        cabeçalho centrado e slide pesado). -->
   <section class="section section--centered-head section--flat-top">
     <div class="container">
-      <Seam label={historico.hero.title} variant="light" class="seam--top seam--test-orange" i18n="historico.hero.title" bare />
+      <Seam label={historico.hero.title} variant="light" class="seam--top" i18n="historico.hero.title" bare />
       <BlockHead title={historico.concluidos.title} lead={historico.concluidos.lead} as="h1" titleI18n="historico.concluidos.title" leadI18n="historico.concluidos.lead" />
       <div class="grid-projects">
         {concluidos.map((p) => (<ProjectCard proj={p} modal={true} />))}

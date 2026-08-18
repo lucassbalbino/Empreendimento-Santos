@@ -26,9 +26,19 @@
   --ink-soft:   #565654;   /* texto secundário */
   --ink-faint:  #9a9997;   /* labels discretos */
   --line:       #e8e7e4;   /* linhas/divisores */
-  --accent:     #ea5a17;   /* laranja vibrante (identidade AM Santos) */
-  --accent-deep:#c1470c;
-  --accent-dk:  #ff7d38;   /* laranja sobre fundos escuros (mais brilhante) */
+  /* Ocre queimado — a cor REAL do logótipo (amostrada de
+     referencias/imagens/LOGO AMS SANTOS HD.png). O laranja #ea5a17 que aqui
+     estava nunca correspondeu à marca: divergia ~12° de matiz e ~11pp de
+     luminosidade. Toda a família cromática do site deriva daqui. */
+  --accent:     #b46511;   /* superfícies, dots, bordas, traços */
+  --accent-text:#9f590f;   /* o acento quando é TEXTO sobre claro (ver nota) */
+  --accent-deep:#8d4f0c;   /* sombra do ocre — hover / sweep */
+  --accent-dk:  #d79142;   /* bronze claro — sobre fundos escuros */
+  /* Porquê dois tons de acento: --accent tem 4.26:1 sobre --paper, abaixo do
+     mínimo AA (4.5:1) para texto normal. Serve superfícies, onde não há
+     mínimo a cumprir; para glifos usa-se --accent-text (5.24:1 no branco,
+     4.57:1 na areia). Regra: pinta glifos → --accent-text; pinta fundo ou
+     traço → --accent. */
   --dark:       #141414e5;   /* seções escuras / hero (preto neutro) */
   --dark-soft:  #0a0a0a;
 
@@ -60,14 +70,6 @@
   --hero-veil:
     linear-gradient(180deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,.06) 45%, rgba(0,0,0,.55) 100%),
     linear-gradient(180deg, rgba(104,146,196,.30) 0%, rgba(132,172,214,.20) 50%, rgba(58,92,138,.34) 100%);
-}
-
-/* TESTE — página Histórico apenas: troca o laranja do site (--accent /
-   --accent-dk) pelo tom real da logo (#b46511), para avaliar o efeito antes
-   de decidir se passa para o resto do site. */
-body.palette-test-b46511{
-  --accent:    #b46511;
-  --accent-dk: #b46511;
 }
 
 /* ---------- Reset ---------- */
@@ -788,14 +790,12 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .seam__label{ display:inline-flex; align-items:center; gap:.7rem; color:var(--ink); font-weight:600; justify-self:start; }
 .seam__label::before{ content:""; width:8px; height:8px; flex:none; background:var(--accent); }
-.seam__brand{ white-space:nowrap; justify-self:center; font-weight:600; color:var(--ink); }
+/* A marca e o © levam o ocre; o ano fica a tinta. Assinam a costura sem a
+   transformar num elemento de destaque — por isso --accent-text (o tom que
+   cumpre AA como glifo) e não --accent. */
+.seam__brand{ white-space:nowrap; justify-self:center; font-weight:600; color:var(--accent-text); }
 .seam__index{ white-space:nowrap; font-variant-numeric:tabular-nums; justify-self:end; color:var(--ink); }
-
-/* TESTE — seam do Histórico apenas: "AM Santos" e o © de "2026" na cor real
-   da logo (#b46511), para avaliar o efeito antes de decidir se passa para
-   as restantes seams. */
-.seam--test-orange .seam__brand{ color:#b46511; }
-.seam--test-orange .seam__copy{ color:#b46511; }
+.seam__copy{ color:var(--accent-text); }
 
 .seam--alt{ background:var(--paper-alt); }
 /* Variante escura — vive DENTRO de uma .section--dark (é ela que abre o
