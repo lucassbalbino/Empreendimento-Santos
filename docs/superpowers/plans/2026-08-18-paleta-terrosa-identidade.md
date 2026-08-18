@@ -111,13 +111,27 @@ Todos os pares calculados sobre a paleta nova. Alvo: **AA texto normal = 4.5:1**
 | `--accent-text` / `--paper-alt` | 4.57:1 | ✅ |
 | `--ink` / `--paper-warm` | 13.84:1 | ✅ |
 | `--ink-soft` / `--paper-warm` | 5.71:1 | ✅ |
-| `#f2ece3` / `--dark` | 14.52:1 | ✅ |
-| Footer corpo / `--dark` | 7.58:1 | ✅ |
-| Footer legal / `--dark` | 4.86:1 | ✅ |
-| `--accent-dk` / `--dark` | 6.51:1 | ✅ |
+| `#f2ece3` / `--dark` | 10.82:1 | ✅ |
+| Footer corpo `#b8ab9a` / `--dark` | 5.65:1 | ✅ |
+| Footer legal `#a89d8f` / `--dark` | 4.77:1 | ✅ |
+| `--accent-dk` / `--dark` | 4.85:1 | ✅ *(pouca folga)* |
 | `#fff` / `--brown` (superfície) | 7.94:1 | ✅ |
 | `#fff` / `--accent` (faixa) | 4.37:1 | ✅ *(alvo 3:1, texto grande)* |
 | **`--accent` / `--paper`** | **4.26:1** | ⚠️ **falha AA — por desenho** |
+
+> ⚠️ **CORRIGIDO EM EXECUÇÃO (revisão da Task 3).** A primeira versão desta
+> tabela mediu a coluna "sobre `--dark`" contra `#241a12` **opaco**, ignorando
+> o alpha `e5`. Mas o `--dark` **nunca** renderiza opaco: compõe sempre sobre
+> `--paper`, e o fundo real medido no browser é **`rgb(58,49,42)`** —
+> luminância 3.26%, não 1.2%. Todos os valores "sobre escuro" estavam ~26%
+> otimistas. Os da tabela acima já são os **reais, amostrados em píxeis**.
+>
+> Consequência que isto evitou: a Task 6 ia aplicar `#93877a` ao rodapé legal
+> na fé de uns falsos 4.86:1 — o valor real é **3.62:1**, falha AA. Os valores
+> da Task 6 foram corrigidos em conformidade.
+>
+> **Regra para o resto do plano:** qualquer cor sobre `--dark` mede-se contra
+> `rgb(58,49,42)`, nunca contra o hex do token.
 
 **Três conclusões acionáveis:**
 
@@ -369,12 +383,20 @@ git commit -m "feat(cor): hero passa de wash azul-aco a bronze terroso"
 
 - [ ] **Step 1: Trocar os cinzentos frios** no bloco `FOOTER` (~linhas 1215–1232):
 
-| Ocorrência | De | Para |
-|---|---|---|
-| `.site-footer{ color: }` | `#cdd0d4` | `#f2ece3` |
-| `.footer-col p, .footer-col a{ color: }` | `#a7abb1` | `#b8ab9a` |
-| `.socials a{ color: }` | `#cdd0d4` | `#f2ece3` |
-| `.footer-bottom{ color: }` | `#7e828a` | `#93877a` |
+> Valores **medidos contra o fundo real** `rgb(58,49,42)` (ver aviso em §3),
+> não contra o hex do token.
+
+| Ocorrência | De | Para | Contraste real |
+|---|---|---|---|
+| `.site-footer{ color: }` | `#cdd0d4` | `#f2ece3` | 10.82:1 |
+| `.footer-col p, .footer-col a{ color: }` | `#a7abb1` | `#b8ab9a` | 5.65:1 |
+| `.socials a{ color: }` | `#cdd0d4` | `#f2ece3` | 10.82:1 |
+| `.footer-bottom{ color: }` | `#7e828a` *(3.30:1, falhava)* | **`#a89d8f`** | **4.77:1** |
+
+> O `#93877a` que esta tabela indicava antes dá **3.62:1** — continuaria a
+> falhar AA. O `#a89d8f` é o tom mais discreto que ainda cumpre. Custo
+> assumido: a hierarquia entre o corpo do rodapé (5.65:1) e o texto legal
+> (4.77:1) fica mais comprimida do que no original — é o preço de cumprir AA.
 
 - [ ] **Step 2: Corrigir o `style` inline** em `src/components/Footer.astro:44` — tem `color:#a7abb1` escrito à mão no atributo. Substituir por classe:
 

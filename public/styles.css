@@ -184,6 +184,10 @@ ul{ list-style:none; }
 .section--dark .member__bio,
 .section--dark .check,
 .section--dark .field label{ color:var(--paper); }
+/* O rótulo de função é acento, não texto corrido: leva o tom para escuro em
+   vez do branco. Com --accent-text (pensado para fundos claros) dava 2.37:1
+   em /sobre-nos, onde a <Team> vive numa .section--dark. */
+.section--dark .member__role{ color:var(--accent-dk); }
 
 /* Botão / link de ação */
 .btn{
