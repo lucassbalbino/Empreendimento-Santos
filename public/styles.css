@@ -20,12 +20,18 @@
      de inverter/escurecer as cores quando o SO está em dark mode. */
   color-scheme: only light;
 
-  --paper:      #ffffff;   /* fundo principal (branco) */
-  --paper-alt:  #f5f4f2;   /* fundo de seção alternada (cinza muito claro) */
-  --ink:        #121212;   /* texto principal (quase preto) */
-  --ink-soft:   #565654;   /* texto secundário */
-  --ink-faint:  #9a9997;   /* labels discretos */
-  --line:       #e8e7e4;   /* linhas/divisores */
+  /* Superfícies — o branco domina, o castanho escalona. --paper fica a 97.4%
+     de luminância (praticamente branco): é a base de leitura e nunca deve
+     ficar castanha. O castanho entra pelas camadas secundárias. */
+  --paper:      #fdfcfa;   /* base do site — branco com um sopro de quente */
+  --paper-alt:  #f2ece3;   /* areia clara — secção alternada */
+  --paper-warm: #e9dfd1;   /* areia média — uso pontual (factos, citações) */
+  --ink:        #1a1410;   /* texto principal — quase-preto acastanhado */
+  --ink-title:  #3b2a1c;   /* títulos serif — castanho-escuro */
+  --ink-soft:   #5d5346;   /* texto secundário — taupe */
+  --ink-faint:  #72685a;   /* rótulos discretos — sobe para cumprir AA (5.33:1) */
+  --brown:      #6b4a2f;   /* castanho médio — ícones, molduras, detalhes */
+  --line:       #e3d9cb;   /* linhas/divisores terrosos */
   /* Ocre queimado — a cor REAL do logótipo (amostrada de
      referencias/imagens/LOGO AMS SANTOS HD.png). O laranja #ea5a17 que aqui
      estava nunca correspondeu à marca: divergia ~12° de matiz e ~11pp de
@@ -39,8 +45,10 @@
      mínimo a cumprir; para glifos usa-se --accent-text (5.24:1 no branco,
      4.57:1 na areia). Regra: pinta glifos → --accent-text; pinta fundo ou
      traço → --accent. */
-  --dark:       #141414e5;   /* seções escuras / hero (preto neutro) */
-  --dark-soft:  #0a0a0a;
+  /* Secções escuras em café, já não preto neutro. O alpha e5 é obrigatório:
+     é o que deixa a hero ver-se por trás; sem ele a cortina abre costura. */
+  --dark:       #241a12e5;
+  --dark-soft:  #150f0a;
 
 
   --maxw: 1480px;
@@ -1521,7 +1529,7 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   background:var(--paper); border:1px solid var(--line); border-radius:12px;
   padding:clamp(18px,2.2vw,30px); display:flex; flex-direction:column; gap:.45rem;
 }
-.section--alt .fact{ background:#ffffff; }
+.section--alt .fact{ background:var(--paper); }
 .fact__v{ font-family:var(--serif); font-size:clamp(1.35rem,2.4vw,2rem); color:var(--ink); line-height:1.1; }
 .fact__r{ font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); }
 
