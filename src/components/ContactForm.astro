@@ -1,20 +1,25 @@
 ---
 import TitleSplit from './TitleSplit.astro';
-const { title, texto } = Astro.props;
+const { title, texto, titleI18n, titleI18nTpl, textoI18n } = Astro.props;
 ---
 <div class="contact">
   <div>
-    <TitleSplit text={title} />
-    <p class="muted" style="margin-top:1rem;max-width:40ch">{texto}</p>
+    <TitleSplit text={title} data-i18n={titleI18n} data-i18n-tpl={titleI18nTpl} data-i18n-split="1" />
+    <p class="muted" style="margin-top:1rem;max-width:40ch" data-i18n={textoI18n}>{texto}</p>
   </div>
   <form class="contact__form" onsubmit="return false">
-    <div class="field"><label>Nome</label><input type="text" placeholder="O seu nome"></div>
-    <div class="field"><label>Email</label><input type="email" placeholder="o.seu.email@exemplo.pt"></div>
-    <div class="field"><label>Assunto</label>
-      <select><option>Selecione — Assunto</option><option>Empreendimentos</option><option>Investimento</option><option>Outro assunto</option></select>
+    <div class="field"><label data-i18n="common.contactForm.nome">Nome</label><input type="text" placeholder="O seu nome" data-i18n="common.contactForm.nomePlaceholder" data-i18n-attr="placeholder"></div>
+    <div class="field"><label data-i18n="common.contactForm.email">Email</label><input type="email" placeholder="o.seu.email@exemplo.pt" data-i18n="common.contactForm.emailPlaceholder" data-i18n-attr="placeholder"></div>
+    <div class="field"><label data-i18n="common.contactForm.assunto">Assunto</label>
+      <select>
+        <option data-i18n="common.contactForm.assuntoPlaceholder">Selecione — Assunto</option>
+        <option data-i18n="common.contactForm.assuntoEmpreendimentos">Empreendimentos</option>
+        <option data-i18n="common.contactForm.assuntoInvestimento">Investimento</option>
+        <option data-i18n="common.contactForm.assuntoOutro">Outro assunto</option>
+      </select>
     </div>
-    <div class="field"><label>Mensagem</label><textarea placeholder="Escreva aqui a sua mensagem…"></textarea></div>
-    <label class="check"><input type="checkbox"> Autorizo o tratamento dos meus dados para efeitos de contacto, nos termos da Política de Privacidade.</label>
-    <button class="btn" type="submit">Enviar mensagem</button>
+    <div class="field"><label data-i18n="common.contactForm.mensagem">Mensagem</label><textarea placeholder="Escreva aqui a sua mensagem…" data-i18n="common.contactForm.mensagemPlaceholder" data-i18n-attr="placeholder"></textarea></div>
+    <label class="check"><input type="checkbox"> <span data-i18n="common.contactForm.consent">Autorizo o tratamento dos meus dados para efeitos de contacto, nos termos da Política de Privacidade.</span></label>
+    <button class="btn" type="submit" data-i18n="common.contactForm.submit">Enviar mensagem</button>
   </form>
 </div>

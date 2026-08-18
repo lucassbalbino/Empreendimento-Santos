@@ -1,13 +1,16 @@
 ---
+// Painéis do Histórico (home). Cada painel liga ao Histórico com o slug no hash:
+// a página abre o card correspondente exatamente como se o utilizador o tivesse
+// clicado lá — em vez de o mandar para a página de detalhe do empreendimento.
 const { projetos } = Astro.props;
 ---
 <div class="panels" style={`--n:${projetos.length}`}>
   {projetos.map((p) => (
-    <a class="panel" href={`/empreendimentos/${p.slug}`}>
+    <a class="panel" href={`/historico#${p.slug}`}>
       <img class="panel__bg" src={p.imagem ?? '/images/hero-image.webp'} alt="" loading="lazy" />
-      <span class="panel__label">{p.nome}</span>
+      <span class="panel__label" data-i18n={`empreendimentos.${p.slug}.nome`}>{p.nome}</span>
       <div class="panel__content">
-        <h3 class="panel__title">{p.nome}</h3>
+        <h3 class="panel__title" data-i18n={`empreendimentos.${p.slug}.nome`}>{p.nome}</h3>
       </div>
     </a>
   ))}

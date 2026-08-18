@@ -20,7 +20,7 @@ import home from '../data/home.json';
     <div class="hero__overlay"></div>
     <div class="hero__inner">
       <div class="container">
-        <TitleSplit text={sobre.hero.title} tag="h1" class="hero__title-page title-split--hero" />
+        <TitleSplit text={sobre.hero.title} tag="h1" class="hero__title-page title-split--hero" data-i18n="sobre.hero.title" data-i18n-split="1" />
       </div>
     </div>
   </section>
@@ -28,7 +28,7 @@ import home from '../data/home.json';
   <!-- QUEM SOMOS -->
   <section class="section">
     <div class="container has-wm">
-      <div class="split split--reverse">
+      <div class="split split--reverse split--text-wide">
         <Frame>
           <div class="split__media reveal-wipe-lr">
             {sobre.quemSomos.imagem
@@ -37,10 +37,10 @@ import home from '../data/home.json';
           </div>
         </Frame>
         <div class="split__body">
-          <TitleSplit text={sobre.quemSomos.title} class="title-split--fit" />
-          <p class="lead" style="margin:1rem 0 1.4rem">{sobre.quemSomos.lead}</p>
+          <TitleSplit text={sobre.quemSomos.title} class="title-split--fit" data-i18n="sobre.quemSomos.title" data-i18n-split="1" />
+          <p class="lead" style="margin:1rem 0 1.4rem" data-i18n="sobre.quemSomos.lead">{sobre.quemSomos.lead}</p>
           <Divider />
-          <p>{sobre.quemSomos.paragrafo}</p>
+          <p data-i18n="sobre.quemSomos.paragrafo">{sobre.quemSomos.paragrafo}</p>
         </div>
       </div>
     </div>
@@ -65,8 +65,8 @@ import home from '../data/home.json';
           </div>
         </div>
         <div class="split__body">
-          <TitleSplit text={sobre.oQueFazemos.title} />
-          <Stats items={home.oQueFazemos.stats} class="stats--compact" />
+          <TitleSplit text={sobre.oQueFazemos.title} data-i18n="sobre.oQueFazemos.title" data-i18n-split="1" />
+          <Stats items={home.oQueFazemos.stats} class="stats--compact" i18nBase="home.oQueFazemos.stats" />
         </div>
       </div>
     </div>
@@ -76,8 +76,8 @@ import home from '../data/home.json';
   <section class="section">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="md" y="top" />
-      <TitleSplit text={sobre.servicos.title} style="margin-bottom:clamp(20px,2.5vw,32px)" />
-      {sobre.servicos.items.map((s) => (
+      <TitleSplit text={sobre.servicos.title} style="margin-bottom:clamp(20px,2.5vw,32px)" data-i18n="sobre.servicos.title" data-i18n-split="1" />
+      {sobre.servicos.items.map((s, i) => (
         <div class="service">
           <div class="service__media">
             {s.imagem
@@ -85,9 +85,9 @@ import home from '../data/home.json';
               : <div class="ph" data-label="Imagem 5:4"></div>}
           </div>
           <div class="service__body">
-            <h3>{s.title}</h3>
-            <p>{s.texto}</p>
-            {s.botao && <a class="btn" href="#">{s.botao}</a>}
+            <h3 data-i18n={`sobre.servicos.items.${i}.title`}>{s.title}</h3>
+            <p data-i18n={`sobre.servicos.items.${i}.texto`}>{s.texto}</p>
+            {s.botao && <a class="btn" href="#" data-i18n={`sobre.servicos.items.${i}.botao`}>{s.botao}</a>}
             <Divider style="margin-bottom:clamp(40px,5vw,72px)" />
           </div>
         </div>
@@ -99,8 +99,8 @@ import home from '../data/home.json';
   <section class="section section--dark">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="md" y="top" />
-      <TitleSplit text={sobre.equipa.title} />
-      <Team members={sobre.equipa.members} />
+      <TitleSplit text={sobre.equipa.title} data-i18n="sobre.equipa.title" data-i18n-split="1" />
+      <Team members={sobre.equipa.members} i18nBase="sobre.equipa.members" />
     </div>
   </section>
 
@@ -108,7 +108,7 @@ import home from '../data/home.json';
   <section class="section" id="contacto">
     <div class="container has-wm">
       <Watermark variant="line" side="l" size="md" y="bottom" />
-      <ContactForm title={sobre.contacto.title} texto={sobre.contacto.texto} />
+      <ContactForm title={sobre.contacto.title} texto={sobre.contacto.texto} titleI18n="sobre.contacto.title" textoI18n="sobre.contacto.texto" />
     </div>
   </section>
 </Base>

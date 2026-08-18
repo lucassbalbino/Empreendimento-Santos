@@ -1,0 +1,369 @@
+{
+  "common": {
+    "nav": {
+      "sobreNos": "Sobre Nós",
+      "portfolio": "Portfólio",
+      "historico": "Histórico",
+      "sfProperties": "SF Properties",
+      "equipa": "Equipa",
+      "contactos": "Contactos"
+    },
+    "langNames": { "pt": "Português", "en": "English", "fr": "Français" },
+    "langCodes": { "pt": "PT", "en": "EN", "fr": "FR" },
+    "hero": { "scroll": "Scroll" },
+    "footer": {
+      "moradaLabel": "Morada",
+      "contactosLabel": "Contactos",
+      "newsletterLabel": "Newsletter",
+      "newsletterPlaceholder": "o.seu.email@exemplo.pt",
+      "newsletterConsent": "Aceito receber novidades e comunicações da AM Santos.",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn"
+    },
+    "contactForm": {
+      "nome": "Nome",
+      "nomePlaceholder": "O seu nome",
+      "email": "Email",
+      "emailPlaceholder": "o.seu.email@exemplo.pt",
+      "assunto": "Assunto",
+      "assuntoPlaceholder": "Selecione — Assunto",
+      "assuntoEmpreendimentos": "Empreendimentos",
+      "assuntoInvestimento": "Investimento",
+      "assuntoOutro": "Outro assunto",
+      "mensagem": "Mensagem",
+      "mensagemPlaceholder": "Escreva aqui a sua mensagem…",
+      "consent": "Autorizo o tratamento dos meus dados para efeitos de contacto, nos termos da Política de Privacidade.",
+      "submit": "Enviar mensagem"
+    },
+    "seam": {
+      "emNumeros": "Em Números",
+      "oQueFazemos": "O Que Fazemos",
+      "oNossoHistorico": "O Nosso Histórico",
+      "aNossaEquipa": "A Nossa Equipa",
+      "falaConnosco": "Fala Connosco"
+    },
+    "slider": { "prev": "Empreendimento anterior", "next": "Empreendimento seguinte" },
+    "testimonials": { "prev": "Depoimento anterior", "next": "Próximo depoimento" },
+    "emodal": {
+      "close": "Fechar",
+      "provisoria": "Imagem provisória",
+      "sobre": "Sobre o empreendimento",
+      "falarConnosco": "Falar connosco",
+      "empreendimentoFallback": "Empreendimento"
+    },
+    "projectDetail": {
+      "back": "← Empreendimentos",
+      "ficha": "Ficha do empreendimento",
+      "imagens": "Imagens do empreendimento",
+      "continuar": "Continue a explorar",
+      "provisoria": "Imagem provisória",
+      "mapa": "Mapa",
+      "interessadoTitle": "Interessado no {nome}?",
+      "interessadoTexto": "Fale connosco para agendar uma visita ou pedir mais informações sobre este empreendimento. A nossa equipa responde com brevidade.",
+      "ctaFalar": "Falar connosco",
+      "ctaVisita": "Agendar visita",
+      "ctaSaber": "Saber mais",
+      "brandConcluido": "Entregue pela AM Santos, o {nome} reflete a excelência que procuramos em cada projeto executado: uma arquitetura moderna e funcional, com um foco inabalável no bem-estar e na qualidade.",
+      "brandOutro": "Como em todos os empreendimentos AM Santos, o {nome} nasce de uma visão centrada no conforto, na qualidade e na sustentabilidade — com a eficiência energética a guiar cada decisão de projeto."
+    },
+    "factLabels": {
+      "Localização": "Localização",
+      "Ano": "Ano",
+      "Unidades": "Unidades",
+      "Tipologia": "Tipologia",
+      "Estado": "Estado",
+      "Piscina": "Piscina",
+      "Arquitetura": "Arquitetura",
+      "Vista": "Vista",
+      "Destino": "Destino",
+      "Serviços": "Serviços",
+      "Área total": "Área total",
+      "Área por armazém": "Área por armazém",
+      "Escritório": "Escritório"
+    }
+  },
+  "home": {
+    "hero": { "title": "Empreendimento Santos" },
+    "quemSomos": {
+      "title": "Construindo o futuro com qualidade e sustentabilidade",
+      "meta": [
+        { "value": "20 anos", "label": "de experiência no mercado" },
+        { "value": "António M Santos", "label": "Direção-geral" },
+        { "value": "5 áreas", "label": "arquitetura, engenharia, decoração, obra e gestão imobiliária" }
+      ],
+      "paragrafo": "Construímos para durar: soluções sustentáveis, materiais de confiança e um controlo rigoroso de qualidade em cada fase da obra, para que o resultado final seja tão sólido quanto os 20 anos de história que o sustentam.",
+      "botao": "Sobre nós"
+    },
+    "oQueFazemos": {
+      "title": "Qualidade — Conforto — Sustentabilidade",
+      "lead": "Do estudo do terreno à entrega das chaves, a AM Santos desenha, constrói e acompanha cada empreendimento com a mesma exigência — para que qualidade, conforto e sustentabilidade deixem de ser promessas e passem a ser critérios verificáveis em cada metro quadrado.",
+      "pilares": [
+        { "title": "Qualidade", "texto": "Cada projeto é acompanhado desde o desenho até à obra concluída, com um controlo rigoroso de materiais e acabamentos em todas as fases." },
+        { "title": "Conforto", "texto": "Espaços pensados para o dia a dia de quem os habita, com uma arquitetura funcional que privilegia luz, circulação e bem-estar." },
+        { "title": "Sustentabilidade", "texto": "Soluções energeticamente eficientes e materiais duráveis, que reduzem o impacto ambiental e os custos de manutenção a longo prazo." }
+      ],
+      "statsTitle": "Em números",
+      "statsLead": "Duas décadas de experiência traduzidas em resultado: cada projeto executado, cada metro quadrado construído e cada milhão investido reflete o mesmo compromisso da AM Santos com a qualidade e a sustentabilidade.",
+      "stats": [
+        { "label": "projetos" },
+        { "label": "unidades residenciais e não residenciais" },
+        { "label": "m² de construção" },
+        { "label": "milhões investidos" }
+      ]
+    },
+    "portfolio": { "title": "Empreendimentos em destaque", "botao": "Ver portfólio" },
+    "trackRecord": { "title": "O Nosso Histórico", "lead": "Uma amostra dos empreendimentos já concluídos e entregues. Clique para ver cada um.", "botao": "Ver histórico" },
+    "equipa": {
+      "members": [
+        { "role": "Liderança · Direção-Geral", "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário." },
+        { "role": "Arquitetura · Projeto", "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra." },
+        { "role": "Engenharia · Obra", "bio": "Diretor de obra, coordena a execução e o controlo de qualidade que sustentam a excelência de cada projeto executado." },
+        { "role": "Decoração · Interiores", "bio": "Trabalha os interiores e os acabamentos, para que cada residência traduza o conforto e a qualidade que definem a empresa." },
+        { "role": "Gestão imobiliária", "bio": "Responsável pela gestão imobiliária e pelo acompanhamento dos projetos em pipeline, do estudo à comercialização." }
+      ]
+    },
+    "contacto": { "title": "Vamos falar do seu próximo projeto?", "texto": "Quer conhecer um empreendimento ou discutir uma parceria? A nossa equipa responde com brevidade." }
+  },
+  "sobre": {
+    "hero": { "title": "Sobre Nós" },
+    "quemSomos": {
+      "title": "Construindo o futuro com qualidade e sustentabilidade",
+      "lead": "Com 20 anos de experiência no mercado imobiliário, a AM Santos destaca-se pela excelência em cada um dos projetos executados.",
+      "paragrafo": "Sob a liderança de António M Santos, a empresa reúne uma equipa de profissionais de arquitetura, engenharia, decoração e gestão imobiliária de alto nível. Desde o seu início, a nossa visão é proporcionar conforto e qualidade aos nossos clientes, através de projetos que combinam uma arquitetura moderna e funcional com um foco inabalável no bem-estar e na qualidade."
+    },
+    "oQueFazemos": { "title": "20 anos de solidez" },
+    "servicos": {
+      "title": "O que nos move",
+      "items": [
+        { "title": "Na vanguarda da inovação arquitetónica", "texto": "Com vários projetos em pipeline, mantemo-nos na vanguarda da inovação arquitetónica, priorizando a qualidade, o conforto e a eficiência energética para garantir a satisfação dos nossos clientes.", "botao": "Ver empreendimentos" },
+        { "title": "Uma abordagem eco-friendly", "texto": "O nosso mais recente projeto foi concebido com materiais sustentáveis, para aliar conforto, bem-estar e arquitetura moderna — reduzindo os custos de manutenção e garantindo o máximo conforto climático.", "botao": "Falar connosco" }
+      ]
+    },
+    "equipa": {
+      "title": "Quem lidera a AM Santos",
+      "members": [
+        { "role": "Liderança · Direção-Geral", "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário." },
+        { "role": "Arquitetura · Projeto", "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra." }
+      ]
+    },
+    "contacto": { "title": "Vamos falar do seu projeto?", "texto": "A visão da AM Santos, centrada no conforto, qualidade e sustentabilidade, guiará os próximos projetos. Fale connosco." }
+  },
+  "historico": {
+    "hero": { "title": "Histórico" },
+    "concluidos": { "title": "20 anos a construir e a entregar", "lead": "Empreendimentos vendidos, de 2006 aos dias de hoje — dos já entregues aos que ainda estão em construção. Clique num projeto para ver os detalhes." },
+    "contacto": { "title": "Vamos falar do seu próximo projeto?", "texto": "Quer conhecer melhor o nosso trabalho ou discutir uma parceria? A nossa equipa responde com brevidade." }
+  },
+  "portfolio": {
+    "hero": { "title": "Portfólio" },
+    "emDesenvolvimento": { "title": "Projetos em desenvolvimento", "lead": "Empreendimentos em construção, em comercialização ou destinados a arrendamento" },
+    "futuros": { "title": "Projetos futuros", "lead": "Vários projetos em pipeline, na vanguarda da inovação arquitetónica" },
+    "contacto": { "title": "Interessado num empreendimento?", "texto": "Fale connosco para agendar uma visita ou pedir informações. A nossa equipa responde com brevidade." }
+  },
+  "equipa": {
+    "hero": { "title": "Equipa" },
+    "direcao": {
+      "title": "Quem lidera o grupo",
+      "members": [
+        { "role": "Liderança · Direção-Geral", "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário." },
+        { "role": "Arquitetura · Projeto", "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra." }
+      ]
+    },
+    "equipa": {
+      "title": "Quem constrói, todos os dias",
+      "members": [
+        { "role": "Engenharia · Obra", "bio": "Diretor de obra, coordena a execução e o controlo de qualidade que sustentam a excelência de cada projeto executado." },
+        { "role": "Arquitetura · Projeto", "bio": "Desenvolve os projetos de arquitetura, conciliando desenho moderno e funcional com o conforto de quem vai habitar o espaço." },
+        { "role": "Decoração · Interiores", "bio": "Trabalha os interiores e os acabamentos, para que cada residência traduza o conforto e a qualidade que definem a empresa." },
+        { "role": "Gestão imobiliária", "bio": "Responsável pela gestão imobiliária e pelo acompanhamento dos projetos em pipeline, do estudo à comercialização." },
+        { "role": "Sustentabilidade · Eficiência", "bio": "Conduz a abordagem eco-friendly: seleção de materiais sustentáveis, eficiência energética e conforto climático das residências." },
+        { "role": "Qualidade · Segurança", "bio": "Garante o cumprimento das normas de qualidade e segurança em todas as fases da obra." }
+      ]
+    },
+    "contacto": { "title": "Quer trabalhar connosco?", "texto": "Envie-nos a sua candidatura ou uma mensagem. Estamos sempre atentos a bons profissionais." }
+  },
+  "contactos": {
+    "hero": { "title": "Contactos" },
+    "contacto": { "title": "Vamos falar do seu projeto?", "texto": "Preencha o formulário ou contacte-nos diretamente. Respondemos a todos os pedidos com a maior brevidade." },
+    "onde": { "title": "Onde Estamos", "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisboa\nPortugal", "mapaLabel": "Mapa — Lisboa, Av. da Liberdade" }
+  },
+  "site": {
+    "footer": {
+      "blurb": "Construindo o futuro com qualidade e sustentabilidade. Arquitetura moderna e funcional, com um foco inabalável no bem-estar de quem habita.",
+      "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisboa\nPortugal",
+      "assinatura": "Qualidade · Conforto · Sustentabilidade"
+    }
+  },
+  "empreendimentos": {
+    "edificio-bairro-da-vitoria": {
+      "nome": "Edifício Bairro da Vitória",
+      "tipologia": "T2 e T3",
+      "unidades": "10 apartamentos",
+      "estado": "Concluído",
+      "comercial": "Vendido",
+      "entrega": "Concluído em 2006",
+      "resumo": "10 apartamentos de tipologia T2 e T3, em Loures. O primeiro empreendimento do grupo e o início de um percurso de 20 anos no mercado imobiliário.",
+      "factos": ["Loures", "2006", "10 apartamentos", "T2 e T3", "Vendido"]
+    },
+    "condominio-casas-da-murteira": {
+      "nome": "Condomínio Casas da Murteira",
+      "tipologia": "T3 e T4",
+      "unidades": "10 moradias",
+      "estado": "Concluído",
+      "comercial": "Vendido",
+      "entrega": "Concluído em 2007",
+      "resumo": "Condomínio residencial de 10 moradias, Casas da Murteira, com espaços privilegiados e integrados na paisagem, localizado numa encosta.",
+      "factos": ["Loures", "2007", "10 moradias", "T3 / T4", "Vendido"]
+    },
+    "condominio-das-almoinhas": {
+      "nome": "Condomínio das Almoinhas",
+      "tipologia": "T4",
+      "unidades": "7 moradias",
+      "estado": "Concluído",
+      "comercial": "Vendido",
+      "entrega": "Concluído em 2008",
+      "resumo": "Direcionado ao segmento médio/alto do mercado habitacional, as 7 moradias caracterizam-se por linhas contemporâneas que privilegiam o espaço interior e a luz natural, resultante de amplas clarabóias, grandes vãos envidraçados, mezanine e fluidez do espaço aberto.",
+      "factos": ["Loures", "2008", "7 moradias", "T4", "Vendido"]
+    },
+    "condominio-casas-da-fonte-velha": {
+      "nome": "Condomínio Casas da Fonte Velha",
+      "tipologia": "T4",
+      "unidades": "16 moradias",
+      "estado": "Concluído",
+      "comercial": "Vendido",
+      "entrega": "Concluído em 2009",
+      "resumo": "Condomínio residencial de 16 moradias, com espaços abertos e pátios interiores. Todos os espaços foram cuidadosamente desenhados nos acabamentos e texturas, criando um ambiente nobre e confortável.",
+      "factos": ["Loures", "2009", "16 moradias", "T4", "Vendido"]
+    },
+    "condominio-santos-murteira-ii": {
+      "nome": "Condomínio Santos — Murteira II",
+      "tipologia": "T4 e T5",
+      "unidades": "11 moradias",
+      "estado": "Concluído",
+      "comercial": "Vendido",
+      "entrega": "Concluído em 2017",
+      "resumo": "Condomínio Santos, também na Murteira, com 11 moradias térreas isoladas de tipologia T4 e T5, com piscina privativa em cada unidade, valorizando o pátio como elemento gerador do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural.",
+      "factos": ["Murteira, Loures", "2017", "11 moradias", "T4 / T5", "Privativa em cada unidade", "Vendido"]
+    },
+    "condominio-santos-malhapao": {
+      "nome": "Condomínio Santos — Malhapão",
+      "tipologia": "T4 e T5",
+      "unidades": "8 moradias",
+      "estado": "Concluído",
+      "comercial": "Vendido",
+      "entrega": "Concluído em 2020",
+      "resumo": "Condomínio privado de 8 moradias com tipologia T4 e T5, com piscina privativa em cada fração, valorizando o pátio como elemento gerador do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural.",
+      "factos": ["Malhapão, Loures", "2020", "8 moradias", "T4 / T5", "Privativa em cada fração", "Vendido"]
+    },
+    "condominio-santos-moradia-isolada-t5": {
+      "nome": "Condomínio Santos — Moradia Isolada T5",
+      "tipologia": "T5",
+      "unidades": "1 moradia",
+      "estado": "Concluído",
+      "comercial": "Vendido",
+      "entrega": "Concluído em 2021",
+      "resumo": "Moradia de 5 quartos com piscina privativa que valoriza o pátio como gerador do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural. Projeto desenhado pela equipa LogoExisto®.",
+      "factos": ["Loures", "2021", "1 moradia", "T5", "LogoExisto®", "Vendido"]
+    },
+    "condominio-tojalinho": {
+      "nome": "Condomínio Tojalinho",
+      "tipologia": "T4",
+      "unidades": "3 moradias",
+      "estado": "Concluído",
+      "comercial": "Vendido",
+      "entrega": "Concluído em 2022",
+      "resumo": "Condomínio fechado com 3 moradias de tipologia T4, no Tojalinho, Loures.",
+      "factos": ["Tojalinho, Loures", "2022", "3 moradias", "T4", "Vendido"]
+    },
+    "condominio-albarraque": {
+      "nome": "Condomínio Albarraque",
+      "tipologia": "T4",
+      "unidades": "9 moradias",
+      "estado": "Em projeto",
+      "comercial": "Vendido",
+      "entrega": "Em fase de projeto · 2023",
+      "resumo": "Em fase de projeto, em conjunto com entidades (Câmara Municipal e outras), o condomínio Santos — Sintra prevê 9 moradias T4 com piscina privativa em cada fração, promovendo privacidade, qualidade de vida e relação com a luz natural. Projeto desenhado pela equipa LogoExisto®.",
+      "factos": ["Albarraque, Sintra", "2023", "9 moradias", "T4", "LogoExisto®", "Em projeto / Vendido"]
+    },
+    "empreendimento-residencial-11-villas": {
+      "nome": "Empreendimento Residencial 11 Villas",
+      "tipologia": "T4 e T5",
+      "unidades": "11 moradias",
+      "estado": "Em construção",
+      "comercial": "Vendido",
+      "entrega": "Em construção · 2023",
+      "resumo": "Em fase de construção, o condomínio Santos prevê 11 moradias de tipologia T4 e T5 com piscina privativa em cada unidade, valorizando o pátio como elemento gerador do espaço residencial. Projeto desenhado pela equipa LogoExisto®.",
+      "factos": ["Loures", "2023", "11 moradias", "T4 / T5", "LogoExisto®", "Em construção / Vendido"]
+    },
+    "moradia-unifamiliar-santo-antao-do-tojal": {
+      "nome": "Moradia Unifamiliar",
+      "tipologia": "T4",
+      "unidades": "1 moradia",
+      "estado": "Em construção",
+      "comercial": "Vendido",
+      "entrega": "Em construção · 2026",
+      "resumo": "Em fase de construção, moradia de 4 quartos com piscina privativa, valorizando o pátio como elemento do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural. Projeto desenhado pela equipa LogoExisto®.",
+      "factos": ["St. Antão do Tojal, Loures", "2026", "1 moradia", "T4", "LogoExisto®", "Em construção / Vendido"]
+    },
+    "valflores-terraces": {
+      "nome": "Valflores Terraces",
+      "tipologia": "T3 a T5",
+      "unidades": "39 apartamentos",
+      "estado": "Em construção",
+      "comercial": "Em comercialização",
+      "entrega": "Em construção · 2026",
+      "resumo": "Edifício com 39 apartamentos T3, T3 duplex, T4, T4 duplex e T5 premium, com amplas áreas interiores e exteriores e excelente vista sobre a paisagem. Os apartamentos dos pisos superiores têm piscina exterior ajardinada. Vista desafogada e amplas varandas com vista para o Rio Tejo. Acabamentos interiores elegantes e nobres, espaços confortáveis e contemporâneos, ricos em luz natural.",
+      "factos": ["Sta. Iria de Azóia, Loures", "2026", "39 apartamentos", "T3 / T3 duplex / T4 / T4 duplex / T5 premium", "Rio Tejo", "Em construção"]
+    },
+    "clt-centro-logistico-do-tojal": {
+      "nome": "CLT — Centro Logístico do Tojal",
+      "tipologia": "Armazéns · 36.000 m²",
+      "unidades": "27 armazéns",
+      "estado": "Em construção",
+      "comercial": "Em comercialização",
+      "entrega": "Em construção · 2026 e 2027",
+      "resumo": "Novos armazéns de arquitetura moderna, inseridos em complexo empresarial vedado, com um total de 36.000 m² de espaço industrial, em Santo Antão do Tojal, Loures. Áreas de 1.000 m² por armazém, 10 m de pé-direito, instalações sanitárias, escritório de 100 m² em open space (mezanine) e casa de banho, docas de carga e descarga para camiões e estacionamento exterior.",
+      "factos": ["St. Antão do Tojal, Loures", "2026 e 2027", "27 armazéns", "36.000 m²", "1.000 m² · 10 m de pé-direito", "100 m² open space (mezanine)", "Em construção"]
+    },
+    "valflores-residence": {
+      "nome": "Valflores Residence",
+      "tipologia": "T2",
+      "unidades": "39 apartamentos",
+      "estado": "Em construção",
+      "comercial": "Arrendamento",
+      "entrega": "Previsão 2028",
+      "resumo": "Apartamentos de tipologia T2 especificamente para colocar no mercado de arrendamento, dando início a uma nova vertente de negócio do grupo AM Santos — AM Santos Imobiliária, gestão de património.",
+      "factos": ["Santa Iria de Azóia, Loures", "2028", "39 apartamentos", "T2", "Mercado de arrendamento", "Em construção"]
+    },
+    "pinteus-residence": {
+      "nome": "Pinteus Residence",
+      "tipologia": "T2",
+      "unidades": "14 apartamentos",
+      "estado": "Em projeto",
+      "comercial": "Arrendamento",
+      "entrega": "Previsão 2028",
+      "resumo": "14 apartamentos em condomínio fechado de tipologia T2, especificamente para colocar no mercado de arrendamento, dando início a uma nova vertente de negócio do grupo AM Santos — AM Santos Imobiliária, gestão de património.",
+      "factos": ["St. Antão do Tojal, Loures", "2028", "14 apartamentos", "T2", "Mercado de arrendamento", "Em projeto"]
+    },
+    "empreendimento-loures-residencial": {
+      "nome": "Empreendimento Loures — Residencial",
+      "tipologia": "T2, T3 e T4",
+      "unidades": "165 apartamentos",
+      "estado": "Em projeto",
+      "comercial": "Arrendamento",
+      "entrega": "Previsão 2029",
+      "resumo": "Condomínio fechado de alto padrão e inovação com 165 apartamentos de tipologias T2, T3 e T4, para colocar no mercado de arrendamento.",
+      "factos": ["Loures", "2029", "165 apartamentos", "T2, T3 e T4", "Mercado de arrendamento", "Em projeto"]
+    },
+    "empreendimento-loures-hotel": {
+      "nome": "Empreendimento Loures — Hotel",
+      "tipologia": "Hotel · 50 quartos",
+      "unidades": "50 quartos",
+      "estado": "Em projeto",
+      "comercial": "Hotelaria",
+      "entrega": "Previsão 2029",
+      "resumo": "Hotel com cerca de 50 quartos, salas de congressos, restaurante e outros serviços, de arquitetura moderna.",
+      "factos": ["Loures", "2029", "Hotel — cerca de 50 quartos", "Salas de congressos, restaurante", "Em projeto"]
+    }
+  }
+}

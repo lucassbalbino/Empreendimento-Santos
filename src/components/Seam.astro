@@ -1,23 +1,36 @@
 ---
 // Costura horizontal entre duas secções, sempre reta (sem cunha diagonal).
-// Linha fina cortada por uma marca "+" e, por baixo, uma legenda a três
-// colunas — rótulo da secção seguinte | marca | ano — no idioma editorial
-// do estudiobase2.com.
+// Linha fina e, por baixo, uma legenda a três colunas — rótulo da secção
+// seguinte | marca | ano — no idioma editorial do estudiobase2.com.
 //   variant="light" → sobre .section branca
 //   variant="alt"   → sobre .section--alt (cinza-claro)
 //   variant="dark"  → sobre .section--dark
 //   loose           → mais respiro no topo; usar quando a .seam fecha um
 //                      bloco de imagem (foto, slider, painéis, carrossel)
-const { label, variant = 'light', loose = false } = Astro.props;
+//   bare            → sem o .container próprio; usar quando a .seam já vive
+//                      dentro de outra .container (ex.: como eyebrow do
+//                      título, na mesma div — evita duplicar o gutter)
+const { label, variant = 'light', loose = false, i18n, class: extraClass = '', bare = false } = Astro.props;
 const year = new Date().getFullYear();
 ---
-<div class={`seam seam--${variant}${loose ? ' seam--loose' : ''}`}>
-  <div class="container">
-    <div class="seam__rule"><span class="seam__mark" aria-hidden="true">+</span></div>
-    <div class="seam__meta">
-      <span class="seam__label">{label}</span>
-      <span class="seam__brand">AM Santos<sup>&reg;</sup></span>
-      <span class="seam__index">&copy;{year}</span>
+<div class={`seam seam--${variant}${loose ? ' seam--loose' : ''}${extraClass ? ' ' + extraClass : ''}`}>
+  {bare ? (
+    <>
+      <div class="seam__rule"></div>
+      <div class="seam__meta">
+        <span class="seam__label" data-i18n={i18n}>{label}</span>
+        <span class="seam__brand">AM Santos<sup>&reg;</sup></span>
+        <span class="seam__index"><span class="seam__copy">&copy;</span>{year}</span>
+      </div>
+    </>
+  ) : (
+    <div class="container">
+      <div class="seam__rule"></div>
+      <div class="seam__meta">
+        <span class="seam__label" data-i18n={i18n}>{label}</span>
+        <span class="seam__brand">AM Santos<sup>&reg;</sup></span>
+        <span class="seam__index"><span class="seam__copy">&copy;</span>{year}</span>
+      </div>
     </div>
-  </div>
+  )}
 </div>

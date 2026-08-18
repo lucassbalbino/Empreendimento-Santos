@@ -19,7 +19,10 @@ const concluido = proj.estado === 'Concluído';
 const brandParagraph = concluido
   ? `Entregue pela AM Santos, o ${proj.nome} reflete a excelência que procuramos em cada projeto executado: uma arquitetura moderna e funcional, com um foco inabalável no bem-estar e na qualidade.`
   : `Como em todos os empreendimentos AM Santos, o ${proj.nome} nasce de uma visão centrada no conforto, na qualidade e na sustentabilidade — com a eficiência energética a guiar cada decisão de projeto.`;
+const brandParagraphI18n = concluido ? 'common.projectDetail.brandConcluido' : 'common.projectDetail.brandOutro';
 const ctaLabel = concluido ? 'Falar connosco' : (proj.estado === 'Em construção' ? 'Agendar visita' : 'Saber mais');
+const ctaKey = concluido ? 'ctaFalar' : (proj.estado === 'Em construção' ? 'ctaVisita' : 'ctaSaber');
+const i18nBase = `empreendimentos.${proj.slug}`;
 
 const relacionados = todos.filter((p) => p.grupo === proj.grupo && p.slug !== proj.slug).slice(0, 3);
 
@@ -38,29 +41,29 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
       style={proj.imagem ? `background-image:url(${proj.imagem})` : undefined}
     ></div>
     <div class="hero__overlay"></div>
-    {proj.imagem && !proj.imagemReal && <span class="img-prov img-prov--hero">Imagem provisória</span>}
+    {proj.imagem && !proj.imagemReal && <span class="img-prov img-prov--hero" data-i18n="common.projectDetail.provisoria">Imagem provisória</span>}
     <div class="hero__inner">
       <div class="container">
-        <a class="emp-back" href="/portfolio">← Empreendimentos</a>
-        <TitleSplit text={proj.nome} tag="h1" class="hero__title-page title-split--hero" />
+        <a class="emp-back" href="/portfolio" data-i18n="common.projectDetail.back">← Empreendimentos</a>
+        <TitleSplit text={proj.nome} tag="h1" class="hero__title-page title-split--hero" data-i18n={`${i18nBase}.nome`} data-i18n-split="1" />
         <p class="emp-hero__meta">
-          {proj.localizacao} · {proj.tipologia}
-          <span class="emp-chip">{proj.estado}</span>
+          {proj.localizacao} · <span data-i18n={`${i18nBase}.tipologia`}>{proj.tipologia}</span>
+          <span class="emp-chip" data-i18n={`${i18nBase}.estado`}>{proj.estado}</span>
         </p>
       </div>
     </div>
   </section>
 
   <!-- O EMPREENDIMENTO -->
-  <section class="section section--dark">
+  <section class="section section--tight-bottom">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="lg" y="top" />
       <div class="split">
         <div class="split__body">
-          <TitleSplit text={proj.entrega} />
-          <p>{proj.resumo}</p>
-          <p>{brandParagraph}</p>
-          <a class="btn" href="#contacto">{ctaLabel}</a>
+          <TitleSplit text={proj.entrega} data-i18n={`${i18nBase}.entrega`} data-i18n-split="1" />
+          <p data-i18n={`${i18nBase}.resumo`}>{proj.resumo}</p>
+          <p data-i18n-tpl={brandParagraphI18n}>{brandParagraph}</p>
+          <a class="btn" href="#contacto" data-i18n={`common.projectDetail.${ctaKey}`}>{ctaLabel}</a>
         </div>
         <div class="split__media">
           {proj.galeria?.[0]
@@ -72,15 +75,15 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
   </section>
 
   <!-- CARACTERÍSTICAS -->
-  <section class="section section--dark">
+  <section class="section section--alt" style="padding-top:calc(var(--section-y) - clamp(24px,3vw,40px));padding-bottom:calc(var(--section-y-tight) + clamp(24px,3vw,40px))">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="lg" y="bottom" />
-      <TitleSplit text="Ficha do empreendimento" />
+      <TitleSplit text="Ficha do empreendimento" data-i18n="common.projectDetail.ficha" data-i18n-split="1" />
       <div class="facts">
-        {proj.factos.map((f) => (
+        {proj.factos.map((f, i) => (
           <div class="fact">
-            <span class="fact__v">{f.valor}</span>
-            <span class="fact__r">{f.rotulo}</span>
+            <span class="fact__v" data-i18n={`${i18nBase}.factos.${i}`}>{f.valor}</span>
+            <span class="fact__r" data-i18n-label={f.rotulo}>{f.rotulo}</span>
           </div>
         ))}
       </div>
@@ -89,10 +92,10 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
 
   {proj.galeria?.length > 0 && (
     <!-- GALERIA (só quando há mesmo imagens deste empreendimento) -->
-    <section class="section">
+    <section class="section section--tight-bottom">
       <div class="container has-wm">
         <Watermark variant="line" side="r" size="md" y="top" />
-        <TitleSplit text="Imagens do empreendimento" />
+        <TitleSplit text="Imagens do empreendimento" data-i18n="common.projectDetail.imagens" data-i18n-split="1" />
         <div class="gallery">
           {galeria.map((src, i) => (
             <img class="gallery__img" src={src} alt={`${proj.nome} — imagem ${i + 1}`} loading="lazy" />
@@ -103,7 +106,7 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
   )}
 
   <!-- LOCALIZAÇÃO -->
-  <section class="section section--dark">
+  <section class="section section--tight-bottom">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="md" y="top" />
       <div class="split">
@@ -111,17 +114,17 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
           <TitleSplit text={proj.localizacao} />
           <p class="lead" style="margin-top:1rem">{proj.concelho}</p>
         </div>
-        <div class="split__media"><div class="ph" data-label="Mapa"></div></div>
+        <div class="split__media"><div class="ph" data-label="Mapa" data-i18n="common.projectDetail.mapa" data-i18n-attr="data-label"></div></div>
       </div>
     </div>
   </section>
 
   {relacionados.length > 0 && (
     <!-- OUTROS EMPREENDIMENTOS -->
-    <section class="section">
+    <section class="section section--tight-bottom">
       <div class="container has-wm">
         <Watermark variant="line" side="l" size="md" y="bottom" />
-        <TitleSplit text="Continue a explorar" />
+        <TitleSplit text="Continue a explorar" data-i18n="common.projectDetail.continuar" data-i18n-split="1" />
         <div class="grid-projects">
           {relacionados.map((p) => (<ProjectCard proj={p} />))}
         </div>
@@ -136,7 +139,13 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
       <ContactForm
         title={`Interessado no ${proj.nome}?`}
         texto="Fale connosco para agendar uma visita ou pedir mais informações sobre este empreendimento. A nossa equipa responde com brevidade."
+        titleI18nTpl="common.projectDetail.interessadoTitle"
+        textoI18n="common.projectDetail.interessadoTexto"
       />
     </div>
   </section>
+
+  <!-- Dados mínimos para os scripts de i18n (main.js): permite ao template
+       data-i18n-tpl substituir {nome} pelo nome traduzido deste empreendimento. -->
+  <script type="application/json" id="i18n-page-data" set:html={JSON.stringify({ slug: proj.slug, nome: proj.nome })}></script>
 </Base>

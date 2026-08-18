@@ -22,9 +22,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
   <meta name="description" content={description}>
 
   <!-- Favicon (marca AM Santos) -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" href="/favicon-32.png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#141414">
   <!-- Site só claro: impede o modo escuro automático do browser de escurecer as
        cores quando o SO está em dark mode (sinal dado antes do CSS carregar). -->
@@ -42,7 +40,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600;700&family=Economica:wght@400;700&family=Barlow+Condensed:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 
   <!-- Gate do preloader: liga is-loading ANTES do paint, só na 1.ª carga real

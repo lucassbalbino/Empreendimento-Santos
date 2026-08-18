@@ -16,7 +16,7 @@ import equipa from '../data/equipa.json';
     <div class="hero__overlay"></div>
     <div class="hero__inner">
       <div class="container">
-        <TitleSplit text={equipa.hero.title} tag="h1" class="hero__title-page title-split--hero" />
+        <TitleSplit text={equipa.hero.title} tag="h1" class="hero__title-page title-split--hero" data-i18n="equipa.hero.title" data-i18n-split="1" />
       </div>
     </div>
   </section>
@@ -25,8 +25,8 @@ import equipa from '../data/equipa.json';
   <section class="section">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="lg" y="top" />
-      <TitleSplit text={equipa.direcao.title} />
-      <Team members={equipa.direcao.members} variant="lead" />
+      <TitleSplit text={equipa.direcao.title} data-i18n="equipa.direcao.title" data-i18n-split="1" />
+      <Team members={equipa.direcao.members} variant="lead" i18nBase="equipa.direcao.members" />
     </div>
   </section>
 
@@ -34,15 +34,15 @@ import equipa from '../data/equipa.json';
   <section class="section section--alt">
     <div class="container has-wm">
       <Watermark variant="fill" side="l" size="lg" y="bottom" />
-      <TitleSplit text={equipa.equipa.title} />
-      <Team members={equipa.equipa.members} />
+      <TitleSplit text={equipa.equipa.title} data-i18n="equipa.equipa.title" data-i18n-split="1" />
+      <Team members={equipa.equipa.members} i18nBase="equipa.equipa.members" />
     </div>
   </section>
 
   <!-- CONTACTO -->
   <section class="section" id="contacto">
     <div class="container has-wm">
-      <ContactForm title={equipa.contacto.title} texto={equipa.contacto.texto} />
+      <ContactForm title={equipa.contacto.title} texto={equipa.contacto.texto} titleI18n="equipa.contacto.title" textoI18n="equipa.contacto.texto" />
     </div>
   </section>
 </Base>

@@ -3,25 +3,26 @@ import Base from '../layouts/Base.astro';
 import BlockHead from '../components/BlockHead.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactForm from '../components/ContactForm.astro';
-import Watermark from '../components/Watermark.astro';
+import Seam from '../components/Seam.astro';
 import portfolio from '../data/portfolio.json';
 import { porGrupo } from '../utils/projetos.js';
 
 const secoes = [
-  { ...portfolio.emDesenvolvimento, projetos: porGrupo('desenvolvimento') },
-  { ...portfolio.futuros, projetos: porGrupo('futuro') },
+  { ...portfolio.emDesenvolvimento, i18nBase: 'portfolio.emDesenvolvimento', projetos: porGrupo('desenvolvimento') },
+  { ...portfolio.futuros, i18nBase: 'portfolio.futuros', projetos: porGrupo('futuro') },
 ];
 ---
 <Base flat title="Mockup — Portfólio" description="Empreendimentos AM Santos em desenvolvimento e projetos futuros — vários projetos em pipeline, na vanguarda da inovação arquitetónica.">
-  <!-- PROJETOS: EM DESENVOLVIMENTO + FUTUROS. Sem hero — a página abre direto
-       nos cards. Costura na fronteira de cor entre o 1.º bloco (branco) e o
-       2.º (preto). -->
+  <!-- PROJETOS: EM DESENVOLVIMENTO + FUTUROS. Sem hero — a .seam--top, na
+       mesma .container do título, funciona como eyebrow do h1 logo a seguir
+       (a página abre direto nos cards). Costura na fronteira de cor entre o
+       1.º bloco (branco) e o 2.º (preto). -->
   {secoes.map((s, i) => (
     <>
       <section class={`section section--centered-head ${i === 1 ? "section--dark section--tight-top section--tight-bottom" : "section--flat-top"}`}>
-        <div class="container has-wm">
-          <Watermark variant={i === 1 ? "dark" : "fill"} side={i === 0 ? "l" : "l"} size="lg" y="top" />
-          <BlockHead title={s.title} lead={s.lead} as={i === 0 ? 'h1' : 'h2'} />
+        <div class="container">
+          {i === 0 && <Seam label={portfolio.hero.title} variant="light" class="seam--top" i18n="portfolio.hero.title" bare />}
+          <BlockHead title={s.title} lead={s.lead} as={i === 0 ? 'h1' : 'h2'} titleI18n={`${s.i18nBase}.title`} leadI18n={`${s.i18nBase}.lead`} />
           <div class="grid-projects">
             {s.projetos.map((p) => (
               <div class="card-rise"><ProjectCard proj={p} /></div>
@@ -36,7 +37,7 @@ const secoes = [
   <section class="section" id="contacto">
     <div class="container has-wm">
 
-      <ContactForm title={portfolio.contacto.title} texto={portfolio.contacto.texto} />
+      <ContactForm title={portfolio.contacto.title} texto={portfolio.contacto.texto} titleI18n="portfolio.contacto.title" textoI18n="portfolio.contacto.texto" />
     </div>
   </section>
 

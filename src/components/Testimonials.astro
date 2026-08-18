@@ -27,11 +27,12 @@ interface Props {
   autoplay?: boolean;
   colors?: Colors;
   fontSizes?: FontSizes;
+  i18nBase?: string;
 }
 
 import Divider from './Divider.astro';
 
-const { testimonials, autoplay = true, colors = {}, fontSizes = {} } = Astro.props;
+const { testimonials, autoplay = true, colors = {}, fontSizes = {}, i18nBase } = Astro.props;
 
 // Defaults idênticos ao componente original.
 const c = {
@@ -57,7 +58,7 @@ const vars = [
 
 const first = testimonials[0];
 ---
-<div class="testimonials" style={vars} data-autoplay={autoplay ? 'true' : 'false'} tabindex="0" aria-roledescription="carrossel de depoimentos">
+<div class="testimonials" style={vars} data-autoplay={autoplay ? 'true' : 'false'} data-i18n-base={i18nBase} tabindex="0" aria-roledescription="carrossel de depoimentos">
   <div class="testimonials__grid">
     <div class="testimonials__images">
       {testimonials.map((t, i) => (
@@ -74,10 +75,10 @@ const first = testimonials[0];
         <p class="testimonials__quote">{first?.quote}</p>
       </div>
       <div class="testimonials__arrows">
-        <button class="testimonials__arrow" type="button" data-dir="prev" aria-label="Depoimento anterior">
+        <button class="testimonials__arrow" type="button" data-dir="prev" aria-label="Depoimento anterior" data-i18n="common.testimonials.prev" data-i18n-attr="aria-label">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
         </button>
-        <button class="testimonials__arrow" type="button" data-dir="next" aria-label="Próximo depoimento">
+        <button class="testimonials__arrow" type="button" data-dir="next" aria-label="Próximo depoimento" data-i18n="common.testimonials.next" data-i18n-attr="aria-label">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </button>
       </div>
@@ -141,14 +142,22 @@ const first = testimonials[0];
         });
       }
 
+      var i18nBase = root.dataset.i18nBase;
       function update() {
         var t = items[active];
+        var designation = t.designation;
+        var quote = t.quote;
+        if (window.__amsI18n && i18nBase) {
+          designation = window.__amsI18n.get(i18nBase + '.' + active + '.role', t.designation);
+          quote = window.__amsI18n.get(i18nBase + '.' + active + '.bio', t.quote);
+        }
         nameEl.textContent = t.name;
-        desEl.textContent = t.designation;
-        quoteEl.textContent = t.quote;
+        desEl.textContent = designation;
+        quoteEl.textContent = quote;
         if (!reduce) { body.style.animation = 'none'; void body.offsetWidth; body.style.animation = ''; }
         layout();
       }
+      if (window.__amsI18n) window.__amsI18n.onChange(update);
 
       function go(dir) { active = (active + dir + n) % n; stopAuto(); update(); }
       function startAuto() {

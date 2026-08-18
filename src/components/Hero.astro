@@ -1,6 +1,6 @@
 ---
 import TitleSplit from './TitleSplit.astro';
-const { title, minHeight, image } = Astro.props;
+const { title, minHeight, image, titleI18n } = Astro.props;
 ---
 <section class="hero" style={minHeight ? `min-height:${minHeight}` : undefined}>
   <div
@@ -10,8 +10,8 @@ const { title, minHeight, image } = Astro.props;
   <div class="hero__overlay"></div>
   <div class="hero__inner">
     <div class="container">
-      <TitleSplit text={title} tag="h1" class="title-split--hero" />
+      <TitleSplit text={title} tag="h1" class="title-split--hero" data-i18n={titleI18n} data-i18n-split="1" />
     </div>
   </div>
-  <div class="hero__scroll"><span>Scroll</span><span class="line"></span></div>
+  <div class="hero__scroll"><span data-i18n="common.hero.scroll">Scroll</span><span class="line"></span></div>
 </section>

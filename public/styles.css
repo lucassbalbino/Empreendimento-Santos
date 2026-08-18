@@ -35,6 +35,9 @@
 
   --maxw: 1480px;
   --gutter: clamp(18px, 3.4vw, 52px);
+  /* Arredondamento discreto dos cartões de empreendimento: suaviza o canto sem
+     descaracterizar a linguagem reta do resto do site. */
+  --card-radius: 6px;
   /* Ritmo: mais distância de scroll por gesto. Cada elemento passa a percorrer
      a sua animação ao longo de mais píxeis, o que se lê como suavidade — é o
      segundo maior fator, depois do scroll interpolado. */
@@ -57,6 +60,14 @@
   --hero-veil:
     linear-gradient(180deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,.06) 45%, rgba(0,0,0,.55) 100%),
     linear-gradient(180deg, rgba(104,146,196,.30) 0%, rgba(132,172,214,.20) 50%, rgba(58,92,138,.34) 100%);
+}
+
+/* TESTE — página Histórico apenas: troca o laranja do site (--accent /
+   --accent-dk) pelo tom real da logo (#b46511), para avaliar o efeito antes
+   de decidir se passa para o resto do site. */
+body.palette-test-b46511{
+  --accent:    #b46511;
+  --accent-dk: #b46511;
 }
 
 /* ---------- Reset ---------- */
@@ -100,6 +111,9 @@ ul{ list-style:none; }
 /* Ritmo por grupos: aperta o espaço do lado que encosta à secção irmã. */
 .section--tight-top{ padding-top:var(--section-y-tight); }
 .section--tight-bottom{ padding-bottom:var(--section-y-tight); }
+/* Secção que abre com uma .seam (nested como primeiro filho): a .seam já dá
+   o respiro do topo, por isso a secção não duplica o próprio padding-top. */
+.section--seam-top{ padding-top:0; }
 /* Faixa de acento: fundo laranja, bem marcante (preto/branco/laranja) */
 .section--accent{ background:var(--accent); color:#fff; }
 .section--accent .display{ color:#fff; }
@@ -142,7 +156,7 @@ ul{ list-style:none; }
 .lead{
   font-family:var(--serif);
   font-weight:300;
-  font-size:clamp(1.15rem,2.1vw,1.6rem);
+  font-size:clamp(1.3rem,2.4vw,1.85rem);
   line-height:1.45;
   color:var(--ink-soft);
   max-width:42ch;
@@ -251,8 +265,57 @@ ul{ list-style:none; }
 .nav__list a:hover{ opacity:1; color:var(--accent-dk); }
 .scrolled .nav__list a{ color:var(--ink); opacity:.85; }
 .scrolled .nav__list a:hover{ color:var(--accent); opacity:1; }
-.nav__lang{ font-size:.74rem; letter-spacing:.2em; font-weight:700; color:#fff; }
-.scrolled .nav__lang{ color:var(--ink); }
+/* Seletor de idioma — botão + menu em cascata (ver .lang-switch__option abaixo).
+   Vive como último item de .nav__list, por isso herda a mesma posição do
+   antigo .nav__lang e aparece também no menu mobile de ecrã inteiro. */
+.nav__lang-item{ display:flex; align-items:center; }
+.lang-switch{ position:relative; }
+.lang-switch__btn{
+  font-family:inherit; font-size:.74rem; letter-spacing:.2em; font-weight:700;
+  color:#fff; background:none; border:0; cursor:pointer; padding:.3rem .1rem;
+  display:inline-flex; align-items:center; gap:.45rem;
+  transition:color .3s var(--ease);
+}
+.lang-switch__btn::after{
+  content:""; width:6px; height:6px; flex:none;
+  border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor;
+  transform:rotate(45deg) translateY(-2px);
+  transition:transform .3s var(--ease);
+}
+.lang-switch.is-open .lang-switch__btn::after{ transform:rotate(-135deg) translateY(1px); }
+.scrolled .lang-switch__btn{ color:var(--ink); }
+
+.lang-switch__menu{
+  position:absolute; top:calc(100% + 16px); left:50%;
+  min-width:140px; margin:0; padding:.5rem 0;
+  background:var(--paper); border:1px solid var(--line); border-radius:10px;
+  box-shadow:0 18px 40px rgba(20,20,20,.18);
+  opacity:0; visibility:hidden; pointer-events:none;
+  transform:translateX(-50%) translateY(-10px);
+  transition:opacity .25s var(--ease), transform .25s var(--ease), visibility 0s linear .25s;
+  z-index:120;
+}
+.lang-switch.is-open .lang-switch__menu{
+  opacity:1; visibility:visible; pointer-events:auto;
+  transform:translateX(-50%) translateY(0);
+  transition:opacity .3s var(--ease), transform .3s var(--ease), visibility 0s linear;
+}
+/* Cascata: cada opção surge com um atraso crescente — a mesma lógica de
+   .reveal-ready em cascata usada no resto do site (ver Base.astro), só que
+   aqui aplicada à abertura do menu em vez do scroll. */
+.lang-switch__option{
+  display:block; width:100%; padding:.55rem 1.15rem; border:0; background:none;
+  font-family:var(--sans); font-size:.82rem; color:var(--ink); text-align:left; cursor:pointer;
+  white-space:nowrap;
+  opacity:0; transform:translateY(-8px);
+  transition:opacity .3s var(--ease), transform .3s var(--ease), background-color .2s var(--ease), color .2s var(--ease);
+}
+.lang-switch.is-open .lang-switch__option{ opacity:1; transform:translateY(0); }
+.lang-switch__option:nth-child(1){ transition-delay:.03s; }
+.lang-switch__option:nth-child(2){ transition-delay:.09s; }
+.lang-switch__option:nth-child(3){ transition-delay:.15s; }
+.lang-switch__option:hover, .lang-switch__option:focus-visible{ background:var(--paper-alt); color:var(--accent-dk); outline:0; }
+.lang-switch__option.is-active{ color:var(--accent); font-weight:600; }
 
 /* Botão hambúrguer */
 .nav-toggle{
@@ -342,39 +405,67 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    QUEM SOMOS (texto + imagem)
    ===================================================================== */
 .split{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px,5vw,80px); align-items:center; }
+/* min-width:0 nas duas colunas: por defeito um item de grid não encolhe
+   abaixo da sua largura de conteúdo mínima — num título essa largura é a da
+   palavra mais comprida, que na tipografia de display é bem larga. Sem isto o
+   título "vence" o grid e esmaga a imagem ao lado. */
+.split__body, .split__media, .split > .frame{ min-width:0; }
+/* "Quem Somos" tem um título longo (2 linhas, título--fit) — dá mais espaço
+   ao texto do que à imagem para o título não precisar de encolher tanto. */
+.split--text-wide{ grid-template-columns:3fr 2fr; }
 .split__media .ph{ aspect-ratio:4/5; width:100%; }
 .split__img{ aspect-ratio:4/5; width:100%; height:auto; object-fit:cover; display:block; }
 .split__body .display{ margin:.4rem 0 1.6rem; }
 
-/* Título "Quem Somos": linha condensada em minúsculas seguida da palavra
-   final em serifa grande e maiúscula (ref: titulo-quem-somos). */
+/* Títulos de secção — a mesma tipografia (Kompot Display) do início ao fim,
+   numa só caixa de texto. As quebras de linha são naturais: cada variante
+   define a sua MEDIDA (max-width em ch) e o browser distribui o texto por
+   linhas de comprimento parecido (text-wrap:balance). Nada impõe onde partir,
+   por isso o mesmo título funciona em pt/en/fr sem ficar preso a uma forma.
+   A tipografia vive aqui, no elemento do título, e não no <span> interior,
+   por duas razões: o ch dos max-width abaixo passa a medir na fonte e no
+   corpo reais do título, e as variantes só precisam de trocar o font-size. */
 .title-split{
   margin:.4rem 0 1.6rem;
   display:flex;
   flex-direction:column;
-}
-.title-split__lead{
-  font-family:"Economica", var(--sans);
-  font-weight:400;
-  font-size:clamp(1.3rem,2.4vw,1.9rem);
-  letter-spacing:.05em;
-}
-.title-split__word{
   font-family:"Kompot Display", var(--serif);
   font-weight:700;
   text-transform:uppercase;
   letter-spacing:.02em;
   line-height:1.05;
-  font-size:clamp(2.6rem,6vw,4.6rem);
+  /* Escala mesmo fluida (interpola entre ~29px a 390px e 64px a 1440px). O
+     termo em vw tem de fazer o trabalho todo na gama estreita: com um clamp
+     tipo (2.3rem, 4.6vw, 4rem) o vw fica sempre abaixo do mínimo em telemóvel,
+     o título congela nos 2.3rem e uma palavra comprida ("SUSTENTABILIDADE",
+     "EMPREENDIMENTO") passa a ser mais larga do que o ecrã — não há quebra
+     possível dentro de uma palavra, por isso a única saída é o corpo encolher
+     com o viewport. Era isto que o JS antigo fazia a medir e a reescrever
+     font-size; em CSS sai de graça e sem salto no resize. */
+  font-size:clamp(1.6rem, 0.95rem + 3.4vw, 4rem);
+  text-wrap:balance;
+  /* Medida de leitura por omissão: sem isto um título curto esticaria pela
+     largura toda do .container (até 1480px) numa só linha interminável.
+     O min(...,100%) é o que impede a caixa de passar do pai quando as
+     variantes abaixo usam width:fit-content — sem ele, uma palavra maior do
+     que a coluna esticaria a caixa para fora dela. */
+  max-width:min(24ch, 100%);
+  /* Rede de segurança: com a caixa presa ao pai, uma palavra que continue a
+     não caber (idiomas com palavras longas, colunas estreitas) parte em vez
+     de sair por fora. Não muda nada nos casos normais — só atua quando a
+     alternativa era transbordar. */
+  overflow-wrap:break-word;
 }
-/* Variante para h1 de hero: linha condensada maior + palavra final ao nível
-   do .hero__title-page (mesma altura visual dos heros existentes). */
-.title-split--hero{ max-width:20ch; }
-.title-split--hero .title-split__lead{ font-size:clamp(1.4rem,2.8vw,2.1rem); }
-.title-split--hero .title-split__word{ font-size:clamp(3rem,8vw,6rem); }
-/* Variante para títulos curtos (1-2 palavras) sem linha de contexto:
-   fica só a palavra final grande. */
-.title-split--word-only .title-split__lead{ display:none; }
+/* O <span> é filho de um flex column: já é "blockificado" (aceita as .line do
+   split-type) e, sem align-self, estica à largura da caixa — é o que deixa o
+   text-align de cada variante alinhar as linhas entre si. */
+.title-split__text{ display:block; }
+/* Variante para h1 de hero: mesma tipografia unificada, só maior e com mais
+   medida (o título da hero pede linhas mais longas). */
+/* 17ch e não 14: o ch mede o glifo "0", e em maiúsculas de display as letras
+   são bem mais largas — com 14ch a caixa ficava mais estreita do que a própria
+   palavra "EMPREENDIMENTO" e a rede de segurança partia-a a meio. */
+.title-split--hero{ font-size:clamp(1.5rem, 0.57rem + 5.59vw, 5.6rem); max-width:min(17ch, 100%); }
 .split__body p{ color:var(--ink-soft); max-width:46ch; margin-bottom:1.2rem; }
 .split--reverse .split__media{ order:2; }
 
@@ -393,6 +484,12 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   max-width:20ch; margin:0;
   font-size:clamp(2.8rem, 8vw, 6.4rem);   /* maior que o .display base */
 }
+/* Título "Quem Somos": mais largo do que o --center por omissão (20ch), que
+   partia esta frase mais longa em várias linhas estreitas. Só aqui, para não
+   alargar o Histórico que partilha a mesma variante. */
+.quemsomos__intro .title-split--center{
+  max-width:min(34ch, 100%);
+}
 /* CTA "Sobre Nós": fora do bloco centrado do título, no canto inferior
    direito de todo o bloco de texto da secção (depois do editorial, antes da
    imagem full-bleed). */
@@ -401,72 +498,24 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   margin-top:clamp(28px, 4vw, 56px);
 }
 
-.title-split--center{
-  align-self:center; align-items:center;
-  text-align:center; margin:0;
-}
-/* Título "Sobre Nós" da home: o texto todo tem a mesma forma da palavra final
-   (Kompot Display, maiúsculas, bold) em vez de duas linhas com estilos
-   diferentes. Junta-se ao mecanismo --fit/--fill abaixo (JS equaliza a
-   largura das duas linhas) para que a linha "lead" (mais palavras, mais
-   estreita por palavra) e a palavra final (uma só palavra, mais larga) não
-   fiquem com larguras muito díspares — sem isso, a frase cabe nas duas linhas
-   mas ficam desequilibradas visualmente. */
-.title-split--center .title-split__lead,
-.title-split--center .title-split__word{
-  font-family:"Kompot Display", var(--serif);
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.02em;
-  line-height:1.1;
-  font-size:clamp(2.3rem, 4.6vw, 4.2rem);
-}
-
-.title-split--fill{
-  align-self:center; text-align:center; max-width:70ch; margin:0;
-}
-.title-split--fill .title-split__word{
-  font-size:clamp(3.4rem, 8vw, 6.4rem);   /* imponente: acima do tamanho base do title-split */
-}
-
-/* Variantes "ajustadas" — --fit (esquerda, "Sobre Nós" da página), --fill
-   (centrada, Histórico na home) e --center (Quem Somos/"Sobre Nós" da home):
-   as duas linhas ficam com a mesma largura visual sem depender do pai nem de
-   esticar o espaçamento das palavras (isso fica para o JS abaixo, que ajusta
-   o font-size das duas linhas até se encontrarem a meio caminho). Cada linha
-   encolhe à sua própria largura natural (align-self:flex-start em vez do
-   stretch por omissão do flex column) para que a medição em JS capture o
-   texto real, não a caixa esticada — a caixa do título em si
-   (width:fit-content) e o text-align:center tratam de repor o alinhamento
-   visual pretendido em cada variante. */
+/* Variantes de alinhamento — --fit (à esquerda, "Sobre Nós" da página) e
+   --center (centrada, "Quem Somos" e Histórico da home). Ambas usam
+   width:fit-content para a caixa encolher ao texto quando ele cabe numa linha
+   (só assim o align-self a consegue centrar); quando não cabe, a caixa para
+   na medida da variante e o texto quebra lá dentro, equilibrado. O
+   text-align trata do alinhamento das linhas entre si. */
 .title-split--fit,
-.title-split--fill,
 .title-split--center{
-  width:fit-content; max-width:100%;
+  width:fit-content;
 }
-.title-split--fit .title-split__lead,
-.title-split--fit .title-split__word,
-.title-split--fill .title-split__lead,
-.title-split--fill .title-split__word,
-.title-split--center .title-split__lead,
-.title-split--center .title-split__word{
-  align-self:flex-start;
-  white-space:nowrap;   /* cada linha é sempre 1 linha — o JS mede/ajusta a assumir isto */
+.title-split--center{
+  align-self:center; text-align:center; margin:0;
+  max-width:min(20ch, 100%);
 }
-/* Economica só existe nos pesos 400/700 (sem "light"), por isso a linha de
-   contexto troca para Barlow Condensed 300 nestas variantes "ajustadas" —
-   mesma personalidade estreita, mas com um peso realmente fino. */
-.title-split--fit .title-split__lead,
-.title-split--fill .title-split__lead{
-  font-family:"Barlow Condensed", var(--sans);
-  font-weight:300;
-  letter-spacing:.04em;
-}
-.title-split--fit .title-split__lead{
-  font-size:clamp(1.2rem, 2.2vw, 1.8rem);
-}
-.title-split--fit .title-split__word{
-  font-size:clamp(2.3rem, 5.3vw, 4.1rem);
+.title-split--fit{
+  align-self:flex-start; text-align:left; margin:0;
+  font-size:clamp(1.5rem, 1.03rem + 2.63vw, 3.4rem);
+  max-width:min(22ch, 100%);
 }
 
 .quemsomos__media{
@@ -642,8 +691,8 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   font-family:var(--serif); font-size:.85rem; letter-spacing:.06em;
   color:var(--accent);
 }
-.pilar__t{ font-family:var(--serif); font-weight:500; color:var(--ink); font-size:clamp(1.3rem,2vw,1.7rem); }
-.pilar__x{ color:var(--ink-soft); line-height:1.65; font-size:.95rem; }
+.pilar__t{ font-family:var(--serif); font-weight:500; color:var(--ink); font-size:clamp(1.5rem,2.3vw,1.95rem); }
+.pilar__x{ color:var(--ink-soft); line-height:1.7; font-size:clamp(1.05rem,1.15vw,1.15rem); }
 
 .pilar--1{ grid-column:1 / 5; }
 .pilar--2{ grid-column:5 / 9; margin-top:clamp(52px,6.4vw,92px); }
@@ -690,7 +739,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   gap:.6rem;
 }
 .facts--contadores .fact__v{
-  font-size:clamp(3rem,5.6vw,5.4rem);
+  font-size:clamp(4.4rem,8.6vw,8.8rem);
   color:var(--ink);
   line-height:1;
 }
@@ -709,13 +758,13 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 
 /* ---------------------------------------------------------------------
    SEAM (.seam) — costura horizontal entre secções (ref. estudiobase2.com).
-   Marca a fronteira entre duas secções: uma linha fina cortada ao meio por
-   uma marca "+" e, por baixo, uma legenda a três colunas (rótulo da secção
-   seguinte · marca · ano) — o mesmo ritmo editorial repetido a cada
-   capítulo da página, em vez de um separador gráfico pesado. Toda fronteira
-   entre secções da home fica reta: sem cunhas nem cortes diagonais. Ocupa
-   o próprio espaço: é o intervalo entre secções, por isso a secção
-   seguinte não deve duplicar padding-top (ver .section--seam-top). */
+   Marca a fronteira entre duas secções: uma linha fina e, por baixo, uma
+   legenda a três colunas (rótulo da secção seguinte · marca · ano) — o
+   mesmo ritmo editorial repetido a cada capítulo da página, em vez de um
+   separador gráfico pesado. Toda fronteira entre secções da home fica
+   reta: sem cunhas nem cortes diagonais. Ocupa o próprio espaço: é o
+   intervalo entre secções, por isso a secção seguinte não deve duplicar
+   padding-top (ver .section--seam-top). */
 .seam{
   /* Fundo próprio (em vez de transparente): a .seam pertence ao tom da
      secção que ABRE a seguir, não à que fecha antes dela — assim continua
@@ -725,28 +774,43 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   padding-top:clamp(80px,8.8vw,128px);
   padding-bottom:clamp(112px,12.5vw,180px);
 }
-.seam__rule{ position:relative; border-top:1px solid var(--line); }
-.seam__mark{
-  position:absolute; top:0; left:50%; transform:translate(-50%,-50%);
-  background:inherit; color:var(--ink-faint);
-  font-size:.8rem; line-height:1; padding:0 .6em;
-}
+.seam__rule{ border-top:1px solid var(--line); }
+/* Três colunas iguais em vez de flex space-between: só a grid centra
+   "AM Santos" corretamente no meio, independente da largura do rótulo à
+   esquerda e do ano à direita (que quase nunca são simétricos). */
 .seam__meta{
-  display:flex; align-items:center; justify-content:space-between; gap:1rem;
-  margin-top:2.2rem;
-  font-family:var(--sans); font-size:.92rem; letter-spacing:.02em; color:var(--ink-faint);
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:1.2rem;
+  margin-top:2.6rem;
+  font-family:var(--sans); font-size:1.05rem; letter-spacing:.02em; color:var(--ink-faint);
 }
-.seam__label{ display:inline-flex; align-items:center; gap:.6rem; color:var(--ink); font-weight:600; }
-.seam__label::before{ content:""; width:6px; height:6px; flex:none; background:var(--accent); }
-.seam__brand{ white-space:nowrap; }
-.seam__index{ white-space:nowrap; font-variant-numeric:tabular-nums; }
+.seam__label{ display:inline-flex; align-items:center; gap:.7rem; color:var(--ink); font-weight:600; justify-self:start; }
+.seam__label::before{ content:""; width:8px; height:8px; flex:none; background:var(--accent); }
+.seam__brand{ white-space:nowrap; justify-self:center; font-weight:600; color:var(--ink); }
+.seam__index{ white-space:nowrap; font-variant-numeric:tabular-nums; justify-self:end; color:var(--ink); }
+
+/* TESTE — seam do Histórico apenas: "AM Santos" e o © de "2026" na cor real
+   da logo (#b46511), para avaliar o efeito antes de decidir se passa para
+   as restantes seams. */
+.seam--test-orange .seam__brand{ color:#b46511; }
+.seam--test-orange .seam__copy{ color:#b46511; }
 
 .seam--alt{ background:var(--paper-alt); }
-.seam--dark{ background:var(--dark); }
-.seam--dark .seam__rule{ border-top-color:rgba(255,255,255,.16); }
-.seam--dark .seam__mark{ color:rgba(255,255,255,.4); }
+/* Variante escura — vive DENTRO de uma .section--dark (é ela que abre o
+   capítulo escuro), por isso não repinta o fundo: --dark é semitransparente
+   (#141414e5, para a hero se ver por trás) e uma segunda camada por cima
+   deixaria uma faixa visivelmente mais escura à volta da régua. O laranja
+   passa ao tom para fundos escuros (--accent-dk) e a régua a um branco
+   discreto, o equivalente de --line no escuro. */
+.seam--dark{ background:transparent; }
+.seam--dark .seam__rule{ border-top-color:rgba(255,255,255,.18); }
 .seam--dark .seam__meta{ color:rgba(255,255,255,.5); }
 .seam--dark .seam__label{ color:var(--paper); }
+.seam--dark .seam__label::before{ background:var(--accent-dk); }
+.seam--dark .seam__brand{ color:var(--paper); }
+.seam--dark .seam__index{ color:rgba(255,255,255,.78); }
 
 /* Respiro extra no topo: para quando a .seam fecha um bloco de imagem (a foto
    da "Quem Somos", o slider do Portfolio, os painéis do Histórico, o
@@ -755,13 +819,24 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    imagem e a linha, não o espaço depois dela. */
 .seam--loose{ padding-top:clamp(128px,14.5vw,208px); }
 
-/* A secção seguinte à .seam já recebeu o respiro do topo por ela — evita
-   somar o padding-top do .section base por cima. */
-.section--seam-top{ padding-top:0; }
+/* Variante maior para quando a .seam funciona como eyebrow do título, na
+   MESMA .container (bare) — Portfólio, Histórico. Sem padding-top próprio:
+   já vive dentro do respiro do topo da secção (a folga de header fixo vem
+   do .no-hero .section--flat-top); só o padding-bottom separa a legenda do
+   título. A legenda cresce para pesar como eyebrow, não como rótulo
+   discreto entre secções. */
+.seam--top{
+  padding-top:0;
+  padding-bottom:clamp(48px,6vw,88px);
+}
+.seam--top .seam__meta{ margin-top:2.8rem; font-size:1.15rem; }
+.seam--top .seam__label{ font-size:clamp(1.15rem,2.2vw,1.7rem); letter-spacing:.03em; }
+.seam--top .seam__label::before{ width:8px; height:8px; }
 
 @media (max-width:640px){
   .seam{ padding-top:clamp(48px,9vw,64px); padding-bottom:clamp(72px,13vw,104px); }
   .seam--loose{ padding-top:clamp(64px,13.5vw,96px); }
+  .seam--top{ padding-bottom:clamp(32px,8vw,56px); }
   .seam__brand{ display:none; }
 }
 
@@ -802,7 +877,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    ===================================================================== */
 .block-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; margin-bottom:clamp(32px,4vw,56px); flex-wrap:wrap; }
 .block-head .display{ margin-top:.3rem; }
-.block-head__text .lead{ font-size:1.05rem; margin-top:.4rem; }
+.block-head__text .lead{ font-size:1.2rem; margin-top:.4rem; }
 
 /* Cabeçalho centrado (portfólio): empilha título + lead ao centro, em vez
    do layout partido esquerda/direita do .block-head base. */
@@ -820,8 +895,8 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .scroller::-webkit-scrollbar-thumb{ background:var(--accent); }
 
 /* Cartão de projeto */
-.card{ scroll-snap-align:start; background:transparent; }
-.card__media{ position:relative; aspect-ratio:3/4; overflow:hidden; }
+.card{ scroll-snap-align:start; background:transparent; border-radius:var(--card-radius); }
+.card__media{ position:relative; aspect-ratio:3/4; overflow:hidden; border-radius:var(--card-radius); }
 .card__media .ph{ position:absolute; inset:0; width:100%; height:100%; transition:transform .7s var(--ease); }
 .card:hover .card__media .ph{ transform:scale(1.22); }
 .card__img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
@@ -939,11 +1014,22 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    .container), rente ao fundo reto da secção. O CTA fica logo a seguir,
    já no cinza (ver .panels-cta). */
 .section--panels-cut{ padding-top:clamp(140px,15vw,260px); padding-bottom:0; }
+/* Quando a secção abre com uma .seam (ver .section--seam-top), é ela que dá o
+   respiro do topo — a secção não o duplica. Regra própria porque
+   .section--panels-cut vem depois de .section--seam-top na folha e, com a
+   mesma especificidade, ganhava o padding-top grande. */
+.section--panels-cut.section--seam-top{ padding-top:0; }
 /* Cabeçalho do Histórico (home) no molde do "Quem Somos": título e lead
    centrados, maiores e mais presentes que o base. O botão não vive aqui —
-   está na .panels-cta, a seguir aos painéis. */
-.section--panels-cut .block-head{ flex-direction:column; align-items:stretch; margin-bottom:clamp(72px,10vw,150px); }
-.section--panels-cut .block-head__text{ display:flex; flex-direction:column; align-items:center; }
+   está na .panels-cta, a seguir aos painéis.
+   O .block-head base é uma linha (título à esquerda | botão à direita) com
+   align-items:flex-end; aqui passa a coluna centrada — daí repor também o
+   justify-content e o gap, que só fazem sentido no molde de duas colunas. */
+.section--panels-cut .block-head{
+  flex-direction:column; align-items:center; justify-content:flex-start;
+  gap:0; margin-bottom:clamp(72px,10vw,150px);
+}
+.section--panels-cut .block-head__text{ display:flex; flex-direction:column; align-items:center; width:100%; }
 .section--panels-cut .block-head__text .lead{ margin-top:.6rem; text-align:center; max-width:56ch; }
 /* CTA do Histórico: continua dentro da área escura da secção (herda cores
    de .section--dark .btn); o botão encosta à direita, com respiro antes
@@ -1446,7 +1532,6 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   .team{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:1fr 1fr; }
   /* Menu vira hambúrguer já no tablet, onde o nav horizontal não cabe */
-  .nav__lang{ display:none; }
   .nav-toggle{ display:flex; }
   /* Painel fica sempre no DOM em display:flex — abrir/fechar anima opacity+transform
      em vez de saltar via display:none, com visibility a sair da árvore de foco só
@@ -1465,10 +1550,25 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
     transition:opacity .4s var(--ease), transform .4s var(--ease), visibility 0s linear;
   }
   .nav.open .nav__list a{ color:#fff; font-size:1rem; opacity:1; }
+  .nav.open .lang-switch__btn{ color:#fff; font-size:1rem; }
+}
+/* O corpo do .split é metade da grelha, e o título é dimensionado pelo
+   viewport e não pela coluna: abaixo de ~840px essa metade fica estreita de
+   mais para a tipografia de display (uma palavra longa deixava de caber na
+   coluna). Empilha antes do breakpoint geral abaixo.
+   .split.comotrabalhamos precisa de vir por nome: tem duas classes, por isso
+   ganhava por especificidade à regra genérica .split e era a única .split que
+   nunca empilhava — no telemóvel ficava com a coluna de texto a ~170px e os
+   contadores a sair do ecrã. */
+@media (max-width: 840px){
+  .split,
+  .split.comotrabalhamos{ grid-template-columns:1fr; }
+  .split--reverse .split__media,
+  .split--reverse .frame{ order:0; }
 }
 @media (max-width: 760px){
-  .split, .service, .contact{ grid-template-columns:1fr; }
-  .split--reverse .split__media, .service:nth-child(even) .service__media{ order:0; }
+  .service, .contact{ grid-template-columns:1fr; }
+  .service:nth-child(even) .service__media{ order:0; }
   .team{ grid-template-columns:1fr; }
   .stats{ grid-template-columns:1fr; }
   .grid-projects{ grid-template-columns:1fr; }
@@ -1565,7 +1665,10 @@ button.card{
    que o título da secção, e não 2rem à direita dele. */
 .testimonials{ width:100%; max-width:none; padding:2rem 0; outline:none; }
 .testimonials__grid{ display:grid; gap:5rem; }
-.testimonials__images{ position:relative; width:100%; height:38rem; perspective:1000px; }
+/* overflow:hidden contém as fotos empilhadas (esquerda/direita) dentro da
+   própria coluna — sem isto, a foto que espreita à esquerda ultrapassa a
+   margem do site em vez de ficar contida na grelha. */
+.testimonials__images{ position:relative; width:100%; height:38rem; perspective:1000px; overflow:hidden; }
 .testimonials__img{
   position:absolute; width:100%; height:100%; object-fit:cover;
   border-radius:0; box-shadow:0 14px 40px rgba(0,0,0,.16); opacity:0;
@@ -1611,8 +1714,9 @@ button.card{
   to{ opacity:1; transform:translateY(0); }
 }
 @media (min-width:768px){
-  /* Coluna das imagens compacta à esquerda; o texto absorve a largura extra. */
-  .testimonials__grid{ grid-template-columns:minmax(0,32rem) 1fr; }
+  /* Fotos ocupam mais espaço do que o parágrafo (deixou de ser 50/50): a
+     coluna das imagens é agora a maior das duas. */
+  .testimonials__grid{ grid-template-columns:minmax(0,3fr) minmax(0,2fr); }
 }
 @media (prefers-reduced-motion: reduce){
   .testimonials__body{ animation:none; }

@@ -19,10 +19,10 @@ function nameSize(nome) {
   return 'clamp(2.2rem, 5.4vw, 5rem)';
 }
 ---
-<div class="dslider" data-dslider aria-roledescription="carousel" aria-label={titulo}>
+<div class="dslider" data-dslider aria-roledescription="carousel" aria-label={titulo} data-i18n="home.portfolio.title" data-i18n-attr="aria-label">
   <div class="dslider__stage">
     {projetos.map((p, i) => (
-      <article class="dslider__slide" data-slide aria-hidden={i !== 0 ? 'true' : undefined}>
+      <article class="dslider__slide" data-slide data-slug={p.slug} aria-hidden={i !== 0 ? 'true' : undefined}>
         {p.imagem
           ? <img class="dslider__img" src={p.imagem} alt={p.nome} loading={i === 0 ? 'eager' : 'lazy'} />
           : <div class="dslider__img dslider__img--ph"></div>}
@@ -37,7 +37,7 @@ function nameSize(nome) {
              levava a lado nenhum. Sem sublinhado — o link tem de se ler como
              o nome, não como um botão à parte. -->
         <div class="dslider__info">
-          <a class="btn dslider__all" href={href}>{botao}</a>
+          <a class="btn dslider__all" href={href} data-i18n="home.portfolio.botao">{botao}</a>
           <h3 class="dslider__name" style={`--name-size:${nameSize(p.nome)}`}>
             <a href={`/empreendimentos/${p.slug}`}>{p.nome}</a>
           </h3>
@@ -55,14 +55,14 @@ function nameSize(nome) {
   <!-- Rótulo da section: a home tem título em todas as outras secções e esta
        não tinha nenhum. Fica no topo-esquerdo, abaixo do header fixo, em corpo
        pequeno — dá âncora sem disputar com o nome do empreendimento. -->
-  <p class="dslider__label">{titulo}</p>
+  <p class="dslider__label" data-i18n="home.portfolio.title">{titulo}</p>
 
   <div class="dslider__foot">
     <div class="dslider__arrows">
-      <button class="dslider__arrow" type="button" data-prev aria-label="Empreendimento anterior">
+      <button class="dslider__arrow" type="button" data-prev aria-label="Empreendimento anterior" data-i18n="common.slider.prev" data-i18n-attr="aria-label">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m0 0 6-6m-6 6 6 6"/></svg>
       </button>
-      <button class="dslider__arrow" type="button" data-next aria-label="Empreendimento seguinte">
+      <button class="dslider__arrow" type="button" data-next aria-label="Empreendimento seguinte" data-i18n="common.slider.next" data-i18n-attr="aria-label">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m0 0-6-6m6 6-6 6"/></svg>
       </button>
     </div>
@@ -125,20 +125,51 @@ function nameSize(nome) {
     // envolve — split-type parte o elemento que recebe, e um <h3> com um link
     // lá dentro não é o mesmo "texto plano" que o resto do site sempre lhe dá.
     const names = slides.map((s) => s.querySelector('.dslider__name a'));
+    function splitOne(el) {
+      const split = new SplitType(el, { types: 'lines' });
+      split.lines.forEach((line, i) => {
+        const inner = document.createElement('span');
+        inner.className = 'line__inner';
+        inner.style.setProperty('--i', i);
+        while (line.firstChild) inner.appendChild(line.firstChild);
+        line.appendChild(inner);
+      });
+      el.classList.add('split-ready');
+    }
     if (!calm.matches) {
-      names.forEach((el) => {
-        if (!el) return;
-        const split = new SplitType(el, { types: 'lines' });
-        split.lines.forEach((line, i) => {
-          const inner = document.createElement('span');
-          inner.className = 'line__inner';
-          inner.style.setProperty('--i', i);
-          while (line.firstChild) inner.appendChild(line.firstChild);
-          line.appendChild(inner);
-        });
-        el.classList.add('split-ready');
+      names.forEach((el) => { if (el) splitOne(el); });
+    }
+
+    // Troca de idioma: o nome de cada empreendimento vem do dicionário i18n
+    // (chave pelo slug em data-slug). O SplitType já embrulhou o texto PT em
+    // spans .line__inner — só trocar o textContent destruía essa marcação,
+    // por isso refaz-se o split depois de mudar o texto, preservando
+    // .is-revealed se o slide já estava visível.
+    function applyNameTranslations() {
+      if (!window.__amsI18n) return;
+      slides.forEach((s, i) => {
+        const slug = s.dataset.slug;
+        const a = names[i];
+        if (!a || !slug) return;
+        if (!a.dataset.ptName) a.dataset.ptName = a.textContent;
+        const text = window.__amsI18n.get('empreendimentos.' + slug + '.nome', a.dataset.ptName);
+        if (text === (a.dataset.currentName || a.dataset.ptName)) return;
+        a.dataset.currentName = text;
+        const wasRevealed = a.classList.contains('is-revealed');
+        // SplitType guarda o HTML original numa cache interna e o RESTAURA
+        // sempre que o elemento é dividido de novo — por isso split.revert()
+        // corre primeiro (limpa essa cache), só DEPOIS é que o texto novo
+        // entra, e só então se volta a dividir; caso contrário o revert()
+        // implícito do próximo split apagava a tradução e repunha o PT.
+        SplitType.revert(a);
+        a.textContent = text;
+        a.classList.remove('split-ready');
+        if (!calm.matches) splitOne(a);
+        if (wasRevealed) a.classList.add('is-revealed');
       });
     }
+    applyNameTranslations();
+    if (window.__amsI18n) window.__amsI18n.onChange(applyNameTranslations);
 
     function revealName(i) {
       names[i]?.classList.add('is-revealed');

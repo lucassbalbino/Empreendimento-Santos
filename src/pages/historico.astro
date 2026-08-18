@@ -4,6 +4,7 @@ import BlockHead from '../components/BlockHead.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Watermark from '../components/Watermark.astro';
+import Seam from '../components/Seam.astro';
 import historico from '../data/historico.json';
 import { porGrupo } from '../utils/projetos.js';
 
@@ -25,14 +26,15 @@ const modalData = concluidos.map((p) => ({
   factos: p.factos,
 }));
 ---
-<Base flat title="Mockup — Histórico" description="O percurso da AM Santos: uma seleção de empreendimentos concluídos e entregues ao longo de 20 anos no mercado imobiliário.">
-  <!-- PROJETOS CONCLUÍDOS. Como o portfólio: sem hero — a página abre direto no
-       bloco de cards (fade branco na entrada, cabeçalho centrado e slide pesado).
-       O cabeçalho é o h1 da página. -->
+<Base flat palette="test-b46511" title="Mockup — Histórico" description="O percurso da AM Santos: uma seleção de empreendimentos concluídos e entregues ao longo de 20 anos no mercado imobiliário.">
+  <!-- PROJETOS CONCLUÍDOS. Como o portfólio: sem hero — a .seam--top, na
+       mesma .container do título, funciona como eyebrow do h1 logo a seguir
+       (a página abre direto no bloco de cards: fade branco na entrada,
+       cabeçalho centrado e slide pesado). -->
   <section class="section section--centered-head section--flat-top">
-   <Watermark variant="line" side="r" size="lg" y="top" />
-    <div class="container has-wm">
-      <BlockHead title={historico.concluidos.title} lead={historico.concluidos.lead} as="h1" />
+    <div class="container">
+      <Seam label={historico.hero.title} variant="light" class="seam--top seam--test-orange" i18n="historico.hero.title" bare />
+      <BlockHead title={historico.concluidos.title} lead={historico.concluidos.lead} as="h1" titleI18n="historico.concluidos.title" leadI18n="historico.concluidos.lead" />
       <div class="grid-projects">
         {concluidos.map((p) => (<ProjectCard proj={p} modal={true} />))}
       </div>
@@ -43,7 +45,7 @@ const modalData = concluidos.map((p) => ({
   <section class="section section--alt" id="contacto">
     <div class="container has-wm">
       <Watermark variant="line" side="l" size="md" y="bottom" />
-      <ContactForm title={historico.contacto.title} texto={historico.contacto.texto} />
+      <ContactForm title={historico.contacto.title} texto={historico.contacto.texto} titleI18n="historico.contacto.title" textoI18n="historico.contacto.texto" />
     </div>
   </section>
 
@@ -56,7 +58,7 @@ const modalData = concluidos.map((p) => ({
           <!-- Painel esquerdo: imagem + título + specs rápidas -->
           <div class="emodal__media">
             <img class="emodal__img" id="emodal-img" src="" alt="" />
-            <span class="img-prov" id="emodal-prov" hidden>Imagem provisória</span>
+            <span class="img-prov" id="emodal-prov" hidden data-i18n="common.emodal.provisoria">Imagem provisória</span>
             <div class="emodal__media-grad"></div>
             <div class="emodal__media-head">
               <h2 class="emodal__title" id="emodal-title"></h2>
@@ -66,14 +68,14 @@ const modalData = concluidos.map((p) => ({
           </div>
           <!-- Painel direito: informação sobre o projeto -->
           <div class="emodal__info">
-            <button class="emodal__close" type="button" data-emodal-close aria-label="Fechar">&times;</button>
+            <button class="emodal__close" type="button" data-emodal-close aria-label="Fechar" data-i18n="common.emodal.close" data-i18n-attr="aria-label">&times;</button>
             <span class="emodal__estado" id="emodal-estado"></span>
-            <h3 class="emodal__info-title">Sobre o empreendimento</h3>
+            <h3 class="emodal__info-title" data-i18n="common.emodal.sobre">Sobre o empreendimento</h3>
             <p class="emodal__resumo" id="emodal-resumo"></p>
             <div class="emodal__facts" id="emodal-facts"></div>
             <div class="emodal__footer">
               <span class="emodal__entrega" id="emodal-entrega"></span>
-              <a class="btn" href="/contactos">Falar connosco</a>
+              <a class="btn" href="/contactos" data-i18n="common.emodal.falarConnosco">Falar connosco</a>
             </div>
           </div>
         </div>
@@ -137,25 +139,52 @@ const modalData = concluidos.map((p) => ({
         return row;
       }
 
+      // Traduz um campo do projeto via dicionário i18n (empreendimentos.<slug>.<campo>),
+      // com fallback para o valor PT original vindo do JSON embutido.
+      function tp(p, field, fallback) {
+        if (!window.__amsI18n) return fallback;
+        return window.__amsI18n.get('empreendimentos.' + p.slug + '.' + field, fallback);
+      }
+
       function fill(p) {
+        var nome = tp(p, 'nome', p.nome);
+        var tipologia = tp(p, 'tipologia', p.tipologia);
+        var unidades = tp(p, 'unidades', p.unidades);
+        var estado = tp(p, 'estado', p.estado);
+        var entrega = tp(p, 'entrega', p.entrega);
+        var resumo = tp(p, 'resumo', p.resumo);
+        var factosValores = window.__amsI18n ? window.__amsI18n.get('empreendimentos.' + p.slug + '.factos', null) : null;
+
         el.img.src = p.imagem || '';
-        el.img.alt = p.nome;
+        el.img.alt = nome;
         el.prov.hidden = !(p.imagem && !p.imagemReal);
-        el.title.textContent = p.nome;
-        el.subtitle.textContent = [p.localizacao, p.tipologia].filter(Boolean).join(' · ');
-        el.estado.textContent = p.estado || 'Empreendimento';
-        el.resumo.textContent = p.resumo || '';
-        el.entrega.textContent = p.entrega || '';
+        el.title.textContent = nome;
+        el.subtitle.textContent = [p.localizacao, tipologia].filter(Boolean).join(' · ');
+        el.estado.textContent = estado || (window.__amsI18n ? window.__amsI18n.get('common.emodal.empreendimentoFallback', 'Empreendimento') : 'Empreendimento');
+        el.resumo.textContent = resumo || '';
+        el.entrega.textContent = entrega || '';
 
         el.chips.textContent = '';
-        [p.ano, p.unidades, p.tipologia].forEach(function (v) {
+        [p.ano, unidades, tipologia].forEach(function (v) {
           if (v) el.chips.appendChild(chip(String(v)));
         });
 
         el.facts.textContent = '';
-        (p.factos || []).forEach(function (f) {
+        (p.factos || []).forEach(function (f, i) {
           if (f.rotulo === 'Arquitetura' || f.rotulo === 'Estado') return;
-          el.facts.appendChild(factRow(f.rotulo, f.valor));
+          var rotulo = window.__amsI18n ? window.__amsI18n.factLabel(f.rotulo) : f.rotulo;
+          var valor = (factosValores && factosValores[i] != null) ? factosValores[i] : f.valor;
+          el.facts.appendChild(factRow(rotulo, valor));
+        });
+      }
+
+      // Se o painel estiver aberto quando o idioma muda, retraduz no lugar.
+      if (window.__amsI18n) {
+        window.__amsI18n.onChange(function () {
+          if (currentCard) {
+            var p = projetos[currentCard.getAttribute('data-slug')];
+            if (p) fill(p);
+          }
         });
       }
 
@@ -164,29 +193,76 @@ const modalData = concluidos.map((p) => ({
         if (l && typeof l.resize === 'function') l.resize();
       }
 
-      // Leva a página até ao topo do painel (fica junto ao topo, abaixo do header).
-      // Deslize longo com ease-in-out marcado, para um efeito mais dramático.
+      // Leva a página até ao painel, centrando-o no espaço visível abaixo do
+      // header. Deslize longo com ease-in-out marcado, para um efeito dramático.
       function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+
+      // Espaço a reservar no topo: header fixo + folga. O header encolhe quando
+      // a página sai do topo (.scrolled) e é esse o estado em que o deslize
+      // termina — medir o estado alto (página no topo) deixaria o painel uns
+      // 30px abaixo do centro. Daí o teto na altura compacta.
+      var HEADER_SCROLLED = 72;
+      function headerGap() {
+        var h = document.querySelector('.site-header');
+        var alt = h ? h.getBoundingClientRect().height : 0;
+        return Math.min(alt || HEADER_SCROLLED, HEADER_SCROLLED) + 12;
+      }
+
+      // Altura que o painel VAI ter, medida antes de abrir. O acordeão anima a
+      // linha da grelha de 0fr a 1fr, por isso durante o deslize a altura real
+      // ainda é ~0 — sem esta medição o painel seria centrado por uma altura
+      // errada e ficaria baixo de mais. Truque: força 1fr sem transição, lê, e
+      // volta a comprometer o estado colapsado no mesmo tick (nada é pintado
+      // pelo meio, e a abertura anima na mesma a seguir).
+      var panelH = 0;
+      function measurePanelHeight() {
+        var wrap = panel.querySelector('.epanel__wrap');
+        var inner = panel.querySelector('.epanel__inner');
+        if (!wrap || !inner) return 0;
+        wrap.style.transition = 'none';
+        wrap.style.gridTemplateRows = '1fr';
+        var h = inner.offsetHeight;
+        wrap.style.gridTemplateRows = '';
+        void wrap.offsetHeight;        // recompromete 0fr enquanto ainda não há transição
+        wrap.style.transition = '';
+        return h;
+      }
+
+      // Deslocamento a aplicar ao topo do painel (negativo = parar antes dele):
+      // centra-o no espaço visível abaixo do header. Painel mais alto do que
+      // esse espaço: encosta ao topo, logo abaixo do header.
+      function panelOffset() {
+        var topo = headerGap();
+        var inner = panel.querySelector('.epanel__inner');
+        var altura = panelH || (inner ? inner.scrollHeight : panel.offsetHeight);
+        var folga = Math.max(0, (window.innerHeight - topo - altura) / 2);
+        return -(topo + folga);
+      }
+
       function scrollToPanel() {
         var lenis = window.__amsLenis;
+        var alvo = Math.max(0, panelTargetY());
         if (!reduce && lenis && typeof lenis.scrollTo === 'function') {
-          lenis.scrollTo(panel, { offset: -96, duration: 1.2, easing: easeInOutCubic });
+          // Sem o resize o Lenis clampa o alvo pelo limite que tinha da última
+          // vez que mediu a página (que muda a cada abrir/fechar do painel).
+          if (typeof lenis.resize === 'function') lenis.resize();
+          lenis.scrollTo(alvo, { duration: 1.2, easing: easeInOutCubic });
         } else {
-          panel.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+          window.scrollTo({ top: alvo, behavior: reduce ? 'auto' : 'smooth' });
         }
       }
 
-      // Alvo absoluto (topo do painel) e limite de scroll actuais — para saber se
-      // o alvo fica clampado enquanto o painel ainda não expandiu (últimas linhas).
+      // Alvo absoluto (posição final do painel) e limite de scroll actuais — para
+      // saber se o alvo fica clampado enquanto o painel ainda não expandiu
+      // (últimas linhas, em que a página ainda é curta de mais para lá chegar).
+      // A conversão para coordenadas do documento usa o scroll REAL (não o do
+      // Lenis): quando a página muda de altura o Lenis pode ficar uns pixels
+      // dessincronizado, e era isso que deixava o painel abaixo do centro.
       function panelTargetY() {
-        var l = window.__amsLenis;
-        var cur = l ? l.scroll : window.scrollY;
-        return panel.getBoundingClientRect().top + cur - 96;
+        return panel.getBoundingClientRect().top + window.scrollY + panelOffset();
       }
       function maxScroll() {
-        var l = window.__amsLenis;
-        if (l && typeof l.limit === 'number') return l.limit;
-        return document.documentElement.scrollHeight - window.innerHeight;
+        return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
       }
 
       // Último card na mesma linha visual do card dado (mesmo offsetTop), para o
@@ -221,6 +297,7 @@ const modalData = concluidos.map((p) => ({
         var anchor = lastInRow(card);
         grid.insertBefore(panel, anchor.nextSibling);
         panel.hidden = false;
+        panelH = measurePanelHeight();      // altura final, ainda com a linha colapsada
         void panel.offsetHeight;            // reflow: garante o estado 0fr antes de animar
         panel.classList.add('is-open');
         currentCard = card;
@@ -311,6 +388,42 @@ const modalData = concluidos.map((p) => ({
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && currentCard) close();
       });
+
+      // ABERTURA DIRETA POR URL — /historico#<slug>. Os painéis do Histórico na
+      // home ligam para aqui com o slug no hash: em vez de mandarem o visitante
+      // para a página de detalhe, abrem o card na grelha como se ele o tivesse
+      // clicado nesta página.
+      function openFromHash() {
+        var slug = '';
+        try { slug = decodeURIComponent((location.hash || '').slice(1)); } catch (e) { return; }
+        if (!slug || !projetos[slug]) return;
+        var card = grid.querySelector('.card--modal[data-slug="' + slug + '"]');
+        if (!card || card === currentCard) return;
+        whenReady(function () { open(card); });
+      }
+
+      // Só depois de a página estar realmente a ser vista: com o preloader
+      // (1.ª carga) ou a cortina (navegação suave) ainda em curso o scroll está
+      // travado e o deslize até ao painel perder-se-ia.
+      function whenReady(cb) {
+        var root = document.documentElement;
+        function busy() {
+          return root.classList.contains('is-loading') || window.__amsCurtainBusy;
+        }
+        function go() {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () { setTimeout(cb, reduce ? 0 : 260); });
+          });
+        }
+        if (!busy()) { go(); return; }
+        var id = setInterval(function () {
+          if (busy()) return;
+          clearInterval(id);
+          go();
+        }, 50);
+      }
+
+      openFromHash();
     })();
   </script>
 

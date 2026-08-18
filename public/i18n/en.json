@@ -1,0 +1,369 @@
+{
+  "common": {
+    "nav": {
+      "sobreNos": "About Us",
+      "portfolio": "Portfolio",
+      "historico": "Track Record",
+      "sfProperties": "SF Properties",
+      "equipa": "Team",
+      "contactos": "Contact"
+    },
+    "langNames": { "pt": "Português", "en": "English", "fr": "Français" },
+    "langCodes": { "pt": "PT", "en": "EN", "fr": "FR" },
+    "hero": { "scroll": "Scroll" },
+    "footer": {
+      "moradaLabel": "Address",
+      "contactosLabel": "Contact",
+      "newsletterLabel": "Newsletter",
+      "newsletterPlaceholder": "your.email@example.com",
+      "newsletterConsent": "I agree to receive news and communications from AM Santos.",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn"
+    },
+    "contactForm": {
+      "nome": "Name",
+      "nomePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "your.email@example.com",
+      "assunto": "Subject",
+      "assuntoPlaceholder": "Select — Subject",
+      "assuntoEmpreendimentos": "Developments",
+      "assuntoInvestimento": "Investment",
+      "assuntoOutro": "Other subject",
+      "mensagem": "Message",
+      "mensagemPlaceholder": "Write your message here…",
+      "consent": "I authorise the processing of my data for contact purposes, in accordance with the Privacy Policy.",
+      "submit": "Send message"
+    },
+    "seam": {
+      "emNumeros": "By the Numbers",
+      "oQueFazemos": "What We Do",
+      "oNossoHistorico": "Our Track Record",
+      "aNossaEquipa": "Our Team",
+      "falaConnosco": "Talk to Us"
+    },
+    "slider": { "prev": "Previous development", "next": "Next development" },
+    "testimonials": { "prev": "Previous testimonial", "next": "Next testimonial" },
+    "emodal": {
+      "close": "Close",
+      "provisoria": "Placeholder image",
+      "sobre": "About the development",
+      "falarConnosco": "Talk to us",
+      "empreendimentoFallback": "Development"
+    },
+    "projectDetail": {
+      "back": "← Developments",
+      "ficha": "Development fact sheet",
+      "imagens": "Development images",
+      "continuar": "Keep exploring",
+      "provisoria": "Placeholder image",
+      "mapa": "Map",
+      "interessadoTitle": "Interested in {nome}?",
+      "interessadoTexto": "Get in touch to schedule a visit or request more information about this development. Our team responds promptly.",
+      "ctaFalar": "Talk to us",
+      "ctaVisita": "Schedule a visit",
+      "ctaSaber": "Learn more",
+      "brandConcluido": "Delivered by AM Santos, {nome} reflects the excellence we pursue in every project we complete: modern, functional architecture with an unwavering focus on wellbeing and quality.",
+      "brandOutro": "As with every AM Santos development, {nome} is born from a vision centred on comfort, quality and sustainability — with energy efficiency guiding every design decision."
+    },
+    "factLabels": {
+      "Localização": "Location",
+      "Ano": "Year",
+      "Unidades": "Units",
+      "Tipologia": "Typology",
+      "Estado": "Status",
+      "Piscina": "Pool",
+      "Arquitetura": "Architecture",
+      "Vista": "View",
+      "Destino": "Purpose",
+      "Serviços": "Services",
+      "Área total": "Total area",
+      "Área por armazém": "Area per warehouse",
+      "Escritório": "Office"
+    }
+  },
+  "home": {
+    "hero": { "title": "Santos Development" },
+    "quemSomos": {
+      "title": "Building the future with quality and sustainability",
+      "meta": [
+        { "value": "20 years", "label": "of market experience" },
+        { "value": "António M Santos", "label": "Managing Director" },
+        { "value": "5 areas", "label": "architecture, engineering, interior design, construction and property management" }
+      ],
+      "paragrafo": "We build to last: sustainable solutions, materials we trust, and rigorous quality control at every stage of construction, so the final result is as solid as the 20 years of history behind it.",
+      "botao": "About us"
+    },
+    "oQueFazemos": {
+      "title": "Quality — Comfort — Sustainability",
+      "lead": "From the initial site study to handing over the keys, AM Santos designs, builds and oversees every development with the same rigour — so that quality, comfort and sustainability stop being promises and become verifiable standards in every square metre.",
+      "pilares": [
+        { "title": "Quality", "texto": "Every project is overseen from design through to completion, with rigorous control over materials and finishes at every stage." },
+        { "title": "Comfort", "texto": "Spaces designed for the everyday lives of those who live in them, with functional architecture that prioritises light, flow and wellbeing." },
+        { "title": "Sustainability", "texto": "Energy-efficient solutions and durable materials that reduce environmental impact and long-term maintenance costs." }
+      ],
+      "statsTitle": "By the numbers",
+      "statsLead": "Two decades of experience translated into results: every project completed, every square metre built and every million invested reflects AM Santos's same commitment to quality and sustainability.",
+      "stats": [
+        { "label": "projects" },
+        { "label": "residential and non-residential units" },
+        { "label": "m² built" },
+        { "label": "million invested" }
+      ]
+    },
+    "portfolio": { "title": "Featured developments", "botao": "View portfolio" },
+    "trackRecord": { "title": "Our Track Record", "lead": "A selection of developments already completed and delivered. Click to view each one.", "botao": "View track record" },
+    "equipa": {
+      "members": [
+        { "role": "Leadership · Managing Director", "bio": "Leads AM Santos and the architecture, engineering, interior design and property management team that shapes every project, with 20 years of experience in the real estate market." },
+        { "role": "Architecture · Design", "bio": "Head of the design department, translating into drawings the modern, functional architecture that defines every development, from concept to construction." },
+        { "role": "Engineering · Construction", "bio": "Site director, coordinating the execution and quality control that underpin the excellence of every completed project." },
+        { "role": "Interior Design", "bio": "Works on interiors and finishes, so that every home reflects the comfort and quality that define the company." },
+        { "role": "Property Management", "bio": "Responsible for property management and overseeing pipeline projects, from initial study through to sale." }
+      ]
+    },
+    "contacto": { "title": "Shall we talk about your next project?", "texto": "Want to learn more about a development or discuss a partnership? Our team responds promptly." }
+  },
+  "sobre": {
+    "hero": { "title": "About Us" },
+    "quemSomos": {
+      "title": "Building the future with quality and sustainability",
+      "lead": "With 20 years of experience in the real estate market, AM Santos stands out for its excellence in every project it undertakes.",
+      "paragrafo": "Under the leadership of António M Santos, the company brings together a team of top-level architecture, engineering, interior design and property management professionals. Since our founding, our vision has been to provide comfort and quality to our clients through projects that combine modern, functional architecture with an unwavering focus on wellbeing and quality."
+    },
+    "oQueFazemos": { "title": "20 years of solid foundations" },
+    "servicos": {
+      "title": "What drives us",
+      "items": [
+        { "title": "At the forefront of architectural innovation", "texto": "With several projects in the pipeline, we stay at the forefront of architectural innovation, prioritising quality, comfort and energy efficiency to ensure our clients' satisfaction.", "botao": "View developments" },
+        { "title": "An eco-friendly approach", "texto": "Our latest project was designed with sustainable materials to combine comfort, wellbeing and modern architecture — reducing maintenance costs and ensuring maximum thermal comfort.", "botao": "Talk to us" }
+      ]
+    },
+    "equipa": {
+      "title": "Who leads AM Santos",
+      "members": [
+        { "role": "Leadership · Managing Director", "bio": "Leads AM Santos and the architecture, engineering, interior design and property management team that shapes every project, with 20 years of experience in the real estate market." },
+        { "role": "Architecture · Design", "bio": "Head of the design department, translating into drawings the modern, functional architecture that defines every development, from concept to construction." }
+      ]
+    },
+    "contacto": { "title": "Shall we talk about your project?", "texto": "AM Santos's vision, centred on comfort, quality and sustainability, will guide our next projects. Get in touch." }
+  },
+  "historico": {
+    "hero": { "title": "Track Record" },
+    "concluidos": { "title": "20 years building and delivering", "lead": "Developments sold, from 2006 to the present day — from those already delivered to those still under construction. Click on a project to see the details." },
+    "contacto": { "title": "Shall we talk about your next project?", "texto": "Want to learn more about our work or discuss a partnership? Our team responds promptly." }
+  },
+  "portfolio": {
+    "hero": { "title": "Portfolio" },
+    "emDesenvolvimento": { "title": "Projects under development", "lead": "Developments under construction, for sale, or intended for rent" },
+    "futuros": { "title": "Future projects", "lead": "Several projects in the pipeline, at the forefront of architectural innovation" },
+    "contacto": { "title": "Interested in a development?", "texto": "Get in touch to schedule a visit or request information. Our team responds promptly." }
+  },
+  "equipa": {
+    "hero": { "title": "Team" },
+    "direcao": {
+      "title": "Who leads the group",
+      "members": [
+        { "role": "Leadership · Managing Director", "bio": "Leads AM Santos and the architecture, engineering, interior design and property management team that shapes every project, with 20 years of experience in the real estate market." },
+        { "role": "Architecture · Design", "bio": "Head of the design department, translating into drawings the modern, functional architecture that defines every development, from concept to construction." }
+      ]
+    },
+    "equipa": {
+      "title": "Who builds, every day",
+      "members": [
+        { "role": "Engineering · Construction", "bio": "Site director, coordinating the execution and quality control that underpin the excellence of every completed project." },
+        { "role": "Architecture · Design", "bio": "Develops the architectural projects, balancing modern, functional design with the comfort of those who will live in the space." },
+        { "role": "Interior Design", "bio": "Works on interiors and finishes, so that every home reflects the comfort and quality that define the company." },
+        { "role": "Property Management", "bio": "Responsible for property management and overseeing pipeline projects, from initial study through to sale." },
+        { "role": "Sustainability · Efficiency", "bio": "Leads the eco-friendly approach: selecting sustainable materials, energy efficiency and thermal comfort in every home." },
+        { "role": "Quality · Safety", "bio": "Ensures compliance with quality and safety standards at every stage of construction." }
+      ]
+    },
+    "contacto": { "title": "Want to work with us?", "texto": "Send us your application or a message. We're always on the lookout for talented professionals." }
+  },
+  "contactos": {
+    "hero": { "title": "Contact" },
+    "contacto": { "title": "Shall we talk about your project?", "texto": "Fill in the form or contact us directly. We respond to every request as promptly as possible." },
+    "onde": { "title": "Where We Are", "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisbon\nPortugal", "mapaLabel": "Map — Lisboa, Av. da Liberdade" }
+  },
+  "site": {
+    "footer": {
+      "blurb": "Building the future with quality and sustainability. Modern, functional architecture with an unwavering focus on the wellbeing of those who live there.",
+      "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisbon\nPortugal",
+      "assinatura": "Quality · Comfort · Sustainability"
+    }
+  },
+  "empreendimentos": {
+    "edificio-bairro-da-vitoria": {
+      "nome": "Bairro da Vitória Building",
+      "tipologia": "T2 and T3",
+      "unidades": "10 apartments",
+      "estado": "Completed",
+      "comercial": "Sold",
+      "entrega": "Completed in 2006",
+      "resumo": "10 apartments of T2 and T3 typology, in Loures. The group's first development and the start of a 20-year journey in the real estate market.",
+      "factos": ["Loures", "2006", "10 apartments", "T2 and T3", "Sold"]
+    },
+    "condominio-casas-da-murteira": {
+      "nome": "Casas da Murteira Condominium",
+      "tipologia": "T3 and T4",
+      "unidades": "10 villas",
+      "estado": "Completed",
+      "comercial": "Sold",
+      "entrega": "Completed in 2007",
+      "resumo": "Residential condominium of 10 villas, Casas da Murteira, with privileged spaces integrated into the landscape, located on a hillside.",
+      "factos": ["Loures", "2007", "10 villas", "T3 / T4", "Sold"]
+    },
+    "condominio-das-almoinhas": {
+      "nome": "Almoinhas Condominium",
+      "tipologia": "T4",
+      "unidades": "7 villas",
+      "estado": "Completed",
+      "comercial": "Sold",
+      "entrega": "Completed in 2008",
+      "resumo": "Aimed at the mid-to-upper segment of the housing market, the 7 villas are characterised by contemporary lines that prioritise interior space and natural light, achieved through large skylights, expansive glazed openings, a mezzanine and the fluidity of open-plan space.",
+      "factos": ["Loures", "2008", "7 villas", "T4", "Sold"]
+    },
+    "condominio-casas-da-fonte-velha": {
+      "nome": "Casas da Fonte Velha Condominium",
+      "tipologia": "T4",
+      "unidades": "16 villas",
+      "estado": "Completed",
+      "comercial": "Sold",
+      "entrega": "Completed in 2009",
+      "resumo": "Residential condominium of 16 villas, with open spaces and interior courtyards. Every space was carefully designed in its finishes and textures, creating a refined and comfortable atmosphere.",
+      "factos": ["Loures", "2009", "16 villas", "T4", "Sold"]
+    },
+    "condominio-santos-murteira-ii": {
+      "nome": "Santos Condominium — Murteira II",
+      "tipologia": "T4 and T5",
+      "unidades": "11 villas",
+      "estado": "Completed",
+      "comercial": "Sold",
+      "entrega": "Completed in 2017",
+      "resumo": "Santos Condominium, also in Murteira, comprising 11 detached single-storey villas of T4 and T5 typology, each with a private pool, making the courtyard the generating element of the residential space and fostering privacy, quality of life and a relationship with natural light.",
+      "factos": ["Murteira, Loures", "2017", "11 villas", "T4 / T5", "Private in each unit", "Sold"]
+    },
+    "condominio-santos-malhapao": {
+      "nome": "Santos Condominium — Malhapão",
+      "tipologia": "T4 and T5",
+      "unidades": "8 villas",
+      "estado": "Completed",
+      "comercial": "Sold",
+      "entrega": "Completed in 2020",
+      "resumo": "Private condominium of 8 villas of T4 and T5 typology, each with a private pool, making the courtyard the generating element of the residential space and fostering privacy, quality of life and a relationship with natural light.",
+      "factos": ["Malhapão, Loures", "2020", "8 villas", "T4 / T5", "Private in each unit", "Sold"]
+    },
+    "condominio-santos-moradia-isolada-t5": {
+      "nome": "Santos Condominium — Detached T5 Villa",
+      "tipologia": "T5",
+      "unidades": "1 villa",
+      "estado": "Completed",
+      "comercial": "Sold",
+      "entrega": "Completed in 2021",
+      "resumo": "A 5-bedroom villa with a private pool that makes the courtyard the generator of the residential space, fostering privacy, quality of life and a relationship with natural light. Designed by the LogoExisto® team.",
+      "factos": ["Loures", "2021", "1 villa", "T5", "LogoExisto®", "Sold"]
+    },
+    "condominio-tojalinho": {
+      "nome": "Tojalinho Condominium",
+      "tipologia": "T4",
+      "unidades": "3 villas",
+      "estado": "Completed",
+      "comercial": "Sold",
+      "entrega": "Completed in 2022",
+      "resumo": "Gated condominium of 3 villas of T4 typology, in Tojalinho, Loures.",
+      "factos": ["Tojalinho, Loures", "2022", "3 villas", "T4", "Sold"]
+    },
+    "condominio-albarraque": {
+      "nome": "Albarraque Condominium",
+      "tipologia": "T4",
+      "unidades": "9 villas",
+      "estado": "In planning",
+      "comercial": "Sold",
+      "entrega": "In planning stage · 2023",
+      "resumo": "Currently in the planning stage, in partnership with relevant authorities (the Municipal Council and others), the Santos Condominium — Sintra will feature 9 T4 villas each with a private pool, fostering privacy, quality of life and a relationship with natural light. Designed by the LogoExisto® team.",
+      "factos": ["Albarraque, Sintra", "2023", "9 villas", "T4", "LogoExisto®", "In planning / Sold"]
+    },
+    "empreendimento-residencial-11-villas": {
+      "nome": "11 Villas Residential Development",
+      "tipologia": "T4 and T5",
+      "unidades": "11 villas",
+      "estado": "Under construction",
+      "comercial": "Sold",
+      "entrega": "Under construction · 2023",
+      "resumo": "Currently under construction, the Santos Condominium will feature 11 villas of T4 and T5 typology, each with a private pool, making the courtyard the generating element of the residential space. Designed by the LogoExisto® team.",
+      "factos": ["Loures", "2023", "11 villas", "T4 / T5", "LogoExisto®", "Under construction / Sold"]
+    },
+    "moradia-unifamiliar-santo-antao-do-tojal": {
+      "nome": "Single-Family Home",
+      "tipologia": "T4",
+      "unidades": "1 villa",
+      "estado": "Under construction",
+      "comercial": "Sold",
+      "entrega": "Under construction · 2026",
+      "resumo": "Currently under construction, a 4-bedroom villa with a private pool, making the courtyard a key element of the residential space and fostering privacy, quality of life and a relationship with natural light. Designed by the LogoExisto® team.",
+      "factos": ["St. Antão do Tojal, Loures", "2026", "1 villa", "T4", "LogoExisto®", "Under construction / Sold"]
+    },
+    "valflores-terraces": {
+      "nome": "Valflores Terraces",
+      "tipologia": "T3 to T5",
+      "unidades": "39 apartments",
+      "estado": "Under construction",
+      "comercial": "For sale",
+      "entrega": "Under construction · 2026",
+      "resumo": "A building with 39 apartments — T3, T3 duplex, T4, T4 duplex and T5 premium — with generous indoor and outdoor areas and outstanding views over the landscape. The apartments on the upper floors have a landscaped outdoor pool. Unobstructed views and spacious balconies overlooking the Tagus River. Elegant, refined interior finishes, and comfortable, contemporary spaces filled with natural light.",
+      "factos": ["Sta. Iria de Azóia, Loures", "2026", "39 apartments", "T3 / T3 duplex / T4 / T4 duplex / T5 premium", "Tagus River", "Under construction"]
+    },
+    "clt-centro-logistico-do-tojal": {
+      "nome": "CLT — Tojal Logistics Centre",
+      "tipologia": "Warehouses · 36.000 m²",
+      "unidades": "27 warehouses",
+      "estado": "Under construction",
+      "comercial": "For sale",
+      "entrega": "Under construction · 2026 and 2027",
+      "resumo": "New warehouses of modern architecture, set within a gated business complex, totalling 36.000 m² of industrial space, in Santo Antão do Tojal, Loures. Each warehouse offers 1.000 m² with a 10 m ceiling height, sanitary facilities, a 100 m² open-plan office (mezzanine) with bathroom, truck loading and unloading docks, and outdoor parking.",
+      "factos": ["St. Antão do Tojal, Loures", "2026 and 2027", "27 warehouses", "36.000 m²", "1.000 m² · 10 m ceiling height", "100 m² open-plan (mezzanine)", "Under construction"]
+    },
+    "valflores-residence": {
+      "nome": "Valflores Residence",
+      "tipologia": "T2",
+      "unidades": "39 apartments",
+      "estado": "Under construction",
+      "comercial": "For rent",
+      "entrega": "Expected 2028",
+      "resumo": "T2 apartments specifically designed for the rental market, marking the launch of a new business line for the AM Santos group — AM Santos Imobiliária, asset management.",
+      "factos": ["Santa Iria de Azóia, Loures", "2028", "39 apartments", "T2", "Rental market", "Under construction"]
+    },
+    "pinteus-residence": {
+      "nome": "Pinteus Residence",
+      "tipologia": "T2",
+      "unidades": "14 apartments",
+      "estado": "In planning",
+      "comercial": "For rent",
+      "entrega": "Expected 2028",
+      "resumo": "14 T2 apartments in a gated condominium, specifically designed for the rental market, marking the launch of a new business line for the AM Santos group — AM Santos Imobiliária, asset management.",
+      "factos": ["St. Antão do Tojal, Loures", "2028", "14 apartments", "T2", "Rental market", "In planning"]
+    },
+    "empreendimento-loures-residencial": {
+      "nome": "Loures Development — Residential",
+      "tipologia": "T2, T3 and T4",
+      "unidades": "165 apartments",
+      "estado": "In planning",
+      "comercial": "For rent",
+      "entrega": "Expected 2029",
+      "resumo": "A high-end, innovative gated condominium with 165 apartments of T2, T3 and T4 typology, for the rental market.",
+      "factos": ["Loures", "2029", "165 apartments", "T2, T3 and T4", "Rental market", "In planning"]
+    },
+    "empreendimento-loures-hotel": {
+      "nome": "Loures Development — Hotel",
+      "tipologia": "Hotel · 50 rooms",
+      "unidades": "50 rooms",
+      "estado": "In planning",
+      "comercial": "Hospitality",
+      "entrega": "Expected 2029",
+      "resumo": "A hotel with around 50 rooms, conference rooms, a restaurant and other amenities, featuring modern architecture.",
+      "factos": ["Loures", "2029", "Hotel — around 50 rooms", "Conference rooms, restaurant", "In planning"]
+    }
+  }
+}

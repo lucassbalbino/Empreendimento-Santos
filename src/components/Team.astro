@@ -1,18 +1,18 @@
 ---
-const { members, variant } = Astro.props;
+const { members, variant, i18nBase } = Astro.props;
 const cls = variant ? `team team--${variant}` : 'team';
 ---
 <div class={cls}>
-  {members.map((m) => (
+  {members.map((m, i) => (
     <article class="member">
       <div class="member__media">
         {m.foto
           ? <img src={m.foto} alt={m.name} loading="lazy" />
           : <div class="ph"></div>}
       </div>
-      <div class="member__role">{m.role}</div>
+      <div class="member__role" data-i18n={i18nBase && `${i18nBase}.${i}.role`}>{m.role}</div>
       <h3 class="member__name">{m.name}</h3>
-      <p class="member__bio">{m.bio}</p>
+      <p class="member__bio" data-i18n={i18nBase && `${i18nBase}.${i}.bio`}>{m.bio}</p>
     </article>
   ))}
 </div>

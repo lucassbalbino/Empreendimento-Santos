@@ -14,8 +14,8 @@ const attrs = modal
       ? <img class="card__img" src={proj.imagem} alt={proj.nome} loading="lazy" />
       : <div class={dark ? 'ph ph--dark' : 'ph'}></div>}
     <div class="card__overlay">
-      <h3 class="card__title">{proj.nome}</h3>
-      <div class="card__meta">{proj.localizacao} · {proj.tipologia}</div>
+      <h3 class="card__title" data-i18n={`empreendimentos.${proj.slug}.nome`}>{proj.nome}</h3>
+      <div class="card__meta">{proj.localizacao} · <span data-i18n={`empreendimentos.${proj.slug}.tipologia`}>{proj.tipologia}</span></div>
     </div>
   </div>
 </Tag>

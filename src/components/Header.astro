@@ -2,12 +2,17 @@
 import site from '../data/site.json';
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const links = [
-  { href: '/sobre-nos', label: 'Sobre Nós' },
-  { href: '/portfolio', label: 'Portfólio' },
-  { href: '/historico', label: 'Histórico' },
+  { href: '/sobre-nos', label: 'Sobre Nós', i18n: 'common.nav.sobreNos' },
+  { href: '/portfolio', label: 'Portfólio', i18n: 'common.nav.portfolio' },
+  { href: '/historico', label: 'Histórico', i18n: 'common.nav.historico' },
   { href: 'https://www.sfproperties.pt/', label: 'SF Properties', external: true },
-  { href: '/equipa', label: 'Equipa' },
-  { href: '/contactos', label: 'Contactos' },
+  { href: '/equipa', label: 'Equipa', i18n: 'common.nav.equipa' },
+  { href: '/contactos', label: 'Contactos', i18n: 'common.nav.contactos' },
+];
+const languages = [
+  { code: 'pt', i18n: 'common.langNames.pt', label: 'Português' },
+  { code: 'en', i18n: 'common.langNames.en', label: 'English' },
+  { code: 'fr', i18n: 'common.langNames.fr', label: 'Français' },
 ];
 ---
 <header class="site-header">
@@ -22,11 +27,29 @@ const links = [
           <li>
             {l.external
               ? <a href={l.href} target="_blank" rel="noopener">{l.label}</a>
-              : <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>}
+              : <a href={l.href} aria-current={path === l.href ? 'page' : undefined} data-i18n={l.i18n}>{l.label}</a>}
           </li>
         ))}
+        <li class="nav__lang-item">
+          <div class="lang-switch" data-lang-switch>
+            <button type="button" class="lang-switch__btn" data-lang-toggle aria-haspopup="listbox" aria-expanded="false">PT</button>
+            <ul class="lang-switch__menu" role="listbox" aria-label="Idioma">
+              {languages.map((lang) => (
+                <li role="presentation">
+                  <button
+                    type="button"
+                    class="lang-switch__option"
+                    role="option"
+                    data-lang-option={lang.code}
+                    data-i18n={lang.i18n}
+                    aria-selected={lang.code === 'pt' ? 'true' : 'false'}
+                  >{lang.label}</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
       </ul>
-      <span class="nav__lang">EN</span>
     </nav>
     <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
