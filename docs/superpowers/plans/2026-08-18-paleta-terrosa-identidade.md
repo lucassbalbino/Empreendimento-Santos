@@ -542,15 +542,22 @@ Independente da recoloração — fazer **só depois** de tudo verificado, para 
 **Files:**
 - Modify: `public/styles.css`
 
-- [ ] **Step 1: Confirmar que está morto.**
+> ⚠️ **CORRIGIDO EM EXECUÇÃO (revisão da Task 2).** A versão original deste
+> plano dizia que `.stat*` era CSS morto. **É falso.** `src/components/Stats.astro`
+> emite `.stat`, `.stat__num` e `.stat__label`, e `src/pages/sobre-nos.astro:69`
+> renderiza esse componente dentro de uma `.section--dark`. **Remover `.stat*`
+> parte o quadro de valores de `/sobre-nos`.** Só `.section--accent*` é morto.
+
+- [ ] **Step 1: Confirmar, separadamente, o que está morto.**
 
 ```bash
-grep -rn "section--accent\|class=\"stat\|stat__num\|stat__label" src/
+grep -rn "section--accent" src/     # esperado: NADA  → morto, pode sair
+grep -rn "stat__num\|<Stats" src/   # esperado: Stats.astro + sobre-nos.astro → VIVO, não tocar
 ```
 
-Se não devolver nada, `.section--accent*` (~110–115), `html.reveal-ready body.is-home .section--accent::after` (~1470) e `.stat*` são inalcançáveis — os contadores usam `.fact`/`.facts--contadores`.
-
-- [ ] **Step 2: Remover** essas regras.
+- [ ] **Step 2: Remover apenas** `.section--accent*` (~120–125) e
+  `html.reveal-ready body.is-home .section--accent::after` (~1486).
+  **Preservar todo o bloco `.stat*`** — está em produção em `/sobre-nos`.
 
 - [ ] **Step 3: `--accent-deep`.** `grep -n "accent-deep" public/styles.css` — se só aparecer a definição, está por usar. **Manter** (é vocabulário útil, agora documentado no Figma) **ou** aplicá-lo ao `.btn::before` como sweep mais profundo. Decisão do utilizador — não remover sem perguntar.
 

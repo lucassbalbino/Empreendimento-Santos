@@ -857,7 +857,10 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .stat__num{
   font-family:var(--serif); font-weight:400;
   font-size:clamp(2.4rem,4.6vw,3.7rem); line-height:1;
-  color:var(--accent); letter-spacing:.01em;
+  /* O único consumidor é o <Stats> de /sobre-nos, e vive numa .section--dark
+     (ver Stats.astro) — por isso o tom para fundos escuros, como o fio do
+     .stat::before ao lado já usa. Com --accent dava 2.85:1. */
+  color:var(--accent-dk); letter-spacing:.01em;
   font-variant-numeric:tabular-nums;
   /* min-height alinha os rótulos entre o contador e os pilares de texto,
      que têm corpos diferentes. */
