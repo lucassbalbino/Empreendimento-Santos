@@ -13,12 +13,18 @@
 > `.member__role`, acento sobre `--paper-warm`, CLS do logótipo). Esses estão
 > resolvidos e documentados nos respetivos commits.
 
-**Estado:** 22 registados · **14 fechados** (P1, P3, P4, P5, P7, P8, P13, M2,
-M3, M4, M5, M6, M7, M8 — mais a metade factual do M9) · 2 diagnósticos
-revistos (**P13** e **P2**, ambos estavam errados) · **6 por fechar**
+**Estado:** 23 registados · **20 fechados** · 2 diagnósticos revistos (**P13** e
+**P2**, ambos estavam errados) · **3 em aberto**, dos quais 2 esperam decisão
+
+| Em aberto | Porquê |
+|---|---|
+| **M1** | Decisão: ligar o manifest? E, se sim, rever o `background_color`. |
+| **M9** | Decisão de desenho: o quadrado ocre das seams fica ou sai? |
+| **P12** | Sem ação até as fotografias reais substituírem os placeholders. |
 
 **Commits:** `71a9806` (M2) · `7fdb477` (registo) · `181194c` (P8, M5, M8, M9
-parcial) · `43b121e` (M3, M4) · `6e16cef` (M6, M7)
+parcial) · `43b121e` (M3, M4) · `6e16cef` (M6, M7) · `0680f7d` (P13, P4, P1) ·
+`5348244` (P9, P6) · `81256d6` (P11, M10) · `a9b4221` (P10) · `9165338` (P2)
 
 ---
 
@@ -36,7 +42,7 @@ parcial) · `43b121e` (M3, M4) · `6e16cef` (M6, M7)
 
 ---
 
-## P2 · O título do 1.º bloco entra sem animação
+## P2 ✅ FECHADO · O título do 1.º bloco entra sem animação
 
 **Onde:** `public/styles.css` — `html.reveal-ready .section--flat-top .block-head :is(.display, .lead)` (e a regra `.is-entered` correspondente)
 
@@ -114,7 +120,7 @@ o gate. **Não** é uma troca de seletor.
 
 ---
 
-## P6 · Prop `palette` órfã
+## P6 ✅ FECHADO · Prop `palette` órfã
 
 **Onde:** `src/layouts/Base.astro` — constrói `palette-${palette}` no `bodyClass`
 
@@ -152,7 +158,7 @@ o gate. **Não** é uma troca de seletor.
 
 ---
 
-## P9 · `.section--alt .fact` redundante
+## P9 ✅ FECHADO · `.section--alt .fact` redundante
 
 **Onde:** `public/styles.css` — `.section--alt .fact{ background:var(--paper) }`
 
@@ -162,7 +168,7 @@ o gate. **Não** é uma troca de seletor.
 
 ---
 
-## P10 · Falhas AA pré-existentes no chrome da hero
+## P10 ✅ FECHADO · Falhas AA pré-existentes no chrome da hero
 
 **Onde:** `public/styles.css` — `.nav__list a`, `.hero__scroll`, `.hero__scroll .line`, `.emp-back`
 
@@ -182,7 +188,7 @@ o gate. **Não** é uma troca de seletor.
 
 ---
 
-## P11 · Linhas quase invisíveis sobre a secção de areia
+## P11 ✅ FECHADO · Linhas quase invisíveis sobre a secção de areia
 
 **Onde:** `public/styles.css` — `.seam__rule` e o `border-bottom` de `.field input` dentro de `.section--alt`
 
@@ -382,6 +388,16 @@ bug) e corrigir o comentário de `styles.css:799-800`, que diz *"exatamente por
 trás do logo"* — é falso: o logo vive em `.seam__meta`, que tem
 `margin-top:2.6rem`. O quadrado está **sobre a régua**.
 
+### M10 ✅ FECHADO · Placeholders dos formulários claros abaixo de AA
+
+Encontrado **ao verificar o P11**. Os campos não declaravam `::placeholder`,
+por isso herdavam o cinzento do UA (`#757575`) — frio, e a falhar nas duas
+superfícies: **3.92:1** sobre `--paper-alt` e **4.49:1** sobre `--paper`, este
+por um centésimo.
+
+Era o mesmo defeito do M6, mas no claro — e o último cinzento frio dos
+formulários. **Correção:** `--ink-faint` → 4.65 e 5.33. Commit `81256d6`.
+
 ---
 
 ## Como usar este registo
@@ -401,18 +417,24 @@ trás do logo"* — é falso: o logo vive em `.seam__meta`, que tem
 | **M1** | Ligar o manifest — e, se sim, rever o `background_color`: está `#241a12` e daria splash café a abrir para uma página branca. |
 | **M9** | O quadrado ocre das seams fica ou sai? É escolha de desenho, não bug. |
 
-### Por fazer, sem depender de ninguém
+### O que a segunda passagem fechou
 
-- **P9** — depois da decisão do P4, `.section--alt .fact` continua redundante e
-  pode sair. Risco nulo.
-- **P6** — a prop `palette` órfã: remover, ou manter como ponto de extensão.
-- **P2** — **trabalho de animação, não de cor.** Ler o aviso na entrada antes
-  de lhe tocar: a correção que lá estava originalmente partia o título.
-- **P10 e P11** — acessibilidade pré-existente. Merecem vaga própria, com
-  decisão sobre o método (o M7 já resolveu o equivalente no escuro).
-- **P12** — reavaliar quando as fotografias reais substituírem os placeholders.
+- **P9 e P6** (`5348244`) — redundância no CSS e prop órfã no layout. Inertes.
+- **P11 e M10** (`81256d6`) — os campos de formulário. A solução registada para
+  o P11 **não servia**: o `#d6c8b2` proposto dá 1.40:1, longe dos 3:1. Foi
+  preciso um token novo, `--line-field`, separado da `--line` porque essa é
+  decorativa e não tem obrigação de contraste. A `.seam__rule` ficou como
+  estava, por isso mesmo.
+- **P10** (`a9b4221`) — o chrome da hero. Duas naturezas, dois métodos: no nav
+  o problema era o **fundo** (nem branco puro chegava), e levou véu próprio no
+  header; no indicador de scroll e no `.emp-back` bastou subir a tinta.
+- **P2** (`9165338`) — a coreografia do título com a cortina. Precisou das duas
+  metades: repor o seletor **e** excluir o bloco do split-reveal. Aplicar só a
+  primeira era exatamente a armadilha descrita na entrada.
 
-### Já fechados
+### Padrão que atravessa o registo
 
-P1 · P3 · P4 · P5 · P7 · P8 · P13 · M2 · M3 · M4 · M5 · M6 · M7 · M8
-— e a metade factual do M9.
+Três das correções **registadas** estavam erradas antes de serem aplicadas —
+P13 (repor a fonte), P2 (troca de seletor) e P11 (`#d6c8b2`). Em todos os casos
+o sintoma estava bem observado e a solução foi escrita sem ser medida. Vale a
+pena medir a correção proposta, não só o defeito.
