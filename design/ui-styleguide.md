@@ -47,9 +47,18 @@ faz ler como sistema e não como cores avulsas.
 | **`accent`** | **`#b46511`** | **Superfícies, dots, bordas, traços.** Não serve texto pequeno. |
 | `accent-text` | `#9f590f` | Acento como **texto** sobre `paper` / `paper-alt` |
 | `accent-deep` | `#8d4f0c` | Acento como **texto** sobre `paper-warm` (e hover / sweep) |
-| `accent-on-dark` | `#d79142` | Acento como **texto** sobre `dark` |
+| `accent-dk` | `#d79142` | Acento como **texto** sobre `dark` |
 
-**Sobre escuro:** texto a `#f2ece3`, secundário a `#b8ab9a`, legal a `#a89d8f`.
+### Texto sobre escuro
+
+Um papel, não uma superfície — por isso tem tokens próprios. Os rácios são
+contra o fundo **composto** `rgb(58,49,42)`, não contra `#241a12`.
+
+| Token | Hex | Rácio | Uso |
+|---|---|---|---|
+| `on-dark` | `#f2ece3` | 10.82:1 | Corpo. Coincide hoje com `paper-alt` — no CSS é um alias dele. |
+| `on-dark-soft` | `#b8ab9a` | 5.65:1 | Secundário |
+| `on-dark-dim` | `#a89d8f` | 4.77:1 | Legal / meta — no **limiar** de AA |
 
 ---
 

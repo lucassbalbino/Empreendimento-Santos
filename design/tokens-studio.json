@@ -12,7 +12,7 @@
       "accent":       { "value": "#b46511", "type": "color", "description": "Ocre queimado — a cor REAL do logótipo. Superfícies, dots, bordas, traços. NÃO serve para texto pequeno (4.26:1)." },
       "accent-text":  { "value": "#9f590f", "type": "color", "description": "Acento como TEXTO sobre paper e paper-alt (5.24 / 4.57)" },
       "accent-deep":  { "value": "#8d4f0c", "type": "color", "description": "Acento como TEXTO sobre paper-warm (4.90). Também hover/sweep." },
-      "accent-on-dark": { "value": "#d79142", "type": "color", "description": "Bronze claro — acento como texto sobre dark (4.85)" },
+      "accent-dk":    { "value": "#d79142", "type": "color", "description": "Bronze claro — acento como texto sobre dark (4.85). Nome igual ao --accent-dk do CSS." },
       "dark":         { "value": "#241a12", "type": "color", "description": "Secções escuras em café. No CSS leva alpha e5; o fundo composto real é rgb(58,49,42)." },
       "dark-soft":    { "value": "#150f0a", "type": "color", "description": "Café profundo" },
       "on-dark":      { "value": "#f2ece3", "type": "color", "description": "Texto sobre fundos escuros (10.82 contra o fundo real)" },
