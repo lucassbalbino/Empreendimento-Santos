@@ -69,7 +69,7 @@ Mesma saturação, **+12° para o âmbar** e **−11pp de luminosidade** — é 
 | Token | Antigo | **Novo** | Papel |
 |---|---|---|---|
 | `--ink` | `#121212` | **`#1a1410`** | Texto principal — quase-preto acastanhado. |
-| `--ink-title` | *(não existia)* | **`#3b2a1c`** | **Novo.** Títulos serif (Fraunces) em castanho-escuro. **O maior ganho de castanho por área.** |
+| `--ink-title` | *(não existia)* | **`#3b2a1c`** | **Novo.** Títulos de secção (`.title-split`, em *Kompot Display* — **não** Fraunces) em castanho-escuro. **O maior ganho de castanho por área.** |
 | `--ink-soft` | `#565654` | **`#5d5346`** | Texto secundário — taupe. |
 | `--ink-faint` | `#9a9997` | **`#72685a`** | Rótulos discretos. **Escurece de propósito** — ver §3. |
 | `--brown` | *(não existia)* | **`#6b4a2f`** | **Novo.** Castanho médio — ícones, molduras, superfícies pequenas. |
@@ -89,7 +89,10 @@ Mesma saturação, **+12° para o âmbar** e **−11pp de luminosidade** — é 
 |---|---|---|
 | Footer — corpo/ícones | `#cdd0d4` | **`#f2ece3`** |
 | Footer — parágrafos e links | `#a7abb1` | **`#b8ab9a`** |
-| Footer — rodapé legal | `#7e828a` | **`#93877a`** |
+| Footer — rodapé legal | `#7e828a` | **`#a89d8f`** |
+
+> ⚠️ O rodapé legal indicava `#93877a` até à revisão da Task 4. Dá **3.62:1**
+> sobre o fundo escuro real — falha AA. Ver o aviso de medição em §3.
 
 ---
 
@@ -165,7 +168,7 @@ Todos os pares calculados sobre a paleta nova. Alvo: **AA texto normal = 4.5:1**
 
 ---
 
-### Task 1: Tokens de acento + remover o andaime de teste
+### Task 1 ✅ CONCLUÍDA: Tokens de acento + remover o andaime de teste
 
 O núcleo. Vira quase todo o site de uma vez, porque tudo consome `var(--accent)`.
 
@@ -174,7 +177,7 @@ O núcleo. Vira quase todo o site de uma vez, porque tudo consome `var(--accent)
 - Modify: `src/pages/historico.astro`
 - Modify: `src/components/Seam.astro`
 
-- [ ] **Step 1: Trocar os tokens de acento** em `:root` (~linhas 29–31):
+- [x] **Step 1: Trocar os tokens de acento** em `:root` (~linhas 29–31):
 
 ```css
   --accent:     #b46511;   /* ocre queimado — cor real do logótipo AM Santos */
@@ -183,11 +186,11 @@ O núcleo. Vira quase todo o site de uma vez, porque tudo consome `var(--accent)
   --accent-dk:  #d79142;   /* bronze claro — sobre fundos escuros */
 ```
 
-- [ ] **Step 2: Remover o bloco de teste** `body.palette-test-b46511{…}` (logo a seguir ao fecho do `:root`). Passa a ser o comportamento global.
+- [x] **Step 2: Remover o bloco de teste** `body.palette-test-b46511{…}` (logo a seguir ao fecho do `:root`). Passa a ser o comportamento global.
 
-- [ ] **Step 3: Remover o `palette` de teste** em `src/pages/historico.astro` — retirar `palette="test-b46511"` do `<Base>`, manter tudo o resto.
+- [x] **Step 3: Remover o `palette` de teste** em `src/pages/historico.astro` — retirar `palette="test-b46511"` do `<Base>`, manter tudo o resto.
 
-- [ ] **Step 4: Consolidar o teste da seam.** O ocre em "AM Santos" e no "©" foi validado e mantém-se — mas **para todas as seams**. Remover `.seam--test-orange{…}` e passar a cor às regras base:
+- [x] **Step 4: Consolidar o teste da seam.** O ocre em "AM Santos" e no "©" foi validado e mantém-se — mas **para todas as seams**. Remover `.seam--test-orange{…}` e passar a cor às regras base:
 
 ```css
 .seam__brand{ white-space:nowrap; justify-self:center; font-weight:600; color:var(--accent-text); }
@@ -199,16 +202,16 @@ Em `src/pages/historico.astro`, retirar `seam--test-orange` da classe da `<Seam>
 
 > `.seam__copy` (o `<span>` à volta do `©`) **mantém-se** no `Seam.astro` — é o que permite colorir o símbolo sem colorir o ano.
 
-- [ ] **Step 5: Variante escura da seam.** Confirmar que `.seam--dark .seam__brand` continua a `var(--paper)` — **não** deve herdar `--accent-text`, que não tem contraste sobre escuro.
+- [x] **Step 5: Variante escura da seam.** Confirmar que `.seam--dark .seam__brand` continua a `var(--paper)` — **não** deve herdar `--accent-text`, que não tem contraste sobre escuro.
 
-- [ ] **Step 6: Build.** `npm run build` — sem erros.
+- [x] **Step 6: Build.** `npm run build` — sem erros.
 
-- [ ] **Step 7: Verificação visual.** `npm run dev`. Percorrer `/`, `/portfolio`, `/historico`, `/sobre-nos`, `/equipa`, `/contactos` e um `/empreendimentos/<slug>`:
+- [x] **Step 7: Verificação visual.** `npm run dev`. Percorrer `/`, `/portfolio`, `/historico`, `/sobre-nos`, `/equipa`, `/contactos` e um `/empreendimentos/<slug>`:
   - Todo o laranja vivo desapareceu; o acento lê-se ocre/terra.
   - O acento **bate com o ícone do logótipo no header** — pôr os dois no mesmo enquadramento é o teste decisivo.
   - Seams: "AM Santos" e "©" a ocre em **todas** as páginas; o ano a tinta.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add public/styles.css src/pages/historico.astro src/components/Seam.astro
@@ -217,30 +220,30 @@ git commit -m "feat(cor): acento passa a ocre queimado #b46511 (cor real do logo
 
 ---
 
-### Task 2: Acento como texto → `--accent-text`
+### Task 2 ✅ CONCLUÍDA: Acento como texto → `--accent-text`
 
 Corrige o buraco de acessibilidade de §3: `--accent` a 4.26:1 não serve texto pequeno.
 
 **Files:**
 - Modify: `public/styles.css`
 
-- [ ] **Step 1: Localizar os usos de acento como cor de texto:**
+- [x] **Step 1: Localizar os usos de acento como cor de texto:**
 
 ```bash
 grep -n "color:var(--accent)" public/styles.css
 ```
 
-- [ ] **Step 2: Trocar para `var(--accent-text)`** apenas onde o acento é **texto sobre fundo claro**. Casos esperados: `.btn:hover`, `.scrolled .nav__list a:hover`, `.scrolled .nav__list a[aria-current="page"]`, `.lang-switch__option.is-active`, `.member__role`, `.muted a:hover`, o rótulo de acento (~linha 844) e o link de acento (~linha 684).
+- [x] **Step 2: Trocar para `var(--accent-text)`** apenas onde o acento é **texto sobre fundo claro**. Casos esperados: `.btn:hover`, `.scrolled .nav__list a:hover`, `.scrolled .nav__list a[aria-current="page"]`, `.lang-switch__option.is-active`, `.member__role`, `.muted a:hover`, o rótulo de acento (~linha 844) e o link de acento (~linha 684).
 
-- [ ] **Step 3: NÃO trocar** onde o acento é superfície, borda ou traço — mantêm `var(--accent)`: `.seam__label::before`, `.btn::before` (sweep), `.divider__tab`, `.scroller::-webkit-scrollbar-thumb`, `.field …:focus{ border-color }`, `.dslider__arrow:hover{ background }`, `.wm--line{ stroke }`, `.wm--fill{ fill }`.
+- [x] **Step 3: NÃO trocar** onde o acento é superfície, borda ou traço — mantêm `var(--accent)`: `.seam__label::before`, `.btn::before` (sweep), `.divider__tab`, `.scroller::-webkit-scrollbar-thumb`, `.field …:focus{ border-color }`, `.dslider__arrow:hover{ background }`, `.wm--line{ stroke }`, `.wm--fill{ fill }`.
 
 > Regra prática: **se pinta glifos → `--accent-text`; se pinta pixels de fundo/traço → `--accent`.**
 
-- [ ] **Step 4: Build.** `npm run build` — sem erros.
+- [x] **Step 4: Build.** `npm run build` — sem erros.
 
-- [ ] **Step 5: Verificação.** Medir no devtools o contraste de `.member__role` e `.btn:hover` sobre `--paper` — esperado **≥ 4.5:1**. Confirmar que o dot da seam e o sweep dos botões **não** escureceram.
+- [x] **Step 5: Verificação.** Medir no devtools o contraste de `.member__role` e `.btn:hover` sobre `--paper` — esperado **≥ 4.5:1**. Confirmar que o dot da seam e o sweep dos botões **não** escureceram.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add public/styles.css
@@ -249,14 +252,14 @@ git commit -m "fix(a11y): acento como texto usa --accent-text (AA em branco e ar
 
 ---
 
-### Task 3: Superfícies e tinta — a família de castanhos
+### Task 3 ✅ CONCLUÍDA: Superfícies e tinta — a família de castanhos
 
 O passo que faz o site ler castanho **sem deixar de ser branco**.
 
 **Files:**
 - Modify: `public/styles.css`
 
-- [ ] **Step 1: Substituir os neutros** em `:root` (~linhas 23–33) e **acrescentar os três tokens novos**:
+- [x] **Step 1: Substituir os neutros** em `:root` (~linhas 23–33) e **acrescentar os três tokens novos**:
 
 ```css
   --paper:      #fdfcfa;   /* base do site — branco com um sopro de quente */
@@ -272,9 +275,9 @@ O passo que faz o site ler castanho **sem deixar de ser branco**.
   --dark-soft:  #150f0a;
 ```
 
-- [ ] **Step 2: Verificar o alpha do `--dark`.** `#241a12e5` — oito dígitos. Se o `e5` se perder, a hero deixa de se ver por trás das secções escuras e a cortina abre costura.
+- [x] **Step 2: Verificar o alpha do `--dark`.** `#241a12e5` — oito dígitos. Se o `e5` se perder, a hero deixa de se ver por trás das secções escuras e a cortina abre costura.
 
-- [ ] **Step 3: Caçar brancos hardcoded que deviam ser `--paper`:**
+- [x] **Step 3: Caçar brancos hardcoded que deviam ser `--paper`:**
 
 ```bash
 grep -n "#ffffff\|#fff\b" public/styles.css
@@ -282,15 +285,15 @@ grep -n "#ffffff\|#fff\b" public/styles.css
 
 Manter `#fff` onde é **texto sobre escuro ou sobre o acento** (aí branco puro é correto). Trocar para `var(--paper)` onde é **superfície de página** — em especial a cortina de transição (~linha 1513), que tem de coincidir exatamente com o fundo do body, senão pisca no swap.
 
-- [ ] **Step 4: Build.** `npm run build` — sem erros.
+- [x] **Step 4: Build.** `npm run build` — sem erros.
 
-- [ ] **Step 5: Verificação visual — e uma decisão.**
+- [x] **Step 5: Verificação visual — e uma decisão.**
   - **Teste da dominância:** ao rolar qualquer página, a impressão geral tem de continuar **branca**, com o castanho a aparecer em faixas e detalhes. Se alguma vista der "página castanha", parar e aliviar `--paper-alt` para `#f5f0e8`.
   - As secções escuras leem **café**, não preto.
   - Nas transições entre páginas, **a cortina não pisca**.
   - **Decisão sobre `--ink-faint`:** as legendas discretas ficaram mais presentes (5.33:1, contra 2.85:1 antes). Confirmar com o utilizador se o ganho de legibilidade compensa o ruído visual. Se não: subir para `~#8a8175` e registar que volta a falhar AA.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add public/styles.css
@@ -299,14 +302,14 @@ git commit -m "feat(cor): familia de castanhos nas superficies, tinta e linhas"
 
 ---
 
-### Task 4: Aplicar o castanho onde ele se vê
+### Task 4 ✅ CONCLUÍDA: Aplicar o castanho onde ele se vê
 
 Os tokens de Task 3 só rendem se forem **usados**. Esta task coloca `--ink-title`, `--paper-warm` e `--brown` em serviço.
 
 **Files:**
 - Modify: `public/styles.css`
 
-- [ ] **Step 1: Títulos serif a castanho-escuro.** É a maior superfície de castanho da página sem lhe tocar no fundo. Aplicar `color:var(--ink-title)` aos títulos em Fraunces:
+- [x] **Step 1: Títulos serif a castanho-escuro.** É a maior superfície de castanho da página sem lhe tocar no fundo. Aplicar `color:var(--ink-title)` aos títulos em Fraunces:
 
 ```bash
 grep -n "\.display\|\.hero__title\|\.block-head\|font-family:var(--serif)" public/styles.css
@@ -314,23 +317,23 @@ grep -n "\.display\|\.hero__title\|\.block-head\|font-family:var(--serif)" publi
 
 Aplicar a `.display`, `.display-sm`, títulos de `.block-head` e `.card__title`. **Não aplicar** a títulos **sobre fundo escuro** (esses continuam `--paper`) nem sobre o acento.
 
-- [ ] **Step 2: `--paper-warm` em uso pontual.** Escolher **no máximo dois** destes, para não saturar:
+- [x] **Step 2: `--paper-warm` em uso pontual.** Escolher **no máximo dois** destes, para não saturar:
   - cartões de `.facts` / `.fact` (hoje brancos sobre branco — ganham corpo)
   - o bloco de citação/testemunhos
   - a faixa de contadores
 
   Regra: **nunca duas superfícies `--paper-warm` adjacentes**, e nunca numa secção que já seja `--paper-alt`.
 
-- [ ] **Step 3: `--brown` em detalhes.** Molduras de imagem, ícones dos `socials`, `.divider__tab` alternativo, bordas de `.facts`. Detalhe, não área.
+- [x] **Step 3: `--brown` em detalhes.** Molduras de imagem, ícones dos `socials`, `.divider__tab` alternativo, bordas de `.facts`. Detalhe, não área.
 
-- [ ] **Step 4: Build.** `npm run build` — sem erros.
+- [x] **Step 4: Build.** `npm run build` — sem erros.
 
-- [ ] **Step 5: Verificação visual.**
+- [x] **Step 5: Verificação visual.**
   - Os títulos leem **castanho-escuro**, não preto — comparar com o corpo de texto ao lado, a diferença tem de ser percetível mas não gritante.
   - Reaplicar o **teste da dominância** (Step 5 da Task 3): a página continua a ler branca.
   - Contraste dos títulos sobre a superfície em que assentam ≥ 4.5:1 (§3 cobre branco, areia e areia média).
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add public/styles.css
@@ -555,7 +558,8 @@ Sem esta task o Figma e o site divergem — e o styleguide passa a mentir.
   - `**Sobre escuro/laranja:** texto a #ffffff, secundário a #cdd0d4` → `#f2ece3` / `#b8ab9a`.
   - Reescrever a "Regra da marca": deixou de ser *"alto contraste branco ↔ preto com laranja como acento"*. Passa a ser: **base branca dominante, com uma família terrosa (24°–40° de matiz) a entrar por superfícies secundárias, títulos e blocos escuros.** O contraste vem da **luminosidade**, não do choque de matiz.
   - Anotar o limite de §3: **`accent` não serve texto pequeno sobre claro — para isso existe `accent-text`.**
-  - Registar a regra de dominância: **`paper-warm` no máximo em duas superfícies por página, nunca adjacentes.**
+  - Registar a regra de dominância: **`paper-warm` no máximo em dois *tipos de bloco* por página, nunca adjacentes.** (Não "duas superfícies": a home tem três cartões `.pilar`, que são **um** tipo de bloco.)
+  - Documentar a regra de acento por superfície da §3 (`paper`/`paper-alt` → `accent-text`; `paper-warm` → `accent-deep`; `dark` → `accent-dk`) — é a parte da paleta mais fácil de aplicar mal.
 
 - [ ] **Step 3: Corrigir a referência à faixa laranja.** A §4 documenta a `.section--accent` ("faixa de acento a toda a largura") — mas essa faixa **já não existe**: `grep -rn "section--accent" src/` não devolve nada, e o comentário em `src/pages/index.astro:125` regista a decisão ("o laranja vive nos números, em toda a página, em vez de saturar uma só secção"). Marcar como **legada** ou remover.
 
@@ -594,7 +598,9 @@ grep -rn "stat__num\|<Stats" src/   # esperado: Stats.astro + sobre-nos.astro �
   `html.reveal-ready body.is-home .section--accent::after` (~1486).
   **Preservar todo o bloco `.stat*`** — está em produção em `/sobre-nos`.
 
-- [ ] **Step 3: `--accent-deep`.** `grep -n "accent-deep" public/styles.css` — se só aparecer a definição, está por usar. **Manter** (é vocabulário útil, agora documentado no Figma) **ou** aplicá-lo ao `.btn::before` como sweep mais profundo. Decisão do utilizador — não remover sem perguntar.
+- [ ] **Step 3: Tokens sem consumidor.** `--accent-deep` **já não é órfão** — a Task 4 deu-lhe uso no `.pilar__n` (acento sobre `--paper-warm`). Falta decidir sobre o **`--brown` (`#6b4a2f`)**, que ficou definido e sem pintar um único píxel: a dose conservadora escolhida pelo utilizador não executou o "castanho em detalhes". Opções: **manter em reserva** (documentado no Figma como vocabulário) ou **aplicar** a ícones dos `socials`, molduras e bordas de `.facts`. **Decisão do utilizador — não remover sem perguntar.**
+
+- [ ] **Step 4: CSS morto do `.display`.** `class="display"` tem **zero** ocorrências no site construído — os títulos de secção passaram a `.title-split`. As regras `.display` / `.display--sm` (~158, 165, 384, 433, 505, 915) são inalcançáveis. **Uma exceção com efeito real:** `html.reveal-ready .section--flat-top .block-head :is(.display, .lead)` (~1419) é a animação de entrada do 1.º bloco de `/portfolio` e `/historico` — como o `<h1>` é agora `.title-split`, **só o `.lead` anima; o título não**. Corrigir o seletor para `:is(.title-split, .lead)` **repõe uma animação hoje partida** — é alteração de movimento, não de cor, por isso fica fora do âmbito cromático e deve ser confirmada.
 
 - [ ] **Step 4: Build + verificação.** `npm run build`; confirmar que os contadores da home continuam intactos.
 
