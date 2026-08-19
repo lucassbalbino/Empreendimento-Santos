@@ -271,6 +271,20 @@ ul{ list-style:none; }
   padding-block:1.4rem;
   transition:background .7s var(--ease), padding .7s var(--ease), box-shadow .7s var(--ease), transform .6s var(--ease);
 }
+/* Véu local do header, só enquanto está sobre a hero. O texto do nav é branco
+   sobre fotografia, e no pior caso realista (p95 dos píxeis por baixo) dava
+   2.70:1 na home — muito abaixo dos 4.5 de AA. Subir a opacidade não resolvia:
+   o problema é o fundo, não a tinta.
+   Fica AQUI e não no --hero-veil de propósito: esse token é partilhado com a
+   PageCurtain (linha 2095) e mexer-lhe de um lado só abre costura visível na
+   transição. Este escurece apenas a faixa atrás do nav e desaparece assim que
+   o header ganha o seu próprio fundo claro (.scrolled) — nas páginas sem hero
+   o .scrolled entra logo, por isso ali nunca aparece. */
+.site-header:not(.scrolled)::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:210%;
+  background:linear-gradient(180deg, rgba(10,7,5,.42) 0%, rgba(10,7,5,.22) 52%, transparent 100%);
+  pointer-events:none; z-index:-1;
+}
 .site-header .container{ display:flex; align-items:center; justify-content:space-between; gap:2rem; }
 .site-header.scrolled{
   background:rgba(249,241,230,.92);
@@ -412,9 +426,12 @@ ul{ list-style:none; }
 .hero__scroll{
   position:absolute; left:50%; bottom:34px; transform:translateX(-50%);
   z-index:2; display:flex; flex-direction:column; align-items:center; gap:.6rem;
-  font-size:.62rem; letter-spacing:.3em; text-transform:uppercase; color:rgba(255,255,255,.7);
+  font-size:.62rem; letter-spacing:.3em; text-transform:uppercase; color:#fff;
 }
-.hero__scroll .line{ width:1px; height:46px; background:rgba(255,255,255,.5); animation:scrollLine 2s var(--ease) infinite; transform-origin:top; }
+/* .7 dava 4.22:1 e o traço a .5 dava 3.00:1 — ambos no limite ou abaixo. Aqui
+   o fundo já é o mais escuro da hero (o véu fecha a .58 em baixo), por isso
+   bastou subir a tinta; não foi preciso mexer no fundo como no nav. */
+.hero__scroll .line{ width:1px; height:46px; background:rgba(255,255,255,.78); animation:scrollLine 2s var(--ease) infinite; transform-origin:top; }
 @keyframes scrollLine{ 0%{transform:scaleY(0)} 40%{transform:scaleY(1)} 100%{transform:scaleY(0); transform-origin:bottom} }
 
 /* Hero da Home quase ancorada: a imagem fica praticamente parada no viewport,
@@ -1570,7 +1587,8 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
 
 .emp-back{
   display:inline-block; margin-bottom:1rem;
-  color:rgba(255,255,255,.8); text-decoration:none;
+  color:#fff; /* era rgba(...,.8) = 4.04:1 sobre o p95 da foto; a AA pede 4.5 */
+  text-decoration:none;
   font-size:.85rem; letter-spacing:.02em;
   transition:color .3s var(--ease);
 }
