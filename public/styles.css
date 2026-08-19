@@ -41,7 +41,15 @@
      "castanho em detalhes" (ícones, molduras, bordas de factos). Fica como
      ponto de partida se a dose vier a aprofundar-se. */
   --brown:      #6b4a2f;
-  --line:       #e3d9cb;   /* linhas/divisores terrosos */
+  --line:       #e3d9cb;   /* linhas/divisores terrosos — DECORATIVOS */
+  /* Sublinha de campo de formulário. Existe à parte porque tem uma obrigação
+     que a --line não tem: nos campos, a sublinha é a ÚNICA indicação visual de
+     que ali há um controlo, e a WCAG 1.4.11 pede-lhe 3:1. A --line dá 1.36:1
+     sobre --paper e 1.19:1 sobre --paper-alt — decorativa, serve; a marcar um
+     campo, não. Este é o tom mais CLARO da família 24–40° que ainda cumpre 3:1
+     nas três superfícies claras: 3.90 sobre --paper, 3.41 sobre --paper-alt,
+     3.04 sobre --paper-warm. */
+  --line-field: #8e7c67;
   /* Ocre queimado — a cor REAL do logótipo (amostrada de
      referencias/imagens/LOGO AMS SANTOS HD.png). O laranja #ea5a17 que aqui
      estava nunca correspondeu à marca: divergia ~12° de matiz e ~11pp de
@@ -1251,9 +1259,18 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .field label{ font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; }
 .field input, .field select, .field textarea{
   font-family:var(--sans); font-size:.95rem; color:var(--ink);
-  background:transparent; border:0; border-bottom:1px solid var(--line);
+  background:transparent; border:0; border-bottom:1px solid var(--line-field);
   padding:.7rem 0; transition:border-color .3s var(--ease);
 }
+/* Hoje nenhum formulário assenta em secção escura, mas o .section--dark .field
+   label acima mostra que o caso foi antecipado — e aí o --line-field, que é um
+   taupe médio, desapareceria. Mesmo valor do campo da newsletter (M7). */
+.section--dark :is(.field input, .field select, .field textarea){ border-bottom-color:rgba(255,255,255,.42); }
+/* Sem isto os placeholders herdavam o cinzento do UA (#757575), que é frio e
+   falha AA nas duas superfícies: 3.92:1 sobre --paper-alt e 4.49:1 sobre
+   --paper — este último por um centésimo. O --ink-faint dá 4.65 e 5.33, e é da
+   família. opacity:1 porque o Firefox aplica .54 por omissão. */
+.field :is(input, textarea)::placeholder{ color:var(--ink-faint); opacity:1; }
 .field input:focus, .field select:focus, .field textarea:focus{ outline:0; border-color:var(--accent); }
 .field textarea{ resize:vertical; min-height:90px; }
 .check{ display:flex; gap:.7rem; align-items:flex-start; font-size:.8rem; color:var(--ink-soft); }
