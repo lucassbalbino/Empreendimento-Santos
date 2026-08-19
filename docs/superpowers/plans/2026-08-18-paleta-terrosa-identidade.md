@@ -111,6 +111,8 @@ Todos os pares calculados sobre a paleta nova. Alvo: **AA texto normal = 4.5:1**
 | `--accent-text` / `--paper-alt` | 4.57:1 | ✅ |
 | `--ink` / `--paper-warm` | 13.84:1 | ✅ |
 | `--ink-soft` / `--paper-warm` | 5.71:1 | ✅ |
+| `--accent-text` / `--paper-warm` | 4.08:1 | ⚠️ **falha** — usar `--accent-deep` |
+| `--accent-deep` / `--paper-warm` | 4.90:1 | ✅ |
 | `#f2ece3` / `--dark` | 10.82:1 | ✅ |
 | Footer corpo `#b8ab9a` / `--dark` | 5.65:1 | ✅ |
 | Footer legal `#a89d8f` / `--dark` | 4.77:1 | ✅ |
@@ -137,7 +139,18 @@ Todos os pares calculados sobre a paleta nova. Alvo: **AA texto normal = 4.5:1**
 
 1. **`--accent` não serve para texto pequeno sobre claro** (4.26:1). Por isso existe **`--accent-text` (`#9f590f`)**, que passa sobre **as duas** superfícies claras (5.24:1 no branco, 4.57:1 na areia). A Task 2 troca os usos *de texto*. O `--accent` continua a servir superfícies, bordas e dots, onde não há mínimo a cumprir.
 2. **`--ink-faint` deixa de falhar.** Era 2.85:1 (reprovado); passa a 5.33:1. **Consequência visual assumida:** as legendas discretas (meta das seams, rótulos) ficam **notoriamente mais presentes**. É uma mudança de hierarquia deliberada — se ficar pesado, o recuo é subir o token para `~#8a8175` e aceitar de novo a falha de AA. Decisão do utilizador na verificação da Task 3.
-3. **Todo o texto sobre `--paper-warm` foi validado** antes de a superfície existir — pode usar-se sem re-testar, desde que o texto seja `--ink` ou `--ink-soft`.
+3. **Sobre `--paper-warm` há três tons de acento e só dois servem.** A tabela
+   original validou só `--ink` e `--ink-soft` nessa superfície; em execução
+   (Task 4) descobriu-se que o `--accent-text` cai para **4.08:1** ali. Regra
+   final, por superfície:
+
+   | Superfície | Acento como texto |
+   |---|---|
+   | `--paper` · `--paper-alt` | `--accent-text` (5.24 · 4.57) |
+   | `--paper-warm` | **`--accent-deep`** (4.90) |
+   | `--dark` | `--accent-dk` (4.85) |
+
+   Isto dá finalmente uso ao `--accent-deep`, que estava definido sem consumidor.
 
 ---
 

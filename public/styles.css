@@ -38,7 +38,7 @@
      luminosidade. Toda a família cromática do site deriva daqui. */
   --accent:     #b46511;   /* superfícies, dots, bordas, traços */
   --accent-text:#9f590f;   /* o acento quando é TEXTO sobre claro (ver nota) */
-  --accent-deep:#8d4f0c;   /* sombra do ocre — hover / sweep */
+  --accent-deep:#8d4f0c;   /* acento como texto sobre --paper-warm (e hover/sweep) */
   --accent-dk:  #d79142;   /* bronze claro — sobre fundos escuros */
   /* Porquê dois tons de acento: --accent tem 4.26:1 sobre --paper, abaixo do
      mínimo AA (4.5:1) para texto normal. Serve superfícies, onde não há
@@ -458,6 +458,10 @@ body.is-home .site-footer{ position:relative; z-index:1; }
      com o viewport. Era isto que o JS antigo fazia a medir e a reescrever
      font-size; em CSS sai de graça e sem salto no resize. */
   font-size:clamp(1.6rem, 0.95rem + 3.4vw, 4rem);
+  /* Castanho-escuro em vez da tinta do corpo: é a maior superfície de castanho
+     da página sem lhe tocar no fundo. Os contextos escuros repõem o branco
+     logo abaixo — sem isso o título desaparecia sobre a hero. */
+  color:var(--ink-title);
   text-wrap:balance;
   /* Medida de leitura por omissão: sem isto um título curto esticaria pela
      largura toda do .container (até 1480px) numa só linha interminável.
@@ -475,6 +479,10 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    split-type) e, sem align-self, estica à largura da caixa — é o que deixa o
    text-align de cada variante alinhar as linhas entre si. */
 .title-split__text{ display:block; }
+/* Reposição do branco onde o título assenta em escuro: a hero (foto + véu) e
+   qualquer .section--dark (portfólio, track record, equipa em /sobre-nos). */
+.hero .title-split,
+.section--dark .title-split{ color:var(--paper); }
 /* Variante para h1 de hero: mesma tipografia unificada, só maior e com mais
    medida (o título da hero pede linhas mais longas). */
 /* 17ch e não 14: o ch mede o glifo "0", e em maiúsculas de display as letras
@@ -700,14 +708,19 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .pilar{
   display:flex; flex-direction:column; gap:.7rem;
-  background:var(--paper);
+  /* Areia média: eram cartões brancos sobre secção branca, só legíveis pela
+     borda. Com o fundo quente ganham corpo e é aqui que o castanho entra em
+     superfície, num elemento contido e repetido — sem tocar na base da página. */
+  background:var(--paper-warm);
   border:1px solid var(--dark);
   border-radius:16px;
   padding:clamp(28px,3vw,40px) clamp(24px,2.8vw,34px);
 }
 .pilar__n{
   font-family:var(--serif); font-size:.85rem; letter-spacing:.06em;
-  color:var(--accent-text);
+  /* Sobre --paper-warm (a mais escura das superfícies claras) o --accent-text
+     cai para 4.08:1. O --accent-deep aguenta as três: 6.29 / 5.49 / 4.90. */
+  color:var(--accent-deep);
 }
 .pilar__t{ font-family:var(--serif); font-weight:500; color:var(--ink); font-size:clamp(1.5rem,2.3vw,1.95rem); }
 .pilar__x{ color:var(--ink-soft); line-height:1.7; font-size:clamp(1.05rem,1.15vw,1.15rem); }
