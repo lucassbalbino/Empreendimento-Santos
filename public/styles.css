@@ -384,8 +384,12 @@ ul{ list-style:none; }
   background:var(--hero-veil);
 }
 .hero__inner{ position:relative; z-index:2; width:100%; padding-bottom:clamp(64px,10vh,128px); }
-.hero .display{ max-width:16ch; }
-.hero__title-page{ font-size:clamp(2.6rem,7vw,5.5rem); }
+/* Aqui estavam .hero .display{max-width:16ch} e
+   .hero__title-page{font-size:clamp(2.6rem,7vw,5.5rem)}. Ambas inalcançáveis:
+   a primeira porque .display já não existe no markup (o BlockHead emite
+   .title-split); a segunda porque .title-split--hero, de igual especificidade
+   e mais abaixo na folha, ganha o font-size. O tamanho e a largura da hero
+   vivem hoje na .title-split--hero. */
 .hero__scroll{
   position:absolute; left:50%; bottom:34px; transform:translateX(-50%);
   z-index:2; display:flex; flex-direction:column; align-items:center; gap:.6rem;
@@ -805,9 +809,11 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   padding-bottom:clamp(112px,12.5vw,180px);
 }
 .seam__rule{ position:relative; border-top:1px solid var(--line); }
-/* Selo: um pequeno quadrado --accent atravessado pela régua, exatamente por
-   trás do logo — ecoa o entalhe preto que corta a barra do meio do símbolo,
-   sem reescrever a régua toda numa réplica do mark. */
+/* Selo: um pequeno quadrado --accent atravessado pela régua, alinhado com o
+   logo no eixo horizontal — ecoa o entalhe preto que corta a barra do meio do
+   símbolo, sem reescrever a régua toda numa réplica do mark.
+   (Não fica "por trás do logo", como aqui se dizia: o logo vive em
+   .seam__meta, que tem margin-top:2.6rem. O quadrado está sobre a régua.) */
 .seam__rule::before{
   content:"";
   position:absolute; top:0; left:50%;
@@ -847,7 +853,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .seam--alt{ background:var(--paper-alt); }
 /* Variante escura — vive DENTRO de uma .section--dark (é ela que abre o
    capítulo escuro), por isso não repinta o fundo: --dark é semitransparente
-   (#141414e5, para a hero se ver por trás) e uma segunda camada por cima
+   (#241a12e5, para a hero se ver por trás) e uma segunda camada por cima
    deixaria uma faixa visivelmente mais escura à volta da régua. O laranja
    passa ao tom para fundos escuros (--accent-dk) e a régua a um branco
    discreto, o equivalente de --line no escuro. */

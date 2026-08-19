@@ -24,7 +24,9 @@ function init() {
   // .qmeta__v/__l — os itens da meta do "Quem Somos" (valor + rótulo).
   // .muted — parágrafo secundário do contacto (ContactForm) e da página de
   // contactos.
-  const SEL = '.section .display, .section .lead, .split__body > p, .quemsomos__intro > p, ' +
+  // .display saiu do seletor: a classe tem zero ocorrências em src/ desde que
+  // o BlockHead passou a emitir .title-split. Ficava aqui a apanhar nada.
+  const SEL = '.section .lead, .split__body > p, .quemsomos__intro > p, ' +
     '.quemsomos__p, .dofazemos__lead, .pilar__x, ' +
     '.section .title-split__text, ' +
     '.qmeta__v, .qmeta__l, .section .muted';
