@@ -68,16 +68,18 @@
 
   --ease: cubic-bezier(.22,.61,.36,1);
 
-  /* Tratamento da foto da hero: mais clara e mais fria (azulada).
-     Duas camadas: (1) filtro na própria imagem — levanta as luzes, abre as
-     sombras e tira saturação quente; (2) véu por cima — a gradação preta de
-     legibilidade, aliviada, mais um wash azul-aço.
+  /* Tratamento da foto da hero: quente e terrosa (bronze/sépia).
+     Duas camadas: (1) filtro na própria imagem — levanta ligeiramente as
+     luzes e puxa a temperatura para o âmbar sem lavar a cor; (2) véu por
+     cima — a gradação escura de legibilidade, mais um wash de bronze.
+     O saturate sobe de .78 para .92: a versão fria tirava saturação quente
+     de propósito, e é exatamente essa que agora queremos guardar.
      A cortina de transição usa exatamente estes tokens: mostra a mesma foto
      por cima da hero real e qualquer diferença de cor abriria costura. */
-  --hero-img-filter: brightness(1.14) contrast(.9) saturate(.78);
+  --hero-img-filter: brightness(1.06) contrast(.94) saturate(.92) sepia(.12);
   --hero-veil:
-    linear-gradient(180deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,.06) 45%, rgba(0,0,0,.55) 100%),
-    linear-gradient(180deg, rgba(104,146,196,.30) 0%, rgba(132,172,214,.20) 50%, rgba(58,92,138,.34) 100%);
+    linear-gradient(180deg, rgba(12,9,6,.38) 0%, rgba(12,9,6,.08) 45%, rgba(12,9,6,.58) 100%),
+    linear-gradient(180deg, rgba(150,110,62,.26) 0%, rgba(176,138,88,.16) 50%, rgba(96,68,38,.34) 100%);
 }
 
 /* ---------- Reset ---------- */
@@ -819,10 +821,14 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .seam__label{ display:inline-flex; align-items:center; gap:.7rem; color:var(--ink); font-weight:600; justify-self:start; }
 .seam__label::before{ content:""; width:8px; height:8px; flex:none; background:var(--accent); }
-/* A marca e o © levam o ocre; o ano fica a tinta. Assinam a costura sem a
-   transformar num elemento de destaque — por isso --accent-text (o tom que
-   cumpre AA como glifo) e não --accent. */
-.seam__brand{ white-space:nowrap; justify-self:center; font-weight:600; color:var(--accent-text); }
+/* A marca não é texto: é o mesmo logo horizontal da nav, a assinar a costura
+   sem a transformar num elemento de destaque. A altura vem em em (e não em
+   px) para ficar amarrada à escala da .seam__meta — assim cresce sozinha na
+   variante --top, onde a legenda também cresce. O © mantém o ocre e o ano
+   fica a tinta: --accent-text (o tom que cumpre AA como glifo), não --accent. */
+.seam__brand{ justify-self:center; display:inline-flex; align-items:center; line-height:0; }
+.seam__logo{ height:2.1em; width:auto; display:block; }
+.seam__logo--paper{ display:none; }
 .seam__index{ white-space:nowrap; font-variant-numeric:tabular-nums; justify-self:end; color:var(--ink); }
 .seam__copy{ color:var(--accent-text); }
 
@@ -838,7 +844,9 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .seam--dark .seam__meta{ color:rgba(255,255,255,.5); }
 .seam--dark .seam__label{ color:var(--paper); }
 .seam--dark .seam__label::before{ background:var(--accent-dk); }
-.seam--dark .seam__brand{ color:var(--paper); }
+/* Logo claro sobre fundo escuro — a mesma troca que a nav faz ao rolar. */
+.seam--dark .seam__logo--ink{ display:none; }
+.seam--dark .seam__logo--paper{ display:block; }
 .seam--dark .seam__index{ color:rgba(255,255,255,.78); }
 /* O © declara a própria cor (--accent-text, pensado para fundos claros), por
    isso NÃO herda o branco do .seam__index acima — tem de ser reposto aqui, no
