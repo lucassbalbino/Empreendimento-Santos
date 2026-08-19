@@ -13,17 +13,16 @@
 > `.member__role`, acento sobre `--paper-warm`, CLS do logótipo). Esses estão
 > resolvidos e documentados nos respetivos commits.
 
-**Estado:** 22 registados · **11 corrigidos** (P3, P5, P7, P8, M2, M3, M4, M5,
-M6, M7, M8 — mais a metade factual do M9) · 2 diagnósticos revistos (**P13** e
-**P2**, ambos estavam errados; ver os avisos nas entradas) · **9 por fechar**,
-dos quais 5 esperam decisão
+**Estado:** 22 registados · **14 fechados** (P1, P3, P4, P5, P7, P8, P13, M2,
+M3, M4, M5, M6, M7, M8 — mais a metade factual do M9) · 2 diagnósticos
+revistos (**P13** e **P2**, ambos estavam errados) · **6 por fechar**
 
 **Commits:** `71a9806` (M2) · `7fdb477` (registo) · `181194c` (P8, M5, M8, M9
 parcial) · `43b121e` (M3, M4) · `6e16cef` (M6, M7)
 
 ---
 
-## P1 · h1 de `/portfolio` e `/historico` sai 13% mais pequeno do que o desenhado
+## P1 ✅ FECHADO · h1 de `/portfolio` e `/historico` sai 13% mais pequeno do que o desenhado
 
 **Onde:** `public/styles.css` — `.section--flat-top .block-head .display{ font-size:clamp(2.5rem,6vw,4.6rem) }`
 
@@ -89,7 +88,7 @@ o gate. **Não** é uma troca de seletor.
 
 ---
 
-## P4 · `--brown` definido e sem consumidor
+## P4 ✅ FECHADO · `--brown` definido e sem consumidor
 
 **Onde:** `public/styles.css` — `:root`
 
@@ -207,7 +206,7 @@ o gate. **Não** é uma troca de seletor.
 
 ---
 
-## P13 · 🔴 A fonte de display não carrega — e a que existe **não serve para português**
+## P13 ✅ FECHADO · 🔴 A fonte de display não carrega — e a que existe **não serve para português**
 
 > ⚠️ **Diagnóstico revisto a 2026-08-19.** O que está escrito a seguir descrevia
 > o sintoma e presumia que a correção era repor o ficheiro. **Não é.** A
@@ -387,29 +386,33 @@ trás do logo"* — é falso: o logo vive em `.seam__meta`, que tem
 
 ## Como usar este registo
 
-Depois de as Tasks 6–10 estarem fechadas:
+### Decisões tomadas a 2026-08-19 — commit `0680f7d`
 
-**Precisam de decisão antes de qualquer código:**
+| # | Decisão | Resultado |
+|---|---|---|
+| **P13** | Assumir a Fraunces e excluir as referências à Kompot | Saem o `@font-face` e a família do `.title-split`. **Zero 404s** pela primeira vez. Fica nota histórica no styleguide: se a display completa for licenciada, é uma linha de CSS. |
+| **P4** | Manter como reserva documentada | O comentário do `:root` passa a dizer que o token não tem consumidor **de propósito**, em vez de prometer usos que a dose conservadora não executou. |
+| **P1** | Manter os 64px | Regra órfã removida, em vez de reposta com o seletor certo. |
+
+### Ainda por decidir
 
 | # | A decisão |
 |---|---|
-| **P13** | Licenciar a Kompot Display completa, ou assumir a Fraunces? Repor a demo está fora de questão — tira os acentos a todos os títulos. |
-| **P4** | O `--brown`: aplicar, remover, ou manter como reserva documentada? |
-| **P1** | O `<h1>` passa de 64px a 73.6px. É **visível**. |
-| **M1** | Ligar o manifest — e nesse caso rever o `background_color`. |
-| **M9** | O quadrado ocre das seams fica ou sai? |
+| **M1** | Ligar o manifest — e, se sim, rever o `background_color`: está `#241a12` e daria splash café a abrir para uma página branca. |
+| **M9** | O quadrado ocre das seams fica ou sai? É escolha de desenho, não bug. |
 
-**Aplicáveis já, risco nulo e sem efeito visual:** P8, M5, M8, e a metade
-factual do M9 (o comentário). P9 depende de P4.
+### Por fazer, sem depender de ninguém
 
-**Documentação, sem risco de código:** M3 e M4 — é a razão de ser da Task 9 e
-ficou por fazer.
+- **P9** — depois da decisão do P4, `.section--alt .fact` continua redundante e
+  pode sair. Risco nulo.
+- **P6** — a prop `palette` órfã: remover, ou manter como ponto de extensão.
+- **P2** — **trabalho de animação, não de cor.** Ler o aviso na entrada antes
+  de lhe tocar: a correção que lá estava originalmente partia o título.
+- **P10 e P11** — acessibilidade pré-existente. Merecem vaga própria, com
+  decisão sobre o método (o M7 já resolveu o equivalente no escuro).
+- **P12** — reavaliar quando as fotografias reais substituírem os placeholders.
 
-**Acessibilidade:** M6 e M7 são baratos e fechados (rodapé, tokens já
-existem). P10 e P11 são pré-existentes e merecem vaga própria, com decisão
-sobre o método. P12 reavalia-se quando as fotografias reais entrarem.
+### Já fechados
 
-**Trabalho de animação, não de cor:** P2. Ver o aviso na entrada — a correção
-que aqui estava partia o título.
-
-**Já fechados:** P3, P5, P7, M2.
+P1 · P3 · P4 · P5 · P7 · P8 · P13 · M2 · M3 · M4 · M5 · M6 · M7 · M8
+— e a metade factual do M9.
