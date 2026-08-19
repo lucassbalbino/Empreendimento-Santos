@@ -27,7 +27,6 @@
   --paper-alt:  #f2ece3;   /* areia clara — secção alternada */
   --paper-warm: #e9dfd1;   /* areia média — uso pontual (factos, citações) */
   --ink:        #1a1410;   /* texto principal — quase-preto acastanhado */
-  --ink-title:  #3b2a1c;   /* títulos serif — castanho-escuro */
   --ink-soft:   #5d5346;   /* texto secundário — taupe */
   --ink-faint:  #72685a;   /* rótulos discretos — sobe para cumprir AA (5.33:1) */
   --brown:      #6b4a2f;   /* castanho médio — ícones, molduras, detalhes */
@@ -460,10 +459,10 @@ body.is-home .site-footer{ position:relative; z-index:1; }
      com o viewport. Era isto que o JS antigo fazia a medir e a reescrever
      font-size; em CSS sai de graça e sem salto no resize. */
   font-size:clamp(1.6rem, 0.95rem + 3.4vw, 4rem);
-  /* Castanho-escuro em vez da tinta do corpo: é a maior superfície de castanho
-     da página sem lhe tocar no fundo. Os contextos escuros repõem o branco
-     logo abaixo — sem isso o título desaparecia sobre a hero. */
-  color:var(--ink-title);
+  /* Sem cor própria, de propósito: o título herda do contexto — tinta sobre
+     claro, branco sobre a hero e sobre .section--dark. É uma decisão de
+     desenho, não um esquecimento: os títulos ficam a preto e branco enquanto
+     o castanho vive nas superfícies e nos acentos. */
   text-wrap:balance;
   /* Medida de leitura por omissão: sem isto um título curto esticaria pela
      largura toda do .container (até 1480px) numa só linha interminável.
@@ -481,10 +480,6 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    split-type) e, sem align-self, estica à largura da caixa — é o que deixa o
    text-align de cada variante alinhar as linhas entre si. */
 .title-split__text{ display:block; }
-/* Reposição do branco onde o título assenta em escuro: a hero (foto + véu) e
-   qualquer .section--dark (portfólio, track record, equipa em /sobre-nos). */
-.hero .title-split,
-.section--dark .title-split{ color:var(--paper); }
 /* Variante para h1 de hero: mesma tipografia unificada, só maior e com mais
    medida (o título da hero pede linhas mais longas). */
 /* 17ch e não 14: o ch mede o glifo "0", e em maiúsculas de display as letras
