@@ -30,6 +30,13 @@ function init() {
     '.quemsomos__p, .dofazemos__lead, .pilar__x, ' +
     '.section .title-split__text, ' +
     '.qmeta__v, .qmeta__l, .section .muted';
+  // O bloco de abertura de /portfolio e /historico fica FORA deste sistema: o
+  // título e o lead têm entrada própria, coreografada com a cortina e disparada
+  // pela classe .is-entered (ver "h1 do 1.º bloco" em styles.css). O portão põe
+  // opacity:0 !important no elemento inteiro, por isso qualquer animação de
+  // linhas por baixo corria mascarada — trabalho perdido e duas animações a
+  // competir pelo mesmo elemento.
+  const FORA = '.section--flat-top .block-head';
   const REVEAL_MARGIN = '0px 0px -25% 0px'; // tardio: só quando bem dentro do ecrã
   const instances = []; // { el, split }
 
@@ -58,6 +65,7 @@ function init() {
 
   function build() {
     document.querySelectorAll(SEL).forEach((el) => {
+      if (el.closest(FORA)) return;
       const split = splitOne(el);
       instances.push({ el, split });
       io.observe(el);
@@ -79,6 +87,7 @@ function init() {
   // observa os restantes para revelar ao entrar em vista.
   function rebuildFrom(revealed) {
     document.querySelectorAll(SEL).forEach((el) => {
+      if (el.closest(FORA)) return;
       const split = splitOne(el);
       instances.push({ el, split });
       if (revealed.has(el)) {

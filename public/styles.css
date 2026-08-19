@@ -1482,14 +1482,20 @@ html.reveal-ready .section--flat-top .grid-projects .card-rise:nth-child(3n+3) .
    (leve, 26px) e faria saltar. Resolvido só por .is-entered, que o script
    adiciona depois de a cortina levantar. Gated por reveal-ready → em
    reduced-motion o título aparece normal, sem transição. */
-html.reveal-ready .section--flat-top .block-head .lead{
+/* O .title-split voltou a este portão. Tinha saído por engano no refactor que
+   trocou .display por .title-split: o seletor ficou a apontar para uma classe
+   que já não existia, e o h1 passou a animar pelo split-reveal genérico,
+   disparando por conta própria à carga em vez de esperar pela cortina. O
+   split-reveal deixou de o apanhar (ver FORA em split-reveal.js), por isso não
+   há duas animações a competir. */
+html.reveal-ready .section--flat-top .block-head :is(.title-split, .lead){
   opacity:0 !important;
   transform:translateY(80px) !important;
   transition:opacity .45s var(--ease),
              transform 1.9s cubic-bezier(.1,.25,.25,1) !important;
   will-change:transform, opacity;
 }
-html.reveal-ready .section--flat-top.is-entered .block-head .lead{
+html.reveal-ready .section--flat-top.is-entered .block-head :is(.title-split, .lead){
   opacity:1 !important;
   transform:none !important;
 }
