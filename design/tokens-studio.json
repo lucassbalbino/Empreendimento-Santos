@@ -1,19 +1,23 @@
 {
   "global": {
     "color": {
-      "paper":        { "value": "#ffffff", "type": "color", "description": "Fundo principal (branco)" },
-      "paper-alt":    { "value": "#f5f4f2", "type": "color", "description": "Fundo de secção alternada" },
-      "ink":          { "value": "#121212", "type": "color", "description": "Texto principal (quase preto)" },
-      "ink-soft":     { "value": "#565654", "type": "color", "description": "Texto secundário" },
-      "ink-faint":    { "value": "#9a9997", "type": "color", "description": "Labels discretos" },
-      "line":         { "value": "#e8e7e4", "type": "color", "description": "Linhas / divisores" },
-      "accent":       { "value": "#ea5a17", "type": "color", "description": "Laranja vibrante (marca)" },
-      "accent-deep":  { "value": "#c1470c", "type": "color", "description": "Laranja profundo (hover)" },
-      "accent-on-dark": { "value": "#ff7d38", "type": "color", "description": "Laranja sobre fundos escuros" },
-      "dark":         { "value": "#141414", "type": "color", "description": "Secções escuras / hero" },
-      "dark-soft":    { "value": "#0a0a0a", "type": "color", "description": "Preto mais profundo" },
-      "on-dark":      { "value": "#ffffff", "type": "color", "description": "Texto sobre fundos escuros/laranja" },
-      "on-dark-soft": { "value": "#cdd0d4", "type": "color", "description": "Texto secundário sobre escuro" }
+      "paper":        { "value": "#fdfcfa", "type": "color", "description": "Base do site — branco com um sopro de quente. Nunca fica castanha." },
+      "paper-alt":    { "value": "#f2ece3", "type": "color", "description": "Areia clara — secção alternada. É aqui que o castanho entra primeiro." },
+      "paper-warm":   { "value": "#e9dfd1", "type": "color", "description": "Areia média — uso pontual. Máx. dois tipos de bloco por página, nunca adjacentes." },
+      "ink":          { "value": "#1a1410", "type": "color", "description": "Texto principal e títulos — quase-preto acastanhado" },
+      "ink-soft":     { "value": "#5d5346", "type": "color", "description": "Texto secundário (taupe)" },
+      "ink-faint":    { "value": "#72685a", "type": "color", "description": "Rótulos discretos — escuro o bastante para cumprir AA (5.33:1)" },
+      "brown":        { "value": "#6b4a2f", "type": "color", "description": "Castanho médio — ícones, molduras, detalhes. EM RESERVA: ainda sem uso em produção." },
+      "line":         { "value": "#e3d9cb", "type": "color", "description": "Linhas / divisores terrosos" },
+      "accent":       { "value": "#b46511", "type": "color", "description": "Ocre queimado — a cor REAL do logótipo. Superfícies, dots, bordas, traços. NÃO serve para texto pequeno (4.26:1)." },
+      "accent-text":  { "value": "#9f590f", "type": "color", "description": "Acento como TEXTO sobre paper e paper-alt (5.24 / 4.57)" },
+      "accent-deep":  { "value": "#8d4f0c", "type": "color", "description": "Acento como TEXTO sobre paper-warm (4.90). Também hover/sweep." },
+      "accent-on-dark": { "value": "#d79142", "type": "color", "description": "Bronze claro — acento como texto sobre dark (4.85)" },
+      "dark":         { "value": "#241a12", "type": "color", "description": "Secções escuras em café. No CSS leva alpha e5; o fundo composto real é rgb(58,49,42)." },
+      "dark-soft":    { "value": "#150f0a", "type": "color", "description": "Café profundo" },
+      "on-dark":      { "value": "#f2ece3", "type": "color", "description": "Texto sobre fundos escuros (10.82 contra o fundo real)" },
+      "on-dark-soft": { "value": "#b8ab9a", "type": "color", "description": "Texto secundário sobre escuro (5.65)" },
+      "on-dark-dim":  { "value": "#a89d8f", "type": "color", "description": "Texto legal sobre escuro — o mais discreto que ainda cumpre AA (4.77)" }
     },
     "fontFamily": {
       "serif": { "value": "Fraunces", "type": "fontFamilies" },

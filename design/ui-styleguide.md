@@ -10,27 +10,75 @@ Referência para trabalhar a UI/UX no Figma. Os valores vêm de
 
 ---
 
-## 1. Paleta — preto · branco · laranja
+## 1. Paleta — branco · terra · ocre
+
+O acento é a cor **medida** no logótipo mestre
+(`referencias/imagens/LOGO AMS SANTOS HD.png` → `#b36818`). O laranja
+`#ea5a17` que o site usava até 2026-08 **nunca correspondeu à marca**:
+divergia ~12° de matiz e ~11pp de luminosidade.
+
+Toda a família fica entre **24° e 40°** de matiz — é essa disciplina que a
+faz ler como sistema e não como cores avulsas.
+
+### Superfícies — o branco domina, o castanho escalona
+
+| Token | Hex | Luminância | Uso |
+|---|---|---|---|
+| `paper` | `#fdfcfa` | **97.4%** | **Base do site.** Nunca fica castanha. |
+| `paper-alt` | `#f2ece3` | 84.4% | Areia clara — secção alternada. É aqui que o castanho entra primeiro. |
+| `paper-warm` | `#e9dfd1` | 74.7% | Areia média — uso **pontual**. |
+| `line` | `#e3d9cb` | 84.0% | Linhas / divisores |
+| `dark` | `#241a12` | — | Secções escuras em café. Leva alpha `e5` no CSS. |
+| `dark-soft` | `#150f0a` | — | Café profundo |
+
+### Tinta
 
 | Token | Hex | Uso |
 |---|---|---|
-| `paper` | `#ffffff` | Fundo principal (branco) |
-| `paper-alt` | `#f5f4f2` | Fundo de secção alternada |
-| `ink` | `#121212` | Texto principal (quase preto) |
-| `ink-soft` | `#565654` | Texto secundário |
-| `ink-faint` | `#9a9997` | Labels discretos |
-| `line` | `#e8e7e4` | Linhas / divisores |
-| **`accent`** | **`#ea5a17`** | **Laranja vibrante (marca)** — botões, links |
-| `accent-deep` | `#c1470c` | Laranja profundo (hover / sweep) |
-| `accent-on-dark` | `#ff7d38` | Laranja sobre fundos escuros (mais brilhante) |
-| `dark` | `#141414` | Secções escuras / hero |
-| `dark-soft` | `#0a0a0a` | Preto mais profundo |
+| `ink` | `#1a1410` | Texto principal **e títulos** — quase-preto acastanhado |
+| `ink-soft` | `#5d5346` | Texto secundário (taupe) |
+| `ink-faint` | `#72685a` | Rótulos discretos |
+| `brown` | `#6b4a2f` | Castanho médio — **em reserva**, ainda sem uso em produção |
 
-**Sobre escuro/laranja:** texto a `#ffffff`, secundário a `#cdd0d4`.
+### Acentos — um por superfície
 
-Regra da marca: alto contraste **branco ↔ preto**, com o **laranja** só
-como acento (nunca lavado). A faixa de contadores é a exceção — laranja
-a toda a largura, texto branco, palavra de destaque a preto.
+| Token | Hex | Onde |
+|---|---|---|
+| **`accent`** | **`#b46511`** | **Superfícies, dots, bordas, traços.** Não serve texto pequeno. |
+| `accent-text` | `#9f590f` | Acento como **texto** sobre `paper` / `paper-alt` |
+| `accent-deep` | `#8d4f0c` | Acento como **texto** sobre `paper-warm` (e hover / sweep) |
+| `accent-on-dark` | `#d79142` | Acento como **texto** sobre `dark` |
+
+**Sobre escuro:** texto a `#f2ece3`, secundário a `#b8ab9a`, legal a `#a89d8f`.
+
+---
+
+### As três regras que é fácil quebrar
+
+**1. O branco manda.** O castanho entra por camadas secundárias — secção
+alternada, linhas, superfícies pontuais e blocos escuros. **Nunca** pela
+superfície de leitura. `paper-warm` no máximo em **dois tipos de bloco** por
+página, nunca adjacentes, e nunca dentro de uma secção que já seja
+`paper-alt`.
+
+**2. Os títulos são a preto e branco.** O castanho vive nas superfícies e nos
+acentos, não na tipografia de título. Títulos herdam do contexto: `ink` sobre
+claro, branco sobre a hero e sobre secções escuras.
+
+**3. O acento muda com a superfície.** Se pinta **glifos**, escolhe pela
+superfície de baixo; se pinta **fundo ou traço**, é sempre `accent`:
+
+| Superfície | Acento como texto | Rácio |
+|---|---|---|
+| `paper` | `accent-text` | 5.24:1 |
+| `paper-alt` | `accent-text` | 4.57:1 |
+| `paper-warm` | `accent-deep` | 4.90:1 |
+| `dark` | `accent-on-dark` | 4.85:1 |
+
+> ⚠️ **Medir contra o fundo real, não contra o hex do token.** O `dark` tem
+> alpha `e5` e nunca renderiza opaco: compõe sobre o `paper` e o fundo
+> efetivo é **`rgb(58,49,42)`**. Medir contra `#241a12` dá valores ~26%
+> otimistas.
 
 ---
 
@@ -77,9 +125,11 @@ overlay com gradiente escuro em baixo; título (Fraunces 24), meta e CTA
 conteúdo alinhado em baixo. Alturas: **home 94vh**, **internas 80vh**.
 Título a branco; indicador "Scroll" em baixo.
 
-**Faixa de acento (`.section--accent`)** — fundo `accent` a toda a largura;
-título + números a branco; palavra de destaque do título a
-preto (`#141414`); divisores verticais a `rgba(255,255,255,.28)`.
+**~~Faixa de acento (`.section--accent`)~~** — ❌ **LEGADO, já não existe no
+site.** A faixa laranja a toda a largura foi retirada do desenho: o acento
+passou a viver nos números, ao longo da página, em vez de saturar uma só
+secção. O CSS ainda tem as regras, mas nenhuma página as usa — estão marcadas
+para remoção. **Não reconstruir no Figma.**
 
 **Ficha de factos (`.facts`)** — grelha de cartões brancos, borda `line`,
 raio 12px: valor em Fraunces (~32px) + rótulo MAIÚSCULAS 12px `ink-soft`.
