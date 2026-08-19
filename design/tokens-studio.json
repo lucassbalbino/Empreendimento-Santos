@@ -20,7 +20,8 @@
       "on-dark-dim":  { "value": "#a89d8f", "type": "color", "description": "Texto legal sobre escuro — o mais discreto que ainda cumpre AA (4.77)" }
     },
     "fontFamily": {
-      "serif": { "value": "Fraunces", "type": "fontFamilies" },
+      "display": { "value": "Kompot Display", "type": "fontFamilies", "description": "Títulos de hero e de secção (.title-split), peso 700, MAIÚSCULAS. NÃO está no repositório — hoje cai para Fraunces. Ver P13." },
+      "serif": { "value": "Fraunces", "type": "fontFamilies", "description": "Cards, nomes, factos, contadores — e fallback dos títulos" },
       "sans":  { "value": "Inter", "type": "fontFamilies" }
     },
     "fontWeight": {
@@ -31,8 +32,8 @@
       "bold":     { "value": "700", "type": "fontWeights" }
     },
     "fontSize": {
-      "hero":       { "value": "88", "type": "fontSizes", "description": "Hero interno (máx.). Responsivo: 42–88" },
-      "display":    { "value": "66", "type": "fontSizes", "description": "Títulos de secção (máx.). Responsivo: 34–66" },
+      "hero":       { "value": "90", "type": "fontSizes", "description": "Hero, .title-split--hero (máx. 5.6rem = 89.6, medido a 1440). Responsivo: 24–90. MAIÚSCULAS, peso 700." },
+      "display":    { "value": "64", "type": "fontSizes", "description": "Títulos de secção, .title-split (máx. 4rem, medido a 1440). Responsivo: 15–64. MAIÚSCULAS, peso 700." },
       "display-sm": { "value": "45", "type": "fontSizes", "description": "Títulos menores. Responsivo: 27–45" },
       "stat":       { "value": "59", "type": "fontSizes", "description": "Números dos contadores" },
       "h3":         { "value": "38", "type": "fontSizes" },
@@ -62,14 +63,15 @@
       "64":      { "value": "64",  "type": "spacing" },
       "96":      { "value": "96",  "type": "spacing" },
       "128":     { "value": "128", "type": "spacing" },
-      "gutter":  { "value": "72",  "type": "spacing", "description": "Margem lateral do container (máx.)" },
-      "section": { "value": "120", "type": "spacing", "description": "Padding vertical de secção (máx.)" }
+      "gutter":  { "value": "52",  "type": "spacing", "description": "Margem lateral do container. CSS: clamp(18px, 3.4vw, 52px)" },
+      "section": { "value": "240", "type": "spacing", "description": "Padding vertical de secção, medido a 1440. CSS: clamp(168px, 18vw, 300px)" }
     },
     "sizing": {
-      "maxWidth": { "value": "1280", "type": "sizing", "description": "Largura máxima do container" }
+      "maxWidth": { "value": "1480", "type": "sizing", "description": "Largura máxima do container (--maxw)" }
     },
     "borderRadius": {
-      "md":   { "value": "12",  "type": "borderRadius" },
+      "md":   { "value": "12",  "type": "borderRadius", "description": "Factos" },
+      "card": { "value": "6",   "type": "borderRadius", "description": "Cards de projeto (--card-radius)" },
       "pill": { "value": "999", "type": "borderRadius" }
     },
     "typography": {

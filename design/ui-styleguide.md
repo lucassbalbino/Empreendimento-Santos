@@ -93,14 +93,24 @@ superfície de baixo; se pinta **fundo ou traço**, é sempre `accent`:
 
 ## 2. Tipografia
 
-Duas famílias (Google Fonts) — **instala ambas no Figma**:
-- **Fraunces** (serif) — títulos. Pesos 300 e 400.
+Três famílias — **instala as três no Figma**:
+- **Kompot Display** — títulos de hero e de secção (`.title-split`).
+  Peso 700, sempre em **MAIÚSCULAS**. Não é do Google Fonts.
+- **Fraunces** (serif) — todo o resto do serif: cards, nomes, factos,
+  contadores. Pesos 300/400/500.
 - **Inter** (sans) — texto, labels, botões. Pesos 400/500/600/700.
 
-| Estilo | Fonte | Peso | Tamanho (px) | Entrelinha | Tracking | Notas |
-|---|---|---|---|---|---|---|
-| Hero (páginas internas) | Fraunces | 300 | 88 (resp. 42–88) | 105% | — | |
-| Display (h2 de secção) | Fraunces | 400 | 66 (resp. 34–66) | 110% | — | |
+> ⚠️ **Estado real hoje:** o ficheiro da Kompot Display **não está no
+> repositório**, por isso todos os títulos renderizam na Fraunces (o
+> fallback). E a versão *demo* que existe em `referencias/fontes/` **não
+> serve**: não tem acentos — desenha `Á` como `A` e `Ç` como `C`. Enquanto
+> isto não estiver decidido, desenha os títulos em Fraunces e trata a Kompot
+> como intenção, não como facto. Ver P13 no registo de bugs.
+
+| Estilo | Fonte | Peso | Tamanho (px) | Entrelinha | Caixa |
+|---|---|---|---|---|---|
+| Hero (`.title-split--hero`) | Kompot Display | 700 | 90 (resp. 24–90) | 105% | MAIÚSCULAS |
+| Título de secção (`.title-split`) | Kompot Display | 700 | 64 (resp. 15–64) | 110% | MAIÚSCULAS |
 | Display SM | Fraunces | 400 | 45 (resp. 27–45) | 110% | — | |
 | Nº contador | Fraunces | 400 | 59 | 100% | — | tabular-nums |
 | Título de card | Fraunces | 400 | 24 | 110% | — | |
@@ -112,12 +122,21 @@ Duas famílias (Google Fonts) — **instala ambas no Figma**:
 
 ## 3. Layout & espaçamento
 
-- **Container:** largura máx. `1280px`, margem lateral `gutter` (20 → 72px).
-- **Padding vertical de secção:** 72 → 150px (usa `section` = 120 como base no Figma).
+Valores lidos do CSS vivo (`--maxw`, `--gutter`, `--section`).
+
+- **Container:** largura máx. **`1480px`**, margem lateral `gutter`
+  **`clamp(18px, 3.4vw, 52px)`** (usa **52** como base no Figma a 1440).
+- **Padding vertical de secção:** **`clamp(168px, 18vw, 300px)`**
+  (usa **240** como base no Figma a 1440). O site respira muito mais do que a
+  versão anterior deste guia dizia.
 - **Escala de espaçamento:** 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128.
-- **Raios:** `md` = 12px (cards/factos), `pill` = 999px (chips, círculos).
+- **Raios:** `md` = 12px (factos), **`card` = 6px** (cards de projeto),
+  `pill` = 999px (chips, círculos).
 - **Grelhas:** cards de projeto em 3 colunas (2 em tablet, 1 em telemóvel);
-  contadores em 5 colunas (2 / 1); factos e galeria em 3 colunas.
+  factos e galeria em 3 colunas.
+- **Contadores:** **não** são uma fila de 5. `/sobre-nos` usa `.stats--compact`
+  (2 colunas, secção escura); a home usa `.facts--contadores` (2×2, sobre o
+  branco). A `.stats` de 5 colunas existe no CSS mas **nunca renderiza**.
 
 ---
 
@@ -137,8 +156,7 @@ Título a branco; indicador "Scroll" em baixo.
 **~~Faixa de acento (`.section--accent`)~~** — ❌ **LEGADO, já não existe no
 site.** A faixa laranja a toda a largura foi retirada do desenho: o acento
 passou a viver nos números, ao longo da página, em vez de saturar uma só
-secção. O CSS ainda tem as regras, mas nenhuma página as usa — estão marcadas
-para remoção. **Não reconstruir no Figma.**
+secção. As regras **já foram removidas** do CSS. **Não reconstruir no Figma.**
 
 **Ficha de factos (`.facts`)** — grelha de cartões brancos, borda `line`,
 raio 12px: valor em Fraunces (~32px) + rótulo MAIÚSCULAS 12px `ink-soft`.
@@ -153,9 +171,9 @@ scrolled), nav horizontal Inter; em ≤1024px vira menu hambúrguer.
 
 ## 5. Páginas a reconstruir no Figma
 
-1. **Home** (`/`) — hero, Quem Somos, **faixa laranja de contadores**,
-   Portfólio (scroller de cards), Track record (secção escura com painéis),
-   Equipa, Contacto.
+1. **Home** (`/`) — hero, Quem Somos, contadores (grelha 2×2 sobre o branco,
+   **sem faixa de fundo** — ver §4), Portfólio (scroller de cards), Track
+   record (secção escura com painéis), Equipa, Contacto.
 2. **Portfólio** (`/portfolio`) — hero + 2 grelhas (em desenvolvimento /
    futuros) + contacto.
 3. **Histórico** (`/historico`) — hero + grelha de concluídos + contacto.
