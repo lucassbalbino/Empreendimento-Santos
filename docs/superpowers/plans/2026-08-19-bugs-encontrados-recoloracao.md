@@ -13,7 +13,8 @@
 > `.member__role`, acento sobre `--paper-warm`, CLS do logótipo). Esses estão
 > resolvidos e documentados nos respetivos commits.
 
-**Estado:** 13 registados · 3 corrigidos (P3, P5, P7)
+**Estado:** 22 registados · 4 corrigidos (P3, P5, P7, M2) · 2 diagnósticos
+revistos (**P13** e **P2** — ambos estavam errados; ver os avisos nas entradas)
 
 ---
 
@@ -35,13 +36,37 @@
 
 **Onde:** `public/styles.css` — `html.reveal-ready .section--flat-top .block-head :is(.display, .lead)` (e a regra `.is-entered` correspondente)
 
+> ⚠️ **Corrigido a 2026-08-19.** A descrição e a correção que aqui estavam
+> estavam **ambas erradas**. Ver abaixo.
+
 **Causa:** a mesma de P1 — o `<h1>` é `.title-split`, não `.display`.
 
-**Efeito:** em `/portfolio` e `/historico` só o `.lead` faz o slide de entrada; o título aparece já assente.
+**~~Efeito:~~** ~~só o `.lead` faz o slide de entrada; o título aparece já assente.~~
 
-**Correção:** `:is(.title-split, .lead)` nos dois seletores.
+**Efeito real:** o título **anima**. O `src/scripts/split-reveal.js:29` tem
+`'.section .title-split__text'` no seletor, e `.section--flat-top` traz também
+a classe `section` (`portfolio.astro:22`, `historico.astro:34`) — portanto o
+`<h1>` é partido em linhas e revelado pelo IntersectionObserver como qualquer
+outro título do site.
 
-**Risco:** baixo. Repõe movimento hoje perdido. Resolve-se com P1 na mesma passagem.
+O que se perdeu é mais subtil: o slide pesado de **1.9s coordenado com a
+cortina** (gated por `.is-entered`, que o script da página só põe depois de a
+cortina levantar). Hoje o título anima com o reveal genérico, disparando por
+conta própria à carga. É uma perda de *coreografia*, não de movimento.
+
+**~~Correção:~~** ~~`:is(.title-split, .lead)` nos dois seletores.~~ ❌ **Não
+aplicar.** Colaria `opacity:0 !important; transform:translateY(80px)
+!important` num elemento cujas linhas interiores já estão mascaradas e a
+animar. Resultado: animação dupla, e o `opacity:0 !important` mantém o título
+**invisível** até `.is-entered` mesmo depois de o line-reveal ter corrido — ou
+seja, troca uma perda de coreografia por um título que pode não aparecer.
+
+**Correção correta:** ou excluir o `.title-split` do `split-reveal.js` (para o
+gate `.is-entered` voltar a ser o único dono da animação do `<h1>`), ou mudar
+o gate. **Não** é uma troca de seletor.
+
+**Risco:** médio, e é trabalho de animação, não de cor. Separar de P1 — P1 é só
+`font-size` e resolve-se sozinho.
 
 ---
 
@@ -177,7 +202,14 @@
 
 ---
 
-## P13 · 🔴 A fonte de display do site nunca carrega — todos os títulos estão em fallback
+## P13 · 🔴 A fonte de display não carrega — e a que existe **não serve para português**
+
+> ⚠️ **Diagnóstico revisto a 2026-08-19.** O que está escrito a seguir descrevia
+> o sintoma e presumia que a correção era repor o ficheiro. **Não é.** A
+> investigação está na secção *"O que a investigação encontrou"*, no fim desta
+> entrada — lê primeiro essa. O texto original fica para se perceber o percurso.
+
+
 
 **Onde:** `public/styles.css` — `@font-face{ font-family:"Kompot Display"; src:url("/fonts/KompotDisplay.otf") }`
 
@@ -197,16 +229,182 @@ fontes no documento   : Fraunces (loaded), Inter (loaded), Kompot Display (error
 
 **Prioridade: a mais alta do registo.** É o único item aqui com impacto em todas as páginas e na identidade visual.
 
+### O que a investigação encontrou
+
+**1. Não foi licença nem `.gitignore` — foi uma eliminação acidental.**
+
+```
+df9d03f  A  public/fonts/KompotDisplay.otf   ← adicionado
+01c8d61  D  public/fonts/KompotDisplay.otf   ← apagado
+```
+
+O `01c8d61` é *"commiting, sobre nos o que fazemos section"* — trabalho noutra
+secção. O ficheiro saiu à boleia. `.gitignore` só tem `node_modules/`,
+`dist/`, `.astro/`.
+
+**2. O ficheiro é recuperável — e é a demo.** Reposto de `df9d03f` para teste,
+o md5 é **idêntico** ao de `referencias/fontes/kompot-display-demo.otf`. A
+tabela `name` declara a família como **"Kompot Display Demo"**.
+
+**3. E a demo não desenha português.** Testado por dois métodos independentes
+que concordam — parser do `cmap` e deteção de fallback por glifo no motor real
+(medir o caractere com `"Kompot", serif` e com `"Kompot", monospace`: se as
+larguras batem, usou a Kompot nas duas):
+
+| | Estado |
+|---|---|
+| `A-Z` `a-z` | ✅ completas |
+| Dígitos | ⚠️ `0 1 · 3 4 · 6 7 · 9` — **faltam 2, 5, 8** |
+| Pontuação `. , ? ! : — & ( )` | 🔴 **nenhuma** |
+| Acentos | 🔴 **mapeados ao glifo da letra base** |
+
+O último ponto é o que decide. Os codepoints acentuados **existem** no `cmap`
+— por isso nenhum teste automático os dá como em falta — mas apontam para o
+desenho da letra **sem acento**. Renderizado a 82px, `Á À Â Ã É Ê Í Ó Ô Õ Ú Ç`
+sai `A A A A E E I O O O U C`: sem til, sem agudo, **sem cedilha**.
+
+Na prática, com esta fonte reposta:
+
+| Título | Como renderiza |
+|---|---|
+| SOBRE NÓS | SOBRE **NOS** |
+| EDIFÍCIO BAIRRO DA VITÓRIA | **EDIFICIO** BAIRRO DA **VITORIA** |
+| QUEM CONSTRÓI, TODOS OS DIAS | QUEM **CONSTROI**, … (vírgula em Fraunces) |
+| CONDOMÍNIO SANTOS — MURTEIRA II | **CONDOMINIO** … (travessão em Fraunces) |
+
+Não é um defeito cosmético de pontuação: é **erro ortográfico em todos os
+títulos acentuados do site**, e o site é todo em português.
+
+**4. O ficheiro de teste foi removido.** A árvore ficou como estava.
+
+### Correção — decisão do utilizador
+
+| Opção | O que implica |
+|---|---|
+| **(a) Licenciar a Kompot Display completa** | Única via para a identidade desenhada. A versão paga tem acentos, pontuação e dígitos. Repor a demo **não** substitui isto. |
+| **(b) Assumir a Fraunces** (recomendada até haver (a)) | É o que o site já mostra hoje, em todas as páginas. Retirar o `@font-face` e a primeira entrada do `font-family` do `.title-split` — acaba o 404 por página e o CSS passa a dizer a verdade. **Zero alteração visual.** |
+| **(c) Repor a demo** | ❌ Não recomendada. Troca um 404 por títulos sem acentos. |
+
+**Nota:** a opção (b) é reversível numa linha e não fecha a porta à (a).
+
+---
+
+## Série M — encontrados na revisão final das Tasks 6–10 (2026-08-19)
+
+Todos verificados de forma independente antes de entrarem aqui.
+
+### M1 · O `site.webmanifest` nunca é lido
+
+`grep -rn "webmanifest\|rel=\"manifest\"" src/ public/` → **zero**.
+`Base.astro:25` só tem `<link rel="icon">`.
+
+**Efeito:** a Task 8 é **inerte** na parte do PWA — o browser nunca abre o
+ficheiro, logo `theme_color` e `background_color` não fazem nada. (O
+`<meta name="theme-color">` no `Base.astro:26` esse funciona.)
+
+**Correção:** `<link rel="manifest" href="/site.webmanifest">`. **Mas rever
+antes o `background_color`:** está `#241a12` num site `color-scheme: only
+light` cujo `body` é `--paper` — daria splash café a abrir para página branca.
+Provavelmente quer ser `#fdfcfa`.
+
+### M2 ✅ CORRIGIDO · Tokens `on-dark` prometidos ao Figma e inexistentes no CSS
+
+Quatro nomes do `tokens-studio.json` sem contraparte no `:root`, e cinco hex à
+mão no rodapé — um deles literalmente o `--paper-alt`. Mesmo defeito que o P7
+fechou, no mesmo ramo. **Commit `71a9806`.** Verificado: 17/17 tokens batem, e
+as cinco cores computadas do rodapé não mudaram.
+
+### M3 · `design/figma-setup.md:90` ainda manda usar o laranja antigo
+
+> *"Mantém a lógica da marca: **branco + preto + laranja** (`#ea5a17`)"*
+
+É o guia que se lê **primeiro** para montar o Figma, e contradiz o styleguide
+ao lado. **Correção:** `#b46511`, e alinhar a frase com a §1 do styleguide.
+
+### M4 · O styleguide contradiz-se e descreve tipografia que não existe
+
+- **§4 vs §5** — a §4 diz que a faixa de acento é legado e "não reconstruir";
+  a §5 continua a listar *"faixa laranja de contadores"* nos componentes da
+  Home. Além disso a §4 diz *"o CSS ainda tem as regras"* — a Task 10 removeu-as
+  no commit seguinte.
+- **§2 (tipografia)** — diz Fraunces 400/300, caixa mista, Display 66px. A
+  produção é `.title-split`: `"Kompot Display"`, `700`, `uppercase`, até
+  `5.6rem`. *(Ver P13: hoje cai para Fraunces, mas por defeito, não por
+  desenho.)*
+- **§3 (layout)** — container `1280px` vs `--maxw:1480px`; gutter "20→72px" vs
+  `clamp(18px,3.4vw,52px)`; secção "72→150px" vs `clamp(168px,18vw,300px)`;
+  `--card-radius:6px` não documentado; "contadores em 5 colunas" nunca
+  renderiza (`/sobre-nos` usa `.stats--compact`, a home usa `.facts--contadores`).
+
+**Correção:** uma passagem só. A §1 já foi corrigida pela Task 9; as outras não.
+
+### M5 · `split-reveal.js:27` — terceiro órfão do refactor `.display`
+
+`'.section .display, …'`. A classe tem **zero** ocorrências em `src/`.
+Mesma causa de P1/P2, mas fora do CSS. **Correção:** remover do seletor.
+**Risco: nenhum** — não corresponde a nada hoje.
+
+### M6 · Placeholder do input da newsletter quase invisível
+
+`styles.css` — `.news input` não declara `::placeholder`. O cinzento default
+do UA (~`#757575`) sobre o fundo real `rgb(58,49,42)` dá **≈2.7:1**.
+É o único campo do site sobre escuro.
+
+**Correção:** `.news input::placeholder{ color:var(--on-dark-dim) }` → 4.77:1.
+
+### M7 · A linha do campo da newsletter falha 1.4.11
+
+`.news{ border-bottom:1px solid rgba(255,255,255,.25) }` = **2.21:1** sobre o
+fundo real. É a única indicação visual do campo — mesmo problema do P11, mas
+no escuro. **Correção:** subir para `rgba(255,255,255,.42)` (≈3.1:1).
+
+### M8 · Comentário desatualizado em `styles.css:841`
+
+Diz `#141414e5`; é `#241a12e5` desde a Task 3. Bloco `.seam--dark`.
+
+### M9 · Quadrado de acento nas seams — não planeado, e o comentário mente
+
+Três commits mexeram na seam sem o declararem na mensagem: `5e5f5d2` (commit
+do **rodapé**) criou `.seam__rule::before`, um quadrado ocre de 9px em **todas
+as costuras do site**; `a632861` substituiu-o por `.seam__mark`; `f486ee3`
+reverteu ao quadrado. Resíduo líquido: um elemento visual novo em todas as
+seams, sem passo no plano.
+
+Ainda bem que a Task 10 reverteu — senão o CSS (`.seam__mark`) e o markup
+(`.seam__logo`) ficavam desalinhados e a marca da costura desaparecia.
+
+**Correção:** decidir se o quadrado fica (é uma escolha de desenho, não um
+bug) e corrigir o comentário de `styles.css:799-800`, que diz *"exatamente por
+trás do logo"* — é falso: o logo vive em `.seam__meta`, que tem
+`margin-top:2.6rem`. O quadrado está **sobre a régua**.
+
 ---
 
 ## Como usar este registo
 
 Depois de as Tasks 6–10 estarem fechadas:
 
-0. **P13 primeiro** — é o único com impacto em todas as páginas. Precisa de uma decisão que não é técnica: a fonte existe e está licenciada, ou assume-se a Fraunces?
-1. **Decidir P4** (o `--brown`) — precisa de escolha de desenho antes de qualquer código.
-2. **Aplicar em bloco P3, P7, P8** — risco nulo, sem efeito visual.
-3. **Aplicar P1 + P2 juntos** — mesma troca de seletor, mas **muda o aspeto**: confirmar antes.
-4. **P5, P6, P9** — já são âmbito da Task 10.
-5. **P10, P11** — acessibilidade pré-existente; merecem uma vaga própria, com decisão sobre o método.
-6. **P12** — reavaliar só quando as fotografias reais substituírem os placeholders.
+**Precisam de decisão antes de qualquer código:**
+
+| # | A decisão |
+|---|---|
+| **P13** | Licenciar a Kompot Display completa, ou assumir a Fraunces? Repor a demo está fora de questão — tira os acentos a todos os títulos. |
+| **P4** | O `--brown`: aplicar, remover, ou manter como reserva documentada? |
+| **P1** | O `<h1>` passa de 64px a 73.6px. É **visível**. |
+| **M1** | Ligar o manifest — e nesse caso rever o `background_color`. |
+| **M9** | O quadrado ocre das seams fica ou sai? |
+
+**Aplicáveis já, risco nulo e sem efeito visual:** P8, M5, M8, e a metade
+factual do M9 (o comentário). P9 depende de P4.
+
+**Documentação, sem risco de código:** M3 e M4 — é a razão de ser da Task 9 e
+ficou por fazer.
+
+**Acessibilidade:** M6 e M7 são baratos e fechados (rodapé, tokens já
+existem). P10 e P11 são pré-existentes e merecem vaga própria, com decisão
+sobre o método. P12 reavalia-se quando as fotografias reais entrarem.
+
+**Trabalho de animação, não de cor:** P2. Ver o aviso na entrada — a correção
+que aqui estava partia o título.
+
+**Já fechados:** P3, P5, P7, M2.
