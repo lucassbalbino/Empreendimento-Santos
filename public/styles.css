@@ -1295,8 +1295,14 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    cascata e ficava invisível a qualquer mudança de paleta. Passa a classe,
    ao lado dos irmãos. O margin-top também sai do inline. */
 .check--footer{ margin-top:1rem; color:var(--on-dark-soft); }
-.news{ display:flex; border-bottom:1px solid rgba(255,255,255,.25); }
+/* A sublinha é a ÚNICA indicação visual de que aqui há um campo — é o
+   equivalente escuro do P11. A .25 dava 2.21:1 contra o fundo composto real
+   rgb(58,49,42), abaixo dos 3:1 que a WCAG 1.4.11 pede a controlos. */
+.news{ display:flex; border-bottom:1px solid rgba(255,255,255,.42); }
 .news input{ flex:1; background:none; border:0; color:#fff; padding:.6rem 0; font-size:.9rem; }
+/* Sem esta regra o placeholder herdava o cinzento do UA (~#757575), que sobre
+   o fundo escuro do rodapé dá ~2.7:1. É o único campo do site sobre escuro. */
+.news input::placeholder{ color:var(--on-dark-dim); opacity:1; }
 .news input:focus{ outline:0; }
 .news button{ background:none; border:0; color:var(--accent-dk); cursor:pointer; font-size:1.1rem; }
 .footer-bottom{ margin-top:clamp(40px,5vw,72px); padding-top:1.6rem; border-top:1px solid rgba(255,255,255,.12); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.72rem; letter-spacing:.08em; color:var(--on-dark-dim); text-transform:uppercase; }
