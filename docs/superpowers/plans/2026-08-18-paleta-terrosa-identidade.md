@@ -69,7 +69,7 @@ Mesma saturação, **+12° para o âmbar** e **−11pp de luminosidade** — é 
 | Token | Antigo | **Novo** | Papel |
 |---|---|---|---|
 | `--ink` | `#121212` | **`#1a1410`** | Texto principal — quase-preto acastanhado. |
-| `--ink-title` | *(não existia)* | **`#3b2a1c`** | **Novo.** Títulos de secção (`.title-split`, em *Kompot Display* — **não** Fraunces) em castanho-escuro. **O maior ganho de castanho por área.** |
+| ~~`--ink-title`~~ | — | ~~`#3b2a1c`~~ | ❌ **REVERTIDO E REMOVIDO.** Decisão do utilizador: os títulos que eram pretos ou brancos mantêm-se pretos e brancos. O `.title-split` volta a herdar do contexto e o token deixou de existir. |
 | `--ink-soft` | `#565654` | **`#5d5346`** | Texto secundário — taupe. |
 | `--ink-faint` | `#9a9997` | **`#72685a`** | Rótulos discretos. **Escurece de propósito** — ver §3. |
 | `--brown` | *(não existia)* | **`#6b4a2f`** | **Novo.** Castanho médio — ícones, molduras, superfícies pequenas. |
@@ -103,13 +103,11 @@ Todos os pares calculados sobre a paleta nova. Alvo: **AA texto normal = 4.5:1**
 | Par | Ratio | Veredito |
 |---|---|---|
 | `--ink` / `--paper` | 17.79:1 | ✅ |
-| `--ink-title` / `--paper` | 13.35:1 | ✅ |
 | `--ink-soft` / `--paper` | 7.34:1 | ✅ |
 | `--ink-faint` / `--paper` | 5.33:1 | ✅ *(era 2.85:1 — falhava)* |
 | `--brown` / `--paper` | 7.74:1 | ✅ |
 | `--accent-text` / `--paper` | 5.24:1 | ✅ |
 | `--ink` / `--paper-alt` | 15.53:1 | ✅ |
-| `--ink-title` / `--paper-alt` | 11.66:1 | ✅ |
 | `--ink-soft` / `--paper-alt` | 6.41:1 | ✅ |
 | `--accent-text` / `--paper-alt` | 4.57:1 | ✅ |
 | `--ink` / `--paper-warm` | 13.84:1 | ✅ |
@@ -266,7 +264,6 @@ O passo que faz o site ler castanho **sem deixar de ser branco**.
   --paper-alt:  #f2ece3;   /* areia clara — secção alternada */
   --paper-warm: #e9dfd1;   /* areia média — uso pontual (factos, citações) */
   --ink:        #1a1410;   /* texto principal — quase-preto acastanhado */
-  --ink-title:  #3b2a1c;   /* títulos serif em castanho-escuro */
   --ink-soft:   #5d5346;   /* texto secundário — taupe */
   --ink-faint:  #72685a;   /* rótulos discretos (agora AA — ver §3) */
   --brown:      #6b4a2f;   /* castanho médio — ícones, molduras */
@@ -304,12 +301,12 @@ git commit -m "feat(cor): familia de castanhos nas superficies, tinta e linhas"
 
 ### Task 4 ✅ CONCLUÍDA: Aplicar o castanho onde ele se vê
 
-Os tokens de Task 3 só rendem se forem **usados**. Esta task coloca `--ink-title`, `--paper-warm` e `--brown` em serviço.
+Os tokens de Task 3 só rendem se forem **usados**. Esta task coloca `--paper-warm` em serviço. (O `--ink-title` foi aplicado e depois **revertido** a pedido do utilizador — ver §2; o `--brown` ficou em reserva — ver Task 10.)
 
 **Files:**
 - Modify: `public/styles.css`
 
-- [x] **Step 1: Títulos serif a castanho-escuro.** É a maior superfície de castanho da página sem lhe tocar no fundo. Aplicar `color:var(--ink-title)` aos títulos em Fraunces:
+- [x] ~~**Step 1: Títulos a castanho-escuro.**~~ ❌ **REVERTIDO.** Foi aplicado ao `.title-split` e desfeito a pedido do utilizador: títulos ficam a preto e branco. Nota factual para quem reler: o `.title-split` **não é Fraunces** — é `"Kompot Display", var(--serif)`, onde o serif é só fallback.
 
 ```bash
 grep -n "\.display\|\.hero__title\|\.block-head\|font-family:var(--serif)" public/styles.css
@@ -342,14 +339,14 @@ git commit -m "feat(cor): titulos a castanho-escuro e superficies quentes pontua
 
 ---
 
-### Task 5: Hero — de azul-aço para bronze
+### Task 5 ✅ CONCLUÍDA: Hero — de azul-aço para bronze
 
 A maior inversão do plano. O tratamento atual é **explicitamente frio** ("mais clara e mais fria (azulada)… wash azul-aço") — é o que resta a contradizer o registo terroso.
 
 **Files:**
 - Modify: `public/styles.css`
 
-- [ ] **Step 1: Substituir o filtro e o véu** em `:root` (~linhas 53–62), **comentário incluído**:
+- [x] **Step 1: Substituir o filtro e o véu** em `:root` (~linhas 53–62), **comentário incluído**:
 
 ```css
   /* Tratamento da foto da hero: quente e terrosa (bronze/sépia).
@@ -366,7 +363,7 @@ A maior inversão do plano. O tratamento atual é **explicitamente frio** ("mais
 
 **Notas de intenção:** `saturate` sobe de `.78` → `.92` (o antigo tirava saturação quente de propósito — agora queremos guardá-la); `sepia(.12)` dá o pouso terroso; o preto do véu passa de neutro a `rgba(12,9,6)`, quente.
 
-- [ ] **Step 2: Confirmar que não há cópias.**
+- [x] **Step 2: Confirmar que não há cópias.**
 
 ```bash
 grep -n "hero-veil\|hero-img-filter" public/styles.css
@@ -374,15 +371,15 @@ grep -n "hero-veil\|hero-img-filter" public/styles.css
 
 Esperado: **uma** definição de cada + consumos por `var()`. Se aparecer um gradiente duplicado à mão, é bug pré-existente — corrigir para `var()` e registar no commit.
 
-- [ ] **Step 3: Build.** `npm run build` — sem erros.
+- [x] **Step 3: Build.** `npm run build` — sem erros.
 
-- [ ] **Step 4: Verificação visual — a mais importante do plano.**
+- [x] **Step 4: Verificação visual — a mais importante do plano.**
   - `/` — a hero lê **bronze/dourado**, não azul.
   - **Navegar da home para `/sobre-nos` pela navbar** e observar a cortina: ao assentar sobre a hero real **não pode haver costura** (linha ou salto de cor). Se houver, os tokens divergiram — voltar ao Step 2.
   - Repetir em `/equipa`, `/contactos` e num `/empreendimentos/<slug>`.
   - O título branco da hero continua legível (o véu escureceu ligeiramente, portanto melhora).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add public/styles.css
@@ -537,7 +534,6 @@ Sem esta task o Figma e o site divergem — e o styleguide passa a mentir.
       "paper-alt":      { "value": "#f2ece3", "type": "color", "description": "Areia clara — secção alternada" },
       "paper-warm":     { "value": "#e9dfd1", "type": "color", "description": "Areia média — uso pontual" },
       "ink":            { "value": "#1a1410", "type": "color", "description": "Texto principal" },
-      "ink-title":      { "value": "#3b2a1c", "type": "color", "description": "Títulos serif (castanho-escuro)" },
       "ink-soft":       { "value": "#5d5346", "type": "color", "description": "Texto secundário (taupe)" },
       "ink-faint":      { "value": "#72685a", "type": "color", "description": "Rótulos discretos" },
       "brown":          { "value": "#6b4a2f", "type": "color", "description": "Castanho médio — detalhes" },
@@ -554,7 +550,7 @@ Sem esta task o Figma e o site divergem — e o styleguide passa a mentir.
 
 - [ ] **Step 2: `design/ui-styleguide.md`** — atualizar a §1 e o texto à volta:
   - Título: `## 1. Paleta — preto · branco · laranja` → **`## 1. Paleta — branco · terra · ocre`**
-  - Substituir todos os hex; acrescentar `paper-warm`, `ink-title`, `brown`, `accent-text`.
+  - Substituir todos os hex; acrescentar `paper-warm`, `brown`, `accent-text`. **Não** exportar `ink-title` — foi removido.
   - `**Sobre escuro/laranja:** texto a #ffffff, secundário a #cdd0d4` → `#f2ece3` / `#b8ab9a`.
   - Reescrever a "Regra da marca": deixou de ser *"alto contraste branco ↔ preto com laranja como acento"*. Passa a ser: **base branca dominante, com uma família terrosa (24°–40° de matiz) a entrar por superfícies secundárias, títulos e blocos escuros.** O contraste vem da **luminosidade**, não do choque de matiz.
   - Anotar o limite de §3: **`accent` não serve texto pequeno sobre claro — para isso existe `accent-text`.**
@@ -600,11 +596,16 @@ grep -rn "stat__num\|<Stats" src/   # esperado: Stats.astro + sobre-nos.astro �
 
 - [ ] **Step 3: Tokens sem consumidor.** `--accent-deep` **já não é órfão** — a Task 4 deu-lhe uso no `.pilar__n` (acento sobre `--paper-warm`). Falta decidir sobre o **`--brown` (`#6b4a2f`)**, que ficou definido e sem pintar um único píxel: a dose conservadora escolhida pelo utilizador não executou o "castanho em detalhes". Opções: **manter em reserva** (documentado no Figma como vocabulário) ou **aplicar** a ícones dos `socials`, molduras e bordas de `.facts`. **Decisão do utilizador — não remover sem perguntar.**
 
-- [ ] **Step 4: CSS morto do `.display`.** `class="display"` tem **zero** ocorrências no site construído — os títulos de secção passaram a `.title-split`. As regras `.display` / `.display--sm` (~158, 165, 384, 433, 505, 915) são inalcançáveis. **Uma exceção com efeito real:** `html.reveal-ready .section--flat-top .block-head :is(.display, .lead)` (~1419) é a animação de entrada do 1.º bloco de `/portfolio` e `/historico` — como o `<h1>` é agora `.title-split`, **só o `.lead` anima; o título não**. Corrigir o seletor para `:is(.title-split, .lead)` **repõe uma animação hoje partida** — é alteração de movimento, não de cor, por isso fica fora do âmbito cromático e deve ser confirmada.
+- [ ] **Step 4: CSS morto do `.display` — e DUAS regras hoje partidas.** `class="display"` tem **zero** ocorrências no site construído: os títulos de secção passaram a `.title-split` (`BlockHead` → `TitleSplit`) num refactor anterior a este plano. As regras `.display` / `.display--sm` são inalcançáveis — **mas duas delas deviam estar a fazer alguma coisa e não fazem.** Ambas são **pré-existentes** e **não-cromáticas**, por isso ficam fora do âmbito deste plano e exigem confirmação do utilizador:
 
-- [ ] **Step 4: Build + verificação.** `npm run build`; confirmar que os contadores da home continuam intactos.
+  1. **Tamanho do h1 (medido).** `.section--flat-top .block-head .display{ font-size:clamp(2.5rem,6vw,4.6rem) }` (~1437) existe, diz o comentário, "para dar mais destaque ao título de abertura" de `/portfolio` e `/historico`. Nunca aplica. **Medido a 1440px: o h1 sai a 64px em vez dos 73.6px desenhados — 13% mais pequeno.** Corrigir = trocar `.display` por `.title-split` no seletor.
+  2. **Animação de entrada.** `html.reveal-ready .section--flat-top .block-head :is(.display, .lead)` (~1422/1429) — como o `<h1>` é `.title-split`, **só o `.lead` anima; o título entra sem movimento.** Corrigir = `:is(.title-split, .lead)`.
 
-- [ ] **Step 5: Commit**
+  Ambas nascem do mesmo refactor e resolvem-se com a mesma troca de seletor.
+
+- [ ] **Step 5: Build + verificação.** `npm run build`; confirmar que os contadores da home continuam intactos.
+
+- [ ] **Step 6: Commit**
 
 ```bash
 git add public/styles.css
@@ -637,7 +638,8 @@ git commit -m "chore(css): remover regras da faixa de acento legada"
 ## §5 — Registado, não resolvido (dívida assumida)
 
 - **Scrims neutros mantidos.** `rgba(0,0,0,…)` e `rgba(255,255,255,…)` ficam como estão (ver Global Constraints).
-- **Imagens de conteúdo não são tratadas.** As fotografias (`public/images/`) mantêm a temperatura original; só o **véu** da hero foi aquecido. Se o cliente quiser as fotos com pouso terroso, é uma vaga própria (grading de imagens), não CSS.
+- **Imagens de conteúdo não são tratadas.** As fotografias (`public/images/`) mantêm a temperatura original. A hero é a única exceção: leva `--hero-img-filter` (`sepia(.12)` incluído), que aquece a própria foto, **mais** o véu bronze por cima.
+- **A hero de `/sobre-nos` continua a ler fria — e o CSS não resolve.** O véu e o filtro estão aplicados (valores computados idênticos aos da home); a fotografia é que tem céu azul forte, que um wash a 26% de opacidade não domina. Saídas possíveis, todas fora de CSS: (a) trocar a foto por uma de céu neutro, (b) fazer grading do ficheiro, (c) subir o `sepia()` — **não recomendado**, lava as fotos que já estão boas.
 - **`--ink-faint` muda de carácter.** Passa a cumprir AA (5.33:1), mas as legendas ficam mais presentes. Decisão explícita na Task 3, Step 5 — com recuo documentado.
 - **Tensão com o briefing, resolvida a favor deste plano.** `CONTEXTO.md` fixa o público como *"nobre, mas não luxoso (sóbrio, refinado, sem ostentação)"*; o pedido falou em *"toque de luxo"*. Não há conflito real: uma paleta de pigmento de terra é precisamente **sóbria e refinada** — o luxo vem da contenção cromática, não de brilho. Nenhum tom é metálico, e nenhum é mais saturado do que a marca já usava.
 
@@ -646,7 +648,7 @@ git commit -m "chore(css): remover regras da faixa de acento legada"
 ## Self-review (cobertura)
 
 - **Branco continua dominante** → constraint global + `--paper` a 97.4% + teste da dominância nas Tasks 3 e 4. ✓
-- **"Mais tons marrom"** → família nova (`--paper-alt`, `--paper-warm`, `--ink-title`, `--brown`, `--dark` café) em Task 3, **posta em serviço** em Task 4. ✓
+- **"Mais tons marrom"** → família nova (`--paper-alt`, `--paper-warm`, `--brown`, `--dark` café) em Task 3; `--paper-warm` posto em serviço em Task 4. O `--ink-title` foi revertido a pedido do utilizador (títulos a preto e branco) e o `--brown` ficou em reserva. ✓
 - **Acento novo em todo o lado** → Task 1 (tokens) + Task 2 (texto). ✓
 - **Origem verificável da cor** → §1, amostrada do logótipo mestre. ✓
 - **Coerência de matiz (24°–40°)** → §1, garante que lê como sistema. ✓
