@@ -13,8 +13,13 @@
 > `.member__role`, acento sobre `--paper-warm`, CLS do logótipo). Esses estão
 > resolvidos e documentados nos respetivos commits.
 
-**Estado:** 22 registados · 4 corrigidos (P3, P5, P7, M2) · 2 diagnósticos
-revistos (**P13** e **P2** — ambos estavam errados; ver os avisos nas entradas)
+**Estado:** 22 registados · **11 corrigidos** (P3, P5, P7, P8, M2, M3, M4, M5,
+M6, M7, M8 — mais a metade factual do M9) · 2 diagnósticos revistos (**P13** e
+**P2**, ambos estavam errados; ver os avisos nas entradas) · **9 por fechar**,
+dos quais 5 esperam decisão
+
+**Commits:** `71a9806` (M2) · `7fdb477` (registo) · `181194c` (P8, M5, M8, M9
+parcial) · `43b121e` (M3, M4) · `6e16cef` (M6, M7)
 
 ---
 
@@ -136,7 +141,7 @@ o gate. **Não** é uma troca de seletor.
 
 ---
 
-## P8 · `.hero__title-page{ font-size }` sem efeito
+## P8 ✅ CORRIGIDO · `.hero__title-page{ font-size }` sem efeito
 
 **Onde:** `public/styles.css`
 
@@ -314,14 +319,14 @@ mão no rodapé — um deles literalmente o `--paper-alt`. Mesmo defeito que o P
 fechou, no mesmo ramo. **Commit `71a9806`.** Verificado: 17/17 tokens batem, e
 as cinco cores computadas do rodapé não mudaram.
 
-### M3 · `design/figma-setup.md:90` ainda manda usar o laranja antigo
+### M3 ✅ CORRIGIDO · `design/figma-setup.md:90` ainda manda usar o laranja antigo
 
 > *"Mantém a lógica da marca: **branco + preto + laranja** (`#ea5a17`)"*
 
 É o guia que se lê **primeiro** para montar o Figma, e contradiz o styleguide
 ao lado. **Correção:** `#b46511`, e alinhar a frase com a §1 do styleguide.
 
-### M4 · O styleguide contradiz-se e descreve tipografia que não existe
+### M4 ✅ CORRIGIDO · O styleguide contradiz-se e descreve tipografia que não existe
 
 - **§4 vs §5** — a §4 diz que a faixa de acento é legado e "não reconstruir";
   a §5 continua a listar *"faixa laranja de contadores"* nos componentes da
@@ -338,13 +343,13 @@ ao lado. **Correção:** `#b46511`, e alinhar a frase com a §1 do styleguide.
 
 **Correção:** uma passagem só. A §1 já foi corrigida pela Task 9; as outras não.
 
-### M5 · `split-reveal.js:27` — terceiro órfão do refactor `.display`
+### M5 ✅ CORRIGIDO · `split-reveal.js:27` — terceiro órfão do refactor `.display`
 
 `'.section .display, …'`. A classe tem **zero** ocorrências em `src/`.
 Mesma causa de P1/P2, mas fora do CSS. **Correção:** remover do seletor.
 **Risco: nenhum** — não corresponde a nada hoje.
 
-### M6 · Placeholder do input da newsletter quase invisível
+### M6 ✅ CORRIGIDO · Placeholder do input da newsletter quase invisível
 
 `styles.css` — `.news input` não declara `::placeholder`. O cinzento default
 do UA (~`#757575`) sobre o fundo real `rgb(58,49,42)` dá **≈2.7:1**.
@@ -352,17 +357,17 @@ do UA (~`#757575`) sobre o fundo real `rgb(58,49,42)` dá **≈2.7:1**.
 
 **Correção:** `.news input::placeholder{ color:var(--on-dark-dim) }` → 4.77:1.
 
-### M7 · A linha do campo da newsletter falha 1.4.11
+### M7 ✅ CORRIGIDO · A linha do campo da newsletter falha 1.4.11
 
 `.news{ border-bottom:1px solid rgba(255,255,255,.25) }` = **2.21:1** sobre o
 fundo real. É a única indicação visual do campo — mesmo problema do P11, mas
 no escuro. **Correção:** subir para `rgba(255,255,255,.42)` (≈3.1:1).
 
-### M8 · Comentário desatualizado em `styles.css:841`
+### M8 ✅ CORRIGIDO · Comentário desatualizado em `styles.css:841`
 
 Diz `#141414e5`; é `#241a12e5` desde a Task 3. Bloco `.seam--dark`.
 
-### M9 · Quadrado de acento nas seams — não planeado, e o comentário mente
+### M9 ⚠️ METADE CORRIGIDA · Quadrado de acento nas seams — não planeado, e o comentário mente
 
 Três commits mexeram na seam sem o declararem na mensagem: `5e5f5d2` (commit
 do **rodapé**) criou `.seam__rule::before`, um quadrado ocre de 9px em **todas
