@@ -34,14 +34,18 @@ import Divider from './Divider.astro';
 
 const { testimonials, autoplay = true, colors = {}, fontSizes = {}, i18nBase } = Astro.props;
 
-// Defaults idênticos ao componente original.
+// Defaults na paleta da casa. Os originais vinham da biblioteca de onde este
+// componente foi adaptado: cinzas frios do Tailwind (#6b7280, #4b5563) e um
+// ciano #00a6fb que não pertence a lado nenhum nesta marca. Os fallbacks do
+// CSS (.testimonials__*) têm de concordar com estes valores, senão o default
+// muda consoante `colors` venha ou não preenchido.
 const c = {
-  name: colors.name ?? '#000',
-  designation: colors.designation ?? '#6b7280',
-  testimony: colors.testimony ?? '#4b5563',
-  arrowBg: colors.arrowBackground ?? '#141414',
-  arrowFg: colors.arrowForeground ?? '#f1f1f7',
-  arrowHoverBg: colors.arrowHoverBackground ?? '#00a6fb',
+  name: colors.name ?? 'var(--ink)',
+  designation: colors.designation ?? 'var(--ink-faint)',
+  testimony: colors.testimony ?? 'var(--ink-soft)',
+  arrowBg: colors.arrowBackground ?? 'var(--dark)',
+  arrowFg: colors.arrowForeground ?? 'var(--paper-alt)',
+  arrowHoverBg: colors.arrowHoverBackground ?? 'var(--accent)',
 };
 const f = {
   name: fontSizes.name ?? '1.5rem',
