@@ -388,13 +388,13 @@ git commit -m "feat(cor): hero passa de wash azul-aco a bronze terroso"
 
 ---
 
-### Task 6: Footer — cinzentos azulados → cinzentos-terra
+### Task 6 ✅ CONCLUÍDA: Footer — cinzentos azulados → cinzentos-terra
 
 **Files:**
 - Modify: `public/styles.css`
 - Modify: `src/components/Footer.astro`
 
-- [ ] **Step 1: Trocar os cinzentos frios** no bloco `FOOTER` (~linhas 1215–1232):
+- [x] **Step 1: Trocar os cinzentos frios** no bloco `FOOTER` (~linhas 1215–1232):
 
 > Valores **medidos contra o fundo real** `rgb(58,49,42)` (ver aviso em §3),
 > não contra o hex do token.
@@ -411,7 +411,7 @@ git commit -m "feat(cor): hero passa de wash azul-aco a bronze terroso"
 > assumido: a hierarquia entre o corpo do rodapé (5.65:1) e o texto legal
 > (4.77:1) fica mais comprimida do que no original — é o preço de cumprir AA.
 
-- [ ] **Step 2: Corrigir o `style` inline** em `src/components/Footer.astro:44` — tem `color:#a7abb1` escrito à mão no atributo. Substituir por classe:
+- [x] **Step 2: Corrigir o `style` inline** em `src/components/Footer.astro:44` — tem `color:#a7abb1` escrito à mão no atributo. Substituir por classe:
 
 ```astro
 <label class="check check--footer" style="margin-top:1rem">
@@ -425,11 +425,11 @@ e acrescentar ao bloco FOOTER do CSS:
 
 > Porquê classe e não trocar o hex inline: o inline ganha à cascata e fica invisível a qualquer futura mudança de paleta.
 
-- [ ] **Step 3: Build.** `npm run build` — sem erros.
+- [x] **Step 3: Build.** `npm run build` — sem erros.
 
-- [ ] **Step 4: Verificação.** Os textos secundários do rodapé leem **cinza-quente**. O consentimento da newsletter tem a **mesma cor** dos restantes parágrafos (antes destacava-se por ser inline). Hover dos links a bronze.
+- [x] **Step 4: Verificação.** Os textos secundários do rodapé leem **cinza-quente**. O consentimento da newsletter tem a **mesma cor** dos restantes parágrafos (antes destacava-se por ser inline). Hover dos links a bronze.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add public/styles.css src/components/Footer.astro
@@ -438,7 +438,7 @@ git commit -m "feat(cor): footer troca cinzentos azulados por cinzentos-terra"
 
 ---
 
-### Task 7: Testemunhos + superfícies escuras residuais
+### Task 7 ✅ CONCLUÍDA: Testemunhos + superfícies escuras residuais
 
 Recolhe os últimos pontos frios, incluindo **um ciano manifestamente off-brand**.
 
@@ -446,7 +446,7 @@ Recolhe os últimos pontos frios, incluindo **um ciano manifestamente off-brand*
 - Modify: `public/styles.css`
 - Modify: `src/components/Testimonials.astro`
 
-- [ ] **Step 1: Testemunhos — defaults off-brand.** O componente traz cores de biblioteca (cinzas Tailwind e um **ciano `#00a6fb`**, que não pertence a lado nenhum nesta marca). Em `src/components/Testimonials.astro:39–44`:
+- [x] **Step 1: Testemunhos — defaults off-brand.** O componente traz cores de biblioteca (cinzas Tailwind e um **ciano `#00a6fb`**, que não pertence a lado nenhum nesta marca). Em `src/components/Testimonials.astro:39–44`:
 
 ```js
   name: colors.name ?? '#3b2a1c',
@@ -457,9 +457,9 @@ Recolhe os últimos pontos frios, incluindo **um ciano manifestamente off-brand*
   arrowHoverBg: colors.arrowHoverBackground ?? '#b46511',
 ```
 
-- [ ] **Step 2: Alinhar os fallbacks do CSS** (~linhas 1694–1710) com os mesmos valores — hoje repetem `#000`, `#6b7280`, `#4b5563`, `#141414`, `#f1f1f7`, `#00a6fb`. Os dois lados têm de concordar, senão o default muda consoante o `colors` vir ou não preenchido.
+- [x] **Step 2: Alinhar os fallbacks do CSS** (~linhas 1694–1710) com os mesmos valores — hoje repetem `#000`, `#6b7280`, `#4b5563`, `#141414`, `#f1f1f7`, `#00a6fb`. Os dois lados têm de concordar, senão o default muda consoante o `colors` vir ou não preenchido.
 
-- [ ] **Step 3: Gradiente dos painéis** (~linhas 970–975). O escurecimento tem viés azul (`rgba(15,17,20,…)` — azul é o canal mais alto):
+- [x] **Step 3: Gradiente dos painéis** (~linhas 970–975). O escurecimento tem viés azul (`rgba(15,17,20,…)` — azul é o canal mais alto):
 
 ```css
   background:linear-gradient(to top,
@@ -470,7 +470,7 @@ Recolhe os últimos pontos frios, incluindo **um ciano manifestamente off-brand*
 
 > O terceiro stop (`rgba(138,111,78,.10)`) **já é bronze** e mantém-se — era o único sinal terroso que o site já tinha.
 
-- [ ] **Step 4: Varrer o que sobrou.**
+- [x] **Step 4: Varrer o que sobrou.**
 
 ```bash
 grep -nE "rgba\([0-9]+, ?[0-9]+, ?[0-9]+" public/styles.css
@@ -478,11 +478,11 @@ grep -nE "rgba\([0-9]+, ?[0-9]+, ?[0-9]+" public/styles.css
 
 Aquecer **apenas** os que tenham B > R **e não sejam** `rgba(0,0,0,…)` nem `rgba(255,255,255,…)` (esses ficam neutros por decisão — ver Global Constraints).
 
-- [ ] **Step 5: Build.** `npm run build` — sem erros.
+- [x] **Step 5: Build.** `npm run build` — sem erros.
 
-- [ ] **Step 6: Verificação.** A seta dos testemunhos em hover fica **ocre**, não ciano. Painéis do track record leem castanho-quente. Nenhum resíduo azul no site.
+- [x] **Step 6: Verificação.** A seta dos testemunhos em hover fica **ocre**, não ciano. Painéis do track record leem castanho-quente. Nenhum resíduo azul no site.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add public/styles.css src/components/Testimonials.astro
@@ -491,7 +491,7 @@ git commit -m "feat(cor): testemunhos e superficies escuras alinhados com a pale
 
 ---
 
-### Task 8: Chrome do browser (favicon, theme-color, manifest)
+### Task 8 ✅ CONCLUÍDA: Chrome do browser (favicon, theme-color, manifest)
 
 A cor da marca também aparece **fora** da página: barra do browser, PWA, separador.
 
@@ -500,17 +500,17 @@ A cor da marca também aparece **fora** da página: barra do browser, PWA, separ
 - Modify: `public/site.webmanifest`
 - Modify: `public/favicon.svg`
 
-- [ ] **Step 1: `src/layouts/Base.astro:26`** — `<meta name="theme-color" content="#141414">` → `content="#241a12"`.
+- [x] **Step 1: `src/layouts/Base.astro:26`** — `<meta name="theme-color" content="#141414">` → `content="#241a12"`.
 
-- [ ] **Step 2: `public/site.webmanifest`** — `theme_color` e `background_color`: `#141414` → `#241a12`.
+- [x] **Step 2: `public/site.webmanifest`** — `theme_color` e `background_color`: `#141414` → `#241a12`.
 
-- [ ] **Step 3: `public/favicon.svg`** — os três `fill="#b46511"` **já estão corretos** (não tocar). Trocar os dois `fill="#141414"` (encaixe) para `#241a12`, e o `fill="#ffffff"` do fundo para `#fdfcfa`, para casar com `--paper`.
+- [x] **Step 3: `public/favicon.svg`** — os três `fill="#b46511"` **já estão corretos** (não tocar). Trocar os dois `fill="#141414"` (encaixe) para `#241a12`, e o `fill="#ffffff"` do fundo para `#fdfcfa`, para casar com `--paper`.
 
-- [ ] **Step 4: Build.** `npm run build` — sem erros.
+- [x] **Step 4: Build.** `npm run build` — sem erros.
 
-- [ ] **Step 5: Verificação.** Hard-reload (Ctrl+Shift+R) e confirmar o favicon no separador. Em Android/Chrome, a barra de endereço assume o novo `theme-color`.
+- [x] **Step 5: Verificação.** Hard-reload (Ctrl+Shift+R) e confirmar o favicon no separador. Em Android/Chrome, a barra de endereço assume o novo `theme-color`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/layouts/Base.astro public/site.webmanifest public/favicon.svg
@@ -519,7 +519,7 @@ git commit -m "feat(cor): favicon, theme-color e manifest alinhados com a paleta
 
 ---
 
-### Task 9: Sincronizar a documentação do design system
+### Task 9 ✅ CONCLUÍDA: Sincronizar a documentação do design system
 
 Sem esta task o Figma e o site divergem — e o styleguide passa a mentir.
 
@@ -527,7 +527,7 @@ Sem esta task o Figma e o site divergem — e o styleguide passa a mentir.
 - Modify: `design/ui-styleguide.md`
 - Modify: `design/tokens-studio.json`
 
-- [ ] **Step 1: `design/tokens-studio.json`** — atualizar `global.color` com §2, incluindo as entradas novas:
+- [x] **Step 1: `design/tokens-studio.json`** — atualizar `global.color` com §2, incluindo as entradas novas:
 
 ```json
       "paper":          { "value": "#fdfcfa", "type": "color", "description": "Base do site (branco quente)" },
@@ -548,7 +548,7 @@ Sem esta task o Figma e o site divergem — e o styleguide passa a mentir.
       "on-dark-soft":   { "value": "#b8ab9a", "type": "color", "description": "Texto secundário sobre escuro" },
 ```
 
-- [ ] **Step 2: `design/ui-styleguide.md`** — atualizar a §1 e o texto à volta:
+- [x] **Step 2: `design/ui-styleguide.md`** — atualizar a §1 e o texto à volta:
   - Título: `## 1. Paleta — preto · branco · laranja` → **`## 1. Paleta — branco · terra · ocre`**
   - Substituir todos os hex; acrescentar `paper-warm`, `brown`, `accent-text`. **Não** exportar `ink-title` — foi removido.
   - `**Sobre escuro/laranja:** texto a #ffffff, secundário a #cdd0d4` → `#f2ece3` / `#b8ab9a`.
@@ -557,11 +557,11 @@ Sem esta task o Figma e o site divergem — e o styleguide passa a mentir.
   - Registar a regra de dominância: **`paper-warm` no máximo em dois *tipos de bloco* por página, nunca adjacentes.** (Não "duas superfícies": a home tem três cartões `.pilar`, que são **um** tipo de bloco.)
   - Documentar a regra de acento por superfície da §3 (`paper`/`paper-alt` → `accent-text`; `paper-warm` → `accent-deep`; `dark` → `accent-dk`) — é a parte da paleta mais fácil de aplicar mal.
 
-- [ ] **Step 3: Corrigir a referência à faixa laranja.** A §4 documenta a `.section--accent` ("faixa de acento a toda a largura") — mas essa faixa **já não existe**: `grep -rn "section--accent" src/` não devolve nada, e o comentário em `src/pages/index.astro:125` regista a decisão ("o laranja vive nos números, em toda a página, em vez de saturar uma só secção"). Marcar como **legada** ou remover.
+- [x] **Step 3: Corrigir a referência à faixa laranja.** A §4 documenta a `.section--accent` ("faixa de acento a toda a largura") — mas essa faixa **já não existe**: `grep -rn "section--accent" src/` não devolve nada, e o comentário em `src/pages/index.astro:125` regista a decisão ("o laranja vive nos números, em toda a página, em vez de saturar uma só secção"). Marcar como **legada** ou remover.
 
-- [ ] **Step 4: Verificação.** Confrontar hex a hex a §1 do styleguide com o `:root` de `public/styles.css`. Têm de coincidir exatamente.
+- [x] **Step 4: Verificação.** Confrontar hex a hex a §1 do styleguide com o `:root` de `public/styles.css`. Têm de coincidir exatamente.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add design/ui-styleguide.md design/tokens-studio.json

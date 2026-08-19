@@ -13,7 +13,7 @@
 > `.member__role`, acento sobre `--paper-warm`, CLS do logótipo). Esses estão
 > resolvidos e documentados nos respetivos commits.
 
-**Estado:** 12 registados · 0 corrigidos
+**Estado:** 13 registados · 3 corrigidos (P3, P5, P7)
 
 ---
 
@@ -45,7 +45,7 @@
 
 ---
 
-## P3 · Caminho de imagem sem barra inicial em `equipa.json`
+## P3 ✅ CORRIGIDO · Caminho de imagem sem barra inicial em `equipa.json`
 
 **Onde:** `src/data/equipa.json:2` — `"imagem": "images/team-pic.jpg"`
 
@@ -71,7 +71,7 @@
 
 ---
 
-## P5 · `.section--accent` — bloco morto
+## P5 ✅ CORRIGIDO · `.section--accent` — bloco morto
 
 **Onde:** `public/styles.css` (~127–133) e `html.reveal-ready body.is-home .section--accent::after`
 
@@ -97,7 +97,7 @@
 
 ---
 
-## P7 · Cor de marca hardcoded na marca-d'água escura
+## P7 ✅ CORRIGIDO · Cor de marca hardcoded na marca-d'água escura
 
 **Onde:** `public/styles.css` — `.wm--dark .bar, .wm--dark .tab{ fill:#f2efe9 }`
 
@@ -177,11 +177,34 @@
 
 ---
 
+## P13 · 🔴 A fonte de display do site nunca carrega — todos os títulos estão em fallback
+
+**Onde:** `public/styles.css` — `@font-face{ font-family:"Kompot Display"; src:url("/fonts/KompotDisplay.otf") }`
+
+**Causa:** **`public/fonts/` existe mas está vazia.** O ficheiro `KompotDisplay.otf` nunca foi commitado (provavelmente ficou em `.gitignore` ou nunca foi adicionado).
+
+**Verificado no browser:**
+```
+Kompot Display carrega: false
+fontes no documento   : Fraunces (loaded), Inter (loaded), Kompot Display (error)
+```
+
+**Efeito:** o `.title-split` declara `"Kompot Display", var(--serif)`. Como o primeiro falha, **todos os títulos de secção e de hero do site renderizam em Fraunces** — a fonte de fallback. A identidade tipográfica desenhada nunca chegou a ser vista. Também gera um **404 em cada carregamento de página**.
+
+**Nota:** isto explica por que razão o plano e vários comentários chamavam "títulos serif" ao `.title-split` — na prática **são** serif, porque a display não carrega.
+
+**Correção:** adicionar `public/fonts/KompotDisplay.otf` ao repositório (e confirmar que não está a ser ignorado pelo `.gitignore`). Se a fonte não estiver licenciada para web, decidir entre licenciá-la ou assumir a Fraunces como face de título — e nesse caso **retirar o `@font-face` e a primeira entrada do `font-family`**, para deixar de haver um 404 por página.
+
+**Prioridade: a mais alta do registo.** É o único item aqui com impacto em todas as páginas e na identidade visual.
+
+---
+
 ## Como usar este registo
 
 Depois de as Tasks 6–10 estarem fechadas:
 
-1. **Decidir P4** (o `--brown`) — é a única que precisa de escolha de desenho antes de qualquer código.
+0. **P13 primeiro** — é o único com impacto em todas as páginas. Precisa de uma decisão que não é técnica: a fonte existe e está licenciada, ou assume-se a Fraunces?
+1. **Decidir P4** (o `--brown`) — precisa de escolha de desenho antes de qualquer código.
 2. **Aplicar em bloco P3, P7, P8** — risco nulo, sem efeito visual.
 3. **Aplicar P1 + P2 juntos** — mesma troca de seletor, mas **muda o aspeto**: confirmar antes.
 4. **P5, P6, P9** — já são âmbito da Task 10.

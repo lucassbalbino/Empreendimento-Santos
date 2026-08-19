@@ -125,13 +125,6 @@ ul{ list-style:none; }
 /* Secção que abre com uma .seam (nested como primeiro filho): a .seam já dá
    o respiro do topo, por isso a secção não duplica o próprio padding-top. */
 .section--seam-top{ padding-top:0; }
-/* Faixa de acento: fundo laranja, bem marcante (preto/branco/laranja) */
-.section--accent{ background:var(--accent); color:#fff; }
-.section--accent .display{ color:#fff; }
-.section--accent .dofazemos .display em{ color:#141414; }  /* palavra em destaque a preto */
-.section--accent .stat{ border-left-color:rgba(255,255,255,.28); }
-.section--accent .stat__num{ color:#fff; }
-.section--accent .stat__label{ color:rgba(255,255,255,.86); }
 
 /* Scroll snap desativado na home: fazia cada secção comportar-se como um
    slide isolado, que é o oposto da leitura contínua que a página pede.
@@ -803,17 +796,17 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   padding-bottom:clamp(112px,12.5vw,180px);
 }
 .seam__rule{ position:relative; border-top:1px solid var(--line); }
-/* Selo: o próprio logo, pequeno, atravessado pela régua — como um carimbo a
-   direito sobre a linha, no eixo de "AM Santos" na legenda por baixo. */
-.seam__mark{
+/* Selo: um pequeno quadrado --accent atravessado pela régua, exatamente por
+   trás do logo — ecoa o entalhe preto que corta a barra do meio do símbolo,
+   sem reescrever a régua toda numa réplica do mark. */
+.seam__rule::before{
+  content:"";
   position:absolute; top:0; left:50%;
-  height:22px; width:auto; aspect-ratio:1721/455;
+  width:9px; height:9px;
   transform:translate(-50%,-50%);
-  display:block;
+  background:var(--accent);
 }
-.seam__mark--paper{ display:none; }
-.seam--dark .seam__mark--ink{ display:none; }
-.seam--dark .seam__mark--paper{ display:block; }
+.seam--dark .seam__rule::before{ background:var(--accent-dk); }
 /* Três colunas iguais em vez de flex space-between: só a grid centra
    "AM Santos" corretamente no meio, independente da largura do rótulo à
    esquerda e do ano à direita (que quase nunca são simétricos). */
@@ -827,11 +820,18 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .seam__label{ display:inline-flex; align-items:center; gap:.7rem; color:var(--ink); font-weight:600; justify-self:start; }
 .seam__label::before{ content:""; width:8px; height:8px; flex:none; background:var(--accent); }
-/* A marca e o © levam o ocre; o ano fica a tinta. Assinam a costura sem a
-   transformar num elemento de destaque — por isso --accent-text (o tom que
-   cumpre AA como glifo) e não --accent. O logo já assina a régua por cima
-   (.seam__mark); aqui fica só o nome, por extenso. */
-.seam__brand{ white-space:nowrap; justify-self:center; font-weight:600; color:var(--accent-text); }
+/* A marca não é texto: é o mesmo logo horizontal da nav, a assinar a costura
+   sem a transformar num elemento de destaque. A altura vem em em (e não em
+   px) para ficar amarrada à escala da .seam__meta — assim cresce sozinha na
+   variante --top, onde a legenda também cresce. O © mantém o ocre e o ano
+   fica a tinta: --accent-text (o tom que cumpre AA como glifo), não --accent. */
+.seam__brand{ justify-self:center; display:inline-flex; align-items:center; line-height:0; }
+/* O aspect-ratio reserva a largura antes de a PNG descodificar: sem ele a
+   caixa da marca nasce com a largura do texto do alt e alarga ~33px ao
+   carregar. A grelha 1fr auto 1fr absorve o resto sem mexer no rótulo nem
+   no ano, mas o próprio logo saltava. (1721×455 = dimensão intrínseca.) */
+.seam__logo{ height:2.1em; width:auto; aspect-ratio:1721/455; display:block; }
+.seam__logo--paper{ display:none; }
 .seam__index{ white-space:nowrap; font-variant-numeric:tabular-nums; justify-self:end; color:var(--ink); }
 .seam__copy{ color:var(--accent-text); }
 
@@ -847,7 +847,9 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .seam--dark .seam__meta{ color:rgba(255,255,255,.5); }
 .seam--dark .seam__label{ color:var(--paper); }
 .seam--dark .seam__label::before{ background:var(--accent-dk); }
-.seam--dark .seam__brand{ color:var(--paper); }
+/* Logo claro sobre fundo escuro — a mesma troca que a nav faz ao rolar. */
+.seam--dark .seam__logo--ink{ display:none; }
+.seam--dark .seam__logo--paper{ display:block; }
 .seam--dark .seam__index{ color:rgba(255,255,255,.78); }
 /* O © declara a própria cor (--accent-text, pensado para fundos claros), por
    isso NÃO herda o branco do .seam__index acima — tem de ser reposto aqui, no
@@ -1531,7 +1533,6 @@ html.reveal-ready body.is-home .section::after{
 }
 html.reveal-ready body.is-home .section--alt::after{ background:var(--paper-alt); }
 html.reveal-ready body.is-home .section--dark::after{ background:var(--dark); }
-html.reveal-ready body.is-home .section--accent::after{ background:var(--accent); }
 html.reveal-ready body.is-home .section.is-visible::after{ transform:scaleY(0); }
 
 /* =====================================================================
@@ -2116,7 +2117,7 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 .wm--fill{ opacity:.07; }
 .wm--fill .bar, .wm--fill .tab{ fill:var(--accent); }
 .wm--dark{ opacity:.08; }
-.wm--dark .bar, .wm--dark .tab{ fill:#f2efe9; }
+.wm--dark .bar, .wm--dark .tab{ fill:var(--paper-alt); }
 
 /* ===== Divisor-assinatura (3 linhas + encaixe) — 2ª vaga ===== */
 .divider{ position:relative; display:flex; flex-direction:column; gap:6px; max-width:340px; margin:1.8rem 0; padding-top:16px; }
