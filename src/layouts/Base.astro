@@ -7,11 +7,13 @@ const {
   title,
   description = 'AM Santos — construindo o futuro com qualidade e sustentabilidade. 20 anos de experiência no mercado imobiliário, com arquitetura moderna e funcional.',
   image = '/images/hero-image.webp',
-  palette,
   flat = false,
 } = Astro.props;
 const isHome = Astro.url.pathname === '/';
-const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-${palette}`].filter(Boolean).join(' ') || undefined;
+// A prop `palette` saiu daqui: servia o andaime de teste da recoloração
+// (palette="test-b46511"), retirado na Task 1. Nenhuma página a passava, por
+// isso a classe palette-* nunca chegou ao <body>.
+const bodyClass = [isHome && 'is-home', flat && 'no-hero'].filter(Boolean).join(' ') || undefined;
 ---
 <!DOCTYPE html>
 <html lang="pt">
