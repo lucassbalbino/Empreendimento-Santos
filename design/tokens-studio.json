@@ -20,8 +20,7 @@
       "on-dark-dim":  { "value": "#a89d8f", "type": "color", "description": "Texto legal sobre escuro — o mais discreto que ainda cumpre AA (4.77)" }
     },
     "fontFamily": {
-      "display": { "value": "Kompot Display", "type": "fontFamilies", "description": "Títulos de hero e de secção (.title-split), peso 700, MAIÚSCULAS. NÃO está no repositório — hoje cai para Fraunces. Ver P13." },
-      "serif": { "value": "Fraunces", "type": "fontFamilies", "description": "Cards, nomes, factos, contadores — e fallback dos títulos" },
+      "serif": { "value": "Fraunces", "type": "fontFamilies", "description": "Títulos (peso 700, MAIÚSCULAS) e todo o resto do serif: cards, nomes, factos, contadores" },
       "sans":  { "value": "Inter", "type": "fontFamilies" }
     },
     "fontWeight": {

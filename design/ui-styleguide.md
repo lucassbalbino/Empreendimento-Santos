@@ -93,24 +93,23 @@ superfície de baixo; se pinta **fundo ou traço**, é sempre `accent`:
 
 ## 2. Tipografia
 
-Três famílias — **instala as três no Figma**:
-- **Kompot Display** — títulos de hero e de secção (`.title-split`).
-  Peso 700, sempre em **MAIÚSCULAS**. Não é do Google Fonts.
-- **Fraunces** (serif) — todo o resto do serif: cards, nomes, factos,
-  contadores. Pesos 300/400/500.
+Duas famílias (Google Fonts) — **instala ambas no Figma**:
+- **Fraunces** (serif) — títulos de hero e de secção (peso **700**, sempre em
+  **MAIÚSCULAS**) e todo o resto do serif: cards, nomes, factos, contadores
+  (pesos 300/400/500).
 - **Inter** (sans) — texto, labels, botões. Pesos 400/500/600/700.
 
-> ⚠️ **Estado real hoje:** o ficheiro da Kompot Display **não está no
-> repositório**, por isso todos os títulos renderizam na Fraunces (o
-> fallback). E a versão *demo* que existe em `referencias/fontes/` **não
-> serve**: não tem acentos — desenha `Á` como `A` e `Ç` como `C`. Enquanto
-> isto não estiver decidido, desenha os títulos em Fraunces e trata a Kompot
-> como intenção, não como facto. Ver P13 no registo de bugs.
+> **Nota histórica:** os títulos foram desenhados para uma display própria
+> ("Kompot Display"). O ficheiro nunca esteve no repositório e a versão *demo*
+> disponível não desenha português — mapeia os acentos ao glifo da letra base,
+> pelo que `Á` sai `A` e `Ç` sai `C`. Decidiu-se **assumir a Fraunces**, que
+> era o que o site já mostrava na prática. Se a display completa vier a ser
+> licenciada, é uma linha de CSS. Ver P13 no registo de bugs.
 
 | Estilo | Fonte | Peso | Tamanho (px) | Entrelinha | Caixa |
 |---|---|---|---|---|---|
-| Hero (`.title-split--hero`) | Kompot Display | 700 | 90 (resp. 24–90) | 105% | MAIÚSCULAS |
-| Título de secção (`.title-split`) | Kompot Display | 700 | 64 (resp. 15–64) | 110% | MAIÚSCULAS |
+| Hero (`.title-split--hero`) | Fraunces | 700 | 90 (resp. 24–90) | 105% | MAIÚSCULAS |
+| Título de secção (`.title-split`) | Fraunces | 700 | 64 (resp. 15–64) | 110% | MAIÚSCULAS |
 | Display SM | Fraunces | 400 | 45 (resp. 27–45) | 110% | — | |
 | Nº contador | Fraunces | 400 | 59 | 100% | — | tabular-nums |
 | Título de card | Fraunces | 400 | 24 | 110% | — | |

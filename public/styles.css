@@ -5,14 +5,21 @@
    Paleta: nobre, sóbria — não luxuosa
    ===================================================================== */
 
-/* ---------- Fontes locais ---------- */
-@font-face{
-  font-family:"Kompot Display";
-  src:url("/fonts/KompotDisplay.otf") format("opentype");
-  font-weight:400 900;
-  font-style:normal;
-  font-display:swap;
-}
+/* ---------- Fontes ----------
+   Aqui vivia um @font-face da "Kompot Display" a apontar para
+   /fonts/KompotDisplay.otf. O ficheiro não está no repositório — foi apagado
+   por engano em 01c8d61, à boleia de trabalho noutra secção — por isso a
+   declaração só produzia um 404 por página e os títulos caíam para a Fraunces.
+
+   A demo que existe em referencias/fontes/ NÃO serve de substituto: os
+   codepoints acentuados estão mapeados ao glifo da letra base (Á desenha A,
+   Ç desenha C sem cedilha) e falta-lhe toda a pontuação e os dígitos 2, 5 e 8.
+   Num site em português isso é erro ortográfico em todos os títulos.
+
+   Decisão: assumir a Fraunces como face de título. É o que o site já mostrava
+   na prática. Se a Kompot completa for licenciada, repor o @font-face e voltar
+   a pôr a família à frente de var(--serif) no .title-split. Ver P13 em
+   docs/superpowers/plans/2026-08-19-bugs-encontrados-recoloracao.md */
 
 /* ---------- Tokens ---------- */
 :root{
@@ -29,7 +36,11 @@
   --ink:        #1a1410;   /* texto principal — quase-preto acastanhado */
   --ink-soft:   #5d5346;   /* texto secundário — taupe */
   --ink-faint:  #72685a;   /* rótulos discretos — sobe para cumprir AA (5.33:1) */
-  --brown:      #6b4a2f;   /* castanho médio — ícones, molduras, detalhes */
+  /* Castanho médio, EM RESERVA: definido de propósito, sem consumidor. A dose
+     de castanho escolhida foi a conservadora, que não chegou a executar o
+     "castanho em detalhes" (ícones, molduras, bordas de factos). Fica como
+     ponto de partida se a dose vier a aprofundar-se. */
+  --brown:      #6b4a2f;
   --line:       #e3d9cb;   /* linhas/divisores terrosos */
   /* Ocre queimado — a cor REAL do logótipo (amostrada de
      referencias/imagens/LOGO AMS SANTOS HD.png). O laranja #ea5a17 que aqui
@@ -439,7 +450,8 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .split__img{ aspect-ratio:4/5; width:100%; height:auto; object-fit:cover; display:block; }
 .split__body .display{ margin:.4rem 0 1.6rem; }
 
-/* Títulos de secção — a mesma tipografia (Kompot Display) do início ao fim,
+/* Títulos de secção — a mesma tipografia (Fraunces; ver a nota das fontes no
+   topo do ficheiro) do início ao fim,
    numa só caixa de texto. As quebras de linha são naturais: cada variante
    define a sua MEDIDA (max-width em ch) e o browser distribui o texto por
    linhas de comprimento parecido (text-wrap:balance). Nada impõe onde partir,
@@ -451,7 +463,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   margin:.4rem 0 1.6rem;
   display:flex;
   flex-direction:column;
-  font-family:"Kompot Display", var(--serif);
+  font-family:var(--serif);
   font-weight:700;
   text-transform:uppercase;
   letter-spacing:.02em;
@@ -1459,24 +1471,24 @@ html.reveal-ready .section--flat-top .grid-projects .card-rise:nth-child(3n+3) .
    (leve, 26px) e faria saltar. Resolvido só por .is-entered, que o script
    adiciona depois de a cortina levantar. Gated por reveal-ready → em
    reduced-motion o título aparece normal, sem transição. */
-html.reveal-ready .section--flat-top .block-head :is(.display, .lead){
+html.reveal-ready .section--flat-top .block-head .lead{
   opacity:0 !important;
   transform:translateY(80px) !important;
   transition:opacity .45s var(--ease),
              transform 1.9s cubic-bezier(.1,.25,.25,1) !important;
   will-change:transform, opacity;
 }
-html.reveal-ready .section--flat-top.is-entered .block-head :is(.display, .lead){
+html.reveal-ready .section--flat-top.is-entered .block-head .lead{
   opacity:1 !important;
   transform:none !important;
 }
 
-/* h1 do 1.º bloco (portfólio + histórico): maior que o .display--sm, para dar
-   mais destaque ao título de abertura. Especificidade (0,3,1) vence
-   .block-head .display e .display--sm. */
-.section--flat-top .block-head .display{
-  font-size:clamp(2.5rem, 6vw, 4.6rem);
-}
+/* Aqui estava .section--flat-top .block-head .display{font-size:clamp(2.5rem,
+   6vw,4.6rem)}, que pedia 73.6px ao h1 do 1.º bloco (portfólio + histórico).
+   Nunca chegou a aplicar-se: o BlockHead emite .title-split, não .display, por
+   isso o h1 renderiza a 64px — o tamanho do .title-split, igual ao dos títulos
+   de secção do resto do site. Decisão: manter os 64px e remover a regra, em
+   vez de a repor com o seletor certo. */
 
 /* Cards do 1.º bloco do HISTÓRICO — entram DEPOIS do título (não antes).
    O reveal genérico do Base adiciona .is-visible SÍNCRONO no astro:page-load,
