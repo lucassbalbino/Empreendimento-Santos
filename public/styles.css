@@ -802,7 +802,18 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   padding-top:clamp(80px,8.8vw,128px);
   padding-bottom:clamp(112px,12.5vw,180px);
 }
-.seam__rule{ border-top:1px solid var(--line); }
+.seam__rule{ position:relative; border-top:1px solid var(--line); }
+/* Selo: um pequeno quadrado --accent atravessado pela régua, exatamente por
+   trás do logo — ecoa o entalhe preto que corta a barra do meio do símbolo,
+   sem reescrever a régua toda numa réplica do mark. */
+.seam__rule::before{
+  content:"";
+  position:absolute; top:0; left:50%;
+  width:9px; height:9px;
+  transform:translate(-50%,-50%);
+  background:var(--accent);
+}
+.seam--dark .seam__rule::before{ background:var(--accent-dk); }
 /* Três colunas iguais em vez de flex space-between: só a grid centra
    "AM Santos" corretamente no meio, independente da largura do rótulo à
    esquerda e do ano à direita (que quase nunca são simétricos). */
@@ -1255,24 +1266,35 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 /* =====================================================================
    FOOTER
    ===================================================================== */
-.site-footer{ background:var(--dark); color:#cdd0d4; padding-block:clamp(56px,7vw,96px) 2rem; }
+/* Os tons de texto do rodapé eram cinzentos AZULADOS (#cdd0d4 / #a7abb1 /
+   #7e828a) — o último resíduo frio do site. Passam a cinzentos-terra, medidos
+   contra o fundo REAL rgb(58,49,42): o --dark tem alpha e5 e nunca renderiza
+   opaco, por isso medir contra o hex do token dá valores ~26% otimistas. */
+.site-footer{ background:var(--dark); color:#f2ece3; padding-block:clamp(56px,7vw,96px) 2rem; }
 .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:clamp(28px,4vw,56px); }
 .footer-col h4{ font-size:.7rem; letter-spacing:.24em; text-transform:uppercase; color:#fff; margin-bottom:1.1rem; font-weight:600; }
-.footer-col p, .footer-col a{ font-size:.92rem; color:#a7abb1; line-height:1.8; }
+.footer-col p, .footer-col a{ font-size:.92rem; color:#b8ab9a; line-height:1.8; }
 .footer-col a{ background:linear-gradient(var(--accent-dk),var(--accent-dk)) 0 100%/0 1px no-repeat; transition:background-size .35s var(--ease), color .3s var(--ease); }
 .footer-col a:hover{ color:var(--accent-dk); background-size:100% 1px; }
 .footer-brand .logo{ margin-bottom:1.2rem; }
 .footer-logo{ height:auto; }
 .footer-logo img{ height:60px; width:auto; display:block; }
 .socials{ display:flex; gap:.8rem; margin-top:1.2rem; }
-.socials a{ display:grid; place-items:center; color:#cdd0d4; transition:color .35s var(--ease), transform .35s var(--ease); }
+.socials a{ display:grid; place-items:center; color:#f2ece3; transition:color .35s var(--ease), transform .35s var(--ease); }
 .socials a svg{ width:26px; height:26px; }
 .socials a:hover{ color:var(--accent-dk); transform:translateY(-2px); }
+/* O consentimento vivia num style inline (color:#a7abb1), que ganhava à
+   cascata e ficava invisível a qualquer mudança de paleta. Passa a classe,
+   ao lado dos irmãos. O margin-top também sai do inline. */
+.check--footer{ margin-top:1rem; color:#b8ab9a; }
 .news{ display:flex; border-bottom:1px solid rgba(255,255,255,.25); }
 .news input{ flex:1; background:none; border:0; color:#fff; padding:.6rem 0; font-size:.9rem; }
 .news input:focus{ outline:0; }
 .news button{ background:none; border:0; color:var(--accent-dk); cursor:pointer; font-size:1.1rem; }
-.footer-bottom{ margin-top:clamp(40px,5vw,72px); padding-top:1.6rem; border-top:1px solid rgba(255,255,255,.12); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.72rem; letter-spacing:.08em; color:#7e828a; text-transform:uppercase; }
+.footer-bottom{ margin-top:clamp(40px,5vw,72px); padding-top:1.6rem; border-top:1px solid rgba(255,255,255,.12); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.72rem; letter-spacing:.08em; color:#a89d8f; text-transform:uppercase; }
+/* #a89d8f e não um tom mais discreto: é o mais escuro que ainda cumpre AA
+   (4.77:1) sobre o fundo real. O #7e828a que aqui estava dava 3.30:1. Custo
+   assumido: a hierarquia entre o corpo do rodapé e o texto legal comprime-se. */
 
 /* =====================================================================
    MICRO-INTERAÇÕES
