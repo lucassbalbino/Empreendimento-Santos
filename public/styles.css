@@ -1,3 +1,14 @@
+/* @fontes:inicio — gerado por scripts/fontes-descarregar.mjs, não editar à mão */
+/* Fontes servidas do próprio domínio. Substituem o <link> para
+   fonts.googleapis.com, que era render-blocking e custava ~1,8 s de First
+   Contentful Paint (2,9 s com ele, 1,1 s sem — medido com o Lighthouse).
+   Pré-carregadas no Base.astro. Reexecutar o script atualiza este bloco. */
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:300 500;font-display:swap;src:url('/fonts/fraunces-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:300 500;font-display:swap;src:url('/fonts/fraunces-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url('/fonts/inter-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url('/fonts/inter-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+/* @fontes:fim */
+
 /* =====================================================================
    MOCKUP — Empresa Bela (construção civil)
    Estrutura/layout inspirados em habitatinvest.pt
@@ -33,6 +44,28 @@
   --paper:      #fdfcfa;   /* base do site — branco com um sopro de quente */
   --paper-alt:  #f2ece3;   /* areia clara — secção alternada */
   --paper-warm: #e9dfd1;   /* areia média — uso pontual (factos, citações) */
+  /* Placa da moldura do cartão de empreendimento. FICA FORA da escala de areia
+     de propósito: é branco puxado ao cinza, quase neutro. A placa tem de descer
+     um degrau em relação a --paper para haver moldura — uma versão pintou-a de
+     --paper, a cor exata do fundo da página, e a moldura simplesmente não
+     existia — mas o degrau não pode ser em areia. Isso chegou a ser testado
+     (--paper-alt / --paper-warm) e o problema é que a barra do topo já é areia:
+     a placa deixava de ser um objeto pousado na página e passava a ler-se como
+     uma secção alternada a flutuar dentro de uma secção branca. Em neutro a
+     placa não pertence a mais nada, e é isso que a faz ler-se como moldura. */
+  --card-surface: #f4f3f1;   /* placa da moldura */
+  --card-chip:    #eae9e6;   /* chapa da tipologia — degrau seguinte */
+  /* Traços da moldura. NEUTROS, como a placa: eram terrosos (#b5a892 / #c8bca8)
+     enquanto se pensava a moldura como tinta quente sobre placa fria, mas com
+     o cartão todo em cinza a tinta castanha era a única coisa quente na página
+     e puxava o olho para o bordo em vez de para a fotografia.
+     São também um pouco mais escuros do que os terrosos que substituíram
+     (2.52:1 contra a placa, antes 2.11:1): com uma linha só, ela tem de se ver.
+     Decorativos, sem mínimo de contraste a cumprir.
+     O --card-rule-fine sobrou da moldura de dupla linha; hoje o seu único
+     consumidor é o bordo da chapa da tipologia. */
+  --card-rule:      #9c9a95;  /* traço do bordo do cartão */
+  --card-rule-fine: #c3c1bc;  /* bordo da chapa da tipologia */
   --ink:        #1a1410;   /* texto principal — quase-preto acastanhado */
   --ink-soft:   #5d5346;   /* texto secundário — taupe */
   --ink-faint:  #72685a;   /* rótulos discretos — sobe para cumprir AA (5.33:1) */
@@ -80,9 +113,10 @@
 
   --maxw: 1480px;
   --gutter: clamp(18px, 3.4vw, 52px);
-  /* Arredondamento discreto dos cartões de empreendimento: suaviza o canto sem
-     descaracterizar a linguagem reta do resto do site. */
-  --card-radius: 6px;
+  /* Não há --card-radius: o cartão de empreendimento é de canto RETO. O que o
+     faz ler-se como moldura antiga são os dois traços concêntricos (ver
+     --card-rule), não o arredondamento — e o canto reto é a linguagem do resto
+     do site. O painel do histórico, que abre entre os cartões, acompanha. */
   /* Ritmo: mais distância de scroll por gesto. Cada elemento passa a percorrer
      a sua animação ao longo de mais píxeis, o que se lê como suavidade — é o
      segundo maior fator, depois do scroll interpolado. */
@@ -107,6 +141,32 @@
   --hero-veil:
     linear-gradient(180deg, rgba(12,9,6,.38) 0%, rgba(12,9,6,.08) 45%, rgba(12,9,6,.58) 100%),
     linear-gradient(180deg, rgba(150,110,62,.26) 0%, rgba(176,138,88,.16) 50%, rgba(96,68,38,.34) 100%);
+}
+
+/* ---------- Ritmo vertical no telemovel (<=760px) ----------------------
+   Os dois tokens acima sao clamps afinados para desktop e, no telemovel,
+   quem ganha e o PISO, nao o termo em vw: a 390px, 18vw = 70px, portanto
+   --section-y fica nos 168px e cada fronteira entre seccoes abre 336px de
+   vazio num ecra de 390. E a causa isolada mais forte da sensacao de
+   desajuste (medido: 672px so de padding de seccao na home).
+
+   A correcao nao e um segundo piso fixo — seria a mesma falha ao contrario,
+   com um degrau visivel aos 761px. E uma recta que passa pelos dois pontos
+   que interessam: 64px a 390 e 168px a 760, que e exactamente o valor que o
+   clamp de desktop ja da a essa largura. Assim o ritmo cresce com o ecra e
+   entrega-se ao token de desktop sem salto na fronteira da media query.
+   O piso de 56px so entra abaixo de ~360px, onde a recta ja desceria de mais.
+
+   .no-hero .section--flat-top NAO precisa de regra propria: a folga extra
+   que ela soma (clamp(20px,3vw,48px)) ja vale 20px no telemovel — os 188px
+   de banda vazia no topo de /portfolio e /historico vinham todos do piso de
+   168px. Com esta recta passa a 84px a 390 e 91px a 414, abaixo do minimo
+   pedido, e o header fixo (~71px) continua a caber la dentro. */
+@media (max-width:760px){
+  :root{
+    --section-y: clamp(56px, 28vw - 45px, 168px);
+    --section-y-tight: clamp(20px, 3.25vw + 11px, 36px);
+  }
 }
 
 /* ---------- Reset ---------- */
@@ -659,6 +719,124 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   .quemsomos .has-wm .wm-layer{ display:none; }
 }
 
+/* ---- "O empreendimento" (/empreendimentos/…) ----
+   Decalque do "Quem Somos" acima: título centrado com a marca-d'água atrás,
+   editorial numa grelha de 12 colunas, CTA encostado à direita. Reaproveita as
+   mesmas medidas (o gap do intro, a margem do editorial, o recuo do CTA) para
+   as duas secções respirarem no mesmo ritmo — não é coincidência, é a mesma
+   secção noutra página. Sem imagem: as fotos do empreendimento vivem no slider
+   e aqui estariam a repetir-se.
+
+   O QUE MUDA é o desenho do texto. No Quem Somos o editorial é meta + um
+   parágrafo lado a lado, e o parágrafo é um rectângulo só. Aqui os dois
+   parágrafos entram DESENCONTRADOS: o primeiro encostado à margem esquerda
+   (1/10), o segundo à margem direita (4/13) e, por isso, atirado pela
+   auto-colocação da grelha para a linha seguinte — as colunas 4–9 sobrepõem-se
+   e não cabem os dois na mesma linha. O resultado é uma escada, com os dois
+   blocos a entrelaçar-se em vez de empilharem alinhados pela mesma margem.
+   Cada um encosta ao SEU bordo e deixa três colunas de folga só do outro lado:
+   nove colunas de vão, medida larga (~55 caracteres, dentro da faixa
+   confortável para este corpo). O degrau é o desencontro entre os dois, não o
+   ar em volta — apertar mais as margens engordaria a altura mas encurtava a
+   linha a ponto de a leitura tropeçar.
+   O corpo é o MESMO nos dois — o desencontro é todo de posição. Com tamanhos
+   diferentes o segundo lia-se como nota de rodapé do primeiro; iguais, são
+   dois blocos do mesmo discurso, só que deslocados.
+   text-wrap:pretty e NENHUM max-width em ch: a medida vem do vão da grelha e o
+   rag fica irregular. Com `balance` as linhas ficariam todas do mesmo
+   comprimento — que é exactamente o que aqui não se quer. */
+.emp-intro{
+  display:flex; flex-direction:column; align-items:center;
+  gap:clamp(30px,5vw,68px);
+}
+/* Mais largo que os 20ch da variante: "Em construção · 2026 e 2027" (o CLT) é
+   o título mais longo que aqui aparece e não deve partir em duas linhas. */
+.emp-intro .title-split--center{ max-width:min(30ch,100%); }
+
+.emp-editorial{
+  display:grid;
+  grid-template-columns:repeat(12, 1fr);
+  column-gap:clamp(20px,2.6vw,40px);
+  row-gap:clamp(28px,3.6vw,60px);
+  margin-top:clamp(56px,7vw,108px);
+  /* Fonte única dos dois corpos — o segundo parágrafo deriva daqui em vez de
+     repetir o clamp (ver a compensação óptica abaixo). */
+  --emp-p: clamp(1.5rem,2.6vw,2.3rem);
+}
+.emp-editorial__p{
+  color:var(--ink-soft);
+  font-family:var(--serif); font-weight:300;
+  line-height:1.5;
+  text-wrap:pretty;
+  font-size:var(--emp-p);
+}
+.emp-editorial__p--lead{ grid-column:1 / 10; }
+
+/* Segundo parágrafo na SANS, para os dois se distinguirem pela letra e não só
+   pela posição. O tamanho e o destaque têm de ficar iguais aos do primeiro, e
+   nenhuma das duas coisas se consegue copiando o número do font-size:
+
+   TAMANHO — a Inter tem altura-de-x de .543em contra .462em da Fraunces
+   (medido no browser, com as faces reais). Ao mesmo font-size as minúsculas da
+   Inter saem 18% mais altas e o parágrafo lê-se maior. O factor .85 (=17/20, a
+   razão entre as duas alturas-de-x) iguala o que o olho mede: a altura das
+   minúsculas. É por isso que o número é MENOR para o tamanho ser o MESMO.
+
+   DESTAQUE — mede-se na densidade da mancha, não no número do peso. Em 400 a
+   Inter dava 7.06% de tinta por área contra 5.66% da Fraunces Light (medido
+   sobre três linhas cheias das duas): 25% mais escura, e lia-se como o
+   parágrafo mais forte dos dois. Abrir o espacejamento não resolve uma
+   diferença dessa ordem — para a compensar só com ar seriam precisos .12em de
+   entreletra, que é tipografia espaçada, não texto corrido. A diferença é de
+   haste, por isso corrige-se no peso: 300, agora que o Base.astro pede a Inter
+   por eixo contínuo e o 300 existe mesmo (antes caía em 400 sem avisar).
+   Medido de novo assim: 5.50% contra 5.66% — 3% de diferença, abaixo do que o
+   olho distingue. O .012em de entreletra fica pelo desenho (a Inter ganha
+   textura com um fio de ar a este corpo), já não pela densidade. */
+.emp-editorial__p--tail{
+  grid-column:4 / 13;
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:calc(var(--emp-p) * .85);
+  letter-spacing:.012em;
+  /* Mesma entrelinha EM PÍXEIS do parágrafo de cima: o corpo encolheu .85, a
+     entrelinha cresce na mesma proporção. Com as alturas-de-x já igualadas,
+     isto iguala também o ar entre linhas tal como o olho o mede — um 1.5 tal
+     e qual deixaria as linhas da sans mais apertadas do que as da serifa. */
+  line-height:calc(1.5 / .85);
+}
+.emp-cta{
+  display:flex; justify-content:flex-end;
+  margin-top:clamp(28px, 4vw, 56px);
+}
+@media (max-width:1100px){
+  /* A escada mantém-se, só encurta o degrau: aqui a coluna já vale menos
+     píxeis e três de folga tirariam à medida o que ela não tem para dar. */
+  .emp-editorial__p--lead{ grid-column:1 / 11; }
+  .emp-editorial__p--tail{ grid-column:3 / 13; }
+}
+@media (max-width:760px){
+  /* Numa coluna não há escada possível nem margem lateral a dar — a esta
+     largura qualquer recuo nos dois lados esmagava a medida. O desencontro
+     passa a ser só o recuo do segundo parágrafo, com o fio a marcá-lo. */
+  /* O corpo desce pela VARIÁVEL, nunca pelo font-size: as duas regras que a
+     consomem — a base e o `calc(… * .85)` do segundo parágrafo — têm a mesma
+     especificidade que um `.emp-editorial__p{font-size:…}` escrito aqui, e
+     como esta media query vem depois no ficheiro, ganhava às duas. O segundo
+     parágrafo perdia a compensação óptica e a sans voltava a ler-se 18% maior
+     do que a serifa, só no telemóvel. */
+  .emp-editorial{ grid-template-columns:1fr; --emp-p:clamp(1.3rem,5vw,1.7rem); }
+  .emp-editorial__p--lead{ grid-column:1; }
+  .emp-editorial__p--tail{
+    grid-column:1;
+    padding-left:clamp(14px,5vw,28px);
+    border-left:1px solid var(--line);
+  }
+  /* Empilhado, o bloco fica alto de mais para a marca-d'água não cruzar o
+     texto — some, como no Quem Somos. */
+  .emp-sobre .has-wm .wm-layer{ display:none; }
+}
+
 /* =====================================================================
    O QUE FAZEMOS + contadores
    ===================================================================== */
@@ -748,18 +926,21 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .pilar{
   display:flex; flex-direction:column; gap:.7rem;
-  /* Areia média: eram cartões brancos sobre secção branca, só legíveis pela
-     borda. Com o fundo quente ganham corpo e é aqui que o castanho entra em
-     superfície, num elemento contido e repetido — sem tocar na base da página. */
-  background:var(--paper-warm);
-  border:1px solid var(--dark);
+  /* Areia clara + borda --line (o par que o resto do site usa em .fact):
+     davam --paper-warm + borda --dark, um contorno quase preto sobre um
+     fundo mais escuro que lia como um autocolante, destoando do resto da
+     página. Aqui só precisa de se destacar o suficiente para se ler como
+     cartão, não mais do que isso. */
+  background:var(--paper-alt);
+  border:1px solid var(--line);
   border-radius:16px;
   padding:clamp(28px,3vw,40px) clamp(24px,2.8vw,34px);
 }
 .pilar__n{
   font-family:var(--serif); font-size:.85rem; letter-spacing:.06em;
-  /* Sobre --paper-warm (a mais escura das superfícies claras) o --accent-text
-     cai para 4.08:1. O --accent-deep aguenta as três: 6.29 / 5.49 / 4.90. */
+  /* --accent-deep cumpre AA nas três superfícies claras (6.29 sobre --paper,
+     5.49 sobre --paper-alt, 4.90 sobre --paper-warm) — a troca de fundo
+     acima não pede troca de cor aqui. */
   color:var(--accent-deep);
 }
 .pilar__t{ font-family:var(--serif); font-weight:500; color:var(--ink); font-size:clamp(1.5rem,2.3vw,1.95rem); }
@@ -854,7 +1035,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   grid-template-columns:1fr auto 1fr;
   align-items:center;
   gap:1.2rem;
-  margin-top:2.6rem;
+  margin-top:.5rem;
   font-family:var(--sans); font-size:1.05rem; letter-spacing:.02em; color:var(--ink-faint);
 }
 .seam__label{ display:inline-flex; align-items:center; gap:.7rem; color:var(--ink); font-weight:600; justify-self:start; }
@@ -864,13 +1045,15 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    amarrada à escala da .seam__meta — cresce sozinha na variante --top,
    onde a legenda também cresce. O © mantém o ocre e o ano fica a tinta:
    --accent-text (o tom que cumpre AA como glifo), não --accent. */
-.seam__brand{ justify-self:center; display:inline-flex; align-items:center; line-height:0; }
+.seam__brand{ justify-self:center; align-self:end; display:inline-flex; align-items:end; line-height:0; }
 /* O aspect-ratio reserva a largura antes de a PNG descodificar: sem ele a
    caixa da marca nasce com a largura do texto do alt e alarga ao carregar.
    A grelha 1fr auto 1fr absorve o resto sem mexer no rótulo nem no ano,
    mas o próprio logo saltava. (1116×421 = dimensão intrínseca do wordmark,
-   já sem o símbolo — só "empreendimentos SANTOS".) */
-.seam__logo{ height:1.5em; width:auto; aspect-ratio:1116/421; display:block; }
+   já sem o símbolo — só "empreendimentos SANTOS".) align-self:end na
+   .seam__brand alinha a base do nome à mesma linha do rótulo e do ano,
+   em vez de centrar a caixa toda da marca no bloco. */
+.seam__logo{ height:2.4em; width:auto; aspect-ratio:1116/421; display:block; }
 .seam__logo--paper{ display:none; }
 .seam__index{ white-space:nowrap; font-variant-numeric:tabular-nums; justify-self:end; color:var(--ink); }
 .seam__copy{ color:var(--accent-text); }
@@ -913,7 +1096,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   padding-top:0;
   padding-bottom:clamp(48px,6vw,88px);
 }
-.seam--top .seam__meta{ margin-top:2.8rem; font-size:1.15rem; }
+.seam--top .seam__meta{ margin-top:.6rem; font-size:1.15rem; }
 .seam--top .seam__label{ font-size:clamp(1.15rem,2.2vw,1.7rem); letter-spacing:.03em; }
 .seam--top .seam__label::before{ width:8px; height:8px; }
 
@@ -981,14 +1164,61 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .scroller::-webkit-scrollbar{ height:4px; }
 .scroller::-webkit-scrollbar-thumb{ background:var(--accent); }
 
-/* Cartão de projeto */
-.card{ scroll-snap-align:start; background:transparent; border-radius:var(--card-radius); }
-.card__media{ position:relative; aspect-ratio:3/4; overflow:hidden; border-radius:var(--card-radius); }
+/* Cartão de projeto — MOLDURA DE LINHA ÚNICA, canto reto.
+   Um só traço a tinta (--card-rule) no bordo do objeto, e daí para dentro um
+   passe-partout largo até à fotografia e à legenda.
+
+   Chegou a ter DUAS linhas concêntricas: esta e um filete a --card-rule-fine
+   a 16px dela, desenhado por um .card__mat que embrulhava imagem + legenda.
+   Foram retiradas por decisão de desenho — primeiro o contorno da fotografia,
+   depois o filete. Para as repor é preciso o wrapper de volta no
+   ProjectCard.astro: a linha tem de envolver conteúdo, não dá para a fazer com
+   um pseudo-elemento.
+
+   Margem PESADA em baixo (34px contra 30px nos outros lados): é a regra
+   clássica do emolduramento — com a margem toda igual, a moldura parece estar
+   a cair para a frente. Com uma linha só a margem é o único detalhe que
+   sobra, por isso é generosa: é ela que faz a placa ler-se como passe-partout
+   e não como padding.
+
+   Duas coisas sustentam o efeito e não devem ser mexidas isoladamente:
+   (1) a placa (--card-surface) desce um degrau em relação ao branco da página,
+       senão a moldura não tem corpo — uma versão pintou-a de --paper, a cor
+       exata do fundo, e a moldura simplesmente não existia;
+   (2) a margem tem de ser larga. Estreitá-la devolve o cartão à aparência de
+       caixa com bordo, que é o oposto de uma moldura.
+
+   A legenda fica fora da fotografia: com o título sobreposto, o contraste
+   dependia da foto (céu claro, interiores) e só se salvava com scrim +
+   text-shadow. Aqui o texto mede contra uma superfície conhecida. */
+.card{
+  scroll-snap-align:start;
+  display:flex; flex-direction:column; gap:18px;
+  background:var(--card-surface);
+  border:1px solid var(--card-rule);
+  padding:30px 30px 34px;
+}
+/* flex:1 — a imagem absorve a altura sobrante da linha da grelha. Sem isto,
+   um cartão cujo nome se parte em duas linhas estica toda a linha e os
+   vizinhos ficam com uma faixa morta por baixo da legenda. A relação de
+   aspeto continua a ditar a altura mínima; o object-fit:cover esconde os
+   poucos pixels a mais. */
+/* SEM contorno próprio. Chegou a ter um filete de 1px por dentro, para a
+   imagem não se dissolver na placa em fotos com céu claro no bordo; a 14px do
+   traço do passe-partout, os dois colavam-se e a moldura passava a ter três
+   linhas em vez das duas que a definem. O bordo da própria fotografia chega. */
+.card__media{
+  position:relative; flex:1 1 auto; aspect-ratio:3/4; overflow:hidden;
+}
 .card__media .ph{ position:absolute; inset:0; width:100%; height:100%; transition:transform .7s var(--ease); }
 .card:hover .card__media .ph{ transform:scale(1.22); }
 .card__img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
 .card:hover .card__img{ transform:scale(1.22); }
-/* Máscara fosca sobre a imagem ao passar o rato, para destacar o título por cima. */
+/* O HOVER É SÓ AQUI: a imagem faz zoom e desfoca. A moldura fica quieta — sem
+   elevação, sem sombra, sem mudança de bordo nem de cor do título. O desfoque
+   vem por backdrop-filter numa camada sobreposta, e não por filter na própria
+   <img>: um filter:blur amostra para lá dos limites do elemento e deixava um
+   halo transparente no bordo da imagem. */
 .card__media::after{
   content:""; position:absolute; inset:0; z-index:1;
   background:rgba(15,15,15,.42); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);
@@ -1002,23 +1232,51 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   font-size:.56rem; letter-spacing:.16em; text-transform:uppercase; font-weight:600;
   padding:.32rem .5rem;
 }
-/* No hero fica em baixo à direita, longe do título e do botão de voltar. */
+/* No hero fica em baixo à direita, longe do título e da indicação de scroll. */
 .img-prov--hero{
   top:auto; left:auto; right:var(--gutter); bottom:1.4rem;
   background:rgba(0,0,0,.5); backdrop-filter:blur(4px);
 }
-/* Scrim alto e em três paragens: com fotos reais por baixo, um título de duas
-   linhas subia para a zona transparente e ficava ilegível sobre céu claro. */
-.card__overlay{
-  position:absolute; inset:auto 0 0 0; z-index:2; padding:3.4rem 1.4rem 1.4rem;
-  background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.5) 42%, rgba(0,0,0,.85) 100%);
-  color:#fff;
+/* LEGENDA NO PASSE-PARTOUT (não sobre a imagem). Nome e local à esquerda,
+   tipologia à direita. Sem padding próprio: quem dá o respiro é o passe-partout
+   do .card, e é isso que alinha o texto pela mesma vertical que o bordo da
+   fotografia — um padding extra aqui partia esse alinhamento, que é metade do
+   efeito. */
+.card__caption{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:1.2rem;
 }
-/* text-shadow além do scrim: as fotos variam muito (céu claro, campo, interiores)
-   e o gradiente sozinho não garante contraste em títulos/meta de duas linhas. */
-.card__title{ font-family:var(--serif); font-weight:400; font-size:1.5rem; line-height:1.1; text-shadow:0 1px 12px rgba(0,0,0,.55); transition:color .3s var(--ease); }
-.card:hover .card__title{ color:var(--accent-dk); }
-.card__meta{ font-size:.76rem; letter-spacing:.1em; opacity:.92; margin-top:.4rem; text-shadow:0 1px 10px rgba(0,0,0,.6); }
+.card__text{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+/* Sem transição de cor: o título não reage ao hover (o hover é só na imagem). */
+.card__title{
+  font-family:var(--serif); font-weight:400; font-size:1.45rem; line-height:1.15;
+  color:var(--ink);
+}
+/* Sem versaletes nem letter-spacing: o original põe aqui uma linha corrida em
+   cinzento, e foi a meta em caixa alta espaçada que fez a primeira versão
+   parecer artificial. */
+.card__meta{ font-size:.88rem; line-height:1.3; color:var(--ink-soft); }
+/* Chapa da tipologia — RETA, não pastilha. O canto de 999px que aqui estava
+   era o único arredondado que sobrava e destoava do resto; num cartão de canto
+   reto lê-se como peça de outro sistema. Agora é uma chapinha, com o mesmo
+   traço fino do passe-partout. align-self:center para acompanhar o bloco de
+   texto mesmo quando o nome se parte em duas linhas. */
+.card__tag{
+  flex:none; align-self:center;
+  font-size:.78rem; line-height:1;
+  color:var(--ink-soft); background:var(--card-chip);
+  border:1px solid var(--card-rule-fine);
+  padding:8px 14px; white-space:nowrap;
+}
+
+/* Moldura sobre secção escura (“Futuros”, no portfólio): a placa clara
+   dominaria o bloco, por isso inverte-se em vez de desaparecer — continua a
+   ser um degrau de superfície contra o fundo, só que para cima.
+   Contraste medido contra o fundo real da secção com este véu por cima
+   (~rgb(67,58,52)): --on-dark-soft dá 4.93:1 na meta. */
+.section--dark .card{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.34); }
+.section--dark .card__title{ color:var(--paper); }
+.section--dark .card__meta{ color:var(--on-dark-soft); }
+.section--dark .card__tag{ color:var(--on-dark); background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.18); }
 
 /* =====================================================================
    PAINÉIS EXPANSÍVEIS (dark section — efeito content-office)
@@ -1145,8 +1403,15 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 /* =====================================================================
    GRID de portfólio (página Portfólio)
    ===================================================================== */
-.grid-projects{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(16px,2vw,28px); }
-.grid-projects .card__media{ aspect-ratio:4/5; }
+/* DUAS colunas (era três). O cartão-moldura é largo e baixo, como o formato de
+   referência: a três colunas a coluna ficava com ~429px e a imagem em paisagem
+   encolhia a ponto de o empreendimento deixar de se ler. A dois, a coluna anda
+   pelos ~726px e a imagem fica com a mesma presença que tem no original. */
+.grid-projects{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(16px,2vw,28px); }
+/* Paisagem 19/10 — a proporção medida na imagem do cartão de referência
+   (574×302). É esta relação que faz o cartão ler-se largo e baixo em vez do
+   retrato alto que ele tinha. */
+.grid-projects .card__media{ aspect-ratio:19/10; }
 
 /* =====================================================================
    COMO TRABALHAMOS — grelha de imagens em cascata (masonry, 2 colunas),
@@ -1277,6 +1542,142 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .member__role{ font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-text); margin:.9rem 0 .3rem; font-weight:600; }
 .member__name{ font-family:var(--serif); font-weight:400; font-size:1.2rem; margin-bottom:.6rem; }
 .member__bio{ color:var(--ink-soft); font-size:.85rem; max-width:100%; }
+
+/* ---- Equipa em fita contínua (.team--marquee, /sobre-nos) -------------
+   A grelha acima é a variante de base (a /equipa vive dela). Esta é a fita:
+   os cartões deslizam em loop, param ao passar o rato e a fotografia sai do
+   cinzento só no cartão sob o cursor.
+
+   A montagem do HTML (conjunto duplicado + repetido) está comentada em
+   src/components/Team.astro — é de lá que depende a aritmética do keyframe. */
+.team--marquee{
+  --team-gap:clamp(14px,1.6vw,24px);
+  display:block;
+  margin-top:clamp(40px,5vw,64px);
+  overflow:clip;   /* clip, não hidden: não criar scroll container */
+  /* Os bordos esbatem-se por MÁSCARA, não por um degradê pousado por cima:
+     a .section--dark é translúcida (--dark tem alfa), por isso qualquer cor
+     pintada a fingir de fundo denunciava-se contra o que está por baixo.
+     A máscara desvanece os próprios pixéis da fita e serve qualquer fundo. */
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+}
+.team__track{
+  display:flex;
+  gap:var(--team-gap);
+  width:max-content;
+  animation:team-marquee var(--team-speed,44s) linear infinite;
+  will-change:transform;
+}
+.team__set{ display:flex; gap:var(--team-gap); }
+/* A fita tem dois conjuntos e um intervalo entre eles: 2S + gap. Voltar ao
+   ponto de partida sem salto é deslizar S + gap, ou seja metade da largura
+   MAIS metade do intervalo — o -50% sozinho deixava a costura à vista. */
+@keyframes team-marquee{
+  from{ transform:translate3d(0,0,0); }
+  to  { transform:translate3d(calc(-50% - (var(--team-gap) / 2)),0,0); }
+}
+/* Parar sob o rato (para se poder ler o cartão) e sob o foco de teclado. */
+.team--marquee:hover .team__track,
+.team--marquee:focus-within .team__track{ animation-play-state:paused; }
+
+.team--marquee .member{ flex:0 0 auto; width:clamp(260px,26vw,380px); }
+/* A fita entra sempre visível: o revelar-ao-rolar observa .member e os
+   cartões que arrancam fora do ecrã ficariam a opacity:0 à espera de um
+   cruzamento que a animação torna imprevisível. */
+html.reveal-ready .team--marquee .member{
+  opacity:1; transform:none; transition:none;
+}
+.team--marquee .member__media{
+  position:relative;
+  overflow:hidden;
+  background:var(--dark-soft);
+}
+.team--marquee .member__media img,
+.team--marquee .member__mono{
+  aspect-ratio:3/4;
+  width:100%; height:100%;
+  display:block;
+  transform:scale(1.02);   /* margem para o zoom do hover não mostrar bordo */
+  transition:filter .45s var(--ease), transform .8s var(--ease);
+}
+.team--marquee .member__media img{ object-fit:cover; filter:grayscale(1); }
+.team--marquee .member:hover .member__media img{ filter:grayscale(0); }
+.team--marquee .member:hover .member__media img,
+.team--marquee .member:hover .member__mono{ transform:scale(1.06); }
+/* Monograma: o cartão de quem ainda não tem retrato. Mesma trama diagonal
+   dos placeholders do site (.ph--dark), com as iniciais em bronze. Fica
+   deliberadamente calmo — não pode competir com as fotografias ao lado. */
+.team--marquee .member__mono{
+  display:flex; align-items:center; justify-content:center;
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,.045) 0, rgba(255,255,255,.045) 1px,
+      transparent 1px, transparent 11px),
+    var(--dark-soft);
+}
+.team--marquee .member__mono span{
+  font-family:var(--serif); font-weight:400;
+  font-size:clamp(3.4rem,5.4vw,5rem); line-height:1;
+  letter-spacing:.06em;
+  color:var(--accent-dk); opacity:.5;
+  /* Sobe um pouco: centrado a sério, o monograma ficava atrás da placa. */
+  transform:translateY(-14%);
+  transition:opacity .45s var(--ease);
+}
+.team--marquee .member:hover .member__mono span{ opacity:.85; }
+/* Placa sobre a fotografia. O degradê sobe até ao transparente para o nome
+   assentar sobre densidade suficiente sem cortar a imagem a direito. */
+.team--marquee .member__plate{
+  position:absolute; inset-inline:0; bottom:0;
+  /* O respiro de cima é grande de propósito: é a pista por onde o degradê
+     sobe até ao transparente. Sem ela o rótulo de função ficava na zona
+     translúcida e, com a fotografia a cores (hover), perdia contraste
+     contra o que quer que estivesse por baixo — foi o que aconteceu com um
+     retrato de fundo azul claro. */
+  padding:clamp(30px,3.4vw,46px) clamp(12px,1.3vw,18px) clamp(12px,1.3vw,18px);
+  background:linear-gradient(to top,
+    rgba(21,15,10,.95) 0%,
+    rgba(21,15,10,.92) 76%,
+    rgba(21,15,10,0) 100%);
+}
+.team--marquee .member__role{ margin:0 0 .25rem; color:var(--accent-dk); }
+.team--marquee .member__name{
+  font-family:var(--serif); font-weight:400; font-size:clamp(1.08rem,1.1vw,1.28rem);
+  color:var(--paper); margin:0;
+}
+/* A biografia é longa de mais para estar sempre aberta numa fita em
+   movimento: fica colapsada e abre no cartão sob o rato — que é, ao mesmo
+   tempo, o momento em que a fita pára. Continua no DOM (e no leitor de ecrã)
+   nos dois estados. */
+.team--marquee .member__bio{
+  color:rgba(253,252,250,.84);
+  font-size:clamp(.78rem,.72vw,.86rem); line-height:1.55;
+  margin:0; max-height:0; opacity:0; overflow:hidden;
+  transition:max-height .5s var(--ease),
+             opacity .35s var(--ease),
+             margin .5s var(--ease);
+}
+.team--marquee .member:hover .member__bio{
+  max-height:14rem; opacity:1; margin-top:.5rem;
+}
+/* Sem rato não há como abrir a biografia: nesses ecrãs mostra-se sempre. */
+@media (hover:none){
+  .team--marquee .member__bio{ max-height:14rem; opacity:1; margin-top:.5rem; }
+  .team--marquee .member__media img{ filter:grayscale(0); }
+  .team--marquee .member__mono span{ opacity:.85; }
+}
+/* Menos movimento: a fita pára. Como parada só se veria o primeiro cartão e
+   meio, passa a faixa deslizável à mão — e a cópia (aria-hidden) sai, para
+   não haver a equipa duas vezes num carrossel manual. */
+@media (prefers-reduced-motion:reduce){
+  .team--marquee{ overflow-x:auto; scroll-snap-type:x proximity; }
+  .team__track{ animation:none; }
+  .team__set[aria-hidden]{ display:none; }
+  .team--marquee .member{ scroll-snap-align:center; }
+  .team--marquee .member__media img,
+  .team--marquee .member__mono{ transform:none; transition:filter .45s var(--ease); }
+}
 
 /* =====================================================================
    CONTACTO
@@ -1426,6 +1827,98 @@ html.reveal-ready .reveal-rise-slow.is-visible{
   transform:none;
 }
 
+/* ===== Entrada da costura (.seam) — a mais suave do site ====================
+   A .seam é uma FRONTEIRA, não um destaque: a entrada tinha de se ler como o
+   capítulo a abrir sozinho, e não como mais um bloco a "entrar". Por isso não
+   reusa nem o percurso do reveal genérico (26px + fade .32s) nem a máscara do
+   split-text (110% por trás de uma aresta) — ambos batem forte demais para uma
+   régua de 1px e três palavras.
+
+   Duas peças, na ordem em que se leem:
+     1. a régua desenha-se da esquerda para a direita (scaleX 0→1, origem à
+        esquerda) — o mesmo gesto do .reveal-wipe-lr, mas em transform e não em
+        clip-path: zero repintura numa linha que atravessa o ecrã todo;
+     2. a legenda vem a seguir, com percurso curto (10px) e opacidade MUITO
+        lenta (1.8s, contra os .32s do reveal genérico).
+
+   Aqui a regra das durações separadas do reveal genérico ("opacidade rápida,
+   deslocamento lento") está deliberadamente invertida: é a opacidade demorada
+   — e não o tamanho do deslocamento — que faz a entrada ler-se macia em vez de
+   impactante. Percurso curto + fade longo = aparecer sem chamar por si.
+
+   Cada peça da legenda arranca ~.18s depois da anterior (rótulo → marca →
+   ano): lê-se como uma linha a assentar, não como três coisas a aparecer.
+   --ease em tudo, sem travagem dramática (nada do cubic-bezier(.1,.25,.25,1)
+   das entradas pesadas). Gated por reveal-ready → em prefers-reduced-motion
+   nada disto se aplica e a costura fica logo desenhada. */
+html.reveal-ready .seam__rule{
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform 2.2s var(--ease);
+  will-change:transform;
+}
+html.reveal-ready .seam.is-visible .seam__rule{ transform:scaleX(1); }
+
+html.reveal-ready .seam__meta > *{
+  opacity:0;
+  transform:translateY(10px);
+  /* A legenda é mais lenta que a própria régua (2.2s): a linha é um gesto —
+     tem princípio e fim — e as palavras são um estado a instalar-se. Deixar o
+     texto acabar DEPOIS do traço é o que tira o último resto de "entrada". */
+  transition:opacity 1.8s var(--ease),
+             transform 2.6s var(--ease);
+  will-change:transform, opacity;
+}
+html.reveal-ready .seam.is-visible .seam__meta > *{
+  opacity:1;
+  transform:none;
+}
+/* Cascata: a legenda só começa com a régua já bem desenhada (.3s), para a
+   linha continuar a ser o primeiro gesto e não competir com o texto. Os
+   atrasos acompanham as durações: com o fade da legenda a 1.8s, um passo
+   curto de mais deixaria as três colunas a subir praticamente em bloco. */
+html.reveal-ready .seam .seam__label{ transition-delay:.3s; }
+html.reveal-ready .seam .seam__brand{ transition-delay:.48s; }
+html.reveal-ready .seam .seam__index{ transition-delay:.66s; }
+
+/* Portfólio e Histórico: a .seam--top é o eyebrow do h1 do 1.º bloco e vive por
+   baixo da cortina branca de entrada. O observer genérico marca-a .is-visible
+   logo à carga (está acima da dobra) — a costura desenhava-se escondida atrás
+   da cortina e já estava assente quando ela levanta. Aqui espera pela mesma
+   .is-entered do título (posta pelos scripts dessas páginas depois de a cortina
+   levantar), pelo que o olho desce da régua para o h1.
+   O estado escondido usa :not(.is-entered) para chegar a (0,5,1) e vencer o
+   estado visível genérico (0,4,1); o visível daqui é (0,5,1) pela mesma razão.
+   Sem !important — a cascata resolve sozinha.
+
+   As durações ficam FIXAS aqui, mais curtas que as da entrada por scroll: esta
+   costura não compete com o scroll, compete com o h1 que entra ao lado dela
+   (1.9s, a arrancar no mesmo instante). Ao ritmo lento do scroll a régua ainda
+   estaria a desenhar-se com o título já assente. */
+html.reveal-ready .section--flat-top .seam--top .seam__rule{
+  transition-duration:1.6s;
+}
+html.reveal-ready .section--flat-top .seam--top .seam__meta > *{
+  transition-duration:.9s, 1.3s;
+}
+html.reveal-ready .section--flat-top .seam--top .seam__label{ transition-delay:.22s; }
+html.reveal-ready .section--flat-top .seam--top .seam__brand{ transition-delay:.34s; }
+html.reveal-ready .section--flat-top .seam--top .seam__index{ transition-delay:.46s; }
+html.reveal-ready .section--flat-top:not(.is-entered) .seam--top .seam__rule{
+  transform:scaleX(0);
+}
+html.reveal-ready .section--flat-top.is-entered .seam--top .seam__rule{
+  transform:scaleX(1);
+}
+html.reveal-ready .section--flat-top:not(.is-entered) .seam--top .seam__meta > *{
+  opacity:0;
+  transform:translateY(10px);
+}
+html.reveal-ready .section--flat-top.is-entered .seam--top .seam__meta > *{
+  opacity:1;
+  transform:none;
+}
+
 /* Entrada dos cards do portfólio: sobem de trás do fundo branco (cortina).
    O branco é o fundo estático da secção, visível através da moldura; só o
    card se move.
@@ -1444,28 +1937,30 @@ html.reveal-ready .reveal-rise-slow.is-visible{
    .is-visible do reveal geral puxava o card para 0 na mesma. .is-risen leva mais
    uma classe e vence ambos.
 
-   display:block: o .card é um <a> (inline); precisa de block para preencher a
-   moldura. FORA do gate reveal-ready, senão em reduced-motion a grelha partia. */
-.card-rise .card{ display:block; }
+   display:flex: o .card é um <a> (inline) e precisa de preencher a moldura de
+   reveal. Repete o display do próprio .card (que empilha imagem + legenda)
+   porque este selector é mais específico — um display:block aqui achatava a
+   legenda. FORA do gate reveal-ready, senão em reduced-motion a grelha partia. */
+.card-rise .card{ display:flex; }
 html.reveal-ready .card-rise{ overflow:hidden; }
 html.reveal-ready .grid-projects .card-rise .card{
   opacity:1;
   transform:translateY(100%);
-  /* box-shadow no transition para o hover (sombra) continuar a suavizar. */
-  transition:transform 1.2s cubic-bezier(.16,1,.3,1), box-shadow .5s var(--ease);
+  transition:transform 1.2s cubic-bezier(.16,1,.3,1);
   will-change:transform;
 }
 html.reveal-ready .grid-projects .card-rise.is-risen .card{ transform:translateY(0); }
-/* Cascata por coluna (grelha de 3): esquerda → direita. !important porque o
+/* Cascata por coluna (grelha de 2): esquerda → direita. O passo é 2n porque a
+   grelha passou a ter duas colunas — com o 3n antigo, o atraso deixava de
+   corresponder à coluna e a cascata lia-se aleatória. !important porque o
    reveal geral do Base.astro escreve um transition-delay INLINE em cada .card
    (índice de irmão = 0, pois o .card é filho único da moldura), e inline vence
    qualquer selector sem !important. */
-html.reveal-ready .grid-projects .card-rise:nth-child(3n+2) .card{ transition-delay:.09s !important; }
-html.reveal-ready .grid-projects .card-rise:nth-child(3n+3) .card{ transition-delay:.18s !important; }
-/* Depois da subida assentar, reabrir a moldura para a sombra do hover não ser
-   cortada pelo overflow:hidden. (A elevação translateY(-6px) do hover é
-   suprimida site-wide pela regra genérica .is-visible{transform:none} — isto
-   só garante que a sombra aparece inteira.) */
+html.reveal-ready .grid-projects .card-rise:nth-child(2n+2) .card{ transition-delay:.09s !important; }
+/* Depois da subida assentar, reabrir a moldura de reveal. Existia para a sombra
+   do hover não ser cortada pelo overflow:hidden; agora que o cartão não tem
+   hover, fica só a garantir que nada do cartão assente é aparado (o JS do
+   portfólio adiciona .is-open no fim da subida de qualquer maneira). */
 html.reveal-ready .card-rise.is-open{ overflow:visible; }
 
 /* ── ENTRADA PESADA DO 1.º BLOCO DO PORTFÓLIO (após o fade branco) ──────────
@@ -1481,11 +1976,10 @@ html.reveal-ready .card-rise.is-open{ overflow:visible; }
    título (transition-delay base). !important nos delays porque o reveal geral
    escreve transition-delay inline em cada .card. */
 html.reveal-ready .section--flat-top .grid-projects .card-rise .card{
-  transition:transform 2s cubic-bezier(.1,.25,.25,1), box-shadow .5s var(--ease);
+  transition:transform 2s cubic-bezier(.1,.25,.25,1);
 }
 html.reveal-ready .section--flat-top .grid-projects .card-rise .card{ transition-delay:1s !important; }
-html.reveal-ready .section--flat-top .grid-projects .card-rise:nth-child(3n+2) .card{ transition-delay:1.1s !important; }
-html.reveal-ready .section--flat-top .grid-projects .card-rise:nth-child(3n+3) .card{ transition-delay:1.2s !important; }
+html.reveal-ready .section--flat-top .grid-projects .card-rise:nth-child(2n+2) .card{ transition-delay:1.12s !important; }
 
 /* Título da 1.ª secção (display/lead) — slide pesado, arranca a t=0.
    !important para vencer o .is-visible do reveal geral, que o Base.astro
@@ -1540,9 +2034,8 @@ html.reveal-ready .section--flat-top.is-entered .grid-projects .card--modal{
   opacity:1;
   transform:none;
 }
-/* Cascata por coluna (grelha de 3): esquerda → direita, a seguir ao título. */
-html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(3n+2){ transition-delay:1.05s !important; }
-html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(3n+3){ transition-delay:1.2s !important; }
+/* Cascata por coluna (grelha de 2): esquerda → direita, a seguir ao título. */
+html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(2n+2){ transition-delay:1.05s !important; }
 
 /* 2) Sublinhado animado no menu + indicador da página atual */
 .nav__list a::after{
@@ -1555,16 +2048,10 @@ html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(3n+3)
 .nav__list a[aria-current="page"]{ color:var(--accent-dk); opacity:1; }
 .scrolled .nav__list a[aria-current="page"]{ color:var(--accent-text); }
 
-/* 3) Hover dos cards: leve elevação + sombra + realce do overlay/CTA */
-.grid-projects .card, .scroller .card{
-  transition:transform .5s var(--ease), box-shadow .5s var(--ease);
-}
-.grid-projects .card:hover, .scroller .card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 20px 44px -20px rgba(0,0,0,.5);
-}
-.card__overlay{ transition:background .4s var(--ease); }
-.card:hover .card__overlay{ background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.62) 42%, rgba(0,0,0,.92) 100%); }
+/* 3) Hover dos cards: NÃO EXISTE na moldura. Aqui viviam a elevação
+   (translateY(-6px)), a sombra e o aquecer do bordo — foram retirados de
+   propósito: a moldura fica imóvel e o único hover do cartão é o da imagem
+   (zoom + desfoque), definido em .card__media/.card__img mais acima. */
 
 /* 4) Links de texto no conteúdo: sublinhado que cresce */
 .muted a{
@@ -1574,7 +2061,10 @@ html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(3n+3)
 .muted a:hover{ background-size:100% 1px; color:var(--accent-text); }
 
 @media (prefers-reduced-motion: reduce){
-  .grid-projects .card:hover, .scroller .card:hover{ transform:none; box-shadow:none; }
+  /* O cartão já não se mexe no hover; resta suprimir o zoom da imagem. O
+     desfoque fica — não é movimento. */
+  .card:hover .card__img,
+  .card:hover .card__media .ph{ transform:none; }
 }
 
 
@@ -1602,28 +2092,21 @@ html.reveal-ready body.is-home .section.is-visible::after{ transform:scaleY(0); 
 /* Cards e painéis que passaram a ser links */
 a.card, a.panel{ text-decoration:none; color:inherit; }
 
-.emp-back{
-  display:inline-block; margin-bottom:1rem;
-  color:#fff; /* era rgba(...,.8) = 4.04:1 sobre o p95 da foto; a AA pede 4.5 */
-  text-decoration:none;
-  font-size:.85rem; letter-spacing:.02em;
-  transition:color .3s var(--ease);
-}
-.emp-back:hover{ color:#fff; }
-.emp-hero__meta{
-  margin-top:1rem; color:rgba(255,255,255,.92); font-size:1.05rem;
-  display:flex; align-items:center; gap:.9rem; flex-wrap:wrap;
-}
-.emp-chip{
-  display:inline-block; padding:.34em .95em;
-  border:1px solid rgba(255,255,255,.5); border-radius:999px;
-  font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
-}
+/* A hero do detalhe é a mesma da home (componente Hero): só o nome. Aqui
+   viviam o .emp-back, o .emp-hero__meta e o .emp-chip — o link de voltar e a
+   linha "local · tipologia · estado". Saíram com o markup: a navegação de
+   volta é o header e esses dados são de ficha (ver .facts). */
 
 /* Ficha / características */
 .facts{
   display:grid; grid-template-columns:repeat(3,1fr);
-  gap:clamp(8px,1.2vw,14px); margin-top:2.5rem;
+  /* Cartões mais afastados: eram clamp(8px,1.2vw,14px) e encostavam-se ao
+     ponto de a fila de três se ler como uma barra só dividida por traços. Com
+     a chapa a inverter-se sobre a faixa café isso agravava-se — a chapa clara
+     é muito mais visível que a branca sobre areia, e sem folga as três
+     fundiam-se num bloco. O .facts--contadores da home tem gap próprio e não
+     é afectado por esta linha. */
+  gap:clamp(14px,1.9vw,26px); margin-top:2.5rem;
 }
 .fact{
   background:var(--paper); border:1px solid var(--line); border-radius:12px;
@@ -1637,21 +2120,268 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
 .fact__v{ font-family:var(--serif); font-size:clamp(1.35rem,2.4vw,2rem); color:var(--ink); line-height:1.1; }
 .fact__r{ font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); }
 
-/* Galeria */
-.gallery{
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:clamp(10px,1.4vw,18px); margin-top:2.5rem;
+/* Chapa sobre a faixa café (a "Ficha do empreendimento", em /empreendimentos).
+   Exactamente o mesmo tratamento que a moldura do cartão recebe no bloco
+   "Futuros" do portfólio (ver `.section--dark .card`): a placa clara dominaria
+   o bloco, por isso inverte-se em vez de desaparecer — continua a ser um degrau
+   de superfície contra o fundo, só que para cima.
+   Contrastes medidos contra a chapa real (~rgb(70,61,55), já com o véu do
+   --dark e os 6% de branco por cima): o valor em --paper dá 10.33:1 e o rótulo
+   em --on-dark-soft dá 4.70:1 — acima dos 4.5 que a AA pede a texto pequeno,
+   que é o caso do rótulo (.76rem em maiúsculas).
+   O .facts--contadores da home nunca vive numa .section--dark; se algum dia
+   passar a viver, é aqui que ganha chapa e é preciso voltar a esta regra. */
+.section--dark .fact{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.34); }
+.section--dark .fact__v{ color:var(--paper); }
+.section--dark .fact__r{ color:var(--on-dark-soft); }
+
+/* =====================================================================
+   GALERIA DO EMPREENDIMENTO — slider "Design Plans"
+   (src/components/PlansSlider.astro)
+
+   Substitui a grelha .gallery de 3 colunas que aqui vivia. Layout do
+   kononenkogroup: palco grande à esquerda, coluna de miniaturas à direita,
+   Prev/Next por baixo e uma barra de progresso na aresta de baixo do palco.
+
+   TRÊS PLANOS, e a ordem entre eles é o que faz o efeito funcionar:
+     1. .plans__stage  — a caixa vazia que define a área do palco.
+     2. .plans__aside  — os botões das miniaturas (encaixes + moldura activa).
+     3. .plans__layer  — as fotos, TODAS, por cima dos outros dois.
+   As fotos não vivem dentro das miniaturas: vivem nesta camada, maquetadas ao
+   tamanho do palco, e são ENCOLHIDAS por transform até ao rectângulo do seu
+   encaixe quando estão inactivas (a razão está no cabeçalho do componente —
+   reduzir é nítido, ampliar não é). É por isso que a camada tem de ficar
+   acima da coluna: senão o fundo dos botões tapava as fotos pousadas neles.
+   ===================================================================== */
+.plans{
+  position:relative;
+  margin-top:2.5rem;
+  /* expo.out do GSAP, o ritmo do voo na referência: arranca a direito e
+     assenta muito devagar — é o que dá o peso à foto que sobe. */
+  --plans-ease: cubic-bezier(.16,1,.3,1);
+  --plans-fly: 900ms;      /* TEM de bater certo com FLY no script */
+  --plans-gap: clamp(8px,.9vw,14px);
 }
-.gallery .ph{ aspect-ratio:4/3; }
-.gallery__img{ aspect-ratio:4/3; width:100%; height:100%; object-fit:cover; display:block; }
+.plans__grid{
+  display:grid;
+  grid-template-columns:1fr clamp(92px,10.5vw,150px);
+  gap:clamp(16px,2.2vw,30px);
+}
+
+/* ---------- Palco ---------- */
+.plans__stage{
+  grid-column:1;
+  /* 8/5 é o rácio nativo dos ficheiros (1600x1000): a foto entra inteira, sem
+     corte, e — o que importa mais — a miniatura tem o MESMO rácio, por isso o
+     voo é uma escala uniforme e o enquadramento nunca muda a meio. */
+  aspect-ratio:8/5;
+  position:relative;
+  align-self:center;
+  background:var(--paper-alt);
+}
+/* Sem JS o palco não tem quem lhe ponha uma foto: fica escondido e a página
+   cai na fila vertical de imagens (o mesmo layout do telemóvel). */
+.plans:not(.is-ready) .plans__stage{ display:none; }
+
+.plans__layer{ position:absolute; inset:0; z-index:2; pointer-events:none; }
+/* Moldura do palco: desenhada AQUI, na camada de cima, e não como border do
+   .plans__stage. Duas razões — fica por cima da foto (é uma moldura, não um
+   fundo) e deixa a caixa do palco sem border, para o rácio 8/5 valer sobre a
+   caixa de conteúdo e o voo assentar ao pixel no rectângulo certo. */
+.plans__layer::after{
+  content:''; position:absolute; inset:0; z-index:4;
+  border:1px solid var(--line); pointer-events:none;
+}
+
+.plans__flyer{
+  position:absolute; inset:0; z-index:1; margin:0;
+  transform:translateX(var(--enter-x,0px));
+  transition:transform 950ms var(--plans-ease) calc(var(--i,0) * 70ms),
+             opacity 700ms var(--ease) calc(var(--i,0) * 70ms);
+}
+/* A que sobe passa por cima de tudo; a que desce por cima das vizinhas mas por
+   baixo dela — é assim que as duas se cruzam sem uma comer a outra. */
+.plans__flyer.is-leaving{ z-index:2; }
+.plans__flyer.is-active{ z-index:3; --enter-x:0px; }
+.plans__flyer-in{
+  display:block; position:absolute; inset:0; overflow:hidden;
+  transform-origin:0 0;
+  transform:var(--fly,none);
+  transition:transform var(--plans-fly) var(--plans-ease), opacity .45s var(--ease);
+}
+.plans__flyer.is-active .plans__flyer-in{ transform:none; }
+.plans__flyer.is-hot .plans__flyer-in{ opacity:.74; }
+.plans__flyer img{ width:100%; height:100%; object-fit:cover; }
+
+/* Barra de progresso do avanço automático — 2px assentes na aresta de baixo do
+   palco, por cima da moldura. Só o preenchimento tem cor: a própria moldura
+   faz de calha, como na referência. O script é que a anima (scaleX 0→1 em 6s a
+   passo constante, recolha pela direita em 0.6s ao trocar de imagem). */
+.plans__progress{ position:absolute; left:0; right:0; bottom:0; height:2px; z-index:5; }
+.plans__bar{
+  display:block; width:100%; height:100%;
+  background:var(--accent);
+  transform:scaleX(0); transform-origin:left;
+}
+
+/* ---------- Coluna lateral ---------- */
+/* Três filas — contador, miniaturas, Prev/Next — e é a do MEIO que estica.
+   Assim o contador encosta ao topo do palco e o Prev/Next à base dele, com a
+   fila de miniaturas centrada entre os dois: com 3 imagens (o CLT) ela não fica
+   pendurada no topo a deixar um buraco, e com 7 (Valflores) é a coluna que
+   manda na altura da linha e o palco é que se centra contra ela.
+   A referência resolve o mesmo problema com position:sticky, que aqui obrigaria
+   a remedir os rectângulos do voo a cada frame de scroll — com o scroll
+   interpolado do Lenis por baixo, é jank garantido por um ganho que não se vê. */
+.plans__aside{
+  grid-column:2; z-index:1;
+  display:grid; grid-template-rows:auto 1fr auto;
+  gap:clamp(12px,1.4vw,20px);
+}
+.plans__counter,
+.plans__nav{
+  transform:translateX(var(--enter-x,0px));
+  transition:transform 950ms var(--plans-ease) calc(var(--i,0) * 70ms),
+             opacity 700ms var(--ease) calc(var(--i,0) * 70ms);
+}
+.plans__counter{
+  font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-faint); font-variant-numeric:tabular-nums;
+}
+
+.plans__track{ display:flex; flex-direction:column; justify-content:center; gap:var(--plans-gap); }
+.plans__item{
+  appearance:none; -webkit-appearance:none;
+  border:0; padding:0; background:none; font:inherit; color:inherit;
+  position:relative; width:100%; aspect-ratio:8/5; cursor:pointer;
+}
+.plans__item.is-active{ cursor:default; }
+/* A placa é o encaixe: o que se vê quando a foto de lá saiu para o palco. A
+   animação de entrada vive AQUI e não no botão — o botão é o único rectângulo
+   que o script mede para calcular o voo, e não pode andar deslocado. */
+.plans__plate{
+  position:absolute; inset:0;
+  background:var(--paper-alt);
+  border:1px solid transparent;
+  transform:translateX(var(--enter-x,0px));
+  transition:transform 950ms var(--plans-ease) calc(var(--i,0) * 70ms),
+             border-color .4s var(--ease);
+}
+.plans__item.is-active .plans__plate{ border-color:var(--line); }
+
+/* Setas, e não "Anterior/Seguinte" por extenso — a coluna é estreita de mais
+   para duas palavras. Redondas e com a mesma seta do DoubleSlider, para
+   navegar entre imagens ser o mesmo gesto em toda a parte. */
+.plans__nav{ display:flex; justify-content:space-between; gap:10px; }
+.plans__link{
+  appearance:none; -webkit-appearance:none;
+  padding:0; background:none; font:inherit; cursor:pointer;
+  width:clamp(34px,3.2vw,44px); aspect-ratio:1; flex:none;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  /* O traço do círculo é a ÚNICA indicação de que ali há um controlo, por isso
+     tem de cumprir os 3:1 da WCAG 1.4.11 — é a mesma obrigação que criou o
+     --line-field (3.92:1 sobre --paper). A --line, decorativa, dá 1.36:1 e
+     aqui não servia. */
+  border:1px solid var(--line-field);
+  color:var(--ink-soft);
+  transition:background-color .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease);
+}
+/* Hover em café: --brown, o castanho médio que estava nos tokens em reserva à
+   espera do primeiro consumidor (ver a nota do token). É este o seu primeiro
+   uso. Chapa cheia com o glifo a branco — 7.94:1 do glifo contra a chapa e
+   7.74:1 da chapa contra o papel, folgado nos dois sentidos. */
+.plans__link:hover{ background:var(--brown); border-color:var(--brown); color:#fff; }
+/* Sem texto visível, um botão só de ícone sem anel de foco é invisível a quem
+   navega por teclado. O site não tem anel global; este põe o seu. */
+.plans__link:focus-visible{
+  outline:2px solid var(--brown); outline-offset:3px;
+  background:var(--brown); border-color:var(--brown); color:#fff;
+}
+.plans__link svg{
+  width:46%; height:46%; fill:none; stroke:currentColor;
+  stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round;
+}
+
+/* ---------- Entrada ----------
+   A coluna nasce fora da margem direita do ecrã e entra escalonada — rótulo,
+   cada encaixe, Prev/Next — com as fotos inactivas agarradas aos seus
+   encaixes. A do palco não desliza: já lá está quando a secção entra em vista
+   (--enter-x:0px em .is-active, acima). A distância é medida pelo script; se
+   ele não correr, --enter-x fica em 0 e nada se move — o slider aparece feito. */
+.plans.is-ready .plans__counter,
+.plans.is-ready .plans__nav,
+.plans.is-ready .plans__plate,
+.plans.is-ready .plans__flyer{ opacity:0; }
+.plans.is-in .plans__counter,
+.plans.is-in .plans__nav,
+.plans.is-in .plans__plate,
+.plans.is-in .plans__flyer{ opacity:1; --enter-x:0px; }
+
+/* Enquanto o script mede e assenta o primeiro estado. */
+.plans.is-instant *{ transition:none !important; }
+
+/* ---------- Ecrã estreito ----------
+   O palco desaparece e a camada das fotos SOBE à grelha (display:contents no
+   palco) para ser ela própria a fila horizontal com scroll-snap nativo. Assim
+   não há uma segunda cópia das <img> no DOM só para o telemóvel. Ordem final:
+   contador, fila, nada mais — miniaturas e Prev/Next não fazem sentido aqui. */
+@media (max-width: 900px){
+  .plans__grid{ grid-template-columns:1fr; gap:14px; }
+  .plans__stage,
+  .plans__aside{ display:contents; }
+  .plans__stage::after,
+  .plans__layer::after,
+  .plans__progress,
+  .plans__track,
+  .plans__nav{ display:none; }
+
+  .plans__counter{ order:1; }
+  .plans__layer{
+    order:2;
+    position:static; z-index:auto; pointer-events:auto;
+    display:flex; gap:12px;
+    overflow-x:auto; overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;
+    /* Sangra até às margens do ecrã: a fila lê-se como uma fita que continua
+       para lá do gutter, e não como uma caixa dentro da coluna de texto. */
+    margin-inline:calc(var(--gutter) * -1);
+    padding-inline:var(--gutter);
+    scrollbar-width:none;
+  }
+  .plans__layer::-webkit-scrollbar{ height:0; }
+  .plans__flyer{
+    position:relative; inset:auto; z-index:auto;
+    flex:0 0 min(84%, 460px); aspect-ratio:8/5;
+    scroll-snap-align:center;
+    border:1px solid var(--line);
+    transform:none; opacity:1;
+  }
+  .plans__flyer-in{ transform:none; opacity:1; }
+}
+
+/* Com o movimento desligado o slider continua inteiro e navegável — só que a
+   troca é instantânea e o avanço automático nunca arranca (ver `calm` no
+   script). Sem isto, a foto atravessava o ecrã a cada clique. */
+@media (prefers-reduced-motion: reduce){
+  .plans__flyer,
+  .plans__flyer-in,
+  .plans__plate,
+  .plans__counter,
+  .plans__nav{ transition:none; }
+  .plans.is-ready .plans__counter,
+  .plans.is-ready .plans__nav,
+  .plans.is-ready .plans__plate,
+  .plans.is-ready .plans__flyer{ opacity:1; --enter-x:0px; }
+}
 
 /* =====================================================================
    RESPONSIVO
    ===================================================================== */
 @media (max-width: 1024px){
   .stats{ grid-template-columns:repeat(2,1fr); }
-  .grid-projects{ grid-template-columns:repeat(2,1fr); }
-  .facts, .gallery{ grid-template-columns:repeat(2,1fr); }
+  /* .grid-projects já é de 2 colunas no desktop — nada a reduzir aqui. */
+  .facts{ grid-template-columns:repeat(2,1fr); }
   .team{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:1fr 1fr; }
   /* Menu vira hambúrguer já no tablet, onde o nav horizontal não cabe */
@@ -1695,8 +2425,11 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   .team{ grid-template-columns:1fr; }
   .stats{ grid-template-columns:1fr; }
   .grid-projects{ grid-template-columns:1fr; }
+  /* Numa só coluna a moldura fica com ~354px: a 19/10 a imagem cairia para
+     ~186px de altura e o empreendimento deixava de se ver. Recupera altura
+     sem voltar ao retrato. */
+  .grid-projects .card__media{ aspect-ratio:3/2; }
   .facts{ grid-template-columns:repeat(2,1fr); }
-  .gallery{ grid-template-columns:1fr; }
   .footer-grid{ grid-template-columns:1fr; }
   .scroller{ grid-auto-columns:minmax(260px,80%); }
 }
@@ -1706,10 +2439,11 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
    Layout: imagem/título à esquerda, informação à direita.
    ===================================================================== */
 /* Card do histórico é um botão (abre o modal) — herda o visual do link-card. */
+/* Não anula border/padding/background: são eles que fazem a moldura do .card. */
 button.card{
-  appearance:none; -webkit-appearance:none; border:0; padding:0; margin:0;
+  appearance:none; -webkit-appearance:none; margin:0;
   width:100%; text-align:left; font:inherit; color:inherit;
-  background:transparent; cursor:pointer;
+  cursor:pointer;
 }
 
 /* Painel inline do empreendimento: acordeão dentro de .grid-projects. Aberto
@@ -1722,10 +2456,13 @@ button.card{
 .epanel__wrap{ display:grid; grid-template-rows:0fr; transition:grid-template-rows 1.3s var(--ease); }
 .epanel.is-open .epanel__wrap{ grid-template-rows:1fr; }
 
+/* Canto reto, como os cartões entre os quais este painel abre. Teve raio
+   durante o tempo em que a moldura também tinha; ao voltar ao canto vivo,
+   voltou com ela. */
 .epanel__inner{
   overflow:hidden; min-height:0;
   display:grid; grid-template-columns:1.05fr 1fr;
-  background:var(--paper); border:1px solid var(--line);
+  background:var(--paper); border:1px solid var(--card-rule);
   box-shadow:0 24px 60px rgba(0,0,0,.16);
 }
 /* Inline não tem cap de altura: a coluna de info cresce com o conteúdo. */
@@ -1788,10 +2525,11 @@ button.card{
    que o título da secção, e não 2rem à direita dele. */
 .testimonials{ width:100%; max-width:none; padding:2rem 0; outline:none; }
 .testimonials__grid{ display:grid; gap:5rem; }
-/* overflow:hidden contém as fotos empilhadas (esquerda/direita) dentro da
-   própria coluna — sem isto, a foto que espreita à esquerda ultrapassa a
-   margem do site em vez de ficar contida na grelha. */
-.testimonials__images{ position:relative; width:100%; height:38rem; perspective:1000px; overflow:hidden; }
+/* overflow:visible: a coluna ficou mais estreita que o cartão (ver
+   max-width) de propósito, para sobrar espaço onde as fotos empilhadas
+   (esquerda/direita) espreitam por detrás. O body tem overflow-x:hidden,
+   por isso não há risco de scroll horizontal na página. */
+.testimonials__images{ position:relative; width:100%; max-width:22rem; aspect-ratio:2/3; perspective:1000px; overflow:visible; }
 .testimonials__img{
   position:absolute; width:100%; height:100%; object-fit:cover;
   border-radius:0; box-shadow:0 14px 40px rgba(0,0,0,.16); opacity:0;
@@ -1809,6 +2547,20 @@ button.card{
   content:"Foto"; position:absolute; inset:0; display:grid; place-items:center;
   font-size:.7rem; letter-spacing:.28em; text-transform:uppercase; font-weight:600; color:var(--ink-faint);
 }
+/* O mesmo placeholder numa .section--dark (o carrossel da Equipa, em
+   /sobre-nos): na versão clara é areia, e sobre o café dois dos cinco
+   cartões passavam a lajes brancas a puxar o olho mais do que as
+   fotografias ao lado. Inverte para a trama escura dos outros placeholders
+   do site (ver .ph--dark e .member__mono). */
+.section--dark .testimonials__img--ph{
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,.045) 0, rgba(255,255,255,.045) 1px,
+      transparent 1px, transparent 11px),
+    var(--dark-soft);
+  border-color:rgba(255,255,255,.12);
+}
+.section--dark .testimonials__img--ph::after{ color:rgba(255,255,255,.45); }
 /* Antes do JS: mostra o primeiro depoimento (fallback sem salto). */
 .testimonials__img[data-index="0"]{ opacity:1; z-index:3; }
 .testimonials__content{ display:flex; flex-direction:column; justify-content:flex-start; }
@@ -1837,9 +2589,14 @@ button.card{
   to{ opacity:1; transform:translateY(0); }
 }
 @media (min-width:768px){
-  /* Fotos ocupam mais espaço do que o parágrafo (deixou de ser 50/50): a
-     coluna das imagens é agora a maior das duas. */
-  .testimonials__grid{ grid-template-columns:minmax(0,3fr) minmax(0,2fr); }
+  /* Fotos em formato retrato (ver .testimonials__images): a coluna fica
+     mais estreita do que o parágrafo, ao contrário de um slide paisagem. */
+  .testimonials__grid{ grid-template-columns:minmax(0,2fr) minmax(0,3fr); }
+  /* justify-self:end encosta o cartão ao lado do parágrafo, para sobrar
+     espaço à esquerda, dentro da coluna — sem isto o cartão fica rente à
+     margem do site e o peek esquerdo é cortado pelo overflow-x:hidden do
+     body. */
+  .testimonials__images{ justify-self:end; }
 }
 @media (prefers-reduced-motion: reduce){
   .testimonials__body{ animation:none; }
@@ -2169,8 +2926,11 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 /* ===== Marca-d'água do símbolo — identidade (spec 2026-07-28) ===== */
 .has-wm{ position:relative; z-index:0; }
 .wm-layer{ position:absolute; inset:0; overflow:visible; pointer-events:none; z-index:-1; }
-.wm{ position:absolute; }
-.wm--mid{ top:50%; transform:translateY(-50%); }
+/* A rotação e o centramento vertical partilham a mesma propriedade `transform`,
+   por isso compõem-se por variáveis em vez de se sobreporem: quem escreve
+   `transform` outra vez apaga a outra metade. */
+.wm{ position:absolute; --wm-rot:0deg; --wm-shift:0; transform:translateY(calc(var(--wm-shift) * -50%)) rotate(var(--wm-rot)); }
+.wm--mid{ top:50%; --wm-shift:1; }
 .wm--top{ top:6%; }
 .wm--bottom{ bottom:6%; }
 .wm--l{ left:-6%; }
@@ -2185,11 +2945,90 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 .wm--dark{ opacity:.08; }
 .wm--dark .bar, .wm--dark .tab{ fill:var(--paper-alt); }
 
+/* ---------- Blob de fundo — inspirado na secção "Alguns Projetos" de
+   estudiobase2.com. Lá, a marca da casa (dois quadrados de canto arredondado,
+   rodados e sobrepostos) aparece GIGANTE, cinzenta quase invisível sobre o
+   fundo, a sangrar por DOIS cantos opostos da secção — não é uma assinatura
+   no canto, é textura de fundo. Aqui repete-se a mesma lógica com os
+   quadrados de canto arredondado (squircle), não com as barras do logótipo:
+   as barras rodadas a 90° liam-se como um risco preso à borda lateral — o
+   squircle não tem essa leitura porque não é reconhecível como objeto, só
+   como mancha de forma.
+   A cor é --paper a alpha muito baixo: sobre o café real (rgb(58,49,42)) dá
+   uma diferença de ~12 unidades de luminância — visível de perto, invisível
+   à distância de leitura. Nada de --accent aqui: a intenção é textura, não
+   destaque, e um laranja a esta escala competiria com os títulos. */
+.blob-layer{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.blob{
+  position:absolute;
+  /* A largura sai numa variável porque os desvios verticais da corrida escura
+     (ver .dark-run) se medem por ela, não pela altura do pai. */
+  --blob-w:clamp(300px, 34vw, 560px);
+  width:var(--blob-w);
+  aspect-ratio:1;
+  border-radius:28%;
+  background:rgba(253,252,250,.055);
+}
+/* Cada canto leva DOIS squircles rodados em ângulos diferentes e ligeiramente
+   desencontrados — é a sobreposição, não um único quadrado, que produz o
+   contorno em lóbulos do original (ver referência). Mesma opacidade nos
+   dois: onde se sobrepõem não deve escurecer/acender mais, senão denuncia-se
+   como "duas formas" em vez de uma mancha só. */
+.blob--tr-a{ top:-16%; right:-9%;  transform:rotate(-24deg); }
+.blob--tr-b{ top:2%;   right:-16%; transform:rotate(19deg); }
+.blob--bl-a{ bottom:-16%; left:-9%;  transform:rotate(-24deg); }
+.blob--bl-b{ bottom:2%;   left:-16%; transform:rotate(19deg); }
+
+/* Camada presa à SECÇÃO (não ao .container): precisa de medir-se pela altura
+   toda do bloco para sangrar nos dois cantos. O z-index:-1 do .wm-layer não
+   serve aqui — a secção tem fundo próprio (.section--dark) e um filho a -1
+   ficaria ATRÁS desse fundo, invisível; por isso sobe a 0 e os irmãos de
+   conteúdo passam a 1. */
+.has-blob{ position:relative; z-index:0; }
+.has-blob > :not(.blob-layer){ position:relative; z-index:1; }
+
+/* Corrida escura (home): Histórico + Equipa. As duas secções encostam-se sem
+   folga e devem ler-se como um bloco só — logo a textura tem de as atravessar.
+   O .blob-layer passa a viver aqui, medido pelas duas juntas: sangra pelo
+   canto superior direito (topo do Histórico) e pelo inferior esquerdo (base da
+   Equipa), e a fronteira interna fica limpa. Com um <Blob> por secção havia
+   quatro cantos, dois deles colados na costura — era isso que denunciava as
+   duas caixas.
+
+   O fundo também sobe para a corrida e as secções passam a transparentes:
+   --dark é semitransparente (#241a12e5, para a hero se ver por trás) e é
+   preciso uma camada só. Duas caixas escuras a pintar por cima do mesmo
+   .blob-layer também o tapariam — as secções são irmãs a z-index:1. As regras
+   de cor de texto continuam presas a .section--dark, que se mantém no markup. */
+.dark-run{ background:var(--dark); color:var(--paper); }
+.dark-run > .section--dark{ background:transparent; }
+
+/* Desvios verticais medidos pela largura do próprio blob, não em % da altura
+   do pai: a corrida é ~2x mais alta que uma secção, e um top:-16% dessa altura
+   atirava a mancha quase toda para fora do recorte. As percentagens
+   horizontais mantêm-se — a largura é a mesma (a do ecrã). */
+.dark-run > .blob-layer .blob--tr-a{ top:calc(var(--blob-w) * -.30); }
+.dark-run > .blob-layer .blob--tr-b{ top:calc(var(--blob-w) * .04); }
+.dark-run > .blob-layer .blob--bl-a{ bottom:calc(var(--blob-w) * -.30); }
+.dark-run > .blob-layer .blob--bl-b{ bottom:calc(var(--blob-w) * .04); }
+
+
+@media (max-width:720px){
+  .blob{ --blob-w:clamp(220px, 56vw, 360px); }
+}
+
 /* ===== Divisor-assinatura (3 linhas + encaixe) — 2ª vaga ===== */
 .divider{ position:relative; display:flex; flex-direction:column; gap:6px; max-width:340px; margin:1.8rem 0; padding-top:16px; }
 .divider__line{ height:4px; background:var(--ink); }
 .divider__line--strong{ height:4px; background:var(--ink); }
 .divider__tab{ position:absolute; top:0; left:0; width:52px; height:6px; background:var(--accent); }
+/* O <Divider> assume fundo claro: as três linhas são --ink e, sobre o café
+   de uma .section--dark, ficavam praticamente invisíveis. Aqui invertem-se,
+   e o encaixe passa ao bronze claro — o mesmo acento que os rótulos usam
+   sobre escuro (ver .section--dark .member__role). Único consumidor de hoje:
+   o divisor dentro do carrossel da Equipa, em /sobre-nos. */
+.section--dark :is(.divider__line, .divider__line--strong){ background:var(--paper); }
+.section--dark .divider__tab{ background:var(--accent-dk); }
 
 /* ===== Moldura de imagem (encaixe preto + fio laranja) — 2ª vaga ===== */
 .frame{ position:relative; }
@@ -2206,3 +3045,192 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
    ordenação que era da .split__media. */
 .split--reverse .frame{ order:2; }
 @media (max-width:760px){ .split--reverse .frame{ order:0; } }
+
+/* =====================================================================
+   SEO — migalhas e perguntas frequentes
+   Dois blocos novos, deliberadamente discretos: existem para o Google e
+   para quem chega à ficha vindo da pesquisa, e não podem competir com a
+   fotografia nem com o título do empreendimento.
+   ===================================================================== */
+
+/* ---------- Migalhas ---------- */
+.crumbs{ margin-bottom:clamp(24px,3vw,44px); }
+.crumbs__list{
+  list-style:none; margin:0; padding:0;
+  display:flex; flex-wrap:wrap; align-items:center;
+  gap:.5rem .75rem;
+  font-family:var(--sans); font-size:.78rem; font-weight:400;
+  letter-spacing:.06em; text-transform:uppercase;
+}
+/* O separador é desenhado pelo ::before do item seguinte (e não por um
+   caractere no HTML): assim não entra no texto que o crawler lê nem no que
+   um leitor de ecrã anuncia. */
+.crumbs__item + .crumbs__item::before{
+  content:"›"; margin-right:.75rem; color:var(--ink-faint);
+  text-transform:none; letter-spacing:0;
+}
+.crumbs__link{ color:var(--ink-faint); text-decoration:none; border-bottom:1px solid transparent; }
+.crumbs__link:hover,
+.crumbs__link:focus-visible{ color:var(--ink); border-bottom-color:currentColor; }
+.crumbs__atual{ color:var(--ink); }
+
+/* ---------- Perguntas frequentes ---------- */
+.faq__title{
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(1.6rem,3.2vw,2.4rem); line-height:1.15;
+  color:var(--ink); margin:0 0 clamp(28px,3.5vw,52px);
+  max-width:22ch;
+}
+.faq{ margin:0; display:grid; gap:0; }
+.faq__item{ border-top:1px solid var(--card-rule-fine); padding:clamp(20px,2.4vw,32px) 0; }
+.faq__item:last-child{ border-bottom:1px solid var(--card-rule-fine); }
+.faq__p{ margin:0 0 .6rem; }
+/* O <h3> vive dentro do <dt> só pela hierarquia de cabeçalhos; visualmente é
+   o rótulo da linha, não um título de secção. */
+.faq__p h3{
+  margin:0; font-family:var(--sans); font-weight:500;
+  font-size:clamp(1rem,1.4vw,1.08rem); line-height:1.4;
+  letter-spacing:0; color:var(--ink);
+}
+.faq__r{
+  margin:0; max-width:68ch;
+  font-family:var(--sans); font-weight:300;
+  font-size:clamp(.95rem,1.3vw,1.02rem); line-height:1.7;
+  color:var(--ink-soft);
+}
+@media (min-width:761px){
+  /* Pergunta à esquerda, resposta à direita: a coluna de perguntas fica
+     varrível de relance, que é como se lê uma lista de FAQ. */
+  .faq__item{ display:grid; grid-template-columns:minmax(0,10fr) minmax(0,14fr); gap:clamp(24px,4vw,64px); align-items:start; }
+  .faq__p{ margin-bottom:0; }
+}
+
+/* =====================================================================
+   SEO — blog, artigo e 404
+   ===================================================================== */
+
+/* ---------- Ligações secundárias do rodapé ---------- */
+.footer-links{
+  margin-top:clamp(40px,5vw,72px);
+  display:flex; flex-wrap:wrap; gap:.9rem 1.8rem;
+  font-family:var(--sans); font-size:.74rem; letter-spacing:.08em; text-transform:uppercase;
+}
+.footer-links a{ color:var(--on-dark-dim); text-decoration:none; border-bottom:1px solid transparent; }
+.footer-links a:hover,
+.footer-links a:focus-visible{ color:var(--on-dark); border-bottom-color:currentColor; }
+/* O rodapé já tinha a régua entre a grelha e o copyright; com a fila de links
+   pelo meio, a régua passa para cima dela e o bloco de baixo perde a sua. */
+.footer-links + .footer-bottom{ margin-top:1.6rem; padding-top:0; border-top:0; }
+.footer-links{ padding-top:1.6rem; border-top:1px solid rgba(255,255,255,.12); }
+
+/* ---------- Coluna de leitura ----------
+   Um artigo lê-se mal em 1480px. 74ch é a medida em que a linha acaba antes de
+   o olho perder o início da seguinte. */
+.container--texto{ max-width:min(var(--maxw), 74ch); }
+
+/* ---------- Lista de artigos ---------- */
+.posts{
+  display:grid; gap:clamp(32px,4vw,56px);
+  grid-template-columns:repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  margin-top:clamp(48px,6vw,88px);
+  text-align:left;
+}
+.post-card__link{ display:block; color:inherit; text-decoration:none; }
+.post-card__media{ overflow:hidden; background:var(--paper-alt); aspect-ratio:4/3; }
+.post-card__media img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+.post-card__link:hover .post-card__media img,
+.post-card__link:focus-visible .post-card__media img{ transform:scale(1.04); }
+.post-card__body{ padding-top:1.4rem; }
+.post-card__data{
+  display:block; font-family:var(--sans); font-size:.72rem;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);
+}
+.post-card__titulo{
+  margin:.7rem 0 .6rem; font-family:var(--serif); font-weight:300;
+  font-size:clamp(1.25rem,2vw,1.5rem); line-height:1.25; color:var(--ink);
+}
+.post-card__resumo{
+  margin:0; font-family:var(--sans); font-weight:300; font-size:.95rem;
+  line-height:1.65; color:var(--ink-soft);
+}
+.post-card__cta{
+  display:inline-block; margin-top:1rem;
+  font-family:var(--sans); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--accent); border-bottom:1px solid currentColor; padding-bottom:2px;
+}
+
+/* ---------- Artigo ---------- */
+.artigo__head{ margin-bottom:clamp(32px,4vw,56px); }
+.artigo__titulo{
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(2rem,4.6vw,3.2rem); line-height:1.1;
+  color:var(--ink); margin:0 0 1.2rem;
+}
+.artigo__resumo{
+  margin:0 0 1.4rem; font-family:var(--sans); font-weight:300;
+  font-size:clamp(1.05rem,1.6vw,1.2rem); line-height:1.6; color:var(--ink-soft);
+}
+.artigo__meta{
+  margin:0; font-family:var(--sans); font-size:.74rem;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);
+}
+.artigo__figura{ margin:0 0 clamp(32px,4vw,56px); }
+.artigo__figura img{ width:100%; height:auto; display:block; }
+.artigo__tags{
+  list-style:none; margin:clamp(40px,5vw,64px) 0 0; padding:1.6rem 0 0;
+  border-top:1px solid var(--card-rule-fine);
+  display:flex; flex-wrap:wrap; gap:.6rem;
+}
+.artigo__tags li{
+  font-family:var(--sans); font-size:.72rem; letter-spacing:.06em;
+  color:var(--ink-faint); background:var(--paper-alt); padding:.35rem .75rem;
+}
+
+/* ---------- Prosa do Markdown ----------
+   O corpo do artigo vem do Markdown, por isso estiliza-se por elemento e não
+   por classe: quem escreve no CMS não tem de saber nomes de classes nenhuns. */
+.prosa{ font-family:var(--sans); font-weight:300; font-size:1.02rem; line-height:1.75; color:var(--ink-soft); }
+.prosa > * + *{ margin-top:1.3em; }
+.prosa h2{
+  font-family:var(--serif); font-weight:300; color:var(--ink);
+  font-size:clamp(1.5rem,2.8vw,2rem); line-height:1.2;
+  margin-top:2.4em; margin-bottom:.2em;
+}
+.prosa h3{
+  font-family:var(--sans); font-weight:500; color:var(--ink);
+  font-size:1.08rem; line-height:1.4; margin-top:2em; margin-bottom:.2em;
+}
+.prosa strong{ font-weight:600; color:var(--ink); }
+.prosa a{ color:var(--accent); text-decoration:none; border-bottom:1px solid currentColor; }
+.prosa a:hover, .prosa a:focus-visible{ color:var(--ink); }
+.prosa ul, .prosa ol{ padding-left:1.4em; }
+.prosa li + li{ margin-top:.5em; }
+.prosa hr{ border:0; border-top:1px solid var(--card-rule-fine); margin-block:2.4em; }
+.prosa blockquote{
+  margin-inline:0; padding-left:1.4em; border-left:2px solid var(--accent);
+  font-style:italic; color:var(--ink);
+}
+
+/* ---------- 404 ---------- */
+.erro-links{
+  list-style:none; margin:clamp(48px,6vw,88px) auto 0; padding:0;
+  display:grid; gap:0; max-width:70ch; text-align:left;
+}
+.erro-link{ border-top:1px solid var(--card-rule-fine); }
+.erro-link:last-child{ border-bottom:1px solid var(--card-rule-fine); }
+.erro-link a{
+  display:block; padding:clamp(20px,2.4vw,30px) 0; text-decoration:none;
+  color:var(--ink); transition:padding-left .5s cubic-bezier(.16,1,.3,1);
+}
+.erro-link a:hover, .erro-link a:focus-visible{ padding-left:.8rem; }
+.erro-link__titulo{
+  display:block; font-family:var(--serif); font-weight:300;
+  font-size:clamp(1.15rem,2vw,1.4rem); line-height:1.3;
+}
+.erro-link__texto{
+  display:block; margin-top:.35rem; font-family:var(--sans); font-weight:300;
+  font-size:.92rem; color:var(--ink-soft);
+}
