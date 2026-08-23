@@ -204,8 +204,14 @@ for (const [vpName, w, h] of VIEWPORTS) {
        PASSA e FALHA sem que o codigo tivesse mudado. Espera-se por ele de
        propósito, em vez de o dispensar: numa primeira visita ele FAZ parte
        do ecra, e os alvos e corpos dele contam como os dos outros. */
-    await page.waitForSelector('.cookies.is-visivel', { timeout: 9000 })
-      .catch(() => { throw new Error(`aviso de cookies nao apareceu em ${route} @${w}px`); });
+    /* Condicional: se a pagina TIVER aviso de cookies, espera que ele assente
+       antes de medir; se nao tiver, segue. Sem isto o verificador nao consegue
+       medir uma versao do site anterior a existencia do aviso -- que e
+       exactamente o que uma baseline historica precisa de fazer. */
+    if (await page.$('.cookies')) {
+      await page.waitForSelector('.cookies.is-visivel', { timeout: 9000 })
+        .catch(() => { throw new Error(`aviso de cookies nao assentou em ${route} @${w}px`); });
+    }
     await page.evaluate(async () => {
       for (let y = 0; y < document.body.scrollHeight; y += 600) {
         window.scrollTo(0, y);

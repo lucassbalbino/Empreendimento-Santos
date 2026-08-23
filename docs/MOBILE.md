@@ -5,15 +5,31 @@
 > animações de entrada neutralizadas para medir o layout assente.
 >
 > Números de partida, somados nas 21 combinações página×largura:
-> **88 transbordos · 576 alvos de toque < 44px · 150 blocos de texto < 13px.**
+> **90 transbordos · 237 alvos de toque < 44px · 132 blocos de texto < 13px.**
 > Gravados em [`scripts/mobile-baseline.json`](../scripts/mobile-baseline.json),
-> medidos no commit pré-campanha `703cbed`.
+> medidos no commit pré-campanha `703cbed` **num worktree isolado**.
 >
-> ⚠️ A primeira leitura desta auditoria deu 141/345/159. Estava errada, e a
-> razão importa: o aviso de cookies aparece de forma assíncrona e umas corridas
-> mediam-no e outras não. O verificador passa agora a esperar por ele
-> explicitamente, e a baseline foi refeita a medir o commit pré-campanha com o
-> verificador já determinístico. **Só os números acima servem de referência.**
+> ⚠️ **Esta baseline foi medida três vezes antes de estar certa. Vale a pena
+> saber porquê, porque a armadilha volta a aparecer:**
+>
+> 1. **141 / 345 / 159** — errado. O aviso de cookies aparece de forma
+>    assíncrona (espera pelo preloader, tecto de 6s) e umas corridas mediam-no,
+>    outras não. Corrigido com uma espera explícita no verificador.
+> 2. **88 / 576 / 150** — errado por uma razão pior. Para medir o estado
+>    pré-campanha, revertei `public/styles.css` para `703cbed` **na árvore de
+>    trabalho** — mas a árvore já continha, por commitar, uma funcionalidade de
+>    consentimento de cookies que **outra sessão estava a construir em
+>    paralelo**. O `703cbed` não tem CSS nenhum para `.cookies`, por isso a
+>    medição apanhou o aviso **completamente por estilizar**: em fluxo normal,
+>    com controlos por omissão do browser. Daí os 576 alvos e uma home de
+>    14 238px que nunca existiu.
+> 3. **90 / 237 / 132** — medido num `git worktree` isolado em `703cbed`, sem
+>    nenhum ficheiro por commitar de ninguém. É esta a referência.
+>
+> **Regra que sai daqui:** medir um commit histórico faz-se sempre em worktree.
+> Reverter um ficheiro na árvore de trabalho partilhada mede uma quimera — um
+> ficheiro antigo ao lado de trabalho novo de outra pessoa — e o número que sai
+> parece plausível, o que é o pior tipo de número errado.
 
 ## Como se testa (obrigatório em cada task)
 
@@ -319,33 +335,37 @@ Nada por resolver nesta task — nenhuma variante teve de ficar como estava.
 
 Commits `be48071` · `78f3281` · `6120c0b` · `930d8b9` · `9a8b86d` · `06b4905`.
 
-| | partida | agora |
-|---|---|---|
-| Transbordos | 88 | **25** |
-| Alvos < 44px | 576 | **0** |
-| Texto < 13px | 150 | **0** |
+| | partida | agora | |
+|---|---|---|---|
+| Transbordos | 90 | **25** | −72% |
+| Alvos < 44px | 237 | **0** | |
+| Texto < 13px | 132 | **0** | |
 
 Altura das páginas a 390px:
 
 | Página | antes | depois | |
 |---|---|---|---|
-| home | 14 238px | 9 609px | −33% |
-| histórico | 9 420px | 6 922px | −27% |
-| portfólio | 6 810px | 5 054px | −26% |
-| contactos | 4 472px | 3 679px | −18% |
-| sobre-nós | 9 592px | 8 517px | −11% |
-| equipa | 8 402px | 7 445px | −11% |
-| empreendimento | 7 858px | 6 966px | −11% |
+| histórico | 7 616px | 6 922px | −9% |
+| home | 10 456px | 9 609px | −8% |
+| portfólio | 5 507px | 5 054px | −8% |
+| sobre-nós | 8 833px | 8 517px | −4% |
+| equipa | 7 645px | 7 445px | −3% |
+| contactos | 3 689px | 3 679px | −0,3% |
+| **empreendimento** | **6 461px** | **6 966px** | **+8%** |
 
-`npm run seo:check` continua a passar (exit 0). Três corridas seguidas de
-`npm run mobile` dão o mesmo resultado.
+`npm run seo:check` continua a passar (exit 0).
 
-**O que NÃO foi cumprido.** A T1 tinha por critério pôr a home abaixo de
-~6 500px. Ficou nos 9 609px. O que sobra já não é padding de secção — é altura
-de conteúdo: o carrossel (`min-height:clamp(680px,90vh,880px)`), os painéis
-(`clamp(460px,72vh,760px)`), a fita da equipa e os cartões. Isso é trabalho da
-Vaga 2 (P2 e P6), não de mais um ajuste de token. O critério estava mal
-atribuído à T1, não foi a T1 que falhou.
+**A página de empreendimento ficou 505px MAIS ALTA.** É uma troca consciente e
+não um descuido: para o cartão deixar de cortar na margem direita (B1), a
+legenda passou a empilhar — nome em cima, chapa da tipologia por baixo — e isso
+custa altura em cada cartão. Trocou-se largura por altura. Se a P1 encontrar
+maneira de manter os dois na mesma linha sem estourar a coluna, é ganho puro.
+
+**O critério de altura da T1 não foi cumprido, e estava mal posto.** Pedia a
+home abaixo de ~6 500px; está nos 9 609px. O padding de secção era 336px por
+fronteira e desceu a ~128px, mas o que domina a altura da home não é isso — é
+altura de componente: o carrossel (`min-height:clamp(680px,90vh,880px)`), os
+painéis (`clamp(460px,72vh,760px)`) e a fita da equipa. Isso é P2 e P6.
 
 **Trabalho da Vaga 2 antecipado.** O B1 foi corrigido na T4 e sai do âmbito da
 P1: os corpos a subir para 13px puseram o min-content do cartão a estourar a
@@ -366,6 +386,11 @@ mais nada:
 "SCROLL" começa 9px antes de o título acabar (título 590→655, scroll 646→722).
 Não se sobrepõem porque estão separados na horizontal, mas leem-se apertados.
 Vale uma decisão de composição — sugere-se juntar à P2.
+
+**Nota sobre a T5.** O ganho do `svh` não se demonstra em headless: um Chrome
+sem barra de browser resolve `svh`, `lvh` e `vh` ao mesmo número. Provou-se por
+partes (suporte, minificador, e conteúdo a caber à altura do viewport pequeno).
+**Falta confirmar num telemóvel real.**
 
 ### Vagas 2 e 3
 
