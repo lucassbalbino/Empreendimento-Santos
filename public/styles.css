@@ -3296,6 +3296,300 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
   font-size:.92rem; color:var(--ink-soft);
 }
 
+
+/* =====================================================================
+   Aviso de cookies — barra (1.ª camada) e painel de definições (2.ª)
+   =====================================================================
+   Markup em src/components/CookieBanner.astro, lógica em public/consent.js.
+   As classes de estado (.is-visivel, .is-painel) são postas pelo consent.js;
+   este bloco parte SEMPRE do estado invisível e sem captar cliques, porque o
+   aviso existe no HTML de todas as páginas mas só deve aparecer a quem ainda
+   não decidiu — e enquanto não aparece não pode roubar um clique ao site.
+
+   Escala de z-index desta folha: header 100, cortina de navegação 9999,
+   preloader 10000. O aviso fica em 9000: acima de tudo o que é conteúdo, mas
+   DEBAIXO da cortina e do preloader de propósito — durante uma navegação a
+   cortina tem de o tapar, senão a barra fica a flutuar sobre a transição. */
+
+.cookies[hidden]{ display:none; }
+
+/* ---- 1.ª camada: barra ---- */
+.cookies__aviso{
+  position:fixed; z-index:9001;
+  left:var(--gutter); right:var(--gutter); bottom:var(--gutter);
+  margin-inline:auto; max-width:min(1080px, calc(100vw - var(--gutter) * 2));
+  display:flex; align-items:flex-end; gap:clamp(20px, 3vw, 48px);
+  padding:clamp(20px, 2.4vw, 30px);
+  background:var(--paper);
+  border:1px solid var(--line);
+  box-shadow:0 18px 48px -24px rgba(26,20,16,.45);
+  /* Estado de repouso: fora do ecrã, invisível e inerte. A `visibility` é
+     obrigatória além da opacidade — só ela tira o conteúdo da ordem de
+     tabulação, e uma barra invisível que ainda apanhasse o Tab deixava um
+     utilizador de teclado a passear por botões que não vê. */
+  transform:translateY(calc(100% + var(--gutter)));
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:transform .6s var(--ease), opacity .45s var(--ease), visibility 0s linear .6s;
+}
+.cookies.is-visivel .cookies__aviso{
+  transform:translateY(0); opacity:1; visibility:visible; pointer-events:auto;
+  transition:transform .6s var(--ease), opacity .45s var(--ease), visibility 0s;
+}
+/* Com o painel aberto a barra sai: o consent.js mantém .is-visivel ligada (para
+   a barra voltar se o painel for fechado sem decidir), por isso é o CSS que
+   tem de as arbitrar — se ambas ficassem à vista, havia dois diálogos abertos
+   e dois pares de botões a dizer o mesmo. */
+.cookies.is-painel .cookies__aviso{
+  transform:translateY(calc(100% + var(--gutter)));
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:transform .45s var(--ease), opacity .3s var(--ease), visibility 0s linear .45s;
+}
+.cookies__aviso:focus{ outline:none; }   /* recebe foco programático, não é um alvo de clique */
+.cookies__aviso:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+
+.cookies__texto{ flex:1 1 auto; min-width:0; }
+.cookies__titulo{
+  font-size:clamp(1rem, 1.4vw, 1.15rem); line-height:1.2; margin:0 0 .5rem;
+  letter-spacing:.01em;
+}
+.cookies__texto p{ margin:0; color:var(--ink-soft); font-size:.92rem; line-height:1.55; max-width:62ch; }
+.cookies__legal{ margin-top:.7rem !important; font-size:.82rem; }
+.cookies__legal a{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.cookies__legal a:hover{ color:var(--accent-text); }
+.cookies__sep{ color:var(--ink-faint); margin:0 .45rem; }
+
+.cookies__accoes{
+  flex:0 0 auto;
+  display:flex; flex-direction:column; align-items:stretch; gap:.6rem;
+  min-width:min(230px, 40vw);
+}
+
+/* ---- Os dois botões de consentimento ----
+   `.cookies__btn` é UMA classe e serve os dois: Aceitar e Rejeitar herdam
+   exactamente a mesma caixa, a mesma cor, o mesmo peso e o mesmo tamanho. Não
+   há aqui modificador de destaque nenhum para o par, e é de propósito: a
+   assimetria entre aceitar e recusar é a infracção que os reguladores
+   europeus mais multam (Google, 325 M€, set/2025). O scripts/cookies-check.mjs
+   compara as classes dos dois botões no HTML construído e falha se divergirem
+   — é a única forma de isto não se degradar num redesenho futuro. */
+.cookies__btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:44px; padding:.75rem 1.4rem;          /* 44px = alvo de toque mínimo */
+  font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; font-weight:600;
+  color:var(--ink); background:transparent;
+  border:1px solid var(--ink);
+  cursor:pointer; text-align:center;
+  transition:background .3s var(--ease), color .3s var(--ease);
+}
+.cookies__btn:hover{ background:var(--ink); color:var(--paper); }
+.cookies__btn:focus-visible{ outline:2px solid var(--accent-deep); outline-offset:2px; }
+
+/* "Personalizar" é terciário porque NÃO é uma escolha de consentimento — é
+   navegação para a camada seguinte. Rebaixar uma das duas respostas seria
+   dark pattern; rebaixar a porta para o detalhe não é. */
+.cookies__terciario{
+  min-height:44px; padding:.4rem;
+  background:none; border:0; cursor:pointer;
+  font-size:.8rem; color:var(--ink-soft);
+  text-decoration:underline; text-underline-offset:3px;
+}
+.cookies__terciario:hover{ color:var(--accent-text); }
+.cookies__terciario:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+
+/* ---- Véu do painel ---- */
+.cookies__veu{
+  position:fixed; inset:0; z-index:9000;
+  background:rgba(26,20,16,.55);
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .4s var(--ease), visibility 0s linear .4s;
+}
+.cookies.is-painel .cookies__veu{
+  opacity:1; visibility:visible; pointer-events:auto;
+  transition:opacity .4s var(--ease), visibility 0s;
+}
+
+/* ---- 2.ª camada: painel ---- */
+.cookies__painel{
+  position:fixed; z-index:9002;
+  left:50%; top:50%;
+  width:min(620px, calc(100vw - var(--gutter) * 2));
+  max-height:min(86vh, 780px); overflow-y:auto; overscroll-behavior:contain;
+  padding:clamp(22px, 3vw, 38px);
+  background:var(--paper); border:1px solid var(--line);
+  box-shadow:0 32px 80px -32px rgba(26,20,16,.6);
+  transform:translate(-50%, -46%); opacity:0; visibility:hidden; pointer-events:none;
+  transition:transform .45s var(--ease), opacity .35s var(--ease), visibility 0s linear .45s;
+}
+.cookies.is-painel .cookies__painel{
+  transform:translate(-50%, -50%); opacity:1; visibility:visible; pointer-events:auto;
+  transition:transform .45s var(--ease), opacity .35s var(--ease), visibility 0s;
+}
+.cookies__painel:focus{ outline:none; }
+.cookies__painel:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+
+.cookies__painel-topo{ display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
+.cookies__painel-topo h2{ font-size:clamp(1.15rem, 2vw, 1.4rem); margin:0; line-height:1.2; }
+.cookies__fechar{
+  flex:0 0 auto;
+  width:44px; height:44px; margin:-10px -10px 0 0;   /* recuo óptico: o alvo é 44px, o glifo é pequeno */
+  display:grid; place-items:center;
+  background:none; border:0; cursor:pointer; color:var(--ink-soft);
+}
+.cookies__fechar svg{ width:20px; height:20px; }
+.cookies__fechar:hover{ color:var(--ink); }
+.cookies__fechar:focus-visible{ outline:2px solid var(--ink); outline-offset:-4px; }
+
+.cookies__painel-texto{ margin:.8rem 0 0; color:var(--ink-soft); font-size:.92rem; line-height:1.55; }
+
+.cookies__lista{ list-style:none; margin:1.6rem 0 0; padding:0; }
+.cookies__cat{ padding:1.1rem 0; border-top:1px solid var(--line); }
+.cookies__cat:last-child{ border-bottom:1px solid var(--line); }
+.cookies__cat-cab{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+
+/* Interruptor. O <input> continua a existir e a ser focável — é ele que o
+   leitor de ecrã anuncia e o teclado comuta; a pista é só a representação
+   visual. Esconder o input com `display:none` tirava-o da ordem de tabulação
+   e deixava o painel inoperável sem rato. */
+.cookies__toggle{
+  display:flex; align-items:center; gap:.85rem;
+  min-height:44px; cursor:pointer; flex:1 1 auto;
+}
+.cookies__toggle input{
+  position:absolute; width:1px; height:1px; margin:-1px;
+  clip-path:inset(50%); overflow:hidden; white-space:nowrap;
+}
+.cookies__toggle-pista{
+  flex:0 0 auto; position:relative;
+  width:46px; height:26px; border-radius:13px;
+  background:var(--card-chip); border:1px solid var(--line-field);
+  transition:background .25s var(--ease), border-color .25s var(--ease);
+}
+.cookies__toggle-pista::after{
+  content:""; position:absolute; top:3px; left:3px;
+  width:18px; height:18px; border-radius:50%;
+  background:var(--paper); border:1px solid var(--line-field);
+  transition:transform .25s var(--ease);
+}
+.cookies__toggle input:checked + .cookies__toggle-pista{ background:var(--accent-deep); border-color:var(--accent-deep); }
+.cookies__toggle input:checked + .cookies__toggle-pista::after{ transform:translateX(20px); border-color:var(--accent-deep); }
+.cookies__toggle input:focus-visible + .cookies__toggle-pista{ outline:2px solid var(--ink); outline-offset:3px; }
+/* Obrigatória: o estado lê-se, mas não se muda. O cursor volta a `default`
+   para não prometer uma interacção que não existe. */
+.cookies__toggle input:disabled + .cookies__toggle-pista{ opacity:.55; }
+.cookies__toggle:has(input:disabled){ cursor:default; }
+
+.cookies__cat-nome{ font-weight:600; font-size:.98rem; }
+.cookies__sempre{
+  flex:0 0 auto; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-faint);
+}
+.cookies__cat-desc{ margin:.55rem 0 0; color:var(--ink-soft); font-size:.88rem; line-height:1.55; }
+
+.cookies__painel-fundo{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.6rem; }
+.cookies__painel-fundo .cookies__btn{ flex:1 1 auto; }
+/* "Guardar escolhas" é a acção principal DESTE painel e por isso é a única
+   preenchida. Não desequilibra o par aceitar/rejeitar (que continua idêntico
+   entre si) nem empurra para o consentimento: guardar respeita o que estiver
+   nos interruptores, que nascem desligados. */
+.cookies__btn--guardar{ background:var(--ink); color:var(--paper); border-color:var(--ink); flex-basis:100%; }
+.cookies__btn--guardar:hover{ background:var(--dark-soft); border-color:var(--dark-soft); color:var(--paper); }
+
+.cookies__painel-legal{ margin:1.1rem 0 0; font-size:.82rem; color:var(--ink-faint); }
+.cookies__painel-legal a{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.cookies__painel-legal a:hover{ color:var(--accent-text); }
+
+/* ---- Telemóvel ----
+   A barra passa a coluna e os botões à largura toda. Aceitar e Rejeitar
+   continuam adjacentes e do mesmo tamanho — é aqui que a simetria costuma
+   partir-se, com um botão a ganhar a linha inteira e o outro a encolher. */
+@media (max-width:860px){
+  .cookies__aviso{
+    left:0; right:0; bottom:0; max-width:none;
+    flex-direction:column; align-items:stretch; gap:1.1rem;
+    border-left:0; border-right:0; border-bottom:0;
+    padding:clamp(18px, 5vw, 24px);
+    padding-bottom:calc(clamp(18px, 5vw, 24px) + env(safe-area-inset-bottom, 0px));
+    transform:translateY(100%);
+  }
+  .cookies.is-painel .cookies__aviso{ transform:translateY(100%); }
+  .cookies__accoes{ min-width:0; }
+  .cookies__painel{
+    width:100%; left:0; top:auto; bottom:0;
+    max-height:88vh; border-left:0; border-right:0; border-bottom:0;
+    transform:translate(0, 100%);
+    padding-bottom:calc(clamp(22px, 3vw, 38px) + env(safe-area-inset-bottom, 0px));
+  }
+  .cookies.is-painel .cookies__painel{ transform:translate(0, 0); }
+  .cookies__painel-fundo .cookies__btn{ flex-basis:100%; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .cookies__aviso,
+  .cookies__veu,
+  .cookies__painel,
+  .cookies__btn,
+  .cookies__toggle-pista,
+  .cookies__toggle-pista::after{ transition:none; }
+}
+
+/* ---- Botão de definições no rodapé ----
+   Herda o desenho dos links vizinhos porque, para quem lê, é a mesma fila —
+   mas tem de ser <button>: abre um diálogo, não navega. Sem esta regra o
+   browser desenhava-lhe a caixa cinzenta nativa no meio de texto em versaletes
+   sobre fundo escuro. */
+.footer-links button{
+  font:inherit; letter-spacing:inherit; text-transform:inherit;
+  background:none; border:0; padding:0; cursor:pointer;
+  color:var(--on-dark-dim); border-bottom:1px solid transparent;
+}
+.footer-links button:hover,
+.footer-links button:focus-visible{ color:var(--on-dark); border-bottom-color:currentColor; }
+
+/* ---- Tabela do inventário (Política de Cookies) ----
+   Cinco colunas de texto não cabem num telemóvel por muito que se aperte a
+   letra. Em vez de as espremer até ficarem ilegíveis, a tabela rola dentro do
+   seu próprio invólucro — o corpo da página nunca ganha barra horizontal. */
+.tabela-envolvente{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.tabela-cookies{
+  width:100%; min-width:640px;
+  border-collapse:collapse;
+  font-size:.86rem; line-height:1.5;
+}
+.tabela-cookies th,
+.tabela-cookies td{
+  text-align:left; vertical-align:top;
+  padding:.7rem .9rem;
+  border-bottom:1px solid var(--line);
+}
+.tabela-cookies thead th{
+  font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink); font-weight:600;
+  border-bottom:1px solid var(--ink-faint);
+  white-space:nowrap;
+}
+.tabela-cookies td code{
+  font-size:.85em; color:var(--ink);
+  background:var(--card-chip); padding:.15rem .4rem;
+}
+.prosa .tabela-envolvente{ margin-top:1.3em; }
+/* O botão de reabrir as definições aparece a meio da prosa; o `.prosa a` tem
+   sublinhado herdado que não se aplica a um <button>, daí não haver nada a
+   desfazer — só a garantia de que não encolhe para a largura do texto. */
+.prosa .cookies__btn{ max-width:max-content; }
+
+
+/* #####################################################################
+   ###  AJUSTES DE TELEMÓVEL  ###########################################
+   #####################################################################
+   Este bloco vive NO FIM da folha de propósito, e não junto das regras que
+   corrige. Foi escrito a meio e teve de mudar: um `.cookies__btn` ou um
+   `.footer-links button` definidos mais abaixo ganhavam-lhe por ordem de
+   origem — mesma especificidade, e a media query não acrescenta nenhuma.
+   Duas correcções chegaram a parecer não ter efeito por causa disso.
+
+   Quem acrescentar regras de telemóvel: acrescenta-as AQUI, no fim. Quem
+   acrescentar secções novas à folha: acrescenta-as ANTES deste bloco.
+   ##################################################################### */
 /* =====================================================================
    PISO TIPOGRÁFICO DO TELEMÓVEL (≤760px)
    ---------------------------------------------------------------------
@@ -3344,7 +3638,12 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
      O .btn é o pior caso: 11,84px de texto com .22em de entreletra é o
      rótulo mais pequeno do site a fazer o trabalho mais importante. */
   .btn{ font-size:13px; letter-spacing:.13em; }
-  .footer-links a{ font-size:13px; }
+  /* Na FILA e nao nos filhos: o .footer-links declara font-size:.74rem e o
+     botao de cookies mais abaixo no ficheiro pede `font:inherit` — um
+     `.footer-links button{font-size:13px}` aqui perdia para essa regra por
+     ordem de origem (mesma especificidade, ela vem depois). Mudando a fila,
+     o `inherit` do botao passa a herdar 13px e as duas coisas alinham. */
+  .footer-links{ font-size:13px; }
   .post-card__cta{ font-size:13px; }
   .crumbs__list{ font-size:13px; }
   .nav__list a,
@@ -3367,8 +3666,162 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
      apesar de a letra ser maior. */
   .card__tag{ font-size:13px; padding:8px 10px; }
 
+  /* ---- Aviso de cookies ----
+     E a primeira coisa que um visitante ve no telemovel, e e onde ele toma
+     uma decisao juridica. Escapou a primeira leitura desta lista porque
+     aparece de forma assincrona (espera pelo preloader) e as corridas de
+     auditoria ora o apanhavam ora nao — ver a espera explicita em
+     scripts/mobile-check.mjs. */
+  .cookies__btn{ font-size:13px; letter-spacing:.14em; }
+  .cookies__terciario{ font-size:13px; }
+
   /* ---- Corpo pequeno ---- */
   .check{ font-size:13px; }
   .emodal__entrega{ font-size:13px; }
   .team--marquee .member__bio{ font-size:13px; }
+}
+
+/* =====================================================================
+   ÁREA DE TOQUE MÍNIMA NO TELEMÓVEL (≤760px) — 44×44px
+   ---------------------------------------------------------------------
+   WCAG 2.5.5. Agrupado pela mesma razão que o piso tipográfico acima: é
+   uma decisão só, e a lista de quem a incumpria (menu 33px, ligações do
+   rodapé 20px, sociais 26×18, botão da newsletter 18×35, .btn 27–35px,
+   migalhas 17px, hambúrguer 38×28) só se lê como sistema se estiver junta.
+
+   O PRINCÍPIO é crescer a caixa sem mover o desenho. Onde o elemento é uma
+   ligação de texto, a altura vem de `min-height` + `align-items:center`,
+   que empurra o texto para o meio de uma caixa maior sem lhe tocar. Onde o
+   elemento tem um traço por baixo (.btn), a altura NÃO pode vir de
+   min-height: o sublinhado é o bordo inferior da caixa e afastar-se-ia do
+   texto. Aí cresce-se por `padding-top`, que abre ar por cima e deixa o
+   sublinhado colado onde estava.
+
+   Acima dos 760px nada muda: com rato, um alvo de 20px acerta-se. ===== */
+@media (max-width:760px){
+
+  /* ---- Ligações de texto: caixa maior, texto no mesmo sítio ---- */
+  .footer-links :is(a, button),
+  .footer-col a,
+  .crumbs__link,
+  /* Por atributo e não por classe: um mailto: ou um tel: é sempre um alvo
+     para o dedo, independentemente do bloco onde caia. Apanha as ligações
+     soltas do parágrafo de contacto em /contactos, que não têm classe. */
+  a[href^="mailto:"],
+  a[href^="tel:"]{
+    display:inline-flex; align-items:center; min-height:44px;
+  }
+  /* "Blog" mede 39px de texto — a única do rodapé mais curta que o mínimo.
+     O min-width vale para todas; nas outras não muda nada. */
+  .footer-links :is(a, button){ min-width:44px; justify-content:center; }
+  /* O painel do menu ocupa o ecrã todo: aqui há espaço para dar aos itens a
+     largura toda, o que torna o alvo muito maior do que os 44px mínimos e
+     dispensa a mira fina que um menu centrado a 33px exigia. */
+  .nav.open .nav__list a,
+  .nav.open .lang-switch__btn{
+    display:flex; align-items:center; justify-content:center;
+    min-height:44px; padding-inline:1.5rem;
+  }
+  /* O .gap do rodapé desce porque as caixas cresceram: a 44px com .8rem de
+     intervalo os ícones ficavam a ~31px de distância visual, o dobro do que
+     o desenho pede. A 0, a distância visual entre glifos fica nos ~18px. */
+  .socials{ gap:0; }
+  .socials a{ min-width:44px; min-height:44px; }
+
+  /* ---- Botões de ação com sublinhado ----
+     Ver a nota acima: a altura entra por cima. 13px de corpo a 1.6 de
+     entrelinha dão ~21px; com os .5rem de padding-bottom que o sublinhado
+     usa, faltam 17px para os 44 (o <button> do formulário herda line-height
+     do agente do utilizador e é o mais baixo dos dois — mede-se por ele). */
+  .btn{ padding-top:17px; }
+
+  /* Um item de grelha tem `min-width:auto`, e isso faz do min-content do seu
+     conteudo o PISO da coluna: por muito que a coluna seja 1fr, ela nunca
+     desce abaixo do elemento mais largo que nao parte. Nos cartoes esse
+     elemento e a chapa da tipologia (white-space:nowrap) e, quando o painel
+     do historico abre, sao as linhas de facto la dentro. Com os corpos a
+     subir para 13px no bloco acima, esse piso passou a estourar a coluna e a
+     grelha ficava mais larga que o ecra.
+
+     O min-width:0 devolve a coluna ao 1fr que ela ja declarava. E o mesmo
+     remedio para o B1 do docs/MOBILE.md, por isso fica aqui e sai do ambito
+     da P1 — nao se deixa uma regressao aberta a espera da vaga seguinte. */
+  .grid-projects > *{ min-width:0; }
+  /* Com a coluna de volta ao 1fr, o nome do empreendimento deixa de ter
+     largura garantida: "Empreendimento" mede ~170px a 1.45rem e a faixa que
+     lhe sobrava ao lado da chapa sao ~152px a 360. A legenda passa a
+     empilhar — nome em cima, chapa por baixo, ambos encostados a esquerda.
+     No desktop mantem-se lado a lado, que e onde ha largura para isso. */
+  .card__caption{ flex-direction:column; align-items:flex-start; gap:.6rem; }
+  .card__tag{ align-self:flex-start; }
+
+  /* ---- Controlos ---- */
+  .nav-toggle{
+    align-items:center; justify-content:center;
+    min-width:44px; min-height:44px; padding:0;
+  }
+  /* As duas politicas do aviso sao uma FILA de ligacoes separadas por um
+     ponto medio, nao uma frase — a excepcao inline da WCAG nao se aplica e
+     cada uma precisa do seu alvo. */
+  .cookies__legal a{ display:inline-flex; align-items:center; min-height:44px; }
+  .news input{ min-height:44px; }
+  .news button{ min-width:44px; min-height:44px; }
+  .field :is(input, select, textarea){ min-height:44px; }
+  .testimonials__arrow{ width:44px; height:44px; }
+
+  /* A caixa de confirmação é o único controlo que não cresce por geometria:
+     um input[type=checkbox] nativo a 44px desenha um quadrado de 44px, que
+     é grande de mais para se ler como caixa de marcar ao lado de uma linha
+     de texto de 13px. Passa a `appearance:none` para separar as duas
+     medidas — a caixa VISÍVEL fica nos 22px (desenhada pelo gradiente, que
+     é o que dá o quadrado e o seu bordo), a caixa TOCÁVEL nos 44. O visto
+     entra por ::after, que num appearance:none já é permitido.
+     Herda a cor do contexto: no rodapé o texto é claro sobre escuro, no
+     formulário é escuro sobre papel — daí currentColor em vez de um token. */
+  .check input[type="checkbox"]{
+    appearance:none; -webkit-appearance:none;
+    width:44px; height:44px; margin:0;
+    display:grid; place-items:center; cursor:pointer;
+    background:none; border:0;
+    /* Tirado do fluxo: ver a nota do .check abaixo. */
+    position:absolute; left:-11px; top:calc(.8em - 22px);
+  }
+  /* Um elemento só desenha a caixa e o visto — a mancha por background-color,
+     o visto por background-image. Com dois pseudo-elementos sobrepostos numa
+     grelha, o visto ficava dependente da ordem de auto-colocação; aqui não há
+     sobreposição nenhuma para correr mal. O traço do visto é --paper cravado
+     no SVG: é a cor do papel do site e o quadrado cheio por baixo é sempre
+     currentColor (escuro no formulário, claro no rodapé) — nos dois casos o
+     visto contrasta. */
+  .check input[type="checkbox"]::before{
+    content:""; width:22px; height:22px;
+    border:1px solid currentColor;
+    background:transparent center/13px 10px no-repeat;
+    transition:background-color .2s var(--ease);
+  }
+  .check input[type="checkbox"]:checked::before{
+    background-color:currentColor;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 10'%3E%3Cpath d='M1 5l3.6 3.6L12 1.2' fill='none' stroke='%23fdfcfa' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  .check input[type="checkbox"]:focus-visible{ outline:2px solid var(--accent); outline-offset:-9px; }
+
+  /* O .check deixa de ser uma linha de flex e passa a bloco de texto com a
+     caixa pousada na margem.
+
+     O motivo é de composição, não de toque: o consentimento é UMA FRASE, mas
+     no markup são três nós irmãos — <span>, <a> da política, e o ponto final.
+     Em `display:flex` cada um deles é um item, e a frase parte-se em colunas.
+     Com a caixa a 13px sobrava largura e a avaria não se via; a 44px o <a>
+     era atirado para uma coluna à direita e a frase deixava de se ler.
+
+     Em bloco, os três voltam a ser conteúdo inline do mesmo parágrafo e a
+     frase corre de uma ponta à outra, com a caixa absoluta na margem. O
+     `top` alinha o quadrado de 22px pelo meio da PRIMEIRA linha (.8em é
+     metade da entrelinha a este corpo), não pelo meio do bloco — senão numa
+     frase de três linhas a caixa descia para o meio do parágrafo. */
+  .check{
+    display:block; position:relative;
+    padding-left:33px; gap:0;
+  }
+  .check input{ margin-top:0; }
 }
