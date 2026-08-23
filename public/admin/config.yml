@@ -397,3 +397,88 @@ collections:
               - { label: "Telefone", name: telefone, widget: string }
               - { label: "Copyright", name: copyright, widget: string }
               - { label: "Assinatura", name: assinatura, widget: string }
+
+  # --------------------------------------------------------------- COOKIES
+  # O inventário é um documento legal: tem de descrever exatamente o que o site
+  # guarda no equipamento de quem o visita. Fica editável aqui para que
+  # acrescentar um serviço não obrigue a mexer em código — mas atenção, editar
+  # esta lista NÃO liga nem desliga nada: descreve. Quem acrescenta um serviço
+  # tem de fazer as duas coisas (marcar o script com data-ams-consent E
+  # acrescentar a linha aqui). Ver docs/COOKIES.md.
+  - name: cookies
+    label: "Cookies (inventário)"
+    delete: false
+    files:
+      - name: cookies
+        label: "Categorias e inventário"
+        file: "src/data/cookies.json"
+        fields:
+          - label: "Versão do consentimento"
+            name: versao
+            widget: number
+            value_type: int
+            hint: "AVISO: subir este número invalida o consentimento de TODOS os visitantes e o aviso volta a aparecer a toda a gente. Só o faça quando mudarem as categorias ou os serviços usados — que é precisamente quando a lei obriga a voltar a perguntar."
+          - label: "Nome do cookie de registo"
+            name: cookieNome
+            widget: string
+            hint: "AVISO: mudar isto faz o site perder as escolhas já guardadas por todos os visitantes. Não mexer sem razão técnica."
+          - label: "Validade do consentimento (dias)"
+            name: validadeDias
+            widget: number
+            value_type: int
+            hint: "Ao fim deste prazo voltamos a perguntar. 180 dias (6 meses) é o intervalo recomendado pelas autoridades europeias. Não é aconselhável ultrapassar os 12 meses."
+          - label: "Categorias"
+            name: categorias
+            widget: list
+            summary: "{{fields.nome}}"
+            hint: "As categorias que aparecem no painel de definições. Acrescentar ou remover categorias exige alteração no código — aqui edite sobretudo os nomes e as descrições."
+            fields:
+              - { label: "Identificador", name: id, widget: string, hint: "AVISO: é este texto que liga a categoria aos scripts (data-ams-consent). Mudá-lo parte essa ligação em silêncio — o script deixa de arrancar, sem erro nenhum. Não mexer." }
+              - { label: "Nome visível", name: nome, widget: string }
+              - { label: "Sempre ativa", name: obrigatoria, widget: boolean, default: false, hint: "Só para o que é estritamente necessário ao funcionamento do site. Marcar isto numa categoria que não seja isenta por lei retira ao visitante uma escolha que ele tem direito a fazer." }
+              - { label: "Descrição", name: descricao, widget: text, hint: "Em linguagem simples, o que esta categoria faz e o que acontece se for recusada. É este texto que o visitante lê no painel." }
+          - label: "Inventário"
+            name: inventario
+            widget: list
+            summary: "{{fields.nome}} ({{fields.categoria}})"
+            hint: "Lista integral do que o site guarda ou lê no equipamento do visitante. Esta lista é impressa tal e qual na Política de Cookies — o que não estiver aqui não pode ser usado."
+            fields:
+              - { label: "Nome", name: nome, widget: string, hint: "O nome técnico do cookie, ou o nome do serviço (ex.: ams-consent, Cloudflare Web Analytics)." }
+              - label: "Categoria"
+                name: categoria
+                widget: select
+                options: ["necessarios", "estatisticas", "marketing"]
+                hint: "Tem de coincidir com o identificador de uma das categorias acima."
+              - { label: "Tipo", name: tipo, widget: string, hint: "Ex.: Cookie, localStorage, sessionStorage, Script (sem cookies)." }
+              - { label: "Fornecedor", name: fornecedor, widget: string, hint: "Quem o coloca. Primeira parte (o próprio site) ou o nome da empresa terceira." }
+              - { label: "Duração", name: duracao, widget: string, hint: "Ex.: 6 meses, Fecha com o separador, Até ser apagado pelo visitante." }
+              - { label: "Finalidade", name: finalidade, widget: text, hint: "Para que serve, em linguagem que o visitante perceba. 'Análise' não chega — diga o que é medido." }
+
+  # ------------------------------------------------------------------ BLOG
+  # Coleção de PASTA (e não de ficheiros fixos como as restantes): cada artigo
+  # é um ficheiro Markdown novo em src/content/blog/. O nome do ficheiro vira o
+  # endereço do artigo — e o endereço nunca deve mudar depois de publicado,
+  # porque é ele que o Google indexa e que as pessoas partilham.
+  - name: blog
+    label: "Blog"
+    label_singular: "Artigo"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    summary: "{{titulo}} — {{data | date('DD/MM/YYYY')}}"
+    sortable_fields: [data, titulo]
+    view_filters:
+      - { label: "Rascunhos", field: rascunho, pattern: true }
+    fields:
+      - { label: "Título", name: titulo, widget: string, hint: "O título editorial, mostrado na página." }
+      - { label: "Título para o Google", name: seoTitulo, widget: string, required: false, hint: "Opcional. Até ~60 caracteres, incluindo ' | AM Santos'. Se ficar vazio, usa-se o título editorial." }
+      - { label: "Resumo", name: resumo, widget: text, hint: "120 a 160 caracteres. É o texto que aparece por baixo do link nos resultados do Google — escreva-o para convencer alguém a clicar." }
+      - { label: "Data de publicação", name: data, widget: datetime, date_format: "DD/MM/YYYY", time_format: false, picker_utc: true }
+      - { label: "Data de atualização", name: atualizado, widget: datetime, date_format: "DD/MM/YYYY", time_format: false, picker_utc: true, required: false, hint: "Preencher quando reescrever um artigo antigo. O Google valoriza conteúdo atualizado." }
+      - { label: "Autor", name: autor, widget: string, default: "AM Santos" }
+      - { label: "Imagem de destaque", name: imagem, widget: image, required: false, hint: "Horizontal. Aparece na lista, no topo do artigo e nas partilhas em redes sociais." }
+      - { label: "Etiquetas", name: tags, widget: list, required: false, default: [], hint: "Ex.: Loures, eficiência energética, guia." }
+      - { label: "Rascunho", name: rascunho, widget: boolean, default: true, hint: "Enquanto estiver ligado, o artigo NÃO é publicado nem entra no sitemap." }
+      - { label: "Artigo", name: body, widget: markdown, hint: "Use cabeçalhos (##) para dividir o texto. Ligue para páginas do site — /portfolio/, /historico/, /contactos/ — sempre que fizer sentido." }

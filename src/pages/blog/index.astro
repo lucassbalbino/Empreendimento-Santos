@@ -1,0 +1,78 @@
+---
+import Base from '../../layouts/Base.astro';
+import BlockHead from '../../components/BlockHead.astro';
+import Seam from '../../components/Seam.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import Watermark from '../../components/Watermark.astro';
+import { getCollection } from 'astro:content';
+import { urlAbsoluto } from '../../utils/seo.js';
+
+/* Rascunhos ficam de fora do site publicado — e, por não existirem como
+   página, ficam também fora do sitemap. Não há nada a esconder do Google com
+   noindex: o que não está pronto simplesmente não se publica. */
+const artigos = (await getCollection('blog', ({ data }) => !data.rascunho))
+  .sort((a, b) => b.data.data - a.data.data);
+
+const formatador = new Intl.DateTimeFormat('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const schemaBlog = [
+  {
+    '@type': 'Blog',
+    '@id': urlAbsoluto('/blog') + '#blog',
+    name: 'Blog AM Santos',
+    description: 'Guias e análises sobre construção, eficiência energética e o mercado imobiliário de Loures e Lisboa.',
+    inLanguage: 'pt-PT',
+    blogPost: artigos.map((a) => ({
+      '@type': 'BlogPosting',
+      '@id': urlAbsoluto('/blog/' + a.slug) + '#artigo',
+      headline: a.data.titulo,
+      url: urlAbsoluto('/blog/' + a.slug),
+      datePublished: a.data.data.toISOString(),
+    })),
+  },
+];
+---
+<Base flat tipoPagina="CollectionPage" schemaExtra={schemaBlog}>
+  <section class="section section--centered-head section--flat-top">
+    <div class="container">
+      <Seam label="Blog" variant="light" class="seam--top" bare />
+      <BlockHead
+        as="h1"
+        title="Notas sobre construir e comprar casa"
+        lead="Guias práticos, critérios de decisão e o que a experiência de 20 anos de obra ensina sobre escolher — e sobre construir — um empreendimento."
+      />
+
+      <div class="posts">
+        {artigos.map((a) => (
+          <article class="post-card">
+            <a class="post-card__link" href={`/blog/${a.slug}/`}>
+              {a.data.imagem && (
+                <div class="post-card__media">
+                  <img src={a.data.imagem} alt={a.data.titulo} loading="lazy" />
+                </div>
+              )}
+              <div class="post-card__body">
+                <time class="post-card__data" datetime={a.data.data.toISOString().slice(0, 10)}>
+                  {formatador.format(a.data.data)}
+                </time>
+                <h2 class="post-card__titulo">{a.data.titulo}</h2>
+                <p class="post-card__resumo">{a.data.resumo}</p>
+                <span class="post-card__cta">Ler o artigo</span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="contacto">
+    <div class="container has-wm">
+      <Watermark variant="line" side="l" size="md" y="bottom" />
+      <ContactForm
+        title="Tem um projeto em mente?"
+        texto="Fale connosco sobre o que procura. Respondemos a todos os pedidos com a maior brevidade."
+      />
+    </div>
+  </section>
+</Base>

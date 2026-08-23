@@ -33,7 +33,7 @@
       "assuntoOutro": "Other subject",
       "mensagem": "Message",
       "mensagemPlaceholder": "Write your message here…",
-      "consent": "I authorise the processing of my data for contact purposes, in accordance with the Privacy Policy.",
+      "consent": "I authorise the processing of my data for contact purposes, in accordance with the",
       "submit": "Send message"
     },
     "seam": {
@@ -44,6 +44,7 @@
       "falaConnosco": "Talk to Us"
     },
     "slider": { "prev": "Previous development", "next": "Next development" },
+    "plans": { "prev": "Previous image", "next": "Next image", "item": "Image" },
     "testimonials": { "prev": "Previous testimonial", "next": "Next testimonial" },
     "emodal": {
       "close": "Close",
@@ -53,7 +54,6 @@
       "empreendimentoFallback": "Development"
     },
     "projectDetail": {
-      "back": "← Developments",
       "ficha": "Development fact sheet",
       "imagens": "Development images",
       "continuar": "Keep exploring",
@@ -81,6 +81,35 @@
       "Área total": "Total area",
       "Área por armazém": "Area per warehouse",
       "Escritório": "Office"
+    },
+    "cookies": {
+      "titulo": "Cookies on this site",
+      "texto": "We store on your device what the site needs to work and to record this choice. Statistics and marketing cookies are only used with your consent.",
+      "aceitar": "Accept all",
+      "rejeitar": "Reject all",
+      "personalizar": "Customise",
+      "painelTitulo": "Cookie settings",
+      "painelTexto": "Choose the categories you allow. Necessary cookies stay on at all times; the others remain off until you turn them on here.",
+      "guardar": "Save choices",
+      "fechar": "Close without saving",
+      "sempreAtivo": "Always on",
+      "verPolitica": "Cookie Policy",
+      "verPrivacidade": "Privacy Policy",
+      "definicoes": "Cookie settings",
+      "categorias": {
+        "necessarios": {
+          "nome": "Necessary",
+          "descricao": "They make the site work and store choices the visitor asked for (language, the consent record). They are exempt from consent and cannot be turned off."
+        },
+        "estatisticas": {
+          "nome": "Statistics",
+          "descricao": "They count visits in aggregate so we can see which pages are useful. Without them we do not know what to improve, but the site works just the same."
+        },
+        "marketing": {
+          "nome": "Marketing",
+          "descricao": "They allow campaigns to be measured and third-party content to be shown (maps, videos, social networks). The site uses none today; the category is ready for when it does."
+        }
+      }
     }
   },
   "home": {

@@ -1,3 +1,14 @@
+/* @fontes:inicio — gerado por scripts/fontes-descarregar.mjs, não editar à mão */
+/* Fontes servidas do próprio domínio. Substituem o <link> para
+   fonts.googleapis.com, que era render-blocking e custava ~1,8 s de First
+   Contentful Paint (2,9 s com ele, 1,1 s sem — medido com o Lighthouse).
+   Pré-carregadas no Base.astro. Reexecutar o script atualiza este bloco. */
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:300 500;font-display:swap;src:url('/fonts/fraunces-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:300 500;font-display:swap;src:url('/fonts/fraunces-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url('/fonts/inter-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url('/fonts/inter-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+/* @fontes:fim */
+
 /* =====================================================================
    MOCKUP — Empresa Bela (construção civil)
    Estrutura/layout inspirados em habitatinvest.pt
@@ -5,14 +16,21 @@
    Paleta: nobre, sóbria — não luxuosa
    ===================================================================== */
 
-/* ---------- Fontes locais ---------- */
-@font-face{
-  font-family:"Kompot Display";
-  src:url("/fonts/KompotDisplay.otf") format("opentype");
-  font-weight:400 900;
-  font-style:normal;
-  font-display:swap;
-}
+/* ---------- Fontes ----------
+   Aqui vivia um @font-face da "Kompot Display" a apontar para
+   /fonts/KompotDisplay.otf. O ficheiro não está no repositório — foi apagado
+   por engano em 01c8d61, à boleia de trabalho noutra secção — por isso a
+   declaração só produzia um 404 por página e os títulos caíam para a Fraunces.
+
+   A demo que existe em referencias/fontes/ NÃO serve de substituto: os
+   codepoints acentuados estão mapeados ao glifo da letra base (Á desenha A,
+   Ç desenha C sem cedilha) e falta-lhe toda a pontuação e os dígitos 2, 5 e 8.
+   Num site em português isso é erro ortográfico em todos os títulos.
+
+   Decisão: assumir a Fraunces como face de título. É o que o site já mostrava
+   na prática. Se a Kompot completa for licenciada, repor o @font-face e voltar
+   a pôr a família à frente de var(--serif) no .title-split. Ver P13 em
+   docs/superpowers/plans/2026-08-19-bugs-encontrados-recoloracao.md */
 
 /* ---------- Tokens ---------- */
 :root{
@@ -20,24 +38,85 @@
      de inverter/escurecer as cores quando o SO está em dark mode. */
   color-scheme: only light;
 
-  --paper:      #ffffff;   /* fundo principal (branco) */
-  --paper-alt:  #f5f4f2;   /* fundo de seção alternada (cinza muito claro) */
-  --ink:        #121212;   /* texto principal (quase preto) */
-  --ink-soft:   #565654;   /* texto secundário */
-  --ink-faint:  #9a9997;   /* labels discretos */
-  --line:       #e8e7e4;   /* linhas/divisores */
-  --accent:     #ea5a17;   /* laranja vibrante (identidade AM Santos) */
-  --accent-deep:#c1470c;
-  --accent-dk:  #ff7d38;   /* laranja sobre fundos escuros (mais brilhante) */
-  --dark:       #141414e5;   /* seções escuras / hero (preto neutro) */
-  --dark-soft:  #0a0a0a;
+  /* Superfícies — o branco domina, o castanho escalona. --paper fica a 97.4%
+     de luminância (praticamente branco): é a base de leitura e nunca deve
+     ficar castanha. O castanho entra pelas camadas secundárias. */
+  --paper:      #fdfcfa;   /* base do site — branco com um sopro de quente */
+  --paper-alt:  #f2ece3;   /* areia clara — secção alternada */
+  --paper-warm: #e9dfd1;   /* areia média — uso pontual (factos, citações) */
+  /* Placa da moldura do cartão de empreendimento. FICA FORA da escala de areia
+     de propósito: é branco puxado ao cinza, quase neutro. A placa tem de descer
+     um degrau em relação a --paper para haver moldura — uma versão pintou-a de
+     --paper, a cor exata do fundo da página, e a moldura simplesmente não
+     existia — mas o degrau não pode ser em areia. Isso chegou a ser testado
+     (--paper-alt / --paper-warm) e o problema é que a barra do topo já é areia:
+     a placa deixava de ser um objeto pousado na página e passava a ler-se como
+     uma secção alternada a flutuar dentro de uma secção branca. Em neutro a
+     placa não pertence a mais nada, e é isso que a faz ler-se como moldura. */
+  --card-surface: #f4f3f1;   /* placa da moldura */
+  --card-chip:    #eae9e6;   /* chapa da tipologia — degrau seguinte */
+  /* Traços da moldura. NEUTROS, como a placa: eram terrosos (#b5a892 / #c8bca8)
+     enquanto se pensava a moldura como tinta quente sobre placa fria, mas com
+     o cartão todo em cinza a tinta castanha era a única coisa quente na página
+     e puxava o olho para o bordo em vez de para a fotografia.
+     São também um pouco mais escuros do que os terrosos que substituíram
+     (2.52:1 contra a placa, antes 2.11:1): com uma linha só, ela tem de se ver.
+     Decorativos, sem mínimo de contraste a cumprir.
+     O --card-rule-fine sobrou da moldura de dupla linha; hoje o seu único
+     consumidor é o bordo da chapa da tipologia. */
+  --card-rule:      #9c9a95;  /* traço do bordo do cartão */
+  --card-rule-fine: #c3c1bc;  /* bordo da chapa da tipologia */
+  --ink:        #1a1410;   /* texto principal — quase-preto acastanhado */
+  --ink-soft:   #5d5346;   /* texto secundário — taupe */
+  --ink-faint:  #72685a;   /* rótulos discretos — sobe para cumprir AA (5.33:1) */
+  /* Castanho médio, EM RESERVA: definido de propósito, sem consumidor. A dose
+     de castanho escolhida foi a conservadora, que não chegou a executar o
+     "castanho em detalhes" (ícones, molduras, bordas de factos). Fica como
+     ponto de partida se a dose vier a aprofundar-se. */
+  --brown:      #6b4a2f;
+  --line:       #e3d9cb;   /* linhas/divisores terrosos — DECORATIVOS */
+  /* Sublinha de campo de formulário. Existe à parte porque tem uma obrigação
+     que a --line não tem: nos campos, a sublinha é a ÚNICA indicação visual de
+     que ali há um controlo, e a WCAG 1.4.11 pede-lhe 3:1. A --line dá 1.36:1
+     sobre --paper e 1.19:1 sobre --paper-alt — decorativa, serve; a marcar um
+     campo, não. Este é o tom mais CLARO da família 24–40° que ainda cumpre 3:1
+     nas três superfícies claras: 3.90 sobre --paper, 3.41 sobre --paper-alt,
+     3.04 sobre --paper-warm. */
+  --line-field: #8e7c67;
+  /* Ocre queimado — a cor REAL do logótipo (amostrada de
+     referencias/imagens/LOGO AMS SANTOS HD.png). O laranja #ea5a17 que aqui
+     estava nunca correspondeu à marca: divergia ~12° de matiz e ~11pp de
+     luminosidade. Toda a família cromática do site deriva daqui. */
+  --accent:     #b46511;   /* superfícies, dots, bordas, traços */
+  --accent-text:#9f590f;   /* o acento quando é TEXTO sobre claro (ver nota) */
+  --accent-deep:#8d4f0c;   /* acento como texto sobre --paper-warm (e hover/sweep) */
+  --accent-dk:  #d79142;   /* bronze claro — sobre fundos escuros */
+  /* Porquê dois tons de acento: --accent tem 4.26:1 sobre --paper, abaixo do
+     mínimo AA (4.5:1) para texto normal. Serve superfícies, onde não há
+     mínimo a cumprir; para glifos usa-se --accent-text (5.24:1 no branco,
+     4.57:1 na areia). Regra: pinta glifos → --accent-text; pinta fundo ou
+     traço → --accent. */
+  /* Secções escuras em café, já não preto neutro. O alpha e5 é obrigatório:
+     é o que deixa a hero ver-se por trás; sem ele a cortina abre costura. */
+  --dark:       #241a12e5;
+  --dark-soft:  #150f0a;
+  /* Texto SOBRE fundo escuro. Existem como tokens próprios porque são um
+     papel, não uma superfície: o rodapé escrevia-os à mão em hex, o que os
+     tornava invisíveis a qualquer mudança de paleta — o mesmo defeito que a
+     marca-d'água tinha. Medidos contra o fundo real rgb(58,49,42), não
+     contra #241a12: 10.82:1, 5.65:1 e 4.77:1. O --on-dark-dim é o mais
+     escuro que ainda cumpre AA. */
+  --on-dark:      var(--paper-alt); /* corpo — coincide hoje com a areia clara */
+  --on-dark-soft: #b8ab9a;          /* secundário */
+  --on-dark-dim:  #a89d8f;          /* legal/meta — no limiar de AA */
 
 
   --maxw: 1480px;
   --gutter: clamp(18px, 3.4vw, 52px);
-  /* Arredondamento discreto dos cartões de empreendimento: suaviza o canto sem
-     descaracterizar a linguagem reta do resto do site. */
-  --card-radius: 6px;
+  /* Não há --card-radius: o cartão de empreendimento é de canto RETO. O que o
+     faz ler-se como moldura antiga são os dois traços concêntricos (ver
+     --card-rule), não o arredondamento — e o canto reto é a linguagem do resto
+     do site. O painel do histórico, que abre entre os cartões, acompanha. */
   /* Ritmo: mais distância de scroll por gesto. Cada elemento passa a percorrer
      a sua animação ao longo de mais píxeis, o que se lê como suavidade — é o
      segundo maior fator, depois do scroll interpolado. */
@@ -50,24 +129,44 @@
 
   --ease: cubic-bezier(.22,.61,.36,1);
 
-  /* Tratamento da foto da hero: mais clara e mais fria (azulada).
-     Duas camadas: (1) filtro na própria imagem — levanta as luzes, abre as
-     sombras e tira saturação quente; (2) véu por cima — a gradação preta de
-     legibilidade, aliviada, mais um wash azul-aço.
+  /* Tratamento da foto da hero: quente e terrosa (bronze/sépia).
+     Duas camadas: (1) filtro na própria imagem — levanta ligeiramente as
+     luzes e puxa a temperatura para o âmbar sem lavar a cor; (2) véu por
+     cima — a gradação escura de legibilidade, mais um wash de bronze.
+     O saturate sobe de .78 para .92: a versão fria tirava saturação quente
+     de propósito, e é exatamente essa que agora queremos guardar.
      A cortina de transição usa exatamente estes tokens: mostra a mesma foto
      por cima da hero real e qualquer diferença de cor abriria costura. */
-  --hero-img-filter: brightness(1.14) contrast(.9) saturate(.78);
+  --hero-img-filter: brightness(1.06) contrast(.94) saturate(.92) sepia(.12);
   --hero-veil:
-    linear-gradient(180deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,.06) 45%, rgba(0,0,0,.55) 100%),
-    linear-gradient(180deg, rgba(104,146,196,.30) 0%, rgba(132,172,214,.20) 50%, rgba(58,92,138,.34) 100%);
+    linear-gradient(180deg, rgba(12,9,6,.38) 0%, rgba(12,9,6,.08) 45%, rgba(12,9,6,.58) 100%),
+    linear-gradient(180deg, rgba(150,110,62,.26) 0%, rgba(176,138,88,.16) 50%, rgba(96,68,38,.34) 100%);
 }
 
-/* TESTE — página Histórico apenas: troca o laranja do site (--accent /
-   --accent-dk) pelo tom real da logo (#b46511), para avaliar o efeito antes
-   de decidir se passa para o resto do site. */
-body.palette-test-b46511{
-  --accent:    #b46511;
-  --accent-dk: #b46511;
+/* ---------- Ritmo vertical no telemovel (<=760px) ----------------------
+   Os dois tokens acima sao clamps afinados para desktop e, no telemovel,
+   quem ganha e o PISO, nao o termo em vw: a 390px, 18vw = 70px, portanto
+   --section-y fica nos 168px e cada fronteira entre seccoes abre 336px de
+   vazio num ecra de 390. E a causa isolada mais forte da sensacao de
+   desajuste (medido: 672px so de padding de seccao na home).
+
+   A correcao nao e um segundo piso fixo — seria a mesma falha ao contrario,
+   com um degrau visivel aos 761px. E uma recta que passa pelos dois pontos
+   que interessam: 64px a 390 e 168px a 760, que e exactamente o valor que o
+   clamp de desktop ja da a essa largura. Assim o ritmo cresce com o ecra e
+   entrega-se ao token de desktop sem salto na fronteira da media query.
+   O piso de 56px so entra abaixo de ~360px, onde a recta ja desceria de mais.
+
+   .no-hero .section--flat-top NAO precisa de regra propria: a folga extra
+   que ela soma (clamp(20px,3vw,48px)) ja vale 20px no telemovel — os 188px
+   de banda vazia no topo de /portfolio e /historico vinham todos do piso de
+   168px. Com esta recta passa a 84px a 390 e 91px a 414, abaixo do minimo
+   pedido, e o header fixo (~71px) continua a caber la dentro. */
+@media (max-width:760px){
+  :root{
+    --section-y: clamp(56px, 28vw - 45px, 168px);
+    --section-y-tight: clamp(20px, 3.25vw + 11px, 36px);
+  }
 }
 
 /* ---------- Reset ---------- */
@@ -114,13 +213,6 @@ ul{ list-style:none; }
 /* Secção que abre com uma .seam (nested como primeiro filho): a .seam já dá
    o respiro do topo, por isso a secção não duplica o próprio padding-top. */
 .section--seam-top{ padding-top:0; }
-/* Faixa de acento: fundo laranja, bem marcante (preto/branco/laranja) */
-.section--accent{ background:var(--accent); color:#fff; }
-.section--accent .display{ color:#fff; }
-.section--accent .dofazemos .display em{ color:#141414; }  /* palavra em destaque a preto */
-.section--accent .stat{ border-left-color:rgba(255,255,255,.28); }
-.section--accent .stat__num{ color:#fff; }
-.section--accent .stat__label{ color:rgba(255,255,255,.86); }
 
 /* Scroll snap desativado na home: fazia cada secção comportar-se como um
    slide isolado, que é o oposto da leitura contínua que a página pede.
@@ -131,7 +223,7 @@ ul{ list-style:none; }
   font-size:.72rem;
   letter-spacing:.32em;
   text-transform:uppercase;
-  color:var(--accent);
+  color:var(--accent-text);
   font-weight:600;
   display:inline-flex;
   align-items:center;
@@ -174,6 +266,10 @@ ul{ list-style:none; }
 .section--dark .member__bio,
 .section--dark .check,
 .section--dark .field label{ color:var(--paper); }
+/* O rótulo de função é acento, não texto corrido: leva o tom para escuro em
+   vez do branco. Com --accent-text (pensado para fundos claros) dava 2.37:1
+   em /sobre-nos, onde a <Team> vive numa .section--dark. */
+.section--dark .member__role{ color:var(--accent-dk); }
 
 /* Botão / link de ação */
 .btn{
@@ -193,7 +289,7 @@ ul{ list-style:none; }
   transition:transform .4s var(--ease);
 }
 .btn:hover::before{ transform:scaleX(1); }
-.btn:hover{ gap:1.1rem; color:var(--accent); }
+.btn:hover{ gap:1.1rem; color:var(--accent-text); }
 .section--dark .btn{ color:var(--paper); border-color:rgba(255,255,255,.5); }
 .section--dark .btn::before{ background:var(--accent-dk); }
 .section--dark .btn:hover{ color:var(--accent-dk); }
@@ -235,6 +331,20 @@ ul{ list-style:none; }
   padding-block:1.4rem;
   transition:background .7s var(--ease), padding .7s var(--ease), box-shadow .7s var(--ease), transform .6s var(--ease);
 }
+/* Véu local do header, só enquanto está sobre a hero. O texto do nav é branco
+   sobre fotografia, e no pior caso realista (p95 dos píxeis por baixo) dava
+   2.70:1 na home — muito abaixo dos 4.5 de AA. Subir a opacidade não resolvia:
+   o problema é o fundo, não a tinta.
+   Fica AQUI e não no --hero-veil de propósito: esse token é partilhado com a
+   PageCurtain (linha 2095) e mexer-lhe de um lado só abre costura visível na
+   transição. Este escurece apenas a faixa atrás do nav e desaparece assim que
+   o header ganha o seu próprio fundo claro (.scrolled) — nas páginas sem hero
+   o .scrolled entra logo, por isso ali nunca aparece. */
+.site-header:not(.scrolled)::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:210%;
+  background:linear-gradient(180deg, rgba(10,7,5,.42) 0%, rgba(10,7,5,.22) 52%, transparent 100%);
+  pointer-events:none; z-index:-1;
+}
 .site-header .container{ display:flex; align-items:center; justify-content:space-between; gap:2rem; }
 .site-header.scrolled{
   background:rgba(249,241,230,.92);
@@ -264,7 +374,11 @@ ul{ list-style:none; }
 }
 .nav__list a:hover{ opacity:1; color:var(--accent-dk); }
 .scrolled .nav__list a{ color:var(--ink); opacity:.85; }
-.scrolled .nav__list a:hover{ color:var(--accent); opacity:1; }
+.scrolled .nav__list a:hover{ color:var(--accent-text); opacity:1; }
+/* A seta diagonal de cada item só existe no painel de telemóvel (ver "MENU DE
+   ECRÃ INTEIRO" no fim da folha): no nav horizontal não há linha onde a pousar
+   e o item passaria a ter o dobro da largura. */
+.nav__link-seta{ display:none; }
 /* Seletor de idioma — botão + menu em cascata (ver .lang-switch__option abaixo).
    Vive como último item de .nav__list, por isso herda a mesma posição do
    antigo .nav__lang e aparece também no menu mobile de ecrã inteiro. */
@@ -314,8 +428,9 @@ ul{ list-style:none; }
 .lang-switch__option:nth-child(1){ transition-delay:.03s; }
 .lang-switch__option:nth-child(2){ transition-delay:.09s; }
 .lang-switch__option:nth-child(3){ transition-delay:.15s; }
-.lang-switch__option:hover, .lang-switch__option:focus-visible{ background:var(--paper-alt); color:var(--accent-dk); outline:0; }
-.lang-switch__option.is-active{ color:var(--accent); font-weight:600; }
+/* Menu de idiomas: painel CLARO, logo --accent-text (--accent-dk dava 2.38:1). */
+.lang-switch__option:hover, .lang-switch__option:focus-visible{ background:var(--paper-alt); color:var(--accent-text); outline:0; }
+.lang-switch__option.is-active{ color:var(--accent-text); font-weight:600; }
 
 /* Botão hambúrguer */
 .nav-toggle{
@@ -329,7 +444,19 @@ ul{ list-style:none; }
    HERO
    ===================================================================== */
 .hero{
-  position:relative; min-height:100vh;
+  position:relative;
+  /* svh, nao vh. Em iOS e Android o `vh` mede o viewport GRANDE — o que
+     existiria se a barra do browser estivesse recolhida — por isso a 100vh a
+     hero nasce mais alta do que a area visivel: o titulo e o indicador de
+     scroll caiem abaixo da dobra na primeira pintura, e a pagina salta quando
+     a barra recolhe. O `svh` mede o viewport PEQUENO (barra visivel), que e o
+     unico que garante que a hero cabe desde o primeiro frame.
+     Nao `dvh`: esse acompanha a barra a aparecer e a desaparecer, e a hero
+     mudava de altura durante o scroll — troca-se um salto por muitos.
+     A declaracao em vh fica por baixo como recurso: browsers sem svh ignoram
+     a segunda e ficam com o comportamento antigo. */
+  min-height:100vh;
+  min-height:100svh;
   display:flex; align-items:flex-end;
   color:#fff; overflow:hidden;
   /* Fundo escuro por baixo da imagem: na home a hero tem will-change:transform e
@@ -357,23 +484,33 @@ ul{ list-style:none; }
   filter:var(--hero-img-filter);
 }
 .hero__bg--img::after{ content:none; }
-/* Hero com imagem: ecrã inteiro, para coincidir com a cortina de transição
-   (que cobre 100vh) — a cortina é retirada sobre a hero sem salto. Mais altura
-   corta um pouco mais as laterais da foto (fundo cover, centrado). */
-.hero:has(.hero__bg--img){ min-height:100vh; }
+/* Hero com imagem: ecrã inteiro, para coincidir com a cortina de transição —
+   a cortina é retirada sobre a hero sem salto. Mais altura corta um pouco
+   mais as laterais da foto (fundo cover, centrado).
+   O comentário dizia que a cortina "cobre 100vh"; não cobre — é
+   `position:fixed; inset:0`, ou seja cobre o viewport VISÍVEL. Era a hero em
+   100vh que destoava dela no telemóvel, e é o svh que as põe de acordo. */
+.hero:has(.hero__bg--img){ min-height:100vh; min-height:100svh; }
 .hero__overlay{
   position:absolute; inset:0; z-index:1;
   background:var(--hero-veil);
 }
 .hero__inner{ position:relative; z-index:2; width:100%; padding-bottom:clamp(64px,10vh,128px); }
-.hero .display{ max-width:16ch; }
-.hero__title-page{ font-size:clamp(2.6rem,7vw,5.5rem); }
+/* Aqui estavam .hero .display{max-width:16ch} e
+   .hero__title-page{font-size:clamp(2.6rem,7vw,5.5rem)}. Ambas inalcançáveis:
+   a primeira porque .display já não existe no markup (o BlockHead emite
+   .title-split); a segunda porque .title-split--hero, de igual especificidade
+   e mais abaixo na folha, ganha o font-size. O tamanho e a largura da hero
+   vivem hoje na .title-split--hero. */
 .hero__scroll{
   position:absolute; left:50%; bottom:34px; transform:translateX(-50%);
   z-index:2; display:flex; flex-direction:column; align-items:center; gap:.6rem;
-  font-size:.62rem; letter-spacing:.3em; text-transform:uppercase; color:rgba(255,255,255,.7);
+  font-size:.62rem; letter-spacing:.3em; text-transform:uppercase; color:#fff;
 }
-.hero__scroll .line{ width:1px; height:46px; background:rgba(255,255,255,.5); animation:scrollLine 2s var(--ease) infinite; transform-origin:top; }
+/* .7 dava 4.22:1 e o traço a .5 dava 3.00:1 — ambos no limite ou abaixo. Aqui
+   o fundo já é o mais escuro da hero (o véu fecha a .58 em baixo), por isso
+   bastou subir a tinta; não foi preciso mexer no fundo como no nav. */
+.hero__scroll .line{ width:1px; height:46px; background:rgba(255,255,255,.78); animation:scrollLine 2s var(--ease) infinite; transform-origin:top; }
 @keyframes scrollLine{ 0%{transform:scaleY(0)} 40%{transform:scaleY(1)} 100%{transform:scaleY(0); transform-origin:bottom} }
 
 /* Hero da Home quase ancorada: a imagem fica praticamente parada no viewport,
@@ -417,7 +554,8 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .split__img{ aspect-ratio:4/5; width:100%; height:auto; object-fit:cover; display:block; }
 .split__body .display{ margin:.4rem 0 1.6rem; }
 
-/* Títulos de secção — a mesma tipografia (Kompot Display) do início ao fim,
+/* Títulos de secção — a mesma tipografia (Fraunces; ver a nota das fontes no
+   topo do ficheiro) do início ao fim,
    numa só caixa de texto. As quebras de linha são naturais: cada variante
    define a sua MEDIDA (max-width em ch) e o browser distribui o texto por
    linhas de comprimento parecido (text-wrap:balance). Nada impõe onde partir,
@@ -429,7 +567,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   margin:.4rem 0 1.6rem;
   display:flex;
   flex-direction:column;
-  font-family:"Kompot Display", var(--serif);
+  font-family:var(--serif);
   font-weight:700;
   text-transform:uppercase;
   letter-spacing:.02em;
@@ -443,6 +581,10 @@ body.is-home .site-footer{ position:relative; z-index:1; }
      com o viewport. Era isto que o JS antigo fazia a medir e a reescrever
      font-size; em CSS sai de graça e sem salto no resize. */
   font-size:clamp(1.6rem, 0.95rem + 3.4vw, 4rem);
+  /* Sem cor própria, de propósito: o título herda do contexto — tinta sobre
+     claro, branco sobre a hero e sobre .section--dark. É uma decisão de
+     desenho, não um esquecimento: os títulos ficam a preto e branco enquanto
+     o castanho vive nas superfícies e nos acentos. */
   text-wrap:balance;
   /* Medida de leitura por omissão: sem isto um título curto esticaria pela
      largura toda do .container (até 1480px) numa só linha interminável.
@@ -588,12 +730,139 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 @media (max-width:760px){
   .quemsomos__editorial{ grid-template-columns:1fr; row-gap:clamp(28px,6vw,40px); }
-  .quemsomos__meta{ grid-column:1; flex-direction:row; flex-wrap:wrap; gap:clamp(20px,5vw,32px); }
-  .qmeta{ flex:1 1 40%; }
+  /* Em linha, um bloco de dados abaixo do outro — não em grelha. Ao virar
+     `row`+`wrap` com bases de 40%, dois dados cabiam lado a lado sempre que
+     um deles era curto ("20 anos" ao lado de "António M Santos"): dava um
+     xadrez de 1 e 2 colunas que dependia só do comprimento de cada rótulo,
+     em vez de uma leitura sempre igual de cima a baixo. `column` lê-se como
+     UMA lista, na mesma ordem do desktop (que já é uma coluna de 4/12). */
+  .quemsomos__meta{ grid-column:1; flex-direction:column; gap:clamp(24px,5.5vw,36px); }
   .quemsomos__p{ grid-column:1; font-size:clamp(1.3rem,5vw,1.7rem); }
-  /* Empilhado, o bloco editorial fica alto de mais para a marca-d'água
-     "bottom" não cruzar o texto — some. */
-  .quemsomos .has-wm .wm-layer{ display:none; }
+  /* Aqui esteve `.quemsomos .has-wm .wm-layer{display:none}`: empilhado, o
+     bloco editorial ficava alto de mais para a marca-d'água "bottom" não
+     cruzar o texto. Deixou de ser preciso — a marca já não vive dentro do
+     bloco no telemóvel, vai para a margem dele (ver o bloco `.wm` no fim da
+     folha), e nesta secção pousa nos 56px de respiro entre o título e o
+     editorial. Retirar uma marca gráfica no móvel é decisão do cliente, não
+     dos agentes; agora que ela cabe, volta. */
+}
+
+/* ---- "O empreendimento" (/empreendimentos/…) ----
+   Decalque do "Quem Somos" acima: título centrado com a marca-d'água atrás,
+   editorial numa grelha de 12 colunas, CTA encostado à direita. Reaproveita as
+   mesmas medidas (o gap do intro, a margem do editorial, o recuo do CTA) para
+   as duas secções respirarem no mesmo ritmo — não é coincidência, é a mesma
+   secção noutra página. Sem imagem: as fotos do empreendimento vivem no slider
+   e aqui estariam a repetir-se.
+
+   O QUE MUDA é o desenho do texto. No Quem Somos o editorial é meta + um
+   parágrafo lado a lado, e o parágrafo é um rectângulo só. Aqui os dois
+   parágrafos entram DESENCONTRADOS: o primeiro encostado à margem esquerda
+   (1/10), o segundo à margem direita (4/13) e, por isso, atirado pela
+   auto-colocação da grelha para a linha seguinte — as colunas 4–9 sobrepõem-se
+   e não cabem os dois na mesma linha. O resultado é uma escada, com os dois
+   blocos a entrelaçar-se em vez de empilharem alinhados pela mesma margem.
+   Cada um encosta ao SEU bordo e deixa três colunas de folga só do outro lado:
+   nove colunas de vão, medida larga (~55 caracteres, dentro da faixa
+   confortável para este corpo). O degrau é o desencontro entre os dois, não o
+   ar em volta — apertar mais as margens engordaria a altura mas encurtava a
+   linha a ponto de a leitura tropeçar.
+   O corpo é o MESMO nos dois — o desencontro é todo de posição. Com tamanhos
+   diferentes o segundo lia-se como nota de rodapé do primeiro; iguais, são
+   dois blocos do mesmo discurso, só que deslocados.
+   text-wrap:pretty e NENHUM max-width em ch: a medida vem do vão da grelha e o
+   rag fica irregular. Com `balance` as linhas ficariam todas do mesmo
+   comprimento — que é exactamente o que aqui não se quer. */
+.emp-intro{
+  display:flex; flex-direction:column; align-items:center;
+  gap:clamp(30px,5vw,68px);
+}
+/* Mais largo que os 20ch da variante: "Em construção · 2026 e 2027" (o CLT) é
+   o título mais longo que aqui aparece e não deve partir em duas linhas. */
+.emp-intro .title-split--center{ max-width:min(30ch,100%); }
+
+.emp-editorial{
+  display:grid;
+  grid-template-columns:repeat(12, 1fr);
+  column-gap:clamp(20px,2.6vw,40px);
+  row-gap:clamp(28px,3.6vw,60px);
+  margin-top:clamp(56px,7vw,108px);
+  /* Fonte única dos dois corpos — o segundo parágrafo deriva daqui em vez de
+     repetir o clamp (ver a compensação óptica abaixo). */
+  --emp-p: clamp(1.5rem,2.6vw,2.3rem);
+}
+.emp-editorial__p{
+  color:var(--ink-soft);
+  font-family:var(--serif); font-weight:300;
+  line-height:1.5;
+  text-wrap:pretty;
+  font-size:var(--emp-p);
+}
+.emp-editorial__p--lead{ grid-column:1 / 10; }
+
+/* Segundo parágrafo na SANS, para os dois se distinguirem pela letra e não só
+   pela posição. O tamanho e o destaque têm de ficar iguais aos do primeiro, e
+   nenhuma das duas coisas se consegue copiando o número do font-size:
+
+   TAMANHO — a Inter tem altura-de-x de .543em contra .462em da Fraunces
+   (medido no browser, com as faces reais). Ao mesmo font-size as minúsculas da
+   Inter saem 18% mais altas e o parágrafo lê-se maior. O factor .85 (=17/20, a
+   razão entre as duas alturas-de-x) iguala o que o olho mede: a altura das
+   minúsculas. É por isso que o número é MENOR para o tamanho ser o MESMO.
+
+   DESTAQUE — mede-se na densidade da mancha, não no número do peso. Em 400 a
+   Inter dava 7.06% de tinta por área contra 5.66% da Fraunces Light (medido
+   sobre três linhas cheias das duas): 25% mais escura, e lia-se como o
+   parágrafo mais forte dos dois. Abrir o espacejamento não resolve uma
+   diferença dessa ordem — para a compensar só com ar seriam precisos .12em de
+   entreletra, que é tipografia espaçada, não texto corrido. A diferença é de
+   haste, por isso corrige-se no peso: 300, agora que o Base.astro pede a Inter
+   por eixo contínuo e o 300 existe mesmo (antes caía em 400 sem avisar).
+   Medido de novo assim: 5.50% contra 5.66% — 3% de diferença, abaixo do que o
+   olho distingue. O .012em de entreletra fica pelo desenho (a Inter ganha
+   textura com um fio de ar a este corpo), já não pela densidade. */
+.emp-editorial__p--tail{
+  grid-column:4 / 13;
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:calc(var(--emp-p) * .85);
+  letter-spacing:.012em;
+  /* Mesma entrelinha EM PÍXEIS do parágrafo de cima: o corpo encolheu .85, a
+     entrelinha cresce na mesma proporção. Com as alturas-de-x já igualadas,
+     isto iguala também o ar entre linhas tal como o olho o mede — um 1.5 tal
+     e qual deixaria as linhas da sans mais apertadas do que as da serifa. */
+  line-height:calc(1.5 / .85);
+}
+.emp-cta{
+  display:flex; justify-content:flex-end;
+  margin-top:clamp(28px, 4vw, 56px);
+}
+@media (max-width:1100px){
+  /* A escada mantém-se, só encurta o degrau: aqui a coluna já vale menos
+     píxeis e três de folga tirariam à medida o que ela não tem para dar. */
+  .emp-editorial__p--lead{ grid-column:1 / 11; }
+  .emp-editorial__p--tail{ grid-column:3 / 13; }
+}
+@media (max-width:760px){
+  /* Numa coluna não há escada possível nem margem lateral a dar — a esta
+     largura qualquer recuo nos dois lados esmagava a medida. O desencontro
+     passa a ser só o recuo do segundo parágrafo, com o fio a marcá-lo. */
+  /* O corpo desce pela VARIÁVEL, nunca pelo font-size: as duas regras que a
+     consomem — a base e o `calc(… * .85)` do segundo parágrafo — têm a mesma
+     especificidade que um `.emp-editorial__p{font-size:…}` escrito aqui, e
+     como esta media query vem depois no ficheiro, ganhava às duas. O segundo
+     parágrafo perdia a compensação óptica e a sans voltava a ler-se 18% maior
+     do que a serifa, só no telemóvel. */
+  .emp-editorial{ grid-template-columns:1fr; --emp-p:clamp(1.3rem,5vw,1.7rem); }
+  .emp-editorial__p--lead{ grid-column:1; }
+  .emp-editorial__p--tail{
+    grid-column:1;
+    padding-left:clamp(14px,5vw,28px);
+    border-left:1px solid var(--line);
+  }
+  /* Aqui esteve `.emp-sobre .has-wm .wm-layer{display:none}`, pelo mesmo
+     motivo do Quem Somos e retirado pela mesma razão: a marca deixou de
+     disputar espaço com o texto no telemóvel. */
 }
 
 /* =====================================================================
@@ -636,7 +905,10 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .dofazemos__words .dofazemos__word:last-child{ border-bottom:1px solid var(--line); }
 .dofazemos__word-n{
   font-family:var(--serif); font-size:.9rem; letter-spacing:.06em;
-  color:var(--accent-dk);
+  /* Fundo claro: tem de ser --accent-text. Estava a usar --accent-dk (o tom
+     desenhado para fundos ESCUROS), que aqui dava 2.62:1 — falha AA de
+     origem, anterior a esta recoloração. */
+  color:var(--accent-text);
 }
 .dofazemos__word-t{
   font-family:var(--serif); font-weight:500; color:var(--ink);
@@ -682,14 +954,22 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .pilar{
   display:flex; flex-direction:column; gap:.7rem;
-  background:var(--paper);
-  border:1px solid var(--dark);
+  /* Areia clara + borda --line (o par que o resto do site usa em .fact):
+     davam --paper-warm + borda --dark, um contorno quase preto sobre um
+     fundo mais escuro que lia como um autocolante, destoando do resto da
+     página. Aqui só precisa de se destacar o suficiente para se ler como
+     cartão, não mais do que isso. */
+  background:var(--paper-alt);
+  border:1px solid var(--line);
   border-radius:16px;
   padding:clamp(28px,3vw,40px) clamp(24px,2.8vw,34px);
 }
 .pilar__n{
   font-family:var(--serif); font-size:.85rem; letter-spacing:.06em;
-  color:var(--accent);
+  /* --accent-deep cumpre AA nas três superfícies claras (6.29 sobre --paper,
+     5.49 sobre --paper-alt, 4.90 sobre --paper-warm) — a troca de fundo
+     acima não pede troca de cor aqui. */
+  color:var(--accent-deep);
 }
 .pilar__t{ font-family:var(--serif); font-weight:500; color:var(--ink); font-size:clamp(1.5rem,2.3vw,1.95rem); }
 .pilar__x{ color:var(--ink-soft); line-height:1.7; font-size:clamp(1.05rem,1.15vw,1.15rem); }
@@ -783,24 +1063,33 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   grid-template-columns:1fr auto 1fr;
   align-items:center;
   gap:1.2rem;
-  margin-top:2.6rem;
+  margin-top:.5rem;
   font-family:var(--sans); font-size:1.05rem; letter-spacing:.02em; color:var(--ink-faint);
 }
 .seam__label{ display:inline-flex; align-items:center; gap:.7rem; color:var(--ink); font-weight:600; justify-self:start; }
 .seam__label::before{ content:""; width:8px; height:8px; flex:none; background:var(--accent); }
-.seam__brand{ white-space:nowrap; justify-self:center; font-weight:600; color:var(--ink); }
+/* A marca é o logo, não texto — assina a costura sem a transformar num
+   elemento de destaque. A altura vem em em (e não em px) para ficar
+   amarrada à escala da .seam__meta — cresce sozinha na variante --top,
+   onde a legenda também cresce. O © mantém o ocre e o ano fica a tinta:
+   --accent-text (o tom que cumpre AA como glifo), não --accent. */
+.seam__brand{ justify-self:center; align-self:end; display:inline-flex; align-items:end; line-height:0; }
+/* O aspect-ratio reserva a largura antes de a PNG descodificar: sem ele a
+   caixa da marca nasce com a largura do texto do alt e alarga ao carregar.
+   A grelha 1fr auto 1fr absorve o resto sem mexer no rótulo nem no ano,
+   mas o próprio logo saltava. (1116×421 = dimensão intrínseca do wordmark,
+   já sem o símbolo — só "empreendimentos SANTOS".) align-self:end na
+   .seam__brand alinha a base do nome à mesma linha do rótulo e do ano,
+   em vez de centrar a caixa toda da marca no bloco. */
+.seam__logo{ height:2.4em; width:auto; aspect-ratio:1116/421; display:block; }
+.seam__logo--paper{ display:none; }
 .seam__index{ white-space:nowrap; font-variant-numeric:tabular-nums; justify-self:end; color:var(--ink); }
-
-/* TESTE — seam do Histórico apenas: "AM Santos" e o © de "2026" na cor real
-   da logo (#b46511), para avaliar o efeito antes de decidir se passa para
-   as restantes seams. */
-.seam--test-orange .seam__brand{ color:#b46511; }
-.seam--test-orange .seam__copy{ color:#b46511; }
+.seam__copy{ color:var(--accent-text); }
 
 .seam--alt{ background:var(--paper-alt); }
 /* Variante escura — vive DENTRO de uma .section--dark (é ela que abre o
    capítulo escuro), por isso não repinta o fundo: --dark é semitransparente
-   (#141414e5, para a hero se ver por trás) e uma segunda camada por cima
+   (#241a12e5, para a hero se ver por trás) e uma segunda camada por cima
    deixaria uma faixa visivelmente mais escura à volta da régua. O laranja
    passa ao tom para fundos escuros (--accent-dk) e a régua a um branco
    discreto, o equivalente de --line no escuro. */
@@ -809,8 +1098,14 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .seam--dark .seam__meta{ color:rgba(255,255,255,.5); }
 .seam--dark .seam__label{ color:var(--paper); }
 .seam--dark .seam__label::before{ background:var(--accent-dk); }
-.seam--dark .seam__brand{ color:var(--paper); }
+/* Logo claro sobre fundo escuro — a mesma troca que a nav faz ao rolar. */
+.seam--dark .seam__logo--ink{ display:none; }
+.seam--dark .seam__logo--paper{ display:block; }
 .seam--dark .seam__index{ color:rgba(255,255,255,.78); }
+/* O © declara a própria cor (--accent-text, pensado para fundos claros), por
+   isso NÃO herda o branco do .seam__index acima — tem de ser reposto aqui, no
+   tom de acento para escuro, como o quadrado do rótulo já faz. */
+.seam--dark .seam__copy{ color:var(--accent-dk); }
 
 /* Respiro extra no topo: para quando a .seam fecha um bloco de imagem (a foto
    da "Quem Somos", o slider do Portfolio, os painéis do Histórico, o
@@ -829,7 +1124,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   padding-top:0;
   padding-bottom:clamp(48px,6vw,88px);
 }
-.seam--top .seam__meta{ margin-top:2.8rem; font-size:1.15rem; }
+.seam--top .seam__meta{ margin-top:.6rem; font-size:1.15rem; }
 .seam--top .seam__label{ font-size:clamp(1.15rem,2.2vw,1.7rem); letter-spacing:.03em; }
 .seam--top .seam__label::before{ width:8px; height:8px; }
 
@@ -837,7 +1132,21 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   .seam{ padding-top:clamp(48px,9vw,64px); padding-bottom:clamp(72px,13vw,104px); }
   .seam--loose{ padding-top:clamp(64px,13.5vw,96px); }
   .seam--top{ padding-bottom:clamp(32px,8vw,56px); }
-  .seam__brand{ display:none; }
+  /* No telemóvel a legenda passa a DUAS colunas, não três: a grelha
+     1fr/auto/auto do desktop existe para centrar a marca entre o rótulo e o
+     ano, e um ecrã estreito não tem largura para os três — o ano era o que
+     saía (display:none), deixando a marca a meio e uma folga vazia à
+     direita sem função nenhuma.
+
+     Aqui o ano sai de vez e a marca ocupa o lugar dele, à direita: rótulo
+     da secção seguinte à esquerda, "empreendimentos SANTOS" à direita, os
+     dois na mesma linha de base (align-self:end, como no desktop). Os
+     `grid-column` são explícitos e não dependem da ordem no DOM — a marca
+     continua a vir a meio na marcação, só muda de coluna aqui. */
+  .seam__meta{ grid-template-columns:1fr auto; column-gap:1rem; }
+  .seam__label{ grid-column:1; }
+  .seam__brand{ display:inline-flex; grid-column:2; justify-self:end; }
+  .seam__index{ display:none; }
 }
 
 .stats{
@@ -849,7 +1158,10 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .stat__num{
   font-family:var(--serif); font-weight:400;
   font-size:clamp(2.4rem,4.6vw,3.7rem); line-height:1;
-  color:var(--accent); letter-spacing:.01em;
+  /* O único consumidor é o <Stats> de /sobre-nos, e vive numa .section--dark
+     (ver Stats.astro) — por isso o tom para fundos escuros, como o fio do
+     .stat::before ao lado já usa. Com --accent dava 2.85:1. */
+  color:var(--accent-dk); letter-spacing:.01em;
   font-variant-numeric:tabular-nums;
   /* min-height alinha os rótulos entre o contador e os pilares de texto,
      que têm corpos diferentes. */
@@ -894,14 +1206,61 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .scroller::-webkit-scrollbar{ height:4px; }
 .scroller::-webkit-scrollbar-thumb{ background:var(--accent); }
 
-/* Cartão de projeto */
-.card{ scroll-snap-align:start; background:transparent; border-radius:var(--card-radius); }
-.card__media{ position:relative; aspect-ratio:3/4; overflow:hidden; border-radius:var(--card-radius); }
+/* Cartão de projeto — MOLDURA DE LINHA ÚNICA, canto reto.
+   Um só traço a tinta (--card-rule) no bordo do objeto, e daí para dentro um
+   passe-partout largo até à fotografia e à legenda.
+
+   Chegou a ter DUAS linhas concêntricas: esta e um filete a --card-rule-fine
+   a 16px dela, desenhado por um .card__mat que embrulhava imagem + legenda.
+   Foram retiradas por decisão de desenho — primeiro o contorno da fotografia,
+   depois o filete. Para as repor é preciso o wrapper de volta no
+   ProjectCard.astro: a linha tem de envolver conteúdo, não dá para a fazer com
+   um pseudo-elemento.
+
+   Margem PESADA em baixo (34px contra 30px nos outros lados): é a regra
+   clássica do emolduramento — com a margem toda igual, a moldura parece estar
+   a cair para a frente. Com uma linha só a margem é o único detalhe que
+   sobra, por isso é generosa: é ela que faz a placa ler-se como passe-partout
+   e não como padding.
+
+   Duas coisas sustentam o efeito e não devem ser mexidas isoladamente:
+   (1) a placa (--card-surface) desce um degrau em relação ao branco da página,
+       senão a moldura não tem corpo — uma versão pintou-a de --paper, a cor
+       exata do fundo, e a moldura simplesmente não existia;
+   (2) a margem tem de ser larga. Estreitá-la devolve o cartão à aparência de
+       caixa com bordo, que é o oposto de uma moldura.
+
+   A legenda fica fora da fotografia: com o título sobreposto, o contraste
+   dependia da foto (céu claro, interiores) e só se salvava com scrim +
+   text-shadow. Aqui o texto mede contra uma superfície conhecida. */
+.card{
+  scroll-snap-align:start;
+  display:flex; flex-direction:column; gap:18px;
+  background:var(--card-surface);
+  border:1px solid var(--card-rule);
+  padding:30px 30px 34px;
+}
+/* flex:1 — a imagem absorve a altura sobrante da linha da grelha. Sem isto,
+   um cartão cujo nome se parte em duas linhas estica toda a linha e os
+   vizinhos ficam com uma faixa morta por baixo da legenda. A relação de
+   aspeto continua a ditar a altura mínima; o object-fit:cover esconde os
+   poucos pixels a mais. */
+/* SEM contorno próprio. Chegou a ter um filete de 1px por dentro, para a
+   imagem não se dissolver na placa em fotos com céu claro no bordo; a 14px do
+   traço do passe-partout, os dois colavam-se e a moldura passava a ter três
+   linhas em vez das duas que a definem. O bordo da própria fotografia chega. */
+.card__media{
+  position:relative; flex:1 1 auto; aspect-ratio:3/4; overflow:hidden;
+}
 .card__media .ph{ position:absolute; inset:0; width:100%; height:100%; transition:transform .7s var(--ease); }
 .card:hover .card__media .ph{ transform:scale(1.22); }
 .card__img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
 .card:hover .card__img{ transform:scale(1.22); }
-/* Máscara fosca sobre a imagem ao passar o rato, para destacar o título por cima. */
+/* O HOVER É SÓ AQUI: a imagem faz zoom e desfoca. A moldura fica quieta — sem
+   elevação, sem sombra, sem mudança de bordo nem de cor do título. O desfoque
+   vem por backdrop-filter numa camada sobreposta, e não por filter na própria
+   <img>: um filter:blur amostra para lá dos limites do elemento e deixava um
+   halo transparente no bordo da imagem. */
 .card__media::after{
   content:""; position:absolute; inset:0; z-index:1;
   background:rgba(15,15,15,.42); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);
@@ -915,23 +1274,51 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   font-size:.56rem; letter-spacing:.16em; text-transform:uppercase; font-weight:600;
   padding:.32rem .5rem;
 }
-/* No hero fica em baixo à direita, longe do título e do botão de voltar. */
+/* No hero fica em baixo à direita, longe do título e da indicação de scroll. */
 .img-prov--hero{
   top:auto; left:auto; right:var(--gutter); bottom:1.4rem;
   background:rgba(0,0,0,.5); backdrop-filter:blur(4px);
 }
-/* Scrim alto e em três paragens: com fotos reais por baixo, um título de duas
-   linhas subia para a zona transparente e ficava ilegível sobre céu claro. */
-.card__overlay{
-  position:absolute; inset:auto 0 0 0; z-index:2; padding:3.4rem 1.4rem 1.4rem;
-  background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.5) 42%, rgba(0,0,0,.85) 100%);
-  color:#fff;
+/* LEGENDA NO PASSE-PARTOUT (não sobre a imagem). Nome e local à esquerda,
+   tipologia à direita. Sem padding próprio: quem dá o respiro é o passe-partout
+   do .card, e é isso que alinha o texto pela mesma vertical que o bordo da
+   fotografia — um padding extra aqui partia esse alinhamento, que é metade do
+   efeito. */
+.card__caption{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:1.2rem;
 }
-/* text-shadow além do scrim: as fotos variam muito (céu claro, campo, interiores)
-   e o gradiente sozinho não garante contraste em títulos/meta de duas linhas. */
-.card__title{ font-family:var(--serif); font-weight:400; font-size:1.5rem; line-height:1.1; text-shadow:0 1px 12px rgba(0,0,0,.55); transition:color .3s var(--ease); }
-.card:hover .card__title{ color:var(--accent-dk); }
-.card__meta{ font-size:.76rem; letter-spacing:.1em; opacity:.92; margin-top:.4rem; text-shadow:0 1px 10px rgba(0,0,0,.6); }
+.card__text{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+/* Sem transição de cor: o título não reage ao hover (o hover é só na imagem). */
+.card__title{
+  font-family:var(--serif); font-weight:400; font-size:1.45rem; line-height:1.15;
+  color:var(--ink);
+}
+/* Sem versaletes nem letter-spacing: o original põe aqui uma linha corrida em
+   cinzento, e foi a meta em caixa alta espaçada que fez a primeira versão
+   parecer artificial. */
+.card__meta{ font-size:.88rem; line-height:1.3; color:var(--ink-soft); }
+/* Chapa da tipologia — RETA, não pastilha. O canto de 999px que aqui estava
+   era o único arredondado que sobrava e destoava do resto; num cartão de canto
+   reto lê-se como peça de outro sistema. Agora é uma chapinha, com o mesmo
+   traço fino do passe-partout. align-self:center para acompanhar o bloco de
+   texto mesmo quando o nome se parte em duas linhas. */
+.card__tag{
+  flex:none; align-self:center;
+  font-size:.78rem; line-height:1;
+  color:var(--ink-soft); background:var(--card-chip);
+  border:1px solid var(--card-rule-fine);
+  padding:8px 14px; white-space:nowrap;
+}
+
+/* Moldura sobre secção escura (“Futuros”, no portfólio): a placa clara
+   dominaria o bloco, por isso inverte-se em vez de desaparecer — continua a
+   ser um degrau de superfície contra o fundo, só que para cima.
+   Contraste medido contra o fundo real da secção com este véu por cima
+   (~rgb(67,58,52)): --on-dark-soft dá 4.93:1 na meta. */
+.section--dark .card{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.34); }
+.section--dark .card__title{ color:var(--paper); }
+.section--dark .card__meta{ color:var(--on-dark-soft); }
+.section--dark .card__tag{ color:var(--on-dark); background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.18); }
 
 /* =====================================================================
    PAINÉIS EXPANSÍVEIS (dark section — efeito content-office)
@@ -970,8 +1357,8 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .panel::before{
   content:""; position:absolute; inset:0; z-index:1;
   background:linear-gradient(to top,
-    rgba(15,17,20,.82) 0%,
-    rgba(15,17,20,.35) 45%,
+    rgba(20,15,10,.82) 0%,
+    rgba(20,15,10,.35) 45%,
     rgba(138,111,78,.10) 100%);
   transition:opacity .6s var(--ease);
 }
@@ -1058,8 +1445,15 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 /* =====================================================================
    GRID de portfólio (página Portfólio)
    ===================================================================== */
-.grid-projects{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(16px,2vw,28px); }
-.grid-projects .card__media{ aspect-ratio:4/5; }
+/* DUAS colunas (era três). O cartão-moldura é largo e baixo, como o formato de
+   referência: a três colunas a coluna ficava com ~429px e a imagem em paisagem
+   encolhia a ponto de o empreendimento deixar de se ler. A dois, a coluna anda
+   pelos ~726px e a imagem fica com a mesma presença que tem no original. */
+.grid-projects{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(16px,2vw,28px); }
+/* Paisagem 19/10 — a proporção medida na imagem do cartão de referência
+   (574×302). É esta relação que faz o cartão ler-se largo e baixo em vez do
+   retrato alto que ele tinha. */
+.grid-projects .card__media{ aspect-ratio:19/10; }
 
 /* =====================================================================
    COMO TRABALHAMOS — grelha de imagens em cascata (masonry, 2 colunas),
@@ -1187,9 +1581,145 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .team--lead{ grid-template-columns:repeat(2,minmax(0,1fr)); max-width:640px; gap:clamp(20px,2.4vw,34px); }
 .member__media .ph{ aspect-ratio:1/1; width:100%; }
 .member__media img{ aspect-ratio:1/1; width:100%; height:100%; object-fit:cover; display:block; }
-.member__role{ font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin:.9rem 0 .3rem; font-weight:600; }
+.member__role{ font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-text); margin:.9rem 0 .3rem; font-weight:600; }
 .member__name{ font-family:var(--serif); font-weight:400; font-size:1.2rem; margin-bottom:.6rem; }
 .member__bio{ color:var(--ink-soft); font-size:.85rem; max-width:100%; }
+
+/* ---- Equipa em fita contínua (.team--marquee, /sobre-nos) -------------
+   A grelha acima é a variante de base (a /equipa vive dela). Esta é a fita:
+   os cartões deslizam em loop, param ao passar o rato e a fotografia sai do
+   cinzento só no cartão sob o cursor.
+
+   A montagem do HTML (conjunto duplicado + repetido) está comentada em
+   src/components/Team.astro — é de lá que depende a aritmética do keyframe. */
+.team--marquee{
+  --team-gap:clamp(14px,1.6vw,24px);
+  display:block;
+  margin-top:clamp(40px,5vw,64px);
+  overflow:clip;   /* clip, não hidden: não criar scroll container */
+  /* Os bordos esbatem-se por MÁSCARA, não por um degradê pousado por cima:
+     a .section--dark é translúcida (--dark tem alfa), por isso qualquer cor
+     pintada a fingir de fundo denunciava-se contra o que está por baixo.
+     A máscara desvanece os próprios pixéis da fita e serve qualquer fundo. */
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+}
+.team__track{
+  display:flex;
+  gap:var(--team-gap);
+  width:max-content;
+  animation:team-marquee var(--team-speed,44s) linear infinite;
+  will-change:transform;
+}
+.team__set{ display:flex; gap:var(--team-gap); }
+/* A fita tem dois conjuntos e um intervalo entre eles: 2S + gap. Voltar ao
+   ponto de partida sem salto é deslizar S + gap, ou seja metade da largura
+   MAIS metade do intervalo — o -50% sozinho deixava a costura à vista. */
+@keyframes team-marquee{
+  from{ transform:translate3d(0,0,0); }
+  to  { transform:translate3d(calc(-50% - (var(--team-gap) / 2)),0,0); }
+}
+/* Parar sob o rato (para se poder ler o cartão) e sob o foco de teclado. */
+.team--marquee:hover .team__track,
+.team--marquee:focus-within .team__track{ animation-play-state:paused; }
+
+.team--marquee .member{ flex:0 0 auto; width:clamp(260px,26vw,380px); }
+/* A fita entra sempre visível: o revelar-ao-rolar observa .member e os
+   cartões que arrancam fora do ecrã ficariam a opacity:0 à espera de um
+   cruzamento que a animação torna imprevisível. */
+html.reveal-ready .team--marquee .member{
+  opacity:1; transform:none; transition:none;
+}
+.team--marquee .member__media{
+  position:relative;
+  overflow:hidden;
+  background:var(--dark-soft);
+}
+.team--marquee .member__media img,
+.team--marquee .member__mono{
+  aspect-ratio:3/4;
+  width:100%; height:100%;
+  display:block;
+  transform:scale(1.02);   /* margem para o zoom do hover não mostrar bordo */
+  transition:filter .45s var(--ease), transform .8s var(--ease);
+}
+.team--marquee .member__media img{ object-fit:cover; filter:grayscale(1); }
+.team--marquee .member:hover .member__media img{ filter:grayscale(0); }
+.team--marquee .member:hover .member__media img,
+.team--marquee .member:hover .member__mono{ transform:scale(1.06); }
+/* Monograma: o cartão de quem ainda não tem retrato. Mesma trama diagonal
+   dos placeholders do site (.ph--dark), com as iniciais em bronze. Fica
+   deliberadamente calmo — não pode competir com as fotografias ao lado. */
+.team--marquee .member__mono{
+  display:flex; align-items:center; justify-content:center;
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,.045) 0, rgba(255,255,255,.045) 1px,
+      transparent 1px, transparent 11px),
+    var(--dark-soft);
+}
+.team--marquee .member__mono span{
+  font-family:var(--serif); font-weight:400;
+  font-size:clamp(3.4rem,5.4vw,5rem); line-height:1;
+  letter-spacing:.06em;
+  color:var(--accent-dk); opacity:.5;
+  /* Sobe um pouco: centrado a sério, o monograma ficava atrás da placa. */
+  transform:translateY(-14%);
+  transition:opacity .45s var(--ease);
+}
+.team--marquee .member:hover .member__mono span{ opacity:.85; }
+/* Placa sobre a fotografia. O degradê sobe até ao transparente para o nome
+   assentar sobre densidade suficiente sem cortar a imagem a direito. */
+.team--marquee .member__plate{
+  position:absolute; inset-inline:0; bottom:0;
+  /* O respiro de cima é grande de propósito: é a pista por onde o degradê
+     sobe até ao transparente. Sem ela o rótulo de função ficava na zona
+     translúcida e, com a fotografia a cores (hover), perdia contraste
+     contra o que quer que estivesse por baixo — foi o que aconteceu com um
+     retrato de fundo azul claro. */
+  padding:clamp(30px,3.4vw,46px) clamp(12px,1.3vw,18px) clamp(12px,1.3vw,18px);
+  background:linear-gradient(to top,
+    rgba(21,15,10,.95) 0%,
+    rgba(21,15,10,.92) 76%,
+    rgba(21,15,10,0) 100%);
+}
+.team--marquee .member__role{ margin:0 0 .25rem; color:var(--accent-dk); }
+.team--marquee .member__name{
+  font-family:var(--serif); font-weight:400; font-size:clamp(1.08rem,1.1vw,1.28rem);
+  color:var(--paper); margin:0;
+}
+/* A biografia é longa de mais para estar sempre aberta numa fita em
+   movimento: fica colapsada e abre no cartão sob o rato — que é, ao mesmo
+   tempo, o momento em que a fita pára. Continua no DOM (e no leitor de ecrã)
+   nos dois estados. */
+.team--marquee .member__bio{
+  color:rgba(253,252,250,.84);
+  font-size:clamp(.78rem,.72vw,.86rem); line-height:1.55;
+  margin:0; max-height:0; opacity:0; overflow:hidden;
+  transition:max-height .5s var(--ease),
+             opacity .35s var(--ease),
+             margin .5s var(--ease);
+}
+.team--marquee .member:hover .member__bio{
+  max-height:14rem; opacity:1; margin-top:.5rem;
+}
+/* Sem rato não há como abrir a biografia: nesses ecrãs mostra-se sempre. */
+@media (hover:none){
+  .team--marquee .member__bio{ max-height:14rem; opacity:1; margin-top:.5rem; }
+  .team--marquee .member__media img{ filter:grayscale(0); }
+  .team--marquee .member__mono span{ opacity:.85; }
+}
+/* Menos movimento: a fita pára. Como parada só se veria o primeiro cartão e
+   meio, passa a faixa deslizável à mão — e a cópia (aria-hidden) sai, para
+   não haver a equipa duas vezes num carrossel manual. */
+@media (prefers-reduced-motion:reduce){
+  .team--marquee{ overflow-x:auto; scroll-snap-type:x proximity; }
+  .team__track{ animation:none; }
+  .team__set[aria-hidden]{ display:none; }
+  .team--marquee .member{ scroll-snap-align:center; }
+  .team--marquee .member__media img,
+  .team--marquee .member__mono{ transform:none; transition:filter .45s var(--ease); }
+}
 
 /* =====================================================================
    CONTACTO
@@ -1200,9 +1730,18 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .field label{ font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; }
 .field input, .field select, .field textarea{
   font-family:var(--sans); font-size:.95rem; color:var(--ink);
-  background:transparent; border:0; border-bottom:1px solid var(--line);
+  background:transparent; border:0; border-bottom:1px solid var(--line-field);
   padding:.7rem 0; transition:border-color .3s var(--ease);
 }
+/* Hoje nenhum formulário assenta em secção escura, mas o .section--dark .field
+   label acima mostra que o caso foi antecipado — e aí o --line-field, que é um
+   taupe médio, desapareceria. Mesmo valor do campo da newsletter (M7). */
+.section--dark :is(.field input, .field select, .field textarea){ border-bottom-color:rgba(255,255,255,.42); }
+/* Sem isto os placeholders herdavam o cinzento do UA (#757575), que é frio e
+   falha AA nas duas superfícies: 3.92:1 sobre --paper-alt e 4.49:1 sobre
+   --paper — este último por um centésimo. O --ink-faint dá 4.65 e 5.33, e é da
+   família. opacity:1 porque o Firefox aplica .54 por omissão. */
+.field :is(input, textarea)::placeholder{ color:var(--ink-faint); opacity:1; }
 .field input:focus, .field select:focus, .field textarea:focus{ outline:0; border-color:var(--accent); }
 .field textarea{ resize:vertical; min-height:90px; }
 .check{ display:flex; gap:.7rem; align-items:flex-start; font-size:.8rem; color:var(--ink-soft); }
@@ -1212,24 +1751,41 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 /* =====================================================================
    FOOTER
    ===================================================================== */
-.site-footer{ background:var(--dark); color:#cdd0d4; padding-block:clamp(56px,7vw,96px) 2rem; }
+/* Os tons de texto do rodapé eram cinzentos AZULADOS (#cdd0d4 / #a7abb1 /
+   #7e828a) — o último resíduo frio do site. Passam a cinzentos-terra, medidos
+   contra o fundo REAL rgb(58,49,42): o --dark tem alpha e5 e nunca renderiza
+   opaco, por isso medir contra o hex do token dá valores ~26% otimistas. */
+.site-footer{ background:var(--dark); color:var(--on-dark); padding-block:clamp(56px,7vw,96px) 2rem; }
 .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:clamp(28px,4vw,56px); }
 .footer-col h4{ font-size:.7rem; letter-spacing:.24em; text-transform:uppercase; color:#fff; margin-bottom:1.1rem; font-weight:600; }
-.footer-col p, .footer-col a{ font-size:.92rem; color:#a7abb1; line-height:1.8; }
+.footer-col p, .footer-col a{ font-size:.92rem; color:var(--on-dark-soft); line-height:1.8; }
 .footer-col a{ background:linear-gradient(var(--accent-dk),var(--accent-dk)) 0 100%/0 1px no-repeat; transition:background-size .35s var(--ease), color .3s var(--ease); }
 .footer-col a:hover{ color:var(--accent-dk); background-size:100% 1px; }
 .footer-brand .logo{ margin-bottom:1.2rem; }
 .footer-logo{ height:auto; }
 .footer-logo img{ height:60px; width:auto; display:block; }
 .socials{ display:flex; gap:.8rem; margin-top:1.2rem; }
-.socials a{ display:grid; place-items:center; color:#cdd0d4; transition:color .35s var(--ease), transform .35s var(--ease); }
+.socials a{ display:grid; place-items:center; color:var(--on-dark); transition:color .35s var(--ease), transform .35s var(--ease); }
 .socials a svg{ width:26px; height:26px; }
 .socials a:hover{ color:var(--accent-dk); transform:translateY(-2px); }
-.news{ display:flex; border-bottom:1px solid rgba(255,255,255,.25); }
+/* O consentimento vivia num style inline (color:#a7abb1), que ganhava à
+   cascata e ficava invisível a qualquer mudança de paleta. Passa a classe,
+   ao lado dos irmãos. O margin-top também sai do inline. */
+.check--footer{ margin-top:1rem; color:var(--on-dark-soft); }
+/* A sublinha é a ÚNICA indicação visual de que aqui há um campo — é o
+   equivalente escuro do P11. A .25 dava 2.21:1 contra o fundo composto real
+   rgb(58,49,42), abaixo dos 3:1 que a WCAG 1.4.11 pede a controlos. */
+.news{ display:flex; border-bottom:1px solid rgba(255,255,255,.42); }
 .news input{ flex:1; background:none; border:0; color:#fff; padding:.6rem 0; font-size:.9rem; }
+/* Sem esta regra o placeholder herdava o cinzento do UA (~#757575), que sobre
+   o fundo escuro do rodapé dá ~2.7:1. É o único campo do site sobre escuro. */
+.news input::placeholder{ color:var(--on-dark-dim); opacity:1; }
 .news input:focus{ outline:0; }
 .news button{ background:none; border:0; color:var(--accent-dk); cursor:pointer; font-size:1.1rem; }
-.footer-bottom{ margin-top:clamp(40px,5vw,72px); padding-top:1.6rem; border-top:1px solid rgba(255,255,255,.12); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.72rem; letter-spacing:.08em; color:#7e828a; text-transform:uppercase; }
+.footer-bottom{ margin-top:clamp(40px,5vw,72px); padding-top:1.6rem; border-top:1px solid rgba(255,255,255,.12); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.72rem; letter-spacing:.08em; color:var(--on-dark-dim); text-transform:uppercase; }
+/* --on-dark-dim e não um tom mais discreto: é o mais escuro que ainda cumpre
+   AA (4.77:1) sobre o fundo real. O #7e828a que aqui estava dava 3.30:1. Custo
+   assumido: a hierarquia entre o corpo do rodapé e o texto legal comprime-se. */
 
 /* =====================================================================
    MICRO-INTERAÇÕES
@@ -1313,6 +1869,98 @@ html.reveal-ready .reveal-rise-slow.is-visible{
   transform:none;
 }
 
+/* ===== Entrada da costura (.seam) — a mais suave do site ====================
+   A .seam é uma FRONTEIRA, não um destaque: a entrada tinha de se ler como o
+   capítulo a abrir sozinho, e não como mais um bloco a "entrar". Por isso não
+   reusa nem o percurso do reveal genérico (26px + fade .32s) nem a máscara do
+   split-text (110% por trás de uma aresta) — ambos batem forte demais para uma
+   régua de 1px e três palavras.
+
+   Duas peças, na ordem em que se leem:
+     1. a régua desenha-se da esquerda para a direita (scaleX 0→1, origem à
+        esquerda) — o mesmo gesto do .reveal-wipe-lr, mas em transform e não em
+        clip-path: zero repintura numa linha que atravessa o ecrã todo;
+     2. a legenda vem a seguir, com percurso curto (10px) e opacidade MUITO
+        lenta (1.8s, contra os .32s do reveal genérico).
+
+   Aqui a regra das durações separadas do reveal genérico ("opacidade rápida,
+   deslocamento lento") está deliberadamente invertida: é a opacidade demorada
+   — e não o tamanho do deslocamento — que faz a entrada ler-se macia em vez de
+   impactante. Percurso curto + fade longo = aparecer sem chamar por si.
+
+   Cada peça da legenda arranca ~.18s depois da anterior (rótulo → marca →
+   ano): lê-se como uma linha a assentar, não como três coisas a aparecer.
+   --ease em tudo, sem travagem dramática (nada do cubic-bezier(.1,.25,.25,1)
+   das entradas pesadas). Gated por reveal-ready → em prefers-reduced-motion
+   nada disto se aplica e a costura fica logo desenhada. */
+html.reveal-ready .seam__rule{
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform 2.2s var(--ease);
+  will-change:transform;
+}
+html.reveal-ready .seam.is-visible .seam__rule{ transform:scaleX(1); }
+
+html.reveal-ready .seam__meta > *{
+  opacity:0;
+  transform:translateY(10px);
+  /* A legenda é mais lenta que a própria régua (2.2s): a linha é um gesto —
+     tem princípio e fim — e as palavras são um estado a instalar-se. Deixar o
+     texto acabar DEPOIS do traço é o que tira o último resto de "entrada". */
+  transition:opacity 1.8s var(--ease),
+             transform 2.6s var(--ease);
+  will-change:transform, opacity;
+}
+html.reveal-ready .seam.is-visible .seam__meta > *{
+  opacity:1;
+  transform:none;
+}
+/* Cascata: a legenda só começa com a régua já bem desenhada (.3s), para a
+   linha continuar a ser o primeiro gesto e não competir com o texto. Os
+   atrasos acompanham as durações: com o fade da legenda a 1.8s, um passo
+   curto de mais deixaria as três colunas a subir praticamente em bloco. */
+html.reveal-ready .seam .seam__label{ transition-delay:.3s; }
+html.reveal-ready .seam .seam__brand{ transition-delay:.48s; }
+html.reveal-ready .seam .seam__index{ transition-delay:.66s; }
+
+/* Portfólio e Histórico: a .seam--top é o eyebrow do h1 do 1.º bloco e vive por
+   baixo da cortina branca de entrada. O observer genérico marca-a .is-visible
+   logo à carga (está acima da dobra) — a costura desenhava-se escondida atrás
+   da cortina e já estava assente quando ela levanta. Aqui espera pela mesma
+   .is-entered do título (posta pelos scripts dessas páginas depois de a cortina
+   levantar), pelo que o olho desce da régua para o h1.
+   O estado escondido usa :not(.is-entered) para chegar a (0,5,1) e vencer o
+   estado visível genérico (0,4,1); o visível daqui é (0,5,1) pela mesma razão.
+   Sem !important — a cascata resolve sozinha.
+
+   As durações ficam FIXAS aqui, mais curtas que as da entrada por scroll: esta
+   costura não compete com o scroll, compete com o h1 que entra ao lado dela
+   (1.9s, a arrancar no mesmo instante). Ao ritmo lento do scroll a régua ainda
+   estaria a desenhar-se com o título já assente. */
+html.reveal-ready .section--flat-top .seam--top .seam__rule{
+  transition-duration:1.6s;
+}
+html.reveal-ready .section--flat-top .seam--top .seam__meta > *{
+  transition-duration:.9s, 1.3s;
+}
+html.reveal-ready .section--flat-top .seam--top .seam__label{ transition-delay:.22s; }
+html.reveal-ready .section--flat-top .seam--top .seam__brand{ transition-delay:.34s; }
+html.reveal-ready .section--flat-top .seam--top .seam__index{ transition-delay:.46s; }
+html.reveal-ready .section--flat-top:not(.is-entered) .seam--top .seam__rule{
+  transform:scaleX(0);
+}
+html.reveal-ready .section--flat-top.is-entered .seam--top .seam__rule{
+  transform:scaleX(1);
+}
+html.reveal-ready .section--flat-top:not(.is-entered) .seam--top .seam__meta > *{
+  opacity:0;
+  transform:translateY(10px);
+}
+html.reveal-ready .section--flat-top.is-entered .seam--top .seam__meta > *{
+  opacity:1;
+  transform:none;
+}
+
 /* Entrada dos cards do portfólio: sobem de trás do fundo branco (cortina).
    O branco é o fundo estático da secção, visível através da moldura; só o
    card se move.
@@ -1331,28 +1979,30 @@ html.reveal-ready .reveal-rise-slow.is-visible{
    .is-visible do reveal geral puxava o card para 0 na mesma. .is-risen leva mais
    uma classe e vence ambos.
 
-   display:block: o .card é um <a> (inline); precisa de block para preencher a
-   moldura. FORA do gate reveal-ready, senão em reduced-motion a grelha partia. */
-.card-rise .card{ display:block; }
+   display:flex: o .card é um <a> (inline) e precisa de preencher a moldura de
+   reveal. Repete o display do próprio .card (que empilha imagem + legenda)
+   porque este selector é mais específico — um display:block aqui achatava a
+   legenda. FORA do gate reveal-ready, senão em reduced-motion a grelha partia. */
+.card-rise .card{ display:flex; }
 html.reveal-ready .card-rise{ overflow:hidden; }
 html.reveal-ready .grid-projects .card-rise .card{
   opacity:1;
   transform:translateY(100%);
-  /* box-shadow no transition para o hover (sombra) continuar a suavizar. */
-  transition:transform 1.2s cubic-bezier(.16,1,.3,1), box-shadow .5s var(--ease);
+  transition:transform 1.2s cubic-bezier(.16,1,.3,1);
   will-change:transform;
 }
 html.reveal-ready .grid-projects .card-rise.is-risen .card{ transform:translateY(0); }
-/* Cascata por coluna (grelha de 3): esquerda → direita. !important porque o
+/* Cascata por coluna (grelha de 2): esquerda → direita. O passo é 2n porque a
+   grelha passou a ter duas colunas — com o 3n antigo, o atraso deixava de
+   corresponder à coluna e a cascata lia-se aleatória. !important porque o
    reveal geral do Base.astro escreve um transition-delay INLINE em cada .card
    (índice de irmão = 0, pois o .card é filho único da moldura), e inline vence
    qualquer selector sem !important. */
-html.reveal-ready .grid-projects .card-rise:nth-child(3n+2) .card{ transition-delay:.09s !important; }
-html.reveal-ready .grid-projects .card-rise:nth-child(3n+3) .card{ transition-delay:.18s !important; }
-/* Depois da subida assentar, reabrir a moldura para a sombra do hover não ser
-   cortada pelo overflow:hidden. (A elevação translateY(-6px) do hover é
-   suprimida site-wide pela regra genérica .is-visible{transform:none} — isto
-   só garante que a sombra aparece inteira.) */
+html.reveal-ready .grid-projects .card-rise:nth-child(2n+2) .card{ transition-delay:.09s !important; }
+/* Depois da subida assentar, reabrir a moldura de reveal. Existia para a sombra
+   do hover não ser cortada pelo overflow:hidden; agora que o cartão não tem
+   hover, fica só a garantir que nada do cartão assente é aparado (o JS do
+   portfólio adiciona .is-open no fim da subida de qualquer maneira). */
 html.reveal-ready .card-rise.is-open{ overflow:visible; }
 
 /* ── ENTRADA PESADA DO 1.º BLOCO DO PORTFÓLIO (após o fade branco) ──────────
@@ -1368,11 +2018,10 @@ html.reveal-ready .card-rise.is-open{ overflow:visible; }
    título (transition-delay base). !important nos delays porque o reveal geral
    escreve transition-delay inline em cada .card. */
 html.reveal-ready .section--flat-top .grid-projects .card-rise .card{
-  transition:transform 2s cubic-bezier(.1,.25,.25,1), box-shadow .5s var(--ease);
+  transition:transform 2s cubic-bezier(.1,.25,.25,1);
 }
 html.reveal-ready .section--flat-top .grid-projects .card-rise .card{ transition-delay:1s !important; }
-html.reveal-ready .section--flat-top .grid-projects .card-rise:nth-child(3n+2) .card{ transition-delay:1.1s !important; }
-html.reveal-ready .section--flat-top .grid-projects .card-rise:nth-child(3n+3) .card{ transition-delay:1.2s !important; }
+html.reveal-ready .section--flat-top .grid-projects .card-rise:nth-child(2n+2) .card{ transition-delay:1.12s !important; }
 
 /* Título da 1.ª secção (display/lead) — slide pesado, arranca a t=0.
    !important para vencer o .is-visible do reveal geral, que o Base.astro
@@ -1380,24 +2029,30 @@ html.reveal-ready .section--flat-top .grid-projects .card-rise:nth-child(3n+3) .
    (leve, 26px) e faria saltar. Resolvido só por .is-entered, que o script
    adiciona depois de a cortina levantar. Gated por reveal-ready → em
    reduced-motion o título aparece normal, sem transição. */
-html.reveal-ready .section--flat-top .block-head :is(.display, .lead){
+/* O .title-split voltou a este portão. Tinha saído por engano no refactor que
+   trocou .display por .title-split: o seletor ficou a apontar para uma classe
+   que já não existia, e o h1 passou a animar pelo split-reveal genérico,
+   disparando por conta própria à carga em vez de esperar pela cortina. O
+   split-reveal deixou de o apanhar (ver FORA em split-reveal.js), por isso não
+   há duas animações a competir. */
+html.reveal-ready .section--flat-top .block-head :is(.title-split, .lead){
   opacity:0 !important;
   transform:translateY(80px) !important;
   transition:opacity .45s var(--ease),
              transform 1.9s cubic-bezier(.1,.25,.25,1) !important;
   will-change:transform, opacity;
 }
-html.reveal-ready .section--flat-top.is-entered .block-head :is(.display, .lead){
+html.reveal-ready .section--flat-top.is-entered .block-head :is(.title-split, .lead){
   opacity:1 !important;
   transform:none !important;
 }
 
-/* h1 do 1.º bloco (portfólio + histórico): maior que o .display--sm, para dar
-   mais destaque ao título de abertura. Especificidade (0,3,1) vence
-   .block-head .display e .display--sm. */
-.section--flat-top .block-head .display{
-  font-size:clamp(2.5rem, 6vw, 4.6rem);
-}
+/* Aqui estava .section--flat-top .block-head .display{font-size:clamp(2.5rem,
+   6vw,4.6rem)}, que pedia 73.6px ao h1 do 1.º bloco (portfólio + histórico).
+   Nunca chegou a aplicar-se: o BlockHead emite .title-split, não .display, por
+   isso o h1 renderiza a 64px — o tamanho do .title-split, igual ao dos títulos
+   de secção do resto do site. Decisão: manter os 64px e remover a regra, em
+   vez de a repor com o seletor certo. */
 
 /* Cards do 1.º bloco do HISTÓRICO — entram DEPOIS do título (não antes).
    O reveal genérico do Base adiciona .is-visible SÍNCRONO no astro:page-load,
@@ -1421,9 +2076,8 @@ html.reveal-ready .section--flat-top.is-entered .grid-projects .card--modal{
   opacity:1;
   transform:none;
 }
-/* Cascata por coluna (grelha de 3): esquerda → direita, a seguir ao título. */
-html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(3n+2){ transition-delay:1.05s !important; }
-html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(3n+3){ transition-delay:1.2s !important; }
+/* Cascata por coluna (grelha de 2): esquerda → direita, a seguir ao título. */
+html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(2n+2){ transition-delay:1.05s !important; }
 
 /* 2) Sublinhado animado no menu + indicador da página atual */
 .nav__list a::after{
@@ -1434,28 +2088,25 @@ html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(3n+3)
 .nav__list a:hover::after,
 .nav__list a[aria-current="page"]::after{ transform:scaleX(1); }
 .nav__list a[aria-current="page"]{ color:var(--accent-dk); opacity:1; }
-.scrolled .nav__list a[aria-current="page"]{ color:var(--accent); }
+.scrolled .nav__list a[aria-current="page"]{ color:var(--accent-text); }
 
-/* 3) Hover dos cards: leve elevação + sombra + realce do overlay/CTA */
-.grid-projects .card, .scroller .card{
-  transition:transform .5s var(--ease), box-shadow .5s var(--ease);
-}
-.grid-projects .card:hover, .scroller .card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 20px 44px -20px rgba(0,0,0,.5);
-}
-.card__overlay{ transition:background .4s var(--ease); }
-.card:hover .card__overlay{ background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.62) 42%, rgba(0,0,0,.92) 100%); }
+/* 3) Hover dos cards: NÃO EXISTE na moldura. Aqui viviam a elevação
+   (translateY(-6px)), a sombra e o aquecer do bordo — foram retirados de
+   propósito: a moldura fica imóvel e o único hover do cartão é o da imagem
+   (zoom + desfoque), definido em .card__media/.card__img mais acima. */
 
 /* 4) Links de texto no conteúdo: sublinhado que cresce */
 .muted a{
   background:linear-gradient(var(--accent),var(--accent)) 0 100%/0 1px no-repeat;
   transition:background-size .35s var(--ease), color .3s var(--ease);
 }
-.muted a:hover{ background-size:100% 1px; color:var(--accent); }
+.muted a:hover{ background-size:100% 1px; color:var(--accent-text); }
 
 @media (prefers-reduced-motion: reduce){
-  .grid-projects .card:hover, .scroller .card:hover{ transform:none; box-shadow:none; }
+  /* O cartão já não se mexe no hover; resta suprimir o zoom da imagem. O
+     desfoque fica — não é movimento. */
+  .card:hover .card__img,
+  .card:hover .card__media .ph{ transform:none; }
 }
 
 
@@ -1475,7 +2126,6 @@ html.reveal-ready body.is-home .section::after{
 }
 html.reveal-ready body.is-home .section--alt::after{ background:var(--paper-alt); }
 html.reveal-ready body.is-home .section--dark::after{ background:var(--dark); }
-html.reveal-ready body.is-home .section--accent::after{ background:var(--accent); }
 html.reveal-ready body.is-home .section.is-visible::after{ transform:scaleY(0); }
 
 /* =====================================================================
@@ -1484,73 +2134,302 @@ html.reveal-ready body.is-home .section.is-visible::after{ transform:scaleY(0); 
 /* Cards e painéis que passaram a ser links */
 a.card, a.panel{ text-decoration:none; color:inherit; }
 
-.emp-back{
-  display:inline-block; margin-bottom:1rem;
-  color:rgba(255,255,255,.8); text-decoration:none;
-  font-size:.85rem; letter-spacing:.02em;
-  transition:color .3s var(--ease);
-}
-.emp-back:hover{ color:#fff; }
-.emp-hero__meta{
-  margin-top:1rem; color:rgba(255,255,255,.92); font-size:1.05rem;
-  display:flex; align-items:center; gap:.9rem; flex-wrap:wrap;
-}
-.emp-chip{
-  display:inline-block; padding:.34em .95em;
-  border:1px solid rgba(255,255,255,.5); border-radius:999px;
-  font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
-}
+/* A hero do detalhe é a mesma da home (componente Hero): só o nome. Aqui
+   viviam o .emp-back, o .emp-hero__meta e o .emp-chip — o link de voltar e a
+   linha "local · tipologia · estado". Saíram com o markup: a navegação de
+   volta é o header e esses dados são de ficha (ver .facts). */
 
 /* Ficha / características */
 .facts{
   display:grid; grid-template-columns:repeat(3,1fr);
-  gap:clamp(8px,1.2vw,14px); margin-top:2.5rem;
+  /* Cartões mais afastados: eram clamp(8px,1.2vw,14px) e encostavam-se ao
+     ponto de a fila de três se ler como uma barra só dividida por traços. Com
+     a chapa a inverter-se sobre a faixa café isso agravava-se — a chapa clara
+     é muito mais visível que a branca sobre areia, e sem folga as três
+     fundiam-se num bloco. O .facts--contadores da home tem gap próprio e não
+     é afectado por esta linha. */
+  gap:clamp(14px,1.9vw,26px); margin-top:2.5rem;
 }
 .fact{
   background:var(--paper); border:1px solid var(--line); border-radius:12px;
   padding:clamp(18px,2.2vw,30px); display:flex; flex-direction:column; gap:.45rem;
 }
-.section--alt .fact{ background:#ffffff; }
+/* Aqui estava .section--alt .fact{background:var(--paper)}, que existia para
+   contrariar um #ffffff hardcoded na regra base. Depois das Tasks 3 e 4 a base
+   passou a var(--paper) e esta ficou a repetir o que já lá estava. Com o
+   --brown a ficar em reserva (P4), o .fact base mantém-se branco e a regra não
+   volta a ter função. */
 .fact__v{ font-family:var(--serif); font-size:clamp(1.35rem,2.4vw,2rem); color:var(--ink); line-height:1.1; }
 .fact__r{ font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); }
 
-/* Galeria */
-.gallery{
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:clamp(10px,1.4vw,18px); margin-top:2.5rem;
+/* Chapa sobre a faixa café (a "Ficha do empreendimento", em /empreendimentos).
+   Exactamente o mesmo tratamento que a moldura do cartão recebe no bloco
+   "Futuros" do portfólio (ver `.section--dark .card`): a placa clara dominaria
+   o bloco, por isso inverte-se em vez de desaparecer — continua a ser um degrau
+   de superfície contra o fundo, só que para cima.
+   Contrastes medidos contra a chapa real (~rgb(70,61,55), já com o véu do
+   --dark e os 6% de branco por cima): o valor em --paper dá 10.33:1 e o rótulo
+   em --on-dark-soft dá 4.70:1 — acima dos 4.5 que a AA pede a texto pequeno,
+   que é o caso do rótulo (.76rem em maiúsculas).
+   O .facts--contadores da home nunca vive numa .section--dark; se algum dia
+   passar a viver, é aqui que ganha chapa e é preciso voltar a esta regra. */
+.section--dark .fact{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.34); }
+.section--dark .fact__v{ color:var(--paper); }
+.section--dark .fact__r{ color:var(--on-dark-soft); }
+
+/* =====================================================================
+   GALERIA DO EMPREENDIMENTO — slider "Design Plans"
+   (src/components/PlansSlider.astro)
+
+   Substitui a grelha .gallery de 3 colunas que aqui vivia. Layout do
+   kononenkogroup: palco grande à esquerda, coluna de miniaturas à direita,
+   Prev/Next por baixo e uma barra de progresso na aresta de baixo do palco.
+
+   TRÊS PLANOS, e a ordem entre eles é o que faz o efeito funcionar:
+     1. .plans__stage  — a caixa vazia que define a área do palco.
+     2. .plans__aside  — os botões das miniaturas (encaixes + moldura activa).
+     3. .plans__layer  — as fotos, TODAS, por cima dos outros dois.
+   As fotos não vivem dentro das miniaturas: vivem nesta camada, maquetadas ao
+   tamanho do palco, e são ENCOLHIDAS por transform até ao rectângulo do seu
+   encaixe quando estão inactivas (a razão está no cabeçalho do componente —
+   reduzir é nítido, ampliar não é). É por isso que a camada tem de ficar
+   acima da coluna: senão o fundo dos botões tapava as fotos pousadas neles.
+   ===================================================================== */
+.plans{
+  position:relative;
+  margin-top:2.5rem;
+  /* expo.out do GSAP, o ritmo do voo na referência: arranca a direito e
+     assenta muito devagar — é o que dá o peso à foto que sobe. */
+  --plans-ease: cubic-bezier(.16,1,.3,1);
+  --plans-fly: 900ms;      /* TEM de bater certo com FLY no script */
+  --plans-gap: clamp(8px,.9vw,14px);
 }
-.gallery .ph{ aspect-ratio:4/3; }
-.gallery__img{ aspect-ratio:4/3; width:100%; height:100%; object-fit:cover; display:block; }
+.plans__grid{
+  display:grid;
+  grid-template-columns:1fr clamp(92px,10.5vw,150px);
+  gap:clamp(16px,2.2vw,30px);
+}
+
+/* ---------- Palco ---------- */
+.plans__stage{
+  grid-column:1;
+  /* 8/5 é o rácio nativo dos ficheiros (1600x1000): a foto entra inteira, sem
+     corte, e — o que importa mais — a miniatura tem o MESMO rácio, por isso o
+     voo é uma escala uniforme e o enquadramento nunca muda a meio. */
+  aspect-ratio:8/5;
+  position:relative;
+  align-self:center;
+  background:var(--paper-alt);
+}
+/* Sem JS o palco não tem quem lhe ponha uma foto: fica escondido e a página
+   cai na fila vertical de imagens (o mesmo layout do telemóvel). */
+.plans:not(.is-ready) .plans__stage{ display:none; }
+
+.plans__layer{ position:absolute; inset:0; z-index:2; pointer-events:none; }
+/* Moldura do palco: desenhada AQUI, na camada de cima, e não como border do
+   .plans__stage. Duas razões — fica por cima da foto (é uma moldura, não um
+   fundo) e deixa a caixa do palco sem border, para o rácio 8/5 valer sobre a
+   caixa de conteúdo e o voo assentar ao pixel no rectângulo certo. */
+.plans__layer::after{
+  content:''; position:absolute; inset:0; z-index:4;
+  border:1px solid var(--line); pointer-events:none;
+}
+
+.plans__flyer{
+  position:absolute; inset:0; z-index:1; margin:0;
+  transform:translateX(var(--enter-x,0px));
+  transition:transform 950ms var(--plans-ease) calc(var(--i,0) * 70ms),
+             opacity 700ms var(--ease) calc(var(--i,0) * 70ms);
+}
+/* A que sobe passa por cima de tudo; a que desce por cima das vizinhas mas por
+   baixo dela — é assim que as duas se cruzam sem uma comer a outra. */
+.plans__flyer.is-leaving{ z-index:2; }
+.plans__flyer.is-active{ z-index:3; --enter-x:0px; }
+.plans__flyer-in{
+  display:block; position:absolute; inset:0; overflow:hidden;
+  transform-origin:0 0;
+  transform:var(--fly,none);
+  transition:transform var(--plans-fly) var(--plans-ease), opacity .45s var(--ease);
+}
+.plans__flyer.is-active .plans__flyer-in{ transform:none; }
+.plans__flyer.is-hot .plans__flyer-in{ opacity:.74; }
+.plans__flyer img{ width:100%; height:100%; object-fit:cover; }
+
+/* Barra de progresso do avanço automático — 2px assentes na aresta de baixo do
+   palco, por cima da moldura. Só o preenchimento tem cor: a própria moldura
+   faz de calha, como na referência. O script é que a anima (scaleX 0→1 em 6s a
+   passo constante, recolha pela direita em 0.6s ao trocar de imagem). */
+.plans__progress{ position:absolute; left:0; right:0; bottom:0; height:2px; z-index:5; }
+.plans__bar{
+  display:block; width:100%; height:100%;
+  background:var(--accent);
+  transform:scaleX(0); transform-origin:left;
+}
+
+/* ---------- Coluna lateral ---------- */
+/* Três filas — contador, miniaturas, Prev/Next — e é a do MEIO que estica.
+   Assim o contador encosta ao topo do palco e o Prev/Next à base dele, com a
+   fila de miniaturas centrada entre os dois: com 3 imagens (o CLT) ela não fica
+   pendurada no topo a deixar um buraco, e com 7 (Valflores) é a coluna que
+   manda na altura da linha e o palco é que se centra contra ela.
+   A referência resolve o mesmo problema com position:sticky, que aqui obrigaria
+   a remedir os rectângulos do voo a cada frame de scroll — com o scroll
+   interpolado do Lenis por baixo, é jank garantido por um ganho que não se vê. */
+.plans__aside{
+  grid-column:2; z-index:1;
+  display:grid; grid-template-rows:auto 1fr auto;
+  gap:clamp(12px,1.4vw,20px);
+}
+.plans__counter,
+.plans__nav{
+  transform:translateX(var(--enter-x,0px));
+  transition:transform 950ms var(--plans-ease) calc(var(--i,0) * 70ms),
+             opacity 700ms var(--ease) calc(var(--i,0) * 70ms);
+}
+.plans__counter{
+  font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-faint); font-variant-numeric:tabular-nums;
+}
+
+.plans__track{ display:flex; flex-direction:column; justify-content:center; gap:var(--plans-gap); }
+.plans__item{
+  appearance:none; -webkit-appearance:none;
+  border:0; padding:0; background:none; font:inherit; color:inherit;
+  position:relative; width:100%; aspect-ratio:8/5; cursor:pointer;
+}
+.plans__item.is-active{ cursor:default; }
+/* A placa é o encaixe: o que se vê quando a foto de lá saiu para o palco. A
+   animação de entrada vive AQUI e não no botão — o botão é o único rectângulo
+   que o script mede para calcular o voo, e não pode andar deslocado. */
+.plans__plate{
+  position:absolute; inset:0;
+  background:var(--paper-alt);
+  border:1px solid transparent;
+  transform:translateX(var(--enter-x,0px));
+  transition:transform 950ms var(--plans-ease) calc(var(--i,0) * 70ms),
+             border-color .4s var(--ease);
+}
+.plans__item.is-active .plans__plate{ border-color:var(--line); }
+
+/* Setas, e não "Anterior/Seguinte" por extenso — a coluna é estreita de mais
+   para duas palavras. Redondas e com a mesma seta do DoubleSlider, para
+   navegar entre imagens ser o mesmo gesto em toda a parte. */
+.plans__nav{ display:flex; justify-content:space-between; gap:10px; }
+.plans__link{
+  appearance:none; -webkit-appearance:none;
+  padding:0; background:none; font:inherit; cursor:pointer;
+  width:clamp(34px,3.2vw,44px); aspect-ratio:1; flex:none;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  /* O traço do círculo é a ÚNICA indicação de que ali há um controlo, por isso
+     tem de cumprir os 3:1 da WCAG 1.4.11 — é a mesma obrigação que criou o
+     --line-field (3.92:1 sobre --paper). A --line, decorativa, dá 1.36:1 e
+     aqui não servia. */
+  border:1px solid var(--line-field);
+  color:var(--ink-soft);
+  transition:background-color .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease);
+}
+/* Hover em café: --brown, o castanho médio que estava nos tokens em reserva à
+   espera do primeiro consumidor (ver a nota do token). É este o seu primeiro
+   uso. Chapa cheia com o glifo a branco — 7.94:1 do glifo contra a chapa e
+   7.74:1 da chapa contra o papel, folgado nos dois sentidos. */
+.plans__link:hover{ background:var(--brown); border-color:var(--brown); color:#fff; }
+/* Sem texto visível, um botão só de ícone sem anel de foco é invisível a quem
+   navega por teclado. O site não tem anel global; este põe o seu. */
+.plans__link:focus-visible{
+  outline:2px solid var(--brown); outline-offset:3px;
+  background:var(--brown); border-color:var(--brown); color:#fff;
+}
+.plans__link svg{
+  width:46%; height:46%; fill:none; stroke:currentColor;
+  stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round;
+}
+
+/* ---------- Entrada ----------
+   A coluna nasce fora da margem direita do ecrã e entra escalonada — rótulo,
+   cada encaixe, Prev/Next — com as fotos inactivas agarradas aos seus
+   encaixes. A do palco não desliza: já lá está quando a secção entra em vista
+   (--enter-x:0px em .is-active, acima). A distância é medida pelo script; se
+   ele não correr, --enter-x fica em 0 e nada se move — o slider aparece feito. */
+.plans.is-ready .plans__counter,
+.plans.is-ready .plans__nav,
+.plans.is-ready .plans__plate,
+.plans.is-ready .plans__flyer{ opacity:0; }
+.plans.is-in .plans__counter,
+.plans.is-in .plans__nav,
+.plans.is-in .plans__plate,
+.plans.is-in .plans__flyer{ opacity:1; --enter-x:0px; }
+
+/* Enquanto o script mede e assenta o primeiro estado. */
+.plans.is-instant *{ transition:none !important; }
+
+/* ---------- Ecrã estreito ----------
+   O palco desaparece e a camada das fotos SOBE à grelha (display:contents no
+   palco) para ser ela própria a fila horizontal com scroll-snap nativo. Assim
+   não há uma segunda cópia das <img> no DOM só para o telemóvel. Ordem final:
+   contador, fila, nada mais — miniaturas e Prev/Next não fazem sentido aqui. */
+@media (max-width: 900px){
+  .plans__grid{ grid-template-columns:1fr; gap:14px; }
+  .plans__stage,
+  .plans__aside{ display:contents; }
+  .plans__stage::after,
+  .plans__layer::after,
+  .plans__progress,
+  .plans__track,
+  .plans__nav{ display:none; }
+
+  .plans__counter{ order:1; }
+  .plans__layer{
+    order:2;
+    position:static; z-index:auto; pointer-events:auto;
+    display:flex; gap:12px;
+    overflow-x:auto; overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;
+    /* Sangra até às margens do ecrã: a fila lê-se como uma fita que continua
+       para lá do gutter, e não como uma caixa dentro da coluna de texto. */
+    margin-inline:calc(var(--gutter) * -1);
+    padding-inline:var(--gutter);
+    scrollbar-width:none;
+  }
+  .plans__layer::-webkit-scrollbar{ height:0; }
+  .plans__flyer{
+    position:relative; inset:auto; z-index:auto;
+    flex:0 0 min(84%, 460px); aspect-ratio:8/5;
+    scroll-snap-align:center;
+    border:1px solid var(--line);
+    transform:none; opacity:1;
+  }
+  .plans__flyer-in{ transform:none; opacity:1; }
+}
+
+/* Com o movimento desligado o slider continua inteiro e navegável — só que a
+   troca é instantânea e o avanço automático nunca arranca (ver `calm` no
+   script). Sem isto, a foto atravessava o ecrã a cada clique. */
+@media (prefers-reduced-motion: reduce){
+  .plans__flyer,
+  .plans__flyer-in,
+  .plans__plate,
+  .plans__counter,
+  .plans__nav{ transition:none; }
+  .plans.is-ready .plans__counter,
+  .plans.is-ready .plans__nav,
+  .plans.is-ready .plans__plate,
+  .plans.is-ready .plans__flyer{ opacity:1; --enter-x:0px; }
+}
 
 /* =====================================================================
    RESPONSIVO
    ===================================================================== */
 @media (max-width: 1024px){
   .stats{ grid-template-columns:repeat(2,1fr); }
-  .grid-projects{ grid-template-columns:repeat(2,1fr); }
-  .facts, .gallery{ grid-template-columns:repeat(2,1fr); }
+  /* .grid-projects já é de 2 colunas no desktop — nada a reduzir aqui. */
+  .facts{ grid-template-columns:repeat(2,1fr); }
   .team{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:1fr 1fr; }
-  /* Menu vira hambúrguer já no tablet, onde o nav horizontal não cabe */
+  /* Menu vira hambúrguer já no tablet, onde o nav horizontal não cabe. O
+     PAINEL em si (fundo, cascata das linhas, hambúrguer em X) vive no bloco
+     "MENU DE ECRÃ INTEIRO" no fim da folha, com o resto do telemóvel. */
   .nav-toggle{ display:flex; }
-  /* Painel fica sempre no DOM em display:flex — abrir/fechar anima opacity+transform
-     em vez de saltar via display:none, com visibility a sair da árvore de foco só
-     depois da transição terminar (fecho fica tão suave quanto a abertura). */
-  .nav__list{
-    position:fixed; inset:0; background:var(--dark);
-    flex-direction:column; align-items:center; justify-content:center; gap:1.8rem; z-index:90;
-    opacity:0; visibility:hidden; pointer-events:none;
-    transform:translateY(-14px) scale(.98);
-    transition:opacity .45s var(--ease), transform .45s var(--ease), visibility 0s linear .45s;
-  }
-  .nav.open .nav__list{
-    display:flex;
-    opacity:1; visibility:visible; pointer-events:auto;
-    transform:translateY(0) scale(1);
-    transition:opacity .4s var(--ease), transform .4s var(--ease), visibility 0s linear;
-  }
-  .nav.open .nav__list a{ color:#fff; font-size:1rem; opacity:1; }
-  .nav.open .lang-switch__btn{ color:#fff; font-size:1rem; }
 }
 /* O corpo do .split é metade da grelha, e o título é dimensionado pelo
    viewport e não pela coluna: abaixo de ~840px essa metade fica estreita de
@@ -1565,6 +2444,16 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   .split.comotrabalhamos{ grid-template-columns:1fr; }
   .split--reverse .split__media,
   .split--reverse .frame{ order:0; }
+  /* O .comotrabalhamos .title-split{margin:0} (ver mais acima) conta com o
+     `justify-content:space-between` do .split__body para separar o título
+     do quadro de números: no desktop o corpo é esticado por align-items:
+     stretch à altura da CASCATA ao lado (600–1000px), e o space-between usa
+     essa folga toda. Empilhado numa só coluna, o corpo já não partilha
+     linha nenhuma com a cascata — a sua altura passa a ser só a do próprio
+     conteúdo, sem folga nenhuma para distribuir — e title e quadro ficam a
+     5px um do outro. Aqui repõe-se a margem que o space-between deixou de
+     dar. */
+  .comotrabalhamos .title-split{ margin-bottom:clamp(28px,6vw,40px); }
 }
 @media (max-width: 760px){
   .service, .contact{ grid-template-columns:1fr; }
@@ -1572,8 +2461,11 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   .team{ grid-template-columns:1fr; }
   .stats{ grid-template-columns:1fr; }
   .grid-projects{ grid-template-columns:1fr; }
+  /* Numa só coluna a moldura fica com ~354px: a 19/10 a imagem cairia para
+     ~186px de altura e o empreendimento deixava de se ver. Recupera altura
+     sem voltar ao retrato. */
+  .grid-projects .card__media{ aspect-ratio:3/2; }
   .facts{ grid-template-columns:repeat(2,1fr); }
-  .gallery{ grid-template-columns:1fr; }
   .footer-grid{ grid-template-columns:1fr; }
   .scroller{ grid-auto-columns:minmax(260px,80%); }
 }
@@ -1583,10 +2475,11 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
    Layout: imagem/título à esquerda, informação à direita.
    ===================================================================== */
 /* Card do histórico é um botão (abre o modal) — herda o visual do link-card. */
+/* Não anula border/padding/background: são eles que fazem a moldura do .card. */
 button.card{
-  appearance:none; -webkit-appearance:none; border:0; padding:0; margin:0;
+  appearance:none; -webkit-appearance:none; margin:0;
   width:100%; text-align:left; font:inherit; color:inherit;
-  background:transparent; cursor:pointer;
+  cursor:pointer;
 }
 
 /* Painel inline do empreendimento: acordeão dentro de .grid-projects. Aberto
@@ -1599,10 +2492,13 @@ button.card{
 .epanel__wrap{ display:grid; grid-template-rows:0fr; transition:grid-template-rows 1.3s var(--ease); }
 .epanel.is-open .epanel__wrap{ grid-template-rows:1fr; }
 
+/* Canto reto, como os cartões entre os quais este painel abre. Teve raio
+   durante o tempo em que a moldura também tinha; ao voltar ao canto vivo,
+   voltou com ela. */
 .epanel__inner{
   overflow:hidden; min-height:0;
   display:grid; grid-template-columns:1.05fr 1fr;
-  background:var(--paper); border:1px solid var(--line);
+  background:var(--paper); border:1px solid var(--card-rule);
   box-shadow:0 24px 60px rgba(0,0,0,.16);
 }
 /* Inline não tem cap de altura: a coluna de info cresce com o conteúdo. */
@@ -1665,10 +2561,11 @@ button.card{
    que o título da secção, e não 2rem à direita dele. */
 .testimonials{ width:100%; max-width:none; padding:2rem 0; outline:none; }
 .testimonials__grid{ display:grid; gap:5rem; }
-/* overflow:hidden contém as fotos empilhadas (esquerda/direita) dentro da
-   própria coluna — sem isto, a foto que espreita à esquerda ultrapassa a
-   margem do site em vez de ficar contida na grelha. */
-.testimonials__images{ position:relative; width:100%; height:38rem; perspective:1000px; overflow:hidden; }
+/* overflow:visible: a coluna ficou mais estreita que o cartão (ver
+   max-width) de propósito, para sobrar espaço onde as fotos empilhadas
+   (esquerda/direita) espreitam por detrás. O body tem overflow-x:hidden,
+   por isso não há risco de scroll horizontal na página. */
+.testimonials__images{ position:relative; width:100%; max-width:22rem; aspect-ratio:2/3; perspective:1000px; overflow:visible; }
 .testimonials__img{
   position:absolute; width:100%; height:100%; object-fit:cover;
   border-radius:0; box-shadow:0 14px 40px rgba(0,0,0,.16); opacity:0;
@@ -1686,37 +2583,65 @@ button.card{
   content:"Foto"; position:absolute; inset:0; display:grid; place-items:center;
   font-size:.7rem; letter-spacing:.28em; text-transform:uppercase; font-weight:600; color:var(--ink-faint);
 }
+/* O mesmo placeholder numa .section--dark (o carrossel da Equipa, em
+   /sobre-nos): na versão clara é areia, e sobre o café dois dos cinco
+   cartões passavam a lajes brancas a puxar o olho mais do que as
+   fotografias ao lado. Inverte para a trama escura dos outros placeholders
+   do site (ver .ph--dark e .member__mono). */
+.section--dark .testimonials__img--ph{
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,.045) 0, rgba(255,255,255,.045) 1px,
+      transparent 1px, transparent 11px),
+    var(--dark-soft);
+  border-color:rgba(255,255,255,.12);
+}
+.section--dark .testimonials__img--ph::after{ color:rgba(255,255,255,.45); }
 /* Antes do JS: mostra o primeiro depoimento (fallback sem salto). */
 .testimonials__img[data-index="0"]{ opacity:1; z-index:3; }
 .testimonials__content{ display:flex; flex-direction:column; justify-content:flex-start; }
 .testimonials__name{
   font-family:var(--serif); font-weight:400; margin-bottom:.5rem; line-height:1.1;
-  color:var(--t-name,#000); font-size:var(--t-name-size,1.5rem);
+  color:var(--t-name,var(--ink)); font-size:var(--t-name-size,1.5rem);
 }
 .testimonials__designation{
-  margin-bottom:2rem; color:var(--t-designation,#6b7280); font-size:var(--t-designation-size,.8rem);
+  margin-bottom:2rem; color:var(--t-designation,var(--ink-faint)); font-size:var(--t-designation-size,.8rem);
   text-transform:uppercase; letter-spacing:.16em;
 }
 .testimonials__divider{ margin-bottom:1.6rem; }
-.testimonials__quote{ line-height:1.8; color:var(--t-quote,#4b5563); font-size:var(--t-quote-size,1.125rem); max-width:62ch; }
+.testimonials__quote{ line-height:1.8; color:var(--t-quote,var(--ink-soft)); font-size:var(--t-quote-size,1.125rem); max-width:62ch; }
 .testimonials__body{ animation:testimonial-fade .5s var(--ease) both; }
 .testimonials__arrows{ display:flex; gap:1.5rem; padding-top:3rem; }
 .testimonials__arrow{
   width:2.7rem; height:2.7rem; border-radius:50%;
   display:flex; align-items:center; justify-content:center; cursor:pointer; border:none;
-  background:var(--t-arrow-bg,#141414); color:var(--t-arrow-fg,#f1f1f7);
+  background:var(--t-arrow-bg,var(--dark)); color:var(--t-arrow-fg,var(--paper-alt));
   transition:background-color .3s;
 }
-.testimonials__arrow:hover{ background:var(--t-arrow-hover-bg,#00a6fb); }
+.testimonials__arrow:hover{ background:var(--t-arrow-hover-bg,var(--accent)); }
 .testimonials__arrow svg{ width:28px; height:28px; }
 @keyframes testimonial-fade{
   from{ opacity:0; transform:translateY(10px); }
   to{ opacity:1; transform:translateY(0); }
 }
 @media (min-width:768px){
-  /* Fotos ocupam mais espaço do que o parágrafo (deixou de ser 50/50): a
-     coluna das imagens é agora a maior das duas. */
-  .testimonials__grid{ grid-template-columns:minmax(0,3fr) minmax(0,2fr); }
+  /* Fotos em formato retrato (ver .testimonials__images): a coluna fica
+     mais estreita do que o parágrafo, ao contrário de um slide paisagem. */
+  .testimonials__grid{ grid-template-columns:minmax(0,2fr) minmax(0,3fr); }
+  /* justify-self:end encosta o cartão ao lado do parágrafo, para sobrar
+     espaço à esquerda, dentro da coluna — sem isto o cartão fica rente à
+     margem do site e o peek esquerdo é cortado pelo overflow-x:hidden do
+     body. */
+  .testimonials__images{ justify-self:end; }
+}
+@media (max-width:767px){
+  /* No telemóvel a grelha é uma só coluna e o .testimonials__arrows já
+     ocupa a largura toda do bloco de texto (é um item de flex-column sem
+     align-self próprio, por isso estica). Faltava só mandar as duas setas
+     para os extremos dessa largura: sem justify-content, ficavam as duas
+     juntas à esquerda, uma ao lado da outra — a esquerda no lugar certo, a
+     direita perdida a meio do ecrã em vez de na margem direita do frame. */
+  .testimonials__arrows{ justify-content:space-between; }
 }
 @media (prefers-reduced-motion: reduce){
   .testimonials__body{ animation:none; }
@@ -2046,8 +2971,11 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 /* ===== Marca-d'água do símbolo — identidade (spec 2026-07-28) ===== */
 .has-wm{ position:relative; z-index:0; }
 .wm-layer{ position:absolute; inset:0; overflow:visible; pointer-events:none; z-index:-1; }
-.wm{ position:absolute; }
-.wm--mid{ top:50%; transform:translateY(-50%); }
+/* A rotação e o centramento vertical partilham a mesma propriedade `transform`,
+   por isso compõem-se por variáveis em vez de se sobreporem: quem escreve
+   `transform` outra vez apaga a outra metade. */
+.wm{ position:absolute; --wm-rot:0deg; --wm-shift:0; transform:translateY(calc(var(--wm-shift) * -50%)) rotate(var(--wm-rot)); }
+.wm--mid{ top:50%; --wm-shift:1; }
 .wm--top{ top:6%; }
 .wm--bottom{ bottom:6%; }
 .wm--l{ left:-6%; }
@@ -2060,13 +2988,149 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 .wm--fill{ opacity:.07; }
 .wm--fill .bar, .wm--fill .tab{ fill:var(--accent); }
 .wm--dark{ opacity:.08; }
-.wm--dark .bar, .wm--dark .tab{ fill:#f2efe9; }
+.wm--dark .bar, .wm--dark .tab{ fill:var(--paper-alt); }
+
+/* ---------- A marca no telemovel (<=760px) ---------------------------------
+   DECISAO DO CLIENTE: a marca NAO se retira no movel. O que se corrige e a
+   escala e a posicao.
+
+   O que estava mal. A sangria de -6% e uma medida relativa ao contentor: num
+   contentor de 1 480px sao 89px de mancha a sair para a margem — a leitura de
+   marca-d'agua que o desenho quer. A 390px sao 23px a sair PARA FORA DO ECRA,
+   e o que se ve deixa de ser a marca: sao dois ou tres rectangulos cor de
+   tijolo cortados pela borda. E era tambem a origem de tres transbordos por
+   pagina (`section` / `.container.has-wm` / `.wm-layer` a medirem 413px num
+   ecra de 390), porque a .wm-layer e `overflow:visible`.
+
+   O que passa a ser. A 390px a coluna de texto ocupa a largura toda: nao ha
+   "atras do conteudo" nenhum onde uma marca desta escala caiba sem cruzar
+   titulos e campos — medido, o bloco de contacto so tem UMA banda livre de
+   campos, entre o titulo e o primeiro rotulo (135px, aos 10-30% da altura), e
+   nao e onde nenhuma das marcas esta ancorada. Por isso a marca sai do meio do
+   bloco e vai para a MARGEM dele: encostada a coluna de texto (nao a borda do
+   ecra) e pousada no respiro que a seccao ja tem — acima do bloco nas variantes
+   --top, abaixo nas --bottom. Continua a ser a mesma peca, com o mesmo gesto de
+   assinar o bloco; deixa de disputar espaco com o texto porque a esta largura
+   nao ha espaco para disputar.
+
+   O tamanho desce para ~1/3 (a marca lia-se como elemento de conteudo, nao como
+   assinatura) e o traco desce de 2.4 para 1.4: o `vector-effect:non-scaling-
+   stroke` mantem a espessura em pixeis de ecra, por isso a 52px de largura um
+   traco de 2.4 fechava quase a fresta de dentro das barras. As variantes de
+   preenchimento sobem de opacidade pela razao inversa — a .07 e a .08 foram
+   calibradas para uma mancha grande atras de texto e, numa peca de 52px pousada
+   em papel liso, simplesmente nao aparecem.
+
+   No desktop nao muda nada: a sangria de -6%, os tamanhos em % e as opacidades
+   originais continuam a valer acima dos 760px. */
+@media (max-width:760px){
+  .wm--l{ left:var(--gutter); }
+  .wm--r{ right:var(--gutter); }
+  /* Os tres tamanhos sao escolhidos para caberem, com a folga de 4px, no
+     respiro mais apertado onde a marca pousa: os 56px de --section-y a 360px
+     (e os 56px de margin-top do .quemsomos__editorial, que e o mesmo numero).
+     A --lg mede 56x51.5 — 55.5 com a folga. Aumentar qualquer uma delas poe a
+     marca a encostar ao bloco vizinho. */
+  .wm--sm{ width:40px; }
+  .wm--md{ width:52px; }
+  .wm--lg{ width:56px; }
+  /* Ancoragem a margem do bloco. O --mid (hoje sem consumidores, mas e o valor
+     por omissao do componente) acompanha o --top: a meia altura de um bloco
+     empilhado e sempre texto. O --wm-shift volta a 0 para anular o translate de
+     -50% que o --mid usa para se centrar. */
+  .wm{ --wm-shift:0; }
+  .wm--top,
+  .wm--mid{ top:auto; bottom:calc(100% + 4px); }
+  .wm--bottom{ bottom:auto; top:calc(100% + 4px); }
+  .wm--line .bar, .wm--line .tab{ stroke-width:1.4; }
+  .wm--fill{ opacity:.16; }
+  .wm--dark{ opacity:.18; }
+}
+
+/* ---------- Blob de fundo — inspirado na secção "Alguns Projetos" de
+   estudiobase2.com. Lá, a marca da casa (dois quadrados de canto arredondado,
+   rodados e sobrepostos) aparece GIGANTE, cinzenta quase invisível sobre o
+   fundo, a sangrar por DOIS cantos opostos da secção — não é uma assinatura
+   no canto, é textura de fundo. Aqui repete-se a mesma lógica com os
+   quadrados de canto arredondado (squircle), não com as barras do logótipo:
+   as barras rodadas a 90° liam-se como um risco preso à borda lateral — o
+   squircle não tem essa leitura porque não é reconhecível como objeto, só
+   como mancha de forma.
+   A cor é --paper a alpha muito baixo: sobre o café real (rgb(58,49,42)) dá
+   uma diferença de ~12 unidades de luminância — visível de perto, invisível
+   à distância de leitura. Nada de --accent aqui: a intenção é textura, não
+   destaque, e um laranja a esta escala competiria com os títulos. */
+.blob-layer{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.blob{
+  position:absolute;
+  /* A largura sai numa variável porque os desvios verticais da corrida escura
+     (ver .dark-run) se medem por ela, não pela altura do pai. */
+  --blob-w:clamp(300px, 34vw, 560px);
+  width:var(--blob-w);
+  aspect-ratio:1;
+  border-radius:28%;
+  background:rgba(253,252,250,.055);
+}
+/* Cada canto leva DOIS squircles rodados em ângulos diferentes e ligeiramente
+   desencontrados — é a sobreposição, não um único quadrado, que produz o
+   contorno em lóbulos do original (ver referência). Mesma opacidade nos
+   dois: onde se sobrepõem não deve escurecer/acender mais, senão denuncia-se
+   como "duas formas" em vez de uma mancha só. */
+.blob--tr-a{ top:-16%; right:-9%;  transform:rotate(-24deg); }
+.blob--tr-b{ top:2%;   right:-16%; transform:rotate(19deg); }
+.blob--bl-a{ bottom:-16%; left:-9%;  transform:rotate(-24deg); }
+.blob--bl-b{ bottom:2%;   left:-16%; transform:rotate(19deg); }
+
+/* Camada presa à SECÇÃO (não ao .container): precisa de medir-se pela altura
+   toda do bloco para sangrar nos dois cantos. O z-index:-1 do .wm-layer não
+   serve aqui — a secção tem fundo próprio (.section--dark) e um filho a -1
+   ficaria ATRÁS desse fundo, invisível; por isso sobe a 0 e os irmãos de
+   conteúdo passam a 1. */
+.has-blob{ position:relative; z-index:0; }
+.has-blob > :not(.blob-layer){ position:relative; z-index:1; }
+
+/* Corrida escura (home): Histórico + Equipa. As duas secções encostam-se sem
+   folga e devem ler-se como um bloco só — logo a textura tem de as atravessar.
+   O .blob-layer passa a viver aqui, medido pelas duas juntas: sangra pelo
+   canto superior direito (topo do Histórico) e pelo inferior esquerdo (base da
+   Equipa), e a fronteira interna fica limpa. Com um <Blob> por secção havia
+   quatro cantos, dois deles colados na costura — era isso que denunciava as
+   duas caixas.
+
+   O fundo também sobe para a corrida e as secções passam a transparentes:
+   --dark é semitransparente (#241a12e5, para a hero se ver por trás) e é
+   preciso uma camada só. Duas caixas escuras a pintar por cima do mesmo
+   .blob-layer também o tapariam — as secções são irmãs a z-index:1. As regras
+   de cor de texto continuam presas a .section--dark, que se mantém no markup. */
+.dark-run{ background:var(--dark); color:var(--paper); }
+.dark-run > .section--dark{ background:transparent; }
+
+/* Desvios verticais medidos pela largura do próprio blob, não em % da altura
+   do pai: a corrida é ~2x mais alta que uma secção, e um top:-16% dessa altura
+   atirava a mancha quase toda para fora do recorte. As percentagens
+   horizontais mantêm-se — a largura é a mesma (a do ecrã). */
+.dark-run > .blob-layer .blob--tr-a{ top:calc(var(--blob-w) * -.30); }
+.dark-run > .blob-layer .blob--tr-b{ top:calc(var(--blob-w) * .04); }
+.dark-run > .blob-layer .blob--bl-a{ bottom:calc(var(--blob-w) * -.30); }
+.dark-run > .blob-layer .blob--bl-b{ bottom:calc(var(--blob-w) * .04); }
+
+
+@media (max-width:720px){
+  .blob{ --blob-w:clamp(220px, 56vw, 360px); }
+}
 
 /* ===== Divisor-assinatura (3 linhas + encaixe) — 2ª vaga ===== */
 .divider{ position:relative; display:flex; flex-direction:column; gap:6px; max-width:340px; margin:1.8rem 0; padding-top:16px; }
 .divider__line{ height:4px; background:var(--ink); }
 .divider__line--strong{ height:4px; background:var(--ink); }
 .divider__tab{ position:absolute; top:0; left:0; width:52px; height:6px; background:var(--accent); }
+/* O <Divider> assume fundo claro: as três linhas são --ink e, sobre o café
+   de uma .section--dark, ficavam praticamente invisíveis. Aqui invertem-se,
+   e o encaixe passa ao bronze claro — o mesmo acento que os rótulos usam
+   sobre escuro (ver .section--dark .member__role). Único consumidor de hoje:
+   o divisor dentro do carrossel da Equipa, em /sobre-nos. */
+.section--dark :is(.divider__line, .divider__line--strong){ background:var(--paper); }
+.section--dark .divider__tab{ background:var(--accent-dk); }
 
 /* ===== Moldura de imagem (encaixe preto + fio laranja) — 2ª vaga ===== */
 .frame{ position:relative; }
@@ -2083,3 +3147,996 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
    ordenação que era da .split__media. */
 .split--reverse .frame{ order:2; }
 @media (max-width:760px){ .split--reverse .frame{ order:0; } }
+
+/* =====================================================================
+   SEO — migalhas e perguntas frequentes
+   Dois blocos novos, deliberadamente discretos: existem para o Google e
+   para quem chega à ficha vindo da pesquisa, e não podem competir com a
+   fotografia nem com o título do empreendimento.
+   ===================================================================== */
+
+/* ---------- Migalhas ---------- */
+.crumbs{ margin-bottom:clamp(24px,3vw,44px); }
+.crumbs__list{
+  list-style:none; margin:0; padding:0;
+  display:flex; flex-wrap:wrap; align-items:center;
+  gap:.5rem .75rem;
+  font-family:var(--sans); font-size:.78rem; font-weight:400;
+  letter-spacing:.06em; text-transform:uppercase;
+}
+/* O separador é desenhado pelo ::before do item seguinte (e não por um
+   caractere no HTML): assim não entra no texto que o crawler lê nem no que
+   um leitor de ecrã anuncia. */
+.crumbs__item + .crumbs__item::before{
+  content:"›"; margin-right:.75rem; color:var(--ink-faint);
+  text-transform:none; letter-spacing:0;
+}
+.crumbs__link{ color:var(--ink-faint); text-decoration:none; border-bottom:1px solid transparent; }
+.crumbs__link:hover,
+.crumbs__link:focus-visible{ color:var(--ink); border-bottom-color:currentColor; }
+.crumbs__atual{ color:var(--ink); }
+
+/* ---------- Perguntas frequentes ---------- */
+.faq__title{
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(1.6rem,3.2vw,2.4rem); line-height:1.15;
+  color:var(--ink); margin:0 0 clamp(28px,3.5vw,52px);
+  max-width:22ch;
+}
+.faq{ margin:0; display:grid; gap:0; }
+.faq__item{ border-top:1px solid var(--card-rule-fine); padding:clamp(20px,2.4vw,32px) 0; }
+.faq__item:last-child{ border-bottom:1px solid var(--card-rule-fine); }
+.faq__p{ margin:0 0 .6rem; }
+/* O <h3> vive dentro do <dt> só pela hierarquia de cabeçalhos; visualmente é
+   o rótulo da linha, não um título de secção. */
+.faq__p h3{
+  margin:0; font-family:var(--sans); font-weight:500;
+  font-size:clamp(1rem,1.4vw,1.08rem); line-height:1.4;
+  letter-spacing:0; color:var(--ink);
+}
+.faq__r{
+  margin:0; max-width:68ch;
+  font-family:var(--sans); font-weight:300;
+  font-size:clamp(.95rem,1.3vw,1.02rem); line-height:1.7;
+  color:var(--ink-soft);
+}
+@media (min-width:761px){
+  /* Pergunta à esquerda, resposta à direita: a coluna de perguntas fica
+     varrível de relance, que é como se lê uma lista de FAQ. */
+  .faq__item{ display:grid; grid-template-columns:minmax(0,10fr) minmax(0,14fr); gap:clamp(24px,4vw,64px); align-items:start; }
+  .faq__p{ margin-bottom:0; }
+}
+
+/* =====================================================================
+   SEO — blog, artigo e 404
+   ===================================================================== */
+
+/* ---------- Ligações secundárias do rodapé ---------- */
+.footer-links{
+  margin-top:clamp(40px,5vw,72px);
+  display:flex; flex-wrap:wrap; gap:.9rem 1.8rem;
+  font-family:var(--sans); font-size:.74rem; letter-spacing:.08em; text-transform:uppercase;
+}
+.footer-links a{ color:var(--on-dark-dim); text-decoration:none; border-bottom:1px solid transparent; }
+.footer-links a:hover,
+.footer-links a:focus-visible{ color:var(--on-dark); border-bottom-color:currentColor; }
+/* O rodapé já tinha a régua entre a grelha e o copyright; com a fila de links
+   pelo meio, a régua passa para cima dela e o bloco de baixo perde a sua. */
+.footer-links + .footer-bottom{ margin-top:1.6rem; padding-top:0; border-top:0; }
+.footer-links{ padding-top:1.6rem; border-top:1px solid rgba(255,255,255,.12); }
+
+/* ---------- Coluna de leitura ----------
+   Um artigo lê-se mal em 1480px. 74ch é a medida em que a linha acaba antes de
+   o olho perder o início da seguinte. */
+.container--texto{ max-width:min(var(--maxw), 74ch); }
+
+/* ---------- Lista de artigos ---------- */
+.posts{
+  display:grid; gap:clamp(32px,4vw,56px);
+  grid-template-columns:repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  margin-top:clamp(48px,6vw,88px);
+  text-align:left;
+}
+.post-card__link{ display:block; color:inherit; text-decoration:none; }
+.post-card__media{ overflow:hidden; background:var(--paper-alt); aspect-ratio:4/3; }
+.post-card__media img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+.post-card__link:hover .post-card__media img,
+.post-card__link:focus-visible .post-card__media img{ transform:scale(1.04); }
+.post-card__body{ padding-top:1.4rem; }
+.post-card__data{
+  display:block; font-family:var(--sans); font-size:.72rem;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);
+}
+.post-card__titulo{
+  margin:.7rem 0 .6rem; font-family:var(--serif); font-weight:300;
+  font-size:clamp(1.25rem,2vw,1.5rem); line-height:1.25; color:var(--ink);
+}
+.post-card__resumo{
+  margin:0; font-family:var(--sans); font-weight:300; font-size:.95rem;
+  line-height:1.65; color:var(--ink-soft);
+}
+.post-card__cta{
+  display:inline-block; margin-top:1rem;
+  font-family:var(--sans); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--accent); border-bottom:1px solid currentColor; padding-bottom:2px;
+}
+
+/* ---------- Artigo ---------- */
+.artigo__head{ margin-bottom:clamp(32px,4vw,56px); }
+.artigo__titulo{
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(2rem,4.6vw,3.2rem); line-height:1.1;
+  color:var(--ink); margin:0 0 1.2rem;
+}
+.artigo__resumo{
+  margin:0 0 1.4rem; font-family:var(--sans); font-weight:300;
+  font-size:clamp(1.05rem,1.6vw,1.2rem); line-height:1.6; color:var(--ink-soft);
+}
+.artigo__meta{
+  margin:0; font-family:var(--sans); font-size:.74rem;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);
+}
+.artigo__figura{ margin:0 0 clamp(32px,4vw,56px); }
+.artigo__figura img{ width:100%; height:auto; display:block; }
+.artigo__tags{
+  list-style:none; margin:clamp(40px,5vw,64px) 0 0; padding:1.6rem 0 0;
+  border-top:1px solid var(--card-rule-fine);
+  display:flex; flex-wrap:wrap; gap:.6rem;
+}
+.artigo__tags li{
+  font-family:var(--sans); font-size:.72rem; letter-spacing:.06em;
+  color:var(--ink-faint); background:var(--paper-alt); padding:.35rem .75rem;
+}
+
+/* ---------- Prosa do Markdown ----------
+   O corpo do artigo vem do Markdown, por isso estiliza-se por elemento e não
+   por classe: quem escreve no CMS não tem de saber nomes de classes nenhuns. */
+.prosa{ font-family:var(--sans); font-weight:300; font-size:1.02rem; line-height:1.75; color:var(--ink-soft); }
+.prosa > * + *{ margin-top:1.3em; }
+.prosa h2{
+  font-family:var(--serif); font-weight:300; color:var(--ink);
+  font-size:clamp(1.5rem,2.8vw,2rem); line-height:1.2;
+  margin-top:2.4em; margin-bottom:.2em;
+}
+.prosa h3{
+  font-family:var(--sans); font-weight:500; color:var(--ink);
+  font-size:1.08rem; line-height:1.4; margin-top:2em; margin-bottom:.2em;
+}
+.prosa strong{ font-weight:600; color:var(--ink); }
+.prosa a{ color:var(--accent); text-decoration:none; border-bottom:1px solid currentColor; }
+.prosa a:hover, .prosa a:focus-visible{ color:var(--ink); }
+.prosa ul, .prosa ol{ padding-left:1.4em; }
+.prosa li + li{ margin-top:.5em; }
+.prosa hr{ border:0; border-top:1px solid var(--card-rule-fine); margin-block:2.4em; }
+.prosa blockquote{
+  margin-inline:0; padding-left:1.4em; border-left:2px solid var(--accent);
+  font-style:italic; color:var(--ink);
+}
+
+/* ---------- 404 ---------- */
+.erro-links{
+  list-style:none; margin:clamp(48px,6vw,88px) auto 0; padding:0;
+  display:grid; gap:0; max-width:70ch; text-align:left;
+}
+.erro-link{ border-top:1px solid var(--card-rule-fine); }
+.erro-link:last-child{ border-bottom:1px solid var(--card-rule-fine); }
+.erro-link a{
+  display:block; padding:clamp(20px,2.4vw,30px) 0; text-decoration:none;
+  color:var(--ink); transition:padding-left .5s cubic-bezier(.16,1,.3,1);
+}
+.erro-link a:hover, .erro-link a:focus-visible{ padding-left:.8rem; }
+.erro-link__titulo{
+  display:block; font-family:var(--serif); font-weight:300;
+  font-size:clamp(1.15rem,2vw,1.4rem); line-height:1.3;
+}
+.erro-link__texto{
+  display:block; margin-top:.35rem; font-family:var(--sans); font-weight:300;
+  font-size:.92rem; color:var(--ink-soft);
+}
+
+
+/* =====================================================================
+   Aviso de cookies — barra (1.ª camada) e painel de definições (2.ª)
+   =====================================================================
+   Markup em src/components/CookieBanner.astro, lógica em public/consent.js.
+   As classes de estado (.is-visivel, .is-painel) são postas pelo consent.js;
+   este bloco parte SEMPRE do estado invisível e sem captar cliques, porque o
+   aviso existe no HTML de todas as páginas mas só deve aparecer a quem ainda
+   não decidiu — e enquanto não aparece não pode roubar um clique ao site.
+
+   Escala de z-index desta folha: header 100, cortina de navegação 9999,
+   preloader 10000. O aviso fica em 9000: acima de tudo o que é conteúdo, mas
+   DEBAIXO da cortina e do preloader de propósito — durante uma navegação a
+   cortina tem de o tapar, senão a barra fica a flutuar sobre a transição. */
+
+.cookies[hidden]{ display:none; }
+
+/* ---- 1.ª camada: barra ---- */
+.cookies__aviso{
+  position:fixed; z-index:9001;
+  left:var(--gutter); right:var(--gutter); bottom:var(--gutter);
+  margin-inline:auto; max-width:min(1080px, calc(100vw - var(--gutter) * 2));
+  display:flex; align-items:flex-end; gap:clamp(20px, 3vw, 48px);
+  padding:clamp(20px, 2.4vw, 30px);
+  background:var(--paper);
+  border:1px solid var(--line);
+  box-shadow:0 18px 48px -24px rgba(26,20,16,.45);
+  /* Estado de repouso: fora do ecrã, invisível e inerte. A `visibility` é
+     obrigatória além da opacidade — só ela tira o conteúdo da ordem de
+     tabulação, e uma barra invisível que ainda apanhasse o Tab deixava um
+     utilizador de teclado a passear por botões que não vê. */
+  transform:translateY(calc(100% + var(--gutter)));
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:transform .6s var(--ease), opacity .45s var(--ease), visibility 0s linear .6s;
+}
+.cookies.is-visivel .cookies__aviso{
+  transform:translateY(0); opacity:1; visibility:visible; pointer-events:auto;
+  transition:transform .6s var(--ease), opacity .45s var(--ease), visibility 0s;
+}
+/* Com o painel aberto a barra sai: o consent.js mantém .is-visivel ligada (para
+   a barra voltar se o painel for fechado sem decidir), por isso é o CSS que
+   tem de as arbitrar — se ambas ficassem à vista, havia dois diálogos abertos
+   e dois pares de botões a dizer o mesmo. */
+.cookies.is-painel .cookies__aviso{
+  transform:translateY(calc(100% + var(--gutter)));
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:transform .45s var(--ease), opacity .3s var(--ease), visibility 0s linear .45s;
+}
+.cookies__aviso:focus{ outline:none; }   /* recebe foco programático, não é um alvo de clique */
+.cookies__aviso:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+
+.cookies__texto{ flex:1 1 auto; min-width:0; }
+.cookies__titulo{
+  font-size:clamp(1rem, 1.4vw, 1.15rem); line-height:1.2; margin:0 0 .5rem;
+  letter-spacing:.01em;
+}
+.cookies__texto p{ margin:0; color:var(--ink-soft); font-size:.92rem; line-height:1.55; max-width:62ch; }
+.cookies__legal{ margin-top:.7rem !important; font-size:.82rem; }
+.cookies__legal a{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.cookies__legal a:hover{ color:var(--accent-text); }
+.cookies__sep{ color:var(--ink-faint); margin:0 .45rem; }
+
+.cookies__accoes{
+  flex:0 0 auto;
+  display:flex; flex-direction:column; align-items:stretch; gap:.6rem;
+  min-width:min(230px, 40vw);
+}
+
+/* ---- Os dois botões de consentimento ----
+   `.cookies__btn` é UMA classe e serve os dois: Aceitar e Rejeitar herdam
+   exactamente a mesma caixa, a mesma cor, o mesmo peso e o mesmo tamanho. Não
+   há aqui modificador de destaque nenhum para o par, e é de propósito: a
+   assimetria entre aceitar e recusar é a infracção que os reguladores
+   europeus mais multam (Google, 325 M€, set/2025). O scripts/cookies-check.mjs
+   compara as classes dos dois botões no HTML construído e falha se divergirem
+   — é a única forma de isto não se degradar num redesenho futuro. */
+.cookies__btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:44px; padding:.75rem 1.4rem;          /* 44px = alvo de toque mínimo */
+  font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; font-weight:600;
+  color:var(--ink); background:transparent;
+  border:1px solid var(--ink);
+  cursor:pointer; text-align:center;
+  transition:background .3s var(--ease), color .3s var(--ease);
+}
+.cookies__btn:hover{ background:var(--ink); color:var(--paper); }
+.cookies__btn:focus-visible{ outline:2px solid var(--accent-deep); outline-offset:2px; }
+
+/* "Personalizar" é terciário porque NÃO é uma escolha de consentimento — é
+   navegação para a camada seguinte. Rebaixar uma das duas respostas seria
+   dark pattern; rebaixar a porta para o detalhe não é. */
+.cookies__terciario{
+  min-height:44px; padding:.4rem;
+  background:none; border:0; cursor:pointer;
+  font-size:.8rem; color:var(--ink-soft);
+  text-decoration:underline; text-underline-offset:3px;
+}
+.cookies__terciario:hover{ color:var(--accent-text); }
+.cookies__terciario:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+
+/* ---- Véu do painel ---- */
+.cookies__veu{
+  position:fixed; inset:0; z-index:9000;
+  background:rgba(26,20,16,.55);
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .4s var(--ease), visibility 0s linear .4s;
+}
+.cookies.is-painel .cookies__veu{
+  opacity:1; visibility:visible; pointer-events:auto;
+  transition:opacity .4s var(--ease), visibility 0s;
+}
+
+/* ---- 2.ª camada: painel ---- */
+.cookies__painel{
+  position:fixed; z-index:9002;
+  left:50%; top:50%;
+  width:min(620px, calc(100vw - var(--gutter) * 2));
+  max-height:min(86vh, 780px); overflow-y:auto; overscroll-behavior:contain;
+  padding:clamp(22px, 3vw, 38px);
+  background:var(--paper); border:1px solid var(--line);
+  box-shadow:0 32px 80px -32px rgba(26,20,16,.6);
+  transform:translate(-50%, -46%); opacity:0; visibility:hidden; pointer-events:none;
+  transition:transform .45s var(--ease), opacity .35s var(--ease), visibility 0s linear .45s;
+}
+.cookies.is-painel .cookies__painel{
+  transform:translate(-50%, -50%); opacity:1; visibility:visible; pointer-events:auto;
+  transition:transform .45s var(--ease), opacity .35s var(--ease), visibility 0s;
+}
+.cookies__painel:focus{ outline:none; }
+.cookies__painel:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+
+.cookies__painel-topo{ display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
+.cookies__painel-topo h2{ font-size:clamp(1.15rem, 2vw, 1.4rem); margin:0; line-height:1.2; }
+.cookies__fechar{
+  flex:0 0 auto;
+  width:44px; height:44px; margin:-10px -10px 0 0;   /* recuo óptico: o alvo é 44px, o glifo é pequeno */
+  display:grid; place-items:center;
+  background:none; border:0; cursor:pointer; color:var(--ink-soft);
+}
+.cookies__fechar svg{ width:20px; height:20px; }
+.cookies__fechar:hover{ color:var(--ink); }
+.cookies__fechar:focus-visible{ outline:2px solid var(--ink); outline-offset:-4px; }
+
+.cookies__painel-texto{ margin:.8rem 0 0; color:var(--ink-soft); font-size:.92rem; line-height:1.55; }
+
+.cookies__lista{ list-style:none; margin:1.6rem 0 0; padding:0; }
+.cookies__cat{ padding:1.1rem 0; border-top:1px solid var(--line); }
+.cookies__cat:last-child{ border-bottom:1px solid var(--line); }
+.cookies__cat-cab{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+
+/* Interruptor. O <input> continua a existir e a ser focável — é ele que o
+   leitor de ecrã anuncia e o teclado comuta; a pista é só a representação
+   visual. Esconder o input com `display:none` tirava-o da ordem de tabulação
+   e deixava o painel inoperável sem rato. */
+.cookies__toggle{
+  display:flex; align-items:center; gap:.85rem;
+  min-height:44px; cursor:pointer; flex:1 1 auto;
+}
+.cookies__toggle input{
+  position:absolute; width:1px; height:1px; margin:-1px;
+  clip-path:inset(50%); overflow:hidden; white-space:nowrap;
+}
+.cookies__toggle-pista{
+  flex:0 0 auto; position:relative;
+  width:46px; height:26px; border-radius:13px;
+  background:var(--card-chip); border:1px solid var(--line-field);
+  transition:background .25s var(--ease), border-color .25s var(--ease);
+}
+.cookies__toggle-pista::after{
+  content:""; position:absolute; top:3px; left:3px;
+  width:18px; height:18px; border-radius:50%;
+  background:var(--paper); border:1px solid var(--line-field);
+  transition:transform .25s var(--ease);
+}
+.cookies__toggle input:checked + .cookies__toggle-pista{ background:var(--accent-deep); border-color:var(--accent-deep); }
+.cookies__toggle input:checked + .cookies__toggle-pista::after{ transform:translateX(20px); border-color:var(--accent-deep); }
+.cookies__toggle input:focus-visible + .cookies__toggle-pista{ outline:2px solid var(--ink); outline-offset:3px; }
+/* Obrigatória: o estado lê-se, mas não se muda. O cursor volta a `default`
+   para não prometer uma interacção que não existe. */
+.cookies__toggle input:disabled + .cookies__toggle-pista{ opacity:.55; }
+.cookies__toggle:has(input:disabled){ cursor:default; }
+
+.cookies__cat-nome{ font-weight:600; font-size:.98rem; }
+.cookies__sempre{
+  flex:0 0 auto; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-faint);
+}
+.cookies__cat-desc{ margin:.55rem 0 0; color:var(--ink-soft); font-size:.88rem; line-height:1.55; }
+
+.cookies__painel-fundo{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.6rem; }
+.cookies__painel-fundo .cookies__btn{ flex:1 1 auto; }
+/* "Guardar escolhas" é a acção principal DESTE painel e por isso é a única
+   preenchida. Não desequilibra o par aceitar/rejeitar (que continua idêntico
+   entre si) nem empurra para o consentimento: guardar respeita o que estiver
+   nos interruptores, que nascem desligados. */
+.cookies__btn--guardar{ background:var(--ink); color:var(--paper); border-color:var(--ink); flex-basis:100%; }
+.cookies__btn--guardar:hover{ background:var(--dark-soft); border-color:var(--dark-soft); color:var(--paper); }
+
+.cookies__painel-legal{ margin:1.1rem 0 0; font-size:.82rem; color:var(--ink-faint); }
+.cookies__painel-legal a{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.cookies__painel-legal a:hover{ color:var(--accent-text); }
+
+/* ---- Telemóvel ----
+   A barra passa a coluna e os botões à largura toda. Aceitar e Rejeitar
+   continuam adjacentes e do mesmo tamanho — é aqui que a simetria costuma
+   partir-se, com um botão a ganhar a linha inteira e o outro a encolher. */
+@media (max-width:860px){
+  .cookies__aviso{
+    left:0; right:0; bottom:0; max-width:none;
+    flex-direction:column; align-items:stretch; gap:1.1rem;
+    border-left:0; border-right:0; border-bottom:0;
+    padding:clamp(18px, 5vw, 24px);
+    padding-bottom:calc(clamp(18px, 5vw, 24px) + env(safe-area-inset-bottom, 0px));
+    transform:translateY(100%);
+  }
+  .cookies.is-painel .cookies__aviso{ transform:translateY(100%); }
+  .cookies__accoes{ min-width:0; }
+  .cookies__painel{
+    width:100%; left:0; top:auto; bottom:0;
+    max-height:88vh; border-left:0; border-right:0; border-bottom:0;
+    transform:translate(0, 100%);
+    padding-bottom:calc(clamp(22px, 3vw, 38px) + env(safe-area-inset-bottom, 0px));
+  }
+  .cookies.is-painel .cookies__painel{ transform:translate(0, 0); }
+  .cookies__painel-fundo .cookies__btn{ flex-basis:100%; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .cookies__aviso,
+  .cookies__veu,
+  .cookies__painel,
+  .cookies__btn,
+  .cookies__toggle-pista,
+  .cookies__toggle-pista::after{ transition:none; }
+}
+
+/* ---- Botão de definições no rodapé ----
+   Herda o desenho dos links vizinhos porque, para quem lê, é a mesma fila —
+   mas tem de ser <button>: abre um diálogo, não navega. Sem esta regra o
+   browser desenhava-lhe a caixa cinzenta nativa no meio de texto em versaletes
+   sobre fundo escuro. */
+.footer-links button{
+  font:inherit; letter-spacing:inherit; text-transform:inherit;
+  background:none; border:0; padding:0; cursor:pointer;
+  color:var(--on-dark-dim); border-bottom:1px solid transparent;
+}
+.footer-links button:hover,
+.footer-links button:focus-visible{ color:var(--on-dark); border-bottom-color:currentColor; }
+
+/* ---- Tabela do inventário (Política de Cookies) ----
+   Cinco colunas de texto não cabem num telemóvel por muito que se aperte a
+   letra. Em vez de as espremer até ficarem ilegíveis, a tabela rola dentro do
+   seu próprio invólucro — o corpo da página nunca ganha barra horizontal. */
+.tabela-envolvente{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.tabela-cookies{
+  width:100%; min-width:640px;
+  border-collapse:collapse;
+  font-size:.86rem; line-height:1.5;
+}
+.tabela-cookies th,
+.tabela-cookies td{
+  text-align:left; vertical-align:top;
+  padding:.7rem .9rem;
+  border-bottom:1px solid var(--line);
+}
+.tabela-cookies thead th{
+  font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink); font-weight:600;
+  border-bottom:1px solid var(--ink-faint);
+  white-space:nowrap;
+}
+.tabela-cookies td code{
+  font-size:.85em; color:var(--ink);
+  background:var(--card-chip); padding:.15rem .4rem;
+}
+.prosa .tabela-envolvente{ margin-top:1.3em; }
+/* O botão de reabrir as definições aparece a meio da prosa; o `.prosa a` tem
+   sublinhado herdado que não se aplica a um <button>, daí não haver nada a
+   desfazer — só a garantia de que não encolhe para a largura do texto. */
+.prosa .cookies__btn{ max-width:max-content; }
+
+
+/* #####################################################################
+   ###  AJUSTES DE TELEMÓVEL  ###########################################
+   #####################################################################
+   Este bloco vive NO FIM da folha de propósito, e não junto das regras que
+   corrige. Foi escrito a meio e teve de mudar: um `.cookies__btn` ou um
+   `.footer-links button` definidos mais abaixo ganhavam-lhe por ordem de
+   origem — mesma especificidade, e a media query não acrescenta nenhuma.
+   Duas correcções chegaram a parecer não ter efeito por causa disso.
+
+   Quem acrescentar regras de telemóvel: acrescenta-as AQUI, no fim. Quem
+   acrescentar secções novas à folha: acrescenta-as ANTES deste bloco.
+   ##################################################################### */
+/* =====================================================================
+   PISO TIPOGRÁFICO DO TELEMÓVEL (≤760px)
+   ---------------------------------------------------------------------
+   Este bloco existe agrupado, e não espalhado regra a regra, de propósito:
+   é UMA decisão só — "nada abaixo de 13px no telemóvel" — e a lista de
+   quem a incumpria só se lê como sistema se estiver junta.
+
+   Os corpos pequenos desta folha (.56rem a .8rem) foram desenhados para o
+   desktop, onde vivem a 60–80cm do olho e ao lado de tipografia grande que
+   lhes dá contexto. No telemóvel são o mesmo número de píxeis a 30cm, num
+   ecrã que o utilizador segura de pé: 8,96px do selo de proveniência e
+   9,92px do "SCROLL" ficam abaixo do que se lê sem ampliar. 13px é o piso
+   usado pela auditoria (scripts/mobile-check.mjs) e é o mínimo confortável
+   para texto em caixa alta.
+
+   O ENTRELETRA DESCE ao mesmo tempo, e não é acessório. Quase todos estes
+   rótulos são caixa alta com .2em a .32em de entreletra — a .28em, uma
+   linha de 27 caracteres gasta 98px só em ar entre letras. Subir o corpo
+   sem mexer nisso empurrava os rótulos para duas e três linhas e trocava um
+   problema de legibilidade por um de composição. Descidos para .10–.14em,
+   as etiquetas ficam MAIS ESTREITAS do que estavam apesar de maiores.
+
+   Acima dos 760px não muda nada: os corpos e o entreletra originais
+   continuam a valer, e é lá que foram afinados.
+   ===================================================================== */
+@media (max-width:760px){
+
+  /* ---- Rótulos e meta em caixa alta ---- */
+  .field label{ font-size:13px; letter-spacing:.12em; }
+  .member__role{ font-size:13px; letter-spacing:.12em; }
+  .footer-col h4{ font-size:13px; letter-spacing:.14em; }
+  .footer-bottom{ font-size:13px; }
+  .qmeta__l{ font-size:13px; }
+  .fact__r,
+  .facts--contadores .fact__r{ font-size:13px; }
+  .dslider__label{ font-size:13px; letter-spacing:.14em; }
+  .plans__counter{ font-size:13px; }
+  .emodal__estado{ font-size:13px; letter-spacing:.14em; }
+  .emodal__fact-label{ font-size:13px; }
+  .testimonials__designation{ font-size:max(13px, var(--t-designation-size,.8rem)); }
+  .post-card__data{ font-size:13px; }
+  .artigo__meta{ font-size:13px; }
+  .artigo__tags li{ font-size:13px; }
+
+  /* ---- Botões, ligações de ação e migalhas ----
+     O .btn é o pior caso: 11,84px de texto com .22em de entreletra é o
+     rótulo mais pequeno do site a fazer o trabalho mais importante. */
+  .btn{ font-size:13px; letter-spacing:.13em; }
+  /* Na FILA e nao nos filhos: o .footer-links declara font-size:.74rem e o
+     botao de cookies mais abaixo no ficheiro pede `font:inherit` — um
+     `.footer-links button{font-size:13px}` aqui perdia para essa regra por
+     ordem de origem (mesma especificidade, ela vem depois). Mudando a fila,
+     o `inherit` do botao passa a herdar 13px e as duas coisas alinham. */
+  .footer-links{ font-size:13px; }
+  .post-card__cta{ font-size:13px; }
+  .crumbs__list{ font-size:13px; }
+  /* O .nav__list e o .lang-switch__btn saíram desta lista: neste ecrã já não
+     são o nav horizontal de desktop, são o painel de ecrã inteiro, e a
+     tipografia dele (display, muito acima do piso) é declarada no bloco
+     "MENU DE ECRÃ INTEIRO" no fim da folha. */
+  .emodal__chip{ font-size:13px; }
+
+  /* ---- Texto sobre imagem ----
+     O selo de proveniência (.img-prov) estava a 8,96px — o mais pequeno da
+     folha, e assenta sobre fotografia, que é a superfície onde menos
+     contraste há. O "SCROLL" da hero é o mesmo caso. */
+  .img-prov{ font-size:13px; letter-spacing:.1em; padding:.3rem .55rem; }
+  .hero__scroll{ font-size:13px; letter-spacing:.18em; }
+  .hero__bg::after{ font-size:13px; letter-spacing:.16em; }
+  .ph::after,
+  .testimonials__img--ph::after{ font-size:13px; letter-spacing:.14em; }
+  /* A chapa e `white-space:nowrap` e entra na largura de min-content da
+     coluna da grelha (ver B1 em docs/MOBILE.md). Subir o corpo de 12,48 para
+     13px alargava-a ~5px; o recuo horizontal desce de 14 para 10px para
+     devolver mais do que isso — a chapa fica 2px MAIS ESTREITA do que estava,
+     apesar de a letra ser maior. */
+  .card__tag{ font-size:13px; padding:8px 10px; }
+
+  /* ---- Aviso de cookies ----
+     E a primeira coisa que um visitante ve no telemovel, e e onde ele toma
+     uma decisao juridica. Escapou a primeira leitura desta lista porque
+     aparece de forma assincrona (espera pelo preloader) e as corridas de
+     auditoria ora o apanhavam ora nao — ver a espera explicita em
+     scripts/mobile-check.mjs. */
+  .cookies__btn{ font-size:13px; letter-spacing:.14em; }
+  .cookies__terciario{ font-size:13px; }
+
+  /* ---- Corpo pequeno ---- */
+  .check{ font-size:13px; }
+  .emodal__entrega{ font-size:13px; }
+  /* .team--marquee .member__bio saiu daqui: no telemóvel a bio deixa de
+     aparecer (ver o bloco dedicado mais abaixo), por isso já não tem corpo a
+     medir. */
+}
+
+/* =====================================================================
+   ÁREA DE TOQUE MÍNIMA NO TELEMÓVEL (≤760px) — 44×44px
+   ---------------------------------------------------------------------
+   WCAG 2.5.5. Agrupado pela mesma razão que o piso tipográfico acima: é
+   uma decisão só, e a lista de quem a incumpria (menu 33px, ligações do
+   rodapé 20px, sociais 26×18, botão da newsletter 18×35, .btn 27–35px,
+   migalhas 17px, hambúrguer 38×28) só se lê como sistema se estiver junta.
+
+   O PRINCÍPIO é crescer a caixa sem mover o desenho. Onde o elemento é uma
+   ligação de texto, a altura vem de `min-height` + `align-items:center`,
+   que empurra o texto para o meio de uma caixa maior sem lhe tocar. Onde o
+   elemento tem um traço por baixo (.btn), a altura NÃO pode vir de
+   min-height: o sublinhado é o bordo inferior da caixa e afastar-se-ia do
+   texto. Aí cresce-se por `padding-top`, que abre ar por cima e deixa o
+   sublinhado colado onde estava.
+
+   Acima dos 760px nada muda: com rato, um alvo de 20px acerta-se. ===== */
+@media (max-width:760px){
+
+  /* ---- Ligações de texto: caixa maior, texto no mesmo sítio ---- */
+  .footer-links :is(a, button),
+  .footer-col a,
+  .crumbs__link,
+  /* Por atributo e não por classe: um mailto: ou um tel: é sempre um alvo
+     para o dedo, independentemente do bloco onde caia. Apanha as ligações
+     soltas do parágrafo de contacto em /contactos, que não têm classe. */
+  a[href^="mailto:"],
+  a[href^="tel:"]{
+    display:inline-flex; align-items:center; min-height:44px;
+  }
+  /* "Blog" mede 39px de texto — a única do rodapé mais curta que o mínimo.
+     O min-width vale para todas; nas outras não muda nada. */
+  .footer-links :is(a, button){ min-width:44px; justify-content:center; }
+  /* O painel do menu ocupa o ecrã todo e cada item ocupa uma linha inteira:
+     o alvo é muito maior do que os 44px mínimos. A medida está declarada com
+     o resto do painel, no bloco "MENU DE ECRÃ INTEIRO" no fim da folha. */
+  /* O .gap do rodapé desce porque as caixas cresceram: a 44px com .8rem de
+     intervalo os ícones ficavam a ~31px de distância visual, o dobro do que
+     o desenho pede. A 0, a distância visual entre glifos fica nos ~18px. */
+  .socials{ gap:0; }
+  .socials a{ min-width:44px; min-height:44px; }
+
+  /* ---- Botões de ação com sublinhado ----
+     Ver a nota acima: a altura entra por cima. 13px de corpo a 1.6 de
+     entrelinha dão ~21px; com os .5rem de padding-bottom que o sublinhado
+     usa, faltam 17px para os 44 (o <button> do formulário herda line-height
+     do agente do utilizador e é o mais baixo dos dois — mede-se por ele). */
+  .btn{ padding-top:17px; }
+
+  /* Um item de grelha tem `min-width:auto`, e isso faz do min-content do seu
+     conteudo o PISO da coluna: por muito que a coluna seja 1fr, ela nunca
+     desce abaixo do elemento mais largo que nao parte. Nos cartoes esse
+     elemento e a chapa da tipologia (white-space:nowrap) e, quando o painel
+     do historico abre, sao as linhas de facto la dentro. Com os corpos a
+     subir para 13px no bloco acima, esse piso passou a estourar a coluna e a
+     grelha ficava mais larga que o ecra.
+
+     O min-width:0 devolve a coluna ao 1fr que ela ja declarava. E o mesmo
+     remedio para o B1 do docs/MOBILE.md, por isso fica aqui e sai do ambito
+     da P1 — nao se deixa uma regressao aberta a espera da vaga seguinte. */
+  .grid-projects > *{ min-width:0; }
+  /* Com a coluna de volta ao 1fr, o nome do empreendimento deixa de ter
+     largura garantida: "Empreendimento" mede ~170px a 1.45rem e a faixa que
+     lhe sobrava ao lado da chapa sao ~152px a 360. A legenda passa a
+     empilhar — nome em cima, chapa por baixo, ambos encostados a esquerda.
+     No desktop mantem-se lado a lado, que e onde ha largura para isso. */
+  .card__caption{ flex-direction:column; align-items:flex-start; gap:.6rem; }
+  .card__tag{ align-self:flex-start; }
+
+  /* ---- Controlos ----
+     O hambúrguer (44x44, três traços absolutos) está no bloco "MENU DE ECRÃ
+     INTEIRO" no fim da folha, junto do estado aberto que o transforma em X. */
+  /* As duas politicas do aviso sao uma FILA de ligacoes separadas por um
+     ponto medio, nao uma frase — a excepcao inline da WCAG nao se aplica e
+     cada uma precisa do seu alvo. */
+  .cookies__legal a{ display:inline-flex; align-items:center; min-height:44px; }
+  .news input{ min-height:44px; }
+  .news button{ min-width:44px; min-height:44px; }
+  .field :is(input, select, textarea){ min-height:44px; }
+  .testimonials__arrow{ width:44px; height:44px; }
+
+  /* A caixa de confirmação é o único controlo que não cresce por geometria:
+     um input[type=checkbox] nativo a 44px desenha um quadrado de 44px, que
+     é grande de mais para se ler como caixa de marcar ao lado de uma linha
+     de texto de 13px. Passa a `appearance:none` para separar as duas
+     medidas — a caixa VISÍVEL fica nos 22px (desenhada pelo gradiente, que
+     é o que dá o quadrado e o seu bordo), a caixa TOCÁVEL nos 44. O visto
+     entra por ::after, que num appearance:none já é permitido.
+     Herda a cor do contexto: no rodapé o texto é claro sobre escuro, no
+     formulário é escuro sobre papel — daí currentColor em vez de um token. */
+  .check input[type="checkbox"]{
+    appearance:none; -webkit-appearance:none;
+    width:44px; height:44px; margin:0;
+    display:grid; place-items:center; cursor:pointer;
+    background:none; border:0;
+    /* Tirado do fluxo: ver a nota do .check abaixo. */
+    position:absolute; left:-11px; top:calc(.8em - 22px);
+  }
+  /* Um elemento só desenha a caixa e o visto — a mancha por background-color,
+     o visto por background-image. Com dois pseudo-elementos sobrepostos numa
+     grelha, o visto ficava dependente da ordem de auto-colocação; aqui não há
+     sobreposição nenhuma para correr mal. O traço do visto é --paper cravado
+     no SVG: é a cor do papel do site e o quadrado cheio por baixo é sempre
+     currentColor (escuro no formulário, claro no rodapé) — nos dois casos o
+     visto contrasta. */
+  .check input[type="checkbox"]::before{
+    content:""; width:22px; height:22px;
+    border:1px solid currentColor;
+    background:transparent center/13px 10px no-repeat;
+    transition:background-color .2s var(--ease);
+  }
+  .check input[type="checkbox"]:checked::before{
+    background-color:currentColor;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 10'%3E%3Cpath d='M1 5l3.6 3.6L12 1.2' fill='none' stroke='%23fdfcfa' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  .check input[type="checkbox"]:focus-visible{ outline:2px solid var(--accent); outline-offset:-9px; }
+
+  /* O .check deixa de ser uma linha de flex e passa a bloco de texto com a
+     caixa pousada na margem.
+
+     O motivo é de composição, não de toque: o consentimento é UMA FRASE, mas
+     no markup são três nós irmãos — <span>, <a> da política, e o ponto final.
+     Em `display:flex` cada um deles é um item, e a frase parte-se em colunas.
+     Com a caixa a 13px sobrava largura e a avaria não se via; a 44px o <a>
+     era atirado para uma coluna à direita e a frase deixava de se ler.
+
+     Em bloco, os três voltam a ser conteúdo inline do mesmo parágrafo e a
+     frase corre de uma ponta à outra, com a caixa absoluta na margem. O
+     `top` alinha o quadrado de 22px pelo meio da PRIMEIRA linha (.8em é
+     metade da entrelinha a este corpo), não pelo meio do bloco — senão numa
+     frase de três linhas a caixa descia para o meio do parágrafo. */
+  .check{
+    display:block; position:relative;
+    padding-left:33px; gap:0;
+  }
+  .check input{ margin-top:0; }
+}
+
+/* =====================================================================
+   EQUIPA DA HOME — SÓ NOME E FUNÇÃO NO TELEMÓVEL (≤760px)
+   ---------------------------------------------------------------------
+   A fita (.team--marquee) mostra a bio inteira ao passar o rato — e como
+   não há rato no telemóvel, `@media (hover:none)` logo acima decidiu por
+   isso mostrá-la sempre. Num cartão de 260–380px de largura isso enche
+   PERMANENTEMENTE o rodapé da fotografia com três ou quatro linhas de
+   texto miúdo, competindo com o nome em vez de o apoiar — o oposto do
+   cartão de equipa nas outras páginas (.member, grelha normal), que nunca
+   mostrou bio nenhuma.
+
+   Aqui alinha-se com esse padrão: só nome e função ficam visíveis. A bio
+   continua no DOM (um leitor de ecrã continua a lê-la, e o hover do rato
+   num telemóvel com trackpad ainda a mostra) — só deixa de ocupar espaço
+   por defeito. Por estar DEPOIS do bloco de hover:none no ficheiro, esta
+   regra ganha por ordem de origem à mesma especificidade. */
+@media (max-width:760px){
+  .team--marquee .member__bio{ display:none; }
+}
+
+/* =====================================================================
+   MENU DE ECRÃ INTEIRO (≤1024px)
+   ---------------------------------------------------------------------
+   O painel que aqui estava era translúcido (--dark tem alpha e5, pensado
+   para a hero se ver por trás nas secções): aberto sobre a home, lia-se a
+   fotografia, o título e o "SCROLL" por baixo dos itens do menu. Fechava
+   sem travar o scroll — o dedo arrastava a página por trás do painel — e o
+   hambúrguer ficava hambúrguer com o menu aberto, sem dizer como se fecha.
+
+   Este é o molde do rioproperty.co.za, com a nossa letra e a nossa cor:
+
+   1) O PAINEL abre por clip-path, não por opacidade. O polígono nasce com
+      altura 0 encostado ao topo e cresce até ao rodapé — a cor desce pelo
+      ecrã como uma persiana, em vez de aparecer inteira a esbater-se. É por
+      isso que o fundo tem de ser OPACO (--dark-soft): num wipe, a frente do
+      movimento é a aresta entre as duas superfícies, e uma superfície
+      translúcida não tem aresta nenhuma.
+
+   2) CADA ITEM É UMA MÁSCARA. O <li> corta (overflow:clip) e o <a> começa
+      uma linha inteira abaixo, ligeiramente rodado; ao abrir, sobe até ao
+      sítio e endireita-se. Sem o corte via-se as linhas a atravessar as
+      vizinhas — daí os três níveis de marcação no Header.astro.
+
+   3) AS LINHAS ENTRAM EM CASCATA, e as duas cascatas são inversas: a abrir
+      escalonam de cima para baixo (a primeira linha chega primeiro), a
+      fechar de baixo para cima. É o que faz o fecho parecer o gesto
+      contrário da abertura e não a mesma animação ao contrário.
+
+   4) O HAMBÚRGUER É O BOTÃO DE FECHAR. Três traços de larguras decrescentes
+      (28/21/14px) que, com o menu aberto, viram X: o do meio sai pela
+      esquerda e os outros dois cruzam-se no centro.
+
+   As medidas em px (e não em em) são deliberadas: a caixa do botão é o alvo
+   de toque de 44px da WCAG 2.5.5 e não pode encolher com a tipografia.
+   ===================================================================== */
+@media (max-width:1024px){
+
+  /* ---- Barra: logótipo e botão ficam POR CIMA do painel ----
+     Como no site de referência, a barra do topo não é coberta pelo painel —
+     é de lá que se fecha o menu. Sem z-index próprio, o painel (posicionado)
+     pintava por cima dos dois, que são estáticos. */
+  .site-header .logo,
+  .nav-toggle{ position:relative; z-index:110; }
+
+  /* Com o menu aberto a barra assenta sobre o painel escuro, que é escuro
+     independentemente de a página estar rolada. Repõe-se por isso o mesmo
+     tratamento que a barra tem sobre a hero: fundo transparente, logótipo
+     claro e traços brancos. Sem isto, ao abrir o menu a meio da página o
+     logótipo escuro e o hambúrguer escuro desapareciam no painel. */
+  html.nav-aberto .site-header.scrolled{
+    background:transparent; box-shadow:none; backdrop-filter:none;
+  }
+  html.nav-aberto .site-header::before{ opacity:0; }
+  html.nav-aberto .scrolled .logo__img--light{ display:block; }
+  html.nav-aberto .scrolled .logo__img--dark{ display:none; }
+
+  /* O MESMO conflito atinge o texto dos itens. `.scrolled .nav__list a`
+     (declarada lá em cima, no HEADER) pinta o nav a --ink — quase preto —
+     para ler sobre o fundo claro do header rolado. Tem DUAS classes e um
+     elemento (`.scrolled` + `.nav__list` + `a`), e o `.nav__list .nav__link`
+     do painel só tem duas classes: empatam no número de classes, e a regra
+     de cima ainda tem o elemento `a` a mais, o que a fazia ganhar por
+     especificidade sempre que o menu abria numa página "no-hero" (todas
+     menos a home) — texto quase preto sobre o painel quase preto,
+     ilegível. `html.nav-aberto` acrescenta a terceira classe que falta
+     para o painel ganhar sempre, independentemente de a barra estar ou não
+     rolada. A ligação da página atual é a exceção: fica no bronze
+     (--accent-dk, pensado para texto sobre escuro) e não no --ink nem no
+     --accent-text (esse é para texto sobre CLARO) que `.scrolled
+     .nav__list a[aria-current="page"]` lhe dava pelo mesmo motivo. */
+  html.nav-aberto .nav__list .nav__link{ color:var(--paper); }
+  html.nav-aberto .nav__list a[aria-current="page"]{ color:var(--accent-dk); }
+
+  /* ---- Hambúrguer ---- */
+  .nav-toggle{
+    width:44px; height:44px; padding:0;
+    align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  /* Absolutos e centrados: as três posições de repouso são translações a
+     partir do mesmo ponto, o que deixa o estado aberto (rotação sobre o
+     centro) sair de uma só propriedade — sem `top` a compensar. */
+  .nav-toggle span{
+    position:absolute; width:28px; height:2px;
+    transition:transform .5s cubic-bezier(.7,0,.3,1), background-color .3s var(--ease);
+  }
+  .nav-toggle span:nth-child(1){ transform:translateY(-7px) scaleX(1); }
+  .nav-toggle span:nth-child(2){ transform:translateY(0) scaleX(.75); }
+  .nav-toggle span:nth-child(3){ transform:translateY(7px) scaleX(.5); }
+
+  html.nav-aberto .site-header .nav-toggle span{ background:#fff; }
+  html.nav-aberto .nav-toggle span:nth-child(1){ transform:translateY(0) rotate(45deg) scaleX(1); }
+  html.nav-aberto .nav-toggle span:nth-child(2){ transform:translateX(-150%) scaleX(1); }
+  html.nav-aberto .nav-toggle span:nth-child(3){ transform:translateY(0) rotate(-45deg) scaleX(1); }
+
+  /* ---- Painel ---- */
+  .nav__list{
+    position:fixed; inset:0; z-index:90;
+    background:var(--dark-soft);
+    flex-direction:column; align-items:stretch; justify-content:flex-start;
+    gap:0; margin:0;
+    /* O topo abre espaço para a barra (logótipo a 54px + o padding dela). */
+    padding:calc(96px + var(--gutter)) var(--gutter) clamp(28px,6vh,64px);
+    overflow-y:auto; overscroll-behavior:contain;
+    clip-path:polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+    visibility:hidden; pointer-events:none;
+    transition:clip-path 1s cubic-bezier(.9,0,.1,1), visibility 0s linear 1s;
+  }
+  /* Encosta o bloco ao fundo do ecrã (como a referência) SEM usar
+     justify-content:flex-end, que num painel com scroll torna o topo do
+     conteúdo inalcançável quando ele não cabe. */
+  .nav__item:first-child{ margin-top:auto; }
+
+  .nav.open .nav__list{
+    clip-path:polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    visibility:visible; pointer-events:auto;
+    transition:clip-path 1s cubic-bezier(.9,0,.1,1), visibility 0s linear;
+  }
+
+  /* ---- Itens ---- */
+  .nav__item{ position:relative; overflow:clip; border-top:1px solid rgba(255,255,255,.13); }
+  .nav__item:last-child{ border-bottom:1px solid rgba(255,255,255,.13); }
+
+  /* Duas classes (e não `.nav__list a`) porque é preciso ganhar por
+     especificidade à tipografia do nav horizontal, que é do mesmo peso e
+     está declarada antes. (Não chega para o conflito do `.scrolled` — ver
+     `html.nav-aberto .nav__list .nav__link` mais acima, junto da barra.) */
+  .nav__list .nav__link{
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    width:100%; min-height:58px; padding-block:.45rem;
+    font-family:var(--serif); font-weight:400;
+    font-size:clamp(1.6rem, 6.6vw, 2.4rem); line-height:1.15;
+    letter-spacing:0; text-transform:none; white-space:normal;
+    color:var(--paper); opacity:1;
+    transform:translateY(100%) rotate(5deg);
+    transition:transform .75s cubic-bezier(.7,0,.3,1);
+  }
+  /* O sublinhado animado do nav horizontal cresce a toda a largura do item —
+     aqui, uma linha inteira — e duplicava o fio que já separa as filas. */
+  .nav__list .nav__link::after{ display:none; }
+
+  .nav.open .nav__list .nav__link{
+    transform:translateY(0) rotate(.001deg);
+    transition:transform 1s cubic-bezier(.381, 0, .03, 1.003);
+  }
+
+  /* Cascata inversa: a abrir, de cima para baixo; a fechar, de baixo para
+     cima (é a ordem declarada nos itens sem .open). */
+  .nav__item:nth-child(1) .nav__link{ transition-delay:.30s; }
+  .nav__item:nth-child(2) .nav__link{ transition-delay:.25s; }
+  .nav__item:nth-child(3) .nav__link{ transition-delay:.20s; }
+  .nav__item:nth-child(4) .nav__link{ transition-delay:.15s; }
+  .nav__item:nth-child(5) .nav__link{ transition-delay:.10s; }
+  .nav__item:nth-child(6) .nav__link{ transition-delay:.05s; }
+  .nav__item:nth-child(7) .nav__link{ transition-delay:0s; }
+  .nav.open .nav__item:nth-child(1) .nav__link{ transition-delay:.20s; }
+  .nav.open .nav__item:nth-child(2) .nav__link{ transition-delay:.25s; }
+  .nav.open .nav__item:nth-child(3) .nav__link{ transition-delay:.30s; }
+  .nav.open .nav__item:nth-child(4) .nav__link{ transition-delay:.35s; }
+  .nav.open .nav__item:nth-child(5) .nav__link{ transition-delay:.40s; }
+  .nav.open .nav__item:nth-child(6) .nav__link{ transition-delay:.45s; }
+  .nav.open .nav__item:nth-child(7) .nav__link{ transition-delay:.50s; }
+
+  .nav__link-seta{
+    display:block; flex:none; width:24px; height:24px;
+    color:var(--accent-dk); opacity:.6;
+  }
+  .nav__link-seta svg{ width:100%; height:100%; display:block; }
+
+  /* ---- Fila de idiomas ----
+     No painel, o seletor deixa de ser um menu em cascata e passa a fila:
+     PT · EN · FR, os três à vista. Um menu suspenso dentro de uma fila que
+     é ela própria uma máscara (overflow:clip) ficaria cortado, e num ecrã
+     onde já há espaço para os três não há o que poupar. */
+  .nav__lang-item{ display:block; }
+  .nav__lang-item .lang-switch{ position:static; }
+  .lang-switch__btn{ display:none; }
+  .lang-switch__menu{
+    position:static; min-width:0; margin:0; padding:0;
+    background:none; border:0; border-radius:0; box-shadow:none;
+    display:flex; gap:.3rem;
+    opacity:1; visibility:visible; pointer-events:auto;
+    transform:none; transition:none;
+  }
+  .lang-switch__option{
+    width:auto; padding:0 1rem; min-height:44px;
+    display:inline-flex; align-items:center;
+    font-size:1rem; color:var(--on-dark-soft);
+    opacity:1; transform:none; transition-delay:0s;
+  }
+  .lang-switch__option:hover,
+  .lang-switch__option:focus-visible{ background:none; color:var(--paper); }
+  .lang-switch__option.is-active{ color:var(--accent-dk); }
+
+  /* ---- Scroll travado ----
+     Mesmo mecanismo do preloader (html.is-loading): quem trava a página é o
+     overflow do <html>. São precisas as duas metades, e cada uma cobre um
+     caso:
+
+     · COM Lenis (o normal), quem trava é o próprio Lenis — o setMenu() chama
+       lenis.stop(), que põe `lenis-stopped` no <html>, e a regra
+       `.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}` lá em cima
+       ganha a esta por especificidade (três classes contra uma). Parar o
+       Lenis é preciso de qualquer forma: sem isso ele continuava a interpolar
+       o scroll que ficou a meio e a página reaparecia deslocada ao fechar.
+     · SEM Lenis (prefers-reduced-motion: reduce, em que o Base.astro nem o
+       constrói), não há `lenis-stopped` nenhum e é esta regra que trava.
+
+     Medido em Chrome com gesto a sério (roda e dedo), nos dois caminhos:
+     ver scripts/menu-e2e.mjs. */
+  html.nav-aberto{ overflow:hidden; }
+}
+
+/* Menos movimento: o painel troca o wipe e a cascata por um aparecimento
+   simples. O menu continua inteiro e funcional — o que sai é o percurso. */
+@media (max-width:1024px) and (prefers-reduced-motion:reduce){
+  .nav__list{ clip-path:none; opacity:0; transition:opacity .2s linear, visibility 0s linear .2s; }
+  .nav.open .nav__list{ opacity:1; transition:opacity .2s linear, visibility 0s linear; }
+  .nav__list .nav__link,
+  .nav.open .nav__list .nav__link{ transform:none; transition:none; transition-delay:0s; }
+  .nav-toggle span{ transition:none; }
+}
+
+/* =====================================================================
+   RODAPÉ MAIS COMPACTO NO TELEMÓVEL (≤760px)
+   ---------------------------------------------------------------------
+   As quatro colunas do rodapé (marca, morada, contactos, newsletter) foram
+   medidas para o desktop, onde vivem lado a lado. Empilhadas numa só coluna
+   no telemóvel (ver .footer-grid no bloco RESPONSIVO), a mesma folga
+   vertical que separa colunas passa a separar BLOCOS, um por baixo do
+   outro — e o mesmo `line-height:1.8` pensado para um parágrafo largo de
+   três palavras por linha esticava uma morada de duas linhas curtas.
+   Medido: o rodapé da home ia a 1201px de altura a 390px de largura.
+
+   Nada do que está aqui esconde conteúdo — é só o ar a menos. Os alvos de
+   toque de 44px (ícones sociais, campo da newsletter) não se tocam: essa é
+   uma obrigação da WCAG 2.5.5, não folga sobrante. */
+@media (max-width:760px){
+  .site-footer{ padding-block:clamp(40px,7vw,56px) 1.3rem; }
+  .footer-grid{ gap:22px; }
+  .footer-col h4{ margin-bottom:.65rem; }
+  .footer-col p, .footer-col a{ line-height:1.5; }
+  .footer-brand .logo{ margin-bottom:.8rem; }
+  .footer-logo img{ height:44px; }
+  .socials{ margin-top:.8rem; }
+  .check--footer{ margin-top:.7rem; }
+  .footer-links{ margin-top:clamp(28px,6vw,40px); padding-top:1.2rem; }
+  /* `.footer-links + .footer-bottom` (duas classes) é o seletor que está
+     realmente ativo — todas as páginas têm a fila de ligações antes do
+     copyright — e ganha por especificidade ao simples `.footer-bottom`
+     declarado mais acima na folha. Repetir aqui as DUAS versões: a
+     combinada, para o caso real, e a simples, para o dia em que uma página
+     ficar sem `.footer-links` e não perder o ajuste por engano. */
+  .footer-bottom,
+  .footer-links + .footer-bottom{ margin-top:clamp(28px,6vw,40px); padding-top:1.2rem; }
+}

@@ -1,13 +1,13 @@
 {
   "hero": {
     "title": "Sobre Nós",
-    "imagem": "/images/template-sobre.jpg"
+    "imagem": "/images/template-sobre.webp"
   },
   "quemSomos": {
     "title": "Construindo o futuro com qualidade e sustentabilidade",
     "lead": "Com 20 anos de experiência no mercado imobiliário, a AM Santos destaca-se pela excelência em cada um dos projetos executados.",
     "paragrafo": "Sob a liderança de António M Santos, a empresa reúne uma equipa de profissionais de arquitetura, engenharia, decoração e gestão imobiliária de alto nível. Desde o seu início, a nossa visão é proporcionar conforto e qualidade aos nossos clientes, através de projetos que combinam uma arquitetura moderna e funcional com um foco inabalável no bem-estar e na qualidade.",
-    "imagem": "/images/sobre-quem-somos.jpg"
+    "imagem": "/images/sobre-quem-somos.webp"
   },
   "oQueFazemos": {
     "title": "20 anos de solidez",
@@ -30,13 +30,13 @@
         "title": "Na vanguarda da inovação arquitetónica",
         "texto": "Com vários projetos em pipeline, mantemo-nos na vanguarda da inovação arquitetónica, priorizando a qualidade, o conforto e a eficiência energética para garantir a satisfação dos nossos clientes.",
         "botao": "Ver empreendimentos",
-        "imagem": "/images/sobre-servico-inovacao.jpg"
+        "imagem": "/images/sobre-servico-inovacao.webp"
       },
       {
         "title": "Uma abordagem eco-friendly",
         "texto": "O nosso mais recente projeto foi concebido com materiais sustentáveis, para aliar conforto, bem-estar e arquitetura moderna — reduzindo os custos de manutenção e garantindo o máximo conforto climático.",
         "botao": "Falar connosco",
-        "imagem": "/images/sobre-servico-eco.jpg"
+        "imagem": "/images/sobre-servico-eco.webp"
       }
     ]
   },
@@ -47,13 +47,13 @@
         "role": "Liderança · Direção-Geral",
         "name": "António M Santos",
         "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário.",
-        "foto": "/images/perfil-3.jpg"
+        "foto": "/images/perfil-3.webp"
       },
       {
         "role": "Arquitetura · Projeto",
         "name": "Marta Sousa",
         "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra.",
-        "foto": "/images/perfil-2.jpg"
+        "foto": "/images/perfil-2.webp"
       }
     ]
   },

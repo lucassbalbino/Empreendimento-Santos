@@ -28,18 +28,60 @@
   }
   window.addEventListener('scroll', updateHeader, { passive: true });
 
-  // Menu mobile — liga por elemento, evitando duplicar em elementos já ligados.
+  // Menu mobile — painel de ecrã inteiro (ver "MENU DE ECRÃ INTEIRO" no
+  // styles.css). O estado vive em DOIS sítios de propósito: `.open` no .nav
+  // comanda a animação do painel, e `nav-aberto` no <html> comanda o que é
+  // global — travar o scroll e repor as cores claras da barra do topo, que
+  // passa a assentar sobre o painel escuro.
+  function setMenu(open) {
+    var nav = document.querySelector('.nav');
+    if (!nav) return;
+    var toggle = document.querySelector('.nav-toggle');
+    nav.classList.toggle('open', open);
+    document.documentElement.classList.toggle('nav-aberto', open);
+    if (toggle) toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+    // O overflow:hidden do <html> trava a página; o Lenis é parado à parte,
+    // senão continuava a interpolar o scroll que ficou a meio e a página
+    // reaparecia deslocada ao fechar o menu.
+    if (open) {
+      // A barra esconde-se ao rolar para baixo. Se o menu abre logo a seguir
+      // a um gesto desses, abria sem o botão que o fecha à vista.
+      var header = document.querySelector('.site-header');
+      if (header) header.classList.remove('site-header--hidden');
+      if (window.__amsLenis) window.__amsLenis.stop();
+    } else if (window.__amsLenis) {
+      window.__amsLenis.start();
+    }
+  }
+
+  // Fecha só se estiver aberto: um `setMenu(false)` incondicional a cada
+  // página chamaria lenis.start() e libertava o scroll que o preloader tinha
+  // travado de propósito na primeira carga.
+  function fecharMenu() {
+    if (document.documentElement.classList.contains('nav-aberto')) setMenu(false);
+  }
+
+  // Liga por elemento, evitando duplicar em elementos já ligados.
   function bindMenu() {
     var toggle = document.querySelector('.nav-toggle');
     var nav = document.querySelector('.nav');
     if (toggle && nav && !toggle.dataset.bound) {
       toggle.dataset.bound = '1';
-      toggle.addEventListener('click', function () { nav.classList.toggle('open'); });
+      toggle.addEventListener('click', function () {
+        setMenu(!nav.classList.contains('open'));
+      });
       nav.querySelectorAll('.nav__list a').forEach(function (a) {
-        a.addEventListener('click', function () { nav.classList.remove('open'); });
+        a.addEventListener('click', function () { setMenu(false); });
       });
     }
   }
+
+  // Escape fecha o menu — ligado uma só vez, aqui e não no bindMenu (que
+  // corre a cada página e acumularia um listener por navegação).
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') fecharMenu();
+  });
 
   // pt-PT usa ponto como separador de milhares (185.000).
   function fmt(el, value) {
@@ -290,7 +332,10 @@
     onChange: function (cb) { i18nListeners.push(cb); },
   };
 
-  function onPage() { updateHeader(); bindMenu(); bindCounters(); bindLangSwitch(); applyLang(); }
+  // fecharMenu() antes de tudo: numa navegação suave o painel fica aberto por
+  // trás da página nova (o clique no link já o fecha, mas o botão «anterior»
+  // do browser não passa por ele) e o scroll ficaria travado.
+  function onPage() { fecharMenu(); updateHeader(); bindMenu(); bindCounters(); bindLangSwitch(); applyLang(); }
   // Dispara na 1.ª carga e em cada navegação suave.
   document.addEventListener('astro:page-load', onPage);
 })();

@@ -1,0 +1,333 @@
+---
+// Slider de imagens do empreendimento — layout "Design Plans" de
+// kononenkogroup.com/work/pokrovskoe-private-house.
+//
+// Palco grande à esquerda, coluna de miniaturas à direita, Prev/Next por baixo
+// e uma barra de progresso de 2px assente na aresta inferior do palco. A troca
+// de imagem não é um crossfade: a miniatura LEVANTA-SE do seu encaixe e voa até
+// ao palco enquanto a que estava no palco encolhe de volta ao encaixe dela — as
+// duas cruzam-se no ar. O encaixe que fica vazio mostra a placa com a moldura
+// activa, exactamente como no site de referência.
+//
+// A referência desenha as imagens em WebGL (three.js) e anima-as com GSAP; aqui
+// não há dependência de 3D nem de GSAP, por isso o voo é feito em DOM puro com
+// uma inversão de escala: cada imagem está SEMPRE maquetada ao tamanho do palco
+// e, quando está inactiva, é ENCOLHIDA para o rectângulo da sua miniatura.
+// Reduzir uma imagem por transform é sempre nítido; ampliá-la não é — o
+// compositor esticaria o raster da miniatura e a foto do palco ficaria lavada
+// durante todo o voo. É essa a razão de as fotos viverem todas numa camada
+// sobre o palco e não dentro dos botões das miniaturas.
+const {
+  imagens = [],
+  nome = '',
+  rotulo = 'Imagem',
+} = Astro.props;
+
+const total = imagens.length;
+const pad = (n) => String(n).padStart(2, '0');
+---
+<div class="plans" data-plans data-rotulo={rotulo} aria-roledescription="carousel" aria-label={`Imagens de ${nome}`}>
+  <div class="plans__grid">
+    <!-- Palco. Em ecrã estreito passa a `display:contents` (ver styles.css): a
+         moldura desaparece e a .plans__layer sobe à grelha para se tornar ela
+         própria a fila horizontal, sem duplicar uma única <img>. -->
+    <div class="plans__stage">
+      <div class="plans__layer" data-layer>
+        {imagens.map((src, i) => (
+          <figure class={`plans__flyer${i === 0 ? ' is-active' : ''}`} data-flyer style={`--i:${i + 1}`}>
+            <span class="plans__flyer-in">
+              <img
+                src={src}
+                alt={`${nome} — imagem ${i + 1}`}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                draggable="false"
+              />
+            </span>
+          </figure>
+        ))}
+        <!-- Barra de progresso do avanço automático. Assenta na aresta de baixo
+             do palco e é a única peça acima da moldura (z-index 5). -->
+        <div class="plans__progress" aria-hidden="true"><span class="plans__bar" data-bar></span></div>
+      </div>
+    </div>
+
+    <!-- Coluna lateral -->
+    <div class="plans__aside">
+      <p class="plans__counter" data-counter style="--i:0" aria-hidden="true">{pad(1)} / {pad(total)}</p>
+
+      <div class="plans__track">
+        {imagens.map((_, i) => (
+          <button
+            class={`plans__item${i === 0 ? ' is-active' : ''}`}
+            type="button"
+            data-item
+            style={`--i:${i + 1}`}
+            aria-label={`${rotulo} ${i + 1}`}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+          ><span class="plans__plate"></span></button>
+        ))}
+      </div>
+
+      <!-- Setas em vez de "Anterior/Seguinte" por extenso: a coluna mede
+           92–150px e duas palavras nessa largura ou encavalitavam ou obrigavam
+           a um corpo de letra ilegível. Sem texto visível, o rótulo passa todo
+           para o aria-label (traduzido por data-i18n-attr) — e as setas são as
+           MESMAS do DoubleSlider, para o gesto de navegar ser um só em todo o
+           site. -->
+      <div class="plans__nav" style={`--i:${total + 1}`}>
+        <button class="plans__link" type="button" data-prev aria-label="Imagem anterior" data-i18n="common.plans.prev" data-i18n-attr="aria-label">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m0 0 6-6m-6 6 6 6"/></svg>
+        </button>
+        <button class="plans__link" type="button" data-next aria-label="Imagem seguinte" data-i18n="common.plans.next" data-i18n-attr="aria-label">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m0 0-6-6m6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const DWELL = 6000;    // ms que cada imagem fica no palco (ts = 6 na referência)
+  const RETRACT = 600;   // ms de recolha da barra ao trocar de imagem (ts * .1)
+  const FLY = 900;       // ms do voo — TEM de bater certo com a transição de .plans__flyer-in
+
+  // Como no DoubleSlider: com <ViewTransitions /> os scripts de módulo só correm
+  // UMA vez, por isso o setup religa-se a astro:page-load (1.ª carga + cada nav
+  // suave) e a guarda por dataset impede religar o mesmo DOM duas vezes.
+  function setup() {
+    document.querySelectorAll('[data-plans]').forEach((root) => {
+      if (root.dataset.plansBound) return;
+      root.dataset.plansBound = '1';
+
+      const layer = root.querySelector('[data-layer]');
+      const flyers = [...root.querySelectorAll('[data-flyer]')];
+      const items = [...root.querySelectorAll('[data-item]')];
+      const bar = root.querySelector('[data-bar]');
+      const counter = root.querySelector('[data-counter]');
+      const total = flyers.length;
+      if (!total) return;
+
+      const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+      // 900px, e não os 840px do .split: aqui o que decide não é o texto ficar
+      // estreito, é a coluna de miniaturas — abaixo disto cada encaixe cai para
+      // ~55px de altura e deixa de se distinguir uma imagem da outra.
+      const compact = window.matchMedia('(max-width: 900px)');
+
+      let index = 0;
+      let barTimer = null;
+      let leaveTimer = null;
+      let onScreen = false;
+
+      const pad = (n) => String(n).padStart(2, '0');
+
+      /* ---------- Geometria do voo ------------------------------------------
+         Cada .plans__flyer-in está maquetado à caixa do palco. O transform que
+         o leva ao seu encaixe é uma correspondência exacta de rectângulos:
+         transladar até ao canto superior esquerdo da miniatura e escalar pela
+         razão das larguras. Como palco e miniatura partilham o MESMO rácio
+         (8/5, o rácio nativo dos ficheiros), a escala é uniforme — a foto nunca
+         deforma nem muda de corte a meio do voo.
+
+         As miniaturas (.plans__item) nunca levam transform — a animação de
+         entrada vive na .plans__plate lá dentro — por isso o rectângulo medido
+         aqui é sempre o real, mesmo antes de a coluna ter entrado. */
+      function measure() {
+        if (compact.matches) {
+          flyers.forEach((f) => f.style.removeProperty('--fly'));
+          root.style.removeProperty('--enter-x');
+          return;
+        }
+        const base = layer.getBoundingClientRect();
+        if (!base.width) return;
+        flyers.forEach((f, i) => {
+          const slot = items[i].getBoundingClientRect();
+          const s = slot.width / base.width;
+          f.style.setProperty(
+            '--fly',
+            'translate(' + (slot.left - base.left).toFixed(2) + 'px,' +
+              (slot.top - base.top).toFixed(2) + 'px) scale(' + s.toFixed(5) + ')'
+          );
+        });
+        // Distância exacta a que a coluna tem de nascer para ficar mesmo fora da
+        // margem direita do ecrã — é o cálculo da referência.
+        const x = Math.max(0, Math.round(window.innerWidth - items[0].getBoundingClientRect().left));
+        root.style.setProperty('--enter-x', x + 'px');
+      }
+
+      /* ---------- Barra de progresso ----------------------------------------
+         Enche da esquerda em 6s a passo constante; ao trocar de imagem recolhe
+         PELA DIREITA em 0.6s e só depois recomeça a encher. Vale para a troca
+         manual e para o avanço automático — é o que a referência faz nos dois
+         casos, e é o que dá a sensação de o relógio ser reposto. */
+      function stopBar() {
+        clearTimeout(barTimer);
+        barTimer = null;
+      }
+
+      function resetBar() {
+        stopBar();
+        if (!bar) return;
+        bar.style.transition = 'none';
+        bar.style.transformOrigin = 'left';
+        bar.style.transform = 'scaleX(0)';
+      }
+
+      function fill() {
+        stopBar();
+        if (!bar || calm.matches || compact.matches || total < 2 || !onScreen) return;
+        bar.style.transition = 'none';
+        bar.style.transformOrigin = 'left';
+        bar.style.transform = 'scaleX(0)';
+        void bar.offsetWidth;   // força o reflow antes de voltar a animar
+        bar.style.transition = 'transform ' + DWELL + 'ms linear';
+        bar.style.transform = 'scaleX(1)';
+        // setTimeout e não transitionend: o rAF/transição fica suspenso em abas
+        // em segundo plano e o slider nunca mais avançava ao voltar.
+        barTimer = setTimeout(function () { go(index + 1); }, DWELL);
+      }
+
+      function retract() {
+        stopBar();
+        if (!bar) return;
+        if (calm.matches || compact.matches || !onScreen) { resetBar(); return; }
+        bar.style.transition = 'transform ' + RETRACT + 'ms var(--ease)';
+        bar.style.transformOrigin = 'right';
+        bar.style.transform = 'scaleX(0)';
+        barTimer = setTimeout(fill, RETRACT);
+      }
+
+      /* ---------- Estado ----------------------------------------------------- */
+      function paint(prev) {
+        clearTimeout(leaveTimer);
+        flyers.forEach((f, i) => {
+          f.classList.toggle('is-active', i === index);
+          f.classList.remove('is-leaving');
+        });
+        // A foto que sai tem de passar POR CIMA das miniaturas vizinhas durante
+        // a descida (senão mergulhava por baixo delas), mas por BAIXO da que
+        // está a subir — se não, tapava-a no cruzamento.
+        if (prev != null && prev !== index) {
+          flyers[prev].classList.add('is-leaving');
+          leaveTimer = setTimeout(function () { flyers[prev].classList.remove('is-leaving'); }, FLY);
+        }
+        items.forEach((it, i) => {
+          it.classList.toggle('is-active', i === index);
+          it.setAttribute('aria-pressed', i === index ? 'true' : 'false');
+        });
+        if (counter) counter.textContent = pad(index + 1) + ' / ' + pad(total);
+      }
+
+      function go(next) {
+        const target = ((next % total) + total) % total;
+        // Em ecrã estreito não há voo: quem manda na imagem em foco é a posição
+        // da fila. Empurrar a fila é que faz o resto — o handler de scroll
+        // trata do estado e do contador.
+        if (compact.matches) {
+          flyers[target].scrollIntoView({ behavior: calm.matches ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+          return;
+        }
+        if (target === index) { retract(); return; }
+        const prev = index;
+        index = target;
+        paint(prev);
+        retract();
+      }
+
+      /* ---------- Ligações ---------------------------------------------------- */
+      items.forEach((it, i) => it.addEventListener('click', () => go(i)));
+      root.querySelector('[data-prev]').addEventListener('click', () => go(index - 1));
+      root.querySelector('[data-next]').addEventListener('click', () => go(index + 1));
+
+      root.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(index - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1); }
+      });
+
+      // Passar o rato por um encaixe esbate a foto que lá está — o único sinal
+      // de que a miniatura é clicável além do cursor. Não pode ser CSS: a foto
+      // não vive dentro do botão, vive na camada por cima dele.
+      items.forEach((it, i) => {
+        it.addEventListener('pointerenter', () => flyers[i].classList.add('is-hot'));
+        it.addEventListener('pointerleave', () => flyers[i].classList.remove('is-hot'));
+      });
+
+      // Em ecrã estreito a camada É a fila horizontal (scroll-snap nativo): não
+      // há voo nem barra, só o contador a seguir o dedo.
+      let scrollRaf = 0;
+      layer.addEventListener('scroll', () => {
+        if (!compact.matches || scrollRaf) return;
+        scrollRaf = requestAnimationFrame(() => {
+          scrollRaf = 0;
+          const mid = layer.scrollLeft + layer.clientWidth / 2;
+          let best = 0;
+          let bestD = Infinity;
+          flyers.forEach((f, i) => {
+            const d = Math.abs(f.offsetLeft + f.offsetWidth / 2 - mid);
+            if (d < bestD) { bestD = d; best = i; }
+          });
+          if (best !== index) { index = best; paint(null); }
+        });
+      }, { passive: true });
+
+      // aria-label das miniaturas: rótulo traduzido + número. Não passa pelo
+      // varrimento de [data-i18n] porque tem o índice interpolado.
+      function applyLabels() {
+        const word = window.__amsI18n
+          ? window.__amsI18n.get('common.plans.item', root.dataset.rotulo)
+          : root.dataset.rotulo;
+        items.forEach((it, i) => it.setAttribute('aria-label', word + ' ' + (i + 1)));
+      }
+      applyLabels();
+      if (window.__amsI18n) window.__amsI18n.onChange(applyLabels);
+
+      // O rótulo traduzido muda a largura do Prev/Next e, com ela, a da coluna;
+      // o resize muda tudo. Nos dois casos há que remedir os rectângulos.
+      document.addEventListener('ams:i18n-applied', measure);
+      window.addEventListener('resize', measure, { passive: true });
+      compact.addEventListener('change', () => {
+        measure();
+        resetBar();
+        if (onScreen) fill();
+      });
+
+      /* ---------- Arranque -----------------------------------------------------
+         `is-instant` mata as transições enquanto se mede e se assenta o primeiro
+         estado, para a foto de abertura nascer JÁ no palco em vez de se ver a
+         subir da miniatura antes de a secção estar sequer no ecrã (é o
+         setActiveImmediate da referência). */
+      root.classList.add('is-instant', 'is-ready');
+      measure();
+      paint(null);
+      void root.offsetWidth;   // força o reflow antes de reactivar as transições
+      root.classList.remove('is-instant');
+
+      // Entrada e avanço automático ficam ambos presos à secção estar em vista.
+      // A entrada usa o mesmo gatilho tardio do resto do site (ver REVEAL_MARGIN
+      // em src/scripts/split-reveal.js); o autoplay arranca mal a secção toque
+      // no ecrã e pára assim que sai, como o ScrollTrigger da referência.
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver((entries) => {
+          entries.forEach((e) => { if (e.isIntersecting) root.classList.add('is-in'); });
+        }, { threshold: 0, rootMargin: '0px 0px -25% 0px' }).observe(root);
+
+        new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            onScreen = e.isIntersecting;
+            if (onScreen) fill();
+            else resetBar();
+          });
+        }, { threshold: 0 }).observe(root);
+      } else {
+        root.classList.add('is-in');
+        onScreen = true;
+        fill();
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', setup);
+  // Também já: se o astro:page-load desta navegação já disparou antes deste
+  // script correr, o listener acima não o apanharia.
+  setup();
+</script>

@@ -8,6 +8,11 @@ const { title, minHeight, image, titleI18n } = Astro.props;
     style={image ? `background-image:url(${image})` : undefined}
   ></div>
   <div class="hero__overlay"></div>
+  <!-- Slot para adornos que vivem sobre a imagem e não fazem parte do desenho
+       base (hoje só o selo "Imagem provisória" da página de empreendimento).
+       Fica fora do .hero__inner de propósito: o inner é a coluna do título e
+       tudo o que lá entre empurra-o. -->
+  <slot />
   <div class="hero__inner">
     <div class="container">
       <TitleSplit text={title} tag="h1" class="title-split--hero" data-i18n={titleI18n} data-i18n-split="1" />

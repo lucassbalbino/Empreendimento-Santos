@@ -3,44 +3,71 @@ import { ViewTransitions } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageCurtain from '../components/PageCurtain.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import Seo from '../components/Seo.astro';
+import seoConfig from '../data/seo.json';
 const {
-  title,
-  description = 'AM Santos — construindo o futuro com qualidade e sustentabilidade. 20 anos de experiência no mercado imobiliário, com arquitetura moderna e funcional.',
-  image = '/images/hero-image.webp',
-  palette,
   flat = false,
+  /* Tudo o que segue é SEO e vai direto para o <Seo>. As páginas estáticas não
+     precisam de passar nada — o Seo.astro resolve pelo caminho contra o
+     src/data/seo.json. Só as rotas dinâmicas (empreendimentos, blog) passam
+     título e descrição calculados. */
+  title,
+  description,
+  image,
+  noindex,
+  tipoPagina,
+  schemaExtra,
+  trilhoItens,
+  preloadImagem,
 } = Astro.props;
 const isHome = Astro.url.pathname === '/';
-const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-${palette}`].filter(Boolean).join(' ') || undefined;
+// A prop `palette` saiu daqui: servia o andaime de teste da recoloração
+// (palette="test-b46511"), retirado na Task 1. Nenhuma página a passava, por
+// isso a classe palette-* nunca chegou ao <body>.
+const bodyClass = [isHome && 'is-home', flat && 'no-hero'].filter(Boolean).join(' ') || undefined;
 ---
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{title}</title>
-  <meta name="description" content={description}>
+
+  <Seo
+    title={title}
+    description={description}
+    imagem={image}
+    noindex={noindex}
+    tipoPagina={tipoPagina}
+    schemaExtra={schemaExtra}
+    trilhoItens={trilhoItens}
+    preloadImagem={preloadImagem}
+  />
 
   <!-- Favicon (marca AM Santos) -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta name="theme-color" content="#141414">
+  <meta name="theme-color" content="#241a12">
   <!-- Site só claro: impede o modo escuro automático do browser de escurecer as
        cores quando o SO está em dark mode (sinal dado antes do CSS carregar). -->
   <meta name="color-scheme" content="only light">
 
-  <!-- Open Graph / partilha em redes sociais -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="AM Santos">
-  <meta property="og:title" content={title}>
-  <meta property="og:description" content={description}>
-  <meta property="og:image" content={image}>
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content={title}>
-  <meta name="twitter:description" content={description}>
+  <!-- Open Graph, canonical, robots e JSON-LD vivem todos no <Seo> acima. -->
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="sitemap" type="application/xml" href="/sitemap-index.xml">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Fontes: servidas do PRÓPRIO domínio (@font-face no topo do styles.css,
+       gerados por scripts/fontes-descarregar.mjs). O <link> para
+       fonts.googleapis.com que aqui estava era render-blocking e obrigava a
+       duas ligações novas — googleapis para o CSS, gstatic para os .woff2 —
+       antes de a primeira letra poder aparecer. Medido com o Lighthouse neste
+       site: 2,9 s de First Contentful Paint com ele, 1,1 s sem ele.
+
+       O preload é dos subconjuntos LATINOS, os únicos que o site escreve na
+       primeira dobra. `crossorigin` é obrigatório mesmo em same-origin: as
+       fontes são sempre pedidas em modo anónimo e, sem o atributo, o browser
+       descarrega o ficheiro duas vezes. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/fraunces-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin.woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css">
 
   <!-- Gate do preloader: liga is-loading ANTES do paint, só na 1.ª carga real
@@ -64,7 +91,11 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
       if (!('IntersectionObserver' in window) ||
           window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       root.classList.add('reveal-ready');
-      var SEL = '.section, .card, .stat, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
+      // .seam entra aqui (e não a reboque da .section que a contém): a costura
+      // vive no topo da secção e a secção só cruza o threshold de 0.12 muito
+      // depois — numa secção alta, a régua já tinha passado pelo ecrã quando a
+      // .is-visible do pai chegasse. Observada por si, desenha-se à entrada.
+      var SEL = '.section, .seam, .card, .stat, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
       var els = [];
 
       var io = new IntersectionObserver(function (entries) {
@@ -140,6 +171,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
   <slot />
   <Footer />
   <PageCurtain />
+  <CookieBanner />
   <!-- Scroll interpolado (Lenis) + parallax da hero.
 
        O browser move a página aos degraus: cada volta de roda é um salto seco.
@@ -291,8 +323,32 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', palette && `palette-$
     })();
   </script>
   <script is:inline src="/main.js"></script>
-  <!-- Cloudflare Web Analytics — substituir TOKEN ao publicar -->
-  <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js"
-    data-cf-beacon='{"token": "TOKEN_DO_CLOUDFLARE"}'></script>
+  <!-- Núcleo do consentimento: lê/grava o cookie ams-consent, liga o aviso por
+       delegação e é quem transforma os scripts inertes abaixo em scripts a
+       sério. Depois do main.js porque reutiliza o mesmo padrão de
+       astro:page-load e nada nele depende de correr antes. -->
+  <script is:inline src="/consent.js"></script>
+  <!-- Cloudflare Web Analytics. Só entra quando houver token a sério em
+       src/data/seo.json > analytics.cloudflareToken: com o token de exemplo, o
+       beacon falhava em TODAS as páginas (pedido perdido + erro de CORS na
+       consola, que o Lighthouse conta contra as boas práticas) e não media
+       coisa nenhuma.
+
+       Entra INERTE: `type="text/plain"` não é executado por browser nenhum, e o
+       endereço viaja em data-src justamente para o browser não o ir buscar por
+       antecipação. Só depois de o visitante aceitar a categoria Estatísticas é
+       que o /consent.js clona isto para um <script> verdadeiro, traduzindo os
+       data-attr-* nos atributos reais (data-attr-defer → defer). Antes disso não
+       há pedido nenhum à Cloudflare — que é o ponto: consentimento prévio. -->
+  {seoConfig.analytics?.cloudflareToken && (
+    <script
+      is:inline
+      type="text/plain"
+      data-ams-consent="estatisticas"
+      data-src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-attr-defer=""
+      data-attr-data-cf-beacon={JSON.stringify({ token: seoConfig.analytics.cloudflareToken })}
+    ></script>
+  )}
 </body>
 </html>

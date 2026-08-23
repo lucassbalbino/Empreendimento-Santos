@@ -1,0 +1,88 @@
+---
+/**
+ * Cabeça de SEO de todas as páginas.
+ *
+ * Uma página estática não precisa de passar nada: o componente lê o caminho e
+ * vai buscar o título, a descrição e a imagem a `src/data/seo.json`. As rotas
+ * dinâmicas (empreendimentos, blog) passam os valores calculados por props.
+ *
+ * O que sai daqui, por ordem de importância para o Google:
+ *   1. <title> e <meta description> únicos por página
+ *   2. <link rel="canonical"> absoluta — mata o duplicado com/sem barra final
+ *   3. <meta name="robots"> com max-image-preview:large (miniatura grande na
+ *      SERP; sem isto o Google mostra o thumbnail pequeno ou nenhum)
+ *   4. JSON-LD num único @graph
+ *   5. preload da imagem da hero (é o elemento LCP em quase todas as páginas)
+ */
+import { seoDaPagina, urlAbsoluto, trilho, seo } from '../utils/seo.js';
+import { organizacao, website, pagina, trilhoSchema, grafo } from '../utils/schema.js';
+
+const {
+  title,
+  description,
+  imagem,
+  noindex,
+  tipoPagina = 'WebPage',
+  /** Nós JSON-LD extra da página (imóvel, lista, artigo…). */
+  schemaExtra = [],
+  /** Migalhas explícitas; se vazio, deriva do caminho. */
+  trilhoItens,
+  /** Imagem grande acima da dobra, a pré-carregar para melhorar o LCP. */
+  preloadImagem,
+} = Astro.props;
+
+const caminho = Astro.url.pathname;
+const meta = seoDaPagina(caminho, { title, description, imagem, noindex });
+const canonica = urlAbsoluto(caminho);
+const imagemAbs = urlAbsoluto(meta.imagem, { barraFinal: false });
+
+const migalhas = trilhoItens ?? trilho(caminho);
+const nosTrilho = trilhoSchema(migalhas, canonica);
+
+const dados = grafo([
+  organizacao(),
+  website(),
+  pagina({
+    url: canonica,
+    title: meta.title,
+    description: meta.description,
+    imagem: imagemAbs,
+    tipo: tipoPagina,
+    temTrilho: Boolean(nosTrilho),
+  }),
+  nosTrilho,
+  ...schemaExtra,
+]);
+
+const robots = meta.noindex
+  ? 'noindex, nofollow'
+  : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+---
+<title>{meta.title}</title>
+<meta name="description" content={meta.description}>
+{/* Uma página noindex não leva canonical: a canonical é uma declaração de
+    "este é o URL bom para indexar", e numa 404 isso é uma contradição —
+    o Google avisa quando um erro se auto-canonicaliza para um URL a fingir. */}
+{!meta.noindex && <link rel="canonical" href={canonica} />}
+<meta name="robots" content={robots}>
+
+<!-- Open Graph / partilha em redes sociais. As URLs têm de ser ABSOLUTAS:
+     o Facebook, o LinkedIn e o WhatsApp não resolvem caminhos relativos. -->
+<meta property="og:type" content={meta.tipo}>
+<meta property="og:site_name" content={seo.marca}>
+<meta property="og:locale" content={seo.ogLocale}>
+<meta property="og:url" content={canonica}>
+<meta property="og:title" content={meta.title}>
+<meta property="og:description" content={meta.description}>
+<meta property="og:image" content={imagemAbs}>
+<meta property="og:image:alt" content={meta.title}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={meta.title}>
+<meta name="twitter:description" content={meta.description}>
+<meta name="twitter:image" content={imagemAbs}>
+
+{preloadImagem && (
+  <link rel="preload" as="image" href={preloadImagem} fetchpriority="high" />
+)}
+
+<script type="application/ld+json" set:html={JSON.stringify(dados)} is:inline />

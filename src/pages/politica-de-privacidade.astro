@@ -1,0 +1,206 @@
+---
+/**
+ * Política de Privacidade.
+ *
+ * ⚠️ ANTES DE PUBLICAR: texto de base, completo mas por rever por quem responde
+ * legalmente pela empresa. Três pontos que só o cliente pode fechar:
+ *   1. designação exata, NIPC e morada da entidade responsável (hoje o
+ *      `nap.verificado` está a false no src/data/seo.json e por isso a morada e
+ *      o telefone NÃO são impressos — publicar dados placeholder num documento
+ *      legal é pior do que deixar a lacuna);
+ *   2. quem aloja o site e quem recebe os emails do formulário — são
+ *      subcontratantes e têm de ser nomeados, com contrato nos termos do
+ *      artigo 28.º do RGPD;
+ *   3. os prazos de conservação abaixo são os habituais para pedidos de
+ *      contacto; confirmar se batem certo com a prática da empresa.
+ *
+ * ⚠️ ESTADO ATUAL DO FORMULÁRIO: o <form> do ContactForm.astro tem
+ * `onsubmit="return false"` — hoje não envia nada para lado nenhum e, por isso,
+ * nenhum dado é efetivamente recolhido. Este texto descreve o tratamento a
+ * partir do momento em que o formulário for ligado a um destino (email,
+ * serviço de formulários ou CRM). Se o site for para produção com o formulário
+ * ainda inerte, o texto continua correto — descreve o que acontecerá — mas o
+ * destino tem de ser decidido antes de o ligar.
+ */
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import seo from '../data/seo.json';
+
+const migalhas = [
+  { nome: 'Início', caminho: '/' },
+  { nome: 'Política de Privacidade', caminho: '/politica-de-privacidade' },
+];
+
+const atualizado = '2026-08-23';
+const atualizadoLegivel = new Intl.DateTimeFormat('pt-PT', {
+  day: 'numeric', month: 'long', year: 'numeric',
+}).format(new Date(atualizado));
+---
+<Base flat trilhoItens={migalhas}>
+  <section class="section section--flat-top">
+    <div class="container container--texto">
+      <Breadcrumbs itens={migalhas} />
+
+      <header class="artigo__head">
+        <h1 class="artigo__titulo">Política de Privacidade</h1>
+        <p class="artigo__resumo">
+          Que dados pessoais recolhemos através deste site, com que finalidade, durante
+          quanto tempo os guardamos e que direitos lhe assistem.
+        </p>
+        <p class="artigo__meta">
+          <time datetime={atualizado}>Última atualização: {atualizadoLegivel}</time>
+        </p>
+      </header>
+
+      <div class="prosa">
+        <h2>1. Responsável pelo tratamento</h2>
+        <p>
+          <strong>{seo.organizacao.nomeLegal}</strong> é a entidade responsável pelo
+          tratamento dos dados pessoais recolhidos através deste site. Para qualquer
+          questão relacionada com privacidade, escreva para
+          <a href={`mailto:${seo.nap.email}`}>{seo.nap.email}</a>.
+        </p>
+        {!seo.nap.verificado && (
+          <p>
+            <strong>Nota:</strong> a morada completa, o telefone e o número de
+            identificação de pessoa coletiva serão publicados aqui após confirmação.
+          </p>
+        )}
+
+        <h2>2. Que dados recolhemos</h2>
+        <p>Este site não tem área reservada nem registo de utilizadores. Recolhemos apenas:</p>
+        <ul>
+          <li>
+            <strong>Formulário de contacto</strong> — nome, endereço de email, assunto
+            escolhido e o conteúdo da mensagem que escrever.
+          </li>
+          <li>
+            <strong>Subscrição da newsletter</strong> — apenas o endereço de email.
+          </li>
+          <li>
+            <strong>Dados técnicos de navegação</strong> — se autorizar a categoria
+            «Estatísticas», são recolhidas contagens agregadas de visitas e páginas
+            vistas. Não são associadas a si nem permitem identificá-lo. Ver a
+            <a href="/politica-de-cookies/">Política de Cookies</a>.
+          </li>
+        </ul>
+        <p>
+          Não recolhemos categorias especiais de dados (saúde, convicções, filiação) nem
+          tomamos decisões automatizadas com efeitos jurídicos sobre si. Não fazemos
+          definição de perfis.
+        </p>
+
+        <h2>3. Para que servem e com que fundamento</h2>
+        <ul>
+          <li>
+            <strong>Responder ao seu pedido de contacto</strong> — fundamento: o seu
+            <em>consentimento</em>, dado ao assinalar a caixa do formulário. Sem ele não
+            teríamos como lhe responder.
+          </li>
+          <li>
+            <strong>Enviar-lhe a newsletter</strong> — fundamento: o seu
+            <em>consentimento</em>, dado ao subscrever. Cada envio inclui uma forma de
+            cancelar a subscrição.
+          </li>
+          <li>
+            <strong>Medir a utilização do site</strong> — fundamento: o seu
+            <em>consentimento</em>, dado no aviso de cookies. Se recusar, a medição
+            simplesmente não acontece.
+          </li>
+          <li>
+            <strong>Manter o site seguro e disponível</strong> — fundamento: o
+            <em>interesse legítimo</em> em proteger a infraestrutura contra abuso.
+          </li>
+        </ul>
+        <p>
+          Os dados que nos enviar não são usados para nenhuma outra finalidade além
+          daquela para que os deu.
+        </p>
+
+        <h2>4. Durante quanto tempo os guardamos</h2>
+        <ul>
+          <li>
+            <strong>Mensagens de contacto</strong> — conservadas pelo tempo necessário a
+            tratar o pedido e, quando dele resulte relação comercial, pelos prazos legais
+            de conservação aplicáveis. Não havendo seguimento, são eliminadas no prazo
+            máximo de <strong>dois anos</strong>.
+          </li>
+          <li>
+            <strong>Email da newsletter</strong> — até cancelar a subscrição.
+          </li>
+          <li>
+            <strong>Registo do consentimento de cookies</strong> — 180 dias, findos os
+            quais lhe voltamos a perguntar.
+          </li>
+        </ul>
+
+        <h2>5. Quem tem acesso</h2>
+        <p>
+          Os seus dados são tratados internamente por quem precisa deles para lhe
+          responder. Podem ser tratados por prestadores de serviços que atuam por nossa
+          conta e sob instruções escritas — alojamento do site, serviço de email e, se
+          aplicável, plataforma de envio de newsletter —, todos vinculados por contrato
+          de subcontratação nos termos do artigo 28.º do RGPD.
+        </p>
+        <p>
+          Não vendemos, alugamos nem cedemos os seus dados a terceiros para fins
+          comerciais próprios destes.
+        </p>
+
+        <h2>6. Transferências para fora do Espaço Económico Europeu</h2>
+        <p>
+          Procuramos manter o tratamento dentro do Espaço Económico Europeu. Sempre que
+          um prestador implique transferência para país terceiro, essa transferência é
+          feita ao abrigo de uma decisão de adequação da Comissão Europeia ou de
+          cláusulas contratuais-tipo, com as garantias adicionais que se mostrem
+          necessárias.
+        </p>
+
+        <h2>7. Os seus direitos</h2>
+        <p>Enquanto titular dos dados, pode a qualquer momento:</p>
+        <ul>
+          <li><strong>Aceder</strong> aos dados que temos sobre si e obter uma cópia;</li>
+          <li><strong>Retificar</strong> dados incorretos ou incompletos;</li>
+          <li><strong>Apagar</strong> os dados, quando já não sejam necessários ou tenha retirado o consentimento;</li>
+          <li><strong>Limitar</strong> ou <strong>opor-se</strong> ao tratamento, nos casos previstos na lei;</li>
+          <li><strong>Receber os dados</strong> em formato estruturado e de uso corrente (portabilidade);</li>
+          <li>
+            <strong>Retirar o consentimento</strong> a qualquer momento, sem que isso
+            afete a licitude do tratamento feito antes da retirada.
+          </li>
+        </ul>
+        <p>
+          Para exercer qualquer destes direitos basta escrever para
+          <a href={`mailto:${seo.nap.email}`}>{seo.nap.email}</a>. Respondemos no prazo de
+          um mês; se o pedido for complexo, informamo-lo da prorrogação e da razão.
+        </p>
+        <p>
+          Se considerar que os seus direitos não foram respeitados, pode apresentar
+          reclamação junto da Comissão Nacional de Proteção de Dados —
+          <a href="https://www.cnpd.pt" rel="noopener">www.cnpd.pt</a>.
+        </p>
+
+        <h2>8. Segurança</h2>
+        <p>
+          O site é servido exclusivamente por ligação cifrada (HTTPS) e adotamos medidas
+          técnicas e organizativas adequadas para proteger os dados contra acesso não
+          autorizado, perda ou divulgação indevida.
+        </p>
+
+        <h2>9. Cookies</h2>
+        <p>
+          O que é guardado no seu equipamento, e como o controlar, está descrito em
+          detalhe na <a href="/politica-de-cookies/">Política de Cookies</a>, onde
+          encontra também o inventário completo e o botão para rever a sua escolha.
+        </p>
+
+        <h2>10. Alterações</h2>
+        <p>
+          Esta política pode ser atualizada sempre que mudem as finalidades ou os meios
+          do tratamento. A data no topo indica a última revisão; quando a alteração for
+          substancial, será assinalada no site.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -87,8 +87,13 @@ Tens dois modos:
 - Com as páginas importadas (passo 2) e os tokens/styles aplicados
   (passo 3), edita livremente: muda cores, tipos, espaçamentos, testa
   variações de layout.
-- Mantém a lógica da marca: **branco + preto + laranja** (`#ea5a17`) só
-  como acento. Ver `design/ui-styleguide.md` para as regras e medidas.
+- Mantém a lógica da marca: **branco domina, terra escalona, ocre acentua**.
+  O acento é o `#b46511` — a cor medida no logótipo. O laranja `#ea5a17` que
+  aqui estava foi abandonado em 2026-08: nunca correspondeu à marca.
+  Ver `design/ui-styleguide.md` §1 para as regras e medidas.
+- O acento **muda com a superfície** quando pinta glifos (`accent-text` sobre
+  branco e areia clara, `accent-deep` sobre areia média, `accent-dk` sobre
+  escuro). Quando pinta fundo ou traço, é sempre `accent`.
 
 ---
 

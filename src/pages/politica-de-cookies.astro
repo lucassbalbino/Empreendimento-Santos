@@ -1,0 +1,219 @@
+---
+/**
+ * Política de Cookies.
+ *
+ * ⚠️ ANTES DE PUBLICAR: este texto é um ponto de partida sólido e cobre o que a
+ * CNPD exige, mas TEM de ser revisto por quem responde legalmente pela empresa.
+ * Há três coisas que só o cliente pode confirmar: (1) a designação e o NIPC da
+ * entidade responsável pelo tratamento; (2) a morada e o telefone — hoje são
+ * placeholder e por isso NÃO são impressos aqui (ver `nap.verificado` no
+ * src/data/seo.json); (3) se algum serviço futuro (mapas, vídeo, pixels) exige
+ * contrato de subcontratação.
+ *
+ * A tabela do inventário é GERADA a partir de src/data/cookies.json. Nunca a
+ * escrever à mão: se alguém acrescentar um serviço ao site e ao inventário, a
+ * política acompanha sozinha — e o scripts/cookies-check.mjs falha o build se
+ * um item do inventário não aparecer nesta página.
+ */
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import cookies from '../data/cookies.json';
+import seo from '../data/seo.json';
+
+const migalhas = [
+  { nome: 'Início', caminho: '/' },
+  { nome: 'Política de Cookies', caminho: '/politica-de-cookies' },
+];
+
+/* Data da última revisão do TEXTO, escrita à mão de propósito. Derivá-la da
+   data do build faria a página anunciar uma revisão que ninguém fez. */
+const atualizado = '2026-08-23';
+const atualizadoLegivel = new Intl.DateTimeFormat('pt-PT', {
+  day: 'numeric', month: 'long', year: 'numeric',
+}).format(new Date(atualizado));
+
+const meses = Math.round(cookies.validadeDias / 30);
+
+/* Agrupa o inventário pela categoria a que pertence, na ordem em que as
+   categorias estão declaradas — a mesma ordem em que aparecem no painel. */
+const porCategoria = cookies.categorias.map((cat) => ({
+  ...cat,
+  itens: cookies.inventario.filter((i) => i.categoria === cat.id),
+}));
+---
+<Base flat trilhoItens={migalhas}>
+  <section class="section section--flat-top">
+    <div class="container container--texto">
+      <Breadcrumbs itens={migalhas} />
+
+      <header class="artigo__head">
+        <h1 class="artigo__titulo">Política de Cookies</h1>
+        <p class="artigo__resumo">
+          O que guardamos no seu equipamento quando visita este site, porquê, durante
+          quanto tempo, e como pode mudar de ideias a qualquer momento.
+        </p>
+        <p class="artigo__meta">
+          <time datetime={atualizado}>Última atualização: {atualizadoLegivel}</time>
+        </p>
+      </header>
+
+      <div class="prosa">
+        <h2>1. Quem é responsável</h2>
+        <p>
+          O responsável pelo tratamento dos dados recolhidos através deste site é
+          <strong>{seo.organizacao.nomeLegal}</strong>, que pode ser contactada pelo
+          endereço <a href={`mailto:${seo.nap.email}`}>{seo.nap.email}</a>.
+        </p>
+        {!seo.nap.verificado && (
+          /* Enquanto `nap.verificado` for false, morada e telefone são placeholder
+             e não podem ser publicados como se fossem reais — num documento legal
+             isso é pior do que uma lacuna. Este parágrafo desaparece sozinho
+             quando os dados forem confirmados no seo.json. */
+          <p>
+            <strong>Nota:</strong> os restantes elementos de identificação da entidade
+            responsável (morada completa, telefone e número de identificação de pessoa
+            coletiva) serão publicados aqui após confirmação.
+          </p>
+        )}
+
+        <h2>2. O que são cookies — e o que mais está abrangido</h2>
+        <p>
+          Os cookies são pequenos ficheiros de texto que um site guarda no seu
+          computador ou telemóvel e que voltam a ser lidos em visitas seguintes.
+          A lei portuguesa que os regula — a <strong>Lei n.º 41/2004</strong>, que
+          transpõe a Diretiva ePrivacy — não fala apenas de cookies: abrange
+          qualquer armazenamento ou leitura de informação no seu equipamento.
+        </p>
+        <p>
+          Isso é relevante porque este site usa também o <strong>armazenamento local
+          do navegador</strong> (<em>localStorage</em> e <em>sessionStorage</em>) para
+          duas coisas simples — lembrar o idioma que escolheu e não repetir a animação
+          de entrada. Estão sujeitos às mesmas regras que os cookies e por isso
+          aparecem no inventário abaixo, com essa indicação.
+        </p>
+
+        <h2>3. Que categorias existem</h2>
+        <p>
+          As categorias abaixo são exatamente as que encontra no painel de definições.
+          Só as duas últimas dependem do seu consentimento.
+        </p>
+        <ul>
+          {cookies.categorias.map((cat) => (
+            <li>
+              <strong>{cat.nome}{cat.obrigatoria ? ' (sempre ativos)' : ''}</strong> — {cat.descricao}
+            </li>
+          ))}
+        </ul>
+
+        <h2>4. Porque é que os «Necessários» não pedem autorização</h2>
+        <p>
+          A Lei n.º 41/2004 dispensa de consentimento o armazenamento que seja
+          estritamente necessário para prestar um serviço que o próprio utilizador
+          pediu. É esse o caso dos três itens da categoria «Necessários»: o registo da
+          escolha que fez neste aviso (sem ele, teríamos de lhe perguntar em todas as
+          páginas), a preferência de idioma (que só existe porque a pediu no seletor
+          PT/EN/FR) e a marca de que a animação de entrada já foi vista.
+        </p>
+        <p>
+          Nenhum destes o identifica, nenhum é partilhado com terceiros e nenhum serve
+          para seguir a sua navegação noutros sites.
+        </p>
+
+        <h2>5. Inventário completo</h2>
+        <p>
+          Esta é a lista integral do que este site pode guardar ou ler no seu
+          equipamento. Nada fora desta lista é colocado.
+        </p>
+
+        {porCategoria.map((cat) => (
+          <>
+            <h3>{cat.nome}</h3>
+            {cat.itens.length === 0 ? (
+              <p>
+                Neste momento o site não utiliza nada nesta categoria. Se vier a
+                utilizar, o item aparece aqui e passa a exigir o seu consentimento.
+              </p>
+            ) : (
+              <div class="tabela-envolvente">
+                <table class="tabela-cookies">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Tipo</th>
+                      <th scope="col">Fornecedor</th>
+                      <th scope="col">Finalidade</th>
+                      <th scope="col">Duração</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cat.itens.map((item) => (
+                      <tr>
+                        <td><code>{item.nome}</code></td>
+                        <td>{item.tipo}</td>
+                        <td>{item.fornecedor}</td>
+                        <td>{item.finalidade}</td>
+                        <td>{item.duracao}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </>
+        ))}
+
+        <h2>6. Quanto tempo dura a sua escolha</h2>
+        <p>
+          A decisão que tomar fica registada durante <strong>{cookies.validadeDias} dias</strong>
+          (cerca de {meses} meses). Passado esse prazo o aviso volta a aparecer, para que
+          a autorização não se prolongue indefinidamente sem ser reconfirmada. O mesmo
+          acontece se alterarmos as categorias ou os serviços utilizados: nesse caso o
+          registo anterior deixa de ser válido e voltamos a perguntar.
+        </p>
+
+        <h2>7. Como mudar de ideias</h2>
+        <p>
+          Retirar o consentimento é tão simples como o dar, e produz efeito de imediato
+          nos pedidos seguintes. Use o botão abaixo — está também disponível no rodapé
+          de todas as páginas do site, sob a designação «Definições de cookies».
+        </p>
+        <p>
+          <button type="button" class="cookies__btn" data-cookies="abrir">
+            Abrir definições de cookies
+          </button>
+        </p>
+        <p>
+          Em alternativa, pode apagar ou bloquear cookies diretamente no seu navegador.
+          A opção costuma estar em <em>Definições → Privacidade e segurança</em>, e
+          existe em todos os navegadores atuais (Chrome, Safari, Firefox, Edge).
+          Atenção: apagar tudo remove também o registo da sua escolha, pelo que o aviso
+          voltará a aparecer na visita seguinte.
+        </p>
+
+        <h2>8. Os seus direitos</h2>
+        <p>
+          Quando o tratamento envolva dados pessoais, assistem-lhe os direitos de
+          acesso, retificação, apagamento, limitação do tratamento, portabilidade e
+          oposição, bem como o direito de retirar o consentimento a qualquer momento
+          sem que isso afete a licitude do tratamento feito até aí. Para os exercer,
+          escreva para <a href={`mailto:${seo.nap.email}`}>{seo.nap.email}</a>.
+        </p>
+        <p>
+          Se entender que os seus dados não estão a ser tratados corretamente, pode
+          apresentar reclamação junto da autoridade de controlo portuguesa, a Comissão
+          Nacional de Proteção de Dados — <a href="https://www.cnpd.pt" rel="noopener">www.cnpd.pt</a>.
+        </p>
+
+        <h2>9. Alterações a esta política</h2>
+        <p>
+          Se acrescentarmos serviços que utilizem cookies, esta página é atualizada e a
+          data no topo muda. Quando a alteração afetar aquilo que lhe pedimos,
+          voltaremos a solicitar o seu consentimento em vez de assumir o anterior.
+        </p>
+        <p>
+          Veja também a nossa <a href="/politica-de-privacidade/">Política de Privacidade</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

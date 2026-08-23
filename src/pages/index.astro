@@ -4,13 +4,18 @@ import Hero from '../components/Hero.astro';
 import DoubleSlider from '../components/DoubleSlider.astro';
 import ExpandPanels from '../components/ExpandPanels.astro';
 import BlockHead from '../components/BlockHead.astro';
-import Testimonials from '../components/Testimonials.astro';
+import Team from '../components/Team.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Watermark from '../components/Watermark.astro';
+import Blob from '../components/Blob.astro';
 import TitleSplit from '../components/TitleSplit.astro';
 import Seam from '../components/Seam.astro';
 import home from '../data/home.json';
+import sobre from '../data/sobre.json';
+import equipa from '../data/equipa.json';
 import { porGrupo, emDestaque } from '../utils/projetos.js';
+import { urlAbsoluto } from '../utils/seo.js';
+import { listaDeImoveis } from '../utils/schema.js';
 
 // O título "O Que Fazemos" ("Qualidade — Conforto — Sustentabilidade") vira
 // lista numerada (ver .dofazemos__words) em vez de frase corrida — cada
@@ -22,15 +27,46 @@ const fazemosWords = home.oQueFazemos.title.split(/\s*—\s*/);
 const destaques = emDestaque(8);
 const concluidos = porGrupo('concluido').slice(0, 5);
 
-// Equipa como carrossel: cada card é um membro (foto | nome | cargo | bio).
-const equipaCards = home.equipa.members.map((m) => ({
-  quote: m.bio,
-  name: m.name,
-  designation: m.role,
-  src: m.foto || '',
-}));
+/* A fita da equipa mostra toda a gente, e a gente vive em dois ficheiros:
+   a direção em sobre.json (é a única com retrato) e o resto da equipa em
+   equipa.json. A direção de equipa.json são as MESMAS duas pessoas, sem foto
+   — fica de fora para não aparecerem duas vezes.
+
+   Cada bloco leva a sua raiz de i18n colada ao membro (campo `i18n`), porque
+   as chaves seguem o ficheiro de onde a pessoa veio e não a posição na fita.
+   Quem ainda não tem retrato entra com monograma (ver Team.astro). */
+const todos = [
+  ...sobre.equipa.members.map((m, i) => ({ ...m, i18n: 'sobre.equipa.members', i18nIndex: i })),
+  ...equipa.equipa.members.map((m, i) => ({ ...m, i18n: 'equipa.equipa.members', i18nIndex: i })),
+];
+
+/* Os retratos espalham-se pela fita em vez de ficarem todos à cabeça. Por
+   ordem de ficheiro davam duas fotografias seguidas e depois seis monogramas
+   atrás uns dos outros — a fita ficava minutos sem uma cara. Intercalados,
+   há sempre um retrato à vista. À medida que forem chegando fotografias o
+   passo aperta sozinho e, quando todos as tiverem, a ordem original volta. */
+const comFoto = todos.filter((m) => m.foto);
+const semFoto = todos.filter((m) => !m.foto);
+const passo = comFoto.length ? Math.max(1, Math.round(todos.length / comFoto.length)) : 1;
+const equipaCompleta = [];
+let cf = 0;
+let sf = 0;
+for (let i = 0; i < todos.length; i++) {
+  const vezDeFoto = cf < comFoto.length && i % passo === 0;
+  equipaCompleta.push(vezDeFoto || sf >= semFoto.length ? comFoto[cf++] : semFoto[sf++]);
+}
+
+/* SEO: título e descrição vêm do src/data/seo.json pelo caminho ("/"). Aqui só
+   se acrescenta o que depende dos dados — a lista de empreendimentos em
+   destaque, que dá ao Google a ponte da home para as 17 fichas. */
+const schemaHome = [
+  listaDeImoveis(destaques, {
+    url: urlAbsoluto('/'),
+    nome: 'Empreendimentos AM Santos em destaque',
+  }),
+];
 ---
-<Base title="Mockup — Início" description="AM Santos — construindo o futuro com qualidade e sustentabilidade. 20 anos de experiência, com uma equipa de arquitetura, engenharia, decoração e gestão imobiliária.">
+<Base schemaExtra={schemaHome} preloadImagem={home.hero.imagem}>
   <Hero title={home.hero.title} image={home.hero.imagem} titleI18n="home.hero.title" />
 
   <!-- Camada que sobe e cobre a hero fixa (sticky reveal). Fundo opaco para a
@@ -157,51 +193,57 @@ const equipaCards = home.equipa.members.map((m) => ({
     </div>
   </section>
 
-  <!-- TRACK RECORD (Histórico) — secção escura autónoma: sai do branco de "O
-       Que Fazemos". A .seam abre a secção (fronteira reta com o bloco claro
-       atrás) na variante escura — já dentro do preto, é ela que dá o respiro
-       do topo (ver .section--panels-cut.section--seam-top). -->
-  <section class="section section--dark section--panels-cut section--seam-top">
-    <Seam label="O Nosso Histórico" variant="dark" i18n="common.seam.oNossoHistorico" />
-    <div class="container">
-      <BlockHead title={home.trackRecord.title} lead={home.trackRecord.lead} titleClass="title-split--center" titleI18n="home.trackRecord.title" leadI18n="home.trackRecord.lead" />
-    </div>
-    <!-- Fora do .container de propósito: os painéis sangram de bordo a bordo
-         (ver .section--panels-cut). -->
-    <ExpandPanels projetos={concluidos} />
+  <!-- CORRIDA ESCURA · Histórico + Equipa — as duas secções escuras
+       encostam-se e lêem-se como um só bloco de cor. Por isso o <Blob> não
+       vive dentro de cada uma (dava quatro cantos, dois deles colados na
+       fronteira interna, denunciando a costura): vive aqui, na corrida, e
+       mede-se pela altura das duas juntas — sangra pelo canto superior
+       direito do Histórico e pelo inferior esquerdo da Equipa, como se a
+       secção fosse uma só. O fundo escuro também sobe para cá: --dark é
+       semitransparente e duas camadas empilhadas escureceriam a junta
+       (ver .dark-run em styles.css). -->
+  <div class="dark-run has-blob">
+    <Blob />
 
-    <!-- CTA do Histórico: fica já dentro da área escura, encostado à direita. -->
-    <div class="panels-cta">
+    <!-- TRACK RECORD (Histórico) — secção escura autónoma: sai do branco de "O
+         Que Fazemos". A .seam abre a secção (fronteira reta com o bloco claro
+         atrás) na variante escura — já dentro do preto, é ela que dá o respiro
+         do topo (ver .section--panels-cut.section--seam-top). -->
+    <section class="section section--dark section--panels-cut section--seam-top">
+      <Seam label="O Nosso Histórico" variant="dark" i18n="common.seam.oNossoHistorico" />
       <div class="container">
-        <a class="btn" href="/portfolio" data-i18n="home.trackRecord.botao">{home.trackRecord.botao}</a>
+        <BlockHead title={home.trackRecord.title} lead={home.trackRecord.lead} titleClass="title-split--center" titleI18n="home.trackRecord.title" leadI18n="home.trackRecord.lead" />
       </div>
-    </div>
-  </section>
+      <!-- Fora do .container de propósito: os painéis sangram de bordo a bordo
+           (ver .section--panels-cut). -->
+      <ExpandPanels projetos={concluidos} />
 
-  <!-- GRUPO 3 · PESSOAS — equipa e contacto encostam-se: conhecer quem
-       faz e falar com quem faz são o mesmo movimento. -->
+      <!-- CTA do Histórico: fica já dentro da área escura, encostado à direita. -->
+      <div class="panels-cta">
+        <div class="container">
+          <a class="btn" href="/portfolio" data-i18n="home.trackRecord.botao">{home.trackRecord.botao}</a>
+        </div>
+      </div>
+    </section>
 
-  <!-- EQUIPA (carrossel: cada card é um membro). A .seam abre a secção,
-       fronteira reta com o Histórico (painéis) atrás. -->
-  <section class="section section--alt section--seam-top section--tight-bottom">
-    <Seam label="A Nossa Equipa" variant="alt" loose i18n="common.seam.aNossaEquipa" />
-    <div class="container has-wm">
-      <Testimonials
-        testimonials={equipaCards}
-        i18nBase="home.equipa.members"
-        autoplay={true}
-        colors={{
-          name: 'var(--ink)',
-          designation: 'var(--ink-faint)',
-          testimony: 'var(--ink-soft)',
-          arrowBackground: 'var(--dark)',
-          arrowForeground: 'var(--paper)',
-          arrowHoverBackground: 'var(--accent)',
-        }}
-        fontSizes={{ name: '1.9rem', designation: '0.8rem', quote: '1.2rem' }}
-      />
-    </div>
-  </section>
+    <!-- GRUPO 3 · PESSOAS — equipa e contacto encostam-se: conhecer quem
+         faz e falar com quem faz são o mesmo movimento. -->
+
+    <!-- EQUIPA — sem título próprio: quem abre a secção é a .seam, como no
+         Histórico logo acima. Aqui vivia um <TitleSplit> com
+         sobre.equipa.title ("Quem lidera a AM Santos"); dentro da corrida
+         escura era o segundo cabeçalho grande em poucos ecrãs de scroll e
+         voltava a partir o bloco em dois. A .seam diz o mesmo em rótulo e
+         serve de fronteira interna — dá o respiro do topo (por isso
+         .section--seam-top, sem padding-top próprio). -->
+    <section class="section section--dark section--seam-top">
+      <Seam label="A Nossa Equipa" variant="dark" i18n="common.seam.aNossaEquipa" />
+      <!-- A fita fica FORA do .container de propósito: corre de bordo a bordo,
+           e é a máscara do .team--marquee que trata dos extremos. -->
+      <Team members={equipaCompleta} variant="marquee" />
+    </section>
+
+  </div><!-- /.dark-run -->
 
   <!-- CONTACTO — a .seam abre a secção: sem mudança de cor no próprio
        bloco (esta vive já sobre o branco do .home-reveal), fecha o

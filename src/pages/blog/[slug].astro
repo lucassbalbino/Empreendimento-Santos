@@ -1,0 +1,99 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import Watermark from '../../components/Watermark.astro';
+import { getCollection } from 'astro:content';
+import { urlAbsoluto } from '../../utils/seo.js';
+import { artigo } from '../../utils/schema.js';
+
+export async function getStaticPaths() {
+  const artigos = await getCollection('blog', ({ data }) => !data.rascunho);
+  return artigos.map((a) => ({ params: { slug: a.slug }, props: { a } }));
+}
+
+const { a } = Astro.props;
+const { Content } = await a.render();
+const p = a.data;
+
+const url = urlAbsoluto('/blog/' + a.slug);
+const formatador = new Intl.DateTimeFormat('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const migalhas = [
+  { nome: 'Início', caminho: '/' },
+  { nome: 'Blog', caminho: '/blog' },
+  { nome: p.titulo, caminho: `/blog/${a.slug}` },
+];
+
+/* O BlogPosting leva as datas em ISO. O `artigo()` espera strings — daí a
+   conversão aqui, e não dentro do construtor: o schema.js não tem de saber
+   que estas datas vieram de um `z.coerce.date()`. */
+const schemaArtigo = [
+  artigo(
+    {
+      titulo: p.titulo,
+      resumo: p.resumo,
+      data: p.data.toISOString(),
+      atualizado: p.atualizado ? p.atualizado.toISOString() : undefined,
+      autor: p.autor,
+      imagem: p.imagem,
+      tags: p.tags,
+    },
+    url,
+  ),
+];
+---
+<Base
+  flat
+  title={p.seoTitulo ?? p.titulo}
+  description={p.resumo}
+  image={p.imagem}
+  tipoPagina="WebPage"
+  trilhoItens={migalhas}
+  schemaExtra={schemaArtigo}
+  preloadImagem={p.imagem}
+>
+  <article class="section section--flat-top artigo">
+    <div class="container container--texto">
+      <Breadcrumbs itens={migalhas} />
+
+      <header class="artigo__head">
+        <h1 class="artigo__titulo">{p.titulo}</h1>
+        <p class="artigo__resumo">{p.resumo}</p>
+        <p class="artigo__meta">
+          <time datetime={p.data.toISOString().slice(0, 10)}>{formatador.format(p.data)}</time>
+          {p.atualizado && (
+            <> · <span>Atualizado a {formatador.format(p.atualizado)}</span></>
+          )}
+          <> · <span>{p.autor}</span></>
+        </p>
+      </header>
+
+      {p.imagem && (
+        <figure class="artigo__figura">
+          <img src={p.imagem} alt={p.titulo} />
+        </figure>
+      )}
+
+      <div class="prosa">
+        <Content />
+      </div>
+
+      {p.tags.length > 0 && (
+        <ul class="artigo__tags">
+          {p.tags.map((t) => (<li>{t}</li>))}
+        </ul>
+      )}
+    </div>
+  </article>
+
+  <section class="section section--alt" id="contacto">
+    <div class="container has-wm">
+      <Watermark variant="line" side="l" size="md" y="bottom" />
+      <ContactForm
+        title="Ficou com alguma dúvida?"
+        texto="Fale connosco sobre o que procura num empreendimento. Respondemos a todos os pedidos com a maior brevidade."
+      />
+    </div>
+  </section>
+</Base>

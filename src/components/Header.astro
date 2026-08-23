@@ -18,19 +18,35 @@ const languages = [
 <header class="site-header">
   <div class="container">
     <a class="logo" href="/" aria-label="AM Santos — Empreendimentos" transition:persist="site-logo">
-      <img class="logo__img logo__img--light" src="/images/logo-ams-santos-h-light.png" alt="AM Santos — Empreendimentos" />
-      <img class="logo__img logo__img--dark" src="/images/logo-ams-santos-h-dark.png" alt="AM Santos — Empreendimentos" />
+      <img class="logo__img logo__img--light" src="/images/logo-ams-santos-h-light.png" alt="AM Santos — Empreendimentos" width="700" height="185" />
+      <img class="logo__img logo__img--dark" src="/images/logo-ams-santos-h-dark.png" alt="AM Santos — Empreendimentos" width="700" height="185" />
     </a>
-    <nav class="nav">
+    <nav class="nav" id="menu-principal">
       <ul class="nav__list">
+        {/* Cada item é <li> (a máscara) + <a> (o que desliza) + <span> (o texto).
+            Os três níveis existem por causa da animação do painel de telemóvel:
+            a máscara corta, a ligação sobe de baixo e o texto tem de ficar
+            separado da seta para o i18n poder reescrever um sem apagar a outra
+            — o applyI18nDom escreve textContent no elemento marcado, e com o
+            data-i18n no <a> a seta desaparecia à primeira troca de idioma. */}
         {links.map((l) => (
-          <li>
+          <li class="nav__item">
             {l.external
-              ? <a href={l.href} target="_blank" rel="noopener">{l.label}</a>
-              : <a href={l.href} aria-current={path === l.href ? 'page' : undefined} data-i18n={l.i18n}>{l.label}</a>}
+              ? <a class="nav__link" href={l.href} target="_blank" rel="noopener">
+                  <span class="nav__link-text">{l.label}</span>
+                  <span class="nav__link-seta" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7.05 16.95 16.95 7.05M16.95 7.05H7.05M16.95 7.05V16.95"/></svg>
+                  </span>
+                </a>
+              : <a class="nav__link" href={l.href} aria-current={path === l.href ? 'page' : undefined}>
+                  <span class="nav__link-text" data-i18n={l.i18n}>{l.label}</span>
+                  <span class="nav__link-seta" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7.05 16.95 16.95 7.05M16.95 7.05H7.05M16.95 7.05V16.95"/></svg>
+                  </span>
+                </a>}
           </li>
         ))}
-        <li class="nav__lang-item">
+        <li class="nav__item nav__lang-item">
           <div class="lang-switch" data-lang-switch>
             <button type="button" class="lang-switch__btn" data-lang-toggle aria-haspopup="listbox" aria-expanded="false">PT</button>
             <ul class="lang-switch__menu" role="listbox" aria-label="Idioma">
@@ -51,6 +67,6 @@ const languages = [
         </li>
       </ul>
     </nav>
-    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="menu-principal"><span></span><span></span><span></span></button>
   </div>
 </header>

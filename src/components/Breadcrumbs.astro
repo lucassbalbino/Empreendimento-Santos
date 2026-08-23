@@ -1,0 +1,26 @@
+---
+/**
+ * Migalhas visíveis. Existem por duas razões, e as duas contam:
+ *  — o BreadcrumbList é dos poucos schemas que o Google ainda desenha na SERP
+ *    (substitui o URL cru por "amsantos.pt › Portfólio › Nome"), e a diretriz
+ *    de dados estruturados pede que o que se marca esteja visível na página;
+ *  — numa ficha de empreendimento a que se chega direto da pesquisa, dão o
+ *    caminho de volta para a listagem — que é a página que se quer a rankear.
+ *
+ * O último item não é link: é onde o utilizador está.
+ */
+const { itens = [] } = Astro.props;
+---
+{itens.length > 1 && (
+  <nav class="crumbs" aria-label="Onde está">
+    <ol class="crumbs__list">
+      {itens.map((it, i) => (
+        <li class="crumbs__item">
+          {i < itens.length - 1
+            ? <a class="crumbs__link" href={it.caminho}>{it.nome}</a>
+            : <span class="crumbs__atual" aria-current="page">{it.nome}</span>}
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}

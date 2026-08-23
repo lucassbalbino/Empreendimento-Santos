@@ -4,22 +4,36 @@ import BlockHead from '../components/BlockHead.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Seam from '../components/Seam.astro';
+import Blob from '../components/Blob.astro';
 import portfolio from '../data/portfolio.json';
 import { porGrupo } from '../utils/projetos.js';
+import { urlAbsoluto } from '../utils/seo.js';
+import { listaDeImoveis } from '../utils/schema.js';
 
 const secoes = [
   { ...portfolio.emDesenvolvimento, i18nBase: 'portfolio.emDesenvolvimento', projetos: porGrupo('desenvolvimento') },
   { ...portfolio.futuros, i18nBase: 'portfolio.futuros', projetos: porGrupo('futuro') },
 ];
+
+// CollectionPage + ItemList: é assim que uma página de listagem se descreve.
+// A lista junta os dois blocos (em desenvolvimento + futuros) porque, do ponto
+// de vista do Google, esta página é UMA coleção de empreendimentos.
+const schemaPortfolio = [
+  listaDeImoveis(secoes.flatMap((s) => s.projetos), {
+    url: urlAbsoluto('/portfolio'),
+    nome: 'Empreendimentos em desenvolvimento e projetos futuros',
+  }),
+];
 ---
-<Base flat title="Mockup — Portfólio" description="Empreendimentos AM Santos em desenvolvimento e projetos futuros — vários projetos em pipeline, na vanguarda da inovação arquitetónica.">
+<Base flat tipoPagina="CollectionPage" schemaExtra={schemaPortfolio}>
   <!-- PROJETOS: EM DESENVOLVIMENTO + FUTUROS. Sem hero — a .seam--top, na
        mesma .container do título, funciona como eyebrow do h1 logo a seguir
        (a página abre direto nos cards). Costura na fronteira de cor entre o
        1.º bloco (branco) e o 2.º (preto). -->
   {secoes.map((s, i) => (
     <>
-      <section class={`section section--centered-head ${i === 1 ? "section--dark section--tight-top section--tight-bottom" : "section--flat-top"}`}>
+      <section class={`section section--centered-head ${i === 1 ? "section--dark section--tight-top section--tight-bottom has-blob" : "section--flat-top"}`}>
+        {i === 1 && <Blob />}
         <div class="container">
           {i === 0 && <Seam label={portfolio.hero.title} variant="light" class="seam--top" i18n="portfolio.hero.title" bare />}
           <BlockHead title={s.title} lead={s.lead} as={i === 0 ? 'h1' : 'h2'} titleI18n={`${s.i18nBase}.title`} leadI18n={`${s.i18nBase}.lead`} />
