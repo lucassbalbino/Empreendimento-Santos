@@ -268,6 +268,44 @@ carregado no momento da medição. Não é regressão de nenhuma task; é ruído
 baseline e convém fixá-lo antes da Vaga 3 (esperar por `document.fonts.ready`
 no `mobile-check.mjs` resolveria).
 
+### T2 · Marca-d'água contida
+
+**A marca não foi retirada em lado nenhum.** As duas regras que já a escondiam
+no móvel — `.quemsomos .has-wm .wm-layer{display:none}` e a gémea em
+`.emp-sobre` — foram **retiradas**, portanto a marca voltou a dois sítios onde
+já não aparecia.
+
+O que mudou, tudo em `@media (max-width:760px)` no bloco `.wm` da folha:
+
+| | desktop (inalterado) | ≤760px |
+|---|---|---|
+| lateral | `left/right: -6%` (sangria) | `left/right: var(--gutter)` (encosta à coluna de texto) |
+| tamanho | `min(24/34/46%, 210/320/440px)` | `40 / 52 / 56px` |
+| âncora vertical | `top:6%` / `bottom:6%` (dentro do bloco) | `bottom:calc(100% + 4px)` / `top:calc(100% + 4px)` (na margem do bloco) |
+| traço `--line` | `stroke-width:2.4` | `1.4` |
+| `--fill` / `--dark` | `opacity .07 / .08` | `.16 / .18` |
+
+**Porquê a margem e não o interior do bloco.** Foram medidas as bandas
+verticais de cada um dos 13 contentores `.has-wm`, a 360/390/414px, marcando
+como ocupada qualquer faixa com título, `label`, `input`, `select`, `textarea`
+ou botão. O bloco de contacto — onde estavam as piores colisões — tem **uma só**
+banda livre, de 135px, entre o título e o primeiro rótulo (10%–30% da altura),
+e nenhuma das marcas está ancorada aí. A 390px não existe posição *dentro* do
+bloco que sirva as variantes `--top` e `--bottom` ao mesmo tempo sem cruzar um
+campo. Fora do bloco existe: o respiro que a secção já tem (`--section-y`,
+56–71px depois da T1). Os três tamanhos foram escolhidos para caber lá com 4px
+de folga.
+
+**Medição depois.** 13 instâncias × 3 larguras = 39 posições verificadas:
+**0 fora do ecrã · 0 sobreposições** com títulos, rótulos, campos ou botões
+(antes: 8 instâncias fora do ecrã por largura, e a marca do bloco de contacto
+cruzava o `textarea`, o rótulo do consentimento e a *checkbox* em 5 páginas).
+
+Contagem de transbordo: **140 → 77** nas 21 combinações. `equipa`, `contactos`
+e `historico` ficaram a **zero**.
+
+Nada por resolver nesta task — nenhuma variante teve de ficar como estava.
+
 ## Resultado
 
 _(preenchido pela Vaga 3)_

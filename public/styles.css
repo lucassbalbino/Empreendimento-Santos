@@ -714,9 +714,13 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   .quemsomos__meta{ grid-column:1; flex-direction:row; flex-wrap:wrap; gap:clamp(20px,5vw,32px); }
   .qmeta{ flex:1 1 40%; }
   .quemsomos__p{ grid-column:1; font-size:clamp(1.3rem,5vw,1.7rem); }
-  /* Empilhado, o bloco editorial fica alto de mais para a marca-d'água
-     "bottom" não cruzar o texto — some. */
-  .quemsomos .has-wm .wm-layer{ display:none; }
+  /* Aqui esteve `.quemsomos .has-wm .wm-layer{display:none}`: empilhado, o
+     bloco editorial ficava alto de mais para a marca-d'água "bottom" não
+     cruzar o texto. Deixou de ser preciso — a marca já não vive dentro do
+     bloco no telemóvel, vai para a margem dele (ver o bloco `.wm` no fim da
+     folha), e nesta secção pousa nos 56px de respiro entre o título e o
+     editorial. Retirar uma marca gráfica no móvel é decisão do cliente, não
+     dos agentes; agora que ela cabe, volta. */
 }
 
 /* ---- "O empreendimento" (/empreendimentos/…) ----
@@ -832,9 +836,9 @@ body.is-home .site-footer{ position:relative; z-index:1; }
     padding-left:clamp(14px,5vw,28px);
     border-left:1px solid var(--line);
   }
-  /* Empilhado, o bloco fica alto de mais para a marca-d'água não cruzar o
-     texto — some, como no Quem Somos. */
-  .emp-sobre .has-wm .wm-layer{ display:none; }
+  /* Aqui esteve `.emp-sobre .has-wm .wm-layer{display:none}`, pelo mesmo
+     motivo do Quem Somos e retirado pela mesma razão: a marca deixou de
+     disputar espaço com o texto no telemóvel. */
 }
 
 /* =====================================================================
@@ -2944,6 +2948,63 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 .wm--fill .bar, .wm--fill .tab{ fill:var(--accent); }
 .wm--dark{ opacity:.08; }
 .wm--dark .bar, .wm--dark .tab{ fill:var(--paper-alt); }
+
+/* ---------- A marca no telemovel (<=760px) ---------------------------------
+   DECISAO DO CLIENTE: a marca NAO se retira no movel. O que se corrige e a
+   escala e a posicao.
+
+   O que estava mal. A sangria de -6% e uma medida relativa ao contentor: num
+   contentor de 1 480px sao 89px de mancha a sair para a margem — a leitura de
+   marca-d'agua que o desenho quer. A 390px sao 23px a sair PARA FORA DO ECRA,
+   e o que se ve deixa de ser a marca: sao dois ou tres rectangulos cor de
+   tijolo cortados pela borda. E era tambem a origem de tres transbordos por
+   pagina (`section` / `.container.has-wm` / `.wm-layer` a medirem 413px num
+   ecra de 390), porque a .wm-layer e `overflow:visible`.
+
+   O que passa a ser. A 390px a coluna de texto ocupa a largura toda: nao ha
+   "atras do conteudo" nenhum onde uma marca desta escala caiba sem cruzar
+   titulos e campos — medido, o bloco de contacto so tem UMA banda livre de
+   campos, entre o titulo e o primeiro rotulo (135px, aos 10-30% da altura), e
+   nao e onde nenhuma das marcas esta ancorada. Por isso a marca sai do meio do
+   bloco e vai para a MARGEM dele: encostada a coluna de texto (nao a borda do
+   ecra) e pousada no respiro que a seccao ja tem — acima do bloco nas variantes
+   --top, abaixo nas --bottom. Continua a ser a mesma peca, com o mesmo gesto de
+   assinar o bloco; deixa de disputar espaco com o texto porque a esta largura
+   nao ha espaco para disputar.
+
+   O tamanho desce para ~1/3 (a marca lia-se como elemento de conteudo, nao como
+   assinatura) e o traco desce de 2.4 para 1.4: o `vector-effect:non-scaling-
+   stroke` mantem a espessura em pixeis de ecra, por isso a 52px de largura um
+   traco de 2.4 fechava quase a fresta de dentro das barras. As variantes de
+   preenchimento sobem de opacidade pela razao inversa — a .07 e a .08 foram
+   calibradas para uma mancha grande atras de texto e, numa peca de 52px pousada
+   em papel liso, simplesmente nao aparecem.
+
+   No desktop nao muda nada: a sangria de -6%, os tamanhos em % e as opacidades
+   originais continuam a valer acima dos 760px. */
+@media (max-width:760px){
+  .wm--l{ left:var(--gutter); }
+  .wm--r{ right:var(--gutter); }
+  /* Os tres tamanhos sao escolhidos para caberem, com a folga de 4px, no
+     respiro mais apertado onde a marca pousa: os 56px de --section-y a 360px
+     (e os 56px de margin-top do .quemsomos__editorial, que e o mesmo numero).
+     A --lg mede 56x51.5 — 55.5 com a folga. Aumentar qualquer uma delas poe a
+     marca a encostar ao bloco vizinho. */
+  .wm--sm{ width:40px; }
+  .wm--md{ width:52px; }
+  .wm--lg{ width:56px; }
+  /* Ancoragem a margem do bloco. O --mid (hoje sem consumidores, mas e o valor
+     por omissao do componente) acompanha o --top: a meia altura de um bloco
+     empilhado e sempre texto. O --wm-shift volta a 0 para anular o translate de
+     -50% que o --mid usa para se centrar. */
+  .wm{ --wm-shift:0; }
+  .wm--top,
+  .wm--mid{ top:auto; bottom:calc(100% + 4px); }
+  .wm--bottom{ bottom:auto; top:calc(100% + 4px); }
+  .wm--line .bar, .wm--line .tab{ stroke-width:1.4; }
+  .wm--fill{ opacity:.16; }
+  .wm--dark{ opacity:.18; }
+}
 
 /* ---------- Blob de fundo — inspirado na secção "Alguns Projetos" de
    estudiobase2.com. Lá, a marca da casa (dois quadrados de canto arredondado,
