@@ -13,6 +13,7 @@
     "cookies:check": "node scripts/cookies-check.mjs",
     "cookies": "npm run build && node scripts/cookies-check.mjs",
     "cookies:e2e": "node scripts/cookies-e2e.mjs",
+    "menu:e2e": "node scripts/menu-e2e.mjs",
     "imagens:auditar": "node scripts/imagens-auditar.mjs",
     "imagens:otimizar": "node scripts/imagens-otimizar.mjs",
     "mobile": "npm run build && node scripts/mobile-check.mjs",

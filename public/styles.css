@@ -375,6 +375,10 @@ ul{ list-style:none; }
 .nav__list a:hover{ opacity:1; color:var(--accent-dk); }
 .scrolled .nav__list a{ color:var(--ink); opacity:.85; }
 .scrolled .nav__list a:hover{ color:var(--accent-text); opacity:1; }
+/* A seta diagonal de cada item só existe no painel de telemóvel (ver "MENU DE
+   ECRÃ INTEIRO" no fim da folha): no nav horizontal não há linha onde a pousar
+   e o item passaria a ter o dobro da largura. */
+.nav__link-seta{ display:none; }
 /* Seletor de idioma — botão + menu em cascata (ver .lang-switch__option abaixo).
    Vive como último item de .nav__list, por isso herda a mesma posição do
    antigo .nav__lang e aparece também no menu mobile de ecrã inteiro. */
@@ -726,8 +730,13 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 @media (max-width:760px){
   .quemsomos__editorial{ grid-template-columns:1fr; row-gap:clamp(28px,6vw,40px); }
-  .quemsomos__meta{ grid-column:1; flex-direction:row; flex-wrap:wrap; gap:clamp(20px,5vw,32px); }
-  .qmeta{ flex:1 1 40%; }
+  /* Em linha, um bloco de dados abaixo do outro — não em grelha. Ao virar
+     `row`+`wrap` com bases de 40%, dois dados cabiam lado a lado sempre que
+     um deles era curto ("20 anos" ao lado de "António M Santos"): dava um
+     xadrez de 1 e 2 colunas que dependia só do comprimento de cada rótulo,
+     em vez de uma leitura sempre igual de cima a baixo. `column` lê-se como
+     UMA lista, na mesma ordem do desktop (que já é uma coluna de 4/12). */
+  .quemsomos__meta{ grid-column:1; flex-direction:column; gap:clamp(24px,5.5vw,36px); }
   .quemsomos__p{ grid-column:1; font-size:clamp(1.3rem,5vw,1.7rem); }
   /* Aqui esteve `.quemsomos .has-wm .wm-layer{display:none}`: empilhado, o
      bloco editorial ficava alto de mais para a marca-d'água "bottom" não
@@ -1123,7 +1132,21 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   .seam{ padding-top:clamp(48px,9vw,64px); padding-bottom:clamp(72px,13vw,104px); }
   .seam--loose{ padding-top:clamp(64px,13.5vw,96px); }
   .seam--top{ padding-bottom:clamp(32px,8vw,56px); }
-  .seam__brand{ display:none; }
+  /* No telemóvel a legenda passa a DUAS colunas, não três: a grelha
+     1fr/auto/auto do desktop existe para centrar a marca entre o rótulo e o
+     ano, e um ecrã estreito não tem largura para os três — o ano era o que
+     saía (display:none), deixando a marca a meio e uma folga vazia à
+     direita sem função nenhuma.
+
+     Aqui o ano sai de vez e a marca ocupa o lugar dele, à direita: rótulo
+     da secção seguinte à esquerda, "empreendimentos SANTOS" à direita, os
+     dois na mesma linha de base (align-self:end, como no desktop). Os
+     `grid-column` são explícitos e não dependem da ordem no DOM — a marca
+     continua a vir a meio na marcação, só muda de coluna aqui. */
+  .seam__meta{ grid-template-columns:1fr auto; column-gap:1rem; }
+  .seam__label{ grid-column:1; }
+  .seam__brand{ display:inline-flex; grid-column:2; justify-self:end; }
+  .seam__index{ display:none; }
 }
 
 .stats{
@@ -2403,26 +2426,10 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   .facts{ grid-template-columns:repeat(2,1fr); }
   .team{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:1fr 1fr; }
-  /* Menu vira hambúrguer já no tablet, onde o nav horizontal não cabe */
+  /* Menu vira hambúrguer já no tablet, onde o nav horizontal não cabe. O
+     PAINEL em si (fundo, cascata das linhas, hambúrguer em X) vive no bloco
+     "MENU DE ECRÃ INTEIRO" no fim da folha, com o resto do telemóvel. */
   .nav-toggle{ display:flex; }
-  /* Painel fica sempre no DOM em display:flex — abrir/fechar anima opacity+transform
-     em vez de saltar via display:none, com visibility a sair da árvore de foco só
-     depois da transição terminar (fecho fica tão suave quanto a abertura). */
-  .nav__list{
-    position:fixed; inset:0; background:var(--dark);
-    flex-direction:column; align-items:center; justify-content:center; gap:1.8rem; z-index:90;
-    opacity:0; visibility:hidden; pointer-events:none;
-    transform:translateY(-14px) scale(.98);
-    transition:opacity .45s var(--ease), transform .45s var(--ease), visibility 0s linear .45s;
-  }
-  .nav.open .nav__list{
-    display:flex;
-    opacity:1; visibility:visible; pointer-events:auto;
-    transform:translateY(0) scale(1);
-    transition:opacity .4s var(--ease), transform .4s var(--ease), visibility 0s linear;
-  }
-  .nav.open .nav__list a{ color:#fff; font-size:1rem; opacity:1; }
-  .nav.open .lang-switch__btn{ color:#fff; font-size:1rem; }
 }
 /* O corpo do .split é metade da grelha, e o título é dimensionado pelo
    viewport e não pela coluna: abaixo de ~840px essa metade fica estreita de
@@ -2437,6 +2444,16 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   .split.comotrabalhamos{ grid-template-columns:1fr; }
   .split--reverse .split__media,
   .split--reverse .frame{ order:0; }
+  /* O .comotrabalhamos .title-split{margin:0} (ver mais acima) conta com o
+     `justify-content:space-between` do .split__body para separar o título
+     do quadro de números: no desktop o corpo é esticado por align-items:
+     stretch à altura da CASCATA ao lado (600–1000px), e o space-between usa
+     essa folga toda. Empilhado numa só coluna, o corpo já não partilha
+     linha nenhuma com a cascata — a sua altura passa a ser só a do próprio
+     conteúdo, sem folga nenhuma para distribuir — e title e quadro ficam a
+     5px um do outro. Aqui repõe-se a margem que o space-between deixou de
+     dar. */
+  .comotrabalhamos .title-split{ margin-bottom:clamp(28px,6vw,40px); }
 }
 @media (max-width: 760px){
   .service, .contact{ grid-template-columns:1fr; }
@@ -2616,6 +2633,15 @@ button.card{
      margem do site e o peek esquerdo é cortado pelo overflow-x:hidden do
      body. */
   .testimonials__images{ justify-self:end; }
+}
+@media (max-width:767px){
+  /* No telemóvel a grelha é uma só coluna e o .testimonials__arrows já
+     ocupa a largura toda do bloco de texto (é um item de flex-column sem
+     align-self próprio, por isso estica). Faltava só mandar as duas setas
+     para os extremos dessa largura: sem justify-content, ficavam as duas
+     juntas à esquerda, uma ao lado da outra — a esquerda no lugar certo, a
+     direita perdida a meio do ecrã em vez de na margem direita do frame. */
+  .testimonials__arrows{ justify-content:space-between; }
 }
 @media (prefers-reduced-motion: reduce){
   .testimonials__body{ animation:none; }
@@ -3661,8 +3687,10 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
   .footer-links{ font-size:13px; }
   .post-card__cta{ font-size:13px; }
   .crumbs__list{ font-size:13px; }
-  .nav__list a,
-  .lang-switch__btn{ font-size:13px; }
+  /* O .nav__list e o .lang-switch__btn saíram desta lista: neste ecrã já não
+     são o nav horizontal de desktop, são o painel de ecrã inteiro, e a
+     tipografia dele (display, muito acima do piso) é declarada no bloco
+     "MENU DE ECRÃ INTEIRO" no fim da folha. */
   .emodal__chip{ font-size:13px; }
 
   /* ---- Texto sobre imagem ----
@@ -3693,7 +3721,9 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
   /* ---- Corpo pequeno ---- */
   .check{ font-size:13px; }
   .emodal__entrega{ font-size:13px; }
-  .team--marquee .member__bio{ font-size:13px; }
+  /* .team--marquee .member__bio saiu daqui: no telemóvel a bio deixa de
+     aparecer (ver o bloco dedicado mais abaixo), por isso já não tem corpo a
+     medir. */
 }
 
 /* =====================================================================
@@ -3729,14 +3759,9 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
   /* "Blog" mede 39px de texto — a única do rodapé mais curta que o mínimo.
      O min-width vale para todas; nas outras não muda nada. */
   .footer-links :is(a, button){ min-width:44px; justify-content:center; }
-  /* O painel do menu ocupa o ecrã todo: aqui há espaço para dar aos itens a
-     largura toda, o que torna o alvo muito maior do que os 44px mínimos e
-     dispensa a mira fina que um menu centrado a 33px exigia. */
-  .nav.open .nav__list a,
-  .nav.open .lang-switch__btn{
-    display:flex; align-items:center; justify-content:center;
-    min-height:44px; padding-inline:1.5rem;
-  }
+  /* O painel do menu ocupa o ecrã todo e cada item ocupa uma linha inteira:
+     o alvo é muito maior do que os 44px mínimos. A medida está declarada com
+     o resto do painel, no bloco "MENU DE ECRÃ INTEIRO" no fim da folha. */
   /* O .gap do rodapé desce porque as caixas cresceram: a 44px com .8rem de
      intervalo os ícones ficavam a ~31px de distância visual, o dobro do que
      o desenho pede. A 0, a distância visual entre glifos fica nos ~18px. */
@@ -3770,11 +3795,9 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
   .card__caption{ flex-direction:column; align-items:flex-start; gap:.6rem; }
   .card__tag{ align-self:flex-start; }
 
-  /* ---- Controlos ---- */
-  .nav-toggle{
-    align-items:center; justify-content:center;
-    min-width:44px; min-height:44px; padding:0;
-  }
+  /* ---- Controlos ----
+     O hambúrguer (44x44, três traços absolutos) está no bloco "MENU DE ECRÃ
+     INTEIRO" no fim da folha, junto do estado aberto que o transforma em X. */
   /* As duas politicas do aviso sao uma FILA de ligacoes separadas por um
      ponto medio, nao uma frase — a excepcao inline da WCAG nao se aplica e
      cada uma precisa do seu alvo. */
@@ -3839,4 +3862,281 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
     padding-left:33px; gap:0;
   }
   .check input{ margin-top:0; }
+}
+
+/* =====================================================================
+   EQUIPA DA HOME — SÓ NOME E FUNÇÃO NO TELEMÓVEL (≤760px)
+   ---------------------------------------------------------------------
+   A fita (.team--marquee) mostra a bio inteira ao passar o rato — e como
+   não há rato no telemóvel, `@media (hover:none)` logo acima decidiu por
+   isso mostrá-la sempre. Num cartão de 260–380px de largura isso enche
+   PERMANENTEMENTE o rodapé da fotografia com três ou quatro linhas de
+   texto miúdo, competindo com o nome em vez de o apoiar — o oposto do
+   cartão de equipa nas outras páginas (.member, grelha normal), que nunca
+   mostrou bio nenhuma.
+
+   Aqui alinha-se com esse padrão: só nome e função ficam visíveis. A bio
+   continua no DOM (um leitor de ecrã continua a lê-la, e o hover do rato
+   num telemóvel com trackpad ainda a mostra) — só deixa de ocupar espaço
+   por defeito. Por estar DEPOIS do bloco de hover:none no ficheiro, esta
+   regra ganha por ordem de origem à mesma especificidade. */
+@media (max-width:760px){
+  .team--marquee .member__bio{ display:none; }
+}
+
+/* =====================================================================
+   MENU DE ECRÃ INTEIRO (≤1024px)
+   ---------------------------------------------------------------------
+   O painel que aqui estava era translúcido (--dark tem alpha e5, pensado
+   para a hero se ver por trás nas secções): aberto sobre a home, lia-se a
+   fotografia, o título e o "SCROLL" por baixo dos itens do menu. Fechava
+   sem travar o scroll — o dedo arrastava a página por trás do painel — e o
+   hambúrguer ficava hambúrguer com o menu aberto, sem dizer como se fecha.
+
+   Este é o molde do rioproperty.co.za, com a nossa letra e a nossa cor:
+
+   1) O PAINEL abre por clip-path, não por opacidade. O polígono nasce com
+      altura 0 encostado ao topo e cresce até ao rodapé — a cor desce pelo
+      ecrã como uma persiana, em vez de aparecer inteira a esbater-se. É por
+      isso que o fundo tem de ser OPACO (--dark-soft): num wipe, a frente do
+      movimento é a aresta entre as duas superfícies, e uma superfície
+      translúcida não tem aresta nenhuma.
+
+   2) CADA ITEM É UMA MÁSCARA. O <li> corta (overflow:clip) e o <a> começa
+      uma linha inteira abaixo, ligeiramente rodado; ao abrir, sobe até ao
+      sítio e endireita-se. Sem o corte via-se as linhas a atravessar as
+      vizinhas — daí os três níveis de marcação no Header.astro.
+
+   3) AS LINHAS ENTRAM EM CASCATA, e as duas cascatas são inversas: a abrir
+      escalonam de cima para baixo (a primeira linha chega primeiro), a
+      fechar de baixo para cima. É o que faz o fecho parecer o gesto
+      contrário da abertura e não a mesma animação ao contrário.
+
+   4) O HAMBÚRGUER É O BOTÃO DE FECHAR. Três traços de larguras decrescentes
+      (28/21/14px) que, com o menu aberto, viram X: o do meio sai pela
+      esquerda e os outros dois cruzam-se no centro.
+
+   As medidas em px (e não em em) são deliberadas: a caixa do botão é o alvo
+   de toque de 44px da WCAG 2.5.5 e não pode encolher com a tipografia.
+   ===================================================================== */
+@media (max-width:1024px){
+
+  /* ---- Barra: logótipo e botão ficam POR CIMA do painel ----
+     Como no site de referência, a barra do topo não é coberta pelo painel —
+     é de lá que se fecha o menu. Sem z-index próprio, o painel (posicionado)
+     pintava por cima dos dois, que são estáticos. */
+  .site-header .logo,
+  .nav-toggle{ position:relative; z-index:110; }
+
+  /* Com o menu aberto a barra assenta sobre o painel escuro, que é escuro
+     independentemente de a página estar rolada. Repõe-se por isso o mesmo
+     tratamento que a barra tem sobre a hero: fundo transparente, logótipo
+     claro e traços brancos. Sem isto, ao abrir o menu a meio da página o
+     logótipo escuro e o hambúrguer escuro desapareciam no painel. */
+  html.nav-aberto .site-header.scrolled{
+    background:transparent; box-shadow:none; backdrop-filter:none;
+  }
+  html.nav-aberto .site-header::before{ opacity:0; }
+  html.nav-aberto .scrolled .logo__img--light{ display:block; }
+  html.nav-aberto .scrolled .logo__img--dark{ display:none; }
+
+  /* O MESMO conflito atinge o texto dos itens. `.scrolled .nav__list a`
+     (declarada lá em cima, no HEADER) pinta o nav a --ink — quase preto —
+     para ler sobre o fundo claro do header rolado. Tem DUAS classes e um
+     elemento (`.scrolled` + `.nav__list` + `a`), e o `.nav__list .nav__link`
+     do painel só tem duas classes: empatam no número de classes, e a regra
+     de cima ainda tem o elemento `a` a mais, o que a fazia ganhar por
+     especificidade sempre que o menu abria numa página "no-hero" (todas
+     menos a home) — texto quase preto sobre o painel quase preto,
+     ilegível. `html.nav-aberto` acrescenta a terceira classe que falta
+     para o painel ganhar sempre, independentemente de a barra estar ou não
+     rolada. A ligação da página atual é a exceção: fica no bronze
+     (--accent-dk, pensado para texto sobre escuro) e não no --ink nem no
+     --accent-text (esse é para texto sobre CLARO) que `.scrolled
+     .nav__list a[aria-current="page"]` lhe dava pelo mesmo motivo. */
+  html.nav-aberto .nav__list .nav__link{ color:var(--paper); }
+  html.nav-aberto .nav__list a[aria-current="page"]{ color:var(--accent-dk); }
+
+  /* ---- Hambúrguer ---- */
+  .nav-toggle{
+    width:44px; height:44px; padding:0;
+    align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  /* Absolutos e centrados: as três posições de repouso são translações a
+     partir do mesmo ponto, o que deixa o estado aberto (rotação sobre o
+     centro) sair de uma só propriedade — sem `top` a compensar. */
+  .nav-toggle span{
+    position:absolute; width:28px; height:2px;
+    transition:transform .5s cubic-bezier(.7,0,.3,1), background-color .3s var(--ease);
+  }
+  .nav-toggle span:nth-child(1){ transform:translateY(-7px) scaleX(1); }
+  .nav-toggle span:nth-child(2){ transform:translateY(0) scaleX(.75); }
+  .nav-toggle span:nth-child(3){ transform:translateY(7px) scaleX(.5); }
+
+  html.nav-aberto .site-header .nav-toggle span{ background:#fff; }
+  html.nav-aberto .nav-toggle span:nth-child(1){ transform:translateY(0) rotate(45deg) scaleX(1); }
+  html.nav-aberto .nav-toggle span:nth-child(2){ transform:translateX(-150%) scaleX(1); }
+  html.nav-aberto .nav-toggle span:nth-child(3){ transform:translateY(0) rotate(-45deg) scaleX(1); }
+
+  /* ---- Painel ---- */
+  .nav__list{
+    position:fixed; inset:0; z-index:90;
+    background:var(--dark-soft);
+    flex-direction:column; align-items:stretch; justify-content:flex-start;
+    gap:0; margin:0;
+    /* O topo abre espaço para a barra (logótipo a 54px + o padding dela). */
+    padding:calc(96px + var(--gutter)) var(--gutter) clamp(28px,6vh,64px);
+    overflow-y:auto; overscroll-behavior:contain;
+    clip-path:polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+    visibility:hidden; pointer-events:none;
+    transition:clip-path 1s cubic-bezier(.9,0,.1,1), visibility 0s linear 1s;
+  }
+  /* Encosta o bloco ao fundo do ecrã (como a referência) SEM usar
+     justify-content:flex-end, que num painel com scroll torna o topo do
+     conteúdo inalcançável quando ele não cabe. */
+  .nav__item:first-child{ margin-top:auto; }
+
+  .nav.open .nav__list{
+    clip-path:polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    visibility:visible; pointer-events:auto;
+    transition:clip-path 1s cubic-bezier(.9,0,.1,1), visibility 0s linear;
+  }
+
+  /* ---- Itens ---- */
+  .nav__item{ position:relative; overflow:clip; border-top:1px solid rgba(255,255,255,.13); }
+  .nav__item:last-child{ border-bottom:1px solid rgba(255,255,255,.13); }
+
+  /* Duas classes (e não `.nav__list a`) porque é preciso ganhar por
+     especificidade à tipografia do nav horizontal, que é do mesmo peso e
+     está declarada antes. (Não chega para o conflito do `.scrolled` — ver
+     `html.nav-aberto .nav__list .nav__link` mais acima, junto da barra.) */
+  .nav__list .nav__link{
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    width:100%; min-height:58px; padding-block:.45rem;
+    font-family:var(--serif); font-weight:400;
+    font-size:clamp(1.6rem, 6.6vw, 2.4rem); line-height:1.15;
+    letter-spacing:0; text-transform:none; white-space:normal;
+    color:var(--paper); opacity:1;
+    transform:translateY(100%) rotate(5deg);
+    transition:transform .75s cubic-bezier(.7,0,.3,1);
+  }
+  /* O sublinhado animado do nav horizontal cresce a toda a largura do item —
+     aqui, uma linha inteira — e duplicava o fio que já separa as filas. */
+  .nav__list .nav__link::after{ display:none; }
+
+  .nav.open .nav__list .nav__link{
+    transform:translateY(0) rotate(.001deg);
+    transition:transform 1s cubic-bezier(.381, 0, .03, 1.003);
+  }
+
+  /* Cascata inversa: a abrir, de cima para baixo; a fechar, de baixo para
+     cima (é a ordem declarada nos itens sem .open). */
+  .nav__item:nth-child(1) .nav__link{ transition-delay:.30s; }
+  .nav__item:nth-child(2) .nav__link{ transition-delay:.25s; }
+  .nav__item:nth-child(3) .nav__link{ transition-delay:.20s; }
+  .nav__item:nth-child(4) .nav__link{ transition-delay:.15s; }
+  .nav__item:nth-child(5) .nav__link{ transition-delay:.10s; }
+  .nav__item:nth-child(6) .nav__link{ transition-delay:.05s; }
+  .nav__item:nth-child(7) .nav__link{ transition-delay:0s; }
+  .nav.open .nav__item:nth-child(1) .nav__link{ transition-delay:.20s; }
+  .nav.open .nav__item:nth-child(2) .nav__link{ transition-delay:.25s; }
+  .nav.open .nav__item:nth-child(3) .nav__link{ transition-delay:.30s; }
+  .nav.open .nav__item:nth-child(4) .nav__link{ transition-delay:.35s; }
+  .nav.open .nav__item:nth-child(5) .nav__link{ transition-delay:.40s; }
+  .nav.open .nav__item:nth-child(6) .nav__link{ transition-delay:.45s; }
+  .nav.open .nav__item:nth-child(7) .nav__link{ transition-delay:.50s; }
+
+  .nav__link-seta{
+    display:block; flex:none; width:24px; height:24px;
+    color:var(--accent-dk); opacity:.6;
+  }
+  .nav__link-seta svg{ width:100%; height:100%; display:block; }
+
+  /* ---- Fila de idiomas ----
+     No painel, o seletor deixa de ser um menu em cascata e passa a fila:
+     PT · EN · FR, os três à vista. Um menu suspenso dentro de uma fila que
+     é ela própria uma máscara (overflow:clip) ficaria cortado, e num ecrã
+     onde já há espaço para os três não há o que poupar. */
+  .nav__lang-item{ display:block; }
+  .nav__lang-item .lang-switch{ position:static; }
+  .lang-switch__btn{ display:none; }
+  .lang-switch__menu{
+    position:static; min-width:0; margin:0; padding:0;
+    background:none; border:0; border-radius:0; box-shadow:none;
+    display:flex; gap:.3rem;
+    opacity:1; visibility:visible; pointer-events:auto;
+    transform:none; transition:none;
+  }
+  .lang-switch__option{
+    width:auto; padding:0 1rem; min-height:44px;
+    display:inline-flex; align-items:center;
+    font-size:1rem; color:var(--on-dark-soft);
+    opacity:1; transform:none; transition-delay:0s;
+  }
+  .lang-switch__option:hover,
+  .lang-switch__option:focus-visible{ background:none; color:var(--paper); }
+  .lang-switch__option.is-active{ color:var(--accent-dk); }
+
+  /* ---- Scroll travado ----
+     Mesmo mecanismo do preloader (html.is-loading): quem trava a página é o
+     overflow do <html>. São precisas as duas metades, e cada uma cobre um
+     caso:
+
+     · COM Lenis (o normal), quem trava é o próprio Lenis — o setMenu() chama
+       lenis.stop(), que põe `lenis-stopped` no <html>, e a regra
+       `.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}` lá em cima
+       ganha a esta por especificidade (três classes contra uma). Parar o
+       Lenis é preciso de qualquer forma: sem isso ele continuava a interpolar
+       o scroll que ficou a meio e a página reaparecia deslocada ao fechar.
+     · SEM Lenis (prefers-reduced-motion: reduce, em que o Base.astro nem o
+       constrói), não há `lenis-stopped` nenhum e é esta regra que trava.
+
+     Medido em Chrome com gesto a sério (roda e dedo), nos dois caminhos:
+     ver scripts/menu-e2e.mjs. */
+  html.nav-aberto{ overflow:hidden; }
+}
+
+/* Menos movimento: o painel troca o wipe e a cascata por um aparecimento
+   simples. O menu continua inteiro e funcional — o que sai é o percurso. */
+@media (max-width:1024px) and (prefers-reduced-motion:reduce){
+  .nav__list{ clip-path:none; opacity:0; transition:opacity .2s linear, visibility 0s linear .2s; }
+  .nav.open .nav__list{ opacity:1; transition:opacity .2s linear, visibility 0s linear; }
+  .nav__list .nav__link,
+  .nav.open .nav__list .nav__link{ transform:none; transition:none; transition-delay:0s; }
+  .nav-toggle span{ transition:none; }
+}
+
+/* =====================================================================
+   RODAPÉ MAIS COMPACTO NO TELEMÓVEL (≤760px)
+   ---------------------------------------------------------------------
+   As quatro colunas do rodapé (marca, morada, contactos, newsletter) foram
+   medidas para o desktop, onde vivem lado a lado. Empilhadas numa só coluna
+   no telemóvel (ver .footer-grid no bloco RESPONSIVO), a mesma folga
+   vertical que separa colunas passa a separar BLOCOS, um por baixo do
+   outro — e o mesmo `line-height:1.8` pensado para um parágrafo largo de
+   três palavras por linha esticava uma morada de duas linhas curtas.
+   Medido: o rodapé da home ia a 1201px de altura a 390px de largura.
+
+   Nada do que está aqui esconde conteúdo — é só o ar a menos. Os alvos de
+   toque de 44px (ícones sociais, campo da newsletter) não se tocam: essa é
+   uma obrigação da WCAG 2.5.5, não folga sobrante. */
+@media (max-width:760px){
+  .site-footer{ padding-block:clamp(40px,7vw,56px) 1.3rem; }
+  .footer-grid{ gap:22px; }
+  .footer-col h4{ margin-bottom:.65rem; }
+  .footer-col p, .footer-col a{ line-height:1.5; }
+  .footer-brand .logo{ margin-bottom:.8rem; }
+  .footer-logo img{ height:44px; }
+  .socials{ margin-top:.8rem; }
+  .check--footer{ margin-top:.7rem; }
+  .footer-links{ margin-top:clamp(28px,6vw,40px); padding-top:1.2rem; }
+  /* `.footer-links + .footer-bottom` (duas classes) é o seletor que está
+     realmente ativo — todas as páginas têm a fila de ligações antes do
+     copyright — e ganha por especificidade ao simples `.footer-bottom`
+     declarado mais acima na folha. Repetir aqui as DUAS versões: a
+     combinada, para o caso real, e a simples, para o dia em que uma página
+     ficar sem `.footer-links` e não perder o ajuste por engano. */
+  .footer-bottom,
+  .footer-links + .footer-bottom{ margin-top:clamp(28px,6vw,40px); padding-top:1.2rem; }
 }
