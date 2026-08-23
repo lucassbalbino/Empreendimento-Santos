@@ -5,8 +5,15 @@
 > animações de entrada neutralizadas para medir o layout assente.
 >
 > Números de partida, somados nas 21 combinações página×largura:
-> **141 transbordos · 345 alvos de toque < 44px · 159 blocos de texto < 13px.**
-> Gravados em [`scripts/mobile-baseline.json`](../scripts/mobile-baseline.json).
+> **88 transbordos · 576 alvos de toque < 44px · 150 blocos de texto < 13px.**
+> Gravados em [`scripts/mobile-baseline.json`](../scripts/mobile-baseline.json),
+> medidos no commit pré-campanha `703cbed`.
+>
+> ⚠️ A primeira leitura desta auditoria deu 141/345/159. Estava errada, e a
+> razão importa: o aviso de cookies aparece de forma assíncrona e umas corridas
+> mediam-no e outras não. O verificador passa agora a esperar por ele
+> explicitamente, e a baseline foi refeita a medir o commit pré-campanha com o
+> verificador já determinístico. **Só os números acima servem de referência.**
 
 ## Como se testa (obrigatório em cada task)
 
@@ -163,7 +170,7 @@ integração é feita uma a uma com `npm run mobile` entre merges.
 
 | # | Task | Ficheiros que possui | Aceitação |
 |---|---|---|---|
-| **P1** | **Cartões e grelhas** — B1 (`min-width:0` no item da grelha, `.card__caption` empilha quando não cabe) e C4 (densidade de `.facts` / `.stats` / `.qmeta` a 390px) | `styles.css` (`.card*`, `.grid-projects`, `.facts`, `.stats`, `.qmeta`), `ProjectCard.astro` | Zero transbordo em `/portfolio` e `/empreendimentos/…`; chapa da tipologia inteira; rótulos de factos em ≤2 linhas |
+| **P1** | **Grelhas de factos** — C4 (densidade de `.facts` / `.stats` / `.qmeta` a 390px). ~~B1~~ **já fechado na Vaga 1** (ver Resultado) | `styles.css` (`.facts`, `.stats`, `.qmeta`) | Rótulos de factos em ≤2 linhas; sem vazio morto no fim da secção |
 | **P2** | **Carrosséis** — B2 (pilha de depoimentos) e B3 (`.dslider__stage`) | `styles.css` (`.testimonials*`, `.dslider*`), `Testimonials.astro`, `DoubleSlider.astro` | Zero transbordo em `/sobre-nos` e na home; setas ≥44px; legendas legíveis sobre a foto |
 | **P3** | **Assinaturas gráficas e imagens** — B4 (`.quemsomos__img`), B5 (`.divider`), B6 (`.frame`) | `styles.css` (`.quemsomos__img`, `.divider*`, `.frame*`) | Nenhuma marca gráfica sobre a fotografia a 360px; foto do "Quem Somos" com altura que deixe ler o edifício |
 | **P4** | **Navegação** — C2 (menu), C6 (breadcrumbs), C1 (`.seam`) | `styles.css` (bloco nav, `.crumbs*`, `.seam*`), `Header.astro`, `Breadcrumbs.astro`, `Seam.astro`, `public/main.js` | Itens do menu ≥44px; hambúrguer vira X; painel opaco; breadcrumbs sem separador órfão; rótulo do bloco e ©ano na mesma linha de base |
@@ -308,4 +315,58 @@ Nada por resolver nesta task — nenhuma variante teve de ficar como estava.
 
 ## Resultado
 
-_(preenchido pela Vaga 3)_
+### Vaga 1 — fechada (T1 a T5)
+
+Commits `be48071` · `78f3281` · `6120c0b` · `930d8b9` · `9a8b86d` · `06b4905`.
+
+| | partida | agora |
+|---|---|---|
+| Transbordos | 88 | **25** |
+| Alvos < 44px | 576 | **0** |
+| Texto < 13px | 150 | **0** |
+
+Altura das páginas a 390px:
+
+| Página | antes | depois | |
+|---|---|---|---|
+| home | 14 238px | 9 609px | −33% |
+| histórico | 9 420px | 6 922px | −27% |
+| portfólio | 6 810px | 5 054px | −26% |
+| contactos | 4 472px | 3 679px | −18% |
+| sobre-nós | 9 592px | 8 517px | −11% |
+| equipa | 8 402px | 7 445px | −11% |
+| empreendimento | 7 858px | 6 966px | −11% |
+
+`npm run seo:check` continua a passar (exit 0). Três corridas seguidas de
+`npm run mobile` dão o mesmo resultado.
+
+**O que NÃO foi cumprido.** A T1 tinha por critério pôr a home abaixo de
+~6 500px. Ficou nos 9 609px. O que sobra já não é padding de secção — é altura
+de conteúdo: o carrossel (`min-height:clamp(680px,90vh,880px)`), os painéis
+(`clamp(460px,72vh,760px)`), a fita da equipa e os cartões. Isso é trabalho da
+Vaga 2 (P2 e P6), não de mais um ajuste de token. O critério estava mal
+atribuído à T1, não foi a T1 que falhou.
+
+**Trabalho da Vaga 2 antecipado.** O B1 foi corrigido na T4 e sai do âmbito da
+P1: os corpos a subir para 13px puseram o min-content do cartão a estourar a
+coluna, e deixar uma regressão aberta à espera da vaga seguinte era o oposto do
+que esta campanha existe para impedir.
+
+**Os 25 transbordos que restam** são exactamente os componentes da Vaga 2, e
+mais nada:
+
+| Origem | Ocorrências | Task |
+|---|---|---|
+| `.testimonials*` (pilha 3D e o que ela empurra) | 13 | P2 |
+| `.quemsomos__img` | 3 | P3 |
+| `.dslider__stage` | 3 | P2 |
+| `.panel__bg` | 3 | P3 |
+
+**Observação nova, sem task atribuída.** Na hero, a 390px, o indicador
+"SCROLL" começa 9px antes de o título acabar (título 590→655, scroll 646→722).
+Não se sobrepõem porque estão separados na horizontal, mas leem-se apertados.
+Vale uma decisão de composição — sugere-se juntar à P2.
+
+### Vagas 2 e 3
+
+_(por fazer)_
