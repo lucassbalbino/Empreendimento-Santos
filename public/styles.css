@@ -440,7 +440,19 @@ ul{ list-style:none; }
    HERO
    ===================================================================== */
 .hero{
-  position:relative; min-height:100vh;
+  position:relative;
+  /* svh, nao vh. Em iOS e Android o `vh` mede o viewport GRANDE — o que
+     existiria se a barra do browser estivesse recolhida — por isso a 100vh a
+     hero nasce mais alta do que a area visivel: o titulo e o indicador de
+     scroll caiem abaixo da dobra na primeira pintura, e a pagina salta quando
+     a barra recolhe. O `svh` mede o viewport PEQUENO (barra visivel), que e o
+     unico que garante que a hero cabe desde o primeiro frame.
+     Nao `dvh`: esse acompanha a barra a aparecer e a desaparecer, e a hero
+     mudava de altura durante o scroll — troca-se um salto por muitos.
+     A declaracao em vh fica por baixo como recurso: browsers sem svh ignoram
+     a segunda e ficam com o comportamento antigo. */
+  min-height:100vh;
+  min-height:100svh;
   display:flex; align-items:flex-end;
   color:#fff; overflow:hidden;
   /* Fundo escuro por baixo da imagem: na home a hero tem will-change:transform e
@@ -468,10 +480,13 @@ ul{ list-style:none; }
   filter:var(--hero-img-filter);
 }
 .hero__bg--img::after{ content:none; }
-/* Hero com imagem: ecrã inteiro, para coincidir com a cortina de transição
-   (que cobre 100vh) — a cortina é retirada sobre a hero sem salto. Mais altura
-   corta um pouco mais as laterais da foto (fundo cover, centrado). */
-.hero:has(.hero__bg--img){ min-height:100vh; }
+/* Hero com imagem: ecrã inteiro, para coincidir com a cortina de transição —
+   a cortina é retirada sobre a hero sem salto. Mais altura corta um pouco
+   mais as laterais da foto (fundo cover, centrado).
+   O comentário dizia que a cortina "cobre 100vh"; não cobre — é
+   `position:fixed; inset:0`, ou seja cobre o viewport VISÍVEL. Era a hero em
+   100vh que destoava dela no telemóvel, e é o svh que as põe de acordo. */
+.hero:has(.hero__bg--img){ min-height:100vh; min-height:100svh; }
 .hero__overlay{
   position:absolute; inset:0; z-index:1;
   background:var(--hero-veil);
