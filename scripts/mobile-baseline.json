@@ -1,0 +1,128 @@
+{
+  "home@360": {
+    "overflow": 5,
+    "tap": 29,
+    "text": 11,
+    "docH": 14234
+  },
+  "sobre@360": {
+    "overflow": 6,
+    "tap": 30,
+    "text": 7,
+    "docH": 9690
+  },
+  "portfolio@360": {
+    "overflow": 0,
+    "tap": 26,
+    "text": 6,
+    "docH": 6743
+  },
+  "equipa@360": {
+    "overflow": 5,
+    "tap": 26,
+    "text": 6,
+    "docH": 8215
+  },
+  "contactos@360": {
+    "overflow": 4,
+    "tap": 26,
+    "text": 5,
+    "docH": 4464
+  },
+  "historico@360": {
+    "overflow": 2,
+    "tap": 26,
+    "text": 6,
+    "docH": 9219
+  },
+  "empreend@360": {
+    "overflow": 6,
+    "tap": 29,
+    "text": 9,
+    "docH": 7956
+  },
+  "home@390": {
+    "overflow": 5,
+    "tap": 29,
+    "text": 11,
+    "docH": 14238
+  },
+  "sobre@390": {
+    "overflow": 6,
+    "tap": 30,
+    "text": 7,
+    "docH": 9592
+  },
+  "portfolio@390": {
+    "overflow": 0,
+    "tap": 26,
+    "text": 6,
+    "docH": 6810
+  },
+  "equipa@390": {
+    "overflow": 5,
+    "tap": 26,
+    "text": 6,
+    "docH": 8402
+  },
+  "contactos@390": {
+    "overflow": 4,
+    "tap": 26,
+    "text": 5,
+    "docH": 4472
+  },
+  "historico@390": {
+    "overflow": 2,
+    "tap": 26,
+    "text": 6,
+    "docH": 9420
+  },
+  "empreend@390": {
+    "overflow": 8,
+    "tap": 29,
+    "text": 9,
+    "docH": 7858
+  },
+  "home@414": {
+    "overflow": 5,
+    "tap": 29,
+    "text": 11,
+    "docH": 14042
+  },
+  "sobre@414": {
+    "overflow": 6,
+    "tap": 30,
+    "text": 7,
+    "docH": 9588
+  },
+  "portfolio@414": {
+    "overflow": 0,
+    "tap": 26,
+    "text": 6,
+    "docH": 6892
+  },
+  "equipa@414": {
+    "overflow": 5,
+    "tap": 26,
+    "text": 6,
+    "docH": 8530
+  },
+  "contactos@414": {
+    "overflow": 4,
+    "tap": 26,
+    "text": 5,
+    "docH": 4479
+  },
+  "historico@414": {
+    "overflow": 2,
+    "tap": 26,
+    "text": 6,
+    "docH": 9565
+  },
+  "empreend@414": {
+    "overflow": 8,
+    "tap": 29,
+    "text": 9,
+    "docH": 7879
+  }
+}

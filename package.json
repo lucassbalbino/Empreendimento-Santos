@@ -5,19 +5,32 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/postbuild-assets.mjs",
     "preview": "astro preview",
-    "cms-proxy": "decap-server"
+    "cms-proxy": "decap-server",
+    "seo:check": "node scripts/seo-check.mjs",
+    "seo": "npm run build && node scripts/seo-check.mjs",
+    "cookies:check": "node scripts/cookies-check.mjs",
+    "cookies": "npm run build && node scripts/cookies-check.mjs",
+    "cookies:e2e": "node scripts/cookies-e2e.mjs",
+    "imagens:auditar": "node scripts/imagens-auditar.mjs",
+    "imagens:otimizar": "node scripts/imagens-otimizar.mjs",
+    "mobile": "npm run build && node scripts/mobile-check.mjs",
+    "mobile:check": "node scripts/mobile-check.mjs",
+    "mobile:baseline": "node scripts/mobile-check.mjs --baseline"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
     "astro": "^4.16.19",
     "lenis": "^1.3.25",
     "split-type": "^0.3.4"
   },
   "devDependencies": {
-    "decap-server": "^3.9.1"
+    "cheerio": "^1.2.0",
+    "decap-server": "^3.9.1",
+    "lighthouse": "^13.4.1"
   }
 }
