@@ -1,16 +1,26 @@
 ---
 import Base from '../layouts/Base.astro';
-import Team from '../components/Team.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Seam from '../components/Seam.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Divider from '../components/Divider.astro';
 import Frame from '../components/Frame.astro';
 import Watermark from '../components/Watermark.astro';
+import Blob from '../components/Blob.astro';
 import TitleSplit from '../components/TitleSplit.astro';
 import Stats from '../components/Stats.astro';
 import sobre from '../data/sobre.json';
 import home from '../data/home.json';
+
+// Equipa como carrossel: cada card é um membro (foto | nome | cargo | bio).
+const equipaCards = home.equipa.members.map((m) => ({
+  quote: m.bio,
+  name: m.name,
+  designation: m.role,
+  src: m.foto || '',
+}));
 ---
-<Base title="Mockup — Sobre Nós" description="Conheça a AM Santos: 20 anos de experiência no mercado imobiliário, sob a liderança de António M Santos, com foco na qualidade, no conforto e na sustentabilidade.">
+<Base tipoPagina="AboutPage">
   <!-- HERO (interno) -->
   <section class="hero" style="min-height:100vh">
     <div
@@ -48,9 +58,9 @@ import home from '../data/home.json';
 
   <!-- O QUE FAZEMOS — grelha de imagens em cascata + parágrafo.
        Sem costura nas fronteiras: esta secção entra e sai a direito. -->
-  <section class="section section--dark">
-    <div class="container has-wm">
-      <Watermark variant="dark" side="r" size="md" y="top" />
+  <section class="section section--dark has-blob">
+    <Blob />
+    <div class="container">
       <div class="split comotrabalhamos">
         <div class="comotrabalhamos__grid">
           <div class="comotrabalhamos__col comotrabalhamos__col--a">
@@ -95,12 +105,40 @@ import home from '../data/home.json';
     </div>
   </section>
 
-  <!-- EQUIPA -->
-  <section class="section section--dark">
-    <div class="container has-wm">
-      <Watermark variant="line" side="r" size="md" y="top" />
-      <TitleSplit text={sobre.equipa.title} data-i18n="sobre.equipa.title" data-i18n-split="1" />
-      <Team members={sobre.equipa.members} i18nBase="sobre.equipa.members" />
+  <!-- EQUIPA (carrossel: cada card é um membro). Bloco escuro em café, no
+       mesmo padrão das outras .section--dark do site: a .seam abre a secção
+       na variante escura (fronteira reta com os Serviços atrás, e é ela que
+       dá o respiro do topo — por isso .section--seam-top) e o <Blob> põe a
+       textura a sangrar pelos dois cantos opostos. Aqui vive sozinha, não
+       numa .dark-run: as secções vizinhas são claras, logo não há junta
+       interna a esconder e o <Blob> pode ficar dentro da própria secção.
+       Saiu o .section--tight-bottom: o padding de baixo deixou de ser só
+       espaço e passou a ser onde o bloco de cor acaba — no valor curto as
+       setas do carrossel ficavam coladas à fronteira com o Contacto. -->
+  <section class="section section--dark section--seam-top has-blob">
+    <Blob />
+    <Seam label="A Nossa Equipa" variant="dark" loose i18n="common.seam.aNossaEquipa" />
+    <div class="container">
+      <!-- Cores invertidas para o fundo escuro, nos mesmos tons que o resto
+           das secções escuras usa: corpo a --paper (como .section--dark
+           .member__bio) e o rótulo de cargo em bronze claro (como
+           .section--dark .member__role) — o --accent-text da versão clara
+           dava 2.4:1 aqui. As setas trocam de sentido: disco claro com o
+           glifo escuro, o inverso do que faziam sobre a areia. -->
+      <Testimonials
+        testimonials={equipaCards}
+        i18nBase="home.equipa.members"
+        autoplay={true}
+        colors={{
+          name: 'var(--paper)',
+          designation: 'var(--accent-dk)',
+          testimony: 'var(--paper)',
+          arrowBackground: 'var(--paper)',
+          arrowForeground: 'var(--dark-soft)',
+          arrowHoverBackground: 'var(--accent-dk)',
+        }}
+        fontSizes={{ name: '1.9rem', designation: '0.8rem', quote: '1.2rem' }}
+      />
     </div>
   </section>
 

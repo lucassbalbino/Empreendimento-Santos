@@ -9,6 +9,10 @@
       "ink-faint":    { "value": "#72685a", "type": "color", "description": "Rótulos discretos — escuro o bastante para cumprir AA (5.33:1)" },
       "brown":        { "value": "#6b4a2f", "type": "color", "description": "Castanho médio — ícones, molduras, detalhes. EM RESERVA: ainda sem uso em produção." },
       "line":         { "value": "#e3d9cb", "type": "color", "description": "Linhas / divisores terrosos" },
+      "card-surface":   { "value": "#f4f3f1", "type": "color", "description": "Placa da moldura do card de projeto — branco puxado ao cinza. FORA da escala de areia de propósito." },
+      "card-chip":      { "value": "#eae9e6", "type": "color", "description": "Chapa da tipologia, dentro da moldura — degrau seguinte da placa" },
+      "card-rule":      { "value": "#9c9a95", "type": "color", "description": "Traço do bordo do card de projeto. Neutro, como a placa: em terroso era a única coisa quente na página e puxava o olho para o bordo." },
+      "card-rule-fine": { "value": "#c3c1bc", "type": "color", "description": "Bordo da chapa da tipologia. Sobra da moldura de dupla linha, que já não existe." },
       "accent":       { "value": "#b46511", "type": "color", "description": "Ocre queimado — a cor REAL do logótipo. Superfícies, dots, bordas, traços. NÃO serve para texto pequeno (4.26:1)." },
       "accent-text":  { "value": "#9f590f", "type": "color", "description": "Acento como TEXTO sobre paper e paper-alt (5.24 / 4.57)" },
       "accent-deep":  { "value": "#8d4f0c", "type": "color", "description": "Acento como TEXTO sobre paper-warm (4.90). Também hover/sweep." },
@@ -70,7 +74,6 @@
     },
     "borderRadius": {
       "md":   { "value": "12",  "type": "borderRadius", "description": "Factos" },
-      "card": { "value": "6",   "type": "borderRadius", "description": "Cards de projeto (--card-radius)" },
       "pill": { "value": "999", "type": "borderRadius" }
     },
     "typography": {

@@ -1,0 +1,30 @@
+---
+/**
+ * Bloco de perguntas frequentes de uma ficha de empreendimento.
+ *
+ * Marcação: <dl> com <dt>/<dd>. É a estrutura semântica de um par
+ * pergunta-resposta e é lida como tal por leitores de ecrã e por crawlers —
+ * ao contrário de uma pilha de <div>. As perguntas são <h3> dentro do <dt>
+ * para entrarem no esquema de cabeçalhos da página sem partir a hierarquia
+ * (h1 do empreendimento → h2 desta secção → h3 de cada pergunta).
+ *
+ * Tudo aberto, sem acordeão: conteúdo escondido atrás de JS é conteúdo que
+ * pode não contar. Aqui não há nada a esconder — são cinco respostas curtas.
+ */
+const { perguntas = [], title = 'Perguntas frequentes' } = Astro.props;
+---
+{perguntas.length > 0 && (
+  <section class="section section--tight-top section--tight-bottom">
+    <div class="container">
+      <h2 class="faq__title">{title}</h2>
+      <dl class="faq">
+        {perguntas.map((q) => (
+          <div class="faq__item">
+            <dt class="faq__p"><h3>{q.p}</h3></dt>
+            <dd class="faq__r">{q.r}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+)}

@@ -12,7 +12,7 @@
     ],
     "paragrafo": "Construímos para durar: soluções sustentáveis, materiais de confiança e um controlo rigoroso de qualidade em cada fase da obra, para que o resultado final seja tão sólido quanto os 20 anos de história que o sustentam.",
     "botao": "Sobre nós",
-    "imagem": "/images/template-sobre.jpg"
+    "imagem": "/images/template-sobre.webp"
   },
   "oQueFazemos": {
     "title": "Qualidade — Conforto — Sustentabilidade",
@@ -66,7 +66,7 @@
   },
   "trackRecord": {
     "title": "O Nosso Histórico",
-    "lead": "Uma amostra dos empreendimentos já concluídos e entregues. Clique para ver cada um.",
+    "lead": "Uma amostra dos empreendimentos já concluídos e entregues.",
     "botao": "Ver histórico"
   },
   "equipa": {
@@ -75,19 +75,19 @@
         "role": "Liderança · Direção-Geral",
         "name": "António M Santos",
         "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário.",
-        "foto": "images/perfil-3.jpg"
+        "foto": "/images/perfil-3.webp"
       },
       {
         "role": "Arquitetura · Projeto",
         "name": "Marta Sousa",
         "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra.",
-        "foto": "images/perfil-2.jpg"
+        "foto": "/images/perfil-2.webp"
       },
       {
         "role": "Engenharia · Obra",
         "name": "Ricardo Nunes",
         "bio": "Diretor de obra, coordena a execução e o controlo de qualidade que sustentam a excelência de cada projeto executado.",
-        "foto": "images/perfil-1.jpg"
+        "foto": "/images/perfil-1.webp"
       },
       {
         "role": "Decoração · Interiores",

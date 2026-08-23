@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import BlockHead from '../components/BlockHead.astro';
+
+/**
+ * 404. Existe por razões de SEO tanto como de UX: sem ela, o alojamento
+ * devolve a sua própria página de erro (ou pior, um 200 com página vazia — o
+ * "soft 404" que o Google trata como conteúdo fraco e acaba por arrastar o
+ * resto do site).
+ *
+ * Vai a noindex pelo seo.json e fica fora do sitemap pelo filtro em
+ * astro.config.mjs, mas mantém os links para as páginas que interessam: quem
+ * cá cai por um link partido deve sair daqui para o portfólio, não do site.
+ */
+const destinos = [
+  { href: '/portfolio/', titulo: 'Empreendimentos em curso', texto: 'O que está em desenvolvimento e em projeto.' },
+  { href: '/historico/', titulo: 'Obras concluídas', texto: '20 anos de empreendimentos entregues.' },
+  { href: '/sobre-nos/', titulo: 'Sobre a AM Santos', texto: 'Quem somos e como trabalhamos.' },
+  { href: '/contactos/', titulo: 'Contactos', texto: 'Fale connosco sobre o seu projeto.' },
+];
+---
+<Base flat>
+  <section class="section section--centered-head section--flat-top">
+    <div class="container">
+      <BlockHead
+        as="h1"
+        title="Esta página não existe"
+        lead="O endereço que seguiu pode ter mudado ou nunca ter existido. Aqui ficam os caminhos que interessam."
+      />
+      <ul class="erro-links">
+        {destinos.map((d) => (
+          <li class="erro-link">
+            <a href={d.href}>
+              <span class="erro-link__titulo">{d.titulo}</span>
+              <span class="erro-link__texto">{d.texto}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>

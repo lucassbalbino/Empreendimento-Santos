@@ -68,6 +68,21 @@ analisadas e futuras referências de sites ficam em `referencias/sites/LINKS.md`
 
 > **CSS/JS:** o site Astro usa **`public/styles.css`** e **`public/main.js`**.
 
+### 3.2 SEO — ver [`docs/SEO.md`](docs/SEO.md)
+
+O SEO tem plano, implementação e testes próprios em **[`docs/SEO.md`](docs/SEO.md)**.
+Três coisas a saber antes de mexer no site:
+
+1. **`src/data/seo.json` é a fonte única.** Domínio, títulos e descrições das
+   páginas estáticas, dados da organização e NAP vivem lá. As páginas estáticas
+   **não** passam `title`/`description` ao `<Base>` — o `Seo.astro` resolve pelo
+   caminho.
+2. **`npm run seo` tem de passar.** São 758 verificações sobre o HTML final
+   (títulos únicos, canonical, JSON-LD, sitemap, ligações e imagens partidas).
+   Sai com código 1 se falhar.
+3. **`nap.verificado: false`** mantém a morada e o telefone placeholder fora do
+   JSON-LD de propósito. Só pôr a `true` com dados reais.
+
 ## 4. Estrutura de arquivos
 
 ```
@@ -83,7 +98,10 @@ mockup/
 │   ├── styles.css     # design system + todos os componentes (CSS vivo)
 │   ├── main.js        # header on-scroll, menu mobile, contadores
 │   ├── admin/         # painel Sveltia CMS (index.html + config.yml)
+│   ├── fonts/         # Fraunces e Inter servidas do próprio domínio (geradas)
 │   └── images/        # imagens do site
+├── scripts/           # seo-check, otimização de imagens, fontes, postbuild
+├── docs/SEO.md        # plano, implementação e manutenção do SEO
 └── CONTEXTO.md        # este arquivo
 ```
 

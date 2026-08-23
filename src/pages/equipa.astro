@@ -5,8 +5,19 @@ import ContactForm from '../components/ContactForm.astro';
 import Watermark from '../components/Watermark.astro';
 import TitleSplit from '../components/TitleSplit.astro';
 import equipa from '../data/equipa.json';
+import { urlAbsoluto } from '../utils/seo.js';
+import { listaDePessoas } from '../utils/schema.js';
+
+/* Pessoas com nome e função dão o sinal de E-E-A-T que o Google procura num
+   negócio de construção: por trás da marca há profissionais identificáveis. */
+const schemaEquipa = [
+  listaDePessoas([...equipa.direcao.members, ...equipa.equipa.members], {
+    url: urlAbsoluto('/equipa'),
+    nome: 'Equipa AM Santos',
+  }),
+];
 ---
-<Base title="Mockup — Equipa" description="A equipa da AM Santos — profissionais de arquitetura, engenharia, decoração e gestão imobiliária de alto nível.">
+<Base tipoPagina="AboutPage" schemaExtra={schemaEquipa}>
   <!-- HERO (interno) -->
   <section class="hero" style="min-height:100vh">
     <div

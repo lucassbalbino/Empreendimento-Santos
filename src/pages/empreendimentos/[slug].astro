@@ -1,10 +1,22 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ContactForm from '../../components/ContactForm.astro';
+import Hero from '../../components/Hero.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import Watermark from '../../components/Watermark.astro';
+import PlansSlider from '../../components/PlansSlider.astro';
+import Blob from '../../components/Blob.astro';
 import TitleSplit from '../../components/TitleSplit.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Perguntas from '../../components/Perguntas.astro';
 import data from '../../data/empreendimentos.json';
+import { urlAbsoluto } from '../../utils/seo.js';
+import { imovel } from '../../utils/schema.js';
+import {
+  tituloEmpreendimento,
+  descricaoEmpreendimento,
+  perguntasEmpreendimento,
+} from '../../utils/empreendimento-seo.js';
 
 export function getStaticPaths() {
   return data.lista.map((proj) => ({
@@ -29,55 +41,89 @@ const relacionados = todos.filter((p) => p.grupo === proj.grupo && p.slug !== pr
 // Galeria: imagem principal + galeria própria. Só o Valflores Terraces e o CLT
 // têm fotos reais; nos restantes a imagem é provisória (ver imagemReal).
 const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
+
+/* ------------------------------- SEO da ficha -------------------------------
+   O caminho de volta depende do grupo: um empreendimento concluído vive no
+   /historico, os outros no /portfolio. É essa a hierarquia que o utilizador
+   percorreu e é essa que as migalhas — visíveis e no BreadcrumbList — declaram.
+
+   A página é tipada como RealEstateListing (subtipo de WebPage): é o tipo que
+   o schema.org define para "uma página que descreve uma oferta imobiliária",
+   e é o que liga a ficha à entidade do imóvel, marcada em separado. */
+/* O pai vem do `grupo` e não do `estado`: é o `grupo` que decide em que
+   listagem o empreendimento aparece (ver porGrupo em utils/projetos.js), e uma
+   migalha tem de devolver o visitante à página de onde ele veio. Três projetos
+   do grupo "concluido" têm estado "Em projeto"/"Em construção" — por `estado`,
+   a migalha mandava-os para o /portfolio, onde não estão listados. */
+const noHistorico = proj.grupo === 'concluido';
+const migalhas = [
+  { nome: 'Início', caminho: '/' },
+  noHistorico
+    ? { nome: 'Histórico', caminho: '/historico' }
+    : { nome: 'Portfólio', caminho: '/portfolio' },
+  { nome: proj.nome, caminho: `/empreendimentos/${proj.slug}` },
+];
+
+const urlFicha = urlAbsoluto(`/empreendimentos/${proj.slug}`);
+const seoTitulo = tituloEmpreendimento(proj);
+const seoDescricao = descricaoEmpreendimento(proj);
+const perguntas = perguntasEmpreendimento(proj);
 ---
 <Base
-  title={`Empreendimento — ${proj.nome}`}
-  description={`${proj.nome} — ${proj.localizacao} · ${proj.tipologia}. ${proj.resumo}`}
+  title={seoTitulo}
+  description={seoDescricao}
+  image={proj.imagem}
+  tipoPagina="RealEstateListing"
+  trilhoItens={migalhas}
+  schemaExtra={[imovel(proj, urlFicha)]}
+  preloadImagem={proj.imagem}
 >
-  <!-- HERO -->
-  <section class="hero emp-hero">
-    <div
-      class={proj.imagem ? 'hero__bg hero__bg--img' : 'hero__bg'}
-      style={proj.imagem ? `background-image:url(${proj.imagem})` : undefined}
-    ></div>
-    <div class="hero__overlay"></div>
+  <!-- HERO — o mesmo desenho da home: foto a ecrã inteiro, só o nome e a
+       indicação de scroll. A morada, a tipologia e o estado saíram daqui; são
+       dados de ficha e já vivem na "Ficha do empreendimento" mais abaixo. -->
+  <Hero title={proj.nome} image={proj.imagem} titleI18n={`${i18nBase}.nome`}>
     {proj.imagem && !proj.imagemReal && <span class="img-prov img-prov--hero" data-i18n="common.projectDetail.provisoria">Imagem provisória</span>}
-    <div class="hero__inner">
-      <div class="container">
-        <a class="emp-back" href="/portfolio" data-i18n="common.projectDetail.back">← Empreendimentos</a>
-        <TitleSplit text={proj.nome} tag="h1" class="hero__title-page title-split--hero" data-i18n={`${i18nBase}.nome`} data-i18n-split="1" />
-        <p class="emp-hero__meta">
-          {proj.localizacao} · <span data-i18n={`${i18nBase}.tipologia`}>{proj.tipologia}</span>
-          <span class="emp-chip" data-i18n={`${i18nBase}.estado`}>{proj.estado}</span>
-        </p>
+  </Hero>
+
+  <!-- O EMPREENDIMENTO — mesma estrutura do "Quem Somos" da home: título
+       centrado com a marca-d'água atrás, bloco editorial numa grelha de 12
+       colunas e CTA encostado à direita. Era um .split (texto à esquerda,
+       imagem à direita); a imagem saiu — as fotos do empreendimento têm agora
+       secção própria, o slider, e aqui repetiam-se.
+       Diferença face ao Quem Somos: lá o editorial é meta + UM parágrafo lado
+       a lado; aqui são os dois parágrafos em escada, desencontrados na grelha
+       (ver .emp-editorial em styles.css). -->
+  <section class="section section--tight-bottom emp-sobre">
+    <div class="container">
+      <Breadcrumbs itens={migalhas} />
+      <div class="emp-intro has-wm">
+        <Watermark variant="line" side="r" size="lg" y="top" />
+        <TitleSplit text={proj.entrega} class="title-split--center" data-i18n={`${i18nBase}.entrega`} data-i18n-split="1" />
+      </div>
+
+      <div class="emp-editorial">
+        <p class="emp-editorial__p emp-editorial__p--lead" data-i18n={`${i18nBase}.resumo`}>{proj.resumo}</p>
+        <p class="emp-editorial__p emp-editorial__p--tail" data-i18n-tpl={brandParagraphI18n}>{brandParagraph}</p>
+      </div>
+
+      <div class="emp-cta">
+        <a class="btn" href="#contacto" data-i18n={`common.projectDetail.${ctaKey}`}>{ctaLabel}</a>
       </div>
     </div>
   </section>
 
-  <!-- O EMPREENDIMENTO -->
-  <section class="section section--tight-bottom">
-    <div class="container has-wm">
-      <Watermark variant="line" side="r" size="lg" y="top" />
-      <div class="split">
-        <div class="split__body">
-          <TitleSplit text={proj.entrega} data-i18n={`${i18nBase}.entrega`} data-i18n-split="1" />
-          <p data-i18n={`${i18nBase}.resumo`}>{proj.resumo}</p>
-          <p data-i18n-tpl={brandParagraphI18n}>{brandParagraph}</p>
-          <a class="btn" href="#contacto" data-i18n={`common.projectDetail.${ctaKey}`}>{ctaLabel}</a>
-        </div>
-        <div class="split__media">
-          {proj.galeria?.[0]
-            ? <img class="split__img" src={proj.galeria[0]} alt={proj.nome} loading="lazy" />
-            : <div class="ph" data-label="Imagem 4:5"></div>}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CARACTERÍSTICAS -->
-  <section class="section section--alt" style="padding-top:calc(var(--section-y) - clamp(24px,3vw,40px));padding-bottom:calc(var(--section-y-tight) + clamp(24px,3vw,40px))">
-    <div class="container has-wm">
-      <Watermark variant="line" side="r" size="lg" y="bottom" />
+  <!-- CARACTERÍSTICAS — faixa café.
+       Mesmo padrão de cor do bloco "Projetos futuros" do /portfolio: a mesma
+       .section--dark (o --dark é #241a12, castanho escuro, não preto), o mesmo
+       <Blob> a dar textura aos cantos e as mesmas chapas invertidas nos cartões
+       (ver `.section--dark .fact` em styles.css). Era areia (.section--alt);
+       passa a ser o único bloco escuro da página de detalhe.
+       Sem marca-d'água: ela e o <Blob> dividiam o mesmo canto direito e as duas
+       texturas claras sobre o café liam-se como ruído, não como fundo. Aqui
+       quem dá textura é o Blob. -->
+  <section class="section section--dark has-blob" style="padding-top:calc(var(--section-y) - clamp(24px,3vw,40px));padding-bottom:calc(var(--section-y-tight) + clamp(24px,3vw,40px))">
+    <Blob />
+    <div class="container">
       <TitleSplit text="Ficha do empreendimento" data-i18n="common.projectDetail.ficha" data-i18n-split="1" />
       <div class="facts">
         {proj.factos.map((f, i) => (
@@ -93,14 +139,15 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
   {proj.galeria?.length > 0 && (
     <!-- GALERIA (só quando há mesmo imagens deste empreendimento) -->
     <section class="section section--tight-bottom">
-      <div class="container has-wm">
-        <Watermark variant="line" side="r" size="md" y="top" />
+      <!-- Sem marca-d'água, ao contrário das outras secções desta página: a
+           marca vive no canto superior direito e é exactamente aí que passou a
+           estar a coluna de miniaturas do slider. Fica por trás (z-index:-1 no
+           .wm-layer), mas espreitava pelos intervalos entre miniaturas e passava
+           por baixo do contador — que deixava de se ler. A marca existe para
+           habitar espaço vazio e esta secção deixou de ter nenhum. -->
+      <div class="container">
         <TitleSplit text="Imagens do empreendimento" data-i18n="common.projectDetail.imagens" data-i18n-split="1" />
-        <div class="gallery">
-          {galeria.map((src, i) => (
-            <img class="gallery__img" src={src} alt={`${proj.nome} — imagem ${i + 1}`} loading="lazy" />
-          ))}
-        </div>
+        <PlansSlider imagens={galeria} nome={proj.nome} />
       </div>
     </section>
   )}
@@ -118,6 +165,11 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
       </div>
     </div>
   </section>
+
+  <!-- PERGUNTAS FREQUENTES — o único bloco de texto verdadeiramente único
+       desta página (as respostas saem dos dados deste empreendimento) e o que
+       responde às pesquisas conversacionais do tipo "onde fica o X". -->
+  <Perguntas perguntas={perguntas} title={`Perguntas frequentes sobre o ${proj.nome}`} />
 
   {relacionados.length > 0 && (
     <!-- OUTROS EMPREENDIMENTOS -->

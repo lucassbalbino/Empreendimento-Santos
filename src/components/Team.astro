@@ -1,18 +1,93 @@
 ---
 const { members, variant, i18nBase } = Astro.props;
 const cls = variant ? `team team--${variant}` : 'team';
+
+/* Variante "marquee": fita contínua em vez de grelha (usada em /sobre-nos).
+   Duas exigências de montagem, ambas resolvidas aqui e não no CSS:
+
+   1) O loop é sem costura porque a fita leva o conjunto DUPLICADO e desliza
+      exatamente a largura de um conjunto (ver @keyframes team-marquee). O
+      segundo conjunto é uma cópia visual: vai aria-hidden para os leitores de
+      ecrã não lerem a equipa duas vezes.
+   2) Um conjunto tem de ser mais largo do que o ecrã, senão abre-se um buraco
+      no fim da fita antes de a cópia entrar. Com dois membros isso acontecia
+      sempre, por isso o conjunto repete-se até ter cartões que cheguem.
+
+   O índice guardado é o do membro no JSON original — é dele que dependem as
+   chaves de i18n, que não podem seguir a posição na fita. */
+const MIN_CARDS = 8;
+const isMarquee = variant === 'marquee';
+const reps = isMarquee && members.length
+  ? Math.ceil(MIN_CARDS / members.length)
+  : 1;
+const seq = [];
+for (let r = 0; r < reps; r++) members.forEach((m, i) => seq.push({ m, i }));
+
+/* A fita de /sobre-nos junta pessoas de dois ficheiros de dados, por isso as
+   chaves de i18n não vêm todas da mesma raiz nem seguem a posição na lista
+   montada: cada membro pode trazer a sua raiz em `i18n` e o seu índice no
+   ficheiro de origem em `i18nIndex`. Sem isso, quem vinha do segundo ficheiro
+   pedia uma chave com o índice da lista junta e traduzia para o membro errado
+   (ou para nada). Quem não os traz cai no i18nBase e na posição própria. */
+const keyOf = (m, i, field) => {
+  const base = m.i18n || i18nBase;
+  const idx = m.i18nIndex != null ? m.i18nIndex : i;
+  return base ? `${base}.${idx}.${field}` : undefined;
+};
+
+/* Quem ainda não tem retrato entra na fita com um monograma em vez de um
+   buraco: as iniciais do primeiro e do último nome, na mesma trama escura
+   dos placeholders do site. */
+const initials = (name) => {
+  const w = String(name || '').trim().split(/\s+/).filter(Boolean);
+  if (!w.length) return '';
+  return (w[0][0] + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase();
+};
+
+/* Duração proporcional ao número de cartões: fixá-la faria a fita acelerar
+   sempre que a equipa crescesse. ~7s por cartão mantém o mesmo passo — o
+   valor subiu com a largura dos cartões, senão a fita percorria mais pixéis
+   no mesmo tempo e passava a correr. */
+const speed = `--team-speed:${(seq.length * 7).toFixed(1)}s`;
 ---
-<div class={cls}>
-  {members.map((m, i) => (
-    <article class="member">
-      <div class="member__media">
-        {m.foto
-          ? <img src={m.foto} alt={m.name} loading="lazy" />
-          : <div class="ph"></div>}
-      </div>
-      <div class="member__role" data-i18n={i18nBase && `${i18nBase}.${i}.role`}>{m.role}</div>
-      <h3 class="member__name">{m.name}</h3>
-      <p class="member__bio" data-i18n={i18nBase && `${i18nBase}.${i}.bio`}>{m.bio}</p>
-    </article>
-  ))}
-</div>
+{isMarquee ? (
+  <div class={cls}>
+    <div class="team__track" style={speed}>
+      {[0, 1].map((copy) => (
+        <div class="team__set" aria-hidden={copy === 1 ? 'true' : undefined}>
+          {seq.map(({ m, i }) => (
+            <article class="member">
+              <div class="member__media">
+                {m.foto
+                  ? <img src={m.foto} alt={copy === 1 ? '' : m.name} loading="lazy" />
+                  : <div class="member__mono" aria-hidden="true"><span>{initials(m.name)}</span></div>}
+                <div class="member__plate">
+                  <div class="member__role" data-i18n={keyOf(m, i, 'role')}>{m.role}</div>
+                  {/* <p> e não <h3>: o cartão repete-se na fita e uma dúzia de
+                      títulos iguais só sujava o esqueleto de cabeçalhos. */}
+                  <p class="member__name">{m.name}</p>
+                  <p class="member__bio" data-i18n={keyOf(m, i, 'bio')}>{m.bio}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+) : (
+  <div class={cls}>
+    {members.map((m, i) => (
+      <article class="member">
+        <div class="member__media">
+          {m.foto
+            ? <img src={m.foto} alt={m.name} loading="lazy" />
+            : <div class="ph"></div>}
+        </div>
+        <div class="member__role" data-i18n={i18nBase && `${i18nBase}.${i}.role`}>{m.role}</div>
+        <h3 class="member__name">{m.name}</h3>
+        <p class="member__bio" data-i18n={i18nBase && `${i18nBase}.${i}.bio`}>{m.bio}</p>
+      </article>
+    ))}
+  </div>
+)}

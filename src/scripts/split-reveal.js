@@ -26,8 +26,13 @@ function init() {
   // contactos.
   // .display saiu do seletor: a classe tem zero ocorrências em src/ desde que
   // o BlockHead passou a emitir .title-split. Ficava aqui a apanhar nada.
+  // .emp-editorial__p — os dois parágrafos de "O empreendimento" (página de
+  // detalhe). Estavam num .split__body e vinham apanhados pelo selector acima;
+  // desde que a secção passou a decalcar o "Quem Somos" (ver .emp-editorial em
+  // styles.css) deixaram de lá viver e precisam de entrada própria, senão eram
+  // o único texto de secção do site sem a revelação por linha.
   const SEL = '.section .lead, .split__body > p, .quemsomos__intro > p, ' +
-    '.quemsomos__p, .dofazemos__lead, .pilar__x, ' +
+    '.quemsomos__p, .emp-editorial__p, .dofazemos__lead, .pilar__x, ' +
     '.section .title-split__text, ' +
     '.qmeta__v, .qmeta__l, .section .muted';
   // O bloco de abertura de /portfolio e /historico fica FORA deste sistema: o

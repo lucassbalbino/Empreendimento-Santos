@@ -7,8 +7,17 @@ import Watermark from '../components/Watermark.astro';
 import Seam from '../components/Seam.astro';
 import historico from '../data/historico.json';
 import { porGrupo } from '../utils/projetos.js';
+import { urlAbsoluto } from '../utils/seo.js';
+import { listaDeImoveis } from '../utils/schema.js';
 
 const concluidos = porGrupo('concluido');
+
+const schemaHistorico = [
+  listaDeImoveis(concluidos, {
+    url: urlAbsoluto('/historico'),
+    nome: 'Empreendimentos AM Santos concluídos e entregues',
+  }),
+];
 
 // Dados que a janela modal precisa (populada por JS a partir do data-slug do card).
 const modalData = concluidos.map((p) => ({
@@ -26,7 +35,7 @@ const modalData = concluidos.map((p) => ({
   factos: p.factos,
 }));
 ---
-<Base flat title="Mockup — Histórico" description="O percurso da AM Santos: uma seleção de empreendimentos concluídos e entregues ao longo de 20 anos no mercado imobiliário.">
+<Base flat tipoPagina="CollectionPage" schemaExtra={schemaHistorico}>
   <!-- PROJETOS CONCLUÍDOS. Como o portfólio: sem hero — a .seam--top, na
        mesma .container do título, funciona como eyebrow do h1 logo a seguir
        (a página abre direto no bloco de cards: fade branco na entrada,

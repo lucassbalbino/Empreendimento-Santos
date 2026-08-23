@@ -2,20 +2,32 @@
 // Card de empreendimento. Por defeito liga à página de detalhe (proj.slug), por
 // isso a listagem e a página de detalhe não podem divergir. Com modal={true} não
 // navega: é um botão que abre a janela de detalhe na própria página (histórico).
+//
+// FORMATO: moldura de linha única, canto reto. Um traço a tinta terrosa no bordo
+// do cartão e, daí para dentro, um passe-partout largo até à fotografia. A legenda
+// vive nesse passe-partout, sempre POR BAIXO da imagem e nunca sobreposta a ela.
+// (Houve aqui um .card__mat a desenhar uma segunda linha em volta de imagem +
+// legenda; saiu por decisão de desenho. Ver o bloco .card em styles.css.)
 const { proj, dark = false, modal = false } = Astro.props;
 const Tag = modal ? 'button' : 'a';
 const attrs = modal
   ? { type: 'button', class: 'card card--modal', 'data-slug': proj.slug }
   : { class: 'card', href: `/empreendimentos/${proj.slug}` };
+const meta = [proj.localizacao, proj.ano].filter(Boolean).join(' · ');
 ---
 <Tag {...attrs}>
   <div class="card__media">
     {proj.imagem
       ? <img class="card__img" src={proj.imagem} alt={proj.nome} loading="lazy" />
       : <div class={dark ? 'ph ph--dark' : 'ph'}></div>}
-    <div class="card__overlay">
+  </div>
+  <div class="card__caption">
+    <div class="card__text">
       <h3 class="card__title" data-i18n={`empreendimentos.${proj.slug}.nome`}>{proj.nome}</h3>
-      <div class="card__meta">{proj.localizacao} · <span data-i18n={`empreendimentos.${proj.slug}.tipologia`}>{proj.tipologia}</span></div>
+      {meta && <div class="card__meta">{meta}</div>}
     </div>
+    {proj.tipologia && (
+      <span class="card__tag" data-i18n={`empreendimentos.${proj.slug}.tipologia`}>{proj.tipologia}</span>
+    )}
   </div>
 </Tag>
