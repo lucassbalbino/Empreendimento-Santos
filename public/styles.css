@@ -3295,3 +3295,80 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
   display:block; margin-top:.35rem; font-family:var(--sans); font-weight:300;
   font-size:.92rem; color:var(--ink-soft);
 }
+
+/* =====================================================================
+   PISO TIPOGRÁFICO DO TELEMÓVEL (≤760px)
+   ---------------------------------------------------------------------
+   Este bloco existe agrupado, e não espalhado regra a regra, de propósito:
+   é UMA decisão só — "nada abaixo de 13px no telemóvel" — e a lista de
+   quem a incumpria só se lê como sistema se estiver junta.
+
+   Os corpos pequenos desta folha (.56rem a .8rem) foram desenhados para o
+   desktop, onde vivem a 60–80cm do olho e ao lado de tipografia grande que
+   lhes dá contexto. No telemóvel são o mesmo número de píxeis a 30cm, num
+   ecrã que o utilizador segura de pé: 8,96px do selo de proveniência e
+   9,92px do "SCROLL" ficam abaixo do que se lê sem ampliar. 13px é o piso
+   usado pela auditoria (scripts/mobile-check.mjs) e é o mínimo confortável
+   para texto em caixa alta.
+
+   O ENTRELETRA DESCE ao mesmo tempo, e não é acessório. Quase todos estes
+   rótulos são caixa alta com .2em a .32em de entreletra — a .28em, uma
+   linha de 27 caracteres gasta 98px só em ar entre letras. Subir o corpo
+   sem mexer nisso empurrava os rótulos para duas e três linhas e trocava um
+   problema de legibilidade por um de composição. Descidos para .10–.14em,
+   as etiquetas ficam MAIS ESTREITAS do que estavam apesar de maiores.
+
+   Acima dos 760px não muda nada: os corpos e o entreletra originais
+   continuam a valer, e é lá que foram afinados.
+   ===================================================================== */
+@media (max-width:760px){
+
+  /* ---- Rótulos e meta em caixa alta ---- */
+  .field label{ font-size:13px; letter-spacing:.12em; }
+  .member__role{ font-size:13px; letter-spacing:.12em; }
+  .footer-col h4{ font-size:13px; letter-spacing:.14em; }
+  .footer-bottom{ font-size:13px; }
+  .qmeta__l{ font-size:13px; }
+  .fact__r,
+  .facts--contadores .fact__r{ font-size:13px; }
+  .dslider__label{ font-size:13px; letter-spacing:.14em; }
+  .plans__counter{ font-size:13px; }
+  .emodal__estado{ font-size:13px; letter-spacing:.14em; }
+  .emodal__fact-label{ font-size:13px; }
+  .testimonials__designation{ font-size:max(13px, var(--t-designation-size,.8rem)); }
+  .post-card__data{ font-size:13px; }
+  .artigo__meta{ font-size:13px; }
+  .artigo__tags li{ font-size:13px; }
+
+  /* ---- Botões, ligações de ação e migalhas ----
+     O .btn é o pior caso: 11,84px de texto com .22em de entreletra é o
+     rótulo mais pequeno do site a fazer o trabalho mais importante. */
+  .btn{ font-size:13px; letter-spacing:.13em; }
+  .footer-links a{ font-size:13px; }
+  .post-card__cta{ font-size:13px; }
+  .crumbs__list{ font-size:13px; }
+  .nav__list a,
+  .lang-switch__btn{ font-size:13px; }
+  .emodal__chip{ font-size:13px; }
+
+  /* ---- Texto sobre imagem ----
+     O selo de proveniência (.img-prov) estava a 8,96px — o mais pequeno da
+     folha, e assenta sobre fotografia, que é a superfície onde menos
+     contraste há. O "SCROLL" da hero é o mesmo caso. */
+  .img-prov{ font-size:13px; letter-spacing:.1em; padding:.3rem .55rem; }
+  .hero__scroll{ font-size:13px; letter-spacing:.18em; }
+  .hero__bg::after{ font-size:13px; letter-spacing:.16em; }
+  .ph::after,
+  .testimonials__img--ph::after{ font-size:13px; letter-spacing:.14em; }
+  /* A chapa e `white-space:nowrap` e entra na largura de min-content da
+     coluna da grelha (ver B1 em docs/MOBILE.md). Subir o corpo de 12,48 para
+     13px alargava-a ~5px; o recuo horizontal desce de 14 para 10px para
+     devolver mais do que isso — a chapa fica 2px MAIS ESTREITA do que estava,
+     apesar de a letra ser maior. */
+  .card__tag{ font-size:13px; padding:8px 10px; }
+
+  /* ---- Corpo pequeno ---- */
+  .check{ font-size:13px; }
+  .emodal__entrega{ font-size:13px; }
+  .team--marquee .member__bio{ font-size:13px; }
+}
