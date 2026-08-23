@@ -33,7 +33,7 @@
       "assuntoOutro": "Outro assunto",
       "mensagem": "Mensagem",
       "mensagemPlaceholder": "Escreva aqui a sua mensagem…",
-      "consent": "Autorizo o tratamento dos meus dados para efeitos de contacto, nos termos da Política de Privacidade.",
+      "consent": "Autorizo o tratamento dos meus dados para efeitos de contacto, nos termos da",
       "submit": "Enviar mensagem"
     },
     "seam": {
@@ -44,6 +44,7 @@
       "falaConnosco": "Fala Connosco"
     },
     "slider": { "prev": "Empreendimento anterior", "next": "Empreendimento seguinte" },
+    "plans": { "prev": "Imagem anterior", "next": "Imagem seguinte", "item": "Imagem" },
     "testimonials": { "prev": "Depoimento anterior", "next": "Próximo depoimento" },
     "emodal": {
       "close": "Fechar",
@@ -53,7 +54,6 @@
       "empreendimentoFallback": "Empreendimento"
     },
     "projectDetail": {
-      "back": "← Empreendimentos",
       "ficha": "Ficha do empreendimento",
       "imagens": "Imagens do empreendimento",
       "continuar": "Continue a explorar",
@@ -81,6 +81,35 @@
       "Área total": "Área total",
       "Área por armazém": "Área por armazém",
       "Escritório": "Escritório"
+    },
+    "cookies": {
+      "titulo": "Cookies neste site",
+      "texto": "Guardamos no seu equipamento o que é necessário para o site funcionar e para registar esta escolha. Os cookies de estatísticas e de marketing só são usados com o seu consentimento.",
+      "aceitar": "Aceitar tudo",
+      "rejeitar": "Rejeitar tudo",
+      "personalizar": "Personalizar",
+      "painelTitulo": "Definições de cookies",
+      "painelTexto": "Escolha as categorias que autoriza. Os cookies necessários mantêm-se sempre ativos; os restantes ficam desligados até os ligar aqui.",
+      "guardar": "Guardar escolhas",
+      "fechar": "Fechar sem guardar",
+      "sempreAtivo": "Sempre ativo",
+      "verPolitica": "Política de Cookies",
+      "verPrivacidade": "Política de Privacidade",
+      "definicoes": "Definições de cookies",
+      "categorias": {
+        "necessarios": {
+          "nome": "Necessários",
+          "descricao": "Fazem o site funcionar e guardam escolhas que o próprio visitante pediu (idioma, registo do consentimento). Estão isentos de consentimento e não podem ser desligados."
+        },
+        "estatisticas": {
+          "nome": "Estatísticas",
+          "descricao": "Contam visitas de forma agregada para percebermos que páginas são úteis. Sem eles não sabemos o que melhorar, mas o site funciona na mesma."
+        },
+        "marketing": {
+          "nome": "Marketing",
+          "descricao": "Permitem medir campanhas e mostrar conteúdo de terceiros (mapas, vídeos, redes sociais). Hoje o site não usa nenhum; a categoria fica preparada para quando usar."
+        }
+      }
     }
   },
   "home": {

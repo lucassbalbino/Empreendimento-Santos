@@ -19,7 +19,7 @@ const { title, texto, titleI18n, titleI18nTpl, textoI18n } = Astro.props;
       </select>
     </div>
     <div class="field"><label data-i18n="common.contactForm.mensagem">Mensagem</label><textarea placeholder="Escreva aqui a sua mensagem…" data-i18n="common.contactForm.mensagemPlaceholder" data-i18n-attr="placeholder"></textarea></div>
-    <label class="check"><input type="checkbox"> <span data-i18n="common.contactForm.consent">Autorizo o tratamento dos meus dados para efeitos de contacto, nos termos da Política de Privacidade.</span></label>
+    <label class="check"><input type="checkbox"> <span data-i18n="common.contactForm.consent">Autorizo o tratamento dos meus dados para efeitos de contacto, nos termos da</span> <a href="/politica-de-privacidade/" data-i18n="common.cookies.verPrivacidade">Política de Privacidade</a>.</label>
     <button class="btn" type="submit" data-i18n="common.contactForm.submit">Enviar mensagem</button>
   </form>
 </div>

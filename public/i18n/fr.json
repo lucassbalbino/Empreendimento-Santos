@@ -33,7 +33,7 @@
       "assuntoOutro": "Autre sujet",
       "mensagem": "Message",
       "mensagemPlaceholder": "Écrivez votre message ici…",
-      "consent": "J'autorise le traitement de mes données à des fins de contact, conformément à la Politique de Confidentialité.",
+      "consent": "J'autorise le traitement de mes données à des fins de contact, conformément à la",
       "submit": "Envoyer le message"
     },
     "seam": {
@@ -44,6 +44,7 @@
       "falaConnosco": "Parlez-nous"
     },
     "slider": { "prev": "Projet précédent", "next": "Projet suivant" },
+    "plans": { "prev": "Image précédente", "next": "Image suivante", "item": "Image" },
     "testimonials": { "prev": "Témoignage précédent", "next": "Témoignage suivant" },
     "emodal": {
       "close": "Fermer",
@@ -53,7 +54,6 @@
       "empreendimentoFallback": "Projet"
     },
     "projectDetail": {
-      "back": "← Projets",
       "ficha": "Fiche du projet",
       "imagens": "Images du projet",
       "continuar": "Continuez à explorer",
@@ -81,6 +81,35 @@
       "Área total": "Surface totale",
       "Área por armazém": "Surface par entrepôt",
       "Escritório": "Bureau"
+    },
+    "cookies": {
+      "titulo": "Cookies sur ce site",
+      "texto": "Nous enregistrons sur votre appareil ce qui est nécessaire au fonctionnement du site et à la mémorisation de ce choix. Les cookies de statistiques et de marketing ne sont utilisés qu'avec votre consentement.",
+      "aceitar": "Tout accepter",
+      "rejeitar": "Tout refuser",
+      "personalizar": "Personnaliser",
+      "painelTitulo": "Paramètres des cookies",
+      "painelTexto": "Choisissez les catégories que vous autorisez. Les cookies nécessaires restent toujours actifs ; les autres demeurent désactivés jusqu'à ce que vous les activiez ici.",
+      "guardar": "Enregistrer les choix",
+      "fechar": "Fermer sans enregistrer",
+      "sempreAtivo": "Toujours actif",
+      "verPolitica": "Politique de Cookies",
+      "verPrivacidade": "Politique de Confidentialité",
+      "definicoes": "Paramètres des cookies",
+      "categorias": {
+        "necessarios": {
+          "nome": "Nécessaires",
+          "descricao": "Ils font fonctionner le site et conservent les choix demandés par le visiteur (langue, enregistrement du consentement). Ils sont exemptés de consentement et ne peuvent pas être désactivés."
+        },
+        "estatisticas": {
+          "nome": "Statistiques",
+          "descricao": "Ils comptent les visites de manière agrégée afin de comprendre quelles pages sont utiles. Sans eux, nous ne savons pas quoi améliorer, mais le site fonctionne de la même façon."
+        },
+        "marketing": {
+          "nome": "Marketing",
+          "descricao": "Ils permettent de mesurer les campagnes et d'afficher des contenus tiers (cartes, vidéos, réseaux sociaux). Le site n'en utilise aucun aujourd'hui ; la catégorie est prête pour le jour où ce sera le cas."
+        }
+      }
     }
   },
   "home": {

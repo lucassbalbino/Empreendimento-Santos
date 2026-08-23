@@ -1,0 +1,137 @@
+---
+/**
+ * Aviso de cookies — markup das duas camadas.
+ *
+ * Aqui só vive a estrutura. A lógica toda (ler/gravar o registo, decidir quando
+ * aparecer, prender o foco, activar os scripts inertes) está em
+ * `public/consent.js`, ligada por delegação num único listener no `document`.
+ * Por isso este ficheiro NÃO leva `<script>`: o markup pode nascer e morrer a
+ * cada navegação que os botões continuam a funcionar.
+ *
+ * As categorias e a validade vêm de `src/data/cookies.json` — mudar lá propaga
+ * para os toggles, para a tabela da Política de Cookies e para o `max-age` do
+ * cookie. O `data-versao` é o que invalida consentimentos antigos: subi-lo em
+ * `cookies.json` obriga toda a gente a decidir de novo.
+ */
+import cookies from '../data/cookies.json';
+---
+<div
+  id="ams-cookies"
+  class="cookies"
+  hidden
+  data-versao={cookies.versao}
+  data-validade={cookies.validadeDias}
+>
+  <!-- 1.ª camada: barra. `role="dialog"` SEM `aria-modal` de propósito — a
+       barra não prende o foco nem tapa o site. Uma parede de cookies (modal a
+       bloquear a leitura até haver decisão) resolve um problema legal e cria
+       outro: pressiona a decisão, que é exactamente o que o RGPD proíbe.
+       O que garante a conformidade não é bloquear a página, é não colocar nada
+       no equipamento antes da escolha — e disso trata o consent.js. -->
+  <section
+    class="cookies__aviso"
+    role="dialog"
+    aria-labelledby="cookies-titulo"
+    aria-describedby="cookies-texto"
+    tabindex="-1"
+  >
+    <div class="cookies__texto">
+      <h2 class="cookies__titulo" id="cookies-titulo" data-i18n="common.cookies.titulo">Cookies neste site</h2>
+      <p id="cookies-texto" data-i18n="common.cookies.texto">Guardamos no seu equipamento o que é necessário para o site funcionar e para registar esta escolha. Os cookies de estatísticas e de marketing só são usados com o seu consentimento.</p>
+      <p class="cookies__legal">
+        <a href="/politica-de-cookies/" data-i18n="common.cookies.verPolitica">Política de Cookies</a>
+        <span class="cookies__sep" aria-hidden="true">·</span>
+        <a href="/politica-de-privacidade/" data-i18n="common.cookies.verPrivacidade">Política de Privacidade</a>
+      </p>
+    </div>
+
+    <!-- Aceitar e Rejeitar partilham a classe `.cookies__btn` e NADA os
+         distingue: nem cor, nem tamanho, nem ordem de destaque. É deliberado e
+         é o ponto que os reguladores mais fiscalizam — a CNIL multou a Google
+         em 325 M€ (set/2025) por recusar custar mais do que aceitar. Se alguém
+         um dia acrescentar aqui um `.cookies__btn--destaque`, quebra a
+         conformidade; o `scripts/cookies-check.mjs` falha o build se as duas
+         classes divergirem.
+         "Personalizar" pode ser terciário porque não é uma escolha de
+         consentimento — é navegação para a camada de baixo. -->
+    <div class="cookies__accoes">
+      <button type="button" class="cookies__btn" data-cookies="aceitar" data-i18n="common.cookies.aceitar">Aceitar tudo</button>
+      <button type="button" class="cookies__btn" data-cookies="rejeitar" data-i18n="common.cookies.rejeitar">Rejeitar tudo</button>
+      <button type="button" class="cookies__terciario" data-cookies="personalizar" data-i18n="common.cookies.personalizar">Personalizar</button>
+    </div>
+  </section>
+
+  <!-- Véu do painel. Fecha SEM gravar (o consent.js trata `fechar` como
+       dispensa, nunca como consentimento). `aria-hidden` porque o mesmo gesto
+       já está disponível no botão de fechar, que os leitores de ecrã alcançam. -->
+  <div class="cookies__veu" data-cookies="fechar" aria-hidden="true"></div>
+
+  <!-- 2.ª camada: painel. Este SIM é modal — quem entrou aqui pediu para
+       decidir ao detalhe, e o foco preso evita sair do painel sem perceber. -->
+  <section
+    class="cookies__painel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cookies-painel-titulo"
+    tabindex="-1"
+  >
+    <div class="cookies__painel-topo">
+      <h2 id="cookies-painel-titulo" data-i18n="common.cookies.painelTitulo">Definições de cookies</h2>
+      <button
+        type="button"
+        class="cookies__fechar"
+        data-cookies="fechar"
+        aria-label="Fechar sem guardar"
+        data-i18n="common.cookies.fechar"
+        data-i18n-attr="aria-label"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18"/>
+        </svg>
+      </button>
+    </div>
+
+    <p class="cookies__painel-texto" data-i18n="common.cookies.painelTexto">Escolha, categoria a categoria, o que autoriza. Pode voltar aqui a qualquer momento pelo rodapé do site.</p>
+
+    <ul class="cookies__lista">
+      {cookies.categorias.map((cat) => (
+        <li class="cookies__cat">
+          <div class="cookies__cat-cab">
+            <label class="cookies__toggle" for={`cookies-cat-${cat.id}`}>
+              {/* O input existe SEMPRE, mesmo nas categorias obrigatórias:
+                  desligá-lo do DOM deixaria o leitor de ecrã sem perceber que
+                  ali há um estado. Nas obrigatórias nasce marcado e desactivado
+                  (o consent.js reforça-o), com o rótulo "Sempre ativo" a
+                  explicar porquê a quem vê. */}
+              <input
+                type="checkbox"
+                id={`cookies-cat-${cat.id}`}
+                data-cookies-cat={cat.id}
+                checked={cat.obrigatoria || undefined}
+                disabled={cat.obrigatoria || undefined}
+              />
+              <span class="cookies__toggle-pista" aria-hidden="true"></span>
+              <span class="cookies__cat-nome" data-i18n={`common.cookies.categorias.${cat.id}.nome`}>{cat.nome}</span>
+            </label>
+            {cat.obrigatoria && (
+              <span class="cookies__sempre" data-i18n="common.cookies.sempreAtivo">Sempre ativo</span>
+            )}
+          </div>
+          <p class="cookies__cat-desc" data-i18n={`common.cookies.categorias.${cat.id}.descricao`}>{cat.descricao}</p>
+        </li>
+      ))}
+    </ul>
+
+    <div class="cookies__painel-fundo">
+      <button type="button" class="cookies__btn" data-cookies="rejeitar" data-i18n="common.cookies.rejeitar">Rejeitar tudo</button>
+      <button type="button" class="cookies__btn" data-cookies="aceitar" data-i18n="common.cookies.aceitar">Aceitar tudo</button>
+      <button type="button" class="cookies__btn cookies__btn--guardar" data-cookies="guardar" data-i18n="common.cookies.guardar">Guardar escolhas</button>
+    </div>
+
+    <p class="cookies__painel-legal">
+      <a href="/politica-de-cookies/" data-i18n="common.cookies.verPolitica">Política de Cookies</a>
+      <span class="cookies__sep" aria-hidden="true">·</span>
+      <a href="/politica-de-privacidade/" data-i18n="common.cookies.verPrivacidade">Política de Privacidade</a>
+    </p>
+  </section>
+</div>

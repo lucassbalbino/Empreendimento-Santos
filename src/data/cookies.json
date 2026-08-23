@@ -1,0 +1,60 @@
+{
+  "_leia": "Fonte única de verdade dos cookies. As categorias mandam nos ids que o /consent.js grava no cookie ams-consent e nos toggles do painel; o inventário é a tabela que a Política de Cookies imprime. Acrescentar um serviço novo = acrescentar uma linha ao inventário E marcar o script com data-ams-consent=<categoria>. Ver docs/COOKIES.md.",
+  "versao": 1,
+  "cookieNome": "ams-consent",
+  "validadeDias": 180,
+  "categorias": [
+    {
+      "id": "necessarios",
+      "obrigatoria": true,
+      "nome": "Necessários",
+      "descricao": "Fazem o site funcionar e guardam escolhas que o próprio visitante pediu (idioma, registo do consentimento). Estão isentos de consentimento e não podem ser desligados."
+    },
+    {
+      "id": "estatisticas",
+      "obrigatoria": false,
+      "nome": "Estatísticas",
+      "descricao": "Contam visitas de forma agregada para percebermos que páginas são úteis. Sem eles não sabemos o que melhorar, mas o site funciona na mesma."
+    },
+    {
+      "id": "marketing",
+      "obrigatoria": false,
+      "nome": "Marketing",
+      "descricao": "Permitem medir campanhas e mostrar conteúdo de terceiros (mapas, vídeos, redes sociais). Hoje o site não usa nenhum; a categoria fica preparada para quando usar."
+    }
+  ],
+  "inventario": [
+    {
+      "nome": "ams-consent",
+      "categoria": "necessarios",
+      "tipo": "Cookie",
+      "fornecedor": "amsantos.pt (primeira parte)",
+      "duracao": "6 meses",
+      "finalidade": "Guarda a escolha feita neste aviso, para não voltar a perguntar em cada página."
+    },
+    {
+      "nome": "ams-lang",
+      "categoria": "necessarios",
+      "tipo": "localStorage",
+      "fornecedor": "amsantos.pt (primeira parte)",
+      "duracao": "Até ser apagado pelo visitante",
+      "finalidade": "Guarda o idioma escolhido no seletor PT/EN/FR."
+    },
+    {
+      "nome": "ams-preloaded",
+      "categoria": "necessarios",
+      "tipo": "sessionStorage",
+      "fornecedor": "amsantos.pt (primeira parte)",
+      "duracao": "Fecha com o separador",
+      "finalidade": "Regista que a animação de entrada já foi vista, para não a repetir a cada página."
+    },
+    {
+      "nome": "Cloudflare Web Analytics",
+      "categoria": "estatisticas",
+      "tipo": "Script (sem cookies)",
+      "fornecedor": "Cloudflare, Inc.",
+      "duracao": "Não armazena identificadores no equipamento",
+      "finalidade": "Contagem agregada de visitas e páginas vistas. Só é carregado depois de aceitar a categoria Estatísticas."
+    }
+  ]
+}

@@ -6,7 +6,7 @@ const moradaLinhas = site.footer.morada.split('\n');
   <div class="container">
     <div class="footer-grid">
       <div class="footer-col footer-brand">
-        <span class="logo footer-logo"><img src="/images/logo-ams-santos-h-light.png" alt="AM Santos — Empreendimentos" /></span>
+        <span class="logo footer-logo"><img src="/images/logo-ams-santos-h-light.png" alt="AM Santos — Empreendimentos" width="700" height="185" /></span>
         <p data-i18n="site.footer.blurb">{site.footer.blurb}</p>
         <div class="socials">
           <a href="#" aria-label="Instagram" data-i18n="common.footer.instagram" data-i18n-attr="aria-label">
@@ -44,6 +44,24 @@ const moradaLinhas = site.footer.morada.split('\n');
         <label class="check check--footer"><input type="checkbox"> <span data-i18n="common.footer.newsletterConsent">Aceito receber novidades e comunicações da AM Santos.</span></label>
       </div>
     </div>
+    <!-- Ligações que não cabem no menu principal mas têm de ser rastreáveis:
+         o blog só recebe visitas do Google se houver um link para ele em todas
+         as páginas, e é isto. -->
+    <nav class="footer-links" aria-label="Ligações secundárias">
+      <a href="/blog/">Blog</a>
+      <a href="/portfolio/">Empreendimentos</a>
+      <a href="/historico/">Obras concluídas</a>
+      <a href="/equipa/">Equipa</a>
+      <a href="/contactos/">Contactos</a>
+      <a href="/politica-de-privacidade/" data-i18n="common.cookies.verPrivacidade">Política de Privacidade</a>
+      <a href="/politica-de-cookies/" data-i18n="common.cookies.verPolitica">Política de Cookies</a>
+      <!-- Retirar o consentimento tem de ser tao facil como da-lo (art. 7.º, n.º 3
+           do RGPD), e "tao facil" quer dizer alcancavel de qualquer pagina — daqui.
+           E um <button> e nao um <a href="#">: nao navega para lado nenhum, abre um
+           dialogo. O consent.js apanha-o por delegacao, por isso funciona mesmo
+           depois de o rodape ser re-renderizado numa navegacao suave. -->
+      <button type="button" data-cookies="abrir" data-i18n="common.cookies.definicoes">Definições de cookies</button>
+    </nav>
     <div class="footer-bottom">
       <span>{site.footer.copyright}</span>
       <span data-i18n="site.footer.assinatura">{site.footer.assinatura}</span>
