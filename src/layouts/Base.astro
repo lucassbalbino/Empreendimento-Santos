@@ -184,13 +184,18 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero'].filter(Boolean).join(
        de scroll com rAF próprio) para a imagem e a página serem pintadas no
        mesmo frame; caso contrário a imagem fica um frame atrás e tremelica.
 
-       Tudo isto é progressivo: sem JS, ou com prefers-reduced-motion, fica o
-       scroll nativo e --hero-parallax a 0. -->
+       Tudo isto é progressivo: sem JS, com prefers-reduced-motion, ou em
+       ecrã tátil, fica o scroll nativo e --hero-parallax a 0. O toque não
+       tem a mesma física do rato: o dedo já impõe o próprio momentum ao
+       scroll nativo do browser, e o Lenis por cima disso (a reamostrar via
+       rAF a cada frame) competia pelo mesmo thread principal e engasgava —
+       sobretudo em telemóveis mais fracos. -->
   <script>
     import Lenis from 'lenis';
 
     const DRIFT = 0.15;  // fração do scroll que a imagem da hero percorre
-    const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      window.matchMedia('(pointer: coarse)').matches;
 
     // Scripts de módulo só correm UMA vez com ViewTransitions. Por isso o Lenis
     // é reconstruído a cada `astro:page-load` (dispara na 1.ª carga e em cada
