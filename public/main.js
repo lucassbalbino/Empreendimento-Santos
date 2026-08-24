@@ -9,6 +9,14 @@
 
   // Header muda ao rolar (listener global permanente).
   var lastScrollY = window.scrollY;
+  // Limiar mínimo de variação para decidir a direção. O Lenis (scroll suave)
+  // dispara MUITOS eventos 'scroll' por gesto, e no instante em que o utilizador
+  // inverte o sentido (ex.: sobe e logo a seguir tenta descer) a posição oscila
+  // por sub-pixels durante alguns frames antes de assentar na nova direção. Sem
+  // este limiar, cada oscilação alternava a classe --hidden e reiniciava a
+  // transição do transform, e a barra ficava a "engasgar" a meio da animação
+  // em vez de mostrar/esconder de forma limpa.
+  var HIDE_DELTA = 8;
   function updateHeader() {
     var header = document.querySelector('.site-header');
     if (!header) return;
@@ -21,8 +29,10 @@
     // de um limiar para não oscilar logo no topo; menu mobile aberto nunca esconde.
     var nav = document.querySelector('.nav');
     var menuOpen = nav && nav.classList.contains('open');
+    var diff = scrollY - lastScrollY;
+    if (Math.abs(diff) < HIDE_DELTA) return;   // ruído: não decide direção nem move a baseline
     if (!menuOpen) {
-      header.classList.toggle('site-header--hidden', scrollY > lastScrollY && scrollY > 120);
+      header.classList.toggle('site-header--hidden', diff > 0 && scrollY > 120);
     }
     lastScrollY = scrollY;
   }
