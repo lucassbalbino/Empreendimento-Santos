@@ -36,7 +36,12 @@ const moradaLinhas = site.footer.morada.split('\n');
       </div>
       <div class="footer-col">
         <h4 data-i18n="common.footer.contactosLabel">Contactos</h4>
-        <p><a href={`mailto:${site.footer.email}`}>{site.footer.email}</a><br><a href="#">{site.footer.telefone}</a></p>
+        <p>
+          <a href={`mailto:${site.footer.email}`}>{site.footer.email}</a>
+          {site.footer.telefones.map((t) => (
+            <><br /><a href={`tel:${t.numero.replace(/\s+/g, '')}`}>{t.label} — {t.numero}</a></>
+          ))}
+        </p>
       </div>
       <div class="footer-col">
         <h4 data-i18n="common.footer.newsletterLabel">Newsletter</h4>

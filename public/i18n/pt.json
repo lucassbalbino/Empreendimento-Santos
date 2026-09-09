@@ -125,12 +125,13 @@
       "botao": "Sobre nós"
     },
     "oQueFazemos": {
-      "title": "Qualidade — Conforto — Sustentabilidade",
-      "lead": "Do estudo do terreno à entrega das chaves, a AM Santos desenha, constrói e acompanha cada empreendimento com a mesma exigência — para que qualidade, conforto e sustentabilidade deixem de ser promessas e passem a ser critérios verificáveis em cada metro quadrado.",
+      "title": "Qualidade — Conforto — Sustentabilidade — Inovação",
+      "lead": "Do estudo do terreno à entrega das chaves, a AM Santos desenha, constrói e acompanha cada empreendimento com a mesma exigência — para que qualidade, conforto, sustentabilidade e inovação deixem de ser promessas e passem a ser critérios verificáveis em cada metro quadrado.",
       "pilares": [
         { "title": "Qualidade", "texto": "Cada projeto é acompanhado desde o desenho até à obra concluída, com um controlo rigoroso de materiais e acabamentos em todas as fases." },
         { "title": "Conforto", "texto": "Espaços pensados para o dia a dia de quem os habita, com uma arquitetura funcional que privilegia luz, circulação e bem-estar." },
-        { "title": "Sustentabilidade", "texto": "Soluções energeticamente eficientes e materiais duráveis, que reduzem o impacto ambiental e os custos de manutenção a longo prazo." }
+        { "title": "Sustentabilidade", "texto": "Soluções energeticamente eficientes e materiais duráveis, que reduzem o impacto ambiental e os custos de manutenção a longo prazo." },
+        { "title": "Inovação", "texto": "Exploramos novos segmentos e soluções construtivas, antecipando tendências de mercado para dar forma ao próximo passo de cada empreendimento." }
       ],
       "statsTitle": "Em números",
       "statsLead": "Duas décadas de experiência traduzidas em resultado: cada projeto executado, cada metro quadrado construído e cada milhão investido reflete o mesmo compromisso da AM Santos com a qualidade e a sustentabilidade.",
@@ -166,7 +167,8 @@
       "title": "O que nos move",
       "items": [
         { "title": "Na vanguarda da inovação arquitetónica", "texto": "Com vários projetos em pipeline, mantemo-nos na vanguarda da inovação arquitetónica, priorizando a qualidade, o conforto e a eficiência energética para garantir a satisfação dos nossos clientes.", "botao": "Ver empreendimentos" },
-        { "title": "Uma abordagem eco-friendly", "texto": "O nosso mais recente projeto foi concebido com materiais sustentáveis, para aliar conforto, bem-estar e arquitetura moderna — reduzindo os custos de manutenção e garantindo o máximo conforto climático.", "botao": "Falar connosco" }
+        { "title": "Uma abordagem eco-friendly", "texto": "O nosso mais recente projeto foi concebido com materiais sustentáveis, para aliar conforto, bem-estar e arquitetura moderna — reduzindo os custos de manutenção e garantindo o máximo conforto climático.", "botao": "Falar connosco" },
+        { "title": "Responsabilidade social", "texto": "Mais do que construir, queremos contribuir. Em cada projeto, identificamos formas de gerar impacto social, apoiando iniciativas que respondam às necessidades da comunidade envolvente e deixem uma marca positiva em cada lugar onde estamos presentes." }
       ]
     },
     "equipa": {
@@ -291,8 +293,8 @@
       "estado": "Concluído",
       "comercial": "Vendido",
       "entrega": "Concluído em 2021",
-      "resumo": "Moradia de 5 quartos com piscina privativa que valoriza o pátio como gerador do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural. Projeto desenhado pela equipa LogoExisto®.",
-      "factos": ["Loures", "2021", "1 moradia", "T5", "LogoExisto®", "Vendido"]
+      "resumo": "Moradia de 5 quartos com piscina privativa que valoriza o pátio como gerador do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural.",
+      "factos": ["Loures", "2021", "1 moradia", "T5", "Vendido"]
     },
     "condominio-tojalinho": {
       "nome": "Condomínio Tojalinho",
@@ -311,8 +313,8 @@
       "estado": "Em projeto",
       "comercial": "Vendido",
       "entrega": "Em fase de projeto · 2023",
-      "resumo": "Em fase de projeto, em conjunto com entidades (Câmara Municipal e outras), o condomínio Santos — Sintra prevê 9 moradias T4 com piscina privativa em cada fração, promovendo privacidade, qualidade de vida e relação com a luz natural. Projeto desenhado pela equipa LogoExisto®.",
-      "factos": ["Albarraque, Sintra", "2023", "9 moradias", "T4", "LogoExisto®", "Em projeto / Vendido"]
+      "resumo": "Em fase de projeto, em conjunto com entidades (Câmara Municipal e outras), o condomínio Santos — Sintra prevê 9 moradias T4 com piscina privativa em cada fração, promovendo privacidade, qualidade de vida e relação com a luz natural.",
+      "factos": ["Albarraque, Sintra", "2023", "9 moradias", "T4", "Em projeto / Vendido"]
     },
     "empreendimento-residencial-11-villas": {
       "nome": "Empreendimento Residencial 11 Villas",
@@ -321,8 +323,8 @@
       "estado": "Em construção",
       "comercial": "Vendido",
       "entrega": "Em construção · 2023",
-      "resumo": "Em fase de construção, o condomínio Santos prevê 11 moradias de tipologia T4 e T5 com piscina privativa em cada unidade, valorizando o pátio como elemento gerador do espaço residencial. Projeto desenhado pela equipa LogoExisto®.",
-      "factos": ["Loures", "2023", "11 moradias", "T4 / T5", "LogoExisto®", "Em construção / Vendido"]
+      "resumo": "Em fase de construção, o condomínio Santos prevê 11 moradias de tipologia T4 e T5 com piscina privativa em cada unidade, valorizando o pátio como elemento gerador do espaço residencial.",
+      "factos": ["Loures", "2023", "11 moradias", "T4 / T5", "Em construção / Vendido"]
     },
     "moradia-unifamiliar-santo-antao-do-tojal": {
       "nome": "Moradia Unifamiliar",
@@ -331,8 +333,8 @@
       "estado": "Em construção",
       "comercial": "Vendido",
       "entrega": "Em construção · 2026",
-      "resumo": "Em fase de construção, moradia de 4 quartos com piscina privativa, valorizando o pátio como elemento do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural. Projeto desenhado pela equipa LogoExisto®.",
-      "factos": ["St. Antão do Tojal, Loures", "2026", "1 moradia", "T4", "LogoExisto®", "Em construção / Vendido"]
+      "resumo": "Em fase de construção, moradia de 4 quartos com piscina privativa, valorizando o pátio como elemento do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural.",
+      "factos": ["St. Antão do Tojal, Loures", "2026", "1 moradia", "T4", "Em construção / Vendido"]
     },
     "valflores-terraces": {
       "nome": "Valflores Terraces",
@@ -361,7 +363,7 @@
       "estado": "Em construção",
       "comercial": "Arrendamento",
       "entrega": "Previsão 2028",
-      "resumo": "Apartamentos de tipologia T2 especificamente para colocar no mercado de arrendamento, dando início a uma nova vertente de negócio do grupo AM Santos — AM Santos Imobiliária, gestão de património.",
+      "resumo": "Como em todos os empreendimentos AM Santos, o Valflores Residence nasce de uma visão centrada no novo segmento de mercado que a AM Santos está a desenvolver.",
       "factos": ["Santa Iria de Azóia, Loures", "2028", "39 apartamentos", "T2", "Mercado de arrendamento", "Em construção"]
     },
     "pinteus-residence": {
@@ -371,28 +373,38 @@
       "estado": "Em projeto",
       "comercial": "Arrendamento",
       "entrega": "Previsão 2028",
-      "resumo": "14 apartamentos em condomínio fechado de tipologia T2, especificamente para colocar no mercado de arrendamento, dando início a uma nova vertente de negócio do grupo AM Santos — AM Santos Imobiliária, gestão de património.",
+      "resumo": "Como em todos os empreendimentos AM Santos, o Pinteus Residence nasce de uma visão centrada no novo segmento de mercado que a AM Santos está a desenvolver.",
       "factos": ["St. Antão do Tojal, Loures", "2028", "14 apartamentos", "T2", "Mercado de arrendamento", "Em projeto"]
     },
     "empreendimento-loures-residencial": {
       "nome": "Empreendimento Loures — Residencial",
-      "tipologia": "T2, T3 e T4",
-      "unidades": "165 apartamentos",
+      "tipologia": "T1, T2, T3, T5 e T6",
+      "unidades": "155 apartamentos",
       "estado": "Em projeto",
-      "comercial": "Arrendamento",
+      "comercial": "Habitação",
       "entrega": "Previsão 2029",
-      "resumo": "Condomínio fechado de alto padrão e inovação com 165 apartamentos de tipologias T2, T3 e T4, para colocar no mercado de arrendamento.",
-      "factos": ["Loures", "2029", "165 apartamentos", "T2, T3 e T4", "Mercado de arrendamento", "Em projeto"]
+      "resumo": "Condomínio fechado de alto padrão e inovação com 155 apartamentos de tipologias T1, T2, T3, T5 e T6, destinado à habitação.",
+      "factos": ["Loures", "2029", "155 apartamentos", "T1, T2, T3, T5 e T6", "Habitação", "Em projeto"]
     },
     "empreendimento-loures-hotel": {
-      "nome": "Empreendimento Loures — Hotel",
+      "nome": "O Loures hotel",
       "tipologia": "Hotel · 50 quartos",
       "unidades": "50 quartos",
       "estado": "Em projeto",
       "comercial": "Hotelaria",
-      "entrega": "Previsão 2029",
+      "entrega": "Previsão 2030",
       "resumo": "Hotel com cerca de 50 quartos, salas de congressos, restaurante e outros serviços, de arquitetura moderna.",
-      "factos": ["Loures", "2029", "Hotel — cerca de 50 quartos", "Salas de congressos, restaurante", "Em projeto"]
+      "factos": ["Loures", "2030", "Hotel — cerca de 50 quartos", "Salas de congressos, restaurante", "Em projeto"]
+    },
+    "quinta-das-amoreiras": {
+      "nome": "Quinta das Amoreiras",
+      "tipologia": "T1 a T5",
+      "unidades": "600 apartamentos",
+      "estado": "Em projeto",
+      "comercial": "Arrendamento",
+      "entrega": "Previsão 2030/2035",
+      "resumo": "Composto por vários condomínios fechados onde agrega a natureza, vista de rio e inovação, num novo estilo de vida na cidade de Lisboa. Com um total de 600 apartamentos, hotel e espaços comerciais.",
+      "factos": ["Santa Iria de Azóia", "2030/2035", "Hotel e espaços comerciais", "600 apartamentos", "T1 a T5", "Habitação, comércio e serviços"]
     }
   }
 }

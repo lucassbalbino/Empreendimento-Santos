@@ -125,12 +125,13 @@
       "botao": "À propos de nous"
     },
     "oQueFazemos": {
-      "title": "Qualité — Confort — Durabilité",
-      "lead": "De l'étude du terrain à la remise des clés, AM Santos conçoit, construit et accompagne chaque projet avec la même exigence — pour que qualité, confort et durabilité cessent d'être des promesses et deviennent des critères vérifiables à chaque mètre carré.",
+      "title": "Qualité — Confort — Durabilité — Innovation",
+      "lead": "De l'étude du terrain à la remise des clés, AM Santos conçoit, construit et accompagne chaque projet avec la même exigence — pour que qualité, confort, durabilité et innovation cessent d'être des promesses et deviennent des critères vérifiables à chaque mètre carré.",
       "pilares": [
         { "title": "Qualité", "texto": "Chaque projet est suivi depuis la conception jusqu'à l'achèvement des travaux, avec un contrôle rigoureux des matériaux et des finitions à toutes les étapes." },
         { "title": "Confort", "texto": "Des espaces pensés pour le quotidien de leurs habitants, avec une architecture fonctionnelle qui privilégie la lumière, la circulation et le bien-être." },
-        { "title": "Durabilité", "texto": "Des solutions énergétiquement efficaces et des matériaux durables, qui réduisent l'impact environnemental et les coûts d'entretien à long terme." }
+        { "title": "Durabilité", "texto": "Des solutions énergétiquement efficaces et des matériaux durables, qui réduisent l'impact environnemental et les coûts d'entretien à long terme." },
+        { "title": "Innovation", "texto": "Nous explorons de nouveaux segments de marché et solutions constructives, en anticipant les tendances pour donner forme à la prochaine étape de chaque projet." }
       ],
       "statsTitle": "En chiffres",
       "statsLead": "Deux décennies d'expérience traduites en résultats : chaque projet réalisé, chaque mètre carré construit et chaque million investi reflète le même engagement d'AM Santos envers la qualité et la durabilité.",
@@ -166,7 +167,8 @@
       "title": "Ce qui nous anime",
       "items": [
         { "title": "À l'avant-garde de l'innovation architecturale", "texto": "Avec plusieurs projets en pipeline, nous restons à l'avant-garde de l'innovation architecturale, en donnant la priorité à la qualité, au confort et à l'efficacité énergétique pour garantir la satisfaction de nos clients.", "botao": "Voir les projets" },
-        { "title": "Une approche éco-responsable", "texto": "Notre projet le plus récent a été conçu avec des matériaux durables, pour allier confort, bien-être et architecture moderne — réduisant les coûts d'entretien et garantissant un confort climatique optimal.", "botao": "Parlez-nous" }
+        { "title": "Une approche éco-responsable", "texto": "Notre projet le plus récent a été conçu avec des matériaux durables, pour allier confort, bien-être et architecture moderne — réduisant les coûts d'entretien et garantissant un confort climatique optimal.", "botao": "Parlez-nous" },
+        { "title": "Responsabilité sociale", "texto": "Plus que construire, nous voulons contribuer. Dans chaque projet, nous cherchons à générer un impact social, en soutenant des initiatives qui répondent aux besoins de la communauté environnante et laissent une marque positive dans chaque lieu où nous sommes présents." }
       ]
     },
     "equipa": {
@@ -291,8 +293,8 @@
       "estado": "Achevé",
       "comercial": "Vendu",
       "entrega": "Achevé en 2021",
-      "resumo": "Villa de 5 chambres avec piscine privative qui valorise le patio comme générateur de l'espace résidentiel, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle. Projet conçu par l'équipe LogoExisto®.",
-      "factos": ["Loures", "2021", "1 villa", "T5", "LogoExisto®", "Vendu"]
+      "resumo": "Villa de 5 chambres avec piscine privative qui valorise le patio comme générateur de l'espace résidentiel, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle.",
+      "factos": ["Loures", "2021", "1 villa", "T5", "Vendu"]
     },
     "condominio-tojalinho": {
       "nome": "Résidence Tojalinho",
@@ -311,8 +313,8 @@
       "estado": "En projet",
       "comercial": "Vendu",
       "entrega": "En phase de projet · 2023",
-      "resumo": "En phase de projet, en collaboration avec différentes entités (mairie et autres), la résidence Santos — Sintra prévoit 9 villas T4 avec piscine privative pour chaque unité, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle. Projet conçu par l'équipe LogoExisto®.",
-      "factos": ["Albarraque, Sintra", "2023", "9 villas", "T4", "LogoExisto®", "En projet / Vendu"]
+      "resumo": "En phase de projet, en collaboration avec différentes entités (mairie et autres), la résidence Santos — Sintra prévoit 9 villas T4 avec piscine privative pour chaque unité, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle.",
+      "factos": ["Albarraque, Sintra", "2023", "9 villas", "T4", "En projet / Vendu"]
     },
     "empreendimento-residencial-11-villas": {
       "nome": "Résidence 11 Villas",
@@ -321,8 +323,8 @@
       "estado": "En construction",
       "comercial": "Vendu",
       "entrega": "En construction · 2023",
-      "resumo": "En phase de construction, la résidence Santos prévoit 11 villas de typologie T4 et T5 avec piscine privative pour chaque unité, valorisant le patio comme élément générateur de l'espace résidentiel. Projet conçu par l'équipe LogoExisto®.",
-      "factos": ["Loures", "2023", "11 villas", "T4 / T5", "LogoExisto®", "En construction / Vendu"]
+      "resumo": "En phase de construction, la résidence Santos prévoit 11 villas de typologie T4 et T5 avec piscine privative pour chaque unité, valorisant le patio comme élément générateur de l'espace résidentiel.",
+      "factos": ["Loures", "2023", "11 villas", "T4 / T5", "En construction / Vendu"]
     },
     "moradia-unifamiliar-santo-antao-do-tojal": {
       "nome": "Maison individuelle",
@@ -331,8 +333,8 @@
       "estado": "En construction",
       "comercial": "Vendu",
       "entrega": "En construction · 2026",
-      "resumo": "En phase de construction, maison de 4 chambres avec piscine privative, valorisant le patio comme élément de l'espace résidentiel, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle. Projet conçu par l'équipe LogoExisto®.",
-      "factos": ["St. Antão do Tojal, Loures", "2026", "1 villa", "T4", "LogoExisto®", "En construction / Vendu"]
+      "resumo": "En phase de construction, maison de 4 chambres avec piscine privative, valorisant le patio comme élément de l'espace résidentiel, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle.",
+      "factos": ["St. Antão do Tojal, Loures", "2026", "1 villa", "T4", "En construction / Vendu"]
     },
     "valflores-terraces": {
       "nome": "Valflores Terraces",
@@ -361,7 +363,7 @@
       "estado": "En construction",
       "comercial": "Location",
       "entrega": "Livraison prévue en 2028",
-      "resumo": "Appartements de typologie T2 destinés spécifiquement au marché locatif, marquant le lancement d'un nouveau segment d'activité du groupe AM Santos — AM Santos Imobiliária, gestion de patrimoine.",
+      "resumo": "Comme dans tous les projets AM Santos, Valflores Residence naît d'une vision centrée sur le nouveau segment de marché que AM Santos développe.",
       "factos": ["Santa Iria de Azóia, Loures", "2028", "39 appartements", "T2", "Marché locatif", "En construction"]
     },
     "pinteus-residence": {
@@ -371,28 +373,38 @@
       "estado": "En projet",
       "comercial": "Location",
       "entrega": "Livraison prévue en 2028",
-      "resumo": "14 appartements en résidence fermée de typologie T2, destinés spécifiquement au marché locatif, marquant le lancement d'un nouveau segment d'activité du groupe AM Santos — AM Santos Imobiliária, gestion de patrimoine.",
+      "resumo": "Comme dans tous les projets AM Santos, Pinteus Residence naît d'une vision centrée sur le nouveau segment de marché que AM Santos développe.",
       "factos": ["St. Antão do Tojal, Loures", "2028", "14 appartements", "T2", "Marché locatif", "En projet"]
     },
     "empreendimento-loures-residencial": {
       "nome": "Résidence Loures — Résidentiel",
-      "tipologia": "T2, T3 et T4",
-      "unidades": "165 appartements",
+      "tipologia": "T1, T2, T3, T5 et T6",
+      "unidades": "155 appartements",
       "estado": "En projet",
-      "comercial": "Location",
+      "comercial": "Habitation",
       "entrega": "Livraison prévue en 2029",
-      "resumo": "Résidence fermée haut de gamme et innovante de 165 appartements de typologies T2, T3 et T4, destinés au marché locatif.",
-      "factos": ["Loures", "2029", "165 appartements", "T2, T3 et T4", "Marché locatif", "En projet"]
+      "resumo": "Résidence fermée haut de gamme et innovante de 155 appartements de typologies T1, T2, T3, T5 et T6, destinés à l'habitation.",
+      "factos": ["Loures", "2029", "155 appartements", "T1, T2, T3, T5 et T6", "Habitation", "En projet"]
     },
     "empreendimento-loures-hotel": {
-      "nome": "Résidence Loures — Hôtel",
+      "nome": "Le Loures hôtel",
       "tipologia": "Hôtel · 50 chambres",
       "unidades": "50 chambres",
       "estado": "En projet",
       "comercial": "Hôtellerie",
-      "entrega": "Livraison prévue en 2029",
+      "entrega": "Livraison prévue en 2030",
       "resumo": "Hôtel d'environ 50 chambres, avec salles de congrès, restaurant et autres services, à l'architecture moderne.",
-      "factos": ["Loures", "2029", "Hôtel — environ 50 chambres", "Salles de congrès, restaurant", "En projet"]
+      "factos": ["Loures", "2030", "Hôtel — environ 50 chambres", "Salles de congrès, restaurant", "En projet"]
+    },
+    "quinta-das-amoreiras": {
+      "nome": "Quinta das Amoreiras",
+      "tipologia": "T1 à T5",
+      "unidades": "600 appartements",
+      "estado": "En projet",
+      "comercial": "Location",
+      "entrega": "Livraison prévue en 2030/2035",
+      "resumo": "Composé de plusieurs résidences fermées alliant nature, vue sur le fleuve et innovation, dans un nouveau style de vie dans la ville de Lisbonne. Avec un total de 600 appartements, un hôtel et des espaces commerciaux.",
+      "factos": ["Santa Iria de Azóia", "2030/2035", "Hôtel et espaces commerciaux", "600 appartements", "T1 à T5", "Habitation, commerce et services"]
     }
   }
 }

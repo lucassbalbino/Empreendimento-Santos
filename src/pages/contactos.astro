@@ -27,8 +27,12 @@ const moradaLinhas = contactos.onde.morada.split('\n');
       <ContactForm title={contactos.contacto.title} texto={contactos.contacto.texto} titleI18n="contactos.contacto.title" textoI18n="contactos.contacto.texto" />
       <p class="muted" style="margin-top:2rem">
         <a href={`mailto:${contactos.contacto.email}`}>{contactos.contacto.email}</a>
-        &nbsp;·&nbsp;
-        <a href={`tel:${contactos.contacto.telefone.replace(/\s+/g, '')}`}>{contactos.contacto.telefone}</a>
+        {contactos.contacto.telefones.map((t) => (
+          <>
+            &nbsp;·&nbsp;
+            <a href={`tel:${t.numero.replace(/\s+/g, '')}`}>{t.label} — {t.numero}</a>
+          </>
+        ))}
       </p>
     </div>
   </section>

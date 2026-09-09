@@ -15,8 +15,8 @@
     "imagem": "/images/template-sobre.webp"
   },
   "oQueFazemos": {
-    "title": "Qualidade — Conforto — Sustentabilidade",
-    "lead": "Do estudo do terreno à entrega das chaves, a AM Santos desenha, constrói e acompanha cada empreendimento com a mesma exigência — para que qualidade, conforto e sustentabilidade deixem de ser promessas e passem a ser critérios verificáveis em cada metro quadrado.",
+    "title": "Qualidade — Conforto — Sustentabilidade — Inovação",
+    "lead": "Do estudo do terreno à entrega das chaves, a AM Santos desenha, constrói e acompanha cada empreendimento com a mesma exigência — para que qualidade, conforto, sustentabilidade e inovação deixem de ser promessas e passem a ser critérios verificáveis em cada metro quadrado.",
     "pilares": [
       {
         "title": "Qualidade",
@@ -29,25 +29,29 @@
       {
         "title": "Sustentabilidade",
         "texto": "Soluções energeticamente eficientes e materiais duráveis, que reduzem o impacto ambiental e os custos de manutenção a longo prazo."
+      },
+      {
+        "title": "Inovação",
+        "texto": "Exploramos novos segmentos e soluções construtivas, antecipando tendências de mercado para dar forma ao próximo passo de cada empreendimento."
       }
     ],
     "statsTitle": "Em números",
     "statsLead": "Duas décadas de experiência traduzidas em resultado: cada projeto executado, cada metro quadrado construído e cada milhão investido reflete o mesmo compromisso da AM Santos com a qualidade e a sustentabilidade.",
     "stats": [
       {
-        "target": 17,
+        "target": 14,
         "prefix": "",
         "suffix": "",
         "label": "projetos"
       },
       {
-        "target": 170,
+        "target": 220,
         "prefix": "",
         "suffix": "",
         "label": "unidades residenciais e não residenciais"
       },
       {
-        "target": 185000,
+        "target": 75000,
         "prefix": "",
         "suffix": "",
         "label": "m² de construção"
