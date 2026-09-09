@@ -203,9 +203,14 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero'].filter(Boolean).join(
     // página o scroll fica seco e o parallax da hero congela.
     let lenis = null;
     let loopIniciado = false;
+    let pin = null;             // encaixe dos Serviços a decorrer (ver mais abaixo), ou null
+    let suprimirReencaixe = false;  // ver o largar em sentido inverso, dentro de avancarPin
+    let largarPinInput = null;  // remove os listeners de wheel/touch do pin da página anterior
 
     function iniciarLenis() {
       if (lenis) { lenis.destroy(); lenis = null; }
+      if (largarPinInput) { largarPinInput(); largarPinInput = null; }
+      pin = null;
 
       const bg = document.querySelector('.hero__bg--img');
       const hero = bg?.closest('.hero');
@@ -242,6 +247,166 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero'].filter(Boolean).join(
         qsImg.style.setProperty('--qs-parallax', off.toFixed(1) + 'px');
       };
 
+      // Encaixe da imagem e do texto nos Serviços ("O que nos move", Sobre
+      // Nós): ponto de partida — a imagem ocupa a linha toda (as duas
+      // colunas do grid + o gap) e o corpo (título+texto) está bem mais
+      // longe do que a sua posição final e invisível, deslocado para o
+      // canto oposto ao seu próprio lado (--fit-tx) — desliza e esbate ao
+      // mesmo tempo. A imagem fica assim, GRANDE E PARADA, enquanto
+      // sobe pelo ecrã. No instante em que o CENTRO do bloco cruza o centro
+      // do ecrã (a imagem já toda à vista, a meio caminho de sair), a
+      // página PRENDE — lenis.stop(), que já trava scroll nativo, roda e
+      // teclado (a .lenis-stopped{overflow:clip} é do próprio pacote) — e
+      // passa a ler o wheel/touch diretamente para avançar o gesto a passo
+      // do dedo/roda, não do relógio: a imagem encolhe para a sua coluna e
+      // o corpo desliza do canto até ao lugar, os dois em sincronia (mesmo
+      // `p`). Só liberta o scroll quando chegam à posição final (ou volta
+      // ao ponto de partida, se o gesto inverter a meio). Aplica-se um
+      // bloco de cada vez: começar um segundo enquanto o primeiro ainda
+      // prende não pode acontecer, porque presos os únicos eventos que
+      // mexem alguma coisa são os do próprio pin. Nula em ecrãs ≤760px: aí
+      // o grid empilha numa só coluna (ver styles.css) e a imagem já nasce
+      // à largura da linha.
+      const servicos = document.querySelectorAll('.service');
+      const TEXT_OFFSET = 320;   // px de onde o corpo (título+texto) arranca, bem mais longe da posição final, no canto oposto à imagem
+      const MEDIA_RATIO = 1.3;   // altura da imagem = largura natural × isto (1.3 = mais alta que larga; era 1 = quadrada, antes 0.8 = 5:4)
+      // Fração da altura da imagem que ela desce/sobe — dá o encurtamento
+      // diagonal, não só lateral. Moderada de propósito: como o deslocamento
+      // vale 0 (o mesmo de progresso=0) desde que o bloco entra em vista —
+      // não só durante o pin — um valor alto aproximava visivelmente os dois
+      // blocos um do outro enquanto o segundo ainda esperava a vez, antes
+      // de sequer prender.
+      const MEDIA_TY_FACTOR = 0.08;
+      // Prende quando o CENTRO do bloco cruza o centro do ecrã — não quando o
+      // topo está prestes a sair (isso era cedo demais: a imagem ainda mal
+      // tinha entrado). vh recalculado a cada chamada (não guardado) porque
+      // isto corre tanto no tick de scroll como no wheel do pin, em alturas
+      // de janela que podem ter mudado entretanto (raro, mas barato de tratar).
+      const centroNoMeio = (r) => (r.top + r.height / 2) <= window.innerHeight / 2;
+
+      function aplicarEncaixe(media, body, natural, rowWidth, p, reversed) {
+        const scaleFull = natural > 0 ? rowWidth / natural : 1;
+        const mediaH = natural * MEDIA_RATIO;
+        media.style.setProperty('--fit-scale', (scaleFull + (1 - scaleFull) * p).toFixed(4));
+        media.style.setProperty('--media-h', mediaH.toFixed(2) + 'px');   // preso — não acompanha a largura
+        // O encurtamento não é só lateral: a imagem também sobe/desce
+        // (--fit-ty) enquanto a largura encolhe, para o percurso ler-se
+        // quase diagonal em vez de um achatamento reto. Cada lado desce ou
+        // sobe em sentido oposto (como o corpo), para os dois blocos não
+        // repetirem exatamente o mesmo movimento.
+        const ty = (1 - p) * mediaH * MEDIA_TY_FACTOR * (reversed ? -1 : 1);
+        media.style.setProperty('--fit-ty', ty.toFixed(1) + 'px');
+        // O corpo entra do canto oposto ao que a imagem ocupa (a imagem cresce
+        // a partir do seu próprio lado, o corpo desliza a partir do outro) —
+        // os dois chegam à posição lado a lado no mesmo instante, p=1,
+        // esbatendo enquanto desliza (não de repente ao chegar).
+        const tx = (1 - p) * TEXT_OFFSET * (reversed ? -1 : 1);
+        body.style.setProperty('--fit-tx', tx.toFixed(1) + 'px');
+        body.style.setProperty('--fit-opacity', p.toFixed(3));
+      }
+
+      function largarPin() {
+        pin = null;
+        lenis?.start();
+      }
+
+      // Só corre com o scroll a render (nunca durante o pin: aí quem manda
+      // é o wheel/touch abaixo) — como os outros parallaxes desta função.
+      // `pinDone` marca no próprio elemento (dataset, sobrevive a este
+      // fecho) que ESTE bloco já encaixou: sem isso, mal o pin larga a
+      // meio (ainda com o centro no meio do ecrã), o tick de scroll seguinte
+      // via Lenis lia outra vez a mesma posição e voltava a prender do zero
+      // — um ciclo sem fim. Só se apaga quando o bloco desce de novo abaixo
+      // do ecrã (r.top>vh), para poder reentrar "grande e parado" da
+      // próxima vez, e nunca enquanto está à vista (evitaria um salto
+      // visível).
+      const moverServicos = () => {
+        if (!servicos.length || window.innerWidth <= 760 || pin) return;
+        const vh = window.innerHeight;
+        servicos.forEach((el) => {
+          const media = el.querySelector('.service__media');
+          const body = el.querySelector('.service__body');
+          if (!media || !body) return;
+          const r = el.getBoundingClientRect();
+          if (r.bottom < 0) return;   // acima da vista — mantém o que já lá estava
+          if (r.top > vh) { el.dataset.pinDone = ''; return; }   // ainda por vir — pronto para reentrar
+          const reversed = el.matches(':nth-child(even)');   // imagem à direita, corpo à esquerda
+          const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+          const natural = (r.width - gap) / 2;
+          if (el.dataset.pinDone === '1') { aplicarEncaixe(media, body, natural, r.width, 1, reversed); return; }
+          if (centroNoMeio(r)) {
+            if (suprimirReencaixe) return;   // ver o largar em sentido inverso, dentro de avancarPin
+            // Instante exato em que o centro do bloco cruza o centro do
+            // ecrã: prende aqui, a meio (progresso 0), sem saltar — o resto
+            // do encolher passa a vir do gesto, não do scroll (que está
+            // travado).
+            pin = { el, media, body, natural, rowWidth: r.width, reversed, runway: r.height * 1.1, progress: 0 };
+            lenis?.stop();
+            aplicarEncaixe(media, body, natural, r.width, 0, reversed);
+            return;
+          }
+          aplicarEncaixe(media, body, natural, r.width, 0, reversed);   // ainda a descer: grande e parada
+        });
+      };
+
+      // Wheel/touch só fazem alguma coisa enquanto `pin` existe — nos
+      // restantes momentos o scroll é todo do Lenis, como seria sem isto.
+      function onWheelPin(e) {
+        if (!pin) return;
+        e.preventDefault();
+        e.stopPropagation();
+        avancarPin(e.deltaY);
+      }
+      let touchY = 0;
+      function onTouchStartPin(e) {
+        if (!pin) return;
+        touchY = e.touches[0].clientY;
+      }
+      function onTouchMovePin(e) {
+        if (!pin) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const y = e.touches[0].clientY;
+        avancarPin(touchY - y);
+        touchY = y;
+      }
+      function avancarPin(delta) {
+        const antes = pin.progress;
+        const seguinte = antes + delta / pin.runway;
+        if (seguinte >= 1) {
+          aplicarEncaixe(pin.media, pin.body, pin.natural, pin.rowWidth, 1, pin.reversed);
+          pin.el.dataset.pinDone = '1';
+          largarPin();
+        } else if (seguinte <= 0 && antes <= 0 && delta < 0) {
+          aplicarEncaixe(pin.media, pin.body, pin.natural, pin.rowWidth, 0, pin.reversed);
+          const el = pin.el;
+          // `largarPin` chama lenis.start(), que dispara logo um scroll
+          // síncrono — e nesse instante o r.top ainda é o mesmo <=0 de
+          // quando se prendeu, por isso reengatava na hora. A bandeira
+          // trava esse reengate só até o empurrão (abaixo) pôr o r.top
+          // de novo positivo.
+          suprimirReencaixe = true;
+          largarPin();
+          const r = el.getBoundingClientRect();
+          if (centroNoMeio(r)) {
+            const alvo = (window.innerHeight / 2 - r.height / 2) + 8;   // r.top uns 8px lá de fora do meio
+            lenis?.scrollTo(window.scrollY - (alvo - r.top), { immediate: true });
+          }
+          suprimirReencaixe = false;
+        } else {
+          pin.progress = Math.min(1, Math.max(0, seguinte));
+          aplicarEncaixe(pin.media, pin.body, pin.natural, pin.rowWidth, pin.progress, pin.reversed);
+        }
+      }
+      window.addEventListener('wheel', onWheelPin, { passive: false, capture: true });
+      window.addEventListener('touchstart', onTouchStartPin, { passive: true, capture: true });
+      window.addEventListener('touchmove', onTouchMovePin, { passive: false, capture: true });
+      largarPinInput = () => {
+        window.removeEventListener('wheel', onWheelPin, { capture: true });
+        window.removeEventListener('touchstart', onTouchStartPin, { capture: true });
+        window.removeEventListener('touchmove', onTouchMovePin, { capture: true });
+      };
+
       lenis = new Lenis({
         lerp: 0.1,
         wheelMultiplier: 1,
@@ -257,7 +422,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero'].filter(Boolean).join(
         lenis.stop();
       }
 
-      lenis.on('scroll', ({ scroll }) => { moverHero(scroll); moverQuem(); });
+      lenis.on('scroll', ({ scroll }) => { moverHero(scroll); moverQuem(); moverServicos(); });
 
       // Loop rAF único e permanente; lê sempre a instância atual (module-scope).
       if (!loopIniciado) {
@@ -267,6 +432,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero'].filter(Boolean).join(
       }
       moverHero(window.scrollY);
       moverQuem();
+      moverServicos();
     }
 
     document.addEventListener('astro:page-load', iniciarLenis);

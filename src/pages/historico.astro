@@ -32,6 +32,7 @@ const modalData = concluidos.map((p) => ({
   resumo: p.resumo,
   imagem: p.imagem,
   imagemReal: p.imagemReal,
+  galeria: p.galeria,
   factos: p.factos,
 }));
 ---
@@ -69,6 +70,16 @@ const modalData = concluidos.map((p) => ({
             <img class="emodal__img" id="emodal-img" src="" alt="" />
             <span class="img-prov" id="emodal-prov" hidden data-i18n="common.emodal.provisoria">Imagem provisória</span>
             <div class="emodal__media-grad"></div>
+            <!-- Navegação da galeria: só aparece quando há mais do que uma
+                 imagem (ver updateGalleryUI). Mesmas setas do PlansSlider,
+                 numa versão discreta — círculo translúcido sobre a foto. -->
+            <button class="emodal__nav emodal__nav--prev" id="emodal-prev" type="button" hidden aria-label="Imagem anterior" data-i18n="common.plans.prev" data-i18n-attr="aria-label">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m0 0 6-6m-6 6 6 6"/></svg>
+            </button>
+            <button class="emodal__nav emodal__nav--next" id="emodal-next" type="button" hidden aria-label="Imagem seguinte" data-i18n="common.plans.next" data-i18n-attr="aria-label">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m0 0-6-6m6 6-6 6"/></svg>
+            </button>
+            <span class="emodal__counter" id="emodal-counter" hidden aria-hidden="true"></span>
             <div class="emodal__media-head">
               <h2 class="emodal__title" id="emodal-title"></h2>
               <p class="emodal__subtitle" id="emodal-subtitle"></p>
@@ -109,6 +120,8 @@ const modalData = concluidos.map((p) => ({
 
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var DUR = 1830; // ligeiramente acima da transição CSS de .epanel__wrap (1.3s)
+      var CLOSE_MS = 400;    // fecho bem mais rápido do que a abertura (1.3s)
+      var CLOSE_DUR = 420;   // ligeiramente acima do CLOSE_MS, para o setTimeout nunca correr antes da transição acabar
 
       var el = {
         img: document.getElementById('emodal-img'),
@@ -121,11 +134,16 @@ const modalData = concluidos.map((p) => ({
         facts: document.getElementById('emodal-facts'),
         entrega: document.getElementById('emodal-entrega'),
         close: panel.querySelector('.emodal__close'),
+        prev: document.getElementById('emodal-prev'),
+        next: document.getElementById('emodal-next'),
+        counter: document.getElementById('emodal-counter'),
       };
 
       var currentCard = null;   // card cujo painel está aberto (ou a fechar)
       var closeTimer = null;
       var openTimer = null;     // correção de scroll agendada (linhas clampadas)
+      var gallery = [];         // imagens do projeto em exibição (imagem + galeria)
+      var galleryIndex = 0;
 
       function chip(text) {
         var s = document.createElement('span');
@@ -155,7 +173,28 @@ const modalData = concluidos.map((p) => ({
         return window.__amsI18n.get('empreendimentos.' + p.slug + '.' + field, fallback);
       }
 
-      function fill(p) {
+      // Mostra a imagem `idx` da galeria (com wrap-around) e actualiza setas
+      // + contador. `total <= 1` esconde a navegação — é o que a torna subtil:
+      // só aparece quando há mesmo por onde navegar.
+      function updateGalleryUI() {
+        var total = gallery.length;
+        var multi = total > 1;
+        el.prev.hidden = !multi;
+        el.next.hidden = !multi;
+        el.counter.hidden = !multi;
+        if (multi) el.counter.textContent = (galleryIndex + 1) + ' / ' + total;
+      }
+
+      function showImage(idx, nome) {
+        var total = gallery.length;
+        if (!total) return;
+        galleryIndex = ((idx % total) + total) % total;
+        el.img.src = gallery[galleryIndex];
+        el.img.alt = (nome || el.title.textContent) + (total > 1 ? ' — imagem ' + (galleryIndex + 1) : '');
+        updateGalleryUI();
+      }
+
+      function fill(p, resetGallery) {
         var nome = tp(p, 'nome', p.nome);
         var tipologia = tp(p, 'tipologia', p.tipologia);
         var unidades = tp(p, 'unidades', p.unidades);
@@ -164,10 +203,13 @@ const modalData = concluidos.map((p) => ({
         var resumo = tp(p, 'resumo', p.resumo);
         var factosValores = window.__amsI18n ? window.__amsI18n.get('empreendimentos.' + p.slug + '.factos', null) : null;
 
-        el.img.src = p.imagem || '';
-        el.img.alt = nome;
+        if (resetGallery !== false) {
+          gallery = [p.imagem].concat(p.galeria || []).filter(Boolean);
+          galleryIndex = 0;
+        }
         el.prov.hidden = !(p.imagem && !p.imagemReal);
         el.title.textContent = nome;
+        showImage(galleryIndex, nome);
         el.subtitle.textContent = [p.localizacao, tipologia].filter(Boolean).join(' · ');
         el.estado.textContent = estado || (window.__amsI18n ? window.__amsI18n.get('common.emodal.empreendimentoFallback', 'Empreendimento') : 'Empreendimento');
         el.resumo.textContent = resumo || '';
@@ -192,7 +234,7 @@ const modalData = concluidos.map((p) => ({
         window.__amsI18n.onChange(function () {
           if (currentCard) {
             var p = projetos[currentCard.getAttribute('data-slug')];
-            if (p) fill(p);
+            if (p) fill(p, false); // false: mantém a imagem que estava a ver
           }
         });
       }
@@ -361,6 +403,13 @@ const modalData = concluidos.map((p) => ({
       function close(after) {
         if (openTimer) { clearTimeout(openTimer); openTimer = null; }
         if (!currentCard) { if (after) after(); return; }
+        // Fecho mais rápido do que a abertura: sobrepõe a duração da
+        // transição só para este colapso — measurePanelHeight() (chamada na
+        // próxima abertura) limpa este inline style, devolvendo o wrap aos
+        // 1.3s da folha de estilos antes de a próxima animação de abertura
+        // arrancar.
+        var wrap = panel.querySelector('.epanel__wrap');
+        if (wrap) wrap.style.transition = 'grid-template-rows ' + CLOSE_MS + 'ms var(--ease)';
         panel.classList.remove('is-open');
         currentCard = null;
         if (closeTimer) clearTimeout(closeTimer);
@@ -370,7 +419,7 @@ const modalData = concluidos.map((p) => ({
           lenisResize();
           closeTimer = null;
           if (after) after();
-        }, reduce ? 0 : DUR);
+        }, reduce ? 0 : CLOSE_DUR);
       }
 
       // Reposiciona o painel na linha certa quando o nº de colunas muda.
@@ -394,8 +443,15 @@ const modalData = concluidos.map((p) => ({
         btn.addEventListener('click', function () { close(); });
       });
 
+      el.prev.addEventListener('click', function (e) { e.stopPropagation(); showImage(galleryIndex - 1); });
+      el.next.addEventListener('click', function (e) { e.stopPropagation(); showImage(galleryIndex + 1); });
+
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && currentCard) close();
+        if (!currentCard) return;
+        if (e.key === 'Escape') { close(); return; }
+        if (gallery.length < 2) return;
+        if (e.key === 'ArrowLeft') { e.preventDefault(); showImage(galleryIndex - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); showImage(galleryIndex + 1); }
       });
 
       // ABERTURA DIRETA POR URL — /historico#<slug>. Os painéis do Histórico na

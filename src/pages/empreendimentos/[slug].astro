@@ -8,14 +8,12 @@ import PlansSlider from '../../components/PlansSlider.astro';
 import Blob from '../../components/Blob.astro';
 import TitleSplit from '../../components/TitleSplit.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import Perguntas from '../../components/Perguntas.astro';
 import data from '../../data/empreendimentos.json';
 import { urlAbsoluto } from '../../utils/seo.js';
 import { imovel } from '../../utils/schema.js';
 import {
   tituloEmpreendimento,
   descricaoEmpreendimento,
-  perguntasEmpreendimento,
 } from '../../utils/empreendimento-seo.js';
 
 export function getStaticPaths() {
@@ -67,7 +65,6 @@ const migalhas = [
 const urlFicha = urlAbsoluto(`/empreendimentos/${proj.slug}`);
 const seoTitulo = tituloEmpreendimento(proj);
 const seoDescricao = descricaoEmpreendimento(proj);
-const perguntas = perguntasEmpreendimento(proj);
 ---
 <Base
   title={seoTitulo}
@@ -165,11 +162,6 @@ const perguntas = perguntasEmpreendimento(proj);
       </div>
     </div>
   </section>
-
-  <!-- PERGUNTAS FREQUENTES — o único bloco de texto verdadeiramente único
-       desta página (as respostas saem dos dados deste empreendimento) e o que
-       responde às pesquisas conversacionais do tipo "onde fica o X". -->
-  <Perguntas perguntas={perguntas} title={`Perguntas frequentes sobre o ${proj.nome}`} />
 
   {relacionados.length > 0 && (
     <!-- OUTROS EMPREENDIMENTOS -->

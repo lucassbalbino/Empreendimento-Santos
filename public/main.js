@@ -6,6 +6,9 @@
   window.__amsInit = true;
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Ecrã tátil: o CSS anula o transform de esconder (ver .site-header--hidden
+  // em styles.css), então nem vale a pena gastar ciclos a decidir direção.
+  var semHideOnScroll = window.matchMedia('(pointer: coarse)').matches;
 
   // Header muda ao rolar (listener global permanente).
   var lastScrollY = window.scrollY;
@@ -27,6 +30,7 @@
 
     // Esconde ao rolar para baixo, mostra ao rolar para cima. Só some depois
     // de um limiar para não oscilar logo no topo; menu mobile aberto nunca esconde.
+    if (semHideOnScroll) return;
     var nav = document.querySelector('.nav');
     var menuOpen = nav && nav.classList.contains('open');
     var diff = scrollY - lastScrollY;
