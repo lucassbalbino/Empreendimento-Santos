@@ -40,7 +40,7 @@
       "emNumeros": "En Chiffres",
       "oQueFazemos": "Ce Que Nous Faisons",
       "oNossoHistorico": "Notre Historique",
-      "aNossaEquipa": "Notre Équipe",
+      "perguntasFrequentes": "Questions Fréquentes",
       "falaConnosco": "Parlez-nous"
     },
     "slider": { "prev": "Projet précédent", "next": "Projet suivant" },
@@ -144,13 +144,16 @@
     },
     "portfolio": { "title": "Projets en vedette", "botao": "Voir le portfolio" },
     "trackRecord": { "title": "Notre Historique", "lead": "Un aperçu des projets déjà achevés et livrés. Cliquez pour voir chacun d'eux.", "botao": "Voir l'historique" },
-    "equipa": {
-      "members": [
-        { "role": "Direction · Direction Générale", "bio": "Dirige AM Santos et l'équipe d'architecture, d'ingénierie, de décoration et de gestion immobilière qui donne forme à chaque projet, avec 20 ans d'expérience sur le marché immobilier." },
-        { "role": "Architecture · Conception", "bio": "Responsable du département de conception, traduit en dessin l'architecture moderne et fonctionnelle qui définit chaque projet, du concept au chantier." },
-        { "role": "Ingénierie · Chantier", "bio": "Directeur de chantier, coordonne l'exécution et le contrôle qualité qui garantissent l'excellence de chaque projet réalisé." },
-        { "role": "Décoration · Intérieurs", "bio": "Travaille les intérieurs et les finitions, pour que chaque résidence traduise le confort et la qualité qui définissent l'entreprise." },
-        { "role": "Gestion immobilière", "bio": "Responsable de la gestion immobilière et du suivi des projets en pipeline, de l'étude à la commercialisation." }
+    "faq": {
+      "title": "Questions fréquentes",
+      "lead": "Quelques réponses pour mieux comprendre une entreprise de promotion immobilière — et ce qui distingue AM Santos.",
+      "items": [
+        { "p": "Que fait une entreprise de promotion immobilière ?", "r": "Elle accompagne tout le processus de création d'un bien — de l'étude du terrain et du projet architectural à la construction, au contrôle qualité et à la livraison au client. Chez AM Santos, ce suivi est assuré par la même équipe du début à la fin, ce qui réduit l'écart entre ce qui est conçu et ce qui est construit." },
+        { "p": "Qu'est-ce qui distingue AM Santos des autres promoteurs ?", "r": "20 ans sur le marché, une équipe interne d'architecture, d'ingénierie, de décoration et de gestion immobilière, et un contrôle qualité qui suit chaque étape du chantier — pas seulement la livraison finale. Cette continuité garantit les mêmes critères de qualité, de confort et de durabilité sur chaque projet." },
+        { "p": "Comment la qualité est-elle garantie sur chaque projet ?", "r": "Chaque projet est suivi de la conception jusqu'à l'achèvement du chantier, avec un contrôle rigoureux des matériaux et des finitions à chaque étape — la même exigence qui soutient les 20 ans d'histoire de l'entreprise." },
+        { "p": "Comment la durabilité s'intègre-t-elle aux projets ?", "r": "Nous privilégions des solutions économes en énergie et des matériaux durables, qui réduisent l'impact environnemental et les coûts d'entretien à long terme — sans renoncer au confort ni à l'architecture moderne qui définit chaque projet." },
+        { "p": "AM Santos se limite-t-elle à la construction, ou gère-t-elle aussi les biens après leur livraison ?", "r": "Au-delà de l'architecture, de l'ingénierie et de la construction, notre équipe de gestion immobilière suit les projets de l'étude à la commercialisation — et reste disponible après la livraison pour toute question liée au bien." },
+        { "p": "Comment découvrir les projets et l'équipe qui les réalise ?", "r": "L'historique et le portfolio présentent les projets achevés, en construction et en développement. L'équipe complète, avec le domaine de responsabilité de chacun, est présentée sur la page Équipe." }
       ]
     },
     "contacto": { "title": "Parlons de votre prochain projet ?", "texto": "Vous souhaitez découvrir un projet ou discuter d'un partenariat ? Notre équipe vous répondra rapidement." }
@@ -169,13 +172,6 @@
         { "title": "À l'avant-garde de l'innovation architecturale", "texto": "Avec plusieurs projets en pipeline, nous restons à l'avant-garde de l'innovation architecturale, en donnant la priorité à la qualité, au confort et à l'efficacité énergétique pour garantir la satisfaction de nos clients.", "botao": "Voir les projets" },
         { "title": "Une approche éco-responsable", "texto": "Notre projet le plus récent a été conçu avec des matériaux durables, pour allier confort, bien-être et architecture moderne — réduisant les coûts d'entretien et garantissant un confort climatique optimal.", "botao": "Parlez-nous" },
         { "title": "Responsabilité sociale", "texto": "Plus que construire, nous voulons contribuer. Dans chaque projet, nous cherchons à générer un impact social, en soutenant des initiatives qui répondent aux besoins de la communauté environnante et laissent une marque positive dans chaque lieu où nous sommes présents." }
-      ]
-    },
-    "equipa": {
-      "title": "Qui dirige AM Santos",
-      "members": [
-        { "role": "Direction · Direction Générale", "bio": "Dirige AM Santos et l'équipe d'architecture, d'ingénierie, de décoration et de gestion immobilière qui donne forme à chaque projet, avec 20 ans d'expérience sur le marché immobilier." },
-        { "role": "Architecture · Conception", "bio": "Responsable du département de conception, traduit en dessin l'architecture moderne et fonctionnelle qui définit chaque projet, du concept au chantier." }
       ]
     },
     "contacto": { "title": "Parlons de votre projet ?", "texto": "La vision d'AM Santos, centrée sur le confort, la qualité et la durabilité, guidera les prochains projets. Parlez-nous." }

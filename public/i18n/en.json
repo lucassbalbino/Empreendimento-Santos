@@ -40,7 +40,7 @@
       "emNumeros": "By the Numbers",
       "oQueFazemos": "What We Do",
       "oNossoHistorico": "Our Track Record",
-      "aNossaEquipa": "Our Team",
+      "perguntasFrequentes": "Frequently Asked Questions",
       "falaConnosco": "Talk to Us"
     },
     "slider": { "prev": "Previous development", "next": "Next development" },
@@ -144,13 +144,16 @@
     },
     "portfolio": { "title": "Featured developments", "botao": "View portfolio" },
     "trackRecord": { "title": "Our Track Record", "lead": "A selection of developments already completed and delivered. Click to view each one.", "botao": "View track record" },
-    "equipa": {
-      "members": [
-        { "role": "Leadership · Managing Director", "bio": "Leads AM Santos and the architecture, engineering, interior design and property management team that shapes every project, with 20 years of experience in the real estate market." },
-        { "role": "Architecture · Design", "bio": "Head of the design department, translating into drawings the modern, functional architecture that defines every development, from concept to construction." },
-        { "role": "Engineering · Construction", "bio": "Site director, coordinating the execution and quality control that underpin the excellence of every completed project." },
-        { "role": "Interior Design", "bio": "Works on interiors and finishes, so that every home reflects the comfort and quality that define the company." },
-        { "role": "Property Management", "bio": "Responsible for property management and overseeing pipeline projects, from initial study through to sale." }
+    "faq": {
+      "title": "Frequently asked questions",
+      "lead": "A few answers for anyone looking to better understand a real estate development company — and what sets AM Santos apart.",
+      "items": [
+        { "p": "What does a real estate development company do?", "r": "It oversees the entire process of creating a property — from the site study and architectural design to construction, quality control and handover to the client. At AM Santos, the same team stays involved from start to finish, which reduces the gap between what is designed and what is built." },
+        { "p": "What sets AM Santos apart from other developers?", "r": "20 years in the market, an in-house team spanning architecture, engineering, interior design and property management, and quality control that follows every stage of construction — not just the final handover. That continuity is what keeps the same quality, comfort and sustainability standards across every project." },
+        { "p": "How is quality ensured on every project?", "r": "Every development is overseen from design through to completion, with rigorous control over materials and finishes at every stage — the same rigour behind the company's 20-year history." },
+        { "p": "How does sustainability factor into the projects?", "r": "We prioritise energy-efficient solutions and durable materials that reduce environmental impact and long-term maintenance costs — without giving up the comfort or modern architecture that defines every development." },
+        { "p": "Does AM Santos only build, or does it also manage properties after handover?", "r": "Beyond architecture, engineering and construction, our property management team follows projects from initial study through to sale — and remains available after handover for anything related to the property." },
+        { "p": "How can I learn about the developments and the team behind them?", "r": "Our track record and portfolio show completed, in-progress and planned developments. The full team, with each person's area of responsibility, is presented on the Team page." }
       ]
     },
     "contacto": { "title": "Shall we talk about your next project?", "texto": "Want to learn more about a development or discuss a partnership? Our team responds promptly." }
@@ -169,13 +172,6 @@
         { "title": "At the forefront of architectural innovation", "texto": "With several projects in the pipeline, we stay at the forefront of architectural innovation, prioritising quality, comfort and energy efficiency to ensure our clients' satisfaction.", "botao": "View developments" },
         { "title": "An eco-friendly approach", "texto": "Our latest project was designed with sustainable materials to combine comfort, wellbeing and modern architecture — reducing maintenance costs and ensuring maximum thermal comfort.", "botao": "Talk to us" },
         { "title": "Social responsibility", "texto": "More than building, we want to contribute. In every project, we look for ways to generate social impact, supporting initiatives that respond to the needs of the surrounding community and leave a positive mark on every place we work in." }
-      ]
-    },
-    "equipa": {
-      "title": "Who leads AM Santos",
-      "members": [
-        { "role": "Leadership · Managing Director", "bio": "Leads AM Santos and the architecture, engineering, interior design and property management team that shapes every project, with 20 years of experience in the real estate market." },
-        { "role": "Architecture · Design", "bio": "Head of the design department, translating into drawings the modern, functional architecture that defines every development, from concept to construction." }
       ]
     },
     "contacto": { "title": "Shall we talk about your project?", "texto": "AM Santos's vision, centred on comfort, quality and sustainability, will guide our next projects. Get in touch." }

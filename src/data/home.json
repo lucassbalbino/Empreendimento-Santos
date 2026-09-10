@@ -73,37 +73,33 @@
     "lead": "Uma amostra dos empreendimentos já concluídos e entregues.",
     "botao": "Ver histórico"
   },
-  "equipa": {
-    "members": [
+  "faq": {
+    "title": "Perguntas frequentes",
+    "lead": "Algumas respostas para quem procura conhecer melhor uma empresa de empreendimentos imobiliários — e o que distingue a AM Santos.",
+    "items": [
       {
-        "role": "Liderança · Direção-Geral",
-        "name": "António M Santos",
-        "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário.",
-        "foto": "/images/perfil-3.webp"
+        "p": "O que faz uma empresa de empreendimentos imobiliários?",
+        "r": "Acompanha todo o processo de criar um imóvel — do estudo do terreno e do projeto de arquitetura à construção, ao controlo de qualidade e à entrega ao cliente. Na AM Santos, esse acompanhamento é feito pela mesma equipa do início ao fim, o que reduz desvios entre o que é desenhado e o que é construído."
       },
       {
-        "role": "Arquitetura · Projeto",
-        "name": "Marta Sousa",
-        "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra.",
-        "foto": "/images/perfil-2.webp"
+        "p": "O que distingue a AM Santos de outras construtoras?",
+        "r": "20 anos de mercado, uma equipa própria de arquitetura, engenharia, decoração e gestão imobiliária, e um controlo de qualidade que acompanha cada fase da obra — não só a entrega final. É essa continuidade que garante os mesmos critérios de qualidade, conforto e sustentabilidade em cada projeto."
       },
       {
-        "role": "Engenharia · Obra",
-        "name": "Ricardo Nunes",
-        "bio": "Diretor de obra, coordena a execução e o controlo de qualidade que sustentam a excelência de cada projeto executado.",
-        "foto": "/images/perfil-1.webp"
+        "p": "Como é garantida a qualidade em cada projeto?",
+        "r": "Cada empreendimento é acompanhado desde o desenho até à obra concluída, com um controlo rigoroso de materiais e acabamentos em todas as fases — a mesma exigência que sustenta os 20 anos de história da empresa."
       },
       {
-        "role": "Decoração · Interiores",
-        "name": "Pedro Almeida",
-        "bio": "Trabalha os interiores e os acabamentos, para que cada residência traduza o conforto e a qualidade que definem a empresa.",
-        "foto": ""
+        "p": "De que forma a sustentabilidade entra nos projetos?",
+        "r": "Priorizamos soluções energeticamente eficientes e materiais duráveis, que reduzem o impacto ambiental e os custos de manutenção a longo prazo — sem abdicar do conforto ou da arquitetura moderna que define cada empreendimento."
       },
       {
-        "role": "Gestão imobiliária",
-        "name": "Sofia Mendes",
-        "bio": "Responsável pela gestão imobiliária e pelo acompanhamento dos projetos em pipeline, do estudo à comercialização.",
-        "foto": ""
+        "p": "A AM Santos só constrói, ou também gere os imóveis depois de entregues?",
+        "r": "Para além da arquitetura, engenharia e construção, a nossa equipa de gestão imobiliária acompanha os projetos do estudo à comercialização — e continua disponível depois da entrega, para questões relacionadas com o imóvel."
+      },
+      {
+        "p": "Como posso conhecer os empreendimentos e a equipa por trás deles?",
+        "r": "No histórico e no portfólio pode ver os empreendimentos concluídos, em construção e em projeto. A equipa completa, com as suas áreas de responsabilidade, está apresentada na página Equipa."
       }
     ]
   },

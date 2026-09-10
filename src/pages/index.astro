@@ -4,15 +4,13 @@ import Hero from '../components/Hero.astro';
 import DoubleSlider from '../components/DoubleSlider.astro';
 import ExpandPanels from '../components/ExpandPanels.astro';
 import BlockHead from '../components/BlockHead.astro';
-import Team from '../components/Team.astro';
+import Faq from '../components/Faq.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Watermark from '../components/Watermark.astro';
 import Blob from '../components/Blob.astro';
 import TitleSplit from '../components/TitleSplit.astro';
 import Seam from '../components/Seam.astro';
 import home from '../data/home.json';
-import sobre from '../data/sobre.json';
-import equipa from '../data/equipa.json';
 import { porGrupo, emDestaque } from '../utils/projetos.js';
 import { urlAbsoluto } from '../utils/seo.js';
 import { listaDeImoveis } from '../utils/schema.js';
@@ -26,35 +24,6 @@ const fazemosWords = home.oQueFazemos.title.split(/\s*—\s*/);
 // concluídos no histórico.
 const destaques = emDestaque(8);
 const concluidos = porGrupo('concluido').slice(0, 5);
-
-/* A fita da equipa mostra toda a gente, e a gente vive em dois ficheiros:
-   a direção em sobre.json (é a única com retrato) e o resto da equipa em
-   equipa.json. A direção de equipa.json são as MESMAS duas pessoas, sem foto
-   — fica de fora para não aparecerem duas vezes.
-
-   Cada bloco leva a sua raiz de i18n colada ao membro (campo `i18n`), porque
-   as chaves seguem o ficheiro de onde a pessoa veio e não a posição na fita.
-   Quem ainda não tem retrato entra com monograma (ver Team.astro). */
-const todos = [
-  ...sobre.equipa.members.map((m, i) => ({ ...m, i18n: 'sobre.equipa.members', i18nIndex: i })),
-  ...equipa.equipa.members.map((m, i) => ({ ...m, i18n: 'equipa.equipa.members', i18nIndex: i })),
-];
-
-/* Os retratos espalham-se pela fita em vez de ficarem todos à cabeça. Por
-   ordem de ficheiro davam duas fotografias seguidas e depois seis monogramas
-   atrás uns dos outros — a fita ficava minutos sem uma cara. Intercalados,
-   há sempre um retrato à vista. À medida que forem chegando fotografias o
-   passo aperta sozinho e, quando todos as tiverem, a ordem original volta. */
-const comFoto = todos.filter((m) => m.foto);
-const semFoto = todos.filter((m) => !m.foto);
-const passo = comFoto.length ? Math.max(1, Math.round(todos.length / comFoto.length)) : 1;
-const equipaCompleta = [];
-let cf = 0;
-let sf = 0;
-for (let i = 0; i < todos.length; i++) {
-  const vezDeFoto = cf < comFoto.length && i % passo === 0;
-  equipaCompleta.push(vezDeFoto || sf >= semFoto.length ? comFoto[cf++] : semFoto[sf++]);
-}
 
 /* SEO: título e descrição vêm do src/data/seo.json pelo caminho ("/"). Aqui só
    se acrescenta o que depende dos dados — a lista de empreendimentos em
@@ -193,22 +162,20 @@ const schemaHome = [
     </div>
   </section>
 
-  <!-- CORRIDA ESCURA · Histórico + Equipa — as duas secções escuras
-       encostam-se e lêem-se como um só bloco de cor. Por isso o <Blob> não
-       vive dentro de cada uma (dava quatro cantos, dois deles colados na
-       fronteira interna, denunciando a costura): vive aqui, na corrida, e
-       mede-se pela altura das duas juntas — sangra pelo canto superior
-       direito do Histórico e pelo inferior esquerdo da Equipa, como se a
-       secção fosse uma só. O fundo escuro também sobe para cá: --dark é
-       semitransparente e duas camadas empilhadas escureceriam a junta
-       (ver .dark-run em styles.css). -->
+  <!-- CORRIDA ESCURA · Histórico + Perguntas Frequentes — as duas secções
+       escuras encostam-se e lêem-se como um só bloco de cor (mesmo esquema
+       da antiga secção Equipa, que agora vive em /equipa). Por isso o
+       <Blob> não vive dentro de cada uma (dava quatro cantos, dois deles
+       colados na fronteira interna, denunciando a costura): vive aqui, na
+       corrida, e mede-se pela altura das duas juntas. O fundo escuro
+       também sobe para cá: --dark é semitransparente e duas camadas
+       empilhadas escureceriam a junta (ver .dark-run em styles.css). -->
   <div class="dark-run has-blob">
     <Blob />
 
-    <!-- TRACK RECORD (Histórico) — secção escura autónoma: sai do branco de "O
-         Que Fazemos". A .seam abre a secção (fronteira reta com o bloco claro
-         atrás) na variante escura — já dentro do preto, é ela que dá o respiro
-         do topo (ver .section--panels-cut.section--seam-top). -->
+    <!-- TRACK RECORD (Histórico) — a .seam abre a secção (fronteira reta
+         com o bloco claro atrás) na variante escura — já dentro do preto,
+         é ela que dá o respiro do topo (ver .section--panels-cut.section--seam-top). -->
     <section class="section section--dark section--panels-cut section--seam-top">
       <Seam label="O Nosso Histórico" variant="dark" i18n="common.seam.oNossoHistorico" />
       <div class="container">
@@ -226,28 +193,26 @@ const schemaHome = [
       </div>
     </section>
 
-    <!-- GRUPO 3 · PESSOAS — equipa e contacto encostam-se: conhecer quem
-         faz e falar com quem faz são o mesmo movimento. -->
-
-    <!-- EQUIPA — sem título próprio: quem abre a secção é a .seam, como no
-         Histórico logo acima. Aqui vivia um <TitleSplit> com
-         sobre.equipa.title ("Quem lidera a AM Santos"); dentro da corrida
-         escura era o segundo cabeçalho grande em poucos ecrãs de scroll e
-         voltava a partir o bloco em dois. A .seam diz o mesmo em rótulo e
-         serve de fronteira interna — dá o respiro do topo (por isso
-         .section--seam-top, sem padding-top próprio). -->
+    <!-- PERGUNTAS FREQUENTES — ocupa o lugar onde vivia a secção "A Nossa
+         Equipa" (mudou-se para a página /equipa, acessível pelo cabeçalho e
+         rodapé): mesmo esquema de cor escura, sem marca de água (a secção
+         é só título, texto e a lista de perguntas). Em vez de repetir quem
+         somos, responde a quem chega ao fundo da home ainda a decidir: o
+         que faz uma empresa de empreendimentos e o que distingue a AM
+         Santos de outra qualquer. -->
     <section class="section section--dark section--seam-top">
-      <Seam label="A Nossa Equipa" variant="dark" i18n="common.seam.aNossaEquipa" />
-      <!-- A fita fica FORA do .container de propósito: corre de bordo a bordo,
-           e é a máscara do .team--marquee que trata dos extremos. -->
-      <Team members={equipaCompleta} variant="marquee" />
+      <Seam label="Perguntas Frequentes" variant="dark" i18n="common.seam.perguntasFrequentes" />
+      <div class="container">
+        <TitleSplit text={home.faq.title} class="title-split--fit" data-i18n="home.faq.title" data-i18n-split="1" />
+        <p class="lead" style="margin:1rem 0 0" data-i18n="home.faq.lead">{home.faq.lead}</p>
+        <Faq items={home.faq.items} i18nBase="home.faq.items" />
+      </div>
     </section>
 
   </div><!-- /.dark-run -->
 
   <!-- CONTACTO — a .seam abre a secção: sem mudança de cor no próprio
-       bloco (esta vive já sobre o branco do .home-reveal), fecha o
-       capítulo "Pessoas" antes do Contacto. -->
+       bloco (esta vive já sobre o branco do .home-reveal), fecha a home. -->
   <section class="section section--seam-top" id="contacto">
     <Seam label="Fala Connosco" variant="light" loose i18n="common.seam.falaConnosco" />
     <div class="container has-wm">

@@ -40,7 +40,7 @@
       "emNumeros": "Em Números",
       "oQueFazemos": "O Que Fazemos",
       "oNossoHistorico": "O Nosso Histórico",
-      "aNossaEquipa": "A Nossa Equipa",
+      "perguntasFrequentes": "Perguntas Frequentes",
       "falaConnosco": "Fala Connosco"
     },
     "slider": { "prev": "Empreendimento anterior", "next": "Empreendimento seguinte" },
@@ -144,13 +144,16 @@
     },
     "portfolio": { "title": "Empreendimentos em destaque", "botao": "Ver portfólio" },
     "trackRecord": { "title": "O Nosso Histórico", "lead": "Uma amostra dos empreendimentos já concluídos e entregues. Clique para ver cada um.", "botao": "Ver histórico" },
-    "equipa": {
-      "members": [
-        { "role": "Liderança · Direção-Geral", "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário." },
-        { "role": "Arquitetura · Projeto", "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra." },
-        { "role": "Engenharia · Obra", "bio": "Diretor de obra, coordena a execução e o controlo de qualidade que sustentam a excelência de cada projeto executado." },
-        { "role": "Decoração · Interiores", "bio": "Trabalha os interiores e os acabamentos, para que cada residência traduza o conforto e a qualidade que definem a empresa." },
-        { "role": "Gestão imobiliária", "bio": "Responsável pela gestão imobiliária e pelo acompanhamento dos projetos em pipeline, do estudo à comercialização." }
+    "faq": {
+      "title": "Perguntas frequentes",
+      "lead": "Algumas respostas para quem procura conhecer melhor uma empresa de empreendimentos imobiliários — e o que distingue a AM Santos.",
+      "items": [
+        { "p": "O que faz uma empresa de empreendimentos imobiliários?", "r": "Acompanha todo o processo de criar um imóvel — do estudo do terreno e do projeto de arquitetura à construção, ao controlo de qualidade e à entrega ao cliente. Na AM Santos, esse acompanhamento é feito pela mesma equipa do início ao fim, o que reduz desvios entre o que é desenhado e o que é construído." },
+        { "p": "O que distingue a AM Santos de outras construtoras?", "r": "20 anos de mercado, uma equipa própria de arquitetura, engenharia, decoração e gestão imobiliária, e um controlo de qualidade que acompanha cada fase da obra — não só a entrega final. É essa continuidade que garante os mesmos critérios de qualidade, conforto e sustentabilidade em cada projeto." },
+        { "p": "Como é garantida a qualidade em cada projeto?", "r": "Cada empreendimento é acompanhado desde o desenho até à obra concluída, com um controlo rigoroso de materiais e acabamentos em todas as fases — a mesma exigência que sustenta os 20 anos de história da empresa." },
+        { "p": "De que forma a sustentabilidade entra nos projetos?", "r": "Priorizamos soluções energeticamente eficientes e materiais duráveis, que reduzem o impacto ambiental e os custos de manutenção a longo prazo — sem abdicar do conforto ou da arquitetura moderna que define cada empreendimento." },
+        { "p": "A AM Santos só constrói, ou também gere os imóveis depois de entregues?", "r": "Para além da arquitetura, engenharia e construção, a nossa equipa de gestão imobiliária acompanha os projetos do estudo à comercialização — e continua disponível depois da entrega, para questões relacionadas com o imóvel." },
+        { "p": "Como posso conhecer os empreendimentos e a equipa por trás deles?", "r": "No histórico e no portfólio pode ver os empreendimentos concluídos, em construção e em projeto. A equipa completa, com as suas áreas de responsabilidade, está apresentada na página Equipa." }
       ]
     },
     "contacto": { "title": "Vamos falar do seu próximo projeto?", "texto": "Quer conhecer um empreendimento ou discutir uma parceria? A nossa equipa responde com brevidade." }
@@ -169,13 +172,6 @@
         { "title": "Na vanguarda da inovação arquitetónica", "texto": "Com vários projetos em pipeline, mantemo-nos na vanguarda da inovação arquitetónica, priorizando a qualidade, o conforto e a eficiência energética para garantir a satisfação dos nossos clientes.", "botao": "Ver empreendimentos" },
         { "title": "Uma abordagem eco-friendly", "texto": "O nosso mais recente projeto foi concebido com materiais sustentáveis, para aliar conforto, bem-estar e arquitetura moderna — reduzindo os custos de manutenção e garantindo o máximo conforto climático.", "botao": "Falar connosco" },
         { "title": "Responsabilidade social", "texto": "Mais do que construir, queremos contribuir. Em cada projeto, identificamos formas de gerar impacto social, apoiando iniciativas que respondam às necessidades da comunidade envolvente e deixem uma marca positiva em cada lugar onde estamos presentes." }
-      ]
-    },
-    "equipa": {
-      "title": "Quem lidera a AM Santos",
-      "members": [
-        { "role": "Liderança · Direção-Geral", "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário." },
-        { "role": "Arquitetura · Projeto", "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra." }
       ]
     },
     "contacto": { "title": "Vamos falar do seu projeto?", "texto": "A visão da AM Santos, centrada no conforto, qualidade e sustentabilidade, guiará os próximos projetos. Fale connosco." }

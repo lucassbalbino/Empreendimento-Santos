@@ -31,9 +31,14 @@ function init() {
   // desde que a secção passou a decalcar o "Quem Somos" (ver .emp-editorial em
   // styles.css) deixaram de lá viver e precisam de entrada própria, senão eram
   // o único texto de secção do site sem a revelação por linha.
+  // .faq-list__q h3 — a pergunta de cada item do FAQ da home (ver Faq.astro).
+  // Fica de fora do acordeão o corpo da resposta (.faq-list__a): vive dentro
+  // do <details>, escondido por baixo de display:none até o clique — o
+  // IntersectionObserver nunca o veria entrar em vista com o acordeão
+  // fechado, e a linha ficava presa em opacity:0 para sempre depois de aberta.
   const SEL = '.section .lead, .split__body > p, .quemsomos__intro > p, ' +
     '.quemsomos__p, .emp-editorial__p, .dofazemos__lead, .pilar__x, ' +
-    '.section .title-split__text, ' +
+    '.section .title-split__text, .faq-list__q h3, ' +
     '.qmeta__v, .qmeta__l, .section .muted';
   // O bloco de abertura de /portfolio e /historico fica FORA deste sistema: o
   // título e o lead têm entrada própria, coreografada com a cortina e disparada

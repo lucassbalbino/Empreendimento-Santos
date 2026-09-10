@@ -45,23 +45,6 @@
       }
     ]
   },
-  "equipa": {
-    "title": "Quem lidera a AM Santos",
-    "members": [
-      {
-        "role": "Liderança · Direção-Geral",
-        "name": "António M Santos",
-        "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário.",
-        "foto": "/images/perfil-3.webp"
-      },
-      {
-        "role": "Arquitetura · Projeto",
-        "name": "Marta Sousa",
-        "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra.",
-        "foto": "/images/perfil-2.webp"
-      }
-    ]
-  },
   "contacto": {
     "title": "Vamos falar do seu projeto?",
     "texto": "A visão da AM Santos, centrada no conforto, qualidade e sustentabilidade, guiará os próximos projetos. Fale connosco."

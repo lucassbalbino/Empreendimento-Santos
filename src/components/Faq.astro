@@ -1,0 +1,99 @@
+---
+/**
+ * FAQ da home: perguntas sobre o setor de promoção imobiliária e os
+ * diferenciais da AM Santos.
+ *
+ * Acordeão nativo (<details>/<summary>): fecha e abre sem JS, é acessível
+ * por teclado e leitor de ecrã de origem (o próprio elemento expõe o estado
+ * aria-expanded), e cada pergunta chega fechada — só o título e a seta —
+ * para a lista não pesar visualmente com as seis respostas à vista. A
+ * resposta entra com o mesmo reveal por linha dos títulos de secção (ver
+ * script abaixo), só que disparado pelo toggle do acordeão em vez do scroll.
+ */
+const { items = [], i18nBase } = Astro.props;
+---
+<div class="faq-list">
+  {items.map((q, i) => (
+    <details class="faq-list__item">
+      <summary class="faq-list__q">
+        <h3 data-i18n={i18nBase && `${i18nBase}.${i}.p`}>{q.p}</h3>
+        <svg class="faq-list__chevron" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </summary>
+      <p class="faq-list__a" data-i18n={i18nBase && `${i18nBase}.${i}.r`}>{q.r}</p>
+    </details>
+  ))}
+</div>
+
+<script>
+  import SplitType from 'split-type';
+
+  // Reveal por linha da resposta ao abrir — mesma técnica do
+  // src/scripts/split-reveal.js (.line/.line__inner/.split-ready/
+  // .is-revealed), mas disparado pelo toggle do <details>, não pelo scroll:
+  // enquanto fechada a resposta está em display:none (regra nativa do
+  // <details>), por isso um IntersectionObserver nunca a veria entrar em
+  // vista — e dividi-la em linhas ANTES da primeira abertura também não dava,
+  // porque o split-type mede quebras de linha num elemento sem largura.
+  // Por isso a divisão só acontece na primeira abertura de cada pergunta.
+  function splitOne(el) {
+    const split = new SplitType(el, { types: 'lines' });
+    split.lines.forEach((line, i) => {
+      const inner = document.createElement('span');
+      inner.className = 'line__inner';
+      inner.style.setProperty('--i', i);
+      while (line.firstChild) inner.appendChild(line.firstChild);
+      line.appendChild(inner);
+    });
+    el.classList.add('split-ready');
+  }
+
+  function setup() {
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    document.querySelectorAll('.faq-list__item').forEach((details) => {
+      if (details.dataset.faqBound) return;
+      details.dataset.faqBound = '1';
+
+      const answer = details.querySelector('.faq-list__a');
+      if (!answer) return;
+
+      details.addEventListener('toggle', () => {
+        if (!details.open) { answer.classList.remove('is-revealed'); return; }
+        if (!calm.matches && !answer.classList.contains('split-ready')) splitOne(answer);
+        // Um frame de intervalo entre dividir (estado escondido) e revelar:
+        // sem ele as duas mudanças de classe caem no mesmo batch de estilo e
+        // o browser salta a transição em vez de a correr.
+        requestAnimationFrame(() => answer.classList.add('is-revealed'));
+
+        // Sanfona exclusiva: só uma pergunta aberta de cada vez. Fechar as
+        // outras por aqui (não com o atributo `name`, que o <details> só
+        // suporta em browsers recentes) dispara o `toggle` de cada uma, que
+        // já trata de lhes tirar o `is-revealed`.
+        const list = details.closest('.faq-list');
+        if (list) {
+          list.querySelectorAll('.faq-list__item[open]').forEach((other) => {
+            if (other !== details) other.open = false;
+          });
+        }
+      });
+    });
+
+    // Troca de idioma: o data-i18n do main.js reescreve o textContent da
+    // resposta por baixo do embrulho de linhas, apagando-o. Repõe as duas
+    // classes para a próxima abertura dividir de novo o texto já traduzido.
+    if (window.__amsI18n) {
+      window.__amsI18n.onChange(() => {
+        document.querySelectorAll('.faq-list__a.split-ready').forEach((answer) => {
+          answer.classList.remove('split-ready', 'is-revealed');
+        });
+      });
+    }
+  }
+
+  // Com <ViewTransitions /> os scripts de módulo só correm uma vez — o setup
+  // religa-se a astro:page-load (1.ª carga + cada nav suave), como o resto
+  // dos componentes interativos do site (ver DoubleSlider.astro).
+  document.addEventListener('astro:page-load', setup);
+</script>
