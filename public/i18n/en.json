@@ -217,8 +217,8 @@
   "site": {
     "footer": {
       "blurb": "Building the future with quality and sustainability. Modern, functional architecture with an unwavering focus on the wellbeing of those who live there.",
-      "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisbon\nPortugal",
-      "assinatura": "Quality · Comfort · Sustainability"
+      "morada": "Rua do Centro Empresarial, Escritório 7, Esc 1.1\n2710-692 Sintra\nPortugal",
+      "assinatura": "Building isn't just raising walls, it's raising trust."
     }
   },
   "empreendimentos": {
@@ -373,7 +373,7 @@
       "factos": ["St. Antão do Tojal, Loures", "2028", "14 apartments", "T2", "Rental market", "In planning"]
     },
     "empreendimento-loures-residencial": {
-      "nome": "Loures Development — Residential",
+      "nome": "Primeliving",
       "tipologia": "T1, T2, T3, T5 and T6",
       "unidades": "155 apartments",
       "estado": "In planning",
