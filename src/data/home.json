@@ -1,6 +1,6 @@
 {
   "hero": {
-    "title": "Empreendimento Santos",
+    "title": "Empreendimentos Santos",
     "imagem": "/images/empreendimentos/obra-1.webp"
   },
   "quemSomos": {
@@ -104,7 +104,7 @@
     ]
   },
   "contacto": {
-    "title": "Vamos falar do seu próximo projeto?",
-    "texto": "Quer conhecer um empreendimento ou discutir uma parceria? A nossa equipa responde com brevidade."
+    "title": "Tem interesse num dos nossos projetos?",
+    "texto": "Fale connosco"
   }
 }

@@ -113,7 +113,7 @@
     }
   },
   "home": {
-    "hero": { "title": "Empreendimento Santos" },
+    "hero": { "title": "Empreendimentos Santos" },
     "quemSomos": {
       "title": "Construindo o futuro com qualidade e sustentabilidade",
       "meta": [
@@ -156,7 +156,7 @@
         { "p": "Como posso conhecer os empreendimentos e a equipa por trás deles?", "r": "No histórico e no portfólio pode ver os empreendimentos concluídos, em construção e em projeto. A equipa completa, com as suas áreas de responsabilidade, está apresentada na página Equipa." }
       ]
     },
-    "contacto": { "title": "Vamos falar do seu próximo projeto?", "texto": "Quer conhecer um empreendimento ou discutir uma parceria? A nossa equipa responde com brevidade." }
+    "contacto": { "title": "Tem interesse num dos nossos projetos?", "texto": "Fale connosco" }
   },
   "sobre": {
     "hero": { "title": "Sobre Nós" },
@@ -174,18 +174,18 @@
         { "title": "Responsabilidade social", "texto": "Mais do que construir, queremos contribuir. Em cada projeto, identificamos formas de gerar impacto social, apoiando iniciativas que respondam às necessidades da comunidade envolvente e deixem uma marca positiva em cada lugar onde estamos presentes." }
       ]
     },
-    "contacto": { "title": "Vamos falar do seu projeto?", "texto": "A visão da AM Santos, centrada no conforto, qualidade e sustentabilidade, guiará os próximos projetos. Fale connosco." }
+    "contacto": { "title": "Tem interesse num dos nossos projetos?", "texto": "Fale connosco" }
   },
   "historico": {
     "hero": { "title": "Histórico" },
     "concluidos": { "title": "20 anos a construir e a entregar", "lead": "Empreendimentos vendidos, de 2006 aos dias de hoje — dos já entregues aos que ainda estão em construção. Clique num projeto para ver os detalhes." },
-    "contacto": { "title": "Vamos falar do seu próximo projeto?", "texto": "Quer conhecer melhor o nosso trabalho ou discutir uma parceria? A nossa equipa responde com brevidade." }
+    "contacto": { "title": "Tem interesse num dos nossos projetos?", "texto": "Fale connosco" }
   },
   "portfolio": {
     "hero": { "title": "Portfólio" },
     "emDesenvolvimento": { "title": "Projetos em desenvolvimento", "lead": "Empreendimentos em construção, em comercialização ou destinados a arrendamento" },
     "futuros": { "title": "Projetos futuros", "lead": "Vários projetos em pipeline, na vanguarda da inovação arquitetónica" },
-    "contacto": { "title": "Interessado num empreendimento?", "texto": "Fale connosco para agendar uma visita ou pedir informações. A nossa equipa responde com brevidade." }
+    "contacto": { "title": "Tem interesse num dos nossos projetos?", "texto": "Fale connosco" }
   },
   "equipa": {
     "hero": { "title": "Equipa" },
@@ -207,18 +207,18 @@
         { "role": "Qualidade · Segurança", "bio": "Garante o cumprimento das normas de qualidade e segurança em todas as fases da obra." }
       ]
     },
-    "contacto": { "title": "Quer trabalhar connosco?", "texto": "Envie-nos a sua candidatura ou uma mensagem. Estamos sempre atentos a bons profissionais." }
+    "contacto": { "title": "Tem interesse num dos nossos projetos?", "texto": "Fale connosco" }
   },
   "contactos": {
     "hero": { "title": "Contactos" },
-    "contacto": { "title": "Vamos falar do seu projeto?", "texto": "Preencha o formulário ou contacte-nos diretamente. Respondemos a todos os pedidos com a maior brevidade." },
+    "contacto": { "title": "Tem interesse num dos nossos projetos?", "texto": "Fale connosco" },
     "onde": { "title": "Onde Estamos", "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisboa\nPortugal", "mapaLabel": "Mapa — Lisboa, Av. da Liberdade" }
   },
   "site": {
     "footer": {
       "blurb": "Construindo o futuro com qualidade e sustentabilidade. Arquitetura moderna e funcional, com um foco inabalável no bem-estar de quem habita.",
-      "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisboa\nPortugal",
-      "assinatura": "Qualidade · Conforto · Sustentabilidade"
+      "morada": "Rua do Centro Empresarial, Escritório 7, Esc 1.1\n2710-692 Sintra\nPortugal",
+      "assinatura": "Construir não é só erguer paredes, é elevar confiança."
     }
   },
   "empreendimentos": {
@@ -373,7 +373,7 @@
       "factos": ["St. Antão do Tojal, Loures", "2028", "14 apartamentos", "T2", "Mercado de arrendamento", "Em projeto"]
     },
     "empreendimento-loures-residencial": {
-      "nome": "Empreendimento Loures — Residencial",
+      "nome": "Primeliving",
       "tipologia": "T1, T2, T3, T5 e T6",
       "unidades": "155 apartamentos",
       "estado": "Em projeto",
