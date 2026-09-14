@@ -192,19 +192,34 @@
     "direcao": {
       "title": "Who leads the group",
       "members": [
-        { "role": "Leadership · Managing Director", "bio": "Leads AM Santos and the architecture, engineering, interior design and property management team that shapes every project, with 20 years of experience in the real estate market." },
-        { "role": "Architecture · Design", "bio": "Head of the design department, translating into drawings the modern, functional architecture that defines every development, from concept to construction." }
+        { "role": "Managing Director" },
+        { "role": "Head of Design" }
       ]
     },
     "equipa": {
       "title": "Who builds, every day",
-      "members": [
-        { "role": "Engineering · Construction", "bio": "Site director, coordinating the execution and quality control that underpin the excellence of every completed project." },
-        { "role": "Architecture · Design", "bio": "Develops the architectural projects, balancing modern, functional design with the comfort of those who will live in the space." },
-        { "role": "Interior Design", "bio": "Works on interiors and finishes, so that every home reflects the comfort and quality that define the company." },
-        { "role": "Property Management", "bio": "Responsible for property management and overseeing pipeline projects, from initial study through to sale." },
-        { "role": "Sustainability · Efficiency", "bio": "Leads the eco-friendly approach: selecting sustainable materials, energy efficiency and thermal comfort in every home." },
-        { "role": "Quality · Safety", "bio": "Ensures compliance with quality and safety standards at every stage of construction." }
+      "grupos": [
+        {
+          "area": "Architecture and Design",
+          "members": [
+            { "role": "Architectural design" },
+            { "role": "Interiors and finishes" }
+          ]
+        },
+        {
+          "area": "Engineering and Construction",
+          "members": [
+            { "role": "Site director" },
+            { "role": "Quality and safety" }
+          ]
+        },
+        {
+          "area": "Management and Sustainability",
+          "members": [
+            { "role": "Property management" },
+            { "role": "Energy efficiency" }
+          ]
+        }
       ]
     },
     "contacto": { "title": "Want to work with us?", "texto": "Send us your application or a message. We're always on the lookout for talented professionals." }

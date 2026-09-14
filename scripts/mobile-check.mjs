@@ -46,7 +46,6 @@ const OVERFLOW_TOL = 1;
 const DECORATIVE = [
   '.blob', '.blob-layer',
   '.hero__bg', '.hero__overlay',
-  '.team--marquee', '.team__track', '.team__set', '.member',
   '.dslider__track', '.dslider__slide', '.dslider__img', '.dslider__thumbs',
   '.curtain', '.preloader',
 ];

@@ -95,7 +95,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero'].filter(Boolean).join(
       // vive no topo da secção e a secção só cruza o threshold de 0.12 muito
       // depois — numa secção alta, a régua já tinha passado pelo ecrã quando a
       // .is-visible do pai chegasse. Observada por si, desenha-se à entrada.
-      var SEL = '.section, .seam, .card, .stat, .service, .member, .panels, .reveal-wipe-lr, .reveal-rise-slow';
+      var SEL = '.section, .seam, .card, .stat, .service, .roster__group, .panels, .reveal-wipe-lr, .reveal-rise-slow';
       var els = [];
 
       var io = new IntersectionObserver(function (entries) {

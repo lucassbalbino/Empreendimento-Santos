@@ -3,19 +3,34 @@
   "direcao": {
     "title": "Quem lidera o grupo",
     "members": [
-      { "role": "Liderança · Direção-Geral", "name": "António M Santos", "bio": "Lidera a AM Santos e a equipa de arquitetura, engenharia, decoração e gestão imobiliária que dá forma a cada projeto, com 20 anos de experiência no mercado imobiliário." },
-      { "role": "Arquitetura · Projeto", "name": "Marta Sousa", "bio": "Responsável pelo departamento de projeto, traduz em desenho a arquitetura moderna e funcional que define cada empreendimento, do conceito à obra." }
+      { "name": "António M Santos", "role": "Direção-Geral" },
+      { "name": "Marta Sousa", "role": "Direção de Projeto" }
     ]
   },
   "equipa": {
     "title": "Quem constrói, todos os dias",
-    "members": [
-      { "role": "Engenharia · Obra", "name": "Ricardo Nunes", "bio": "Diretor de obra, coordena a execução e o controlo de qualidade que sustentam a excelência de cada projeto executado." },
-      { "role": "Arquitetura · Projeto", "name": "Inês Carvalho", "bio": "Desenvolve os projetos de arquitetura, conciliando desenho moderno e funcional com o conforto de quem vai habitar o espaço." },
-      { "role": "Decoração · Interiores", "name": "Pedro Almeida", "bio": "Trabalha os interiores e os acabamentos, para que cada residência traduza o conforto e a qualidade que definem a empresa." },
-      { "role": "Gestão imobiliária", "name": "Sofia Mendes", "bio": "Responsável pela gestão imobiliária e pelo acompanhamento dos projetos em pipeline, do estudo à comercialização." },
-      { "role": "Sustentabilidade · Eficiência", "name": "João Ferreira", "bio": "Conduz a abordagem eco-friendly: seleção de materiais sustentáveis, eficiência energética e conforto climático das residências." },
-      { "role": "Qualidade · Segurança", "name": "Ana Rocha", "bio": "Garante o cumprimento das normas de qualidade e segurança em todas as fases da obra." }
+    "grupos": [
+      {
+        "area": "Arquitetura e Projeto",
+        "members": [
+          { "name": "Inês Carvalho", "role": "Projetos de arquitetura" },
+          { "name": "Pedro Almeida", "role": "Interiores e acabamentos" }
+        ]
+      },
+      {
+        "area": "Engenharia e Obra",
+        "members": [
+          { "name": "Ricardo Nunes", "role": "Direção de obra" },
+          { "name": "Ana Rocha", "role": "Qualidade e segurança" }
+        ]
+      },
+      {
+        "area": "Gestão e Sustentabilidade",
+        "members": [
+          { "name": "Sofia Mendes", "role": "Gestão imobiliária" },
+          { "name": "João Ferreira", "role": "Eficiência energética" }
+        ]
+      }
     ]
   },
   "contacto": {

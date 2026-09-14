@@ -263,13 +263,12 @@ ul{ list-style:none; }
 .section--dark .split__body p,
 .section--dark .service p,
 .section--dark .stat__label,
-.section--dark .member__bio,
 .section--dark .check,
 .section--dark .field label{ color:var(--paper); }
 /* O rótulo de função é acento, não texto corrido: leva o tom para escuro em
    vez do branco. Com --accent-text (pensado para fundos claros) dava 2.37:1
    em /sobre-nos, onde a <Team> vive numa .section--dark. */
-.section--dark .member__role{ color:var(--accent-dk); }
+.section--dark .roster__role{ color:var(--accent-dk); }
 
 /* Botão / link de ação */
 .btn{
@@ -1663,150 +1662,92 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .service__body{ opacity:var(--fit-opacity,1); transform:translateX(var(--fit-tx,0px)); }
 
 /* =====================================================================
-   EQUIPA
-   ===================================================================== */
-.team{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(20px,2.4vw,34px); margin-top:clamp(40px,5vw,64px); }
-.team--lead{ grid-template-columns:repeat(2,minmax(0,1fr)); max-width:640px; gap:clamp(20px,2.4vw,34px); }
-.member__media .ph{ aspect-ratio:1/1; width:100%; }
-.member__media img{ aspect-ratio:1/1; width:100%; height:100%; object-fit:cover; display:block; }
-.member__role{ font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-text); margin:.9rem 0 .3rem; font-weight:600; }
-.member__name{ font-family:var(--serif); font-weight:400; font-size:1.2rem; margin-bottom:.6rem; }
-.member__bio{ color:var(--ink-soft); font-size:.85rem; max-width:100%; }
+   EQUIPA — índice em filetes, agrupado por departamento
+   =====================================================================
+   Aqui viveu uma grelha de cartões com retrato quadrado, e uma variante em
+   fita contínua para a /sobre-nos. As duas saíram: a página deixou de mostrar
+   a fotografia de cada pessoa, e a fita perdeu o consumidor quando a home e a
+   /sobre-nos passaram a FAQ.
 
-/* ---- Equipa em fita contínua (.team--marquee, /sobre-nos) -------------
-   A grelha acima é a variante de base (a /equipa vive dela). Esta é a fita:
-   os cartões deslizam em loop, param ao passar o rato e a fotografia sai do
-   cinzento só no cartão sob o cursor.
+   O que substitui é uma lista em filetes. Com apenas nome e função, o cartão
+   não tem o que segurar — o traço é que passa a dar ritmo à página. E a
+   hierarquia faz-se pela COR do filete, não pela espessura: o departamento
+   abre com traço de tinta (--ink), as pessoas separam-se com traço terroso
+   claro (--line). Espessuras diferentes no mesmo sítio leem-se como erro de
+   alinhamento; tons diferentes leem-se como nível. */
+.roster{ margin-top:clamp(40px,5vw,64px); }
+.roster__group{ border-top:1px solid var(--ink); padding:clamp(20px,2.4vw,30px) 0; }
+.roster__group:last-child{ border-bottom:1px solid var(--ink); }
 
-   A montagem do HTML (conjunto duplicado + repetido) está comentada em
-   src/components/Team.astro — é de lá que depende a aritmética do keyframe. */
-.team--marquee{
-  --team-gap:clamp(14px,1.6vw,24px);
-  display:block;
-  margin-top:clamp(40px,5vw,64px);
-  overflow:clip;   /* clip, não hidden: não criar scroll container */
-  /* Os bordos esbatem-se por MÁSCARA, não por um degradê pousado por cima:
-     a .section--dark é translúcida (--dark tem alfa), por isso qualquer cor
-     pintada a fingir de fundo denunciava-se contra o que está por baixo.
-     A máscara desvanece os próprios pixéis da fita e serve qualquer fundo. */
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
-  mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+.roster__area{
+  font-family:var(--sans);
+  font-size:.68rem; letter-spacing:.22em; text-transform:uppercase;
+  font-weight:600; color:var(--accent-text);
+  margin:0 0 .9rem;
 }
-.team__track{
-  display:flex;
-  gap:var(--team-gap);
-  width:max-content;
-  animation:team-marquee var(--team-speed,44s) linear infinite;
-  will-change:transform;
-}
-.team__set{ display:flex; gap:var(--team-gap); }
-/* A fita tem dois conjuntos e um intervalo entre eles: 2S + gap. Voltar ao
-   ponto de partida sem salto é deslizar S + gap, ou seja metade da largura
-   MAIS metade do intervalo — o -50% sozinho deixava a costura à vista. */
-@keyframes team-marquee{
-  from{ transform:translate3d(0,0,0); }
-  to  { transform:translate3d(calc(-50% - (var(--team-gap) / 2)),0,0); }
-}
-/* Parar sob o rato (para se poder ler o cartão) e sob o foco de teclado. */
-.team--marquee:hover .team__track,
-.team--marquee:focus-within .team__track{ animation-play-state:paused; }
 
-.team--marquee .member{ flex:0 0 auto; width:clamp(260px,26vw,380px); }
-/* A fita entra sempre visível: o revelar-ao-rolar observa .member e os
-   cartões que arrancam fora do ecrã ficariam a opacity:0 à espera de um
-   cruzamento que a animação torna imprevisível. */
-html.reveal-ready .team--marquee .member{
-  opacity:1; transform:none; transition:none;
+.roster__list{ list-style:none; margin:0; padding:0; }
+/* Nome à esquerda, função à direita, filete entre pessoas. O `flex-wrap` é o
+   que mantém isto de pé em ecrã estreito: em vez de espremer as duas colunas
+   até o nome partir a meio, a função desce para a linha seguinte. */
+.roster__row{
+  display:flex; flex-wrap:wrap; align-items:baseline;
+  justify-content:space-between; gap:.15rem 1.5rem;
+  padding:.8rem 0;
+  border-top:1px solid var(--line);
 }
-.team--marquee .member__media{
-  position:relative;
-  overflow:hidden;
-  background:var(--dark-soft);
-}
-.team--marquee .member__media img,
-.team--marquee .member__mono{
-  aspect-ratio:3/4;
-  width:100%; height:100%;
-  display:block;
-  transform:scale(1.02);   /* margem para o zoom do hover não mostrar bordo */
-  transition:filter .45s var(--ease), transform .8s var(--ease);
-}
-.team--marquee .member__media img{ object-fit:cover; filter:grayscale(1); }
-.team--marquee .member:hover .member__media img{ filter:grayscale(0); }
-.team--marquee .member:hover .member__media img,
-.team--marquee .member:hover .member__mono{ transform:scale(1.06); }
-/* Monograma: o cartão de quem ainda não tem retrato. Mesma trama diagonal
-   dos placeholders do site (.ph--dark), com as iniciais em bronze. Fica
-   deliberadamente calmo — não pode competir com as fotografias ao lado. */
-.team--marquee .member__mono{
-  display:flex; align-items:center; justify-content:center;
-  background:
-    repeating-linear-gradient(45deg,
-      rgba(255,255,255,.045) 0, rgba(255,255,255,.045) 1px,
-      transparent 1px, transparent 11px),
-    var(--dark-soft);
-}
-.team--marquee .member__mono span{
+/* O primeiro filete de cada bloco seria um traço claro colado ao traço de
+   tinta do departamento — dois riscos a 1px de distância. */
+.roster__row:first-child{ border-top:0; padding-top:0; }
+.roster__row:last-child{ padding-bottom:0; }
+.roster__name{
   font-family:var(--serif); font-weight:400;
-  font-size:clamp(3.4rem,5.4vw,5rem); line-height:1;
-  letter-spacing:.06em;
-  color:var(--accent-dk); opacity:.5;
-  /* Sobe um pouco: centrado a sério, o monograma ficava atrás da placa. */
-  transform:translateY(-14%);
-  transition:opacity .45s var(--ease);
+  font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink);
 }
-.team--marquee .member:hover .member__mono span{ opacity:.85; }
-/* Placa sobre a fotografia. O degradê sobe até ao transparente para o nome
-   assentar sobre densidade suficiente sem cortar a imagem a direito. */
-.team--marquee .member__plate{
-  position:absolute; inset-inline:0; bottom:0;
-  /* O respiro de cima é grande de propósito: é a pista por onde o degradê
-     sobe até ao transparente. Sem ela o rótulo de função ficava na zona
-     translúcida e, com a fotografia a cores (hover), perdia contraste
-     contra o que quer que estivesse por baixo — foi o que aconteceu com um
-     retrato de fundo azul claro. */
-  padding:clamp(30px,3.4vw,46px) clamp(12px,1.3vw,18px) clamp(12px,1.3vw,18px);
-  background:linear-gradient(to top,
-    rgba(21,15,10,.95) 0%,
-    rgba(21,15,10,.92) 76%,
-    rgba(21,15,10,0) 100%);
+.roster__role{
+  font-size:.66rem; letter-spacing:.18em; text-transform:uppercase;
+  font-weight:600; color:var(--ink-faint);
 }
-.team--marquee .member__role{ margin:0 0 .25rem; color:var(--accent-dk); }
-.team--marquee .member__name{
-  font-family:var(--serif); font-weight:400; font-size:clamp(1.08rem,1.1vw,1.28rem);
-  color:var(--paper); margin:0;
+
+/* A direção não tem departamento: sem cabeçalho de área, e com o nome a pesar
+   mais, porque são duas pessoas a segurar uma secção inteira.
+
+   A largura é travada porque aqui não há coluna de departamento a encurtar a
+   linha: à largura toda do contentor, o nome e a função ficavam em pontas
+   opostas de ~1200px e deixavam de se ler como o mesmo par. Travada, a
+   distância entre os dois é a mesma que têm nos departamentos abaixo. */
+.roster--lead{ max-width:760px; }
+.roster--lead .roster__name{ font-size:clamp(1.3rem,2.4vw,1.9rem); }
+.roster--lead .roster__row{ padding:clamp(.9rem,1.4vw,1.3rem) 0; }
+.roster--lead .roster__row:first-child{ padding-top:0; }
+.roster--lead .roster__row:last-child{ padding-bottom:0; }
+
+/* Em ecrã estreito a função passa SEMPRE para baixo do nome, em vez de ficar
+   ao lado quando calha caber. Deixado ao `flex-wrap`, o resultado dependia do
+   comprimento de cada função: na mesma lista, "Ricardo Nunes — DIREÇÃO DE OBRA"
+   cabia numa linha e "Inês Carvalho — PROJETOS DE ARQUITETURA" partia em duas,
+   e a lista perdia a pauta. Empilhadas, todas as linhas têm a mesma altura. */
+@media (max-width:559px){
+  .roster__row{ justify-content:flex-start; gap:.2rem; }
+  .roster__name, .roster__role{ flex:0 0 100%; }
 }
-/* A biografia é longa de mais para estar sempre aberta numa fita em
-   movimento: fica colapsada e abre no cartão sob o rato — que é, ao mesmo
-   tempo, o momento em que a fita pára. Continua no DOM (e no leitor de ecrã)
-   nos dois estados. */
-.team--marquee .member__bio{
-  color:rgba(253,252,250,.84);
-  font-size:clamp(.78rem,.72vw,.86rem); line-height:1.55;
-  margin:0; max-height:0; opacity:0; overflow:hidden;
-  transition:max-height .5s var(--ease),
-             opacity .35s var(--ease),
-             margin .5s var(--ease);
-}
-.team--marquee .member:hover .member__bio{
-  max-height:14rem; opacity:1; margin-top:.5rem;
-}
-/* Sem rato não há como abrir a biografia: nesses ecrãs mostra-se sempre. */
-@media (hover:none){
-  .team--marquee .member__bio{ max-height:14rem; opacity:1; margin-top:.5rem; }
-  .team--marquee .member__media img{ filter:grayscale(0); }
-  .team--marquee .member__mono span{ opacity:.85; }
-}
-/* Menos movimento: a fita pára. Como parada só se veria o primeiro cartão e
-   meio, passa a faixa deslizável à mão — e a cópia (aria-hidden) sai, para
-   não haver a equipa duas vezes num carrossel manual. */
-@media (prefers-reduced-motion:reduce){
-  .team--marquee{ overflow-x:auto; scroll-snap-type:x proximity; }
-  .team__track{ animation:none; }
-  .team__set[aria-hidden]{ display:none; }
-  .team--marquee .member{ scroll-snap-align:center; }
-  .team--marquee .member__media img,
-  .team--marquee .member__mono{ transform:none; transition:filter .45s var(--ease); }
+
+/* Em ecrã largo o departamento sai para uma coluna própria à esquerda e as
+   pessoas alinham todas na mesma vertical à direita — é esse alinhamento que
+   faz a página ler-se como organograma e não como lista corrida. A proporção
+   é a mesma do .faq__item, para as duas secções de duas colunas do site
+   baterem certo uma com a outra.
+
+   O padding-top do rótulo alinha-o com a linha de base do primeiro nome; sem
+   ele o departamento flutuava acima da pessoa a que pertence. */
+@media (min-width:900px){
+  .roster__group--titled{
+    display:grid;
+    grid-template-columns:minmax(0,10fr) minmax(0,14fr);
+    gap:clamp(24px,4vw,64px);
+    align-items:start;
+  }
+  .roster__area{ margin-bottom:0; padding-top:.35rem; }
 }
 
 /* =====================================================================
@@ -1893,7 +1834,7 @@ html.reveal-ready .team--marquee .member{
    *assenta* — é isto que se lê como fluido. Durações iguais leem-se como
    lentas. */
 html.reveal-ready :is(
-  .card, .stat, .service, .member, .panels
+  .card, .stat, .service, .roster__group, .panels
 ){
   opacity:0;
   transform:translateY(26px);
@@ -1902,7 +1843,7 @@ html.reveal-ready :is(
   will-change:transform, opacity;
 }
 html.reveal-ready :is(
-  .card, .stat, .service, .member, .panels
+  .card, .stat, .service, .roster__group, .panels
 ).is-visible{
   opacity:1;
   transform:none;
@@ -2512,7 +2453,6 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   .stats{ grid-template-columns:repeat(2,1fr); }
   /* .grid-projects já é de 2 colunas no desktop — nada a reduzir aqui. */
   .facts{ grid-template-columns:repeat(2,1fr); }
-  .team{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:1fr 1fr; }
   /* Menu vira hambúrguer já no tablet, onde o nav horizontal não cabe. O
      PAINEL em si (fundo, cascata das linhas, hambúrguer em X) vive no bloco
@@ -2546,7 +2486,6 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
 @media (max-width: 760px){
   .service, .contact{ grid-template-columns:1fr; }
   .service:nth-child(even) .service__media{ order:0; }
-  .team{ grid-template-columns:1fr; }
   .stats{ grid-template-columns:1fr; }
   .grid-projects{ grid-template-columns:1fr; }
   /* Numa só coluna a moldura fica com ~354px: a 19/10 a imagem cairia para
@@ -2702,7 +2641,7 @@ button.card{
    /sobre-nos): na versão clara é areia, e sobre o café dois dos cinco
    cartões passavam a lajes brancas a puxar o olho mais do que as
    fotografias ao lado. Inverte para a trama escura dos outros placeholders
-   do site (ver .ph--dark e .member__mono). */
+   do site (ver .ph--dark). */
 .section--dark .testimonials__img--ph{
   background:
     repeating-linear-gradient(45deg,
@@ -3242,8 +3181,8 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 /* O <Divider> assume fundo claro: as três linhas são --ink e, sobre o café
    de uma .section--dark, ficavam praticamente invisíveis. Aqui invertem-se,
    e o encaixe passa ao bronze claro — o mesmo acento que os rótulos usam
-   sobre escuro (ver .section--dark .member__role). Único consumidor de hoje:
-   o divisor dentro do carrossel da Equipa, em /sobre-nos. */
+   sobre escuro (ver .section--dark .roster__role). Hoje sem consumidor: o
+   único era o divisor dentro do carrossel da Equipa, que saiu da /sobre-nos. */
 .section--dark :is(.divider__line, .divider__line--strong){ background:var(--paper); }
 .section--dark .divider__tab{ background:var(--accent-dk); }
 
@@ -3775,7 +3714,8 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 
   /* ---- Rótulos e meta em caixa alta ---- */
   .field label{ font-size:13px; letter-spacing:.12em; }
-  .member__role{ font-size:13px; letter-spacing:.12em; }
+  .roster__area{ font-size:13px; letter-spacing:.14em; }
+  .roster__role{ font-size:13px; letter-spacing:.12em; }
   .footer-col h4{ font-size:13px; letter-spacing:.14em; }
   .footer-bottom{ font-size:13px; }
   .qmeta__l{ font-size:13px; }
@@ -3836,9 +3776,6 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
   /* ---- Corpo pequeno ---- */
   .check{ font-size:13px; }
   .emodal__entrega{ font-size:13px; }
-  /* .team--marquee .member__bio saiu daqui: no telemóvel a bio deixa de
-     aparecer (ver o bloco dedicado mais abaixo), por isso já não tem corpo a
-     medir. */
 }
 
 /* =====================================================================
@@ -3977,26 +3914,6 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
     padding-left:33px; gap:0;
   }
   .check input{ margin-top:0; }
-}
-
-/* =====================================================================
-   EQUIPA DA HOME — SÓ NOME E FUNÇÃO NO TELEMÓVEL (≤760px)
-   ---------------------------------------------------------------------
-   A fita (.team--marquee) mostra a bio inteira ao passar o rato — e como
-   não há rato no telemóvel, `@media (hover:none)` logo acima decidiu por
-   isso mostrá-la sempre. Num cartão de 260–380px de largura isso enche
-   PERMANENTEMENTE o rodapé da fotografia com três ou quatro linhas de
-   texto miúdo, competindo com o nome em vez de o apoiar — o oposto do
-   cartão de equipa nas outras páginas (.member, grelha normal), que nunca
-   mostrou bio nenhuma.
-
-   Aqui alinha-se com esse padrão: só nome e função ficam visíveis. A bio
-   continua no DOM (um leitor de ecrã continua a lê-la, e o hover do rato
-   num telemóvel com trackpad ainda a mostra) — só deixa de ocupar espaço
-   por defeito. Por estar DEPOIS do bloco de hover:none no ficheiro, esta
-   regra ganha por ordem de origem à mesma especificidade. */
-@media (max-width:760px){
-  .team--marquee .member__bio{ display:none; }
 }
 
 /* =====================================================================

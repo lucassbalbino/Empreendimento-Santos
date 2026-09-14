@@ -11,7 +11,7 @@ import { listaDePessoas } from '../utils/schema.js';
 /* Pessoas com nome e função dão o sinal de E-E-A-T que o Google procura num
    negócio de construção: por trás da marca há profissionais identificáveis. */
 const schemaEquipa = [
-  listaDePessoas([...equipa.direcao.members, ...equipa.equipa.members], {
+  listaDePessoas([...equipa.direcao.members, ...equipa.equipa.grupos.flatMap((g) => g.members)], {
     url: urlAbsoluto('/equipa'),
     nome: 'Equipa AM Santos',
   }),
@@ -46,7 +46,7 @@ const schemaEquipa = [
     <div class="container has-wm">
       <Watermark variant="fill" side="l" size="lg" y="bottom" />
       <TitleSplit text={equipa.equipa.title} data-i18n="equipa.equipa.title" data-i18n-split="1" />
-      <Team members={equipa.equipa.members} i18nBase="equipa.equipa.members" />
+      <Team grupos={equipa.equipa.grupos} i18nBase="equipa.equipa.grupos" />
     </div>
   </section>
 

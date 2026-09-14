@@ -192,19 +192,34 @@
     "direcao": {
       "title": "Qui dirige le groupe",
       "members": [
-        { "role": "Direction · Direction Générale", "bio": "Dirige AM Santos et l'équipe d'architecture, d'ingénierie, de décoration et de gestion immobilière qui donne forme à chaque projet, avec 20 ans d'expérience sur le marché immobilier." },
-        { "role": "Architecture · Conception", "bio": "Responsable du département de conception, traduit en dessin l'architecture moderne et fonctionnelle qui définit chaque projet, du concept au chantier." }
+        { "role": "Direction Générale" },
+        { "role": "Direction de la Conception" }
       ]
     },
     "equipa": {
       "title": "Qui construit, chaque jour",
-      "members": [
-        { "role": "Ingénierie · Chantier", "bio": "Directeur de chantier, coordonne l'exécution et le contrôle qualité qui garantissent l'excellence de chaque projet réalisé." },
-        { "role": "Architecture · Conception", "bio": "Développe les projets d'architecture, conciliant un design moderne et fonctionnel avec le confort des futurs habitants." },
-        { "role": "Décoration · Intérieurs", "bio": "Travaille les intérieurs et les finitions, pour que chaque résidence traduise le confort et la qualité qui définissent l'entreprise." },
-        { "role": "Gestion immobilière", "bio": "Responsable de la gestion immobilière et du suivi des projets en pipeline, de l'étude à la commercialisation." },
-        { "role": "Durabilité · Efficacité", "bio": "Pilote l'approche éco-responsable : sélection de matériaux durables, efficacité énergétique et confort climatique des résidences." },
-        { "role": "Qualité · Sécurité", "bio": "Garantit le respect des normes de qualité et de sécurité à toutes les étapes du chantier." }
+      "grupos": [
+        {
+          "area": "Architecture et Conception",
+          "members": [
+            { "role": "Projets d'architecture" },
+            { "role": "Intérieurs et finitions" }
+          ]
+        },
+        {
+          "area": "Ingénierie et Chantier",
+          "members": [
+            { "role": "Direction de chantier" },
+            { "role": "Qualité et sécurité" }
+          ]
+        },
+        {
+          "area": "Gestion et Durabilité",
+          "members": [
+            { "role": "Gestion immobilière" },
+            { "role": "Efficacité énergétique" }
+          ]
+        }
       ]
     },
     "contacto": { "title": "Vous voulez travailler avec nous ?", "texto": "Envoyez-nous votre candidature ou un message. Nous sommes toujours à l'écoute de bons professionnels." }
