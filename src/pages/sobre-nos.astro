@@ -88,7 +88,7 @@ import home from '../data/home.json';
           <div class="service__body">
             <h3 data-i18n={`sobre.servicos.items.${i}.title`}>{s.title}</h3>
             <p data-i18n={`sobre.servicos.items.${i}.texto`}>{s.texto}</p>
-            {s.botao && <a class="btn" href="#" data-i18n={`sobre.servicos.items.${i}.botao`}>{s.botao}</a>}
+            {s.botao && s.link && <a class="btn" href={s.link} data-i18n={`sobre.servicos.items.${i}.botao`}>{s.botao}</a>}
             <Divider style="margin-bottom:clamp(40px,5vw,72px)" />
           </div>
         </div>

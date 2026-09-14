@@ -6,6 +6,7 @@ import Watermark from '../../components/Watermark.astro';
 import { getCollection } from 'astro:content';
 import { urlAbsoluto } from '../../utils/seo.js';
 import { artigo } from '../../utils/schema.js';
+import blog from '../../data/blog.json';
 
 export async function getStaticPaths() {
   const artigos = await getCollection('blog', ({ data }) => !data.rascunho);
@@ -91,8 +92,8 @@ const schemaArtigo = [
     <div class="container has-wm">
       <Watermark variant="line" side="l" size="md" y="bottom" />
       <ContactForm
-        title="Ficou com alguma dúvida?"
-        texto="Fale connosco sobre o que procura num empreendimento. Respondemos a todos os pedidos com a maior brevidade."
+        title={blog.contactoArtigo.title}
+        texto={blog.contactoArtigo.texto}
       />
     </div>
   </section>

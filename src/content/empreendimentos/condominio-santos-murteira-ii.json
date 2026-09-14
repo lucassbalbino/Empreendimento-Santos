@@ -1,0 +1,40 @@
+{
+  "nome": "Condomínio Santos — Murteira II",
+  "grupo": "concluido",
+  "ano": 2017,
+  "localizacao": "Murteira, Loures",
+  "concelho": "Loures",
+  "tipologia": "T4 e T5",
+  "unidades": "11 moradias",
+  "resumo": "Condomínio Santos, também na Murteira, com 11 moradias térreas isoladas de tipologia T4 e T5, com piscina privativa em cada unidade, valorizando o pátio como elemento gerador do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural.",
+  "imagem": "/images/empreendimentos/condominio-santos-murteira-ii-1.webp",
+  "imagemReal": true,
+  "galeria": [
+    "/images/empreendimentos/condominio-santos-murteira-ii-2.webp",
+    "/images/empreendimentos/condominio-santos-murteira-ii-3.webp",
+    "/images/empreendimentos/condominio-santos-murteira-ii-4.webp",
+    "/images/empreendimentos/condominio-santos-murteira-ii-5.webp"
+  ],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "Murteira, Loures"
+    },
+    {
+      "rotulo": "Ano",
+      "valor": "2017"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "11 moradias"
+    },
+    {
+      "rotulo": "Tipologia",
+      "valor": "T4 / T5"
+    },
+    {
+      "rotulo": "Piscina",
+      "valor": "Privativa em cada unidade"
+    }
+  ]
+}

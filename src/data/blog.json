@@ -1,0 +1,16 @@
+{
+  "_nota": "Textos fixos do blog. Os artigos em si vivem em src/content/blog/.",
+  "listagem": {
+    "title": "Notas sobre construir e comprar casa",
+    "lead": "Guias práticos, critérios de decisão e o que a experiência de 20 anos de obra ensina sobre escolher — e sobre construir — um empreendimento.",
+    "botao": "Ler o artigo"
+  },
+  "contacto": {
+    "title": "Tem um projeto em mente?",
+    "texto": "Fale connosco sobre o que procura. Respondemos a todos os pedidos com a maior brevidade."
+  },
+  "contactoArtigo": {
+    "title": "Ficou com alguma dúvida?",
+    "texto": "Fale connosco sobre o que procura num empreendimento. Respondemos a todos os pedidos com a maior brevidade."
+  }
+}

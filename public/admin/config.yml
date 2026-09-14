@@ -35,14 +35,32 @@ collections:
             widget: object
             fields:
               - { label: "Título", name: title, widget: string }
-              - { label: "Parágrafos", name: paragrafos, widget: list, field: { label: "Parágrafo", name: texto, widget: text } }
+              - label: "Dados em destaque"
+                name: meta
+                widget: list
+                summary: "{{fields.value}} {{fields.label}}"
+                hint: "A grelha de dados à esquerda do parágrafo (ex.: 20 anos — de experiência no mercado)."
+                fields:
+                  - { label: "Valor", name: value, widget: string }
+                  - { label: "Descrição", name: label, widget: string }
+              - { label: "Parágrafo", name: paragrafo, widget: text }
               - { label: "Texto do botão", name: botao, widget: string }
-              - { label: "Imagem", name: imagem, widget: image, required: false, hint: "Vertical 4:5. Se vazio, mostra o marcador de imagem." }
-          - label: "O Que Fazemos — Números"
+              - { label: "Imagem", name: imagem, widget: image, required: false, hint: "Horizontal 16:9. Se vazio, mostra o marcador de imagem." }
+          - label: "O Que Fazemos (pilares e números)"
             name: oQueFazemos
             widget: object
             fields:
-              - { label: "Título", name: title, widget: string }
+              - { label: "Título (pilares)", name: title, widget: string, hint: "Separe as palavras com travessão ( — ): cada uma vira um item numerado. Ex.: Qualidade — Conforto — Sustentabilidade." }
+              - { label: "Texto de introdução", name: lead, widget: text }
+              - label: "Pilares"
+                name: pilares
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Título", name: title, widget: string }
+                  - { label: "Texto", name: texto, widget: text }
+              - { label: "Título (números)", name: statsTitle, widget: string }
+              - { label: "Texto (números)", name: statsLead, widget: text }
               - label: "Números / destaques"
                 name: stats
                 widget: list
@@ -67,20 +85,19 @@ collections:
               - { label: "Título", name: title, widget: string }
               - { label: "Subtítulo", name: lead, widget: string }
               - { label: "Texto do botão", name: botao, widget: string }
-          - label: "Equipa"
-            name: equipa
+          - label: "Perguntas frequentes"
+            name: faq
             widget: object
             fields:
               - { label: "Título", name: title, widget: string }
-              - label: "Membros"
-                name: members
+              - { label: "Subtítulo", name: lead, widget: text }
+              - label: "Perguntas"
+                name: items
                 widget: list
-                summary: "{{fields.name}}"
+                summary: "{{fields.p}}"
                 fields:
-                  - { label: "Função", name: role, widget: string }
-                  - { label: "Nome", name: name, widget: string }
-                  - { label: "Bio", name: bio, widget: text }
-                  - { label: "Foto", name: foto, widget: image, required: false }
+                  - { label: "Pergunta", name: p, widget: string }
+                  - { label: "Resposta", name: r, widget: text }
           - label: "Contacto"
             name: contacto
             widget: object
@@ -89,58 +106,118 @@ collections:
               - { label: "Texto", name: texto, widget: text }
 
   # ------------------------------------------------------- EMPREENDIMENTOS
-  # Fonte única dos projetos. As páginas Histórico e Portfólio derivam desta
-  # lista pelo campo "grupo" (não há listas de projetos nessas páginas).
+  # Coleção de PASTA: um ficheiro por projeto em src/content/empreendimentos/.
+  # As páginas Início, Portfólio e Histórico derivam daqui pela FASE (campo
+  # "grupo") — ver src/utils/projetos.js. O ciclo de vida faz-se todo aqui:
+  #   · Novo projeto futuro  → botão "Novo Empreendimento" (já vem em "futuro");
+  #   · Futuro → desenvolvimento, desenvolvimento → histórico → mudar só a Fase.
+  # Estado da obra, situação comercial no histórico, frase de entrega e linha
+  # "Estado" da ficha acompanham a fase sozinhos, enquanto ficarem vazios.
   - name: empreendimentos
-    label: "Empreendimentos (projetos)"
+    label: "Empreendimentos"
+    label_singular: "Empreendimento"
+    description: "Mudar um projeto de fase = alterar só o campo «Fase». Estado, entrega e ficha acompanham automaticamente."
+    folder: "src/content/empreendimentos"
+    extension: json
+    format: json
+    create: true
+    delete: true
+    identifier_field: nome
+    # O nome do ficheiro é o endereço (/empreendimentos/<slug>) e fica fixo
+    # depois de criado — é o que o Google indexa e o que liga as traduções.
+    slug: "{{slug}}"
+    summary: "{{nome}} · {{ano}}"
+    sortable_fields: [ano, nome]
+    view_filters:
+      - { label: "Projetos futuros", field: grupo, pattern: "^futuro$" }
+      - { label: "Em desenvolvimento", field: grupo, pattern: "^desenvolvimento$" }
+      - { label: "Histórico (concluídos)", field: grupo, pattern: "^concluido$" }
+    view_groups:
+      - { label: "Fase", field: grupo }
+    fields:
+      - { label: "Nome", name: nome, widget: string, hint: "Ao criar, define também o endereço da página (não muda depois)." }
+      - label: "Fase"
+        name: grupo
+        widget: select
+        default: futuro
+        hint: "Onde o projeto aparece no site. Para avançar um projeto basta mudar esta opção."
+        options:
+          - { label: "Projeto futuro (Portfólio)", value: futuro }
+          - { label: "Em desenvolvimento (Portfólio)", value: desenvolvimento }
+          - { label: "Concluído / vendido (Histórico)", value: concluido }
+      - { label: "Ano", name: ano, widget: number, value_type: int, hint: "Ano de conclusão ou de previsão. Ordena as listagens (mais recentes primeiro)." }
+      - { label: "Localização", name: localizacao, widget: string, hint: "Ex.: Sta. Iria de Azóia, Loures" }
+      - { label: "Concelho", name: concelho, widget: string, required: false }
+      - { label: "Tipologia", name: tipologia, widget: string, hint: "Ex.: T2 e T3" }
+      - { label: "Unidades", name: unidades, widget: string, required: false, hint: "Ex.: 14 apartamentos" }
+      - { label: "Resumo", name: resumo, widget: text, hint: "Texto principal da página do empreendimento." }
+      - { label: "Imagem principal", name: imagem, widget: image, required: false, hint: "Se vazio, mostra um marcador de imagem." }
+      - { label: "A imagem retrata mesmo este empreendimento?", name: imagemReal, widget: boolean, default: false, hint: "Desligado = imagem provisória (mostra o selo «Imagem provisória»)." }
+      - label: "Galeria"
+        name: galeria
+        widget: list
+        required: false
+        field: { label: "Imagem", name: imagem, widget: image }
+      - label: "Ficha técnica"
+        name: factos
+        widget: list
+        required: false
+        summary: "{{fields.rotulo}}: {{fields.valor}}"
+        hint: "A linha «Estado» é acrescentada automaticamente no fim — não a repita aqui."
+        default:
+          - { rotulo: "Localização", valor: "" }
+          - { rotulo: "Ano", valor: "" }
+          - { rotulo: "Unidades", valor: "" }
+          - { rotulo: "Tipologia", valor: "" }
+        fields:
+          - { label: "Rótulo", name: rotulo, widget: string }
+          - { label: "Valor", name: valor, widget: string }
+      - { label: "Destacar", name: destaque, widget: boolean, default: false, hint: "Aparece primeiro entre os projetos do mesmo ano." }
+      # Exceções — vazios, seguem a fase (é o que torna a mudança de fase automática).
+      - label: "Estado da obra (exceção)"
+        name: estado
+        widget: select
+        required: false
+        hint: "Deixe vazio: segue a fase (Em projeto / Em construção / Concluído). Preencha só em exceções, ex.: vendido ainda em construção."
+        options: ["Em projeto", "Em construção", "Concluído"]
+      - { label: "Situação comercial", name: comercial, widget: string, required: false, hint: "Ex.: Em comercialização, Arrendamento. No Histórico é sempre «Vendido»." }
+      - { label: "Frase de entrega (exceção)", name: entrega, widget: string, required: false, hint: "Deixe vazio: gera-se do estado e do ano (Previsão 2029 / Em construção · 2029 / Concluído em 2029)." }
+
+  # ---------------------------------------------- PÁGINA DE EMPREENDIMENTO
+  - name: empreendimento
+    label: "Página de empreendimento (textos comuns)"
     delete: false
     files:
-      - name: empreendimentos
-        label: "Lista de empreendimentos"
-        file: "src/data/empreendimentos.json"
+      - name: empreendimento
+        label: "Textos comuns das fichas"
+        file: "src/data/empreendimento.json"
         fields:
-          # Notas internas do ficheiro — ocultas, mas preservadas ao guardar.
           - { label: "Nota interna", name: _nota, widget: hidden }
-          - { label: "Regra de grupo", name: _grupo, widget: hidden }
-          - label: "Empreendimentos"
-            name: lista
-            widget: list
-            summary: "{{fields.nome}} — {{fields.grupo}}"
+          - label: "Parágrafo institucional"
+            name: paragrafo
+            widget: object
+            hint: "{nome} é substituído pelo nome do empreendimento."
             fields:
-              - { label: "Slug (URL)", name: slug, widget: string, hint: "Identificador na ligação /empreendimentos/… — evite alterar depois de publicado." }
-              - { label: "Nome", name: nome, widget: string }
-              - label: "Grupo (onde aparece no site)"
-                name: grupo
-                widget: select
-                hint: "Define em que página o projeto é listado."
-                options:
-                  - { label: "Histórico (vendido / concluído)", value: concluido }
-                  - { label: "Portfólio — Em desenvolvimento", value: desenvolvimento }
-                  - { label: "Portfólio — Projetos futuros", value: futuro }
-              - { label: "Ano", name: ano, widget: number, value_type: int }
-              - { label: "Localização", name: localizacao, widget: string }
-              - { label: "Concelho", name: concelho, widget: string, required: false }
-              - { label: "Tipologia", name: tipologia, widget: string }
-              - { label: "Unidades", name: unidades, widget: string, required: false }
-              - { label: "Estado (obra)", name: estado, widget: string, required: false, hint: "Ex.: Concluído, Em construção, Em projeto." }
-              - { label: "Situação comercial", name: comercial, widget: string, required: false, hint: "Ex.: Vendido, Em comercialização, Arrendamento." }
-              - { label: "Entrega", name: entrega, widget: string, required: false }
-              - { label: "Resumo", name: resumo, widget: text }
-              - { label: "Imagem principal", name: imagem, widget: image, required: false }
-              - { label: "A imagem retrata mesmo este empreendimento?", name: imagemReal, widget: boolean, default: false, hint: "Desligado = imagem provisória (mostra o selo no card)." }
-              - label: "Galeria"
-                name: galeria
-                widget: list
-                required: false
-                field: { label: "Imagem", name: imagem, widget: image }
-              - label: "Factos (ficha técnica)"
-                name: factos
-                widget: list
-                required: false
-                summary: "{{fields.rotulo}}: {{fields.valor}}"
-                fields:
-                  - { label: "Rótulo", name: rotulo, widget: string }
-                  - { label: "Valor", name: valor, widget: string }
+              - { label: "Obra concluída", name: concluido, widget: text }
+              - { label: "Em projeto / em construção", name: outro, widget: text }
+          - label: "Texto do botão"
+            name: botao
+            widget: object
+            fields:
+              - { label: "Em projeto", name: emProjeto, widget: string }
+              - { label: "Em construção", name: emConstrucao, widget: string }
+              - { label: "Concluído", name: concluido, widget: string }
+          - { label: "Título da ficha técnica", name: fichaTitulo, widget: string }
+          - { label: "Título da galeria", name: imagensTitulo, widget: string }
+          - { label: "Legenda do mapa", name: mapaLegenda, widget: string }
+          - { label: "Título dos relacionados", name: continuarTitulo, widget: string }
+          - label: "Contacto"
+            name: contacto
+            widget: object
+            hint: "{nome} é substituído pelo nome do empreendimento."
+            fields:
+              - { label: "Título", name: title, widget: string }
+              - { label: "Texto", name: texto, widget: text }
 
   # ------------------------------------------------------------- PORTFÓLIO
   - name: portfolio
@@ -199,9 +276,11 @@ collections:
               - { label: "Título", name: title, widget: string }
               - { label: "Destaque", name: lead, widget: text }
               - { label: "Parágrafo", name: paragrafo, widget: text }
-          - label: "O Que Fazemos"
+              - { label: "Imagem", name: imagem, widget: image, required: false, hint: "Vertical 4:5. Se vazio, mostra o marcador de imagem." }
+          - label: "20 anos de solidez (imagens e números)"
             name: oQueFazemos
             widget: object
+            hint: "Os números desta secção são os mesmos da Página Início › O Que Fazemos › Números."
             fields:
               - { label: "Título", name: title, widget: text }
               - label: "Imagens"
@@ -216,8 +295,7 @@ collections:
                     name: colunaB
                     widget: list
                     field: { label: "Imagem", name: imagem, widget: image }
-              - { label: "Parágrafo", name: paragrafo, widget: text }
-          - label: "Serviços"
+          - label: "O que nos move (serviços)"
             name: servicos
             widget: object
             fields:
@@ -229,20 +307,9 @@ collections:
                 fields:
                   - { label: "Título", name: title, widget: string }
                   - { label: "Texto", name: texto, widget: text }
-                  - { label: "Texto do botão", name: botao, widget: string, required: false }
-          - label: "Equipa"
-            name: equipa
-            widget: object
-            fields:
-              - { label: "Título", name: title, widget: string }
-              - label: "Membros"
-                name: members
-                widget: list
-                summary: "{{fields.name}}"
-                fields:
-                  - { label: "Função", name: role, widget: string }
-                  - { label: "Nome", name: name, widget: string }
-                  - { label: "Bio", name: bio, widget: text }
+                  - { label: "Imagem", name: imagem, widget: image, required: false, hint: "Horizontal 5:4." }
+                  - { label: "Texto do botão", name: botao, widget: string, required: false, hint: "O botão só aparece com texto E destino preenchidos." }
+                  - { label: "Destino do botão", name: link, widget: string, required: false, hint: "Página do site (ex.: /portfolio, /contactos) ou endereço completo." }
           - label: "Contacto"
             name: contacto
             widget: object
@@ -363,7 +430,13 @@ collections:
               - { label: "Título", name: title, widget: string }
               - { label: "Texto", name: texto, widget: text }
               - { label: "E-mail", name: email, widget: string }
-              - { label: "Telefone", name: telefone, widget: string }
+              - label: "Telefones"
+                name: telefones
+                widget: list
+                summary: "{{fields.label}} — {{fields.numero}}"
+                fields:
+                  - { label: "Descrição", name: label, widget: string, hint: "Ex.: Departamento Comercial" }
+                  - { label: "Número", name: numero, widget: string, hint: "Ex.: 910 043 904" }
           - label: "Onde Estamos"
             name: onde
             widget: object
@@ -374,19 +447,13 @@ collections:
 
   # ------------------------------------------------- GERAL (header/footer)
   - name: site
-    label: "Geral (logo e rodapé)"
+    label: "Geral (rodapé)"
     delete: false
     files:
       - name: site
-        label: "Logo e Rodapé"
+        label: "Rodapé e redes sociais"
         file: "src/data/site.json"
         fields:
-          - label: "Marca"
-            name: brand
-            widget: object
-            fields:
-              - { label: "Nome", name: name, widget: string }
-              - { label: "Complemento", name: suffix, widget: string }
           - label: "Rodapé"
             name: footer
             widget: object
@@ -394,9 +461,122 @@ collections:
               - { label: "Texto", name: blurb, widget: text }
               - { label: "Morada", name: morada, widget: text }
               - { label: "E-mail", name: email, widget: string }
-              - { label: "Telefone", name: telefone, widget: string }
+              - label: "Telefones"
+                name: telefones
+                widget: list
+                summary: "{{fields.label}} — {{fields.numero}}"
+                fields:
+                  - { label: "Descrição", name: label, widget: string, hint: "Ex.: Departamento Comercial" }
+                  - { label: "Número", name: numero, widget: string, hint: "Ex.: 910 043 904" }
               - { label: "Copyright", name: copyright, widget: string }
               - { label: "Assinatura", name: assinatura, widget: string }
+          - label: "Redes sociais"
+            name: redes
+            widget: object
+            hint: "Endereço completo (https://…). Cada ícone só aparece no rodapé quando o endereço está preenchido."
+            fields:
+              - { label: "Instagram", name: instagram, widget: string, required: false }
+              - { label: "Facebook", name: facebook, widget: string, required: false }
+              - { label: "LinkedIn", name: linkedin, widget: string, required: false }
+
+  # ------------------------------------------------------ BLOG (textos fixos)
+  - name: blog-pagina
+    label: "Página Blog (textos fixos)"
+    delete: false
+    files:
+      - name: blog-pagina
+        label: "Textos da listagem e dos artigos"
+        file: "src/data/blog.json"
+        fields:
+          - { label: "Nota interna", name: _nota, widget: hidden }
+          - label: "Listagem"
+            name: listagem
+            widget: object
+            fields:
+              - { label: "Título", name: title, widget: string }
+              - { label: "Subtítulo", name: lead, widget: text }
+              - { label: "Texto do link de cada artigo", name: botao, widget: string }
+          - label: "Contacto (listagem)"
+            name: contacto
+            widget: object
+            fields:
+              - { label: "Título", name: title, widget: string }
+              - { label: "Texto", name: texto, widget: text }
+          - label: "Contacto (fim de cada artigo)"
+            name: contactoArtigo
+            widget: object
+            fields:
+              - { label: "Título", name: title, widget: string }
+              - { label: "Texto", name: texto, widget: text }
+
+  # ------------------------------------------------------------------- SEO
+  # O que o Google mostra. Os campos técnicos (domínio, idioma, indexação)
+  # ficam ocultos — mudá-los parte canonical, sitemap e JSON-LD. Ver docs/SEO.md.
+  - name: seo
+    label: "SEO (Google e partilhas)"
+    delete: false
+    files:
+      - name: seo
+        label: "Títulos, descrições e dados da empresa"
+        file: "src/data/seo.json"
+        fields:
+          - { label: "Nota interna", name: _leia, widget: hidden }
+          - { label: "Domínio", name: dominio, widget: hidden }
+          - { label: "Indexável", name: indexavel, widget: hidden }
+          - { label: "Idioma", name: idioma, widget: hidden }
+          - { label: "Locale Open Graph", name: ogLocale, widget: hidden }
+          - { label: "Marca", name: marca, widget: string, hint: "Acrescentada aos títulos das páginas (ex.: «| AM Santos»)." }
+          - { label: "Imagem de partilha por omissão", name: imagemPadrao, widget: image, hint: "Usada nas redes sociais quando a página não tem imagem própria. Horizontal, 1200×630." }
+          - label: "Páginas"
+            name: paginas
+            widget: object
+            hint: "Título: até ~60 caracteres. Descrição: 120 a 160 caracteres — é o texto por baixo do link no Google."
+            fields:
+              - { label: "Início", name: "/", widget: object, fields: [{ label: "Título", name: title, widget: string }, { label: "Descrição", name: description, widget: text }, { label: "Imagem de partilha", name: imagem, widget: image, required: false }] }
+              - { label: "Sobre Nós", name: "/sobre-nos", widget: object, fields: [{ label: "Título", name: title, widget: string }, { label: "Descrição", name: description, widget: text }, { label: "Imagem de partilha", name: imagem, widget: image, required: false }] }
+              - { label: "Portfólio", name: "/portfolio", widget: object, fields: [{ label: "Título", name: title, widget: string }, { label: "Descrição", name: description, widget: text }, { label: "Imagem de partilha", name: imagem, widget: image, required: false }] }
+              - { label: "Histórico", name: "/historico", widget: object, fields: [{ label: "Título", name: title, widget: string }, { label: "Descrição", name: description, widget: text }, { label: "Imagem de partilha", name: imagem, widget: image, required: false }] }
+              - { label: "Equipa", name: "/equipa", widget: object, fields: [{ label: "Título", name: title, widget: string }, { label: "Descrição", name: description, widget: text }, { label: "Imagem de partilha", name: imagem, widget: image, required: false }] }
+              - { label: "Contactos", name: "/contactos", widget: object, fields: [{ label: "Título", name: title, widget: string }, { label: "Descrição", name: description, widget: text }, { label: "Imagem de partilha", name: imagem, widget: image, required: false }] }
+              - { label: "Blog", name: "/blog", widget: object, fields: [{ label: "Título", name: title, widget: string }, { label: "Descrição", name: description, widget: text }, { label: "Imagem de partilha", name: imagem, widget: image, required: false }] }
+              - { label: "Política de Cookies", name: "/politica-de-cookies", widget: object, fields: [{ label: "Título", name: title, widget: string }, { label: "Descrição", name: description, widget: text }] }
+              - { label: "Política de Privacidade", name: "/politica-de-privacidade", widget: object, fields: [{ label: "Título", name: title, widget: string }, { label: "Descrição", name: description, widget: text }] }
+              - { label: "Página não encontrada (404)", name: "/404", widget: object, fields: [{ label: "Título", name: title, widget: string }, { label: "Descrição", name: description, widget: text }, { label: "Fora do Google", name: noindex, widget: hidden }] }
+          - label: "Empresa"
+            name: organizacao
+            widget: object
+            fields:
+              - { label: "Nome legal", name: nomeLegal, widget: string }
+              - { label: "Fundador", name: fundador, widget: string }
+              - { label: "Descrição", name: descricao, widget: text }
+              - { label: "Slogan", name: slogan, widget: string }
+              - { label: "Logótipo", name: logo, widget: image }
+              - { label: "Zonas onde atua", name: areasServidas, widget: list }
+              - { label: "Especialidades", name: especialidades, widget: list }
+              - { label: "Perfis oficiais (redes sociais, diretórios)", name: sameAs, widget: list, required: false, hint: "Endereços completos. Ajudam o Google a ligar o site à empresa." }
+          - label: "Morada e contacto (NAP)"
+            name: nap
+            widget: object
+            hint: "Só entra no Google quando «Dados verificados» estiver ligado. Publicar dados errados contamina o Google Business Profile."
+            fields:
+              - { label: "Nota interna", name: _leia, widget: hidden }
+              - { label: "Dados verificados", name: verificado, widget: boolean, default: false }
+              - { label: "Morada", name: morada, widget: string }
+              - { label: "Código postal", name: codigoPostal, widget: string }
+              - { label: "Localidade", name: localidade, widget: string }
+              - { label: "Região", name: regiao, widget: string }
+              - { label: "País (código)", name: pais, widget: string, hint: "Ex.: PT" }
+              - { label: "Telefone", name: telefone, widget: string, hint: "Formato internacional, ex.: +351 910 043 904" }
+              - { label: "E-mail", name: email, widget: string }
+              - { label: "Latitude", name: latitude, widget: number, value_type: float, required: false }
+              - { label: "Longitude", name: longitude, widget: number, value_type: float, required: false }
+              - { label: "Horário", name: horario, widget: string, hint: "Formato schema.org, ex.: Mo-Fr 09:00-18:00" }
+          - label: "Estatísticas"
+            name: analytics
+            widget: object
+            fields:
+              - { label: "Nota interna", name: _leia, widget: hidden }
+              - { label: "Token do Cloudflare Web Analytics", name: cloudflareToken, widget: string, required: false, hint: "Enquanto estiver vazio, o script de estatísticas não é carregado." }
 
   # --------------------------------------------------------------- COOKIES
   # O inventário é um documento legal: tem de descrever exatamente o que o site
@@ -413,6 +593,7 @@ collections:
         label: "Categorias e inventário"
         file: "src/data/cookies.json"
         fields:
+          - { label: "Nota interna", name: _leia, widget: hidden }
           - label: "Versão do consentimento"
             name: versao
             widget: number

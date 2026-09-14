@@ -1,0 +1,49 @@
+{
+  "nome": "Pinteus Residence",
+  "grupo": "futuro",
+  "ano": 2028,
+  "localizacao": "St. Antão do Tojal, Loures",
+  "concelho": "Loures",
+  "tipologia": "T2",
+  "unidades": "14 apartamentos",
+  "comercial": "Arrendamento",
+  "resumo": "Como em todos os empreendimentos AM Santos, o Pinteus Residence nasce de uma visão centrada no novo segmento de mercado que a AM Santos está a desenvolver.",
+  "imagem": "/images/empreendimentos/pinteus-residence-1.webp",
+  "imagemReal": true,
+  "galeria": [
+    "/images/empreendimentos/pinteus-residence-2.webp",
+    "/images/empreendimentos/pinteus-residence-3.webp",
+    "/images/empreendimentos/pinteus-residence-4.webp",
+    "/images/empreendimentos/pinteus-residence-5.webp",
+    "/images/empreendimentos/pinteus-residence-6.webp",
+    "/images/empreendimentos/pinteus-residence-7.webp",
+    "/images/empreendimentos/pinteus-residence-8.webp",
+    "/images/empreendimentos/pinteus-residence-9.webp",
+    "/images/empreendimentos/pinteus-residence-10.webp",
+    "/images/empreendimentos/pinteus-residence-11.webp",
+    "/images/empreendimentos/pinteus-residence-12.webp",
+    "/images/empreendimentos/pinteus-residence-13.webp"
+  ],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "St. Antão do Tojal, Loures"
+    },
+    {
+      "rotulo": "Ano",
+      "valor": "2028"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "14 apartamentos"
+    },
+    {
+      "rotulo": "Tipologia",
+      "valor": "T2"
+    },
+    {
+      "rotulo": "Destino",
+      "valor": "Mercado de arrendamento"
+    }
+  ]
+}

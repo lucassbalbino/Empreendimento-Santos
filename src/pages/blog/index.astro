@@ -6,6 +6,7 @@ import ContactForm from '../../components/ContactForm.astro';
 import Watermark from '../../components/Watermark.astro';
 import { getCollection } from 'astro:content';
 import { urlAbsoluto } from '../../utils/seo.js';
+import blog from '../../data/blog.json';
 
 /* Rascunhos ficam de fora do site publicado — e, por não existirem como
    página, ficam também fora do sitemap. Não há nada a esconder do Google com
@@ -38,8 +39,8 @@ const schemaBlog = [
       <Seam label="Blog" variant="light" class="seam--top" bare />
       <BlockHead
         as="h1"
-        title="Notas sobre construir e comprar casa"
-        lead="Guias práticos, critérios de decisão e o que a experiência de 20 anos de obra ensina sobre escolher — e sobre construir — um empreendimento."
+        title={blog.listagem.title}
+        lead={blog.listagem.lead}
       />
 
       <div class="posts">
@@ -57,7 +58,7 @@ const schemaBlog = [
                 </time>
                 <h2 class="post-card__titulo">{a.data.titulo}</h2>
                 <p class="post-card__resumo">{a.data.resumo}</p>
-                <span class="post-card__cta">Ler o artigo</span>
+                <span class="post-card__cta">{blog.listagem.botao}</span>
               </div>
             </a>
           </article>
@@ -70,8 +71,8 @@ const schemaBlog = [
     <div class="container has-wm">
       <Watermark variant="line" side="l" size="md" y="bottom" />
       <ContactForm
-        title="Tem um projeto em mente?"
-        texto="Fale connosco sobre o que procura. Respondemos a todos os pedidos com a maior brevidade."
+        title={blog.contacto.title}
+        texto={blog.contacto.texto}
       />
     </div>
   </section>

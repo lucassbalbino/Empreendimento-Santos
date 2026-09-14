@@ -8,7 +8,7 @@ import { seo } from './seo.js';
    quase iguais a competir umas com as outras pelas mesmas pesquisas.
 
    Tudo o que sai daqui é composto a partir dos campos REAIS do
-   src/data/empreendimentos.json (localização, tipologia, unidades, ano,
+   src/content/empreendimentos/ (localização, tipologia, unidades, ano,
    estado). Não há texto inventado nem sinónimos rodados para simular
    diferença — a diferença vem de os empreendimentos serem mesmo diferentes.
    --------------------------------------------------------------------------- */

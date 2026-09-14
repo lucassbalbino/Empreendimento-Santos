@@ -1,0 +1,55 @@
+{
+  "nome": "Condomínio Albarraque",
+  "grupo": "concluido",
+  "ano": 2023,
+  "localizacao": "Albarraque, Sintra",
+  "concelho": "Sintra",
+  "tipologia": "T4",
+  "unidades": "9 moradias",
+  "estado": "Em projeto",
+  "entrega": "Em fase de projeto · 2023",
+  "resumo": "Em fase de projeto, em conjunto com entidades (Câmara Municipal e outras), o condomínio Santos — Sintra prevê 9 moradias T4 com piscina privativa em cada fração, promovendo privacidade, qualidade de vida e relação com a luz natural.",
+  "imagem": "/images/empreendimentos/condominio-albarraque-1.webp",
+  "imagemReal": true,
+  "galeria": [
+    "/images/empreendimentos/condominio-albarraque-2.webp",
+    "/images/empreendimentos/condominio-albarraque-3.webp",
+    "/images/empreendimentos/condominio-albarraque-4.webp",
+    "/images/empreendimentos/condominio-albarraque-5.webp",
+    "/images/empreendimentos/condominio-albarraque-6.webp",
+    "/images/empreendimentos/condominio-albarraque-7.webp",
+    "/images/empreendimentos/condominio-albarraque-8.webp",
+    "/images/empreendimentos/condominio-albarraque-9.webp",
+    "/images/empreendimentos/condominio-albarraque-10.webp",
+    "/images/empreendimentos/condominio-albarraque-11.webp",
+    "/images/empreendimentos/condominio-albarraque-12.webp",
+    "/images/empreendimentos/condominio-albarraque-13.webp",
+    "/images/empreendimentos/condominio-albarraque-14.webp",
+    "/images/empreendimentos/condominio-albarraque-15.webp",
+    "/images/empreendimentos/condominio-albarraque-16.webp",
+    "/images/empreendimentos/condominio-albarraque-17.webp",
+    "/images/empreendimentos/condominio-albarraque-18.webp",
+    "/images/empreendimentos/condominio-albarraque-19.webp",
+    "/images/empreendimentos/condominio-albarraque-20.webp",
+    "/images/empreendimentos/condominio-albarraque-21.webp",
+    "/images/empreendimentos/condominio-albarraque-22.webp"
+  ],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "Albarraque, Sintra"
+    },
+    {
+      "rotulo": "Ano",
+      "valor": "2023"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "9 moradias"
+    },
+    {
+      "rotulo": "Tipologia",
+      "valor": "T4"
+    }
+  ]
+}

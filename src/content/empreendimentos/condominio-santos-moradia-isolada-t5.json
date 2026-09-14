@@ -1,0 +1,39 @@
+{
+  "nome": "Condomínio Santos — Moradia Isolada T5",
+  "grupo": "concluido",
+  "ano": 2021,
+  "localizacao": "Loures",
+  "concelho": "Loures",
+  "tipologia": "T5",
+  "unidades": "1 moradia",
+  "resumo": "Moradia de 5 quartos com piscina privativa que valoriza o pátio como gerador do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural.",
+  "imagem": "/images/empreendimentos/condominio-santos-moradia-isolada-t5-1.webp",
+  "imagemReal": true,
+  "galeria": [
+    "/images/empreendimentos/condominio-santos-moradia-isolada-t5-2.webp",
+    "/images/empreendimentos/condominio-santos-moradia-isolada-t5-3.webp",
+    "/images/empreendimentos/condominio-santos-moradia-isolada-t5-4.webp",
+    "/images/empreendimentos/condominio-santos-moradia-isolada-t5-5.webp",
+    "/images/empreendimentos/condominio-santos-moradia-isolada-t5-6.webp",
+    "/images/empreendimentos/condominio-santos-moradia-isolada-t5-7.webp",
+    "/images/empreendimentos/condominio-santos-moradia-isolada-t5-8.webp"
+  ],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "Loures"
+    },
+    {
+      "rotulo": "Ano",
+      "valor": "2021"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "1 moradia"
+    },
+    {
+      "rotulo": "Tipologia",
+      "valor": "T5"
+    }
+  ]
+}

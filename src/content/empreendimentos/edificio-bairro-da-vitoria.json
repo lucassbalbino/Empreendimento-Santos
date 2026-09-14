@@ -1,0 +1,44 @@
+{
+  "nome": "Edifício Bairro da Vitória",
+  "grupo": "concluido",
+  "ano": 2006,
+  "localizacao": "Loures",
+  "concelho": "Loures",
+  "tipologia": "T2 e T3",
+  "unidades": "10 apartamentos",
+  "resumo": "10 apartamentos de tipologia T2 e T3, em Loures. O primeiro empreendimento do grupo e o início de um percurso de 20 anos no mercado imobiliário.",
+  "imagem": "/images/empreendimentos/edificio-bairro-da-vitoria-1.webp",
+  "imagemReal": true,
+  "galeria": [
+    "/images/empreendimentos/edificio-bairro-da-vitoria-2.webp",
+    "/images/empreendimentos/edificio-bairro-da-vitoria-3.webp",
+    "/images/empreendimentos/edificio-bairro-da-vitoria-4.webp",
+    "/images/empreendimentos/edificio-bairro-da-vitoria-5.webp",
+    "/images/empreendimentos/edificio-bairro-da-vitoria-6.webp",
+    "/images/empreendimentos/edificio-bairro-da-vitoria-7.webp",
+    "/images/empreendimentos/edificio-bairro-da-vitoria-8.webp",
+    "/images/empreendimentos/edificio-bairro-da-vitoria-9.webp",
+    "/images/empreendimentos/edificio-bairro-da-vitoria-10.webp",
+    "/images/empreendimentos/edificio-bairro-da-vitoria-11.webp",
+    "/images/empreendimentos/edificio-bairro-da-vitoria-12.webp",
+    "/images/empreendimentos/edificio-bairro-da-vitoria-13.webp"
+  ],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "Loures"
+    },
+    {
+      "rotulo": "Ano",
+      "valor": "2006"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "10 apartamentos"
+    },
+    {
+      "rotulo": "Tipologia",
+      "valor": "T2 e T3"
+    }
+  ]
+}

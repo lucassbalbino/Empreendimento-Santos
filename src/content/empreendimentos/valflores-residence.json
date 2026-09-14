@@ -1,0 +1,37 @@
+{
+  "nome": "Valflores Residence",
+  "grupo": "desenvolvimento",
+  "ano": 2028,
+  "localizacao": "Santa Iria de Azóia, Loures",
+  "concelho": "Loures",
+  "tipologia": "T2",
+  "unidades": "39 apartamentos",
+  "comercial": "Arrendamento",
+  "entrega": "Previsão 2028",
+  "resumo": "Como em todos os empreendimentos AM Santos, o Valflores Residence nasce de uma visão centrada no novo segmento de mercado que a AM Santos está a desenvolver.",
+  "imagem": "/images/empreendimentos/valflores-residence-1.webp",
+  "imagemReal": true,
+  "galeria": [],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "Santa Iria de Azóia, Loures"
+    },
+    {
+      "rotulo": "Ano",
+      "valor": "2028"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "39 apartamentos"
+    },
+    {
+      "rotulo": "Tipologia",
+      "valor": "T2"
+    },
+    {
+      "rotulo": "Destino",
+      "valor": "Mercado de arrendamento"
+    }
+  ]
+}

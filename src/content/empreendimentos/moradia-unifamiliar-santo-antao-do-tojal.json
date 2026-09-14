@@ -1,0 +1,37 @@
+{
+  "nome": "Moradia Unifamiliar",
+  "grupo": "concluido",
+  "ano": 2026,
+  "localizacao": "St. Antão do Tojal, Loures",
+  "concelho": "Loures",
+  "tipologia": "T4",
+  "unidades": "1 moradia",
+  "estado": "Em construção",
+  "resumo": "Em fase de construção, moradia de 4 quartos com piscina privativa, valorizando o pátio como elemento do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural.",
+  "imagem": "/images/empreendimentos/moradia-unifamiliar-santo-antao-do-tojal-1.webp",
+  "imagemReal": true,
+  "galeria": [
+    "/images/empreendimentos/moradia-unifamiliar-santo-antao-do-tojal-2.webp",
+    "/images/empreendimentos/moradia-unifamiliar-santo-antao-do-tojal-3.webp",
+    "/images/empreendimentos/moradia-unifamiliar-santo-antao-do-tojal-4.webp",
+    "/images/empreendimentos/moradia-unifamiliar-santo-antao-do-tojal-5.webp"
+  ],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "St. Antão do Tojal, Loures"
+    },
+    {
+      "rotulo": "Ano",
+      "valor": "2026"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "1 moradia"
+    },
+    {
+      "rotulo": "Tipologia",
+      "valor": "T4"
+    }
+  ]
+}

@@ -90,7 +90,7 @@ sociais, ou recebem URL, ou saem do rodapé — e nesse caso saem também de
 retrata** aquele empreendimento. Só dois têm imagem verdadeira:
 `valflores-terraces` e `clt-centro-logistico-do-tojal`.
 
-- **Onde:** `src/data/empreendimentos.json`
+- **Onde:** `src/content/empreendimentos/<slug>.json`
 - **Nota:** o campo existe justamente para isto ser rastreável; não o remover
   ao substituir as fotos, pô-lo a `true` uma a uma.
 

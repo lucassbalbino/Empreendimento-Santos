@@ -1,0 +1,44 @@
+{
+  "nome": "Valflores Terraces",
+  "grupo": "desenvolvimento",
+  "ano": 2026,
+  "localizacao": "Sta. Iria de Azóia, Loures",
+  "concelho": "Loures",
+  "tipologia": "T3 a T5",
+  "unidades": "39 apartamentos",
+  "comercial": "Em comercialização",
+  "resumo": "Edifício com 39 apartamentos T3, T3 duplex, T4, T4 duplex e T5 premium, com amplas áreas interiores e exteriores e excelente vista sobre a paisagem. Os apartamentos dos pisos superiores têm piscina exterior ajardinada. Vista desafogada e amplas varandas com vista para o Rio Tejo. Acabamentos interiores elegantes e nobres, espaços confortáveis e contemporâneos, ricos em luz natural.",
+  "imagem": "/images/empreendimentos/valflores-terraces.webp",
+  "imagemReal": true,
+  "destaque": true,
+  "galeria": [
+    "/images/empreendimentos/valflores-terraces-render.webp",
+    "/images/empreendimentos/valflores-terraces-aerea.webp",
+    "/images/empreendimentos/interior-1.webp",
+    "/images/empreendimentos/interior-2.webp",
+    "/images/empreendimentos/obra-1.webp",
+    "/images/empreendimentos/obra-2.webp"
+  ],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "Sta. Iria de Azóia, Loures"
+    },
+    {
+      "rotulo": "Ano",
+      "valor": "2026"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "39 apartamentos"
+    },
+    {
+      "rotulo": "Tipologia",
+      "valor": "T3 / T3 duplex / T4 / T4 duplex / T5 premium"
+    },
+    {
+      "rotulo": "Vista",
+      "valor": "Rio Tejo"
+    }
+  ]
+}

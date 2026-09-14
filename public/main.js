@@ -171,13 +171,41 @@
     return cur;
   }
 
-  // Chave → valor no idioma atual; nunca falha para PT ausente/incompleto.
+  // Chave → valor no idioma atual. O PT de conteúdo vem do servidor (o HTML é
+  // gerado a partir de src/data, que é o que o CMS edita): quem chama passa-o
+  // como `fallback`, e em PT é esse que ganha — senão uma edição feita no CMS
+  // era substituída pela cópia antiga do pt.json assim que a página carregava.
+  // O pt.json só serve de último recurso (chaves sem valor no servidor).
   function i18nGet(path, fallback) {
     var lang = getLang();
-    var val = getPath(i18nDicts[lang], path);
-    if (val == null && lang !== 'pt') val = getPath(i18nDicts.pt, path);
+    var val = lang !== 'pt' ? getPath(i18nDicts[lang], path) : null;
     if (val == null) val = fallback;
+    if (val == null) val = getPath(i18nDicts.pt, path);
     return val;
+  }
+
+  // Texto original (PT, vindo do servidor) de cada elemento traduzível, em
+  // data-i18n-pt, para ser reposto ao voltar a PT sem recarregar a página.
+  // Tem de correr de forma SÍNCRONA no page-load, antes de o split-reveal
+  // partir os parágrafos em linhas — a divisão deita fora os <br> da morada.
+  var I18N_ORIGINAIS = '[data-i18n], [data-i18n-tpl], .dofazemos__word-t';
+
+  function readOriginal(el) {
+    var attr = el.dataset.i18nAttr;
+    if (attr) return el.getAttribute(attr) || '';
+    if (el.dataset.i18nSplit) return (el.querySelector('.title-split__text') || el).textContent;
+    if ('i18nMultiline' in el.dataset) {   // atributo sem valor: dataset devolve ""
+      var out = '';
+      el.childNodes.forEach(function (n) { out += n.nodeName === 'BR' ? '\n' : n.textContent; });
+      return out;
+    }
+    return el.textContent;
+  }
+
+  function guardaOriginais() {
+    document.querySelectorAll(I18N_ORIGINAIS).forEach(function (el) {
+      if (!('i18nPt' in el.dataset)) el.dataset.i18nPt = readOriginal(el);
+    });
   }
 
   function i18nFactLabel(ptLabel) {
@@ -235,19 +263,19 @@
     var revealed = sr ? sr.snapshotAndTeardown() : null;
 
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
-      var key = el.dataset.i18n;
-      var val = i18nGet(key, null);
-      if (val == null) return;
       var attr = el.dataset.i18nAttr;
+      var val = i18nGet(el.dataset.i18n, el.dataset.i18nPt);
+      if (val == null) return;
       if (attr) { el.setAttribute(attr, val); return; }
       if (el.dataset.i18nSplit) applyTitleSplit(el, val);
-      else if (el.dataset.i18nMultiline) setMultiline(el, val);
+      else if ('i18nMultiline' in el.dataset) setMultiline(el, val);
       else el.textContent = val;
     });
 
-    // Frases com {nome} interpolado (ex.: CTA "Interessado no {nome}?").
+    // Frases com {nome} interpolado (ex.: CTA "Interessado no {nome}?"). Em PT
+    // repõe-se o texto do servidor, que já vem interpolado.
     document.querySelectorAll('[data-i18n-tpl]').forEach(function (el) {
-      var val = i18nGet(el.dataset.i18nTpl, null);
+      var val = lang === 'pt' ? el.dataset.i18nPt : i18nGet(el.dataset.i18nTpl, null);
       if (val == null) return;
       var nome = i18nPageVar('nome');
       if (nome != null) val = val.split('{nome}').join(nome);
@@ -265,12 +293,11 @@
     // título completo é dividido pelo mesmo separador "—" usado no server.
     var dofazemosWords = document.querySelectorAll('.dofazemos__word-t');
     if (dofazemosWords.length) {
-      var titleFull = i18nGet('home.oQueFazemos.title', null);
-      if (titleFull) {
-        var parts = titleFull.split(/\s*—\s*/);
-        if (parts.length === dofazemosWords.length) {
-          dofazemosWords.forEach(function (el, i) { el.textContent = parts[i]; });
-        }
+      var ptWords = Array.prototype.map.call(dofazemosWords, function (el) { return el.dataset.i18nPt; });
+      var titleFull = i18nGet('home.oQueFazemos.title', ptWords.join(' — '));
+      var parts = String(titleFull).split(/\s*—\s*/);
+      if (parts.length === dofazemosWords.length) {
+        dofazemosWords.forEach(function (el, i) { el.textContent = parts[i]; });
       }
     }
 
@@ -288,6 +315,7 @@
   // fallback universal quando falta uma chave numa tradução).
   function applyLang() {
     var lang = getLang();
+    guardaOriginais();
     Promise.all([fetchDict('pt'), lang !== 'pt' ? fetchDict(lang) : null]).then(applyI18nDom);
   }
 

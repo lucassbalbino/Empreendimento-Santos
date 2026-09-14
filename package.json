@@ -18,7 +18,8 @@
     "imagens:otimizar": "node scripts/imagens-otimizar.mjs",
     "mobile": "npm run build && node scripts/mobile-check.mjs",
     "mobile:check": "node scripts/mobile-check.mjs",
-    "mobile:baseline": "node scripts/mobile-check.mjs --baseline"
+    "mobile:baseline": "node scripts/mobile-check.mjs --baseline",
+    "cms:check": "node scripts/cms-check.mjs"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "cheerio": "^1.2.0",
     "decap-server": "^3.9.1",
+    "js-yaml": "^4.3.2",
     "lighthouse": "^13.4.1"
   }
 }

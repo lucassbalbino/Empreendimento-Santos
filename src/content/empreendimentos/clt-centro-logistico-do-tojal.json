@@ -1,0 +1,44 @@
+{
+  "nome": "CLT — Centro Logístico do Tojal",
+  "grupo": "desenvolvimento",
+  "ano": 2026,
+  "localizacao": "St. Antão do Tojal, Loures",
+  "concelho": "Loures",
+  "tipologia": "Armazéns · 36.000 m²",
+  "unidades": "27 armazéns",
+  "comercial": "Em comercialização",
+  "entrega": "Em construção · 2026 e 2027",
+  "resumo": "Novos armazéns de arquitetura moderna, inseridos em complexo empresarial vedado, com um total de 36.000 m² de espaço industrial, em Santo Antão do Tojal, Loures. Áreas de 1.000 m² por armazém, 10 m de pé-direito, instalações sanitárias, escritório de 100 m² em open space (mezanine) e casa de banho, docas de carga e descarga para camiões e estacionamento exterior.",
+  "imagem": "/images/empreendimentos/clt-tojal.webp",
+  "imagemReal": true,
+  "galeria": [
+    "/images/empreendimentos/clt-tojal-2.webp",
+    "/images/empreendimentos/clt-tojal-3.webp"
+  ],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "St. Antão do Tojal, Loures"
+    },
+    {
+      "rotulo": "Ano",
+      "valor": "2026 e 2027"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "27 armazéns"
+    },
+    {
+      "rotulo": "Área total",
+      "valor": "36.000 m²"
+    },
+    {
+      "rotulo": "Área por armazém",
+      "valor": "1.000 m² · 10 m de pé-direito"
+    },
+    {
+      "rotulo": "Escritório",
+      "valor": "100 m² open space (mezanine)"
+    }
+  ]
+}

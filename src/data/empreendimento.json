@@ -1,0 +1,20 @@
+{
+  "_nota": "Textos comuns a todas as páginas de empreendimento. {nome} é substituído pelo nome do projeto.",
+  "paragrafo": {
+    "concluido": "Entregue pela AM Santos, o {nome} reflete a excelência que procuramos em cada projeto executado: uma arquitetura moderna e funcional, com um foco inabalável no bem-estar e na qualidade.",
+    "outro": "Como em todos os empreendimentos AM Santos, o {nome} nasce de uma visão centrada no conforto, na qualidade e na sustentabilidade — com a eficiência energética a guiar cada decisão de projeto."
+  },
+  "botao": {
+    "emProjeto": "Saber mais",
+    "emConstrucao": "Agendar visita",
+    "concluido": "Falar connosco"
+  },
+  "fichaTitulo": "Ficha do empreendimento",
+  "imagensTitulo": "Imagens do empreendimento",
+  "mapaLegenda": "Mapa",
+  "continuarTitulo": "Continue a explorar",
+  "contacto": {
+    "title": "Interessado no {nome}?",
+    "texto": "Fale connosco para agendar uma visita ou pedir mais informações sobre este empreendimento. A nossa equipa responde com brevidade."
+  }
+}

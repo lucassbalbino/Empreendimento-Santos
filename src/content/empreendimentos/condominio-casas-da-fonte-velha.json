@@ -1,0 +1,45 @@
+{
+  "nome": "Condomínio Casas da Fonte Velha",
+  "grupo": "concluido",
+  "ano": 2009,
+  "localizacao": "Loures",
+  "concelho": "Loures",
+  "tipologia": "T4",
+  "unidades": "16 moradias",
+  "resumo": "Condomínio residencial de 16 moradias, com espaços abertos e pátios interiores. Todos os espaços foram cuidadosamente desenhados nos acabamentos e texturas, criando um ambiente nobre e confortável.",
+  "imagem": "/images/empreendimentos/condominio-casas-da-fonte-velha-1.webp",
+  "imagemReal": true,
+  "galeria": [
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-2.webp",
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-3.webp",
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-4.webp",
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-5.webp",
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-6.webp",
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-7.webp",
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-8.webp",
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-9.webp",
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-10.webp",
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-11.webp",
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-12.webp",
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-13.webp",
+    "/images/empreendimentos/condominio-casas-da-fonte-velha-14.webp"
+  ],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "Loures"
+    },
+    {
+      "rotulo": "Ano",
+      "valor": "2009"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "16 moradias"
+    },
+    {
+      "rotulo": "Tipologia",
+      "valor": "T4"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "nome": "Quinta das Amoreiras",
+  "grupo": "futuro",
+  "ano": 2030,
+  "localizacao": "Santa Iria de Azóia",
+  "concelho": "Loures",
+  "tipologia": "T1 a T5",
+  "unidades": "600 apartamentos",
+  "comercial": "Arrendamento",
+  "entrega": "Previsão 2030/2035",
+  "resumo": "Composto por vários condomínios fechados onde agrega a natureza, vista de rio e inovação, num novo estilo de vida na cidade de Lisboa. Com um total de 600 apartamentos, hotel e espaços comerciais.",
+  "imagem": "/images/empreendimentos/valflores-terraces-aerea.webp",
+  "imagemReal": false,
+  "galeria": [],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "Santa Iria de Azóia"
+    },
+    {
+      "rotulo": "Previsão",
+      "valor": "2030/2035"
+    },
+    {
+      "rotulo": "Serviços",
+      "valor": "Hotel e espaços comerciais"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "600 apartamentos"
+    },
+    {
+      "rotulo": "Tipologia",
+      "valor": "T1 a T5"
+    },
+    {
+      "rotulo": "Destino",
+      "valor": "Habitação, comércio e serviços"
+    }
+  ]
+}

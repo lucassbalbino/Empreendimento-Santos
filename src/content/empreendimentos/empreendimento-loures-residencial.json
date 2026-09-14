@@ -1,0 +1,38 @@
+{
+  "nome": "Primeliving",
+  "grupo": "futuro",
+  "ano": 2029,
+  "localizacao": "Loures",
+  "concelho": "Loures",
+  "tipologia": "T1, T2, T3, T5 e T6",
+  "unidades": "155 apartamentos",
+  "comercial": "Habitação",
+  "resumo": "Condomínio fechado de alto padrão e inovação com 155 apartamentos de tipologias T1, T2, T3, T5 e T6, destinado à habitação.",
+  "imagem": "/images/empreendimentos/empreendimento-loures-residencial-1.webp",
+  "imagemReal": true,
+  "galeria": [
+    "/images/empreendimentos/empreendimento-loures-residencial-2.webp"
+  ],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "Loures"
+    },
+    {
+      "rotulo": "Ano",
+      "valor": "2029"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "155 apartamentos"
+    },
+    {
+      "rotulo": "Tipologia",
+      "valor": "T1, T2, T3, T5 e T6"
+    },
+    {
+      "rotulo": "Destino",
+      "valor": "Habitação"
+    }
+  ]
+}

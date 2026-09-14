@@ -1,0 +1,36 @@
+{
+  "nome": "Condomínio Tojalinho",
+  "grupo": "concluido",
+  "ano": 2022,
+  "localizacao": "Tojalinho, Loures",
+  "concelho": "Loures",
+  "tipologia": "T4",
+  "unidades": "3 moradias",
+  "resumo": "Condomínio fechado com 3 moradias de tipologia T4, no Tojalinho, Loures.",
+  "imagem": "/images/empreendimentos/condominio-tojalinho-1.webp",
+  "imagemReal": true,
+  "galeria": [
+    "/images/empreendimentos/condominio-tojalinho-2.webp",
+    "/images/empreendimentos/condominio-tojalinho-3.webp",
+    "/images/empreendimentos/condominio-tojalinho-4.webp",
+    "/images/empreendimentos/condominio-tojalinho-5.webp"
+  ],
+  "factos": [
+    {
+      "rotulo": "Localização",
+      "valor": "Tojalinho, Loures"
+    },
+    {
+      "rotulo": "Ano",
+      "valor": "2022"
+    },
+    {
+      "rotulo": "Unidades",
+      "valor": "3 moradias"
+    },
+    {
+      "rotulo": "Tipologia",
+      "valor": "T4"
+    }
+  ]
+}

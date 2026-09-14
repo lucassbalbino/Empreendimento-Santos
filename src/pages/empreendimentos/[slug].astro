@@ -8,7 +8,8 @@ import PlansSlider from '../../components/PlansSlider.astro';
 import Blob from '../../components/Blob.astro';
 import TitleSplit from '../../components/TitleSplit.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import data from '../../data/empreendimentos.json';
+import textos from '../../data/empreendimento.json';
+import { todos, FASES } from '../../utils/projetos.js';
 import { urlAbsoluto } from '../../utils/seo.js';
 import { imovel } from '../../utils/schema.js';
 import {
@@ -17,21 +18,22 @@ import {
 } from '../../utils/empreendimento-seo.js';
 
 export function getStaticPaths() {
-  return data.lista.map((proj) => ({
-    params: { slug: proj.slug },
-    props: { proj, todos: data.lista },
-  }));
+  return todos.map((proj) => ({ params: { slug: proj.slug }, props: { proj } }));
 }
 
-const { proj, todos } = Astro.props;
+const { proj } = Astro.props;
+const comNome = (texto) => texto.split('{nome}').join(proj.nome);
 
+// Botão e parágrafo seguem o estado da obra (não a fase): um projeto vendido
+// ainda em construção continua a convidar para uma visita.
 const concluido = proj.estado === 'Concluído';
-const brandParagraph = concluido
-  ? `Entregue pela AM Santos, o ${proj.nome} reflete a excelência que procuramos em cada projeto executado: uma arquitetura moderna e funcional, com um foco inabalável no bem-estar e na qualidade.`
-  : `Como em todos os empreendimentos AM Santos, o ${proj.nome} nasce de uma visão centrada no conforto, na qualidade e na sustentabilidade — com a eficiência energética a guiar cada decisão de projeto.`;
+const brandParagraph = comNome(concluido ? textos.paragrafo.concluido : textos.paragrafo.outro);
 const brandParagraphI18n = concluido ? 'common.projectDetail.brandConcluido' : 'common.projectDetail.brandOutro';
-const ctaLabel = concluido ? 'Falar connosco' : (proj.estado === 'Em construção' ? 'Agendar visita' : 'Saber mais');
-const ctaKey = concluido ? 'ctaFalar' : (proj.estado === 'Em construção' ? 'ctaVisita' : 'ctaSaber');
+const botao = {
+  'Em projeto': { texto: textos.botao.emProjeto, i18n: 'ctaSaber' },
+  'Em construção': { texto: textos.botao.emConstrucao, i18n: 'ctaVisita' },
+  'Concluído': { texto: textos.botao.concluido, i18n: 'ctaFalar' },
+}[proj.estado];
 const i18nBase = `empreendimentos.${proj.slug}`;
 
 const relacionados = todos.filter((p) => p.grupo === proj.grupo && p.slug !== proj.slug).slice(0, 3);
@@ -53,12 +55,9 @@ const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
    migalha tem de devolver o visitante à página de onde ele veio. Três projetos
    do grupo "concluido" têm estado "Em projeto"/"Em construção" — por `estado`,
    a migalha mandava-os para o /portfolio, onde não estão listados. */
-const noHistorico = proj.grupo === 'concluido';
 const migalhas = [
   { nome: 'Início', caminho: '/' },
-  noHistorico
-    ? { nome: 'Histórico', caminho: '/historico' }
-    : { nome: 'Portfólio', caminho: '/portfolio' },
+  FASES[proj.grupo].listagem,
   { nome: proj.nome, caminho: `/empreendimentos/${proj.slug}` },
 ];
 
@@ -104,7 +103,7 @@ const seoDescricao = descricaoEmpreendimento(proj);
       </div>
 
       <div class="emp-cta">
-        <a class="btn" href="#contacto" data-i18n={`common.projectDetail.${ctaKey}`}>{ctaLabel}</a>
+        <a class="btn" href="#contacto" data-i18n={`common.projectDetail.${botao.i18n}`}>{botao.texto}</a>
       </div>
     </div>
   </section>
@@ -121,7 +120,7 @@ const seoDescricao = descricaoEmpreendimento(proj);
   <section class="section section--dark has-blob" style="padding-top:calc(var(--section-y) - clamp(24px,3vw,40px));padding-bottom:calc(var(--section-y-tight) + clamp(24px,3vw,40px))">
     <Blob />
     <div class="container">
-      <TitleSplit text="Ficha do empreendimento" data-i18n="common.projectDetail.ficha" data-i18n-split="1" />
+      <TitleSplit text={textos.fichaTitulo} data-i18n="common.projectDetail.ficha" data-i18n-split="1" />
       <div class="facts">
         {proj.factos.map((f, i) => (
           <div class="fact">
@@ -143,7 +142,7 @@ const seoDescricao = descricaoEmpreendimento(proj);
            por baixo do contador — que deixava de se ler. A marca existe para
            habitar espaço vazio e esta secção deixou de ter nenhum. -->
       <div class="container">
-        <TitleSplit text="Imagens do empreendimento" data-i18n="common.projectDetail.imagens" data-i18n-split="1" />
+        <TitleSplit text={textos.imagensTitulo} data-i18n="common.projectDetail.imagens" data-i18n-split="1" />
         <PlansSlider imagens={galeria} nome={proj.nome} />
       </div>
     </section>
@@ -158,7 +157,7 @@ const seoDescricao = descricaoEmpreendimento(proj);
           <TitleSplit text={proj.localizacao} />
           <p class="lead" style="margin-top:1rem">{proj.concelho}</p>
         </div>
-        <div class="split__media"><div class="ph" data-label="Mapa" data-i18n="common.projectDetail.mapa" data-i18n-attr="data-label"></div></div>
+        <div class="split__media"><div class="ph" data-label={textos.mapaLegenda} data-i18n="common.projectDetail.mapa" data-i18n-attr="data-label"></div></div>
       </div>
     </div>
   </section>
@@ -168,7 +167,7 @@ const seoDescricao = descricaoEmpreendimento(proj);
     <section class="section section--tight-bottom">
       <div class="container has-wm">
         <Watermark variant="line" side="l" size="md" y="bottom" />
-        <TitleSplit text="Continue a explorar" data-i18n="common.projectDetail.continuar" data-i18n-split="1" />
+        <TitleSplit text={textos.continuarTitulo} data-i18n="common.projectDetail.continuar" data-i18n-split="1" />
         <div class="grid-projects">
           {relacionados.map((p) => (<ProjectCard proj={p} />))}
         </div>
@@ -181,8 +180,8 @@ const seoDescricao = descricaoEmpreendimento(proj);
     <div class="container has-wm">
       <Watermark variant="line" side="l" size="sm" y="bottom" />
       <ContactForm
-        title={`Interessado no ${proj.nome}?`}
-        texto="Fale connosco para agendar uma visita ou pedir mais informações sobre este empreendimento. A nossa equipa responde com brevidade."
+        title={comNome(textos.contacto.title)}
+        texto={comNome(textos.contacto.texto)}
         titleI18nTpl="common.projectDetail.interessadoTitle"
         textoI18n="common.projectDetail.interessadoTexto"
       />

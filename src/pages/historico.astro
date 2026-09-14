@@ -201,7 +201,7 @@ const modalData = concluidos.map((p) => ({
         var estado = tp(p, 'estado', p.estado);
         var entrega = tp(p, 'entrega', p.entrega);
         var resumo = tp(p, 'resumo', p.resumo);
-        var factosValores = window.__amsI18n ? window.__amsI18n.get('empreendimentos.' + p.slug + '.factos', null) : null;
+        var factosValores = tp(p, 'factos', (p.factos || []).map(function (f) { return f.valor; }));
 
         if (resetGallery !== false) {
           gallery = [p.imagem].concat(p.galeria || []).filter(Boolean);

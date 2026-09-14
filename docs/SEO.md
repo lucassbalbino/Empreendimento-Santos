@@ -135,7 +135,7 @@ são residências, e marcá-los como tal seria marcação errada.
 O problema era 17 páginas com o mesmo texto. A solução está em
 **[`src/utils/empreendimento-seo.js`](../src/utils/empreendimento-seo.js)**: todo
 o texto é composto a partir dos campos reais do
-`src/data/empreendimentos.json`. Não há sinónimos rodados a simular diferença —
+`src/content/empreendimentos/`. Não há sinónimos rodados a simular diferença —
 a diferença vem de os empreendimentos serem mesmo diferentes.
 
 Cada ficha ganhou:
@@ -306,7 +306,7 @@ só existirão depois de publicar (PageSpeed Insights / CrUX).
 
 ## 7. Manutenção
 
-**Novo empreendimento** → acrescentar ao `src/data/empreendimentos.json` (ou
+**Novo empreendimento** → novo ficheiro em `src/content/empreendimentos/` (ou
 pelo CMS). Título, descrição, perguntas, schema, sitemap e migalhas são gerados
 sozinhos. Correr `npm run seo` para confirmar.
 
