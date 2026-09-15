@@ -1,5 +1,5 @@
 {
-  "nome": "Primeliving",
+  "nome": "Prime Living",
   "grupo": "futuro",
   "ano": 2029,
   "localizacao": "Loures",
@@ -34,5 +34,7 @@
       "rotulo": "Destino",
       "valor": "Habitação"
     }
-  ]
+  ],
+  "mapa": "/images/empreendimentos/loures-mapa-localizacao.webp",
+  "mapaProximidades": "/images/empreendimentos/loures-mapa-proximidades.webp"
 }

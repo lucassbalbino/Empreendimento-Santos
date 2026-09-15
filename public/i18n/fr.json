@@ -59,6 +59,7 @@
       "continuar": "Continuez à explorer",
       "provisoria": "Image provisoire",
       "mapa": "Carte",
+      "proximidades": "À deux pas",
       "interessadoTitle": "Intéressé par {nome} ?",
       "interessadoTexto": "Contactez-nous pour organiser une visite ou demander plus d'informations sur ce projet. Notre équipe vous répondra rapidement.",
       "ctaFalar": "Parlez-nous",
@@ -388,7 +389,7 @@
       "factos": ["St. Antão do Tojal, Loures", "2028", "14 appartements", "T2", "Marché locatif", "En projet"]
     },
     "empreendimento-loures-residencial": {
-      "nome": "Primeliving",
+      "nome": "Prime Living",
       "tipologia": "T1, T2, T3, T5 et T6",
       "unidades": "155 appartements",
       "estado": "En projet",
@@ -398,7 +399,7 @@
       "factos": ["Loures", "2029", "155 appartements", "T1, T2, T3, T5 et T6", "Habitation", "En projet"]
     },
     "empreendimento-loures-hotel": {
-      "nome": "Le Loures hôtel",
+      "nome": "Collection Hotel",
       "tipologia": "Hôtel · 50 chambres",
       "unidades": "50 chambres",
       "estado": "En projet",

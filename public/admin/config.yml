@@ -172,6 +172,8 @@ collections:
         fields:
           - { label: "Rótulo", name: rotulo, widget: string }
           - { label: "Valor", name: valor, widget: string }
+      - { label: "Mapa de localização", name: mapa, widget: image, required: false, hint: "Se vazio, mostra um marcador de mapa." }
+      - { label: "Mapa de proximidades", name: mapaProximidades, widget: image, required: false, hint: "Mapa com os pontos de interesse perto do empreendimento." }
       - { label: "Destacar", name: destaque, widget: boolean, default: false, hint: "Aparece primeiro entre os projetos do mesmo ano." }
       # Exceções — vazios, seguem a fase (é o que torna a mudança de fase automática).
       - label: "Estado da obra (exceção)"
@@ -210,6 +212,7 @@ collections:
           - { label: "Título da ficha técnica", name: fichaTitulo, widget: string }
           - { label: "Título da galeria", name: imagensTitulo, widget: string }
           - { label: "Legenda do mapa", name: mapaLegenda, widget: string }
+          - { label: "Título das proximidades", name: proximidadesTitulo, widget: string }
           - { label: "Título dos relacionados", name: continuarTitulo, widget: string }
           - label: "Contacto"
             name: contacto

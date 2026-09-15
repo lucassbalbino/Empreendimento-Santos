@@ -66,6 +66,8 @@ const empreendimentos = defineCollection({
     resumo: z.string().min(1),
     imagem: opcional(z.string()),
     imagemReal: z.boolean().default(false),
+    mapa: opcional(z.string()),
+    mapaProximidades: opcional(z.string()),
     /** Desempate na ordenação: primeiro entre os projetos do mesmo ano. */
     destaque: z.boolean().default(false),
     galeria: z.array(z.string()).default([]).transform((l) => l.filter(Boolean)),

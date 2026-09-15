@@ -1,5 +1,5 @@
 {
-  "nome": "O Loures hotel",
+  "nome": "Collection Hotel",
   "grupo": "futuro",
   "ano": 2030,
   "localizacao": "Loures",
@@ -30,5 +30,7 @@
       "rotulo": "Serviços",
       "valor": "Salas de congressos, restaurante"
     }
-  ]
+  ],
+  "mapa": "/images/empreendimentos/loures-mapa-localizacao.webp",
+  "mapaProximidades": "/images/empreendimentos/loures-mapa-proximidades.webp"
 }

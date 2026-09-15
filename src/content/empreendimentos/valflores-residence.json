@@ -33,5 +33,7 @@
       "rotulo": "Destino",
       "valor": "Mercado de arrendamento"
     }
-  ]
+  ],
+  "mapa": "/images/empreendimentos/valflores-mapa-localizacao.webp",
+  "mapaProximidades": "/images/empreendimentos/santa-iria-mapa-proximidades.webp"
 }

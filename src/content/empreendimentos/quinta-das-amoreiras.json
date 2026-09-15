@@ -37,5 +37,7 @@
       "rotulo": "Destino",
       "valor": "Habitação, comércio e serviços"
     }
-  ]
+  ],
+  "mapa": "/images/empreendimentos/quinta-das-amoreiras-mapa-localizacao.webp",
+  "mapaProximidades": "/images/empreendimentos/santa-iria-mapa-proximidades.webp"
 }

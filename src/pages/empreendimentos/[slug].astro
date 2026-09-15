@@ -157,10 +157,31 @@ const seoDescricao = descricaoEmpreendimento(proj);
           <TitleSplit text={proj.localizacao} />
           <p class="lead" style="margin-top:1rem">{proj.concelho}</p>
         </div>
-        <div class="split__media"><div class="ph" data-label={textos.mapaLegenda} data-i18n="common.projectDetail.mapa" data-i18n-attr="data-label"></div></div>
+        <div class="split__media">
+          {proj.mapa
+            ? <img class="split__img" src={proj.mapa} alt={proj.localizacao} loading="lazy" />
+            : <div class="ph" data-label={textos.mapaLegenda} data-i18n="common.projectDetail.mapa" data-i18n-attr="data-label"></div>}
+        </div>
       </div>
     </div>
   </section>
+
+  {proj.mapaProximidades && (
+    <!-- PROXIMIDADES (só quando há mapa de pontos de interesse) -->
+    <section class="section section--tight-bottom">
+      <div class="container has-wm">
+        <Watermark variant="line" side="l" size="md" y="top" />
+        <div class="split split--reverse">
+          <div class="split__body">
+            <TitleSplit text={textos.proximidadesTitulo} data-i18n="common.projectDetail.proximidades" data-i18n-split="1" />
+          </div>
+          <div class="split__media">
+            <img class="split__img" src={proj.mapaProximidades} alt={textos.proximidadesTitulo} loading="lazy" data-i18n="common.projectDetail.proximidades" data-i18n-attr="alt" />
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
 
   {relacionados.length > 0 && (
     <!-- OUTROS EMPREENDIMENTOS -->
