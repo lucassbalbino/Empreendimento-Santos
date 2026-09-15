@@ -369,38 +369,29 @@ collections:
               - label: "Membros"
                 name: members
                 widget: list
-                summary: "{{fields.name}}"
+                summary: "{{fields.name}} — {{fields.role}}"
                 fields:
-                  - { label: "Função", name: role, widget: string }
                   - { label: "Nome", name: name, widget: string }
-                  - { label: "Bio", name: bio, widget: text }
-          - label: "Equipa geral"
+                  - { label: "Função", name: role, widget: string }
+          - label: "Equipa (por área)"
             name: equipa
             widget: object
             fields:
               - { label: "Título", name: title, widget: string }
-              - label: "Membros"
-                name: members
+              - label: "Áreas"
+                name: grupos
                 widget: list
-                summary: "{{fields.name}}"
+                summary: "{{fields.area}}"
+                hint: "Cada área é um bloco do organograma, com as pessoas que a compõem."
                 fields:
-                  - { label: "Função", name: role, widget: string }
-                  - { label: "Nome", name: name, widget: string }
-                  - { label: "Bio", name: bio, widget: text }
-          - label: "Empresas do grupo"
-            name: grupo
-            widget: list
-            summary: "{{fields.title}}"
-            fields:
-              - { label: "Nome da empresa", name: title, widget: string }
-              - label: "Membros"
-                name: members
-                widget: list
-                summary: "{{fields.name}}"
-                fields:
-                  - { label: "Função", name: role, widget: string }
-                  - { label: "Nome", name: name, widget: string }
-                  - { label: "Bio", name: bio, widget: text }
+                  - { label: "Área", name: area, widget: string, hint: "Ex.: Engenharia e Obra" }
+                  - label: "Membros"
+                    name: members
+                    widget: list
+                    summary: "{{fields.name}} — {{fields.role}}"
+                    fields:
+                      - { label: "Nome", name: name, widget: string }
+                      - { label: "Função", name: role, widget: string }
           - label: "Contacto"
             name: contacto
             widget: object
