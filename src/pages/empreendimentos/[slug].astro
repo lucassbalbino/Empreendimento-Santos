@@ -38,9 +38,10 @@ const i18nBase = `empreendimentos.${proj.slug}`;
 
 const relacionados = todos.filter((p) => p.grupo === proj.grupo && p.slug !== proj.slug).slice(0, 3);
 
-// Galeria: imagem principal + galeria própria. Só o Valflores Terraces e o CLT
-// têm fotos reais; nos restantes a imagem é provisória (ver imagemReal).
+// Galeria: imagem principal + galeria própria. Nem todos têm fotos reais;
+// nos restantes a imagem é provisória (ver imagemReal).
 const galeria = [proj.imagem, ...(proj.galeria ?? [])].filter(Boolean);
+const mapa = proj.mapaProximidades ?? proj.mapa;
 
 /* ------------------------------- SEO da ficha -------------------------------
    O caminho de volta depende do grupo: um empreendimento concluído vive no
@@ -148,40 +149,25 @@ const seoDescricao = descricaoEmpreendimento(proj);
     </section>
   )}
 
-  <!-- LOCALIZAÇÃO -->
-  <section class="section section--tight-bottom">
+  <!-- LOCALIZAÇÃO — só o nome do sítio e o mapa ao lado. O que há à volta e a
+       quantos minutos está desenhado no próprio mapa, por isso o texto não o
+       repete. O mapa de proximidades é o que mostra isso mesmo; sem ele usa-se
+       o de localização e, sem nenhum, o marcador. -->
+  <section class="section section--snug">
     <div class="container has-wm">
       <Watermark variant="line" side="r" size="md" y="top" />
-      <div class="split">
+      <div class="split split--media-wide">
         <div class="split__body">
           <TitleSplit text={proj.localizacao} />
-          <p class="lead" style="margin-top:1rem">{proj.concelho}</p>
         </div>
         <div class="split__media">
-          {proj.mapa
-            ? <img class="split__img" src={proj.mapa} alt={proj.localizacao} loading="lazy" />
+          {mapa
+            ? <img class="split__img split__img--mapa" src={mapa} alt={`Mapa — ${proj.localizacao}`} loading="lazy" />
             : <div class="ph" data-label={textos.mapaLegenda} data-i18n="common.projectDetail.mapa" data-i18n-attr="data-label"></div>}
         </div>
       </div>
     </div>
   </section>
-
-  {proj.mapaProximidades && (
-    <!-- PROXIMIDADES (só quando há mapa de pontos de interesse) -->
-    <section class="section section--tight-bottom">
-      <div class="container has-wm">
-        <Watermark variant="line" side="l" size="md" y="top" />
-        <div class="split split--reverse">
-          <div class="split__body">
-            <TitleSplit text={textos.proximidadesTitulo} data-i18n="common.projectDetail.proximidades" data-i18n-split="1" />
-          </div>
-          <div class="split__media">
-            <img class="split__img" src={proj.mapaProximidades} alt={textos.proximidadesTitulo} loading="lazy" data-i18n="common.projectDetail.proximidades" data-i18n-attr="alt" />
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
 
   {relacionados.length > 0 && (
     <!-- OUTROS EMPREENDIMENTOS -->

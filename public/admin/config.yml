@@ -172,8 +172,17 @@ collections:
         fields:
           - { label: "Rótulo", name: rotulo, widget: string }
           - { label: "Valor", name: valor, widget: string }
-      - { label: "Mapa de localização", name: mapa, widget: image, required: false, hint: "Se vazio, mostra um marcador de mapa." }
-      - { label: "Mapa de proximidades", name: mapaProximidades, widget: image, required: false, hint: "Mapa com os pontos de interesse perto do empreendimento." }
+      - label: "Proximidades"
+        name: proximidades
+        widget: list
+        required: false
+        summary: "{{fields.local}} — {{fields.minutos}} min"
+        hint: "O que há à volta e a quantos minutos (supermercados, escolas, transportes). Aparece em linhas ao lado do mapa, na secção Localização, pela ordem desta lista."
+        fields:
+          - { label: "Local", name: local, widget: string, hint: "Ex.: Estação de Santa Iria" }
+          - { label: "Minutos", name: minutos, widget: number, value_type: int, min: 0 }
+      - { label: "Mapa de proximidades", name: mapaProximidades, widget: image, required: false, hint: "Mapa com os pontos de interesse à volta. É o mapa mostrado na secção Localização." }
+      - { label: "Mapa de localização", name: mapa, widget: image, required: false, hint: "Usado só quando não há mapa de proximidades. Sem nenhum dos dois, mostra um marcador de mapa." }
       - { label: "Destacar", name: destaque, widget: boolean, default: false, hint: "Aparece primeiro entre os projetos do mesmo ano." }
       # Exceções — vazios, seguem a fase (é o que torna a mudança de fase automática).
       - label: "Estado da obra (exceção)"
@@ -212,7 +221,7 @@ collections:
           - { label: "Título da ficha técnica", name: fichaTitulo, widget: string }
           - { label: "Título da galeria", name: imagensTitulo, widget: string }
           - { label: "Legenda do mapa", name: mapaLegenda, widget: string }
-          - { label: "Título das proximidades", name: proximidadesTitulo, widget: string }
+          - { label: "Unidade dos tempos (proximidades)", name: minutos, widget: string, hint: "Texto a seguir ao número em cada linha das proximidades, ex.: min" }
           - { label: "Título dos relacionados", name: continuarTitulo, widget: string }
           - label: "Contacto"
             name: contacto

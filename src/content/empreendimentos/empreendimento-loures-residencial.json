@@ -36,5 +36,39 @@
     }
   ],
   "mapa": "/images/empreendimentos/loures-mapa-localizacao.webp",
-  "mapaProximidades": "/images/empreendimentos/loures-mapa-proximidades.webp"
+  "mapaProximidades": "/images/empreendimentos/loures-mapa-proximidades.webp",
+  "proximidades": [
+    {
+      "local": "LIDL",
+      "minutos": 1
+    },
+    {
+      "local": "Escola Secundária Luís de Sttau Monteiro",
+      "minutos": 3
+    },
+    {
+      "local": "Piscinas Municipais de Loures",
+      "minutos": 3
+    },
+    {
+      "local": "Pavilhão Paz e Amizade",
+      "minutos": 3
+    },
+    {
+      "local": "Centro de Saúde de Loures",
+      "minutos": 3
+    },
+    {
+      "local": "Parque da Cidade de Loures",
+      "minutos": 4
+    },
+    {
+      "local": "LoureShopping",
+      "minutos": 5
+    },
+    {
+      "local": "Estádio Municipal de Loures",
+      "minutos": 5
+    }
+  ]
 }

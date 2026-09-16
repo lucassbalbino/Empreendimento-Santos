@@ -68,6 +68,10 @@ const empreendimentos = defineCollection({
     imagemReal: z.boolean().default(false),
     mapa: opcional(z.string()),
     mapaProximidades: opcional(z.string()),
+    /** O que há à volta e a quantos minutos — lista em filetes ao lado do mapa. */
+    proximidades: z
+      .array(z.object({ local: z.string().min(1), minutos: z.number().int().nonnegative() }))
+      .default([]),
     /** Desempate na ordenação: primeiro entre os projetos do mesmo ano. */
     destaque: z.boolean().default(false),
     galeria: z.array(z.string()).default([]).transform((l) => l.filter(Boolean)),

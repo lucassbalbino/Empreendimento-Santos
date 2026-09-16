@@ -213,6 +213,14 @@ ul{ list-style:none; }
 /* Secção que abre com uma .seam (nested como primeiro filho): a .seam já dá
    o respiro do topo, por isso a secção não duplica o próprio padding-top. */
 .section--seam-top{ padding-top:0; }
+/* Localização: a lista de proximidades e o mapa ao lado são a mesma leitura
+   que a secção anterior (as imagens do empreendimento) já começou — não é uma
+   mudança de assunto que peça o respiro inteiro de --section-y. Aperta os dois
+   lados abaixo do próprio --section-y-tight, mas derivado dele para continuar
+   a seguir o token (incluindo a redefinição no telemóvel). O topo leva o token
+   inteiro: o que vem acima é o slider de imagens, e um título encostado ao
+   fundo dele lia-se como continuação do slider e não como secção nova. */
+.section--snug{ padding-top:calc(var(--section-y-tight) * 1.5); padding-bottom:calc(var(--section-y-tight) * .6); }
 
 /* Scroll snap desativado na home: fazia cada secção comportar-se como um
    slide isolado, que é o oposto da leitura contínua que a página pede.
@@ -559,8 +567,20 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 /* "Quem Somos" tem um título longo (2 linhas, título--fit) — dá mais espaço
    ao texto do que à imagem para o título não precisar de encolher tanto. */
 .split--text-wide{ grid-template-columns:3fr 2fr; }
+/* O inverso, para a secção de Localização: aqui quem tem de ser lido é o mapa
+   (ruas, referências, distâncias), e o corpo ao lado é só um título curto —
+   o nome da localidade — mais a lista de proximidades. Daí 40/60 a favor da
+   imagem. Abaixo de 840px o @media geral do .split empilha isto na mesma
+   (mesma especificidade, regra mais abaixo no ficheiro). */
+.split--media-wide{ grid-template-columns:2fr 3fr; }
 .split__media .ph{ aspect-ratio:4/5; width:100%; }
 .split__img{ aspect-ratio:4/5; width:100%; height:auto; object-fit:cover; display:block; }
+/* Mapas: ao contrário de uma fotografia, um mapa não se corta — o que fica de
+   fora é informação (ruas, referências, o alcance do que está à volta). Por
+   isso a moldura 4/5 dá lugar à proporção natural do ficheiro: sem
+   aspect-ratio imposto e sem object-fit, a imagem entra inteira e a coluna
+   ajusta-se à sua altura. */
+.split__img--mapa{ aspect-ratio:auto; object-fit:contain; height:auto; }
 .split__body .display{ margin:.4rem 0 1.6rem; }
 
 /* Títulos de secção — a mesma tipografia (Fraunces; ver a nota das fontes no

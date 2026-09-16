@@ -9,9 +9,13 @@
   "comercial": "Arrendamento",
   "entrega": "Previsão 2030/2035",
   "resumo": "Composto por vários condomínios fechados onde agrega a natureza, vista de rio e inovação, num novo estilo de vida na cidade de Lisboa. Com um total de 600 apartamentos, hotel e espaços comerciais.",
-  "imagem": "/images/empreendimentos/valflores-terraces-aerea.webp",
-  "imagemReal": false,
-  "galeria": [],
+  "imagem": "/images/empreendimentos/quinta-das-amoreiras-1.webp",
+  "imagemReal": true,
+  "galeria": [
+    "/images/empreendimentos/quinta-das-amoreiras-2.webp",
+    "/images/empreendimentos/quinta-das-amoreiras-3.webp",
+    "/images/empreendimentos/quinta-das-amoreiras-4.webp"
+  ],
   "factos": [
     {
       "rotulo": "Localização",
@@ -39,5 +43,43 @@
     }
   ],
   "mapa": "/images/empreendimentos/quinta-das-amoreiras-mapa-localizacao.webp",
-  "mapaProximidades": "/images/empreendimentos/santa-iria-mapa-proximidades.webp"
+  "mapaProximidades": "/images/empreendimentos/santa-iria-mapa-proximidades.webp",
+  "proximidades": [
+    {
+      "local": "Palácio de Valflores",
+      "minutos": 3
+    },
+    {
+      "local": "Piscinas",
+      "minutos": 3
+    },
+    {
+      "local": "Colégio Bartolomeu Dias",
+      "minutos": 3
+    },
+    {
+      "local": "Mercadona",
+      "minutos": 4
+    },
+    {
+      "local": "Intermarché",
+      "minutos": 4
+    },
+    {
+      "local": "Pingo Doce",
+      "minutos": 5
+    },
+    {
+      "local": "LIDL",
+      "minutos": 5
+    },
+    {
+      "local": "Estação de Santa Iria",
+      "minutos": 5
+    },
+    {
+      "local": "Aeroporto de Lisboa",
+      "minutos": 12
+    }
+  ]
 }

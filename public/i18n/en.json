@@ -59,7 +59,6 @@
       "continuar": "Keep exploring",
       "provisoria": "Placeholder image",
       "mapa": "Map",
-      "proximidades": "Around the corner",
       "interessadoTitle": "Interested in {nome}?",
       "interessadoTexto": "Get in touch to schedule a visit or request more information about this development. Our team responds promptly.",
       "ctaFalar": "Talk to us",
@@ -356,7 +355,8 @@
       "comercial": "For sale",
       "entrega": "Under construction · 2026",
       "resumo": "A building with 39 apartments — T3, T3 duplex, T4, T4 duplex and T5 premium — with generous indoor and outdoor areas and outstanding views over the landscape. The apartments on the upper floors have a landscaped outdoor pool. Unobstructed views and spacious balconies overlooking the Tagus River. Elegant, refined interior finishes, and comfortable, contemporary spaces filled with natural light.",
-      "factos": ["Sta. Iria de Azóia, Loures", "2026", "39 apartments", "T3 / T3 duplex / T4 / T4 duplex / T5 premium", "Tagus River", "Under construction"]
+      "factos": ["Sta. Iria de Azóia, Loures", "2026", "39 apartments", "T3 / T3 duplex / T4 / T4 duplex / T5 premium", "Tagus River", "Under construction"],
+      "proximidades": [{ "local": "Valflores Palace" }, { "local": "Swimming pools" }, { "local": "Colégio Bartolomeu Dias" }, { "local": "Mercadona" }, { "local": "Intermarché" }, { "local": "Pingo Doce" }, { "local": "LIDL" }, { "local": "Santa Iria train station" }, { "local": "Lisbon Airport" }]
     },
     "clt-centro-logistico-do-tojal": {
       "nome": "CLT — Tojal Logistics Centre",
@@ -376,7 +376,8 @@
       "comercial": "For rent",
       "entrega": "Expected 2028",
       "resumo": "As in every AM Santos development, Valflores Residence is born from a vision centred on the new market segment that AM Santos is developing.",
-      "factos": ["Santa Iria de Azóia, Loures", "2028", "39 apartments", "T2", "Rental market", "Under construction"]
+      "factos": ["Santa Iria de Azóia, Loures", "2028", "39 apartments", "T2", "Rental market", "Under construction"],
+      "proximidades": [{ "local": "Valflores Palace" }, { "local": "Swimming pools" }, { "local": "Colégio Bartolomeu Dias" }, { "local": "Mercadona" }, { "local": "Intermarché" }, { "local": "Pingo Doce" }, { "local": "LIDL" }, { "local": "Santa Iria train station" }, { "local": "Lisbon Airport" }]
     },
     "pinteus-residence": {
       "nome": "Pinteus Residence",
@@ -396,7 +397,8 @@
       "comercial": "Housing",
       "entrega": "Expected 2029",
       "resumo": "A high-end, innovative gated condominium with 155 apartments of T1, T2, T3, T5 and T6 typology, for housing.",
-      "factos": ["Loures", "2029", "155 apartments", "T1, T2, T3, T5 and T6", "Housing", "In planning"]
+      "factos": ["Loures", "2029", "155 apartments", "T1, T2, T3, T5 and T6", "Housing", "In planning"],
+      "proximidades": [{ "local": "LIDL" }, { "local": "Luís de Sttau Monteiro Secondary School" }, { "local": "Loures Municipal Swimming Pools" }, { "local": "Paz e Amizade Pavilion" }, { "local": "Loures Health Centre" }, { "local": "Loures City Park" }, { "local": "LoureShopping" }, { "local": "Loures Municipal Stadium" }]
     },
     "empreendimento-loures-hotel": {
       "nome": "Collection Hotel",
@@ -406,7 +408,8 @@
       "comercial": "Hospitality",
       "entrega": "Expected 2030",
       "resumo": "A hotel with around 50 rooms, conference rooms, a restaurant and other amenities, featuring modern architecture.",
-      "factos": ["Loures", "2030", "Hotel — around 50 rooms", "Conference rooms, restaurant", "In planning"]
+      "factos": ["Loures", "2030", "Hotel — around 50 rooms", "Conference rooms, restaurant", "In planning"],
+      "proximidades": [{ "local": "LIDL" }, { "local": "Luís de Sttau Monteiro Secondary School" }, { "local": "Loures Municipal Swimming Pools" }, { "local": "Paz e Amizade Pavilion" }, { "local": "Loures Health Centre" }, { "local": "Loures City Park" }, { "local": "LoureShopping" }, { "local": "Loures Municipal Stadium" }]
     },
     "quinta-das-amoreiras": {
       "nome": "Quinta das Amoreiras",
@@ -416,7 +419,8 @@
       "comercial": "For rent",
       "entrega": "Expected 2030/2035",
       "resumo": "Made up of several gated condominiums combining nature, river views and innovation, in a new lifestyle in the city of Lisbon. With a total of 600 apartments, a hotel and commercial spaces.",
-      "factos": ["Santa Iria de Azóia", "2030/2035", "Hotel and commercial spaces", "600 apartments", "T1 to T5", "Housing, retail and services"]
+      "factos": ["Santa Iria de Azóia", "2030/2035", "Hotel and commercial spaces", "600 apartments", "T1 to T5", "Housing, retail and services"],
+      "proximidades": [{ "local": "Valflores Palace" }, { "local": "Swimming pools" }, { "local": "Colégio Bartolomeu Dias" }, { "local": "Mercadona" }, { "local": "Intermarché" }, { "local": "Pingo Doce" }, { "local": "LIDL" }, { "local": "Santa Iria train station" }, { "local": "Lisbon Airport" }]
     }
   }
 }

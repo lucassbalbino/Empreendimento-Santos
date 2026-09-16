@@ -12,7 +12,7 @@
   "fichaTitulo": "Ficha do empreendimento",
   "imagensTitulo": "Imagens do empreendimento",
   "mapaLegenda": "Mapa",
-  "proximidadesTitulo": "Ao virar da esquina",
+  "minutos": "min",
   "continuarTitulo": "Continue a explorar",
   "contacto": {
     "title": "Interessado no {nome}?",

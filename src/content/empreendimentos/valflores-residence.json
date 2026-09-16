@@ -35,5 +35,43 @@
     }
   ],
   "mapa": "/images/empreendimentos/valflores-mapa-localizacao.webp",
-  "mapaProximidades": "/images/empreendimentos/santa-iria-mapa-proximidades.webp"
+  "mapaProximidades": "/images/empreendimentos/santa-iria-mapa-proximidades.webp",
+  "proximidades": [
+    {
+      "local": "Palácio de Valflores",
+      "minutos": 3
+    },
+    {
+      "local": "Piscinas",
+      "minutos": 3
+    },
+    {
+      "local": "Colégio Bartolomeu Dias",
+      "minutos": 3
+    },
+    {
+      "local": "Mercadona",
+      "minutos": 4
+    },
+    {
+      "local": "Intermarché",
+      "minutos": 4
+    },
+    {
+      "local": "Pingo Doce",
+      "minutos": 5
+    },
+    {
+      "local": "LIDL",
+      "minutos": 5
+    },
+    {
+      "local": "Estação de Santa Iria",
+      "minutos": 5
+    },
+    {
+      "local": "Aeroporto de Lisboa",
+      "minutos": 12
+    }
+  ]
 }
