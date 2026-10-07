@@ -60,6 +60,8 @@ const empreendimentos = defineCollection({
     concelho: opcional(z.string()),
     tipologia: z.string().min(1),
     unidades: opcional(z.string()),
+    /** Nome do arquiteto responsável. Vazio = a linha "Arquiteto" não aparece na ficha. */
+    arquitecto: opcional(z.string()),
     estado: opcional(z.enum(ESTADOS)),
     comercial: opcional(z.string()),
     entrega: opcional(z.string()),
@@ -75,11 +77,6 @@ const empreendimentos = defineCollection({
     /** Desempate na ordenação: primeiro entre os projetos do mesmo ano. */
     destaque: z.boolean().default(false),
     galeria: z.array(z.string()).default([]).transform((l) => l.filter(Boolean)),
-    // Linhas deixadas por preencher (o CMS sugere as habituais) não chegam à ficha.
-    factos: z
-      .array(z.object({ rotulo: z.string(), valor: z.string() }))
-      .default([])
-      .transform((l) => l.filter((f) => f.rotulo.trim() && f.valor.trim())),
   }),
 });
 

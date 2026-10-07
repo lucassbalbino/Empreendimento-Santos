@@ -69,18 +69,11 @@
     },
     "factLabels": {
       "Localização": "Emplacement",
-      "Ano": "Année",
       "Unidades": "Unités",
       "Tipologia": "Typologie",
       "Estado": "État",
-      "Piscina": "Piscine",
-      "Arquitetura": "Architecture",
-      "Vista": "Vue",
-      "Destino": "Destination",
-      "Serviços": "Services",
-      "Área total": "Surface totale",
-      "Área por armazém": "Surface par entrepôt",
-      "Escritório": "Bureau"
+      "Arquiteto": "Architecte",
+      "Comercialização": "Commercialisation"
     },
     "cookies": {
       "titulo": "Cookies sur ce site",
@@ -161,9 +154,9 @@
   "sobre": {
     "hero": { "title": "À Propos" },
     "quemSomos": {
-      "title": "Construire l'avenir avec qualité et durabilité",
-      "lead": "Avec 20 ans d'expérience sur le marché immobilier, AM Santos se distingue par l'excellence de chacun de ses projets réalisés.",
-      "paragrafo": "Sous la direction d'António M Santos, l'entreprise réunit une équipe de professionnels de haut niveau en architecture, ingénierie, décoration et gestion immobilière. Depuis ses débuts, notre vision est d'offrir confort et qualité à nos clients, à travers des projets qui allient une architecture moderne et fonctionnelle à une attention constante portée au bien-être et à la qualité."
+      "title": "Empreendimentos Santos",
+      "lead": "Construire, ce n'est pas seulement élever des murs, c'est élever la confiance.",
+      "paragrafo": "Avec 20 ans d'expérience sur le marché immobilier, AM Santos se distingue par l'excellence de chacun de ses projets réalisés."
     },
     "oQueFazemos": { "title": "20 ans de solidité" },
     "servicos": {
@@ -245,7 +238,7 @@
       "comercial": "Vendu",
       "entrega": "Achevé en 2006",
       "resumo": "10 appartements de typologie T2 et T3, à Loures. Le premier projet du groupe et le début d'un parcours de 20 ans sur le marché immobilier.",
-      "factos": ["Loures", "2006", "10 appartements", "T2 et T3", "Vendu"]
+      "factos": ["Loures", "T2 et T3", "10 appartements", "Vendu", "Logo Existo", "SF Properties"]
     },
     "condominio-casas-da-murteira": {
       "nome": "Résidence Casas da Murteira",
@@ -255,7 +248,7 @@
       "comercial": "Vendu",
       "entrega": "Achevé en 2007",
       "resumo": "Résidence de 10 villas, Casas da Murteira, avec des espaces privilégiés intégrés dans le paysage, située à flanc de colline.",
-      "factos": ["Loures", "2007", "10 villas", "T3 / T4", "Vendu"]
+      "factos": ["Loures", "T3 et T4", "10 villas", "Vendu", "Logo Existo", "SF Properties"]
     },
     "condominio-das-almoinhas": {
       "nome": "Résidence des Almoinhas",
@@ -265,7 +258,7 @@
       "comercial": "Vendu",
       "entrega": "Achevé en 2008",
       "resumo": "Destinées au segment moyen/haut du marché résidentiel, les 7 villas se caractérisent par des lignes contemporaines qui privilégient l'espace intérieur et la lumière naturelle, grâce à de larges puits de lumière, de grandes baies vitrées, une mezzanine et la fluidité de l'espace ouvert.",
-      "factos": ["Loures", "2008", "7 villas", "T4", "Vendu"]
+      "factos": ["Loures", "T4", "7 villas", "Vendu", "Logo Existo", "SF Properties"]
     },
     "condominio-casas-da-fonte-velha": {
       "nome": "Résidence Casas da Fonte Velha",
@@ -275,7 +268,7 @@
       "comercial": "Vendu",
       "entrega": "Achevé en 2009",
       "resumo": "Résidence de 16 villas, avec des espaces ouverts et des patios intérieurs. Chaque espace a été soigneusement conçu dans ses finitions et ses textures, créant une ambiance noble et confortable.",
-      "factos": ["Loures", "2009", "16 villas", "T4", "Vendu"]
+      "factos": ["Loures", "T4", "16 villas", "Vendu", "Logo Existo", "SF Properties"]
     },
     "condominio-santos-murteira-ii": {
       "nome": "Résidence Santos — Murteira II",
@@ -285,7 +278,7 @@
       "comercial": "Vendu",
       "entrega": "Achevé en 2017",
       "resumo": "Résidence Santos, également à Murteira, avec 11 villas individuelles de plain-pied de typologie T4 et T5, avec piscine privative pour chaque unité, valorisant le patio comme élément générateur de l'espace résidentiel, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle.",
-      "factos": ["Murteira, Loures", "2017", "11 villas", "T4 / T5", "Privative pour chaque unité", "Vendu"]
+      "factos": ["Murteira, Loures", "T4 et T5", "11 villas", "Vendu", "Logo Existo", "SF Properties"]
     },
     "condominio-santos-malhapao": {
       "nome": "Résidence Santos — Malhapão",
@@ -295,7 +288,7 @@
       "comercial": "Vendu",
       "entrega": "Achevé en 2020",
       "resumo": "Résidence privée de 8 villas de typologie T4 et T5, avec piscine privative pour chaque unité, valorisant le patio comme élément générateur de l'espace résidentiel, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle.",
-      "factos": ["Malhapão, Loures", "2020", "8 villas", "T4 / T5", "Privative pour chaque unité", "Vendu"]
+      "factos": ["Malhapão, Loures", "T4 et T5", "8 villas", "Vendu", "Logo Existo", "SF Properties"]
     },
     "condominio-santos-moradia-isolada-t5": {
       "nome": "Résidence Santos — Villa individuelle T5",
@@ -305,7 +298,7 @@
       "comercial": "Vendu",
       "entrega": "Achevé en 2021",
       "resumo": "Villa de 5 chambres avec piscine privative qui valorise le patio comme générateur de l'espace résidentiel, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle.",
-      "factos": ["Loures", "2021", "1 villa", "T5", "Vendu"]
+      "factos": ["Loures", "T5", "1 villa", "Vendu", "Logo Existo", "SF Properties"]
     },
     "condominio-tojalinho": {
       "nome": "Résidence Tojalinho",
@@ -315,7 +308,7 @@
       "comercial": "Vendu",
       "entrega": "Achevé en 2022",
       "resumo": "Résidence fermée de 3 villas de typologie T4, à Tojalinho, Loures.",
-      "factos": ["Tojalinho, Loures", "2022", "3 villas", "T4", "Vendu"]
+      "factos": ["Tojalinho, Loures", "T4", "3 villas", "Vendu", "Logo Existo", "SF Properties"]
     },
     "condominio-albarraque": {
       "nome": "Résidence Albarraque",
@@ -325,7 +318,7 @@
       "comercial": "Vendu",
       "entrega": "En phase de projet · 2023",
       "resumo": "En phase de projet, en collaboration avec différentes entités (mairie et autres), la résidence Santos — Sintra prévoit 9 villas T4 avec piscine privative pour chaque unité, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle.",
-      "factos": ["Albarraque, Sintra", "2023", "9 villas", "T4", "En projet / Vendu"]
+      "factos": ["Albarraque, Sintra", "T4", "9 villas", "En projet / Vendu", "Logo Existo", "SF Properties"]
     },
     "empreendimento-residencial-11-villas": {
       "nome": "Résidence 11 Villas",
@@ -335,7 +328,7 @@
       "comercial": "Vendu",
       "entrega": "En construction · 2023",
       "resumo": "En phase de construction, la résidence Santos prévoit 11 villas de typologie T4 et T5 avec piscine privative pour chaque unité, valorisant le patio comme élément générateur de l'espace résidentiel.",
-      "factos": ["Loures", "2023", "11 villas", "T4 / T5", "En construction / Vendu"]
+      "factos": ["Loures", "T4 et T5", "11 villas", "En construction / Vendu", "Logo Existo", "SF Properties"]
     },
     "moradia-unifamiliar-santo-antao-do-tojal": {
       "nome": "Maison individuelle",
@@ -345,7 +338,7 @@
       "comercial": "Vendu",
       "entrega": "En construction · 2026",
       "resumo": "En phase de construction, maison de 4 chambres avec piscine privative, valorisant le patio comme élément de l'espace résidentiel, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle.",
-      "factos": ["St. Antão do Tojal, Loures", "2026", "1 villa", "T4", "En construction / Vendu"]
+      "factos": ["St. Antão do Tojal, Loures", "T4", "1 villa", "En construction / Vendu", "Logo Existo", "SF Properties"]
     },
     "valflores-terraces": {
       "nome": "Valflores Terraces",
@@ -355,7 +348,7 @@
       "comercial": "En commercialisation",
       "entrega": "En construction · 2026",
       "resumo": "Immeuble de 39 appartements T3, T3 duplex, T4, T4 duplex et T5 premium, avec de vastes espaces intérieurs et extérieurs et une excellente vue sur le paysage. Les appartements des étages supérieurs disposent d'une piscine extérieure paysagée. Vue dégagée et larges balcons avec vue sur le Tage. Finitions intérieures élégantes et raffinées, espaces confortables et contemporains, baignés de lumière naturelle.",
-      "factos": ["Sta. Iria de Azóia, Loures", "2026", "39 appartements", "T3 / T3 duplex / T4 / T4 duplex / T5 premium", "Le Tage", "En construction"],
+      "factos": ["Sta. Iria de Azóia, Loures", "T3 à T5", "39 appartements", "En construction", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "Palais de Valflores" }, { "local": "Piscines" }, { "local": "Colégio Bartolomeu Dias" }, { "local": "Mercadona" }, { "local": "Intermarché" }, { "local": "Pingo Doce" }, { "local": "LIDL" }, { "local": "Gare de Santa Iria" }, { "local": "Aéroport de Lisbonne" }]
     },
     "clt-centro-logistico-do-tojal": {
@@ -366,7 +359,7 @@
       "comercial": "En commercialisation",
       "entrega": "En construction · 2026 et 2027",
       "resumo": "Nouveaux entrepôts d'architecture moderne, situés dans un complexe d'affaires clôturé, totalisant 36.000 m² d'espace industriel, à Santo Antão do Tojal, Loures. Surfaces de 1.000 m² par entrepôt, 10 m de hauteur sous plafond, sanitaires, bureau de 100 m² en open space (mezzanine) avec salle de bain, quais de chargement et de déchargement pour camions et stationnement extérieur.",
-      "factos": ["St. Antão do Tojal, Loures", "2026 et 2027", "27 entrepôts", "36.000 m²", "1.000 m² · 10 m de hauteur sous plafond", "100 m² open space (mezzanine)", "En construction"]
+      "factos": ["St. Antão do Tojal, Loures", "Entrepôts · 36.000 m²", "27 entrepôts", "En construction", "Logo Existo", "SF Properties"]
     },
     "valflores-residence": {
       "nome": "Valflores Residence",
@@ -376,7 +369,7 @@
       "comercial": "Location",
       "entrega": "Livraison prévue en 2028",
       "resumo": "Comme dans tous les projets AM Santos, Valflores Residence naît d'une vision centrée sur le nouveau segment de marché que AM Santos développe.",
-      "factos": ["Santa Iria de Azóia, Loures", "2028", "39 appartements", "T2", "Marché locatif", "En construction"],
+      "factos": ["Santa Iria de Azóia, Loures", "T2", "39 appartements", "En construction", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "Palais de Valflores" }, { "local": "Piscines" }, { "local": "Colégio Bartolomeu Dias" }, { "local": "Mercadona" }, { "local": "Intermarché" }, { "local": "Pingo Doce" }, { "local": "LIDL" }, { "local": "Gare de Santa Iria" }, { "local": "Aéroport de Lisbonne" }]
     },
     "pinteus-residence": {
@@ -387,7 +380,7 @@
       "comercial": "Location",
       "entrega": "Livraison prévue en 2028",
       "resumo": "Comme dans tous les projets AM Santos, Pinteus Residence naît d'une vision centrée sur le nouveau segment de marché que AM Santos développe.",
-      "factos": ["St. Antão do Tojal, Loures", "2028", "14 appartements", "T2", "Marché locatif", "En projet"]
+      "factos": ["St. Antão do Tojal, Loures", "T2", "14 appartements", "En projet", "Logo Existo", "SF Properties"]
     },
     "empreendimento-loures-residencial": {
       "nome": "Prime Living",
@@ -397,7 +390,7 @@
       "comercial": "Habitation",
       "entrega": "Livraison prévue en 2029",
       "resumo": "Résidence fermée haut de gamme et innovante de 155 appartements de typologies T1, T2, T3, T5 et T6, destinés à l'habitation.",
-      "factos": ["Loures", "2029", "155 appartements", "T1, T2, T3, T5 et T6", "Habitation", "En projet"],
+      "factos": ["Loures", "T1, T2, T3, T5 et T6", "155 appartements", "En projet", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "LIDL" }, { "local": "Lycée Luís de Sttau Monteiro" }, { "local": "Piscines municipales de Loures" }, { "local": "Pavillon Paz e Amizade" }, { "local": "Centre de santé de Loures" }, { "local": "Parc de la Ville de Loures" }, { "local": "LoureShopping" }, { "local": "Stade municipal de Loures" }]
     },
     "empreendimento-loures-hotel": {
@@ -408,7 +401,7 @@
       "comercial": "Hôtellerie",
       "entrega": "Livraison prévue en 2030",
       "resumo": "Hôtel d'environ 50 chambres, avec salles de congrès, restaurant et autres services, à l'architecture moderne.",
-      "factos": ["Loures", "2030", "Hôtel — environ 50 chambres", "Salles de congrès, restaurant", "En projet"],
+      "factos": ["Loures", "Hôtel · 50 chambres", "50 chambres", "En projet", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "LIDL" }, { "local": "Lycée Luís de Sttau Monteiro" }, { "local": "Piscines municipales de Loures" }, { "local": "Pavillon Paz e Amizade" }, { "local": "Centre de santé de Loures" }, { "local": "Parc de la Ville de Loures" }, { "local": "LoureShopping" }, { "local": "Stade municipal de Loures" }]
     },
     "quinta-das-amoreiras": {
@@ -419,7 +412,7 @@
       "comercial": "Location",
       "entrega": "Livraison prévue en 2030/2035",
       "resumo": "Composé de plusieurs résidences fermées alliant nature, vue sur le fleuve et innovation, dans un nouveau style de vie dans la ville de Lisbonne. Avec un total de 600 appartements, un hôtel et des espaces commerciaux.",
-      "factos": ["Santa Iria de Azóia", "2030/2035", "Hôtel et espaces commerciaux", "600 appartements", "T1 à T5", "Habitation, commerce et services"],
+      "factos": ["Santa Iria de Azóia", "T1 à T5", "600 appartements", "En projet", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "Palais de Valflores" }, { "local": "Piscines" }, { "local": "Colégio Bartolomeu Dias" }, { "local": "Mercadona" }, { "local": "Intermarché" }, { "local": "Pingo Doce" }, { "local": "LIDL" }, { "local": "Gare de Santa Iria" }, { "local": "Aéroport de Lisbonne" }]
     }
   }

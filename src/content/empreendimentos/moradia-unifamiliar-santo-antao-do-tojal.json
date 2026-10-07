@@ -6,6 +6,7 @@
   "concelho": "Loures",
   "tipologia": "T4",
   "unidades": "1 moradia",
+  "arquitecto": "Logo Existo",
   "estado": "Em construção",
   "resumo": "Em fase de construção, moradia de 4 quartos com piscina privativa, valorizando o pátio como elemento do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural.",
   "imagem": "/images/empreendimentos/moradia-unifamiliar-santo-antao-do-tojal-1.webp",
@@ -15,23 +16,5 @@
     "/images/empreendimentos/moradia-unifamiliar-santo-antao-do-tojal-3.webp",
     "/images/empreendimentos/moradia-unifamiliar-santo-antao-do-tojal-4.webp",
     "/images/empreendimentos/moradia-unifamiliar-santo-antao-do-tojal-5.webp"
-  ],
-  "factos": [
-    {
-      "rotulo": "Localização",
-      "valor": "St. Antão do Tojal, Loures"
-    },
-    {
-      "rotulo": "Ano",
-      "valor": "2026"
-    },
-    {
-      "rotulo": "Unidades",
-      "valor": "1 moradia"
-    },
-    {
-      "rotulo": "Tipologia",
-      "valor": "T4"
-    }
   ]
 }

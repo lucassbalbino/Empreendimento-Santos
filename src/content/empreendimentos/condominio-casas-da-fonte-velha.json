@@ -6,6 +6,7 @@
   "concelho": "Loures",
   "tipologia": "T4",
   "unidades": "16 moradias",
+  "arquitecto": "Logo Existo",
   "resumo": "Condomínio residencial de 16 moradias, com espaços abertos e pátios interiores. Todos os espaços foram cuidadosamente desenhados nos acabamentos e texturas, criando um ambiente nobre e confortável.",
   "imagem": "/images/empreendimentos/condominio-casas-da-fonte-velha-1.webp",
   "imagemReal": true,
@@ -23,23 +24,5 @@
     "/images/empreendimentos/condominio-casas-da-fonte-velha-12.webp",
     "/images/empreendimentos/condominio-casas-da-fonte-velha-13.webp",
     "/images/empreendimentos/condominio-casas-da-fonte-velha-14.webp"
-  ],
-  "factos": [
-    {
-      "rotulo": "Localização",
-      "valor": "Loures"
-    },
-    {
-      "rotulo": "Ano",
-      "valor": "2009"
-    },
-    {
-      "rotulo": "Unidades",
-      "valor": "16 moradias"
-    },
-    {
-      "rotulo": "Tipologia",
-      "valor": "T4"
-    }
   ]
 }

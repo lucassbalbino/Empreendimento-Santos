@@ -6,6 +6,7 @@
   "concelho": "Loures",
   "tipologia": "T2 e T3",
   "unidades": "10 apartamentos",
+  "arquitecto": "Logo Existo",
   "resumo": "10 apartamentos de tipologia T2 e T3, em Loures. O primeiro empreendimento do grupo e o início de um percurso de 20 anos no mercado imobiliário.",
   "imagem": "/images/empreendimentos/edificio-bairro-da-vitoria-1.webp",
   "imagemReal": true,
@@ -22,23 +23,5 @@
     "/images/empreendimentos/edificio-bairro-da-vitoria-11.webp",
     "/images/empreendimentos/edificio-bairro-da-vitoria-12.webp",
     "/images/empreendimentos/edificio-bairro-da-vitoria-13.webp"
-  ],
-  "factos": [
-    {
-      "rotulo": "Localização",
-      "valor": "Loures"
-    },
-    {
-      "rotulo": "Ano",
-      "valor": "2006"
-    },
-    {
-      "rotulo": "Unidades",
-      "valor": "10 apartamentos"
-    },
-    {
-      "rotulo": "Tipologia",
-      "valor": "T2 e T3"
-    }
   ]
 }

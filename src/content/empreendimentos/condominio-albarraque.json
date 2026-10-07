@@ -6,6 +6,7 @@
   "concelho": "Sintra",
   "tipologia": "T4",
   "unidades": "9 moradias",
+  "arquitecto": "Logo Existo",
   "estado": "Em projeto",
   "entrega": "Em fase de projeto · 2023",
   "resumo": "Em fase de projeto, em conjunto com entidades (Câmara Municipal e outras), o condomínio Santos — Sintra prevê 9 moradias T4 com piscina privativa em cada fração, promovendo privacidade, qualidade de vida e relação com a luz natural.",
@@ -33,23 +34,5 @@
     "/images/empreendimentos/condominio-albarraque-20.webp",
     "/images/empreendimentos/condominio-albarraque-21.webp",
     "/images/empreendimentos/condominio-albarraque-22.webp"
-  ],
-  "factos": [
-    {
-      "rotulo": "Localização",
-      "valor": "Albarraque, Sintra"
-    },
-    {
-      "rotulo": "Ano",
-      "valor": "2023"
-    },
-    {
-      "rotulo": "Unidades",
-      "valor": "9 moradias"
-    },
-    {
-      "rotulo": "Tipologia",
-      "valor": "T4"
-    }
   ]
 }

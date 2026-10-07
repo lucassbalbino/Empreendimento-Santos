@@ -6,6 +6,7 @@
   "concelho": "Loures",
   "tipologia": "T4 e T5",
   "unidades": "8 moradias",
+  "arquitecto": "Logo Existo",
   "resumo": "Condomínio privado de 8 moradias com tipologia T4 e T5, com piscina privativa em cada fração, valorizando o pátio como elemento gerador do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural.",
   "imagem": "/images/empreendimentos/condominio-santos-malhapao-1.webp",
   "imagemReal": true,
@@ -22,27 +23,5 @@
     "/images/empreendimentos/condominio-santos-malhapao-11.webp",
     "/images/empreendimentos/condominio-santos-malhapao-12.webp",
     "/images/empreendimentos/condominio-santos-malhapao-13.webp"
-  ],
-  "factos": [
-    {
-      "rotulo": "Localização",
-      "valor": "Malhapão, Loures"
-    },
-    {
-      "rotulo": "Ano",
-      "valor": "2020"
-    },
-    {
-      "rotulo": "Unidades",
-      "valor": "8 moradias"
-    },
-    {
-      "rotulo": "Tipologia",
-      "valor": "T4 / T5"
-    },
-    {
-      "rotulo": "Piscina",
-      "valor": "Privativa em cada fração"
-    }
   ]
 }

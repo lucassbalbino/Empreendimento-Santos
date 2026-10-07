@@ -6,6 +6,7 @@
   "concelho": "Loures",
   "tipologia": "T4",
   "unidades": "7 moradias",
+  "arquitecto": "Logo Existo",
   "resumo": "Direcionado ao segmento médio/alto do mercado habitacional, as 7 moradias caracterizam-se por linhas contemporâneas que privilegiam o espaço interior e a luz natural, resultante de amplas clarabóias, grandes vãos envidraçados, mezanine e fluidez do espaço aberto.",
   "imagem": "/images/empreendimentos/condominio-das-almoinhas-1.webp",
   "imagemReal": true,
@@ -24,23 +25,5 @@
     "/images/empreendimentos/condominio-das-almoinhas-13.webp",
     "/images/empreendimentos/condominio-das-almoinhas-14.webp",
     "/images/empreendimentos/condominio-das-almoinhas-15.webp"
-  ],
-  "factos": [
-    {
-      "rotulo": "Localização",
-      "valor": "Loures"
-    },
-    {
-      "rotulo": "Ano",
-      "valor": "2008"
-    },
-    {
-      "rotulo": "Unidades",
-      "valor": "7 moradias"
-    },
-    {
-      "rotulo": "Tipologia",
-      "valor": "T4"
-    }
   ]
 }

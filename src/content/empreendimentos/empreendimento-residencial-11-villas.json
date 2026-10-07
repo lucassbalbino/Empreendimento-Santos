@@ -6,6 +6,7 @@
   "concelho": "Loures",
   "tipologia": "T4 e T5",
   "unidades": "11 moradias",
+  "arquitecto": "Logo Existo",
   "estado": "Em construção",
   "resumo": "Em fase de construção, o condomínio Santos prevê 11 moradias de tipologia T4 e T5 com piscina privativa em cada unidade, valorizando o pátio como elemento gerador do espaço residencial.",
   "imagem": "/images/empreendimentos/empreendimento-residencial-11-villas-1.webp",
@@ -22,23 +23,5 @@
     "/images/empreendimentos/empreendimento-residencial-11-villas-10.webp",
     "/images/empreendimentos/empreendimento-residencial-11-villas-11.webp",
     "/images/empreendimentos/empreendimento-residencial-11-villas-12.webp"
-  ],
-  "factos": [
-    {
-      "rotulo": "Localização",
-      "valor": "Loures"
-    },
-    {
-      "rotulo": "Ano",
-      "valor": "2023"
-    },
-    {
-      "rotulo": "Unidades",
-      "valor": "11 moradias"
-    },
-    {
-      "rotulo": "Tipologia",
-      "valor": "T4 / T5"
-    }
   ]
 }

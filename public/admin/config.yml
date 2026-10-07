@@ -150,6 +150,7 @@ collections:
       - { label: "Concelho", name: concelho, widget: string, required: false }
       - { label: "Tipologia", name: tipologia, widget: string, hint: "Ex.: T2 e T3" }
       - { label: "Unidades", name: unidades, widget: string, required: false, hint: "Ex.: 14 apartamentos" }
+      - { label: "Arquiteto", name: arquitecto, widget: string, required: false, hint: "Deixe vazio para a linha «Arquiteto» não aparecer na ficha." }
       - { label: "Resumo", name: resumo, widget: text, hint: "Texto principal da página do empreendimento." }
       - { label: "Imagem principal", name: imagem, widget: image, required: false, hint: "Se vazio, mostra um marcador de imagem." }
       - { label: "A imagem retrata mesmo este empreendimento?", name: imagemReal, widget: boolean, default: false, hint: "Desligado = imagem provisória (mostra o selo «Imagem provisória»)." }
@@ -158,20 +159,6 @@ collections:
         widget: list
         required: false
         field: { label: "Imagem", name: imagem, widget: image }
-      - label: "Ficha técnica"
-        name: factos
-        widget: list
-        required: false
-        summary: "{{fields.rotulo}}: {{fields.valor}}"
-        hint: "A linha «Estado» é acrescentada automaticamente no fim — não a repita aqui."
-        default:
-          - { rotulo: "Localização", valor: "" }
-          - { rotulo: "Ano", valor: "" }
-          - { rotulo: "Unidades", valor: "" }
-          - { rotulo: "Tipologia", valor: "" }
-        fields:
-          - { label: "Rótulo", name: rotulo, widget: string }
-          - { label: "Valor", name: valor, widget: string }
       - label: "Proximidades"
         name: proximidades
         widget: list
@@ -191,7 +178,7 @@ collections:
         required: false
         hint: "Deixe vazio: segue a fase (Em projeto / Em construção / Concluído). Preencha só em exceções, ex.: vendido ainda em construção."
         options: ["Em projeto", "Em construção", "Concluído"]
-      - { label: "Situação comercial", name: comercial, widget: string, required: false, hint: "Ex.: Em comercialização, Arrendamento. No Histórico é sempre «Vendido»." }
+      - { label: "Situação comercial", name: comercial, widget: string, required: false, hint: "Só afeta a linha «Estado» da ficha: «Vendido» acrescenta «/ Vendido» ao estado da obra. No Histórico é sempre «Vendido». A linha «Comercialização» da ficha é fixa («SF Properties»)." }
       - { label: "Frase de entrega (exceção)", name: entrega, widget: string, required: false, hint: "Deixe vazio: gera-se do estado e do ano (Previsão 2029 / Em construção · 2029 / Concluído em 2029)." }
 
   # ---------------------------------------------- PÁGINA DE EMPREENDIMENTO

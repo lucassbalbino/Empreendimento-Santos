@@ -6,30 +6,13 @@
   "concelho": "Loures",
   "tipologia": "Hotel · 50 quartos",
   "unidades": "50 quartos",
+  "arquitecto": "Logo Existo",
   "comercial": "Hotelaria",
   "resumo": "Hotel com cerca de 50 quartos, salas de congressos, restaurante e outros serviços, de arquitetura moderna.",
   "imagem": "/images/empreendimentos/empreendimento-loures-hotel-1.webp",
   "imagemReal": true,
   "galeria": [
     "/images/empreendimentos/empreendimento-loures-hotel-2.webp"
-  ],
-  "factos": [
-    {
-      "rotulo": "Localização",
-      "valor": "Loures"
-    },
-    {
-      "rotulo": "Ano",
-      "valor": "2030"
-    },
-    {
-      "rotulo": "Unidades",
-      "valor": "Hotel — cerca de 50 quartos"
-    },
-    {
-      "rotulo": "Serviços",
-      "valor": "Salas de congressos, restaurante"
-    }
   ],
   "mapa": "/images/empreendimentos/loures-mapa-localizacao.webp",
   "mapaProximidades": "/images/empreendimentos/loures-mapa-proximidades.webp",

@@ -33,6 +33,25 @@ function estadoFicha(estado, comercial) {
   return estado === 'Concluído' ? 'Vendido' : `${estado} / Vendido`;
 }
 
+/**
+ * A ficha técnica é sempre a mesma lista de linhas, pela mesma ordem, em
+ * todos os empreendimentos — nunca um campo livre por projeto (era assim que
+ * um ficava sem Tipologia e outro ganhava uma linha "Vista" que mais nenhum
+ * tinha). "Arquiteto" é a única opcional: só aparece quando preenchida.
+ * "Comercialização" é fixa — a AM Santos comercializa sempre através da
+ * SF Properties.
+ */
+function fichaTecnica({ localizacao, tipologia, unidades, arquitecto }, estado, comercial) {
+  return [
+    { rotulo: 'Localização', valor: localizacao },
+    { rotulo: 'Tipologia', valor: tipologia },
+    ...(unidades ? [{ rotulo: 'Unidades', valor: unidades }] : []),
+    { rotulo: 'Estado', valor: estadoFicha(estado, comercial) },
+    ...(arquitecto ? [{ rotulo: 'Arquiteto', valor: arquitecto }] : []),
+    { rotulo: 'Comercialização', valor: 'SF Properties' },
+  ];
+}
+
 function normaliza({ id, data }) {
   const fase = FASES[data.grupo];
   const estado = data.estado ?? fase.estado;
@@ -43,10 +62,7 @@ function normaliza({ id, data }) {
     estado,
     comercial,
     entrega: data.entrega ?? ENTREGA[estado](data.ano),
-    // A linha "Estado" é gerada e nunca guardada no ficheiro — assim não fica
-    // desatualizada quando o projeto muda de fase. Vai sempre em último, que é
-    // o índice onde as traduções (i18n) a esperam.
-    factos: [...data.factos, { rotulo: 'Estado', valor: estadoFicha(estado, comercial) }],
+    factos: fichaTecnica(data, estado, comercial),
   };
 }
 
