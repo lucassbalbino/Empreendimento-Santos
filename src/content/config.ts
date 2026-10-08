@@ -45,6 +45,8 @@ const blog = defineCollection({
  */
 export const FASES = ['futuro', 'desenvolvimento', 'concluido'] as const;
 export const ESTADOS = ['Em projeto', 'Em construção', 'Concluído'] as const;
+/** Disponibilidade de cada linha da tabela de apartamentos (campo `apartamentos`). */
+export const DISPONIBILIDADES = ['Disponível', 'Reservado', 'Vendido'] as const;
 
 /** O CMS grava um campo opcional deixado vazio como "" — conta como ausente. */
 const opcional = <T extends z.ZodTypeAny>(tipo: T) =>
@@ -77,6 +79,30 @@ const empreendimentos = defineCollection({
     /** Desempate na ordenação: primeiro entre os projetos do mesmo ano. */
     destaque: z.boolean().default(false),
     galeria: z.array(z.string()).default([]).transform((l) => l.filter(Boolean)),
+    /**
+     * Tabela de tipologias — uma linha por fração à venda. Todos os campos são
+     * opcionais DE PROPÓSITO: o CMS cria a linha vazia e cada campo por
+     * preencher mostra "—" na ficha, em vez de obrigar a dados que muitas
+     * vezes só existem mais tarde (preço definitivo, planta, etc.).
+     */
+    apartamentos: z
+      .array(
+        z.object({
+          numero: opcional(z.string()),
+          tipo: opcional(z.string()),
+          tipologia: opcional(z.string()),
+          piso: opcional(z.string()),
+          areaBrutaPrivativa: opcional(z.string()),
+          areaExteriorPrivativa: opcional(z.string()),
+          estacionamento: opcional(z.string()),
+          eficienciaEnergetica: opcional(z.string()),
+          preco: opcional(z.string()),
+          /** PDF da planta desta fração. */
+          planta: opcional(z.string()),
+          disponibilidade: opcional(z.enum(DISPONIBILIDADES)),
+        }),
+      )
+      .default([]),
   }),
 });
 

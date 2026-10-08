@@ -10,6 +10,18 @@
     "concluido": "Falar connosco"
   },
   "fichaTitulo": "Ficha do empreendimento",
+  "apartamentosTitulo": "Tipologias disponíveis",
+  "apartamentos": {
+    "tipo": "Tipo",
+    "tipologia": "Tipologia",
+    "piso": "Piso",
+    "areaBruta": "Área bruta privativa",
+    "areaExterior": "Área exterior privativa",
+    "estacionamento": "Estacionamento",
+    "eficiencia": "Eficiência energética",
+    "preco": "Preço",
+    "verPlanta": "Ver planta (PDF)"
+  },
   "imagensTitulo": "Imagens do empreendimento",
   "mapaLegenda": "Mapa",
   "minutos": "min",

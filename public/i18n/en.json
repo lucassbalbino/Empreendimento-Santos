@@ -55,6 +55,18 @@
     },
     "projectDetail": {
       "ficha": "Development fact sheet",
+      "apartamentosTitulo": "Available units",
+      "apartamentos": {
+        "tipo": "Type",
+        "tipologia": "Layout",
+        "piso": "Floor",
+        "areaBruta": "Gross private area",
+        "areaExterior": "Private outdoor area",
+        "estacionamento": "Parking",
+        "eficiencia": "Energy rating",
+        "preco": "Price",
+        "verPlanta": "View floor plan (PDF)"
+      },
       "imagens": "Development images",
       "continuar": "Keep exploring",
       "provisoria": "Placeholder image",
@@ -73,7 +85,10 @@
       "Tipologia": "Typology",
       "Estado": "Status",
       "Arquiteto": "Architect",
-      "Comercialização": "Marketed by"
+      "Comercialização": "Marketed by",
+      "Disponível": "Available",
+      "Reservado": "Reserved",
+      "Vendido": "Sold"
     },
     "cookies": {
       "titulo": "Cookies on this site",

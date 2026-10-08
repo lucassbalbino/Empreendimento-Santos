@@ -1,0 +1,125 @@
+---
+/**
+ * Tipologias de um empreendimento — uma linha por fração.
+ *
+ * NÃO é uma tabela, e a diferença é o rótulo: aqui ele repete-se dentro de
+ * cada linha, por cima do valor. Isto começou por ser uma <table> com
+ * cabeçalho único e onze colunas — e um cabeçalho único obriga a linha a ficar
+ * inteira numa só fila, o que dava 1500px de largura e scroll horizontal mesmo
+ * num ecrã grande. Com o rótulo colado ao valor, o conjunto quebra em grelha no
+ * telemóvel sem que nenhum número fique órfão do seu significado.
+ *
+ * Campos vazios mostram um traço: o CMS cria a linha muito antes de haver preço,
+ * planta ou certificado energético (ver o schema em src/content/config.ts).
+ * O ícone acompanha o valor e desaparece com ele — um ícone de cama ao lado de
+ * um traço anunciaria um dado que não existe.
+ */
+const { apartamentos, textos } = Astro.props;
+
+const SEM_DADO = '—';
+const ESTADO_CLASSE = { 'Disponível': 'disponivel', 'Reservado': 'reservado', 'Vendido': 'vendido' };
+---
+<ul class="apt-list">
+  {apartamentos.map((apt) => (
+    <li class="apt-row">
+      <span class="apt-row__num">{apt.numero || SEM_DADO}</span>
+
+      <div class="apt-row__fields">
+        <div class="apt-field">
+          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.tipo">{textos.tipo}</span>
+          <span class="apt-field__value">{apt.tipo || SEM_DADO}</span>
+        </div>
+
+        <div class="apt-field">
+          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.tipologia">{textos.tipologia}</span>
+          <span class="apt-field__value">
+            {apt.tipologia && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 4v16" /><path d="M2 8h18a2 2 0 0 1 2 2v9" /><path d="M2 17h20" /><path d="M6 8v9" />
+              </svg>
+            )}
+            {apt.tipologia || SEM_DADO}
+          </span>
+        </div>
+
+        <div class="apt-field">
+          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.piso">{textos.piso}</span>
+          <span class="apt-field__value">
+            {apt.piso && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m12 3 9 5-9 5-9-5 9-5Z" /><path d="m3 13 9 5 9-5" />
+              </svg>
+            )}
+            {apt.piso || SEM_DADO}
+          </span>
+        </div>
+
+        <div class="apt-field">
+          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.areaBruta">{textos.areaBruta}</span>
+          <span class="apt-field__value">{apt.areaBrutaPrivativa || SEM_DADO}</span>
+        </div>
+
+        <div class="apt-field">
+          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.areaExterior">{textos.areaExterior}</span>
+          <span class="apt-field__value">{apt.areaExteriorPrivativa || SEM_DADO}</span>
+        </div>
+
+        <div class="apt-field">
+          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.estacionamento">{textos.estacionamento}</span>
+          <span class="apt-field__value">
+            {apt.estacionamento && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 17H3v-5l2-5h14l2 5v5h-2" /><path d="M3 12h18" />
+                <circle cx="7.5" cy="17" r="1.6" /><circle cx="16.5" cy="17" r="1.6" /><path d="M9.6 17h4.8" />
+              </svg>
+            )}
+            {apt.estacionamento || SEM_DADO}
+          </span>
+        </div>
+
+        <div class="apt-field">
+          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.eficiencia">{textos.eficiencia}</span>
+          <span class="apt-field__value">
+            {apt.eficienciaEnergetica && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z" />
+              </svg>
+            )}
+            {apt.eficienciaEnergetica || SEM_DADO}
+          </span>
+        </div>
+
+        <div class="apt-field">
+          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.preco">{textos.preco}</span>
+          <span class="apt-field__value apt-field__value--preco">{apt.preco || SEM_DADO}</span>
+        </div>
+      </div>
+
+      <div class="apt-row__actions">
+        {apt.planta ? (
+          <a
+            class="apt-planta"
+            href={apt.planta}
+            target="_blank"
+            rel="noopener"
+            aria-label={textos.verPlanta}
+            data-i18n="common.projectDetail.apartamentos.verPlanta"
+            data-i18n-attr="aria-label"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="1" /><path d="M10 3v6" /><path d="M10 12v9" /><path d="M10 15h11" />
+            </svg>
+          </a>
+        ) : (
+          <span class="apt-planta apt-planta--vazia" aria-hidden="true">{SEM_DADO}</span>
+        )}
+
+        {apt.disponibilidade ? (
+          <span class={`apt-status apt-status--${ESTADO_CLASSE[apt.disponibilidade]}`} data-i18n-label={apt.disponibilidade}>{apt.disponibilidade}</span>
+        ) : (
+          <span class="apt-status apt-status--vazia" aria-hidden="true">{SEM_DADO}</span>
+        )}
+      </div>
+    </li>
+  ))}
+</ul>

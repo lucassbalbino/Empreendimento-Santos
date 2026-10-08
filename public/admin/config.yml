@@ -171,6 +171,24 @@ collections:
       - { label: "Mapa de proximidades", name: mapaProximidades, widget: image, required: false, hint: "Mapa com os pontos de interesse à volta. É o mapa mostrado na secção Localização." }
       - { label: "Mapa de localização", name: mapa, widget: image, required: false, hint: "Usado só quando não há mapa de proximidades. Sem nenhum dos dois, mostra um marcador de mapa." }
       - { label: "Destacar", name: destaque, widget: boolean, default: false, hint: "Aparece primeiro entre os projetos do mesmo ano." }
+      - label: "Tabela de tipologias"
+        name: apartamentos
+        widget: list
+        required: false
+        summary: "{{fields.numero}} · {{fields.tipologia}}"
+        hint: "Uma linha por fração à venda. Pode deixar campos vazios — a ficha mostra «—» em vez do dado em falta. Use «Adicionar» para criar mais linhas."
+        fields:
+          - { label: "Numeração", name: numero, widget: string, required: false, hint: "Ex.: 1.º A" }
+          - { label: "Tipo", name: tipo, widget: string, required: false, hint: "Ex.: Apartamento, Duplex, Penthouse, Loja" }
+          - { label: "Tipologia", name: tipologia, widget: string, required: false, hint: "Ex.: T2" }
+          - { label: "Piso", name: piso, widget: string, required: false, hint: "Ex.: R/C, 1.º" }
+          - { label: "Área bruta privativa", name: areaBrutaPrivativa, widget: string, required: false, hint: "Ex.: 85 m²" }
+          - { label: "Área exterior privativa", name: areaExteriorPrivativa, widget: string, required: false, hint: "Varanda, terraço ou quintal. Ex.: 12 m²" }
+          - { label: "Estacionamento", name: estacionamento, widget: string, required: false, hint: "Ex.: 2 lugares" }
+          - { label: "Eficiência energética", name: eficienciaEnergetica, widget: select, required: false, options: ["A+", "A", "B", "B-", "C", "D", "E", "F"] }
+          - { label: "Preço", name: preco, widget: string, required: false, hint: "Ex.: 250.000 € ou «Sob consulta»" }
+          - { label: "Planta (PDF)", name: planta, widget: file, required: false, media_folder: "public/plantas", public_folder: "/plantas", hint: "Ficheiro PDF com a planta desta fração." }
+          - { label: "Disponibilidade", name: disponibilidade, widget: select, required: false, options: ["Disponível", "Reservado", "Vendido"] }
       # Exceções — vazios, seguem a fase (é o que torna a mudança de fase automática).
       - label: "Estado da obra (exceção)"
         name: estado
@@ -206,6 +224,21 @@ collections:
               - { label: "Em construção", name: emConstrucao, widget: string }
               - { label: "Concluído", name: concluido, widget: string }
           - { label: "Título da ficha técnica", name: fichaTitulo, widget: string }
+          - { label: "Título da tabela de tipologias", name: apartamentosTitulo, widget: string }
+          - label: "Rótulos da tabela de tipologias"
+            name: apartamentos
+            widget: object
+            hint: "O nome de cada dado, mostrado por cima do valor em todas as linhas. A numeração, a planta e a disponibilidade não levam rótulo: leem-se sozinhas."
+            fields:
+              - { label: "Tipo", name: tipo, widget: string }
+              - { label: "Tipologia", name: tipologia, widget: string }
+              - { label: "Piso", name: piso, widget: string }
+              - { label: "Área bruta privativa", name: areaBruta, widget: string }
+              - { label: "Área exterior privativa", name: areaExterior, widget: string }
+              - { label: "Estacionamento", name: estacionamento, widget: string }
+              - { label: "Eficiência energética", name: eficiencia, widget: string }
+              - { label: "Preço", name: preco, widget: string }
+              - { label: "Rótulo do ícone de planta (acessibilidade)", name: verPlanta, widget: string }
           - { label: "Título da galeria", name: imagensTitulo, widget: string }
           - { label: "Legenda do mapa", name: mapaLegenda, widget: string }
           - { label: "Unidade dos tempos (proximidades)", name: minutos, widget: string, hint: "Texto a seguir ao número em cada linha das proximidades, ex.: min" }

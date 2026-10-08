@@ -55,6 +55,18 @@
     },
     "projectDetail": {
       "ficha": "Ficha do empreendimento",
+      "apartamentosTitulo": "Tipologias disponíveis",
+      "apartamentos": {
+        "tipo": "Tipo",
+        "tipologia": "Tipologia",
+        "piso": "Piso",
+        "areaBruta": "Área bruta privativa",
+        "areaExterior": "Área exterior privativa",
+        "estacionamento": "Estacionamento",
+        "eficiencia": "Eficiência energética",
+        "preco": "Preço",
+        "verPlanta": "Ver planta (PDF)"
+      },
       "imagens": "Imagens do empreendimento",
       "continuar": "Continue a explorar",
       "provisoria": "Imagem provisória",
@@ -80,7 +92,10 @@
       "Serviços": "Serviços",
       "Área total": "Área total",
       "Área por armazém": "Área por armazém",
-      "Escritório": "Escritório"
+      "Escritório": "Escritório",
+      "Disponível": "Disponível",
+      "Reservado": "Reservado",
+      "Vendido": "Vendido"
     },
     "cookies": {
       "titulo": "Cookies neste site",

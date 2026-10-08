@@ -5,6 +5,7 @@ import Hero from '../../components/Hero.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import Watermark from '../../components/Watermark.astro';
 import PlansSlider from '../../components/PlansSlider.astro';
+import Tipologias from '../../components/Tipologias.astro';
 import Blob from '../../components/Blob.astro';
 import TitleSplit from '../../components/TitleSplit.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
@@ -132,6 +133,16 @@ const seoDescricao = descricaoEmpreendimento(proj);
       </div>
     </div>
   </section>
+
+  {proj.apartamentos?.length > 0 && (
+    <!-- TIPOLOGIAS — uma linha por fração (ver src/components/Tipologias.astro). -->
+    <section class="section section--tight-bottom">
+      <div class="container">
+        <TitleSplit text={textos.apartamentosTitulo} data-i18n="common.projectDetail.apartamentosTitulo" data-i18n-split="1" />
+        <Tipologias apartamentos={proj.apartamentos} textos={textos.apartamentos} />
+      </div>
+    </section>
+  )}
 
   {proj.galeria?.length > 0 && (
     <!-- GALERIA (só quando há mesmo imagens deste empreendimento) -->

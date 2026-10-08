@@ -55,6 +55,18 @@
     },
     "projectDetail": {
       "ficha": "Fiche du projet",
+      "apartamentosTitulo": "Typologies disponibles",
+      "apartamentos": {
+        "tipo": "Type",
+        "tipologia": "Typologie",
+        "piso": "Étage",
+        "areaBruta": "Surface brute privative",
+        "areaExterior": "Surface extérieure privative",
+        "estacionamento": "Stationnement",
+        "eficiencia": "Performance énergétique",
+        "preco": "Prix",
+        "verPlanta": "Voir le plan (PDF)"
+      },
       "imagens": "Images du projet",
       "continuar": "Continuez à explorer",
       "provisoria": "Image provisoire",
@@ -73,7 +85,10 @@
       "Tipologia": "Typologie",
       "Estado": "État",
       "Arquiteto": "Architecte",
-      "Comercialização": "Commercialisation"
+      "Comercialização": "Commercialisation",
+      "Disponível": "Disponible",
+      "Reservado": "Réservé",
+      "Vendido": "Vendu"
     },
     "cookies": {
       "titulo": "Cookies sur ce site",
