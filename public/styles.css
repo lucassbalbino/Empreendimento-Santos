@@ -1782,9 +1782,9 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   background:transparent; border:0; border-bottom:1px solid var(--line-field);
   padding:.7rem 0; transition:border-color .3s var(--ease);
 }
-/* Hoje nenhum formulário assenta em secção escura, mas o .section--dark .field
-   label acima mostra que o caso foi antecipado — e aí o --line-field, que é um
-   taupe médio, desapareceria. Mesmo valor do campo da newsletter (M7). */
+/* O formulário em secção escura é o caso da /contactos, que é café de ponta a
+   ponta: o --line-field é um taupe médio e sobre o café desapareceria. Mesmo
+   valor do campo da newsletter (M7). */
 .section--dark :is(.field input, .field select, .field textarea){ border-bottom-color:rgba(255,255,255,.42); }
 /* Sem isto os placeholders herdavam o cinzento do UA (#757575), que é frio e
    falha AA nas duas superfícies: 3.92:1 sobre --paper-alt e 4.49:1 sobre
@@ -1796,6 +1796,99 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .check{ display:flex; gap:.7rem; align-items:flex-start; font-size:.8rem; color:var(--ink-soft); }
 .check input{ margin-top:.25rem; }
 .contact__form .btn{ justify-self:start; margin-top:.6rem; background:none; border:0; border-bottom:1px solid var(--ink); cursor:pointer; }
+
+/* ---- O formulário sobre café (/contactos) ----
+   O .section--dark já virava o rótulo e a sublinha (acima); faltava a tinta
+   que o utilizador escreve, que era --ink — preto sobre café. */
+.section--dark :is(.field input, .field select, .field textarea){ color:var(--paper); }
+/* O placeholder em --ink-faint (taupe escuro, pensado para papel) dava 1.4:1
+   sobre o café. O --on-dark-soft é o tom secundário já medido contra o fundo
+   REAL rgb(58,49,42) — 5.65:1 — e é o mesmo que o rodapé usa. */
+.section--dark .field :is(input, textarea)::placeholder{ color:var(--on-dark-soft); }
+/* A lista do <select> é desenhada pelo SISTEMA, não pela secção: o campo tem
+   background:transparent, por isso o painel abre em branco e as opções
+   herdariam o branco que acabámos de pôr no campo — texto branco sobre branco.
+   Daí as opções declararem o seu par de cores de papel à parte. */
+.section--dark .field select option{ color:var(--ink); background:var(--paper); }
+/* A caixa de consentimento é o único controlo com cor própria do UA; sem isto
+   fica azul-sistema no meio do café. */
+.section--dark .check input{ accent-color:var(--accent-dk); }
+/* O botão do formulário reescreve a borda toda (border:0 + border-bottom) e,
+   com a mesma especificidade da regra genérica .section--dark .btn, ganhava-lhe
+   por vir depois na folha — a linha ficava a --ink, invisível. */
+.section--dark .contact__form .btn{ border-bottom-color:rgba(255,255,255,.5); }
+
+/* ---- Tabela de contactos (/contactos) ----
+   Desenho emprestado ao .roster__row — filete fino, rótulo em maiúsculas
+   pequenas de um lado, valor em serifa do outro. Não é mimetismo: é o idioma
+   que esta folha já usa para listar pares nesta tipografia (o organograma da
+   equipa), e repetir um padrão existente custa menos ao leitor do que
+   apresentar-lhe uma tabela nova.
+
+   A medida é CURTA de propósito. À largura do .container (até 1480px) o
+   justify-content:space-between atirava o número para o extremo oposto do
+   ecrã: ficavam 900px de vazio entre o rótulo e o valor que lhe pertence, e
+   a leitura deixava de ser uma linha para passar a ser uma busca. */
+/* A frase e a tabela como UM bloco, lado a lado a partir dos 900px — a mesma
+   divisão do organograma da equipa (.roster__group--titled), onde o rótulo da
+   área vive numa coluna e as linhas na outra. Abaixo disso empilham: a frase
+   não cabe ao lado de uma linha que já tem rótulo e valor nos dois extremos.
+
+   O respiro do topo é generoso porque este bloco fecha a secção: acima dele
+   está o formulário, que é alto, e sem distância suficiente a tabela lia-se
+   como o rodapé do formulário em vez de um segundo caminho de contacto. */
+.contact-info{ padding-top:clamp(3rem, 7vw, 7rem); }
+@media (min-width:900px){
+  .contact-info{ display:flex; align-items:flex-start; gap:clamp(32px,5vw,72px); }
+  /* A coluna da frase não cresce: é a tabela que tem de ficar com a medida
+     curta de que precisa (ver .contact-table), e uma frase elástica roubava-lha. */
+  .contact-info__title{ flex:0 0 clamp(200px,19vw,280px); }
+  .contact-info .contact-table{ flex:0 1 46ch; }
+}
+.contact-info__title{
+  font-family:var(--serif); font-weight:400;
+  font-size:clamp(1.25rem,2.1vw,1.75rem); line-height:1.2;
+  text-wrap:balance; max-width:16ch;
+  margin:0 0 1.4rem;
+}
+/* Em coluna própria, a frase alinha pela PRIMEIRA LINHA da tabela e não pelo
+   topo da caixa: o filete de abertura e o meio-espaço da linha de 44px ficam
+   acima da primeira palavra do valor, e sem este desvio a frase pairava. */
+@media (min-width:900px){
+  .contact-info__title{ margin-bottom:0; padding-top:.55rem; }
+}
+
+.contact-table{ max-width:46ch; }
+.contact-table__row{
+  display:flex; flex-wrap:wrap; align-items:center;
+  justify-content:space-between; gap:.1rem 1.5rem;
+  border-top:1px solid var(--line);
+}
+.contact-table__row:last-child{ border-bottom:1px solid var(--line); }
+.contact-table__label{
+  font-size:.68rem; letter-spacing:.2em; text-transform:uppercase;
+  font-weight:600; color:var(--accent-text);
+}
+.contact-table__value{
+  font-family:var(--serif); font-weight:400;
+  font-size:clamp(1rem,1.5vw,1.2rem); color:var(--ink);
+}
+/* O alvo de toque vive no <a>, não no padding da linha: aqui o link é filho
+   único do <dd> e NÃO tem texto irmão, por isso não lhe serve a excepção
+   "inline" da WCAG 2.5.5 (ao contrário dos links do parágrafo que esta tabela
+   substituiu, que viviam mesmo dentro de uma frase). Sem os 44px declarados o
+   alvo ficava nos ~23px da caixa de linha. É também o que dá altura à linha —
+   daí o .contact-table__row não ter padding vertical próprio.
+   align-items:center (e não baseline, como no roster) porque o que alinha ao
+   rótulo passa a ser esta caixa de 44px, não a linha de base do texto. */
+.contact-table__value a{
+  display:inline-flex; align-items:center; min-height:44px;
+}
+/* Sobre café os tons acima são os calibrados para papel — mesma troca, pelos
+   mesmos motivos, que .section--dark .roster__* faz. */
+.section--dark .contact-table__row{ border-color:rgba(255,255,255,.18); }
+.section--dark .contact-table__label{ color:var(--accent-dk); }
+.section--dark .contact-table__value{ color:var(--paper); }
 
 /* =====================================================================
    FOOTER
@@ -2145,11 +2238,18 @@ html.reveal-ready .section--flat-top .grid-projects .card--modal:nth-child(2n+2)
    (zoom + desfoque), definido em .card__media/.card__img mais acima. */
 
 /* 4) Links de texto no conteúdo: sublinhado que cresce */
-.muted a{
+/* O .contact-table__value entra aqui em vez de repetir o gradiente: é o mesmo
+   link de texto no conteúdo, só noutra tipografia. */
+:is(.muted, .contact-table__value) a{
   background:linear-gradient(var(--accent),var(--accent)) 0 100%/0 1px no-repeat;
   transition:background-size .35s var(--ease), color .3s var(--ease);
 }
-.muted a:hover{ background-size:100% 1px; color:var(--accent-text); }
+:is(.muted, .contact-table__value) a:hover{ background-size:100% 1px; color:var(--accent-text); }
+/* O mesmo link sobre café: o --accent/--accent-text é o ocre calibrado para
+   papel (4.26:1 e 5.24:1 no branco) e sobre escuro cai para ~2:1. Passa ao
+   bronze claro, o acento que todo o resto do site usa sobre escuro. */
+.section--dark :is(.muted, .contact-table__value) a{ background-image:linear-gradient(var(--accent-dk),var(--accent-dk)); }
+.section--dark :is(.muted, .contact-table__value) a:hover{ color:var(--accent-dk); }
 
 @media (prefers-reduced-motion: reduce){
   /* O cartão já não se mexe no hover; resta suprimir o zoom da imagem. O
@@ -3834,6 +3934,7 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
   .field label{ font-size:13px; letter-spacing:.12em; }
   .roster__area{ font-size:13px; letter-spacing:.14em; }
   .roster__role{ font-size:13px; letter-spacing:.12em; }
+  .contact-table__label{ font-size:13px; letter-spacing:.12em; }
   .footer-col h4{ font-size:13px; letter-spacing:.14em; }
   .footer-bottom{ font-size:13px; }
   .qmeta__l{ font-size:13px; }

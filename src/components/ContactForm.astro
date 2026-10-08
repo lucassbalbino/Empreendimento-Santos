@@ -1,10 +1,13 @@
 ---
 import TitleSplit from './TitleSplit.astro';
-const { title, texto, titleI18n, titleI18nTpl, textoI18n } = Astro.props;
+/* `tag` existe para as paginas que abrem direto no formulario (sem hero, logo
+   sem h1 proprio): ali o titulo do contacto E o h1 da pagina. Por omissao h2,
+   que e o caso de todas as outras, onde o formulario fecha a pagina. */
+const { title, texto, titleI18n, titleI18nTpl, textoI18n, tag = 'h2' } = Astro.props;
 ---
 <div class="contact">
   <div>
-    <TitleSplit text={title} data-i18n={titleI18n} data-i18n-tpl={titleI18nTpl} data-i18n-split="1" />
+    <TitleSplit text={title} tag={tag} data-i18n={titleI18n} data-i18n-tpl={titleI18nTpl} data-i18n-split="1" />
     <p class="muted" style="margin-top:1rem;max-width:40ch" data-i18n={textoI18n}>{texto}</p>
   </div>
   <form class="contact__form" onsubmit="return false">

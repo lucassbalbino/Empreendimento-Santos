@@ -452,6 +452,7 @@ collections:
             fields:
               - { label: "Título", name: title, widget: string }
               - { label: "Texto", name: texto, widget: text }
+              - { label: "Frase ao lado da tabela", name: intro, widget: string, hint: "Encabeça a tabela de e-mail e telefones, no fim da secção." }
               - { label: "E-mail", name: email, widget: string }
               - label: "Telefones"
                 name: telefones
