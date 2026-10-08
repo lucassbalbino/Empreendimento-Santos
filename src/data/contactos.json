@@ -3,6 +3,7 @@
   "contacto": {
     "title": "Tem interesse num dos nossos projetos?",
     "texto": "Fale connosco",
+    "intro": "Entre em contacto connosco",
     "email": "geral@amsconstrucoes.com",
     "telefones": [
       { "label": "Contacto geral", "numero": "910 043 904" },

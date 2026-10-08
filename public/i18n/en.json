@@ -226,7 +226,7 @@
   },
   "contactos": {
     "hero": { "title": "Contact" },
-    "contacto": { "title": "Shall we talk about your project?", "texto": "Fill in the form or contact us directly. We respond to every request as promptly as possible." },
+    "contacto": { "title": "Shall we talk about your project?", "texto": "Fill in the form or contact us directly. We respond to every request as promptly as possible.", "intro": "Get in touch with us" },
     "onde": { "title": "Where We Are", "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisbon\nPortugal", "mapaLabel": "Map — Lisboa, Av. da Liberdade" }
   },
   "site": {

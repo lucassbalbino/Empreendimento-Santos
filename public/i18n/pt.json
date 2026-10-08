@@ -226,7 +226,7 @@
   },
   "contactos": {
     "hero": { "title": "Contactos" },
-    "contacto": { "title": "Tem interesse num dos nossos projetos?", "texto": "Fale connosco" },
+    "contacto": { "title": "Tem interesse num dos nossos projetos?", "texto": "Fale connosco", "intro": "Entre em contacto connosco" },
     "onde": { "title": "Onde Estamos", "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisboa\nPortugal", "mapaLabel": "Mapa — Lisboa, Av. da Liberdade" }
   },
   "site": {

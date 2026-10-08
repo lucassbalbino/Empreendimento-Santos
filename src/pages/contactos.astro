@@ -1,53 +1,74 @@
 ---
 import Base from '../layouts/Base.astro';
 import ContactForm from '../components/ContactForm.astro';
-import Watermark from '../components/Watermark.astro';
+import Blob from '../components/Blob.astro';
 import TitleSplit from '../components/TitleSplit.astro';
+import Seam from '../components/Seam.astro';
 import contactos from '../data/contactos.json';
 const moradaLinhas = contactos.onde.morada.split('\n');
 ---
-<Base tipoPagina="ContactPage">
-  <!-- HERO (interno) -->
-  <section class="hero" style="min-height:100vh">
-    <div
-      class={contactos.hero.imagem ? 'hero__bg hero__bg--img' : 'hero__bg'}
-      style={contactos.hero.imagem ? `background-image:url(${contactos.hero.imagem})` : undefined}
-    ></div>
-    <div class="hero__overlay"></div>
-    <div class="hero__inner">
+<Base flat tipoPagina="ContactPage">
+  <!-- Página INTEIRA em café: não há hero e as duas secções são as duas
+       escuras, encostadas uma à outra. Por isso vivem numa só .dark-run — o
+       --dark é semitransparente (ver styles.css) e duas caixas empilhadas
+       escureceriam a junta; o <Blob> também sobe para cá e mede-se pelas duas
+       juntas, senão havia quatro cantos, dois deles colados na costura.
+       O título da hero passa a eyebrow da 1.ª secção (mesma solução do
+       /portfolio, que também abre sem hero) e o h1 passa a ser o título do
+       formulário — a página tem de continuar a ter um h1 só.
+
+       Ritmo APERTADO nas fronteiras internas (--section-y-tight): o --section-y
+       cheio existe para separar capítulos quando a cor também muda, e aqui não
+       muda nada — formulário, morada e rodapé são a mesma mancha de café de
+       cima a baixo. Com o padding cheio dos dois lados a costura abria ~600px
+       de vazio castanho (e outros ~400 antes do rodapé), que se lia como a
+       página ter acabado. O respiro do topo mantém-se cheio: ali a folga é
+       mesmo necessária, para o título não encostar à barra fixa (ver
+       .no-hero .section--flat-top). -->
+  <div class="dark-run has-blob">
+    <Blob />
+
+    <!-- CONTACTO -->
+    <section class="section section--dark section--flat-top section--tight-bottom" id="contacto">
       <div class="container">
-        <TitleSplit text={contactos.hero.title} tag="h1" class="hero__title-page title-split--hero" data-i18n="contactos.hero.title" data-i18n-split="1" />
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACTO -->
-  <section class="section" id="contacto">
-    <div class="container has-wm">
-      <ContactForm title={contactos.contacto.title} texto={contactos.contacto.texto} titleI18n="contactos.contacto.title" textoI18n="contactos.contacto.texto" />
-      <p class="muted" style="margin-top:2rem">
-        <a href={`mailto:${contactos.contacto.email}`}>{contactos.contacto.email}</a>
-        {contactos.contacto.telefones.map((t) => (
-          <>
-            &nbsp;·&nbsp;
-            <a href={`tel:${t.numero.replace(/\s+/g, '')}`}>{t.label} — {t.numero}</a>
-          </>
-        ))}
-      </p>
-    </div>
-  </section>
-
-  <!-- ONDE ESTAMOS -->
-  <section class="section section--alt">
-    <div class="container has-wm">
-      <Watermark variant="line" side="r" size="md" y="top" />
-      <div class="split">
-        <div class="split__body">
-          <TitleSplit text={contactos.onde.title} data-i18n="contactos.onde.title" data-i18n-split="1" />
-          <p class="lead" style="margin-top:1rem" data-i18n="contactos.onde.morada" data-i18n-multiline>{moradaLinhas.map((linha, i) => (<>{i > 0 && <br />}{linha}</>))}</p>
+        <Seam label={contactos.hero.title} variant="dark" class="seam--top" i18n="contactos.hero.title" bare />
+        <ContactForm tag="h1" title={contactos.contacto.title} texto={contactos.contacto.texto} titleI18n="contactos.contacto.title" textoI18n="contactos.contacto.texto" />
+        <!-- Email e telefones em tabela de pares rótulo→valor, com a frase ao
+             lado a servir-lhe de cabeça. É <dl> e não <table>: não são dados
+             tabulares (não há duas dimensões a cruzar), são definições — a
+             mesma estrutura que as Perguntas Frequentes usam. Visualmente
+             lê-se como tabela; para o leitor de ecrã anuncia-se como o par que
+             de facto é, e o <h2> ao lado diz-lhe a que se refere. -->
+        <div class="contact-info">
+          <h2 class="contact-info__title" data-i18n="contactos.contacto.intro">{contactos.contacto.intro}</h2>
+          <dl class="contact-table">
+            <div class="contact-table__row">
+              <dt class="contact-table__label">Email</dt>
+              <dd class="contact-table__value"><a href={`mailto:${contactos.contacto.email}`}>{contactos.contacto.email}</a></dd>
+            </div>
+            {contactos.contacto.telefones.map((t) => (
+              <div class="contact-table__row">
+                <dt class="contact-table__label">{t.label}</dt>
+                <dd class="contact-table__value"><a href={`tel:${t.numero.replace(/\s+/g, '')}`}>{t.numero}</a></dd>
+              </div>
+            ))}
+          </dl>
         </div>
-        <div class="split__media"><div class="ph" data-label={contactos.onde.mapaLabel}></div></div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- ONDE ESTAMOS -->
+    <section class="section section--dark section--tight-top section--tight-bottom">
+      <div class="container">
+        <div class="split">
+          <div class="split__body">
+            <TitleSplit text={contactos.onde.title} data-i18n="contactos.onde.title" data-i18n-split="1" />
+            <p class="lead" style="margin-top:1rem" data-i18n="contactos.onde.morada" data-i18n-multiline>{moradaLinhas.map((linha, i) => (<>{i > 0 && <br />}{linha}</>))}</p>
+          </div>
+          <div class="split__media"><div class="ph ph--dark" data-label={contactos.onde.mapaLabel}></div></div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.dark-run -->
 </Base>
