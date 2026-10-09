@@ -17,20 +17,36 @@
    ===================================================================== */
 
 /* ---------- Fontes ----------
-   Aqui vivia um @font-face da "Kompot Display" a apontar para
-   /fonts/KompotDisplay.otf. O ficheiro não está no repositório — foi apagado
-   por engano em 01c8d61, à boleia de trabalho noutra secção — por isso a
-   declaração só produzia um 404 por página e os títulos caíam para a Fraunces.
+   Face de título: "Kompot Display" — a display que o site usou entre df9d03f
+   (3 ago) e 0680f7d, reposta a pedido.
 
-   A demo que existe em referencias/fontes/ NÃO serve de substituto: os
-   codepoints acentuados estão mapeados ao glifo da letra base (Á desenha A,
-   Ç desenha C sem cedilha) e falta-lhe toda a pontuação e os dígitos 2, 5 e 8.
-   Num site em português isso é erro ortográfico em todos os títulos.
+   O @font-face vive FORA do bloco @fontes:inicio/@fontes:fim acima de
+   propósito: esse bloco é gerado por scripts/fontes-descarregar.mjs e
+   reescrito por inteiro a cada execução. Declarar a Kompot lá dentro era
+   perdê-la no próximo `node scripts/fontes-descarregar.mjs`.
 
-   Decisão: assumir a Fraunces como face de título. É o que o site já mostrava
-   na prática. Se a Kompot completa for licenciada, repor o @font-face e voltar
-   a pôr a família à frente de var(--serif) no .title-split. Ver P13 em
+   O .otf foi reposto do histórico (`git show df9d03f:public/fonts/...`). O md5
+   bate certo com referencias/fontes/kompot-display-demo.otf, por isso é
+   literalmente o ficheiro que esteve em produção — não um substituto.
+
+   LIMITE CONHECIDO, é uma versão *demo*. Duas falhas, com efeitos diferentes:
+
+   1. Acentos e cedilha: os codepoints estão mapeados ao glifo da letra base.
+      Á desenha A, Ç desenha C sem cedilha. O var(--serif) a seguir NÃO salva
+      isto — o fallback do CSS entra por glifo em FALTA, e aqui o glifo existe,
+      só está errado. "HISTÓRICO" sai "HISTORICO".
+   2. Pontuação e os dígitos 2, 5 e 8: esses faltam mesmo, por isso caem para
+      a Fraunces. Um "25" sai com dois desenhos diferentes lado a lado.
+
+   Licenciar a Kompot completa é o que resolve ambas. Ver P13 em
    docs/superpowers/plans/2026-08-19-bugs-encontrados-recoloracao.md */
+@font-face{
+  font-family:"Kompot Display";
+  src:url("/fonts/KompotDisplay.otf") format("opentype");
+  font-weight:400 900;
+  font-style:normal;
+  font-display:swap;
+}
 
 /* ---------- Tokens ---------- */
 :root{
@@ -583,8 +599,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .split__img--mapa{ aspect-ratio:auto; object-fit:contain; height:auto; }
 .split__body .display{ margin:.4rem 0 1.6rem; }
 
-/* Títulos de secção — a mesma tipografia (Fraunces; ver a nota das fontes no
-   topo do ficheiro) do início ao fim,
+/* Títulos de secção — a mesma tipografia (Kompot Display) do início ao fim,
    numa só caixa de texto. As quebras de linha são naturais: cada variante
    define a sua MEDIDA (max-width em ch) e o browser distribui o texto por
    linhas de comprimento parecido (text-wrap:balance). Nada impõe onde partir,
@@ -596,7 +611,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   margin:.4rem 0 1.6rem;
   display:flex;
   flex-direction:column;
-  font-family:var(--serif);
+  font-family:"Kompot Display", var(--serif);
   font-weight:700;
   text-transform:uppercase;
   letter-spacing:.02em;
