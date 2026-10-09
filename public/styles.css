@@ -1776,6 +1776,55 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   .roster__name, .roster__role{ flex:0 0 100%; }
 }
 
+/* A DIREÇÃO LADO A LADO
+   ---------------------
+   Duas pessoas em duas linhas empilhadas davam à direção o mesmo desenho que
+   os departamentos têm abaixo, e a secção perdia o que a distingue: não é um
+   departamento com duas pessoas, é o topo da casa. Em colunas, as duas leem-se
+   de uma vez — e a leitura passa a ser horizontal (quem está ao lado de quem),
+   que é a forma do organograma neste nível.
+
+   A hierarquia mantém-se, e faz-se por três sinais que apontam todos para o
+   mesmo lado, em vez de ficar entregue à ordem de leitura:
+
+     1. a primeira coluna é mais larga (1.15fr contra 1fr das seguintes);
+     2. o nome que a ocupa mantém o corpo cheio da direção, e os seguintes
+        descem um degrau — perceptível ao lado, invisível como erro;
+     3. o filete passa a vertical, entre colunas: separa pares, já não níveis.
+
+   `grid-auto-flow:column` com `grid-auto-columns` é o que mantém isto de pé se
+   a direção crescer: a primeira coluna fica larga, as que entrarem dividem o
+   resto por igual, sem tocar no CSS.
+
+   Dentro de cada coluna a função desce para debaixo do nome — ao lado, numa
+   coluna de metade da largura, voltava a partir em duas linhas a comprimentos
+   diferentes, que é o problema que o empilhamento em telemóvel já resolve. */
+@media (min-width:768px){
+  .roster--lead{ max-width:none; }
+  .roster--lead .roster__list{
+    display:grid;
+    grid-template-columns:minmax(0,1.15fr);
+    grid-auto-flow:column;
+    grid-auto-columns:minmax(0,1fr);
+  }
+  .roster--lead .roster__row{
+    display:block;
+    padding:0 clamp(28px,4vw,56px) 0 0;
+    border-top:0;
+  }
+  .roster--lead .roster__row + .roster__row{
+    padding:0 clamp(28px,4vw,56px);
+    border-left:1px solid var(--line);
+  }
+  .roster--lead .roster__row:last-child{ padding-right:0; }
+  .roster--lead .roster__name{ display:block; }
+  /* Um degrau abaixo do primeiro nome, não dois: continua a ser direção. */
+  .roster--lead .roster__row + .roster__row .roster__name{
+    font-size:clamp(1.15rem,1.9vw,1.5rem);
+  }
+  .roster--lead .roster__role{ display:block; margin-top:.7rem; }
+}
+
 /* Em ecrã largo o departamento sai para uma coluna própria à esquerda e as
    pessoas alinham todas na mesma vertical à direita — é esse alinhamento que
    faz a página ler-se como organograma e não como lista corrida. A proporção
