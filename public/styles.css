@@ -293,6 +293,14 @@ ul{ list-style:none; }
    vez do branco. Com --accent-text (pensado para fundos claros) dava 2.37:1
    em /sobre-nos, onde a <Team> vive numa .section--dark. */
 .section--dark .roster__role{ color:var(--accent-dk); }
+/* Nome e filetes do roster também partem de tons pensados para papel claro
+   (--ink, --accent-text, --line) — sobre .section--dark repetem o mesmo
+   branco/bronze/rgba já usados no .card e no .divider desta secção. */
+.section--dark .roster__name{ color:var(--paper); }
+.section--dark .roster__area{ color:var(--accent-dk); }
+.section--dark .roster__group{ border-top-color:rgba(255,255,255,.34); }
+.section--dark .roster__group:last-child{ border-bottom-color:rgba(255,255,255,.34); }
+.section--dark .roster__row{ border-top-color:rgba(255,255,255,.18); }
 
 /* Botão / link de ação */
 .btn{
@@ -1793,7 +1801,10 @@ body.is-home .site-footer{ position:relative; z-index:1; }
     gap:clamp(24px,4vw,64px);
     align-items:start;
   }
-  .roster__area{ margin-bottom:0; padding-top:.35rem; }
+  /* Em coluna própria o rótulo já não é só uma legenda acima do nome — é a
+     cabeça do organograma, e ganha destaque em relação ao tamanho fixo de
+     telemóvel (.68rem, pensado para caber ao lado do nome). */
+  .roster__area{ margin-bottom:0; padding-top:.35rem; font-size:.85rem; font-weight:700; }
 }
 
 /* =====================================================================
