@@ -2,7 +2,6 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ContactForm from '../../components/ContactForm.astro';
-import Watermark from '../../components/Watermark.astro';
 import { getCollection } from 'astro:content';
 import { urlAbsoluto } from '../../utils/seo.js';
 import { artigo } from '../../utils/schema.js';
@@ -89,8 +88,7 @@ const schemaArtigo = [
   </article>
 
   <section class="section section--alt" id="contacto">
-    <div class="container has-wm">
-      <Watermark variant="line" side="l" size="md" y="bottom" />
+    <div class="container">
       <ContactForm
         title={blog.contactoArtigo.title}
         texto={blog.contactoArtigo.texto}

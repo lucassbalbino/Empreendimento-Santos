@@ -6,7 +6,6 @@ import ExpandPanels from '../components/ExpandPanels.astro';
 import BlockHead from '../components/BlockHead.astro';
 import Faq from '../components/Faq.astro';
 import ContactForm from '../components/ContactForm.astro';
-import Watermark from '../components/Watermark.astro';
 import Blob from '../components/Blob.astro';
 import TitleSplit from '../components/TitleSplit.astro';
 import Seam from '../components/Seam.astro';
@@ -49,8 +48,7 @@ const schemaHome = [
   <!-- QUEM SOMOS -->
   <section class="section section--tight-bottom quemsomos">
     <div class="container">
-      <div class="quemsomos__intro has-wm">
-        <Watermark variant="line" side="r" size="lg" y="bottom" />
+      <div class="quemsomos__intro">
         <TitleSplit text={home.quemSomos.title} class="title-split--center" data-i18n="home.quemSomos.title" data-i18n-split="1" />
       </div>
 
@@ -215,8 +213,7 @@ const schemaHome = [
        bloco (esta vive já sobre o branco do .home-reveal), fecha a home. -->
   <section class="section section--seam-top" id="contacto">
     <Seam label="Fala Connosco" variant="light" loose i18n="common.seam.falaConnosco" />
-    <div class="container has-wm">
-      <Watermark variant="line" side="l" size="md" y="bottom" />
+    <div class="container">
       <ContactForm title={home.contacto.title} texto={home.contacto.texto} titleI18n="home.contacto.title" textoI18n="home.contacto.texto" />
     </div>
   </section>

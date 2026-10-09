@@ -3,7 +3,6 @@ import Base from '../../layouts/Base.astro';
 import BlockHead from '../../components/BlockHead.astro';
 import Seam from '../../components/Seam.astro';
 import ContactForm from '../../components/ContactForm.astro';
-import Watermark from '../../components/Watermark.astro';
 import { getCollection } from 'astro:content';
 import { urlAbsoluto } from '../../utils/seo.js';
 import blog from '../../data/blog.json';
@@ -68,8 +67,7 @@ const schemaBlog = [
   </section>
 
   <section class="section section--alt" id="contacto">
-    <div class="container has-wm">
-      <Watermark variant="line" side="l" size="md" y="bottom" />
+    <div class="container">
       <ContactForm
         title={blog.contacto.title}
         texto={blog.contacto.texto}

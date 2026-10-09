@@ -3,7 +3,6 @@ import Base from '../../layouts/Base.astro';
 import ContactForm from '../../components/ContactForm.astro';
 import Hero from '../../components/Hero.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import Watermark from '../../components/Watermark.astro';
 import PlansSlider from '../../components/PlansSlider.astro';
 import Tipologias from '../../components/Tipologias.astro';
 import Blob from '../../components/Blob.astro';
@@ -94,8 +93,7 @@ const seoDescricao = descricaoEmpreendimento(proj);
   <section class="section section--tight-bottom emp-sobre">
     <div class="container">
       <Breadcrumbs itens={migalhas} />
-      <div class="emp-intro has-wm">
-        <Watermark variant="line" side="r" size="lg" y="top" />
+      <div class="emp-intro">
         <TitleSplit text={proj.entrega} class="title-split--center" data-i18n={`${i18nBase}.entrega`} data-i18n-split="1" />
       </div>
 
@@ -147,12 +145,6 @@ const seoDescricao = descricaoEmpreendimento(proj);
   {proj.galeria?.length > 0 && (
     <!-- GALERIA (só quando há mesmo imagens deste empreendimento) -->
     <section class="section section--tight-bottom">
-      <!-- Sem marca-d'água, ao contrário das outras secções desta página: a
-           marca vive no canto superior direito e é exactamente aí que passou a
-           estar a coluna de miniaturas do slider. Fica por trás (z-index:-1 no
-           .wm-layer), mas espreitava pelos intervalos entre miniaturas e passava
-           por baixo do contador — que deixava de se ler. A marca existe para
-           habitar espaço vazio e esta secção deixou de ter nenhum. -->
       <div class="container">
         <TitleSplit text={textos.imagensTitulo} data-i18n="common.projectDetail.imagens" data-i18n-split="1" />
         <PlansSlider imagens={galeria} nome={proj.nome} />
@@ -165,8 +157,7 @@ const seoDescricao = descricaoEmpreendimento(proj);
        repete. O mapa de proximidades é o que mostra isso mesmo; sem ele usa-se
        o de localização e, sem nenhum, o marcador. -->
   <section class="section section--snug">
-    <div class="container has-wm">
-      <Watermark variant="line" side="r" size="md" y="top" />
+    <div class="container">
       <div class="split split--media-wide">
         <div class="split__body">
           <TitleSplit text={proj.localizacao} />
@@ -183,8 +174,7 @@ const seoDescricao = descricaoEmpreendimento(proj);
   {relacionados.length > 0 && (
     <!-- OUTROS EMPREENDIMENTOS -->
     <section class="section section--tight-bottom">
-      <div class="container has-wm">
-        <Watermark variant="line" side="l" size="md" y="bottom" />
+      <div class="container">
         <TitleSplit text={textos.continuarTitulo} data-i18n="common.projectDetail.continuar" data-i18n-split="1" />
         <div class="grid-projects">
           {relacionados.map((p) => (<ProjectCard proj={p} />))}
@@ -195,8 +185,7 @@ const seoDescricao = descricaoEmpreendimento(proj);
 
   <!-- CONTACTO -->
   <section class="section" id="contacto">
-    <div class="container has-wm">
-      <Watermark variant="line" side="l" size="sm" y="bottom" />
+    <div class="container">
       <ContactForm
         title={comNome(textos.contacto.title)}
         texto={comNome(textos.contacto.texto)}

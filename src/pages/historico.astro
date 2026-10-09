@@ -3,7 +3,6 @@ import Base from '../layouts/Base.astro';
 import BlockHead from '../components/BlockHead.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactForm from '../components/ContactForm.astro';
-import Watermark from '../components/Watermark.astro';
 import Seam from '../components/Seam.astro';
 import historico from '../data/historico.json';
 import { porGrupo } from '../utils/projetos.js';
@@ -53,8 +52,7 @@ const modalData = concluidos.map((p) => ({
 
   <!-- CONTACTO -->
   <section class="section section--alt" id="contacto">
-    <div class="container has-wm">
-      <Watermark variant="line" side="l" size="md" y="bottom" />
+    <div class="container">
       <ContactForm title={historico.contacto.title} texto={historico.contacto.texto} titleI18n="historico.contacto.title" textoI18n="historico.contacto.texto" />
     </div>
   </section>
