@@ -6,9 +6,14 @@
  * Acordeão nativo (<details>/<summary>): fecha e abre sem JS, é acessível
  * por teclado e leitor de ecrã de origem (o próprio elemento expõe o estado
  * aria-expanded), e cada pergunta chega fechada — só o título e a seta —
- * para a lista não pesar visualmente com as seis respostas à vista. A
- * resposta entra com o mesmo reveal por linha dos títulos de secção (ver
- * script abaixo), só que disparado pelo toggle do acordeão em vez do scroll.
+ * para a lista não pesar visualmente com as seis respostas à vista.
+ *
+ * A abertura é coreografada em dois tempos (ver script abaixo): primeiro o
+ * painel cresce em altura, e só quando esse crescimento termina é que a
+ * resposta entra com o mesmo reveal por linha dos títulos de secção. Por
+ * isso a resposta vive dentro de um .faq-list__panel: é a caixa cuja altura
+ * anima, e sem JS fica em altura automática — o acordeão abre e fecha na
+ * mesma, só que de repente.
  */
 const { items = [], i18nBase } = Astro.props;
 ---
@@ -21,7 +26,9 @@ const { items = [], i18nBase } = Astro.props;
           <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </summary>
-      <p class="faq-list__a" data-i18n={i18nBase && `${i18nBase}.${i}.r`}>{q.r}</p>
+      <div class="faq-list__panel">
+        <p class="faq-list__a" data-i18n={i18nBase && `${i18nBase}.${i}.r`}>{q.r}</p>
+      </div>
     </details>
   ))}
 </div>
@@ -31,12 +38,12 @@ const { items = [], i18nBase } = Astro.props;
 
   // Reveal por linha da resposta ao abrir — mesma técnica do
   // src/scripts/split-reveal.js (.line/.line__inner/.split-ready/
-  // .is-revealed), mas disparado pelo toggle do <details>, não pelo scroll:
-  // enquanto fechada a resposta está em display:none (regra nativa do
-  // <details>), por isso um IntersectionObserver nunca a veria entrar em
-  // vista — e dividi-la em linhas ANTES da primeira abertura também não dava,
-  // porque o split-type mede quebras de linha num elemento sem largura.
-  // Por isso a divisão só acontece na primeira abertura de cada pergunta.
+  // .is-revealed), mas disparado pelo acordeão, não pelo scroll: enquanto
+  // fechada a resposta está em display:none (regra nativa do <details>), por
+  // isso um IntersectionObserver nunca a veria entrar em vista — e dividi-la
+  // em linhas ANTES da primeira abertura também não dava, porque o split-type
+  // mede quebras de linha num elemento sem largura. Por isso a divisão só
+  // acontece na primeira abertura de cada pergunta.
   function splitOne(el) {
     const split = new SplitType(el, { types: 'lines' });
     split.lines.forEach((line, i) => {
@@ -49,34 +56,119 @@ const { items = [], i18nBase } = Astro.props;
     el.classList.add('split-ready');
   }
 
+  // Rede de segurança acima da duração da transição de altura (ver
+  // .faq-list__panel em styles.css): se o transitionend se perder — separador
+  // em segundo plano, transição cortada a meio — o passo seguinte da
+  // coreografia corre na mesma e o painel não fica preso a meia altura.
+  const FALLBACK_MS = 900;
+
+  // Corre `cb` uma só vez, quando a altura do painel acabar de animar.
+  // Devolve um cancelador: descarta o passo pendente SEM o executar, para um
+  // clique novo poder interromper a coreografia do clique anterior (ex.:
+  // reabrir uma pergunta que ainda está a fechar).
+  function afterHeight(panel, cb) {
+    const onEnd = (e) => {
+      if (e.target !== panel || e.propertyName !== 'height') return;
+      cancel();
+      cb();
+    };
+    const timer = setTimeout(() => { cancel(); cb(); }, FALLBACK_MS);
+    function cancel() {
+      clearTimeout(timer);
+      panel.removeEventListener('transitionend', onEnd);
+    }
+    panel.addEventListener('transitionend', onEnd);
+    return cancel;
+  }
+
+  function cancelPending(details) {
+    if (details._faqCancel) { details._faqCancel(); details._faqCancel = null; }
+  }
+
   function setup() {
     const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    // Abre em dois tempos: o <details> passa a `open` (a resposta ganha
+    // largura e já pode ser dividida em linhas), o painel cresce da altura
+    // atual até à do conteúdo e SÓ no fim é que as linhas sobem da máscara.
+    function openItem(details) {
+      const panel = details.querySelector('.faq-list__panel');
+      const answer = details.querySelector('.faq-list__a');
+      cancelPending(details);
+
+      // Altura de partida lida antes do `open`: 0 se estava fechada, a altura
+      // corrente se o clique apanhou o fecho a meio.
+      const from = details.open && panel ? getComputedStyle(panel).height : '0px';
+      details.open = true;
+      if (!panel || !answer) return;
+
+      if (calm.matches) { panel.style.height = ''; answer.classList.add('is-revealed'); return; }
+
+      if (!answer.classList.contains('split-ready')) splitOne(answer);
+      panel.style.height = from;
+      // Reflow entre a altura de partida e a de chegada: sem ele as duas caem
+      // no mesmo batch de estilo e o browser salta a transição.
+      void panel.offsetHeight;
+      panel.style.height = panel.scrollHeight + 'px';
+
+      details._faqCancel = afterHeight(panel, () => {
+        details._faqCancel = null;
+        panel.style.height = 'auto';   // acompanha resize e troca de idioma
+        answer.classList.add('is-revealed');
+      });
+    }
+
+    // Fecha pelo caminho inverso: encolhe o painel a partir da altura atual e
+    // só depois tira o `open`. O `is-revealed` sai no fim, com a resposta já
+    // escondida, para as linhas não descerem à vista durante o encolher.
+    function closeItem(details) {
+      const panel = details.querySelector('.faq-list__panel');
+      const answer = details.querySelector('.faq-list__a');
+      cancelPending(details);
+
+      if (!panel || !answer || calm.matches) {
+        details.open = false;
+        if (panel) panel.style.height = '';
+        if (answer) answer.classList.remove('is-revealed');
+        return;
+      }
+
+      panel.style.height = panel.scrollHeight + 'px';
+      void panel.offsetHeight;
+      panel.style.height = '0px';
+
+      details._faqCancel = afterHeight(panel, () => {
+        details._faqCancel = null;
+        details.open = false;
+        panel.style.height = '';
+        answer.classList.remove('is-revealed');
+      });
+    }
 
     document.querySelectorAll('.faq-list__item').forEach((details) => {
       if (details.dataset.faqBound) return;
       details.dataset.faqBound = '1';
 
-      const answer = details.querySelector('.faq-list__a');
-      if (!answer) return;
+      const summary = details.querySelector('.faq-list__q');
+      if (!summary) return;
 
-      details.addEventListener('toggle', () => {
-        if (!details.open) { answer.classList.remove('is-revealed'); return; }
-        if (!calm.matches && !answer.classList.contains('split-ready')) splitOne(answer);
-        // Um frame de intervalo entre dividir (estado escondido) e revelar:
-        // sem ele as duas mudanças de classe caem no mesmo batch de estilo e
-        // o browser salta a transição em vez de a correr.
-        requestAnimationFrame(() => answer.classList.add('is-revealed'));
+      // O clique (rato, e Enter/Espaço sobre o <summary>) é intercetado para
+      // o `open` ser posto e tirado pelo JS no tempo certo da animação — o
+      // toggle nativo é instantâneo e faria o painel saltar de uma vez.
+      summary.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (details.open && !details._faqCancel) { closeItem(details); return; }
 
-        // Sanfona exclusiva: só uma pergunta aberta de cada vez. Fechar as
-        // outras por aqui (não com o atributo `name`, que o <details> só
-        // suporta em browsers recentes) dispara o `toggle` de cada uma, que
-        // já trata de lhes tirar o `is-revealed`.
+        // Sanfona exclusiva: só uma pergunta aberta de cada vez. As outras
+        // fecham com a mesma animação (não com o atributo `name`, que o
+        // <details> só suporta em browsers recentes).
         const list = details.closest('.faq-list');
         if (list) {
           list.querySelectorAll('.faq-list__item[open]').forEach((other) => {
-            if (other !== details) other.open = false;
+            if (other !== details) closeItem(other);
           });
         }
+        openItem(details);
       });
     });
 
