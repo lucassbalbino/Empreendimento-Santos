@@ -2032,6 +2032,16 @@ html.reveal-ready .reveal-wipe-lr{
 }
 html.reveal-ready .reveal-wipe-lr.is-visible{ clip-path:inset(0 0 0 0); }
 
+/* Entrada por opacidade pura: sem deslocamento nem clip-path, só um fade
+   lento e suave. Reutilizável em qualquer imagem que peça uma entrada mais
+   discreta que o wipe ou o rise. Gated por reveal-ready. */
+html.reveal-ready .reveal-fade{
+  opacity:0;
+  transition:opacity 1.1s var(--ease);
+  will-change:opacity;
+}
+html.reveal-ready .reveal-fade.is-visible{ opacity:1; }
+
 /* Revelação lenta de baixo para cima, para imagens grandes que merecem ser
    vistas a entrar (ex.: "Quem Somos" da home). Movimento mais demorado que o
    reveal genérico, mas com o mesmo princípio: opacidade rápida, deslocamento

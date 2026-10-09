@@ -4,7 +4,6 @@ import Seam from '../components/Seam.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Divider from '../components/Divider.astro';
 import Frame from '../components/Frame.astro';
-import Watermark from '../components/Watermark.astro';
 import Blob from '../components/Blob.astro';
 import TitleSplit from '../components/TitleSplit.astro';
 import Stats from '../components/Stats.astro';
@@ -28,10 +27,10 @@ import home from '../data/home.json';
 
   <!-- QUEM SOMOS -->
   <section class="section">
-    <div class="container has-wm">
+    <div class="container">
       <div class="split split--reverse split--text-wide">
         <Frame>
-          <div class="split__media reveal-wipe-lr">
+          <div class="split__media reveal-fade">
             {sobre.quemSomos.imagem
               ? <img class="split__img" src={sobre.quemSomos.imagem} alt={sobre.quemSomos.title} loading="lazy" />
               : <div class="ph" data-label="Imagem 4:5"></div>}
@@ -41,7 +40,6 @@ import home from '../data/home.json';
           <TitleSplit text={sobre.quemSomos.title} class="title-split--fit" data-i18n="sobre.quemSomos.title" data-i18n-split="1" />
           <p class="lead" style="margin:1rem 0 1.4rem" data-i18n="sobre.quemSomos.lead">{sobre.quemSomos.lead}</p>
           <Divider />
-          <p data-i18n="sobre.quemSomos.paragrafo">{sobre.quemSomos.paragrafo}</p>
         </div>
       </div>
     </div>
@@ -75,8 +73,7 @@ import home from '../data/home.json';
 
   <!-- SERVIÇOS -->
   <section class="section">
-    <div class="container has-wm">
-      <Watermark variant="line" side="r" size="md" y="top" />
+    <div class="container">
       <TitleSplit text={sobre.servicos.title} style="margin-bottom:clamp(20px,2.5vw,32px)" data-i18n="sobre.servicos.title" data-i18n-split="1" />
       {sobre.servicos.items.map((s, i) => (
         <div class="service">
@@ -100,8 +97,7 @@ import home from '../data/home.json';
        cabeçalho e rodapé); esta secção fecha a Sobre Nós logo a seguir aos
        Serviços. -->
   <section class="section" id="contacto">
-    <div class="container has-wm">
-      <Watermark variant="line" side="l" size="md" y="bottom" />
+    <div class="container">
       <ContactForm title={sobre.contacto.title} texto={sobre.contacto.texto} titleI18n="sobre.contacto.title" textoI18n="sobre.contacto.texto" />
     </div>
   </section>
