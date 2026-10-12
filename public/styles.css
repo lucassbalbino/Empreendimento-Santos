@@ -670,7 +670,14 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    "EMPREENDIMENTO" e a rede de segurança partia-a a meio) e depois 17ch, que
    deixou de chegar com o corte fino da Fraunces (peso 300, opsz 36, .04em de
    espaçamento): "EMPREENDIMENTOS" partia no último S. */
-.title-split--hero{ font-size:clamp(1.5rem, 0.57rem + 5.59vw, 5.6rem); max-width:min(20ch, 100%); }
+/* Hero 20% mais pequena do que era. Os tres termos do clamp descem juntos
+   (1.5->1.2rem, 0.57rem+5.59vw -> 0.46rem+4.47vw, 5.6->4.5rem) para a curva
+   fluida manter a forma: baixar so o maximo achatava a escala em desktop e
+   deixava o telemovel na mesma. A 1440px da 71.7px, contra os 89.6px de
+   antes. O max-width em ch nao precisa de descer porque o ch acompanha o
+   font-size — a medida encolhe na mesma proporcao e as quebras de linha nao
+   mudam. */
+.title-split--hero{ font-size:clamp(1.2rem, 0.46rem + 4.47vw, 4.5rem); max-width:min(20ch, 100%); }
 
 /* Corte fino da Fraunces em todos os títulos do site (tudo o que lê
    var(--display)). Os parágrafos editoriais em Fraunces — .lead,
