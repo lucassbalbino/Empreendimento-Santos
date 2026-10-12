@@ -8,6 +8,9 @@ import Seo from '../components/Seo.astro';
 import seoConfig from '../data/seo.json';
 const {
   flat = false,
+  /* Rodapé com os contactos em destaque — só a /contactos o pede, depois de
+     lhe ter saído a tabela de email e telefones do corpo da página. */
+  footerDestaque = false,
   /* Tudo o que segue é SEO e vai direto para o <Seo>. As páginas estáticas não
      precisam de passar nada — o Seo.astro resolve pelo caminho contra o
      src/data/seo.json. Só as rotas dinâmicas (empreendimentos, blog) passam
@@ -169,7 +172,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero'].filter(Boolean).join(
   </div>
   <Header />
   <slot />
-  <Footer />
+  <Footer destaque={footerDestaque} />
   <PageCurtain />
   <CookieBanner />
   <!-- Scroll interpolado (Lenis) + parallax da hero.

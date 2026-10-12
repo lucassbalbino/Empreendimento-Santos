@@ -7,7 +7,7 @@ import Seam from '../components/Seam.astro';
 import contactos from '../data/contactos.json';
 const moradaLinhas = contactos.onde.morada.split('\n');
 ---
-<Base flat tipoPagina="ContactPage">
+<Base flat footerDestaque tipoPagina="ContactPage">
   <!-- Página INTEIRA em café: não há hero e as duas secções são as duas
        escuras, encostadas uma à outra. Por isso vivem numa só .dark-run — o
        --dark é semitransparente (ver styles.css) e duas caixas empilhadas
@@ -33,27 +33,6 @@ const moradaLinhas = contactos.onde.morada.split('\n');
       <div class="container">
         <Seam label={contactos.hero.title} variant="dark" class="seam--top" i18n="contactos.hero.title" bare />
         <ContactForm tag="h1" title={contactos.contacto.title} texto={contactos.contacto.texto} titleI18n="contactos.contacto.title" textoI18n="contactos.contacto.texto" />
-        <!-- Email e telefones em tabela de pares rótulo→valor, com a frase ao
-             lado a servir-lhe de cabeça. É <dl> e não <table>: não são dados
-             tabulares (não há duas dimensões a cruzar), são definições — a
-             mesma estrutura que as Perguntas Frequentes usam. Visualmente
-             lê-se como tabela; para o leitor de ecrã anuncia-se como o par que
-             de facto é, e o <h2> ao lado diz-lhe a que se refere. -->
-        <div class="contact-info">
-          <h2 class="contact-info__title" data-i18n="contactos.contacto.intro">{contactos.contacto.intro}</h2>
-          <dl class="contact-table">
-            <div class="contact-table__row">
-              <dt class="contact-table__label">Email</dt>
-              <dd class="contact-table__value"><a href={`mailto:${contactos.contacto.email}`}>{contactos.contacto.email}</a></dd>
-            </div>
-            {contactos.contacto.telefones.map((t) => (
-              <div class="contact-table__row">
-                <dt class="contact-table__label">{t.label}</dt>
-                <dd class="contact-table__value"><a href={`tel:${t.numero.replace(/\s+/g, '')}`}>{t.numero}</a></dd>
-              </div>
-            ))}
-          </dl>
-        </div>
       </div>
     </section>
 

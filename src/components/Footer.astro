@@ -1,9 +1,30 @@
 ---
 import site from '../data/site.json';
 const moradaLinhas = site.footer.morada.split('\n');
+/* `destaque` (só a /contactos): o email e os telefones saem da coluna estreita
+   e passam a uma faixa própria, em letra de título, no topo do rodapé. A página
+   deixou de ter a tabela de contactos no corpo — é aqui que eles ficam. */
+const { destaque = false } = Astro.props;
 ---
-<footer class="site-footer">
+<footer class:list={['site-footer', destaque && 'site-footer--destaque']}>
   <div class="container">
+    {destaque && (
+      <div class="footer-destaque">
+        <h2 class="footer-destaque__title" data-i18n="common.footer.contactosLabel">Contactos</h2>
+        <dl class="footer-destaque__list">
+          <div class="footer-destaque__item">
+            <dt>Email</dt>
+            <dd><a href={`mailto:${site.footer.email}`}>{site.footer.email}</a></dd>
+          </div>
+          {site.footer.telefones.map((t) => (
+            <div class="footer-destaque__item">
+              <dt>{t.label}</dt>
+              <dd><a href={`tel:${t.numero.replace(/\s+/g, '')}`}>{t.numero}</a></dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    )}
     <div class="footer-grid">
       <div class="footer-col footer-brand">
         <span class="logo footer-logo"><img src="/images/logo-ams-santos-h-light.png" alt="AM Santos — Empreendimentos" width="700" height="185" /></span>
@@ -36,15 +57,17 @@ const moradaLinhas = site.footer.morada.split('\n');
         <h4 data-i18n="common.footer.moradaLabel">Morada</h4>
         <p data-i18n="site.footer.morada" data-i18n-multiline>{moradaLinhas.map((linha, i) => (<>{i > 0 && <br />}{linha}</>))}</p>
       </div>
-      <div class="footer-col">
-        <h4 data-i18n="common.footer.contactosLabel">Contactos</h4>
-        <p>
-          <a href={`mailto:${site.footer.email}`}>{site.footer.email}</a>
-          {site.footer.telefones.map((t) => (
-            <><br /><a href={`tel:${t.numero.replace(/\s+/g, '')}`}>{t.label} — {t.numero}</a></>
-          ))}
-        </p>
-      </div>
+      {!destaque && (
+        <div class="footer-col">
+          <h4 data-i18n="common.footer.contactosLabel">Contactos</h4>
+          <p>
+            <a href={`mailto:${site.footer.email}`}>{site.footer.email}</a>
+            {site.footer.telefones.map((t) => (
+              <><br /><a href={`tel:${t.numero.replace(/\s+/g, '')}`}>{t.label} — {t.numero}</a></>
+            ))}
+          </p>
+        </div>
+      )}
       <div class="footer-col">
         <h4 data-i18n="common.footer.newsletterLabel">Newsletter</h4>
         <div class="news"><input type="email" placeholder="o.seu.email@exemplo.pt" data-i18n="common.footer.newsletterPlaceholder" data-i18n-attr="placeholder"><button>→</button></div>
