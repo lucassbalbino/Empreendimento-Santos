@@ -4,9 +4,9 @@
    Contentful Paint (2,9 s com ele, 1,1 s sem — medido com o Lighthouse).
    Pré-carregadas no Base.astro. Reexecutar o script atualiza este bloco. */
 @font-face{font-family:'Fraunces';font-style:normal;font-weight:300 500;font-display:swap;src:url('/fonts/fraunces-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
-@font-face{font-family:'Fraunces';font-style:normal;font-weight:300 500;font-display:swap;src:url('/fonts/fraunces-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:300 500;font-display:swap;src:url('/fonts/fraunces-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;}
 @font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url('/fonts/inter-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
-@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url('/fonts/inter-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url('/fonts/inter-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;}
 /* @fontes:fim */
 
 /* =====================================================================
@@ -17,36 +17,29 @@
    ===================================================================== */
 
 /* ---------- Fontes ----------
-   Face de título: "Kompot Display" — a display que o site usou entre df9d03f
-   (3 ago) e 0680f7d, reposta a pedido.
+   Face de título: Fraunces em corte fino, via var(--display). Não há aqui
+   @font-face próprio dos títulos — as duas famílias do site vêm todas do
+   bloco @fontes:* acima.
 
-   O @font-face vive FORA do bloco @fontes:inicio/@fontes:fim acima de
-   propósito: esse bloco é gerado por scripts/fontes-descarregar.mjs e
-   reescrito por inteiro a cada execução. Declarar a Kompot lá dentro era
-   perdê-la no próximo `node scripts/fontes-descarregar.mjs`.
+   Nota histórica, porque isto já foi e voltou duas vezes: os títulos foram
+   desenhados para uma display própria, a "Kompot Display". O .otf chegou a
+   estar no repositório (df9d03f), foi apagado por engano em 01c8d61, e a
+   declaração órfã ficou a produzir um 404 por página até 0680f7d. Foi reposto
+   em e6112ec e retirado outra vez aqui, agora por decisão e não por acidente.
 
-   O .otf foi reposto do histórico (`git show df9d03f:public/fonts/...`). O md5
-   bate certo com referencias/fontes/kompot-display-demo.otf, por isso é
-   literalmente o ficheiro que esteve em produção — não um substituto.
+   A razão de fundo não mudou e é a mesma das duas vezes: o ficheiro disponível
+   é uma versão *demo* e não escreve português. Os codepoints acentuados estão
+   mapeados ao glifo da letra base — Á desenha A, Ç desenha C sem cedilha — e o
+   fallback do CSS não salva isso, porque entra por glifo em FALTA e aqui o
+   glifo existe, só está errado. Faltam-lhe ainda a pontuação e os dígitos 2, 5
+   e 8, que por serem mesmo ausentes caem para a Fraunces: um "25" saía com
+   dois desenhos lado a lado.
 
-   LIMITE CONHECIDO, é uma versão *demo*. Duas falhas, com efeitos diferentes:
-
-   1. Acentos e cedilha: os codepoints estão mapeados ao glifo da letra base.
-      Á desenha A, Ç desenha C sem cedilha. O var(--serif) a seguir NÃO salva
-      isto — o fallback do CSS entra por glifo em FALTA, e aqui o glifo existe,
-      só está errado. "HISTÓRICO" sai "HISTORICO".
-   2. Pontuação e os dígitos 2, 5 e 8: esses faltam mesmo, por isso caem para
-      a Fraunces. Um "25" sai com dois desenhos diferentes lado a lado.
-
-   Licenciar a Kompot completa é o que resolve ambas. Ver P13 em
+   O ficheiro fica em referencias/fontes/kompot-display-demo.otf (md5 idêntico
+   ao que esteve em produção). Se a Kompot completa vier a ser licenciada, isto
+   volta a ser um @font-face aqui e a família à frente de var(--display) no
+   .title-split. Ver P13 em
    docs/superpowers/plans/2026-08-19-bugs-encontrados-recoloracao.md */
-@font-face{
-  font-family:"Kompot Display";
-  src:url("/fonts/KompotDisplay.otf") format("opentype");
-  font-weight:400 900;
-  font-style:normal;
-  font-display:swap;
-}
 
 /* ---------- Tokens ---------- */
 :root{
@@ -612,7 +605,8 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .split__img--mapa{ aspect-ratio:auto; object-fit:contain; height:auto; }
 .split__body .display{ margin:.4rem 0 1.6rem; }
 
-/* Títulos de secção — a mesma tipografia (Kompot Display) do início ao fim,
+/* Títulos de secção — a mesma tipografia (Fraunces; ver a nota das fontes no
+   topo do ficheiro) do início ao fim,
    numa só caixa de texto. As quebras de linha são naturais: cada variante
    define a sua MEDIDA (max-width em ch) e o browser distribui o texto por
    linhas de comprimento parecido (text-wrap:balance). Nada impõe onde partir,
