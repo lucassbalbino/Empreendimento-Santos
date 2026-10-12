@@ -333,7 +333,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero'].filter(Boolean).join(
           const r = el.getBoundingClientRect();
           if (r.bottom < 0) return;   // acima da vista — mantém o que já lá estava
           if (r.top > vh) { el.dataset.pinDone = ''; return; }   // ainda por vir — pronto para reentrar
-          const reversed = el.matches(':nth-child(even)');   // imagem à direita, corpo à esquerda
+          const reversed = el.matches(':nth-child(odd)');   // imagem à direita, corpo à esquerda
           const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
           const natural = (r.width - gap) / 2;
           if (el.dataset.pinDone === '1') { aplicarEncaixe(media, body, natural, r.width, 1, reversed); return; }

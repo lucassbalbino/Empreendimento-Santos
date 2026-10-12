@@ -140,6 +140,11 @@
   /* Espaçamento curto: usado *dentro* de um grupo narrativo, para que a
      proximidade indique que as duas secções são o mesmo capítulo. */
   --section-y-tight: clamp(36px, 4.2vw, 68px);
+  /* Face dos títulos (e nomes, números de destaque). Hoje é a mesma família
+     dos parágrafos editoriais em serif, mas num corte fino — peso 300 e
+     tamanho ótico preso, ver o bloco a seguir ao .title-split--hero. Token à
+     parte para os títulos poderem mudar de face sem arrastar os parágrafos. */
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
@@ -262,7 +267,7 @@ ul{ list-style:none; }
 }
 
 .display{
-  font-family:var(--serif);
+  font-family:var(--display);
   font-weight:500;
   line-height:1.05;
   letter-spacing:-.01em;
@@ -619,8 +624,8 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   margin:.4rem 0 1.6rem;
   display:flex;
   flex-direction:column;
-  font-family:"Kompot Display", var(--serif);
-  font-weight:700;
+  font-family:var(--display);
+  font-weight:500;
   text-transform:uppercase;
   letter-spacing:.02em;
   line-height:1.05;
@@ -656,10 +661,36 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .title-split__text{ display:block; }
 /* Variante para h1 de hero: mesma tipografia unificada, só maior e com mais
    medida (o título da hero pede linhas mais longas). */
-/* 17ch e não 14: o ch mede o glifo "0", e em maiúsculas de display as letras
-   são bem mais largas — com 14ch a caixa ficava mais estreita do que a própria
-   palavra "EMPREENDIMENTO" e a rede de segurança partia-a a meio. */
-.title-split--hero{ font-size:clamp(1.5rem, 0.57rem + 5.59vw, 5.6rem); max-width:min(17ch, 100%); }
+/* 20ch: o ch mede o glifo "0", e em maiúsculas de display as letras são bem
+   mais largas. Já foi 14ch (a caixa ficava mais estreita do que a palavra
+   "EMPREENDIMENTO" e a rede de segurança partia-a a meio) e depois 17ch, que
+   deixou de chegar com o corte fino da Fraunces (peso 300, opsz 36, .04em de
+   espaçamento): "EMPREENDIMENTOS" partia no último S. */
+.title-split--hero{ font-size:clamp(1.5rem, 0.57rem + 5.59vw, 5.6rem); max-width:min(20ch, 100%); }
+
+/* Corte fino da Fraunces em todos os títulos do site (tudo o que lê
+   var(--display)). Os parágrafos editoriais em Fraunces — .lead,
+   .quemsomos__p, .emp-editorial__p, .dofazemos__lead — ficam de fora.
+   - Peso 300, o mais leve que a Fraunces descarregada traz (antes 400–500,
+     e 700 sintético no .title-split).
+   - "opsz" fixo em 36: por omissão o tamanho ótico segue o corpo, e a 60–70px
+     a Fraunces passa para o desenho de cartaz — contraste alto, serifas finas
+     como agulhas, que é o que a tornava chamativa. Preso num tamanho de texto,
+     o traço fica mais uniforme e calmo.
+   O :is() herda a especificidade do argumento mais forte (.nav__list
+   .nav__link, 0-2-0), por isso ganha às regras de uma classe só que vêm
+   declaradas mais abaixo, sem precisar de !important. */
+:is(.title-split, .display, .dofazemos__word-t, .dofazemos__word-n, .pilar__t,
+  .pilar__n, .qmeta__v, .faq-list__q h3, .stat__num, .card__title,
+  .panel__title, .panel__label, .service h3, .roster__name,
+  .footer-destaque__item a, .fact__v, .apt-row__num, .emodal__title,
+  .emodal__info-title, .emodal__fact-value, .testimonials__name,
+  .dslider__name, .faq__title, .post-card__titulo, .artigo__titulo, .prosa h2,
+  .erro-link__titulo, .nav__list .nav__link){
+  font-weight:300;
+  font-variation-settings:"opsz" 36;
+}
+.title-split{ letter-spacing:.04em; }
 .split__body p{ color:var(--ink-soft); max-width:46ch; margin-bottom:1.2rem; }
 .split--reverse .split__media{ order:2; }
 
@@ -759,7 +790,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .qmeta{ border-top:1px solid var(--line); padding-top:.85rem; }
 .qmeta__v{
-  display:block; font-family:var(--serif); color:var(--ink);
+  display:block; font-family:var(--display); color:var(--ink);
   font-size:clamp(1.5rem,2.4vw,2.1rem); line-height:1.1;
 }
 .qmeta__l{
@@ -946,14 +977,14 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .dofazemos__words .dofazemos__word:last-child{ border-bottom:1px solid var(--line); }
 .dofazemos__word-n{
-  font-family:var(--serif); font-size:.9rem; letter-spacing:.06em;
+  font-family:var(--display); font-size:.9rem; letter-spacing:.06em;
   /* Fundo claro: tem de ser --accent-text. Estava a usar --accent-dk (o tom
      desenhado para fundos ESCUROS), que aqui dava 2.62:1 — falha AA de
      origem, anterior a esta recoloração. */
   color:var(--accent-text);
 }
 .dofazemos__word-t{
-  font-family:var(--serif); font-weight:500; color:var(--ink);
+  font-family:var(--display); font-weight:500; color:var(--ink);
   line-height:1.05; letter-spacing:-.01em;
   font-size:clamp(2rem, 4.2vw, 3.6rem);
 }
@@ -1009,13 +1040,13 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   padding:clamp(28px,3vw,40px) clamp(24px,2.8vw,34px);
 }
 .pilar__n{
-  font-family:var(--serif); font-size:.85rem; letter-spacing:.06em;
+  font-family:var(--display); font-size:.85rem; letter-spacing:.06em;
   /* --accent-deep cumpre AA nas três superfícies claras (6.29 sobre --paper,
      5.49 sobre --paper-alt, 4.90 sobre --paper-warm) — a troca de fundo
      acima não pede troca de cor aqui. */
   color:var(--accent-deep);
 }
-.pilar__t{ font-family:var(--serif); font-weight:500; color:var(--ink); font-size:clamp(1.5rem,2.3vw,1.95rem); }
+.pilar__t{ font-family:var(--display); font-weight:500; color:var(--ink); font-size:clamp(1.5rem,2.3vw,1.95rem); }
 .pilar__x{ color:var(--ink-soft); line-height:1.7; font-size:clamp(1.05rem,1.15vw,1.15rem); }
 
 .pilar--1{ grid-column:1 / 4; }
@@ -1063,7 +1094,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .faq-list__q::-webkit-details-marker{ display:none; }
 .faq-list__q h3{
-  font-family:var(--serif); font-weight:500; color:var(--paper);
+  font-family:var(--display); font-weight:500; color:var(--paper);
   font-size:clamp(1.05rem,1.5vw,1.25rem); margin:0;
 }
 .faq-list__chevron{
@@ -1259,7 +1290,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .stat{ padding:clamp(20px,2.5vw,38px) 1rem; text-align:center; border-left:1px solid var(--line); }
 .stat:first-child{ border-left:0; }
 .stat__num{
-  font-family:var(--serif); font-weight:400;
+  font-family:var(--display); font-weight:400;
   font-size:clamp(2.4rem,4.6vw,3.7rem); line-height:1;
   /* O único consumidor é o <Stats> de /sobre-nos, e vive numa .section--dark
      (ver Stats.astro) — por isso o tom para fundos escuros, como o fio do
@@ -1393,7 +1424,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .card__text{ display:flex; flex-direction:column; gap:4px; min-width:0; }
 /* Sem transição de cor: o título não reage ao hover (o hover é só na imagem). */
 .card__title{
-  font-family:var(--serif); font-weight:400; font-size:1.45rem; line-height:1.15;
+  font-family:var(--display); font-weight:400; font-size:1.45rem; line-height:1.15;
   color:var(--ink);
 }
 /* Sem versaletes nem letter-spacing: o original põe aqui uma linha corrida em
@@ -1475,7 +1506,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   /* Largura do painel em repouso — congela a quebra de linha do nome. */
   width:calc((100cqw - (var(--n) - 1) * var(--panel-gap)) / var(--n));
   padding-inline:clamp(20px,2vw,34px);
-  font-family:var(--serif); font-weight:400;
+  font-family:var(--display); font-weight:400;
   font-size:1.15rem; line-height:1.15; letter-spacing:.06em;
   color:var(--paper);
   transition:opacity .35s var(--ease);
@@ -1490,7 +1521,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   pointer-events:none;
 }
 .panel__title{
-  font-family:var(--serif); font-weight:400;
+  font-family:var(--display); font-weight:400;
   font-size:clamp(1.5rem,2.4vw,2.1rem); line-height:1.05;
   color:var(--paper);
 }
@@ -1671,10 +1702,10 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    ===================================================================== */
 .service{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px,5vw,80px); align-items:center; }
 .service + .service{ margin-top:clamp(96px,12vw,180px); }
-.service:nth-child(even) .service__media{ order:2; }
+.service:nth-child(odd) .service__media{ order:2; }
 .service__media .ph{ aspect-ratio:1/1.3; width:100%; }
 .service__img{ aspect-ratio:1/1.3; width:100%; height:100%; object-fit:cover; display:block; }
-.service h3{ font-family:var(--serif); font-weight:400; font-size:clamp(1.7rem,3vw,2.4rem); margin:.6rem 0 1.2rem; }
+.service h3{ font-family:var(--display); font-weight:400; font-size:clamp(1.7rem,3vw,2.4rem); margin:.6rem 0 1.2rem; }
 .service p{ color:var(--ink-soft); max-width:46ch; margin-bottom:1.4rem; }
 
 /* Encaixe ao rolar+gesto: a imagem entra a ocupar a largura da linha
@@ -1698,7 +1729,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   height:var(--media-h, auto);
   transform:translateY(var(--fit-ty,0px));
 }
-.service:nth-child(even) .service__media{ justify-self:end; }
+.service:nth-child(odd) .service__media{ justify-self:end; }
 /* O corpo entra do canto oposto ao lado da imagem (--fit-tx/--fit-opacity,
    calculados a par de --fit-scale em Base.astro), a deslizar e a esbater ao
    mesmo tempo, até chegar à posição final (lado a lado) no mesmo instante
@@ -1745,7 +1776,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .roster__row:first-child{ border-top:0; padding-top:0; }
 .roster__row:last-child{ padding-bottom:0; }
 .roster__name{
-  font-family:var(--serif); font-weight:400;
+  font-family:var(--display); font-weight:400;
   font-size:clamp(1.05rem,1.6vw,1.3rem); color:var(--ink);
 }
 .roster__role{
@@ -2364,7 +2395,7 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
    passou a var(--paper) e esta ficou a repetir o que já lá estava. Com o
    --brown a ficar em reserva (P4), o .fact base mantém-se branco e a regra não
    volta a ter função. */
-.fact__v{ font-family:var(--serif); font-size:clamp(1.35rem,2.4vw,2rem); color:var(--ink); line-height:1.1; }
+.fact__v{ font-family:var(--display); font-size:clamp(1.35rem,2.4vw,2rem); color:var(--ink); line-height:1.1; }
 .fact__r{ font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); }
 
 /* Chapa sobre a faixa café (a "Ficha do empreendimento", em /empreendimentos).
@@ -2406,10 +2437,10 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   padding:clamp(14px,1.7vw,22px) clamp(16px,2vw,28px);
   font-family:var(--sans);
 }
-/* O número em serif é o mesmo gesto do .fact__v: nesta página, o dado que
-   identifica alguma coisa escreve-se em Fraunces. */
+/* O número na display é o mesmo gesto do .fact__v: nesta página, o dado que
+   identifica alguma coisa escreve-se na face dos títulos. */
 .apt-row__num{
-  font-family:var(--serif); font-size:clamp(1rem,1.4vw,1.2rem);
+  font-family:var(--display); font-size:clamp(1rem,1.4vw,1.2rem);
   color:var(--ink); line-height:1.15;
 }
 .apt-row__fields{
@@ -2760,7 +2791,7 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
 }
 @media (max-width: 760px){
   .service, .contact{ grid-template-columns:1fr; }
-  .service:nth-child(even) .service__media{ order:0; }
+  .service:nth-child(odd) .service__media{ order:0; }
   .stats{ grid-template-columns:1fr; }
   .grid-projects{ grid-template-columns:1fr; }
   /* Numa só coluna a moldura fica com ~354px: a 19/10 a imagem cairia para
@@ -2812,7 +2843,7 @@ button.card{
 .emodal__img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .emodal__media-grad{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,.78) 0%, rgba(10,10,10,.28) 34%, rgba(10,10,10,.22) 60%, rgba(10,10,10,.9) 100%); }
 .emodal__media-head{ position:relative; z-index:1; padding:clamp(24px,3vw,40px) clamp(24px,3vw,40px) 0; }
-.emodal__title{ font-family:var(--serif); font-weight:400; color:#fff; font-size:clamp(1.7rem,3vw,2.5rem); line-height:1.08; text-shadow:0 1px 14px rgba(0,0,0,.5); }
+.emodal__title{ font-family:var(--display); font-weight:400; color:#fff; font-size:clamp(1.7rem,3vw,2.5rem); line-height:1.08; text-shadow:0 1px 14px rgba(0,0,0,.5); }
 .emodal__subtitle{ color:rgba(255,255,255,.9); font-size:.86rem; letter-spacing:.06em; margin-top:.55rem; text-shadow:0 1px 10px rgba(0,0,0,.5); }
 .emodal__chips{ position:relative; z-index:1; margin-top:auto; padding:clamp(20px,3vw,36px) clamp(24px,3vw,40px); display:flex; flex-wrap:wrap; gap:.5rem; }
 .emodal__chip{
@@ -2859,7 +2890,7 @@ button.card{
   display:flex; align-items:center; justify-content:center; transition:background .25s var(--ease);
 }
 .emodal__close:hover{ background:var(--paper-alt); }
-.emodal__info-title{ font-family:var(--serif); font-weight:400; font-size:clamp(1.4rem,2.4vw,1.9rem); margin:.5rem 0 1rem; color:var(--ink); }
+.emodal__info-title{ font-family:var(--display); font-weight:400; font-size:clamp(1.4rem,2.4vw,1.9rem); margin:.5rem 0 1rem; color:var(--ink); }
 .emodal__resumo{ color:var(--ink-soft); font-size:.95rem; margin-bottom:1.6rem; }
 .emodal__facts{ display:flex; flex-direction:column; gap:.5rem; }
 .emodal__fact{
@@ -2867,7 +2898,7 @@ button.card{
   border:1px solid var(--line); padding:.85rem 1.1rem;
 }
 .emodal__fact-label{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); }
-.emodal__fact-value{ font-family:var(--serif); font-size:1.05rem; color:var(--ink); text-align:right; }
+.emodal__fact-value{ font-family:var(--display); font-size:1.05rem; color:var(--ink); text-align:right; }
 .emodal__footer{ margin-top:1.8rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
 .emodal__entrega{ font-size:.8rem; letter-spacing:.04em; color:var(--ink-faint); }
 
@@ -2931,7 +2962,7 @@ button.card{
 .testimonials__img[data-index="0"]{ opacity:1; z-index:3; }
 .testimonials__content{ display:flex; flex-direction:column; justify-content:flex-start; }
 .testimonials__name{
-  font-family:var(--serif); font-weight:400; margin-bottom:.5rem; line-height:1.1;
+  font-family:var(--display); font-weight:400; margin-bottom:.5rem; line-height:1.1;
   color:var(--t-name,var(--ink)); font-size:var(--t-name-size,1.5rem);
 }
 .testimonials__designation{
@@ -3080,7 +3111,7 @@ button.card{
 }
 .dslider__all{ white-space:nowrap; }
 .dslider__name{
-  font-family:var(--serif); font-weight:300;
+  font-family:var(--display); font-weight:300;
   text-transform:uppercase;
   letter-spacing:.05em;
   line-height:1.04;
@@ -3428,7 +3459,7 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 
 /* ---------- Perguntas frequentes ---------- */
 .faq__title{
-  font-family:var(--serif); font-weight:300;
+  font-family:var(--display); font-weight:300;
   font-size:clamp(1.6rem,3.2vw,2.4rem); line-height:1.15;
   color:var(--ink); margin:0 0 clamp(28px,3.5vw,52px);
   max-width:22ch;
@@ -3501,7 +3532,7 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
   letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);
 }
 .post-card__titulo{
-  margin:.7rem 0 .6rem; font-family:var(--serif); font-weight:300;
+  margin:.7rem 0 .6rem; font-family:var(--display); font-weight:300;
   font-size:clamp(1.25rem,2vw,1.5rem); line-height:1.25; color:var(--ink);
 }
 .post-card__resumo{
@@ -3517,7 +3548,7 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 /* ---------- Artigo ---------- */
 .artigo__head{ margin-bottom:clamp(32px,4vw,56px); }
 .artigo__titulo{
-  font-family:var(--serif); font-weight:300;
+  font-family:var(--display); font-weight:300;
   font-size:clamp(2rem,4.6vw,3.2rem); line-height:1.1;
   color:var(--ink); margin:0 0 1.2rem;
 }
@@ -3547,7 +3578,7 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 .prosa{ font-family:var(--sans); font-weight:300; font-size:1.02rem; line-height:1.75; color:var(--ink-soft); }
 .prosa > * + *{ margin-top:1.3em; }
 .prosa h2{
-  font-family:var(--serif); font-weight:300; color:var(--ink);
+  font-family:var(--display); font-weight:300; color:var(--ink);
   font-size:clamp(1.5rem,2.8vw,2rem); line-height:1.2;
   margin-top:2.4em; margin-bottom:.2em;
 }
@@ -3579,7 +3610,7 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
 }
 .erro-link a:hover, .erro-link a:focus-visible{ padding-left:.8rem; }
 .erro-link__titulo{
-  display:block; font-family:var(--serif); font-weight:300;
+  display:block; font-family:var(--display); font-weight:300;
   font-size:clamp(1.15rem,2vw,1.4rem); line-height:1.3;
 }
 .erro-link__texto{
@@ -4244,7 +4275,7 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
   .nav__list .nav__link{
     display:flex; align-items:center; justify-content:space-between; gap:1rem;
     width:100%; min-height:58px; padding-block:.45rem;
-    font-family:var(--serif); font-weight:400;
+    font-family:var(--display); font-weight:400;
     font-size:clamp(1.6rem, 6.6vw, 2.4rem); line-height:1.15;
     letter-spacing:0; text-transform:none; white-space:normal;
     color:var(--paper); opacity:1;
