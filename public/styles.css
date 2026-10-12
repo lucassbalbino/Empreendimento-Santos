@@ -143,18 +143,28 @@
 
   --ease: cubic-bezier(.22,.61,.36,1);
 
-  /* Tratamento da foto da hero: quente e terrosa (bronze/sépia).
-     Duas camadas: (1) filtro na própria imagem — levanta ligeiramente as
-     luzes e puxa a temperatura para o âmbar sem lavar a cor; (2) véu por
-     cima — a gradação escura de legibilidade, mais um wash de bronze.
-     O saturate sobe de .78 para .92: a versão fria tirava saturação quente
-     de propósito, e é exatamente essa que agora queremos guardar.
-     A cortina de transição usa exatamente estes tokens: mostra a mesma foto
-     por cima da hero real e qualquer diferença de cor abriria costura. */
-  --hero-img-filter: brightness(1.06) contrast(.94) saturate(.92) sepia(.12);
+  /* Tratamento da foto da hero: nenhum. A imagem passa como foi fotografada.
+     Saiu daqui a camada terrosa que havia — um sepia(.12) no filtro mais um
+     wash de bronze no véu — porque a fotografia de obra já traz a sua própria
+     cor e o bronze estava a achatá-la toda para o mesmo tom.
+
+     O que FICA é só a gradação escura, e fica por uma razão medida, não
+     estética: o h1 é branco por cima da foto. Com esta gradação, 98,9% da área
+     do título tem 3:1 ou mais (mediana 9,5:1); sem ela, o título assenta
+     diretamente nas luzes da fachada e cai abaixo do mínimo de AA em boa parte
+     da largura. A gradação passou de rgba(12,9,6) — um quase-preto quente, que
+     era castanho a fingir de neutro — para preto puro, que escurece sem tingir.
+
+     A cortina de transição (.curtain) lê estes mesmos tokens de propósito:
+     mostra a mesma foto por cima da hero real e qualquer diferença de cor
+     abriria costura visível na transição entre páginas. Mexer num lado só é
+     que partia isto; mexer no token mantém os dois lados em sincronia.
+
+     O véu do header é outro e vive na .site-header:not(.scrolled)::before —
+     esse trata da legibilidade do nav e não foi tocado. */
+  --hero-img-filter: none;
   --hero-veil:
-    linear-gradient(180deg, rgba(12,9,6,.38) 0%, rgba(12,9,6,.08) 45%, rgba(12,9,6,.58) 100%),
-    linear-gradient(180deg, rgba(150,110,62,.26) 0%, rgba(176,138,88,.16) 50%, rgba(96,68,38,.34) 100%);
+    linear-gradient(180deg, rgba(0,0,0,.38) 0%, rgba(0,0,0,.08) 45%, rgba(0,0,0,.58) 100%);
 }
 
 /* ---------- Ritmo vertical no telemovel (<=760px) ----------------------
