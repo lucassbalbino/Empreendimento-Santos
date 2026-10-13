@@ -152,6 +152,7 @@ collections:
       - { label: "Unidades", name: unidades, widget: string, required: false, hint: "Ex.: 14 apartamentos" }
       - { label: "Arquiteto", name: arquitecto, widget: string, required: false, hint: "Deixe vazio para a linha «Arquiteto» não aparecer na ficha." }
       - { label: "Resumo", name: resumo, widget: text, hint: "Texto principal da página do empreendimento." }
+      - { label: "Segundo parágrafo", name: paragrafo, widget: text, required: false, hint: "Opcional. Vazio = o texto-padrão («Como em todos os nossos empreendimentos, o …»)." }
       - { label: "Imagem principal", name: imagem, widget: image, required: false, hint: "Se vazio, mostra um marcador de imagem." }
       - { label: "A imagem retrata mesmo este empreendimento?", name: imagemReal, widget: boolean, default: false, hint: "Desligado = imagem provisória (mostra o selo «Imagem provisória»)." }
       - label: "Galeria"

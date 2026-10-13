@@ -29,12 +29,16 @@ const comNome = (texto) => texto.split('{nome}').join(proj.nome);
 const concluido = proj.estado === 'Concluído';
 const brandParagraph = comNome(concluido ? textos.paragrafo.concluido : textos.paragrafo.outro);
 const brandParagraphI18n = concluido ? 'common.projectDetail.brandConcluido' : 'common.projectDetail.brandOutro';
+const i18nBase = `empreendimentos.${proj.slug}`;
+// Um projeto com segundo parágrafo próprio dispensa o texto-modelo.
+const tail = proj.paragrafo
+  ? { texto: proj.paragrafo, attrs: { 'data-i18n': `${i18nBase}.paragrafo` } }
+  : { texto: brandParagraph, attrs: { 'data-i18n-tpl': brandParagraphI18n } };
 const botao = {
   'Em projeto': { texto: textos.botao.emProjeto, i18n: 'ctaSaber' },
   'Em construção': { texto: textos.botao.emConstrucao, i18n: 'ctaVisita' },
   'Concluído': { texto: textos.botao.concluido, i18n: 'ctaFalar' },
 }[proj.estado];
-const i18nBase = `empreendimentos.${proj.slug}`;
 
 const relacionados = todos.filter((p) => p.grupo === proj.grupo && p.slug !== proj.slug).slice(0, 3);
 
@@ -99,7 +103,7 @@ const seoDescricao = descricaoEmpreendimento(proj);
 
       <div class="emp-editorial">
         <p class="emp-editorial__p emp-editorial__p--lead" data-i18n={`${i18nBase}.resumo`}>{proj.resumo}</p>
-        <p class="emp-editorial__p emp-editorial__p--tail" data-i18n-tpl={brandParagraphI18n}>{brandParagraph}</p>
+        <p class="emp-editorial__p emp-editorial__p--tail" {...tail.attrs}>{tail.texto}</p>
       </div>
 
       <div class="emp-cta">

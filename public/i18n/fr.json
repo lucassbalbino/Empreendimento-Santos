@@ -385,30 +385,31 @@
       "unidades": "14 appartements",
       "estado": "En projet",
       "comercial": "Location",
-      "entrega": "Livraison prévue en 2028",
+      "entrega": "Livraison prévue en 2029",
       "resumo": "Comme dans tous nos projets, Pinteus Residence naît d'une vision centrée sur le nouveau segment de marché qu'Empreendimentos Santos développe.",
       "factos": ["St. Antão do Tojal, Loures", "T2", "14 appartements", "En projet", "Logo Existo", "SF Properties"]
     },
     "empreendimento-loures-residencial": {
       "nome": "Viver",
       "tipologia": "T1, T2, T3, T5 et T6",
-      "unidades": "155 appartements",
+      "unidades": "151 appartements",
       "estado": "En projet",
       "comercial": "Habitation",
       "entrega": "Livraison prévue en 2029",
-      "resumo": "Résidence fermée haut de gamme et innovante de 155 appartements de typologies T1, T2, T3, T5 et T6, destinés à l'habitation.",
-      "factos": ["Loures", "T1, T2, T3, T5 et T6", "155 appartements", "En projet", "Logo Existo", "SF Properties"],
+      "resumo": "Résidence fermée haut de gamme et innovante de 151 appartements de typologies T1, T2, T3, T5 et T6, destinés à l'habitation.",
+      "factos": ["Loures", "T1, T2, T3, T5 et T6", "151 appartements", "En projet", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "LIDL" }, { "local": "Lycée Luís de Sttau Monteiro" }, { "local": "Piscines municipales de Loures" }, { "local": "Pavillon Paz e Amizade" }, { "local": "Centre de santé de Loures" }, { "local": "Parc de la Ville de Loures" }, { "local": "LoureShopping" }, { "local": "Stade municipal de Loures" }]
     },
     "empreendimento-loures-hotel": {
       "nome": "Collection Hotel",
-      "tipologia": "Hôtel · 50 chambres",
-      "unidades": "50 chambres",
+      "tipologia": "Hôtel · 105 chambres",
+      "unidades": "105 chambres",
       "estado": "En projet",
       "comercial": "Hôtellerie",
       "entrega": "Livraison prévue en 2030",
-      "resumo": "Hôtel d'environ 50 chambres, avec salles de congrès, restaurant et autres services, à l'architecture moderne.",
-      "factos": ["Loures", "Hôtel · 50 chambres", "50 chambres", "En projet", "Logo Existo", "SF Properties"],
+      "resumo": "Hôtel à l'architecture moderne de 105 chambres, avec restaurant thématique, salles de conférence, restaurant en rooftop et piscine, conçu pour offrir une expérience singulière de confort et de raffinement.",
+      "paragrafo": "Le Collection Hotel se distingue par l'alliance de l'innovation, de la qualité et de la durabilité, avec des espaces et des services pensés pour sublimer l'expérience de chaque client.",
+      "factos": ["Loures", "Hôtel · 105 chambres", "105 chambres", "En projet", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "LIDL" }, { "local": "Lycée Luís de Sttau Monteiro" }, { "local": "Piscines municipales de Loures" }, { "local": "Pavillon Paz e Amizade" }, { "local": "Centre de santé de Loures" }, { "local": "Parc de la Ville de Loures" }, { "local": "LoureShopping" }, { "local": "Stade municipal de Loures" }]
     },
     "quinta-das-amoreiras": {
@@ -418,7 +419,8 @@
       "estado": "En projet",
       "comercial": "Location",
       "entrega": "Livraison prévue en 2030/2035",
-      "resumo": "Composé de plusieurs résidences fermées alliant nature, vue sur le fleuve et innovation, dans un nouveau style de vie dans la ville de Lisbonne. Avec un total de 600 appartements, un hôtel et des espaces commerciaux.",
+      "resumo": "Plus qu'un projet immobilier, la Quinta das Amoreiras s'affirme comme une nouvelle référence dans le paysage immobilier national. Un projet d'une envergure et d'une innovation exceptionnelles, qui réunit plusieurs résidences fermées, 600 appartements, un hôtel et des espaces commerciaux, où la nature, la vue sur le fleuve et l'architecture s'unissent dans un art de vivre singulier.",
+      "paragrafo": "Ce projet reflète une vision innovante du secteur immobilier, où la qualité, la durabilité et l'innovation s'unissent pour créer un concept résidentiel distinctif, pensé pour les générations futures.",
       "factos": ["Santa Iria de Azóia", "T1 à T5", "600 appartements", "En projet", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "Palais de Valflores" }, { "local": "Piscines" }, { "local": "Colégio Bartolomeu Dias" }, { "local": "Mercadona" }, { "local": "Intermarché" }, { "local": "Pingo Doce" }, { "local": "LIDL" }, { "local": "Gare de Santa Iria" }, { "local": "Aéroport de Lisbonne" }]
     }

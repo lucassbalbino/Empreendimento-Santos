@@ -68,6 +68,8 @@ const empreendimentos = defineCollection({
     comercial: opcional(z.string()),
     entrega: opcional(z.string()),
     resumo: z.string().min(1),
+    /** Segundo parágrafo da página. Vazio = o texto-modelo de empreendimento.json. */
+    paragrafo: opcional(z.string()),
     imagem: opcional(z.string()),
     imagemReal: z.boolean().default(false),
     mapa: opcional(z.string()),

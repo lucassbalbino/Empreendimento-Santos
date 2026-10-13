@@ -392,30 +392,31 @@
       "unidades": "14 apartamentos",
       "estado": "Em projeto",
       "comercial": "Arrendamento",
-      "entrega": "Previsão 2028",
+      "entrega": "Previsão 2029",
       "resumo": "Como em todos os nossos empreendimentos, o Pinteus Residence nasce de uma visão centrada no novo segmento de mercado que a Empreendimentos Santos está a desenvolver.",
       "factos": ["St. Antão do Tojal, Loures", "T2", "14 apartamentos", "Em projeto", "Logo Existo", "SF Properties"]
     },
     "empreendimento-loures-residencial": {
       "nome": "Viver",
       "tipologia": "T1, T2, T3, T5 e T6",
-      "unidades": "155 apartamentos",
+      "unidades": "151 apartamentos",
       "estado": "Em projeto",
       "comercial": "Habitação",
       "entrega": "Previsão 2029",
-      "resumo": "Condomínio fechado de alto padrão e inovação com 155 apartamentos de tipologias T1, T2, T3, T5 e T6, destinado à habitação.",
-      "factos": ["Loures", "T1, T2, T3, T5 e T6", "155 apartamentos", "Em projeto", "Logo Existo", "SF Properties"],
+      "resumo": "Condomínio fechado de alto padrão e inovação com 151 apartamentos de tipologias T1, T2, T3, T5 e T6, destinado à habitação.",
+      "factos": ["Loures", "T1, T2, T3, T5 e T6", "151 apartamentos", "Em projeto", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "LIDL" }, { "local": "Escola Secundária Luís de Sttau Monteiro" }, { "local": "Piscinas Municipais de Loures" }, { "local": "Pavilhão Paz e Amizade" }, { "local": "Centro de Saúde de Loures" }, { "local": "Parque da Cidade de Loures" }, { "local": "LoureShopping" }, { "local": "Estádio Municipal de Loures" }]
     },
     "empreendimento-loures-hotel": {
       "nome": "Collection Hotel",
-      "tipologia": "Hotel · 50 quartos",
-      "unidades": "50 quartos",
+      "tipologia": "Hotel · 105 quartos",
+      "unidades": "105 quartos",
       "estado": "Em projeto",
       "comercial": "Hotelaria",
       "entrega": "Previsão 2030",
-      "resumo": "Hotel com cerca de 50 quartos, salas de congressos, restaurante e outros serviços, de arquitetura moderna.",
-      "factos": ["Loures", "Hotel · 50 quartos", "50 quartos", "Em projeto", "Logo Existo", "SF Properties"],
+      "resumo": "Hotel de arquitetura moderna, com 105 quartos, restaurante temático, salas de conferências, restaurante rooftop e piscina, concebido para proporcionar uma experiência diferenciadora de conforto e sofisticação.",
+      "paragrafo": "O Collection Hotel destaca-se pela combinação entre inovação, qualidade e sustentabilidade, oferecendo espaços e serviços pensados para elevar a experiência de cada hóspede.",
+      "factos": ["Loures", "Hotel · 105 quartos", "105 quartos", "Em projeto", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "LIDL" }, { "local": "Escola Secundária Luís de Sttau Monteiro" }, { "local": "Piscinas Municipais de Loures" }, { "local": "Pavilhão Paz e Amizade" }, { "local": "Centro de Saúde de Loures" }, { "local": "Parque da Cidade de Loures" }, { "local": "LoureShopping" }, { "local": "Estádio Municipal de Loures" }]
     },
     "quinta-das-amoreiras": {
@@ -425,7 +426,8 @@
       "estado": "Em projeto",
       "comercial": "Arrendamento",
       "entrega": "Previsão 2030/2035",
-      "resumo": "Composto por vários condomínios fechados onde agrega a natureza, vista de rio e inovação, num novo estilo de vida na cidade de Lisboa. Com um total de 600 apartamentos, hotel e espaços comerciais.",
+      "resumo": "Mais do que um empreendimento, a Quinta das Amoreiras afirma-se como uma nova referência no panorama imobiliário nacional. Um projeto de dimensão e inovação excecionais, que integra vários condomínios fechados, 600 apartamentos, hotel e espaços comerciais, onde a natureza, a vista sobre o rio e a arquitetura se unem num conceito de vida diferenciador.",
+      "paragrafo": "Este projeto reflete uma visão inovadora do setor imobiliário, onde a qualidade, a sustentabilidade e a inovação se unem para criar um conceito habitacional diferenciador, pensado para as próximas gerações.",
       "factos": ["Santa Iria de Azóia", "T1 a T5", "600 apartamentos", "Em projeto", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "Palácio de Valflores" }, { "local": "Piscinas" }, { "local": "Colégio Bartolomeu Dias" }, { "local": "Mercadona" }, { "local": "Intermarché" }, { "local": "Pingo Doce" }, { "local": "LIDL" }, { "local": "Estação de Santa Iria" }, { "local": "Aeroporto de Lisboa" }]
     }
