@@ -39,7 +39,7 @@ function semVazios(obj) {
 }
 
 /**
- * A entidade "AM Santos". Dupla tipagem de propósito: Organization dá o nó
+ * A entidade "Empreendimentos Santos". Dupla tipagem de propósito: Organization dá o nó
  * genérico que o Knowledge Graph entende, HomeAndConstructionBusiness diz ao
  * Google que o negócio é construção civil — é a categoria que alinha o site
  * com as pesquisas locais de "construtora" / "promotora".
@@ -118,7 +118,7 @@ export function trilhoSchema(itens, urlPagina) {
 /**
  * O tipo schema.org certo para o empreendimento. Não é decoração: um
  * ApartmentComplex e uma SingleFamilyResidence respondem a pesquisas
- * diferentes, e o portefólio da AM Santos tem os dois — mais um centro
+ * diferentes, e o portefólio da Empreendimentos Santos tem os dois — mais um centro
  * logístico e um hotel, que não são residências de todo.
  */
 export function tipoDeImovel(proj) {

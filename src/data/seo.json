@@ -4,10 +4,10 @@
   "indexavel": true,
   "idioma": "pt-PT",
   "ogLocale": "pt_PT",
-  "marca": "AM Santos",
+  "marca": "Empreendimentos Santos",
   "imagemPadrao": "/images/hero-image.webp",
   "organizacao": {
-    "nomeLegal": "AM Santos",
+    "nomeLegal": "Empreendimentos Santos",
     "fundador": "António M Santos",
     "descricao": "Construção civil e promoção imobiliária com 20 anos de experiência no mercado. Arquitetura moderna e funcional, com foco na qualidade, no conforto, na sustentabilidade e na eficiência energética.",
     "slogan": "Construindo o futuro com qualidade e sustentabilidade",
@@ -45,51 +45,51 @@
   },
   "paginas": {
     "/": {
-      "title": "AM Santos — Construção e Promoção Imobiliária em Loures",
+      "title": "Empreendimentos Santos — Construção e Promoção em Loures",
       "description": "Promotora e construtora com 20 anos no mercado imobiliário de Loures e Lisboa. Empreendimentos residenciais com qualidade, conforto e eficiência energética.",
       "imagem": "/images/empreendimentos/obra-1.webp"
     },
     "/sobre-nos": {
-      "title": "Sobre a AM Santos — 20 Anos a Construir em Loures",
-      "description": "Conheça a AM Santos: duas décadas de construção civil e promoção imobiliária sob a direção de António M Santos, com equipa própria de arquitetura e engenharia.",
+      "title": "Sobre a Empreendimentos Santos — 20 Anos a Construir em Loures",
+      "description": "Conheça a Empreendimentos Santos: duas décadas de construção e promoção imobiliária, sob a direção de António M Santos, com arquitetura e engenharia próprias.",
       "imagem": "/images/sobre-fachada.webp"
     },
     "/portfolio": {
-      "title": "Empreendimentos em Construção e Projetos | AM Santos",
-      "description": "Empreendimentos AM Santos em desenvolvimento e projetos futuros em Loures e arredores: apartamentos T1 a T5, moradias e espaços logísticos. Veja o pipeline.",
+      "title": "Empreendimentos em Construção e Projetos | Empreendimentos Santos",
+      "description": "Os nossos empreendimentos em desenvolvimento e projetos futuros em Loures e arredores: apartamentos T1 a T5, moradias e espaços logísticos. Veja o pipeline.",
       "imagem": "/images/empreendimentos/valflores-terraces-render.webp"
     },
     "/historico": {
-      "title": "Empreendimentos Concluídos e Entregues | AM Santos",
-      "description": "O percurso da AM Santos em obra: condomínios, moradias e edifícios residenciais concluídos e entregues em Loures desde 2006. Veja o histórico completo.",
+      "title": "Empreendimentos Concluídos e Entregues | Empreendimentos Santos",
+      "description": "O percurso da Empreendimentos Santos em obra: condomínios, moradias e edifícios residenciais concluídos e entregues em Loures desde 2006. Veja o histórico completo.",
       "imagem": "/images/empreendimentos/clt-tojal.webp"
     },
     "/equipa": {
-      "title": "Equipa AM Santos — Arquitetura, Engenharia e Obra",
-      "description": "A equipa que projeta e executa cada empreendimento AM Santos: arquitetura, engenharia civil, decoração de interiores, direção de obra e gestão imobiliária.",
+      "title": "Equipa Empreendimentos Santos — Arquitetura, Engenharia e Obra",
+      "description": "A equipa que projeta e executa cada um dos nossos empreendimentos: arquitetura, engenharia civil, decoração de interiores, direção de obra e gestão imobiliária.",
       "imagem": "/images/team-pic.webp"
     },
     "/contactos": {
-      "title": "Contactos — Fale com a AM Santos | Loures e Lisboa",
-      "description": "Fale com a AM Santos sobre empreendimentos, compra de habitação, parcerias ou investimento imobiliário em Loures e Lisboa. Respondemos a todos os pedidos.",
+      "title": "Contactos — Fale com a Empreendimentos Santos | Loures e Lisboa",
+      "description": "Fale com a Empreendimentos Santos sobre empreendimentos, compra de habitação, parcerias ou investimento em Loures e Lisboa. Respondemos a todos os pedidos.",
       "imagem": "/images/sobre-fachada.webp"
     },
     "/blog": {
-      "title": "Blog AM Santos — Mercado Imobiliário de Loures",
+      "title": "Blog Empreendimentos Santos — Mercado Imobiliário de Loures",
       "description": "Guias, análises e notas de obra sobre o mercado imobiliário de Loures e Lisboa: comprar em planta, eficiência energética e o que valorizar num empreendimento novo.",
       "imagem": "/images/empreendimentos/interior-1.webp"
     },
     "/politica-de-cookies": {
-      "title": "Política de Cookies | AM Santos",
+      "title": "Política de Cookies | Empreendimentos Santos",
       "description": "Que cookies e armazenamento local este site usa, com que finalidade e durante quanto tempo. Inventário completo e como rever a sua escolha."
     },
     "/politica-de-privacidade": {
-      "title": "Política de Privacidade | AM Santos",
-      "description": "Como a AM Santos trata os dados pessoais recolhidos neste site: que dados, com que fundamento, por quanto tempo e que direitos lhe assistem."
+      "title": "Política de Privacidade | Empreendimentos Santos",
+      "description": "Como a Empreendimentos Santos trata os dados pessoais recolhidos neste site: que dados, com que fundamento, por quanto tempo e que direitos lhe assistem."
     },
     "/404": {
-      "title": "Página não encontrada | AM Santos",
-      "description": "A página que procura não existe ou mudou de endereço. Veja os empreendimentos AM Santos ou fale connosco.",
+      "title": "Página não encontrada | Empreendimentos Santos",
+      "description": "A página que procura não existe ou mudou de endereço. Veja os nossos empreendimentos ou fale connosco.",
       "noindex": true
     }
   },

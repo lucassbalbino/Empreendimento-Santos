@@ -21,7 +21,7 @@ const blog = defineCollection({
     resumo: z.string(),
     data: z.coerce.date(),
     atualizado: z.coerce.date().optional(),
-    autor: z.string().default('AM Santos'),
+    autor: z.string().default('Empreendimentos Santos'),
     imagem: z.string().optional(),
     tags: z.array(z.string()).default([]),
     /** Título alternativo para a SERP, quando o título editorial é longo. */

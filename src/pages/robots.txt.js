@@ -7,7 +7,7 @@ import seo from '../data/seo.json';
  *
  * Os crawlers de IA entram de propósito na lista de permitidos: em 2026 uma
  * fatia das pesquisas de "construtora em Loures" é respondida dentro de um
- * assistente, e um bloqueio a GPTBot/ClaudeBot/PerplexityBot tira a AM Santos
+ * assistente, e um bloqueio a GPTBot/ClaudeBot/PerplexityBot tira a Empreendimentos Santos
  * dessas respostas sem lhe dar nada em troca. Se um dia isso mudar, é aqui.
  */
 const dominio = seo.dominio.replace(/\/+$/, '');

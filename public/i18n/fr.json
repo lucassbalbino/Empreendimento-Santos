@@ -16,7 +16,7 @@
       "contactosLabel": "Contact",
       "newsletterLabel": "Newsletter",
       "newsletterPlaceholder": "votre.email@exemple.pt",
-      "newsletterConsent": "J'accepte de recevoir des actualités et communications d'AM Santos.",
+      "newsletterConsent": "J'accepte de recevoir des actualités et communications d'Empreendimentos Santos.",
       "instagram": "Instagram",
       "facebook": "Facebook",
       "linkedin": "LinkedIn"
@@ -77,8 +77,8 @@
       "ctaFalar": "Parlez-nous",
       "ctaVisita": "Organiser une visite",
       "ctaSaber": "En savoir plus",
-      "brandConcluido": "Livré par AM Santos, {nome} reflète l'excellence que nous recherchons dans chaque projet réalisé : une architecture moderne et fonctionnelle, avec une attention constante portée au bien-être et à la qualité.",
-      "brandOutro": "Comme tous les projets AM Santos, {nome} naît d'une vision centrée sur le confort, la qualité et la durabilité — avec l'efficacité énergétique guidant chaque décision de conception."
+      "brandConcluido": "Livré par Empreendimentos Santos, {nome} reflète l'excellence que nous recherchons dans chaque projet réalisé : une architecture moderne et fonctionnelle, avec une attention constante portée au bien-être et à la qualité.",
+      "brandOutro": "Comme tous nos projets, {nome} naît d'une vision centrée sur le confort, la qualité et la durabilité — avec l'efficacité énergétique guidant chaque décision de conception."
     },
     "factLabels": {
       "Localização": "Emplacement",
@@ -135,7 +135,7 @@
     },
     "oQueFazemos": {
       "title": "Qualité — Confort — Durabilité — Innovation",
-      "lead": "De l'étude du terrain à la remise des clés, AM Santos conçoit, construit et accompagne chaque projet avec la même exigence — pour que qualité, confort, durabilité et innovation cessent d'être des promesses et deviennent des critères vérifiables à chaque mètre carré.",
+      "lead": "De l'étude du terrain à la remise des clés, Empreendimentos Santos conçoit, construit et accompagne chaque projet avec la même exigence — pour que qualité, confort, durabilité et innovation cessent d'être des promesses et deviennent des critères vérifiables à chaque mètre carré.",
       "pilares": [
         { "title": "Qualité", "texto": "Chaque projet est suivi depuis la conception jusqu'à l'achèvement des travaux, avec un contrôle rigoureux des matériaux et des finitions à toutes les étapes." },
         { "title": "Confort", "texto": "Des espaces pensés pour le quotidien de leurs habitants, avec une architecture fonctionnelle qui privilégie la lumière, la circulation et le bien-être." },
@@ -143,7 +143,7 @@
         { "title": "Innovation", "texto": "Nous explorons de nouveaux segments de marché et solutions constructives, en anticipant les tendances pour donner forme à la prochaine étape de chaque projet." }
       ],
       "statsTitle": "En chiffres",
-      "statsLead": "Deux décennies d'expérience traduites en résultats : chaque projet réalisé, chaque mètre carré construit et chaque million investi reflète le même engagement d'AM Santos envers la qualité et la durabilité.",
+      "statsLead": "Deux décennies d'expérience traduites en résultats : chaque projet réalisé, chaque mètre carré construit et chaque million investi reflète le même engagement d'Empreendimentos Santos envers la qualité et la durabilité.",
       "stats": [
         { "label": "projets" },
         { "label": "unités résidentielles et non résidentielles" },
@@ -155,13 +155,13 @@
     "trackRecord": { "title": "Notre Historique", "lead": "Un aperçu des projets déjà achevés et livrés. Cliquez pour voir chacun d'eux.", "botao": "Voir l'historique" },
     "faq": {
       "title": "Questions fréquentes",
-      "lead": "Quelques réponses pour mieux comprendre une entreprise de promotion immobilière — et ce qui distingue AM Santos.",
+      "lead": "Quelques réponses pour mieux comprendre une entreprise de promotion immobilière — et ce qui distingue Empreendimentos Santos.",
       "items": [
-        { "p": "Que fait une entreprise de promotion immobilière ?", "r": "Elle accompagne tout le processus de création d'un bien — de l'étude du terrain et du projet architectural à la construction, au contrôle qualité et à la livraison au client. Chez AM Santos, ce suivi est assuré par la même équipe du début à la fin, ce qui réduit l'écart entre ce qui est conçu et ce qui est construit." },
-        { "p": "Qu'est-ce qui distingue AM Santos des autres promoteurs ?", "r": "20 ans sur le marché, une équipe interne d'architecture, d'ingénierie, de décoration et de gestion immobilière, et un contrôle qualité qui suit chaque étape du chantier — pas seulement la livraison finale. Cette continuité garantit les mêmes critères de qualité, de confort et de durabilité sur chaque projet." },
+        { "p": "Que fait une entreprise de promotion immobilière ?", "r": "Elle accompagne tout le processus de création d'un bien — de l'étude du terrain et du projet architectural à la construction, au contrôle qualité et à la livraison au client. Chez Empreendimentos Santos, ce suivi est assuré par la même équipe du début à la fin, ce qui réduit l'écart entre ce qui est conçu et ce qui est construit." },
+        { "p": "Qu'est-ce qui distingue Empreendimentos Santos des autres promoteurs ?", "r": "20 ans sur le marché, une équipe interne d'architecture, d'ingénierie, de décoration et de gestion immobilière, et un contrôle qualité qui suit chaque étape du chantier — pas seulement la livraison finale. Cette continuité garantit les mêmes critères de qualité, de confort et de durabilité sur chaque projet." },
         { "p": "Comment la qualité est-elle garantie sur chaque projet ?", "r": "Chaque projet est suivi de la conception jusqu'à l'achèvement du chantier, avec un contrôle rigoureux des matériaux et des finitions à chaque étape — la même exigence qui soutient les 20 ans d'histoire de l'entreprise." },
         { "p": "Comment la durabilité s'intègre-t-elle aux projets ?", "r": "Nous privilégions des solutions économes en énergie et des matériaux durables, qui réduisent l'impact environnemental et les coûts d'entretien à long terme — sans renoncer au confort ni à l'architecture moderne qui définit chaque projet." },
-        { "p": "AM Santos se limite-t-elle à la construction, ou gère-t-elle aussi les biens après leur livraison ?", "r": "Au-delà de l'architecture, de l'ingénierie et de la construction, notre équipe de gestion immobilière suit les projets de l'étude à la commercialisation — et reste disponible après la livraison pour toute question liée au bien." },
+        { "p": "Empreendimentos Santos se limite-t-elle à la construction, ou gère-t-elle aussi les biens après leur livraison ?", "r": "Au-delà de l'architecture, de l'ingénierie et de la construction, notre équipe de gestion immobilière suit les projets de l'étude à la commercialisation — et reste disponible après la livraison pour toute question liée au bien." },
         { "p": "Comment découvrir les projets et l'équipe qui les réalise ?", "r": "L'historique et le portfolio présentent les projets achevés, en construction et en développement. L'équipe complète, avec le domaine de responsabilité de chacun, est présentée sur la page Équipe." }
       ]
     },
@@ -172,7 +172,7 @@
     "quemSomos": {
       "title": "Empreendimentos Santos",
       "lead": "Construire, ce n'est pas seulement élever des murs, c'est élever la confiance.",
-      "paragrafo": "Avec 20 ans d'expérience sur le marché immobilier, AM Santos se distingue par l'excellence de chacun de ses projets réalisés."
+      "paragrafo": "Avec 20 ans d'expérience sur le marché immobilier, Empreendimentos Santos se distingue par l'excellence de chacun de ses projets réalisés."
     },
     "oQueFazemos": { "title": "20 ans de solidité" },
     "servicos": {
@@ -183,7 +183,7 @@
         { "title": "Responsabilité sociale", "texto": "Plus que construire, nous voulons contribuer. Dans chaque projet, nous cherchons à générer un impact social, en soutenant des initiatives qui répondent aux besoins de la communauté environnante et laissent une marque positive dans chaque lieu où nous sommes présents." }
       ]
     },
-    "contacto": { "title": "Parlons de votre projet ?", "texto": "La vision d'AM Santos, centrée sur le confort, la qualité et la durabilité, guidera les prochains projets. Parlez-nous." }
+    "contacto": { "title": "Parlons de votre projet ?", "texto": "La vision d'Empreendimentos Santos, centrée sur le confort, la qualité et la durabilité, guidera les prochains projets. Parlez-nous." }
   },
   "historico": {
     "hero": { "title": "Historique" },
@@ -384,7 +384,7 @@
       "estado": "En construction",
       "comercial": "Location",
       "entrega": "Livraison prévue en 2028",
-      "resumo": "Comme dans tous les projets AM Santos, Valflores Residence naît d'une vision centrée sur le nouveau segment de marché que AM Santos développe.",
+      "resumo": "Comme dans tous nos projets, Valflores Residence naît d'une vision centrée sur le nouveau segment de marché qu'Empreendimentos Santos développe.",
       "factos": ["Santa Iria de Azóia, Loures", "T2", "39 appartements", "En construction", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "Palais de Valflores" }, { "local": "Piscines" }, { "local": "Colégio Bartolomeu Dias" }, { "local": "Mercadona" }, { "local": "Intermarché" }, { "local": "Pingo Doce" }, { "local": "LIDL" }, { "local": "Gare de Santa Iria" }, { "local": "Aéroport de Lisbonne" }]
     },
@@ -395,7 +395,7 @@
       "estado": "En projet",
       "comercial": "Location",
       "entrega": "Livraison prévue en 2028",
-      "resumo": "Comme dans tous les projets AM Santos, Pinteus Residence naît d'une vision centrée sur le nouveau segment de marché que AM Santos développe.",
+      "resumo": "Comme dans tous nos projets, Pinteus Residence naît d'une vision centrée sur le nouveau segment de marché qu'Empreendimentos Santos développe.",
       "factos": ["St. Antão do Tojal, Loures", "T2", "14 appartements", "En projet", "Logo Existo", "SF Properties"]
     },
     "empreendimento-loures-residencial": {

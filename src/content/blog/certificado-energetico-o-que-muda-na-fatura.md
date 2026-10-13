@@ -1,9 +1,9 @@
 ---
 titulo: "Certificado energético: o que muda mesmo na fatura e no conforto"
-seoTitulo: "Certificado Energético: O Que Muda na Fatura | AM Santos"
+seoTitulo: "Certificado Energético e a Fatura | Empreendimentos Santos"
 resumo: "A classe energética de uma casa não é um selo: decide quanto se gasta a aquecer e arrefecer, e quão confortável a casa é em agosto e em janeiro."
 data: 2026-04-23
-autor: "AM Santos"
+autor: "Empreendimentos Santos"
 imagem: "/images/empreendimentos/interior-3.webp"
 tags: ["eficiência energética", "certificado energético", "sustentabilidade"]
 ---
@@ -80,7 +80,7 @@ distingue.
 
 ---
 
-**Na AM Santos**, a eficiência energética entra na decisão de projeto e não no
+**Na Empreendimentos Santos**, a eficiência energética entra na decisão de projeto e não no
 fim, como acabamento. É um dos pilares do trabalho — a par da qualidade e do
 conforto — e nota-se sobretudo naquilo que não se vê depois de a obra fechar.
 

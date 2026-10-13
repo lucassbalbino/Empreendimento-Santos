@@ -549,7 +549,7 @@ collections:
           - { label: "Indexável", name: indexavel, widget: hidden }
           - { label: "Idioma", name: idioma, widget: hidden }
           - { label: "Locale Open Graph", name: ogLocale, widget: hidden }
-          - { label: "Marca", name: marca, widget: string, hint: "Acrescentada aos títulos das páginas (ex.: «| AM Santos»)." }
+          - { label: "Marca", name: marca, widget: string, hint: "Acrescentada aos títulos das páginas (ex.: «| Empreendimentos Santos»)." }
           - { label: "Imagem de partilha por omissão", name: imagemPadrao, widget: image, hint: "Usada nas redes sociais quando a página não tem imagem própria. Horizontal, 1200×630." }
           - label: "Páginas"
             name: paginas
@@ -678,11 +678,11 @@ collections:
       - { label: "Rascunhos", field: rascunho, pattern: true }
     fields:
       - { label: "Título", name: titulo, widget: string, hint: "O título editorial, mostrado na página." }
-      - { label: "Título para o Google", name: seoTitulo, widget: string, required: false, hint: "Opcional. Até ~60 caracteres, incluindo ' | AM Santos'. Se ficar vazio, usa-se o título editorial." }
+      - { label: "Título para o Google", name: seoTitulo, widget: string, required: false, hint: "Opcional. Até ~60 caracteres, incluindo ' | Empreendimentos Santos'. Se ficar vazio, usa-se o título editorial." }
       - { label: "Resumo", name: resumo, widget: text, hint: "120 a 160 caracteres. É o texto que aparece por baixo do link nos resultados do Google — escreva-o para convencer alguém a clicar." }
       - { label: "Data de publicação", name: data, widget: datetime, date_format: "DD/MM/YYYY", time_format: false, picker_utc: true }
       - { label: "Data de atualização", name: atualizado, widget: datetime, date_format: "DD/MM/YYYY", time_format: false, picker_utc: true, required: false, hint: "Preencher quando reescrever um artigo antigo. O Google valoriza conteúdo atualizado." }
-      - { label: "Autor", name: autor, widget: string, default: "AM Santos" }
+      - { label: "Autor", name: autor, widget: string, default: "Empreendimentos Santos" }
       - { label: "Imagem de destaque", name: imagem, widget: image, required: false, hint: "Horizontal. Aparece na lista, no topo do artigo e nas partilhas em redes sociais." }
       - { label: "Etiquetas", name: tags, widget: list, required: false, default: [], hint: "Ex.: Loures, eficiência energética, guia." }
       - { label: "Rascunho", name: rascunho, widget: boolean, default: true, hint: "Enquanto estiver ligado, o artigo NÃO é publicado nem entra no sitemap." }

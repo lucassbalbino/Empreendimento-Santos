@@ -120,7 +120,7 @@ export function descricaoEmpreendimento(proj) {
       proj.localizacao ? `em ${proj.localizacao}` : null,
     ]) + '.',
     fraseDeEstado(proj),
-    'Promoção e construção AM Santos.',
+    'Promoção e construção da Empreendimentos Santos.',
     'Fale connosco para saber mais.',
   ];
 
@@ -163,7 +163,7 @@ export function perguntasEmpreendimento(proj) {
     p: `Onde fica o ${proj.nome}?`,
     r: `O ${proj.nome} fica em ${proj.localizacao}` +
       (proj.concelho && !localizacaoDizConcelho ? `, no concelho de ${proj.concelho}` : '') +
-      `. A AM Santos promove e constrói sobretudo na zona de ${seo.organizacao.areasServidas.slice(0, 2).join(' e ')}.`,
+      `. A Empreendimentos Santos promove e constrói sobretudo na zona de ${seo.organizacao.areasServidas.slice(0, 2).join(' e ')}.`,
   });
 
   if (proj.tipologia || proj.unidades) {
@@ -196,7 +196,7 @@ export function perguntasEmpreendimento(proj) {
 
   perguntas.push({
     p: `Quem constrói o ${proj.nome}?`,
-    r: `O ${proj.nome} é promovido e construído pela AM Santos, com 20 anos de experiência no mercado imobiliário sob a direção de ${seo.organizacao.fundador}. Cada empreendimento é acompanhado por equipa própria de arquitetura, engenharia, obra e gestão imobiliária.`,
+    r: `O ${proj.nome} é promovido e construído pela Empreendimentos Santos, com 20 anos de experiência no mercado imobiliário sob a direção de ${seo.organizacao.fundador}. Cada empreendimento é acompanhado por equipa própria de arquitetura, engenharia, obra e gestão imobiliária.`,
   });
 
   /* A última pergunta segue a situação COMERCIAL, não o grupo de listagem:
@@ -210,7 +210,7 @@ export function perguntasEmpreendimento(proj) {
       : `Como posso visitar ou pedir informações sobre o ${proj.nome}?`,
     r: vendido
       ? `Este empreendimento está vendido. Para conhecer os empreendimentos em comercialização, veja o portfólio ou fale connosco.`
-      : `Use o formulário no fim desta página, ou contacte a AM Santos diretamente, para agendar uma visita ou receber a informação comercial do ${proj.nome}.`,
+      : `Use o formulário no fim desta página, ou contacte a Empreendimentos Santos diretamente, para agendar uma visita ou receber a informação comercial do ${proj.nome}.`,
   });
 
   return perguntas.filter((q) => q.r && q.r.trim().length > 0);

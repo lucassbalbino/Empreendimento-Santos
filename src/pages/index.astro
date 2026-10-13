@@ -30,7 +30,7 @@ const concluidos = porGrupo('concluido').slice(0, 5);
 const schemaHome = [
   listaDeImoveis(destaques, {
     url: urlAbsoluto('/'),
-    nome: 'Empreendimentos AM Santos em destaque',
+    nome: 'Empreendimentos em destaque da Empreendimentos Santos',
   }),
 ];
 ---
@@ -74,7 +74,7 @@ const schemaHome = [
     </div>
     <div class="quemsomos__media reveal-rise-slow">
       {home.quemSomos.imagem
-        ? <img class="quemsomos__img" src={home.quemSomos.imagem} alt="Fachada de empreendimento AM Santos" loading="lazy" />
+        ? <img class="quemsomos__img" src={home.quemSomos.imagem} alt="Fachada de um empreendimento da Empreendimentos Santos" loading="lazy" />
         : <div class="ph" data-label="Imagem 16:9"></div>}
     </div>
   </section>

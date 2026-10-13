@@ -1,9 +1,9 @@
 ---
 titulo: "Comprar casa em planta: o que verificar antes de decidir"
-seoTitulo: "Comprar Casa em Planta: O Que Verificar | AM Santos"
+seoTitulo: "Comprar Casa em Planta: O Que Verificar | Empreendimentos Santos"
 resumo: "Comprar em planta significa decidir sobre uma casa que ainda não existe. Um guia prático do que pedir, do que ler e do que confirmar antes de avançar."
 data: 2026-03-12
-autor: "AM Santos"
+autor: "Empreendimentos Santos"
 imagem: "/images/empreendimentos/obra-2.webp"
 tags: ["comprar casa", "planta", "empreendimentos", "guia"]
 ---
@@ -94,7 +94,7 @@ costuma ter obras que se percebem bem.
 
 ---
 
-**Na AM Santos**, cada empreendimento tem uma ficha com localização, tipologias,
+**Na Empreendimentos Santos**, cada empreendimento tem uma ficha com localização, tipologias,
 número de unidades e estado atual, e o histórico de obras concluídas está todo
 disponível. Veja os [empreendimentos em desenvolvimento](/portfolio/) ou o
 [percurso de 20 anos](/historico/) — e se tiver dúvidas sobre um projeto

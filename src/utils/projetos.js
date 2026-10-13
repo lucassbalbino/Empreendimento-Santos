@@ -38,7 +38,7 @@ function estadoFicha(estado, comercial) {
  * todos os empreendimentos — nunca um campo livre por projeto (era assim que
  * um ficava sem Tipologia e outro ganhava uma linha "Vista" que mais nenhum
  * tinha). "Arquiteto" é a única opcional: só aparece quando preenchida.
- * "Comercialização" é fixa — a AM Santos comercializa sempre através da
+ * "Comercialização" é fixa — a Empreendimentos Santos comercializa sempre através da
  * SF Properties.
  */
 function fichaTecnica({ localizacao, tipologia, unidades, arquitecto }, estado, comercial) {

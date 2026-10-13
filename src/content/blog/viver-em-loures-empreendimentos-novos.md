@@ -1,9 +1,9 @@
 ---
 titulo: "Viver em Loures: o que procurar num empreendimento novo"
-seoTitulo: "Viver em Loures: Empreendimentos Novos | AM Santos"
+seoTitulo: "Viver em Loures: Empreendimentos Novos | Empreendimentos Santos"
 resumo: "Loures ficou às portas de Lisboa e cresceu com casa própria. O que distingue, na prática, um bom empreendimento novo no concelho."
 data: 2026-06-04
-autor: "AM Santos"
+autor: "Empreendimentos Santos"
 imagem: "/images/empreendimentos/valflores-terraces-aerea.webp"
 tags: ["Loures", "mercado imobiliário", "empreendimentos", "local"]
 ---
@@ -83,7 +83,7 @@ Isso não é razão para decidir à pressa. É razão para começar a olhar cedo
 
 ---
 
-**A AM Santos constrói em Loures há 20 anos** — do primeiro condomínio,
+**A Empreendimentos Santos constrói em Loures há 20 anos** — do primeiro condomínio,
 concluído em 2006, aos empreendimentos hoje em desenvolvimento. Veja o
 [histórico de obras entregues](/historico/) no concelho, os
 [empreendimentos em curso](/portfolio/), ou

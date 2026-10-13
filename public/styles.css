@@ -1201,7 +1201,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .seam__rule{ border-top:1px solid var(--line); }
 /* Três colunas iguais em vez de flex space-between: só a grid centra
-   "AM Santos" corretamente no meio, independente da largura do rótulo à
+   "Empreendimentos Santos" corretamente no meio, independente da largura do rótulo à
    esquerda e do ano à direita (que quase nunca são simétricos). */
 .seam__meta{
   display:grid;

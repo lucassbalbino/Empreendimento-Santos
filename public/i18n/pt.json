@@ -16,7 +16,7 @@
       "contactosLabel": "Contactos",
       "newsletterLabel": "Newsletter",
       "newsletterPlaceholder": "o.seu.email@exemplo.pt",
-      "newsletterConsent": "Aceito receber novidades e comunicações da AM Santos.",
+      "newsletterConsent": "Aceito receber novidades e comunicações da Empreendimentos Santos.",
       "instagram": "Instagram",
       "facebook": "Facebook",
       "linkedin": "LinkedIn"
@@ -77,8 +77,8 @@
       "ctaFalar": "Falar connosco",
       "ctaVisita": "Agendar visita",
       "ctaSaber": "Saber mais",
-      "brandConcluido": "Entregue pela AM Santos, o {nome} reflete a excelência que procuramos em cada projeto executado: uma arquitetura moderna e funcional, com um foco inabalável no bem-estar e na qualidade.",
-      "brandOutro": "Como em todos os empreendimentos AM Santos, o {nome} nasce de uma visão centrada no conforto, na qualidade e na sustentabilidade — com a eficiência energética a guiar cada decisão de projeto."
+      "brandConcluido": "Entregue pela Empreendimentos Santos, o {nome} reflete a excelência que procuramos em cada projeto executado: uma arquitetura moderna e funcional, com um foco inabalável no bem-estar e na qualidade.",
+      "brandOutro": "Como em todos os nossos empreendimentos, o {nome} nasce de uma visão centrada no conforto, na qualidade e na sustentabilidade — com a eficiência energética a guiar cada decisão de projeto."
     },
     "factLabels": {
       "Localização": "Localização",
@@ -142,7 +142,7 @@
     },
     "oQueFazemos": {
       "title": "Qualidade — Conforto — Sustentabilidade — Inovação",
-      "lead": "Do estudo do terreno à entrega das chaves, a AM Santos desenha, constrói e acompanha cada empreendimento com a mesma exigência — para que qualidade, conforto, sustentabilidade e inovação deixem de ser promessas e passem a ser critérios verificáveis em cada metro quadrado.",
+      "lead": "Do estudo do terreno à entrega das chaves, a Empreendimentos Santos desenha, constrói e acompanha cada empreendimento com a mesma exigência — para que qualidade, conforto, sustentabilidade e inovação deixem de ser promessas e passem a ser critérios verificáveis em cada metro quadrado.",
       "pilares": [
         { "title": "Qualidade", "texto": "Cada projeto é acompanhado desde o desenho até à obra concluída, com um controlo rigoroso de materiais e acabamentos em todas as fases." },
         { "title": "Conforto", "texto": "Espaços pensados para o dia a dia de quem os habita, com uma arquitetura funcional que privilegia luz, circulação e bem-estar." },
@@ -150,7 +150,7 @@
         { "title": "Inovação", "texto": "Exploramos novos segmentos e soluções construtivas, antecipando tendências de mercado para dar forma ao próximo passo de cada empreendimento." }
       ],
       "statsTitle": "Em números",
-      "statsLead": "Duas décadas de experiência traduzidas em resultado: cada projeto executado, cada metro quadrado construído e cada milhão investido reflete o mesmo compromisso da AM Santos com a qualidade e a sustentabilidade.",
+      "statsLead": "Duas décadas de experiência traduzidas em resultado: cada projeto executado, cada metro quadrado construído e cada milhão investido reflete o mesmo compromisso da Empreendimentos Santos com a qualidade e a sustentabilidade.",
       "stats": [
         { "label": "projetos" },
         { "label": "unidades residenciais e não residenciais" },
@@ -162,13 +162,13 @@
     "trackRecord": { "title": "O Nosso Histórico", "lead": "Uma amostra dos empreendimentos já concluídos e entregues. Clique para ver cada um.", "botao": "Ver histórico" },
     "faq": {
       "title": "Perguntas frequentes",
-      "lead": "Algumas respostas para quem procura conhecer melhor uma empresa de empreendimentos imobiliários — e o que distingue a AM Santos.",
+      "lead": "Algumas respostas para quem procura conhecer melhor uma empresa de empreendimentos imobiliários — e o que distingue a Empreendimentos Santos.",
       "items": [
-        { "p": "O que faz uma empresa de empreendimentos imobiliários?", "r": "Acompanha todo o processo de criar um imóvel — do estudo do terreno e do projeto de arquitetura à construção, ao controlo de qualidade e à entrega ao cliente. Na AM Santos, esse acompanhamento é feito pela mesma equipa do início ao fim, o que reduz desvios entre o que é desenhado e o que é construído." },
-        { "p": "O que distingue a AM Santos de outras construtoras?", "r": "20 anos de mercado, uma equipa própria de arquitetura, engenharia, decoração e gestão imobiliária, e um controlo de qualidade que acompanha cada fase da obra — não só a entrega final. É essa continuidade que garante os mesmos critérios de qualidade, conforto e sustentabilidade em cada projeto." },
+        { "p": "O que faz uma empresa de empreendimentos imobiliários?", "r": "Acompanha todo o processo de criar um imóvel — do estudo do terreno e do projeto de arquitetura à construção, ao controlo de qualidade e à entrega ao cliente. Na Empreendimentos Santos, esse acompanhamento é feito pela mesma equipa do início ao fim, o que reduz desvios entre o que é desenhado e o que é construído." },
+        { "p": "O que distingue a Empreendimentos Santos de outras construtoras?", "r": "20 anos de mercado, uma equipa própria de arquitetura, engenharia, decoração e gestão imobiliária, e um controlo de qualidade que acompanha cada fase da obra — não só a entrega final. É essa continuidade que garante os mesmos critérios de qualidade, conforto e sustentabilidade em cada projeto." },
         { "p": "Como é garantida a qualidade em cada projeto?", "r": "Cada empreendimento é acompanhado desde o desenho até à obra concluída, com um controlo rigoroso de materiais e acabamentos em todas as fases — a mesma exigência que sustenta os 20 anos de história da empresa." },
         { "p": "De que forma a sustentabilidade entra nos projetos?", "r": "Priorizamos soluções energeticamente eficientes e materiais duráveis, que reduzem o impacto ambiental e os custos de manutenção a longo prazo — sem abdicar do conforto ou da arquitetura moderna que define cada empreendimento." },
-        { "p": "A AM Santos só constrói, ou também gere os imóveis depois de entregues?", "r": "Para além da arquitetura, engenharia e construção, a nossa equipa de gestão imobiliária acompanha os projetos do estudo à comercialização — e continua disponível depois da entrega, para questões relacionadas com o imóvel." },
+        { "p": "A Empreendimentos Santos só constrói, ou também gere os imóveis depois de entregues?", "r": "Para além da arquitetura, engenharia e construção, a nossa equipa de gestão imobiliária acompanha os projetos do estudo à comercialização — e continua disponível depois da entrega, para questões relacionadas com o imóvel." },
         { "p": "Como posso conhecer os empreendimentos e a equipa por trás deles?", "r": "No histórico e no portfólio pode ver os empreendimentos concluídos, em construção e em projeto. A equipa completa, com as suas áreas de responsabilidade, está apresentada na página Equipa." }
       ]
     },
@@ -178,7 +178,7 @@
     "hero": { "title": "Sobre Nós" },
     "quemSomos": {
       "title": "Empreendimentos Santos",
-      "lead": "Construir não é só erguer paredes, é elevar confiança. Com 20 anos de experiência no mercado imobiliário, a AM Santos destaca-se pela excelência em cada um dos projetos executados.",
+      "lead": "Construir não é só erguer paredes, é elevar confiança. Com 20 anos de experiência no mercado imobiliário, a Empreendimentos Santos destaca-se pela excelência em cada um dos projetos executados.",
       "paragrafo": ""
     },
     "oQueFazemos": { "title": "20 anos de solidez" },
@@ -391,7 +391,7 @@
       "estado": "Em construção",
       "comercial": "Arrendamento",
       "entrega": "Previsão 2028",
-      "resumo": "Como em todos os empreendimentos AM Santos, o Valflores Residence nasce de uma visão centrada no novo segmento de mercado que a AM Santos está a desenvolver.",
+      "resumo": "Como em todos os nossos empreendimentos, o Valflores Residence nasce de uma visão centrada no novo segmento de mercado que a Empreendimentos Santos está a desenvolver.",
       "factos": ["Santa Iria de Azóia, Loures", "T2", "39 apartamentos", "Em construção", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "Palácio de Valflores" }, { "local": "Piscinas" }, { "local": "Colégio Bartolomeu Dias" }, { "local": "Mercadona" }, { "local": "Intermarché" }, { "local": "Pingo Doce" }, { "local": "LIDL" }, { "local": "Estação de Santa Iria" }, { "local": "Aeroporto de Lisboa" }]
     },
@@ -402,7 +402,7 @@
       "estado": "Em projeto",
       "comercial": "Arrendamento",
       "entrega": "Previsão 2028",
-      "resumo": "Como em todos os empreendimentos AM Santos, o Pinteus Residence nasce de uma visão centrada no novo segmento de mercado que a AM Santos está a desenvolver.",
+      "resumo": "Como em todos os nossos empreendimentos, o Pinteus Residence nasce de uma visão centrada no novo segmento de mercado que a Empreendimentos Santos está a desenvolver.",
       "factos": ["St. Antão do Tojal, Loures", "T2", "14 apartamentos", "Em projeto", "Logo Existo", "SF Properties"]
     },
     "empreendimento-loures-residencial": {

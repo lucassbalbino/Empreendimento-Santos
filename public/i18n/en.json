@@ -16,7 +16,7 @@
       "contactosLabel": "Contact",
       "newsletterLabel": "Newsletter",
       "newsletterPlaceholder": "your.email@example.com",
-      "newsletterConsent": "I agree to receive news and communications from AM Santos.",
+      "newsletterConsent": "I agree to receive news and communications from Empreendimentos Santos.",
       "instagram": "Instagram",
       "facebook": "Facebook",
       "linkedin": "LinkedIn"
@@ -77,8 +77,8 @@
       "ctaFalar": "Talk to us",
       "ctaVisita": "Schedule a visit",
       "ctaSaber": "Learn more",
-      "brandConcluido": "Delivered by AM Santos, {nome} reflects the excellence we pursue in every project we complete: modern, functional architecture with an unwavering focus on wellbeing and quality.",
-      "brandOutro": "As with every AM Santos development, {nome} is born from a vision centred on comfort, quality and sustainability — with energy efficiency guiding every design decision."
+      "brandConcluido": "Delivered by Empreendimentos Santos, {nome} reflects the excellence we pursue in every project we complete: modern, functional architecture with an unwavering focus on wellbeing and quality.",
+      "brandOutro": "As with all our developments, {nome} is born from a vision centred on comfort, quality and sustainability — with energy efficiency guiding every design decision."
     },
     "factLabels": {
       "Localização": "Location",
@@ -135,7 +135,7 @@
     },
     "oQueFazemos": {
       "title": "Quality — Comfort — Sustainability — Innovation",
-      "lead": "From the initial site study to handing over the keys, AM Santos designs, builds and oversees every development with the same rigour — so that quality, comfort, sustainability and innovation stop being promises and become verifiable standards in every square metre.",
+      "lead": "From the initial site study to handing over the keys, Empreendimentos Santos designs, builds and oversees every development with the same rigour — so that quality, comfort, sustainability and innovation stop being promises and become verifiable standards in every square metre.",
       "pilares": [
         { "title": "Quality", "texto": "Every project is overseen from design through to completion, with rigorous control over materials and finishes at every stage." },
         { "title": "Comfort", "texto": "Spaces designed for the everyday lives of those who live in them, with functional architecture that prioritises light, flow and wellbeing." },
@@ -143,7 +143,7 @@
         { "title": "Innovation", "texto": "We explore new market segments and construction solutions, anticipating market trends to shape the next step of every development." }
       ],
       "statsTitle": "By the numbers",
-      "statsLead": "Two decades of experience translated into results: every project completed, every square metre built and every million invested reflects AM Santos's same commitment to quality and sustainability.",
+      "statsLead": "Two decades of experience translated into results: every project completed, every square metre built and every million invested reflects Empreendimentos Santos's same commitment to quality and sustainability.",
       "stats": [
         { "label": "projects" },
         { "label": "residential and non-residential units" },
@@ -155,13 +155,13 @@
     "trackRecord": { "title": "Our Track Record", "lead": "A selection of developments already completed and delivered. Click to view each one.", "botao": "View track record" },
     "faq": {
       "title": "Frequently asked questions",
-      "lead": "A few answers for anyone looking to better understand a real estate development company — and what sets AM Santos apart.",
+      "lead": "A few answers for anyone looking to better understand a real estate development company — and what sets Empreendimentos Santos apart.",
       "items": [
-        { "p": "What does a real estate development company do?", "r": "It oversees the entire process of creating a property — from the site study and architectural design to construction, quality control and handover to the client. At AM Santos, the same team stays involved from start to finish, which reduces the gap between what is designed and what is built." },
-        { "p": "What sets AM Santos apart from other developers?", "r": "20 years in the market, an in-house team spanning architecture, engineering, interior design and property management, and quality control that follows every stage of construction — not just the final handover. That continuity is what keeps the same quality, comfort and sustainability standards across every project." },
+        { "p": "What does a real estate development company do?", "r": "It oversees the entire process of creating a property — from the site study and architectural design to construction, quality control and handover to the client. At Empreendimentos Santos, the same team stays involved from start to finish, which reduces the gap between what is designed and what is built." },
+        { "p": "What sets Empreendimentos Santos apart from other developers?", "r": "20 years in the market, an in-house team spanning architecture, engineering, interior design and property management, and quality control that follows every stage of construction — not just the final handover. That continuity is what keeps the same quality, comfort and sustainability standards across every project." },
         { "p": "How is quality ensured on every project?", "r": "Every development is overseen from design through to completion, with rigorous control over materials and finishes at every stage — the same rigour behind the company's 20-year history." },
         { "p": "How does sustainability factor into the projects?", "r": "We prioritise energy-efficient solutions and durable materials that reduce environmental impact and long-term maintenance costs — without giving up the comfort or modern architecture that defines every development." },
-        { "p": "Does AM Santos only build, or does it also manage properties after handover?", "r": "Beyond architecture, engineering and construction, our property management team follows projects from initial study through to sale — and remains available after handover for anything related to the property." },
+        { "p": "Does Empreendimentos Santos only build, or does it also manage properties after handover?", "r": "Beyond architecture, engineering and construction, our property management team follows projects from initial study through to sale — and remains available after handover for anything related to the property." },
         { "p": "How can I learn about the developments and the team behind them?", "r": "Our track record and portfolio show completed, in-progress and planned developments. The full team, with each person's area of responsibility, is presented on the Team page." }
       ]
     },
@@ -172,7 +172,7 @@
     "quemSomos": {
       "title": "Empreendimentos Santos",
       "lead": "Building is not just raising walls — it is raising trust.",
-      "paragrafo": "With 20 years of experience in the real estate market, AM Santos stands out for its excellence in every project it undertakes."
+      "paragrafo": "With 20 years of experience in the real estate market, Empreendimentos Santos stands out for its excellence in every project it undertakes."
     },
     "oQueFazemos": { "title": "20 years of solid foundations" },
     "servicos": {
@@ -183,7 +183,7 @@
         { "title": "Social responsibility", "texto": "More than building, we want to contribute. In every project, we look for ways to generate social impact, supporting initiatives that respond to the needs of the surrounding community and leave a positive mark on every place we work in." }
       ]
     },
-    "contacto": { "title": "Shall we talk about your project?", "texto": "AM Santos's vision, centred on comfort, quality and sustainability, will guide our next projects. Get in touch." }
+    "contacto": { "title": "Shall we talk about your project?", "texto": "Empreendimentos Santos's vision, centred on comfort, quality and sustainability, will guide our next projects. Get in touch." }
   },
   "historico": {
     "hero": { "title": "Track Record" },
@@ -384,7 +384,7 @@
       "estado": "Under construction",
       "comercial": "For rent",
       "entrega": "Expected 2028",
-      "resumo": "As in every AM Santos development, Valflores Residence is born from a vision centred on the new market segment that AM Santos is developing.",
+      "resumo": "As in all our developments, Valflores Residence is born from a vision centred on the new market segment that Empreendimentos Santos is developing.",
       "factos": ["Santa Iria de Azóia, Loures", "T2", "39 apartments", "Under construction", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "Valflores Palace" }, { "local": "Swimming pools" }, { "local": "Colégio Bartolomeu Dias" }, { "local": "Mercadona" }, { "local": "Intermarché" }, { "local": "Pingo Doce" }, { "local": "LIDL" }, { "local": "Santa Iria train station" }, { "local": "Lisbon Airport" }]
     },
@@ -395,7 +395,7 @@
       "estado": "In planning",
       "comercial": "For rent",
       "entrega": "Expected 2028",
-      "resumo": "As in every AM Santos development, Pinteus Residence is born from a vision centred on the new market segment that AM Santos is developing.",
+      "resumo": "As in all our developments, Pinteus Residence is born from a vision centred on the new market segment that Empreendimentos Santos is developing.",
       "factos": ["St. Antão do Tojal, Loures", "T2", "14 apartments", "In planning", "Logo Existo", "SF Properties"]
     },
     "empreendimento-loures-residencial": {
