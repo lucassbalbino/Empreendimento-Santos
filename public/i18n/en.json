@@ -200,24 +200,33 @@
       "title": "Who builds, every day",
       "grupos": [
         {
-          "area": "Architecture and Design",
+          "area": "Coordination and Management",
           "members": [
-            { "role": "Architectural design" },
-            { "role": "Interiors and finishes" }
+            { "role": "Civil Engineer · Production Coordinator" },
+            { "role": "Management, marketing and sales" },
+            { "role": "Marketing" },
+            { "role": "Administrative Assistant" }
           ]
         },
         {
-          "area": "Engineering and Construction",
+          "area": "Architecture and Engineering",
           "members": [
-            { "role": "Site director" },
-            { "role": "Quality and safety" }
+            { "role": "Architect · Planning and Human Resources" },
+            { "role": "Civil Engineer · Site Director" },
+            { "role": "Architect · Planning and Assistant Site Director" },
+            { "role": "Civil Engineer · Site Director" },
+            { "role": "Electrical Engineer · Building Services and Cost Estimating" }
           ]
         },
         {
-          "area": "Management and Sustainability",
+          "area": "Site Supervisors",
           "members": [
-            { "role": "Property management" },
-            { "role": "Energy efficiency" }
+            { "role": "General Foreman" },
+            { "role": "General Foreman" },
+            { "role": "Formwork Foreman" },
+            { "role": "General Foreman" },
+            { "role": "Rebar Foreman" },
+            { "role": "Electrical Foreman" }
           ]
         }
       ]

@@ -207,24 +207,33 @@
       "title": "Quem constrói, todos os dias",
       "grupos": [
         {
-          "area": "Arquitetura e Projeto",
+          "area": "Coordenação e Gestão",
           "members": [
-            { "role": "Projetos de arquitetura" },
-            { "role": "Interiores e acabamentos" }
+            { "role": "Eng. Civil · Coordenador de Produção" },
+            { "role": "Gestão, marketing e departamento comercial" },
+            { "role": "Marketing" },
+            { "role": "Administrativa" }
           ]
         },
         {
-          "area": "Engenharia e Obra",
+          "area": "Arquitetura e Engenharia",
           "members": [
-            { "role": "Direção de obra" },
-            { "role": "Qualidade e segurança" }
+            { "role": "Arquiteta · Preparadora e Recursos Humanos" },
+            { "role": "Eng. Civil · Direção de obra" },
+            { "role": "Arquiteta · Preparação e adjunta de direção de obra" },
+            { "role": "Eng. Civil · Direção de obra" },
+            { "role": "Eng. Eletrotécnico · Direção de especialidades e orçamentação" }
           ]
         },
         {
-          "area": "Gestão e Sustentabilidade",
+          "area": "Encarregados de Obra",
           "members": [
-            { "role": "Gestão imobiliária" },
-            { "role": "Eficiência energética" }
+            { "role": "Encarregado geral" },
+            { "role": "Encarregado geral" },
+            { "role": "Encarregado de cofragem" },
+            { "role": "Encarregado geral" },
+            { "role": "Encarregado de ferro" },
+            { "role": "Encarregado de instalações elétricas" }
           ]
         }
       ]

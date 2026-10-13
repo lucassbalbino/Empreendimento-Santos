@@ -4,24 +4,33 @@
     "title": "Quem constrói, todos os dias",
     "grupos": [
       {
-        "area": "Arquitetura e Projeto",
+        "area": "Coordenação e Gestão",
         "members": [
-          { "name": "Inês Carvalho", "role": "Projetos de arquitetura" },
-          { "name": "Pedro Almeida", "role": "Interiores e acabamentos" }
+          { "name": "João Lança", "role": "Eng. Civil · Coordenador de Produção" },
+          { "name": "Ricardo Fontinha", "role": "Gestão, marketing e departamento comercial" },
+          { "name": "Isabela Mascarenhas", "role": "Marketing" },
+          { "name": "Sónia Muralha", "role": "Administrativa" }
         ]
       },
       {
-        "area": "Engenharia e Obra",
+        "area": "Arquitetura e Engenharia",
         "members": [
-          { "name": "Ricardo Nunes", "role": "Direção de obra" },
-          { "name": "Ana Rocha", "role": "Qualidade e segurança" }
+          { "name": "Rita Fontinha", "role": "Arquiteta · Preparadora e Recursos Humanos" },
+          { "name": "Alessandra Marques", "role": "Eng. Civil · Direção de obra" },
+          { "name": "Ynae Bomfim", "role": "Arquiteta · Preparação e adjunta de direção de obra" },
+          { "name": "Paulo Gonçalves", "role": "Eng. Civil · Direção de obra" },
+          { "name": "José Garcia", "role": "Eng. Eletrotécnico · Direção de especialidades e orçamentação" }
         ]
       },
       {
-        "area": "Gestão e Sustentabilidade",
+        "area": "Encarregados de Obra",
         "members": [
-          { "name": "Sofia Mendes", "role": "Gestão imobiliária" },
-          { "name": "João Ferreira", "role": "Eficiência energética" }
+          { "name": "Paulo Pereira", "role": "Encarregado geral" },
+          { "name": "Luís Ferreira", "role": "Encarregado geral" },
+          { "name": "Marco Anjos", "role": "Encarregado de cofragem" },
+          { "name": "Pedro Mocho", "role": "Encarregado geral" },
+          { "name": "Isaias Lopes", "role": "Encarregado de ferro" },
+          { "name": "David Muralha", "role": "Encarregado de instalações elétricas" }
         ]
       }
     ]

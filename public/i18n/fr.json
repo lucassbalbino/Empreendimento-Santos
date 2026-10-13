@@ -200,24 +200,33 @@
       "title": "Qui construit, chaque jour",
       "grupos": [
         {
-          "area": "Architecture et Conception",
+          "area": "Coordination et Gestion",
           "members": [
-            { "role": "Projets d'architecture" },
-            { "role": "Intérieurs et finitions" }
+            { "role": "Ingénieur civil · Coordinateur de production" },
+            { "role": "Gestion, marketing et service commercial" },
+            { "role": "Marketing" },
+            { "role": "Assistante administrative" }
           ]
         },
         {
-          "area": "Ingénierie et Chantier",
+          "area": "Architecture et Ingénierie",
           "members": [
-            { "role": "Direction de chantier" },
-            { "role": "Qualité et sécurité" }
+            { "role": "Architecte · Préparation et ressources humaines" },
+            { "role": "Ingénieure civile · Direction de chantier" },
+            { "role": "Architecte · Préparation et adjointe à la direction de chantier" },
+            { "role": "Ingénieur civil · Direction de chantier" },
+            { "role": "Ingénieur électrotechnicien · Direction des lots techniques et chiffrage" }
           ]
         },
         {
-          "area": "Gestion et Durabilité",
+          "area": "Chefs de chantier",
           "members": [
-            { "role": "Gestion immobilière" },
-            { "role": "Efficacité énergétique" }
+            { "role": "Chef de chantier général" },
+            { "role": "Chef de chantier général" },
+            { "role": "Chef d'équipe coffrage" },
+            { "role": "Chef de chantier général" },
+            { "role": "Chef d'équipe ferraillage" },
+            { "role": "Chef d'équipe électricité" }
           ]
         }
       ]

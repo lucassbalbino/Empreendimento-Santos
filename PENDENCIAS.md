@@ -96,12 +96,8 @@ retrata** aquele empreendimento. Só dois têm imagem verdadeira:
 
 ### 3.2 Nomes da equipa
 
-Pelo `CONTEXTO.md` §3, de toda a equipa só **António M Santos** é real. Marta
-Sousa, Ricardo Nunes, Inês Carvalho, Pedro Almeida, Sofia Mendes, João Ferreira
-e Ana Rocha são placeholder — nomes inventados de pessoas que não existem, hoje
-publicados com foto e função.
-
-- **Onde:** `src/data/equipa.json`
+Resolvido: `src/data/equipa.json` tem as 15 pessoas reais (lista enviada pelo
+cliente em outubro de 2026).
 
 ### 3.3 Perfis sociais para o Google
 
