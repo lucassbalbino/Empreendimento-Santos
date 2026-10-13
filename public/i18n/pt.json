@@ -137,7 +137,7 @@
         { "value": "António M Santos", "label": "Direção-geral" },
         { "value": "5 áreas", "label": "arquitetura, engenharia, decoração, obra e gestão imobiliária" }
       ],
-      "paragrafo": "Construímos para durar: soluções sustentáveis, materiais de confiança e um controlo rigoroso de qualidade em cada fase da obra, para que o resultado final seja tão sólido quanto os 20 anos de história que o sustentam.",
+      "paragrafo": "Construímos para durar. Soluções sustentáveis, materiais de confiança e um controlo rigoroso de qualidade em cada fase da obra, para que o resultado final seja tão sólido quanto os 20 anos de história que o sustentam.",
       "botao": "Sobre nós"
     },
     "oQueFazemos": {
@@ -150,7 +150,7 @@
         { "title": "Inovação", "texto": "Exploramos novos segmentos e soluções construtivas, antecipando tendências de mercado para dar forma ao próximo passo de cada empreendimento." }
       ],
       "statsTitle": "Em números",
-      "statsLead": "Duas décadas de experiência traduzidas em resultado: cada projeto executado, cada metro quadrado construído e cada milhão investido reflete o mesmo compromisso da Empreendimentos Santos com a qualidade e a sustentabilidade.",
+      "statsLead": "Duas décadas de experiência traduzidas em resultado. Cada projeto executado, cada metro quadrado construído e cada milhão investido reflete o mesmo compromisso da Empreendimentos Santos com a qualidade e a sustentabilidade.",
       "stats": [
         { "label": "projetos" },
         { "label": "unidades residenciais e não residenciais" },
@@ -183,7 +183,7 @@
     "servicos": {
       "title": "O que nos move",
       "items": [
-        { "title": "Na vanguarda da inovação arquitetónica", "texto": "Com vários projetos em pipeline, mantemo-nos na vanguarda da inovação arquitetónica, priorizando a qualidade, o conforto e a eficiência energética para garantir a satisfação dos nossos clientes.", "botao": "Ver empreendimentos" },
+        { "title": "Na vanguarda da inovação arquitetónica", "texto": "Com vários projetos em carteira, mantemo-nos na vanguarda da inovação arquitetónica, priorizando a qualidade, o conforto e a eficiência energética para garantir a satisfação dos nossos clientes.", "botao": "Ver empreendimentos" },
         { "title": "Uma abordagem eco-friendly", "texto": "O nosso mais recente projeto foi concebido com materiais sustentáveis, para aliar conforto, bem-estar e arquitetura moderna — reduzindo os custos de manutenção e garantindo o máximo conforto climático.", "botao": "Falar connosco" },
         { "title": "Responsabilidade social", "texto": "Mais do que construir, queremos contribuir. Em cada projeto, identificamos formas de gerar impacto social, apoiando iniciativas que respondam às necessidades da comunidade envolvente e deixem uma marca positiva em cada lugar onde estamos presentes." }
       ]
@@ -198,7 +198,7 @@
   "portfolio": {
     "hero": { "title": "Portfólio" },
     "emDesenvolvimento": { "title": "Projetos em desenvolvimento", "lead": "Empreendimentos em construção, em comercialização ou destinados a arrendamento" },
-    "futuros": { "title": "Projetos futuros", "lead": "Vários projetos em pipeline, na vanguarda da inovação arquitetónica" },
+    "futuros": { "title": "Projetos futuros", "lead": "Vários projetos em carteira, na vanguarda da inovação arquitetónica" },
     "contacto": { "title": "Tem interesse num dos nossos projetos?", "texto": "Fale connosco" }
   },
   "equipa": {

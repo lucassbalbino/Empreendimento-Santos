@@ -10,7 +10,7 @@
       { "value": "António M Santos", "label": "Direção-geral" },
       { "value": "5 áreas", "label": "arquitetura, engenharia, decoração, obra e gestão imobiliária" }
     ],
-    "paragrafo": "Construímos para durar: soluções sustentáveis, materiais de confiança e um controlo rigoroso de qualidade em cada fase da obra, para que o resultado final seja tão sólido quanto os 20 anos de história que o sustentam.",
+    "paragrafo": "Construímos para durar. Soluções sustentáveis, materiais de confiança e um controlo rigoroso de qualidade em cada fase da obra, para que o resultado final seja tão sólido quanto os 20 anos de história que o sustentam.",
     "botao": "Sobre nós",
     "imagem": "/images/template-sobre.webp"
   },
@@ -36,7 +36,7 @@
       }
     ],
     "statsTitle": "Em números",
-    "statsLead": "Duas décadas de experiência traduzidas em resultado: cada projeto executado, cada metro quadrado construído e cada milhão investido reflete o mesmo compromisso da Empreendimentos Santos com a qualidade e a sustentabilidade.",
+    "statsLead": "Duas décadas de experiência traduzidas em resultado. Cada projeto executado, cada metro quadrado construído e cada milhão investido reflete o mesmo compromisso da Empreendimentos Santos com a qualidade e a sustentabilidade.",
     "stats": [
       {
         "target": 14,

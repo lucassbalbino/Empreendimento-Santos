@@ -130,7 +130,7 @@
         { "value": "António M Santos", "label": "Direction générale" },
         { "value": "5 domaines", "label": "architecture, ingénierie, décoration, construction et gestion immobilière" }
       ],
-      "paragrafo": "Nous construisons pour durer : des solutions durables, des matériaux fiables et un contrôle de qualité rigoureux à chaque étape du chantier, pour que le résultat final soit aussi solide que les 20 ans d'histoire qui le portent.",
+      "paragrafo": "Nous construisons pour durer. Des solutions durables, des matériaux fiables et un contrôle de qualité rigoureux à chaque étape du chantier, pour que le résultat final soit aussi solide que les 20 ans d'histoire qui le portent.",
       "botao": "À propos de nous"
     },
     "oQueFazemos": {
@@ -143,7 +143,7 @@
         { "title": "Innovation", "texto": "Nous explorons de nouveaux segments de marché et solutions constructives, en anticipant les tendances pour donner forme à la prochaine étape de chaque projet." }
       ],
       "statsTitle": "En chiffres",
-      "statsLead": "Deux décennies d'expérience traduites en résultats : chaque projet réalisé, chaque mètre carré construit et chaque million investi reflète le même engagement d'Empreendimentos Santos envers la qualité et la durabilité.",
+      "statsLead": "Deux décennies d'expérience traduites en résultats. Chaque projet réalisé, chaque mètre carré construit et chaque million investi reflète le même engagement d'Empreendimentos Santos envers la qualité et la durabilité.",
       "stats": [
         { "label": "projets" },
         { "label": "unités résidentielles et non résidentielles" },
@@ -176,7 +176,7 @@
     "servicos": {
       "title": "Ce qui nous anime",
       "items": [
-        { "title": "À l'avant-garde de l'innovation architecturale", "texto": "Avec plusieurs projets en pipeline, nous restons à l'avant-garde de l'innovation architecturale, en donnant la priorité à la qualité, au confort et à l'efficacité énergétique pour garantir la satisfaction de nos clients.", "botao": "Voir les projets" },
+        { "title": "À l'avant-garde de l'innovation architecturale", "texto": "Avec plusieurs projets en portefeuille, nous restons à l'avant-garde de l'innovation architecturale, en donnant la priorité à la qualité, au confort et à l'efficacité énergétique pour garantir la satisfaction de nos clients.", "botao": "Voir les projets" },
         { "title": "Une approche éco-responsable", "texto": "Notre projet le plus récent a été conçu avec des matériaux durables, pour allier confort, bien-être et architecture moderne — réduisant les coûts d'entretien et garantissant un confort climatique optimal.", "botao": "Parlez-nous" },
         { "title": "Responsabilité sociale", "texto": "Plus que construire, nous voulons contribuer. Dans chaque projet, nous cherchons à générer un impact social, en soutenant des initiatives qui répondent aux besoins de la communauté environnante et laissent une marque positive dans chaque lieu où nous sommes présents." }
       ]
@@ -191,7 +191,7 @@
   "portfolio": {
     "hero": { "title": "Portfolio" },
     "emDesenvolvimento": { "title": "Projets en développement", "lead": "Projets en construction, en commercialisation ou destinés à la location" },
-    "futuros": { "title": "Projets futurs", "lead": "Plusieurs projets en pipeline, à l'avant-garde de l'innovation architecturale" },
+    "futuros": { "title": "Projets futurs", "lead": "Plusieurs projets en portefeuille, à l'avant-garde de l'innovation architecturale" },
     "contacto": { "title": "Intéressé par un projet ?", "texto": "Contactez-nous pour organiser une visite ou demander des informations. Notre équipe vous répondra rapidement." }
   },
   "equipa": {
