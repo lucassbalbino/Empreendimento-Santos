@@ -175,18 +175,17 @@ collections:
         name: apartamentos
         widget: list
         required: false
-        summary: "{{fields.numero}} · {{fields.tipologia}}"
+        summary: "{{fields.referencia}} · {{fields.tipologia}}"
         hint: "Uma linha por fração à venda. Pode deixar campos vazios — a ficha mostra «—» em vez do dado em falta. Use «Adicionar» para criar mais linhas."
         fields:
-          - { label: "Numeração", name: numero, widget: string, required: false, hint: "Ex.: 1.º A" }
-          - { label: "Tipo", name: tipo, widget: string, required: false, hint: "Ex.: Apartamento, Duplex, Penthouse, Loja" }
-          - { label: "Tipologia", name: tipologia, widget: string, required: false, hint: "Ex.: T2" }
-          - { label: "Piso", name: piso, widget: string, required: false, hint: "Ex.: R/C, 1.º" }
-          - { label: "Área bruta privativa", name: areaBrutaPrivativa, widget: string, required: false, hint: "Ex.: 85 m²" }
-          - { label: "Área exterior privativa", name: areaExteriorPrivativa, widget: string, required: false, hint: "Varanda, terraço ou quintal. Ex.: 12 m²" }
-          - { label: "Estacionamento", name: estacionamento, widget: string, required: false, hint: "Ex.: 2 lugares" }
-          - { label: "Eficiência energética", name: eficienciaEnergetica, widget: select, required: false, options: ["A+", "A", "B", "B-", "C", "D", "E", "F"] }
-          - { label: "Preço", name: preco, widget: string, required: false, hint: "Ex.: 250.000 € ou «Sob consulta»" }
+          - { label: "Referência", name: referencia, widget: string, required: false, hint: "Ex.: 1A, -1B" }
+          - { label: "Piso", name: piso, widget: string, required: false, hint: "Ex.: R/C, 1" }
+          - { label: "Tipologia", name: tipologia, widget: string, required: false, hint: "Ex.: T3" }
+          - { label: "Área bruta privativa", name: areaBrutaPrivativa, widget: string, required: false, hint: "Ex.: 139,42 m²" }
+          - { label: "Área bruta de construção", name: areaBrutaConstrucao, widget: string, required: false, hint: "Ex.: 171,43 m²" }
+          - { label: "Estacionamento", name: estacionamento, widget: string, required: false, hint: "Número de lugares. Ex.: 2" }
+          - { label: "Arrecadação", name: arrecadacao, widget: string, required: false, hint: "Ex.: 1 ou 8 m²" }
+          - { label: "Preço", name: preco, widget: string, required: false, hint: "Ex.: 597.535,00 € ou «Sob consulta»" }
           - { label: "Planta (PDF)", name: planta, widget: file, required: false, media_folder: "public/plantas", public_folder: "/plantas", hint: "Ficheiro PDF com a planta desta fração." }
           - { label: "Disponibilidade", name: disponibilidade, widget: select, required: false, options: ["Disponível", "Reservado", "Vendido"] }
       # Exceções — vazios, seguem a fase (é o que torna a mudança de fase automática).
@@ -228,17 +227,18 @@ collections:
           - label: "Rótulos da tabela de tipologias"
             name: apartamentos
             widget: object
-            hint: "O nome de cada dado, mostrado por cima do valor em todas as linhas. A numeração, a planta e a disponibilidade não levam rótulo: leem-se sozinhas."
+            hint: "O nome de cada dado, mostrado por cima do valor em todas as linhas. A planta e a disponibilidade não levam rótulo: leem-se sozinhas."
             fields:
-              - { label: "Tipo", name: tipo, widget: string }
-              - { label: "Tipologia", name: tipologia, widget: string }
+              - { label: "Referência", name: referencia, widget: string }
               - { label: "Piso", name: piso, widget: string }
+              - { label: "Tipologia", name: tipologia, widget: string }
               - { label: "Área bruta privativa", name: areaBruta, widget: string }
-              - { label: "Área exterior privativa", name: areaExterior, widget: string }
+              - { label: "Área bruta de construção", name: areaConstrucao, widget: string }
               - { label: "Estacionamento", name: estacionamento, widget: string }
-              - { label: "Eficiência energética", name: eficiencia, widget: string }
+              - { label: "Arrecadação", name: arrecadacao, widget: string }
               - { label: "Preço", name: preco, widget: string }
               - { label: "Rótulo do ícone de planta (acessibilidade)", name: verPlanta, widget: string }
+              - { label: "Botão «Ver mais»", name: verMais, widget: string, hint: "Aparece por baixo das primeiras 8 frações e mostra as restantes." }
           - { label: "Título da galeria", name: imagensTitulo, widget: string }
           - { label: "Legenda do mapa", name: mapaLegenda, widget: string }
           - { label: "Unidade dos tempos (proximidades)", name: minutos, widget: string, hint: "Texto a seguir ao número em cada linha das proximidades, ex.: min" }

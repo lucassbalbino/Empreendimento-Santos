@@ -1,5 +1,5 @@
 {
-  "nome": "Prime Living",
+  "nome": "Viver",
   "grupo": "futuro",
   "ano": 2029,
   "localizacao": "Loures",
@@ -15,7 +15,7 @@
     "/images/empreendimentos/empreendimento-loures-residencial-2.webp"
   ],
   "mapa": "/images/empreendimentos/loures-mapa-localizacao.webp",
-  "mapaProximidades": "/images/empreendimentos/loures-mapa-proximidades.webp",
+  "mapaProximidades": "/images/empreendimentos/viver-mapa-proximidades.webp",
   "proximidades": [
     {
       "local": "LIDL",
@@ -51,9 +51,840 @@
     }
   ],
   "apartamentos": [
-    {},
-    {},
-    {},
-    {}
+    {
+      "referencia": "-1A",
+      "piso": "R/C",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "144,79 m²",
+      "areaBrutaConstrucao": "184,43 m²",
+      "estacionamento": "2",
+      "preco": "589.589,63 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "-1B",
+      "piso": "R/C",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "152,39 m²",
+      "areaBrutaConstrucao": "182,33 m²",
+      "estacionamento": "2",
+      "preco": "574.938,60 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "-1C",
+      "piso": "R/C",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "175,06 m²",
+      "estacionamento": "2",
+      "preco": "526.430,80 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "-1D",
+      "piso": "R/C",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,65 m²",
+      "areaBrutaConstrucao": "186,36 m²",
+      "estacionamento": "2",
+      "preco": "609.681,50 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "-1E",
+      "piso": "R/C",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,05 m²",
+      "areaBrutaConstrucao": "190,23 m²",
+      "estacionamento": "2",
+      "preco": "607.335,50 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "-1F",
+      "piso": "R/C",
+      "tipologia": "T2",
+      "areaBrutaPrivativa": "104,08 m²",
+      "areaBrutaConstrucao": "128,13 m²",
+      "estacionamento": "1",
+      "preco": "440.574,80 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "-1H",
+      "piso": "R/C",
+      "tipologia": "T6",
+      "areaBrutaPrivativa": "295,94 m²",
+      "areaBrutaConstrucao": "363,53 m²",
+      "estacionamento": "3",
+      "preco": "1.800.000,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "1A",
+      "piso": "1",
+      "tipologia": "T2",
+      "areaBrutaPrivativa": "110,19 m²",
+      "areaBrutaConstrucao": "136,42 m²",
+      "estacionamento": "1",
+      "preco": "481.020,80 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "1B",
+      "piso": "1",
+      "tipologia": "T2",
+      "areaBrutaPrivativa": "99,69 m²",
+      "areaBrutaConstrucao": "121,77 m²",
+      "estacionamento": "1",
+      "preco": "435.660,80 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "1C",
+      "piso": "1",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,32 m²",
+      "estacionamento": "2",
+      "preco": "573.833,60 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "1D",
+      "piso": "1",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "144,79 m²",
+      "areaBrutaConstrucao": "184,63 m²",
+      "estacionamento": "2",
+      "preco": "608.050,35 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "1E",
+      "piso": "1",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "152,39 m²",
+      "areaBrutaConstrucao": "175,74 m²",
+      "estacionamento": "2",
+      "preco": "594.368,33 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "1F",
+      "piso": "1",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,13 m²",
+      "estacionamento": "2",
+      "preco": "544.206,85 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "1G",
+      "piso": "1",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,65 m²",
+      "areaBrutaConstrucao": "190,29 m²",
+      "estacionamento": "2",
+      "preco": "629.399,38 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "1H",
+      "piso": "1",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,05 m²",
+      "areaBrutaConstrucao": "190,23 m²",
+      "estacionamento": "2",
+      "preco": "626.976,88 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "1N",
+      "piso": "1",
+      "tipologia": "T5",
+      "areaBrutaPrivativa": "320,66 m²",
+      "areaBrutaConstrucao": "454,35 m²",
+      "estacionamento": "3",
+      "preco": "1.850.000,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "2A",
+      "piso": "2",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,73 m²",
+      "estacionamento": "2",
+      "preco": "597.535,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "2B",
+      "piso": "2",
+      "tipologia": "T2",
+      "areaBrutaPrivativa": "99,69 m²",
+      "areaBrutaConstrucao": "120,81 m²",
+      "estacionamento": "1",
+      "preco": "440.146,85 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "2C",
+      "piso": "2",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,32 m²",
+      "estacionamento": "2",
+      "preco": "597.535,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "2D",
+      "piso": "2",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "144,79 m²",
+      "areaBrutaConstrucao": "184,63 m²",
+      "estacionamento": "2",
+      "preco": "632.664,65 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "2E",
+      "piso": "2",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "152,39 m²",
+      "areaBrutaConstrucao": "175,74 m²",
+      "estacionamento": "2",
+      "preco": "620.274,63 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "2F",
+      "piso": "2",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,13 m²",
+      "estacionamento": "2",
+      "preco": "567.908,25 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "2G",
+      "piso": "2",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,65 m²",
+      "areaBrutaConstrucao": "190,29 m²",
+      "estacionamento": "2",
+      "preco": "655.689,88 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "2H",
+      "piso": "2",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,05 m²",
+      "areaBrutaConstrucao": "190,23 m²",
+      "estacionamento": "2",
+      "preco": "653.165,38 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "2P",
+      "piso": "2",
+      "tipologia": "T5",
+      "areaBrutaPrivativa": "295,94 m²",
+      "areaBrutaConstrucao": "438,12 m²",
+      "estacionamento": "3",
+      "preco": "1.900.000,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "3A",
+      "piso": "3",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,43 m²",
+      "estacionamento": "2",
+      "preco": "597.535,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "3B",
+      "piso": "3",
+      "tipologia": "T2",
+      "areaBrutaPrivativa": "99,69 m²",
+      "areaBrutaConstrucao": "120,91 m²",
+      "estacionamento": "1",
+      "preco": "440.146,85 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "3C",
+      "piso": "3",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,41 m²",
+      "areaBrutaConstrucao": "171,30 m²",
+      "estacionamento": "2",
+      "preco": "597.492,50 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "3D",
+      "piso": "3",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "144,79 m²",
+      "areaBrutaConstrucao": "184,63 m²",
+      "estacionamento": "3",
+      "preco": "632.664,65 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "3E",
+      "piso": "3",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "152,39 m²",
+      "areaBrutaConstrucao": "175,74 m²",
+      "estacionamento": "2",
+      "preco": "620.274,63 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "3F",
+      "piso": "3",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,11 m²",
+      "estacionamento": "2",
+      "preco": "567.908,25 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "3G",
+      "piso": "3",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,65 m²",
+      "areaBrutaConstrucao": "190,29 m²",
+      "estacionamento": "3",
+      "preco": "655.689,88 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "3H",
+      "piso": "3",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,05 m²",
+      "areaBrutaConstrucao": "190,23 m²",
+      "estacionamento": "3",
+      "preco": "653.165,38 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "3P",
+      "piso": "3",
+      "tipologia": "T5",
+      "areaBrutaPrivativa": "320,66 m²",
+      "areaBrutaConstrucao": "454,35 m²",
+      "estacionamento": "3",
+      "preco": "1.950.000,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "4A",
+      "piso": "4",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,43 m²",
+      "estacionamento": "2",
+      "preco": "597.535,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "4B",
+      "piso": "4",
+      "tipologia": "T2",
+      "areaBrutaPrivativa": "99,69 m²",
+      "areaBrutaConstrucao": "120,81 m²",
+      "estacionamento": "1",
+      "preco": "440.146,85 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "4C",
+      "piso": "4",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,32 m²",
+      "estacionamento": "2",
+      "preco": "597.535,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "4D",
+      "piso": "4",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "144,79 m²",
+      "areaBrutaConstrucao": "184,43 m²",
+      "estacionamento": "3",
+      "preco": "632.664,65 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "4E",
+      "piso": "4",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "152,39 m²",
+      "areaBrutaConstrucao": "175,74 m²",
+      "estacionamento": "2",
+      "preco": "620.274,63 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "4F",
+      "piso": "4",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,13 m²",
+      "estacionamento": "2",
+      "preco": "567.908,25 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "4G",
+      "piso": "4",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,65 m²",
+      "areaBrutaConstrucao": "190,29 m²",
+      "estacionamento": "3",
+      "preco": "668.835,13 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "4H",
+      "piso": "4",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,05 m²",
+      "areaBrutaConstrucao": "190,23 m²",
+      "estacionamento": "3",
+      "preco": "666.259,63 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "4I",
+      "piso": "4",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "163,17 m²",
+      "areaBrutaConstrucao": "232,72 m²",
+      "estacionamento": "3",
+      "preco": "740.080,85 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "4P",
+      "piso": "4",
+      "tipologia": "T5",
+      "areaBrutaPrivativa": "295,94 m²",
+      "areaBrutaConstrucao": "295,94 m²",
+      "estacionamento": "3",
+      "preco": "2.000.000,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "5A",
+      "piso": "5",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,43 m²",
+      "estacionamento": "2",
+      "preco": "615.311,05 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "5B",
+      "piso": "5",
+      "tipologia": "T2",
+      "areaBrutaPrivativa": "99,69 m²",
+      "areaBrutaConstrucao": "120,81 m²",
+      "estacionamento": "1",
+      "preco": "453.605,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "5C",
+      "piso": "5",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,32 m²",
+      "estacionamento": "2",
+      "preco": "615.311,05 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "5D",
+      "piso": "5",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "144,79 m²",
+      "areaBrutaConstrucao": "184,43 m²",
+      "estacionamento": "3",
+      "preco": "663.432,53 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "5E",
+      "piso": "5",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "152,39 m²",
+      "areaBrutaConstrucao": "175,74 m²",
+      "estacionamento": "2",
+      "preco": "639.704,35 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "5F",
+      "piso": "5",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,13 m²",
+      "estacionamento": "2",
+      "preco": "585.684,30 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "5G",
+      "piso": "5",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,65 m²",
+      "areaBrutaConstrucao": "190,29 m²",
+      "estacionamento": "3",
+      "preco": "688.553,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "5H",
+      "piso": "5",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,05 m²",
+      "areaBrutaConstrucao": "190,23 m²",
+      "estacionamento": "3",
+      "preco": "685.901,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "5I",
+      "piso": "5",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "163,17 m²",
+      "areaBrutaConstrucao": "232,72 m²",
+      "estacionamento": "3",
+      "preco": "760.885,03 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "5P",
+      "piso": "5",
+      "tipologia": "T5",
+      "areaBrutaPrivativa": "320,66 m²",
+      "areaBrutaConstrucao": "320,66 m²",
+      "estacionamento": "3",
+      "preco": "2.050.000,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "6A",
+      "piso": "6",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,43 m²",
+      "estacionamento": "2",
+      "preco": "615.311,05 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "6B",
+      "piso": "6",
+      "tipologia": "T2",
+      "areaBrutaPrivativa": "99,69 m²",
+      "areaBrutaConstrucao": "120,81 m²",
+      "estacionamento": "2",
+      "preco": "462.577,10 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "6C",
+      "piso": "6",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,32 m²",
+      "estacionamento": "2",
+      "preco": "615.311,05 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "6D",
+      "piso": "6",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "144,79 m²",
+      "areaBrutaConstrucao": "184,43 m²",
+      "estacionamento": "3",
+      "preco": "663.432,53 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "6E",
+      "piso": "6",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "152,39 m²",
+      "areaBrutaConstrucao": "175,74 m²",
+      "estacionamento": "2",
+      "preco": "639.704,35 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "6F",
+      "piso": "6",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,13 m²",
+      "estacionamento": "2",
+      "preco": "585.684,30 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "6G",
+      "piso": "6",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,65 m²",
+      "areaBrutaConstrucao": "190,29 m²",
+      "estacionamento": "3",
+      "preco": "688.553,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "6H",
+      "piso": "6",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,05 m²",
+      "areaBrutaConstrucao": "190,23 m²",
+      "estacionamento": "3",
+      "preco": "685.901,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "6I",
+      "piso": "6",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "163,17 m²",
+      "areaBrutaConstrucao": "232,72 m²",
+      "estacionamento": "3",
+      "preco": "760.885,03 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "6P",
+      "piso": "6",
+      "tipologia": "T5",
+      "areaBrutaPrivativa": "295,94 m²",
+      "areaBrutaConstrucao": "295,94 m²",
+      "estacionamento": "3",
+      "disponibilidade": "Vendido"
+    },
+    {
+      "referencia": "7A",
+      "piso": "7",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,43 m²",
+      "estacionamento": "2",
+      "preco": "615.311,05 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "7B",
+      "piso": "7",
+      "tipologia": "T2",
+      "areaBrutaPrivativa": "99,69 m²",
+      "areaBrutaConstrucao": "120,81 m²",
+      "estacionamento": "2",
+      "preco": "462.577,10 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "7C",
+      "piso": "7",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,32 m²",
+      "estacionamento": "2",
+      "preco": "615.311,05 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "7D",
+      "piso": "7",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "144,79 m²",
+      "areaBrutaConstrucao": "184,43 m²",
+      "estacionamento": "3",
+      "disponibilidade": "Vendido"
+    },
+    {
+      "referencia": "7E",
+      "piso": "7",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "152,39 m²",
+      "areaBrutaConstrucao": "175,74 m²",
+      "estacionamento": "2",
+      "preco": "639.704,35 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "7F",
+      "piso": "7",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,13 m²",
+      "estacionamento": "2",
+      "preco": "585.684,30 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "7G",
+      "piso": "7",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,65 m²",
+      "areaBrutaConstrucao": "190,29 m²",
+      "estacionamento": "3",
+      "preco": "688.553,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "7H",
+      "piso": "7",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,05 m²",
+      "areaBrutaConstrucao": "190,23 m²",
+      "estacionamento": "3",
+      "preco": "685.901,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "7I",
+      "piso": "7",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "163,17 m²",
+      "areaBrutaConstrucao": "232,72 m²",
+      "estacionamento": "3",
+      "disponibilidade": "Vendido"
+    },
+    {
+      "referencia": "7P",
+      "piso": "7",
+      "tipologia": "T5",
+      "areaBrutaPrivativa": "320,66 m²",
+      "areaBrutaConstrucao": "320,66 m²",
+      "estacionamento": "3",
+      "disponibilidade": "Vendido"
+    },
+    {
+      "referencia": "8A",
+      "piso": "8",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,43 m²",
+      "estacionamento": "3",
+      "preco": "644.937,80 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "8B",
+      "piso": "8",
+      "tipologia": "T2",
+      "areaBrutaPrivativa": "99,69 m²",
+      "areaBrutaConstrucao": "120,81 m²",
+      "estacionamento": "2",
+      "preco": "476.035,25 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "8C",
+      "piso": "8",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,32 m²",
+      "estacionamento": "3",
+      "preco": "644.937,80 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "8D",
+      "piso": "8",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "144,79 m²",
+      "areaBrutaConstrucao": "184,63 m²",
+      "estacionamento": "3",
+      "preco": "681.893,25 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "8E",
+      "piso": "8",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "152,39 m²",
+      "areaBrutaConstrucao": "175,74 m²",
+      "estacionamento": "2",
+      "preco": "672.087,23 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "8F",
+      "piso": "8",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "139,42 m²",
+      "areaBrutaConstrucao": "171,13 m²",
+      "estacionamento": "2",
+      "preco": "615.311,05 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "8G",
+      "piso": "8",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,65 m²",
+      "areaBrutaConstrucao": "190,29 m²",
+      "estacionamento": "3",
+      "preco": "741.134,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "8H",
+      "piso": "8",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "154,05 m²",
+      "areaBrutaConstrucao": "190,43 m²",
+      "estacionamento": "3",
+      "preco": "738.278,00 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "8I",
+      "piso": "8",
+      "tipologia": "T3",
+      "areaBrutaPrivativa": "163,17 m²",
+      "areaBrutaConstrucao": "232,72 m²",
+      "estacionamento": "3",
+      "preco": "816.362,83 €",
+      "disponibilidade": "Disponível"
+    },
+    {
+      "referencia": "8P",
+      "piso": "8",
+      "tipologia": "T5",
+      "areaBrutaPrivativa": "295,94 m²",
+      "areaBrutaConstrucao": "356,38 m²",
+      "estacionamento": "3",
+      "disponibilidade": "Vendido"
+    }
   ]
 }

@@ -9,25 +9,45 @@
  * num ecrã grande. Com o rótulo colado ao valor, o conjunto quebra em grelha no
  * telemóvel sem que nenhum número fique órfão do seu significado.
  *
- * Campos vazios mostram um traço: o CMS cria a linha muito antes de haver preço,
- * planta ou certificado energético (ver o schema em src/content/config.ts).
+ * São os dez dados da tabela comercial, pela mesma ordem: referência, piso,
+ * tipologia, área bruta privativa, área bruta de construção, estacionamento,
+ * arrecadação, preço, disponibilidade e planta.
+ *
+ * Campos vazios mostram um traço: o CMS cria a linha muito antes de haver preço
+ * ou planta, e uma fração vendida deixa de ter preço público (ver o schema em
+ * src/content/config.ts).
  * O ícone acompanha o valor e desaparece com ele — um ícone de cama ao lado de
  * um traço anunciaria um dado que não existe.
+ *
+ * Só as primeiras `limite` frações aparecem; o botão "Ver mais" revela o resto.
+ * O corte é feito pelo script logo a seguir à lista e não no HTML: sem JS a
+ * lista chega inteira, em vez de esconder frações atrás de um botão morto.
  */
-const { apartamentos, textos } = Astro.props;
+const { apartamentos, textos, limite = 8 } = Astro.props;
 
 const SEM_DADO = '—';
 const ESTADO_CLASSE = { 'Disponível': 'disponivel', 'Reservado': 'reservado', 'Vendido': 'vendido' };
+const temMais = apartamentos.length > limite;
 ---
-<ul class="apt-list">
-  {apartamentos.map((apt) => (
-    <li class="apt-row">
-      <span class="apt-row__num">{apt.numero || SEM_DADO}</span>
+<ul class="apt-list" id="apt-list">
+  {apartamentos.map((apt, i) => (
+    <li class="apt-row" data-extra={i >= limite ? '' : undefined}>
+      <div class="apt-row__num">
+        <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.referencia">{textos.referencia}</span>
+        <span class="apt-row__ref">{apt.referencia || SEM_DADO}</span>
+      </div>
 
       <div class="apt-row__fields">
         <div class="apt-field">
-          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.tipo">{textos.tipo}</span>
-          <span class="apt-field__value">{apt.tipo || SEM_DADO}</span>
+          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.piso">{textos.piso}</span>
+          <span class="apt-field__value">
+            {apt.piso && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m12 3 9 5-9 5-9-5 9-5Z" /><path d="m3 13 9 5 9-5" />
+              </svg>
+            )}
+            {apt.piso || SEM_DADO}
+          </span>
         </div>
 
         <div class="apt-field">
@@ -43,25 +63,13 @@ const ESTADO_CLASSE = { 'Disponível': 'disponivel', 'Reservado': 'reservado', '
         </div>
 
         <div class="apt-field">
-          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.piso">{textos.piso}</span>
-          <span class="apt-field__value">
-            {apt.piso && (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="m12 3 9 5-9 5-9-5 9-5Z" /><path d="m3 13 9 5 9-5" />
-              </svg>
-            )}
-            {apt.piso || SEM_DADO}
-          </span>
-        </div>
-
-        <div class="apt-field">
           <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.areaBruta">{textos.areaBruta}</span>
           <span class="apt-field__value">{apt.areaBrutaPrivativa || SEM_DADO}</span>
         </div>
 
         <div class="apt-field">
-          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.areaExterior">{textos.areaExterior}</span>
-          <span class="apt-field__value">{apt.areaExteriorPrivativa || SEM_DADO}</span>
+          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.areaConstrucao">{textos.areaConstrucao}</span>
+          <span class="apt-field__value">{apt.areaBrutaConstrucao || SEM_DADO}</span>
         </div>
 
         <div class="apt-field">
@@ -78,14 +86,14 @@ const ESTADO_CLASSE = { 'Disponível': 'disponivel', 'Reservado': 'reservado', '
         </div>
 
         <div class="apt-field">
-          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.eficiencia">{textos.eficiencia}</span>
+          <span class="apt-field__label" data-i18n="common.projectDetail.apartamentos.arrecadacao">{textos.arrecadacao}</span>
           <span class="apt-field__value">
-            {apt.eficienciaEnergetica && (
+            {apt.arrecadacao && (
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z" />
+                <path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5v-9Z" /><path d="m3 7.5 9 4.5 9-4.5" /><path d="M12 12v9" />
               </svg>
             )}
-            {apt.eficienciaEnergetica || SEM_DADO}
+            {apt.arrecadacao || SEM_DADO}
           </span>
         </div>
 
@@ -123,3 +131,33 @@ const ESTADO_CLASSE = { 'Disponível': 'disponivel', 'Reservado': 'reservado', '
     </li>
   ))}
 </ul>
+
+{temMais && (
+  <div class="apt-mais" hidden>
+    <button type="button" class="btn" aria-controls="apt-list" aria-expanded="false" data-i18n="common.projectDetail.apartamentos.verMais">{textos.verMais}</button>
+  </div>
+)}
+
+{temMais && (
+  <!-- Inline e logo a seguir à lista: corre antes da primeira pintura, por isso
+       as frações a mais nunca chegam a aparecer e desaparecer. -->
+  <script is:inline>
+    (() => {
+      const lista = document.getElementById('apt-list');
+      const mais = lista.parentElement.querySelector('.apt-mais');
+      const botao = mais.querySelector('button');
+      lista.classList.add('apt-list--limitada');
+      mais.hidden = false;
+      botao.addEventListener('click', () => {
+        lista.classList.remove('apt-list--limitada');
+        botao.setAttribute('aria-expanded', 'true');
+        mais.hidden = true;
+        // O botão desaparece; o foco passa para a primeira fração revelada
+        // em vez de cair no <body>.
+        const primeira = lista.querySelector('.apt-row[data-extra]');
+        primeira.tabIndex = -1;
+        primeira.focus({ preventScroll: true });
+      });
+    })();
+  </script>
+)}

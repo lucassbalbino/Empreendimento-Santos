@@ -88,14 +88,13 @@ const empreendimentos = defineCollection({
     apartamentos: z
       .array(
         z.object({
-          numero: opcional(z.string()),
-          tipo: opcional(z.string()),
-          tipologia: opcional(z.string()),
+          referencia: opcional(z.string()),
           piso: opcional(z.string()),
+          tipologia: opcional(z.string()),
           areaBrutaPrivativa: opcional(z.string()),
-          areaExteriorPrivativa: opcional(z.string()),
+          areaBrutaConstrucao: opcional(z.string()),
           estacionamento: opcional(z.string()),
-          eficienciaEnergetica: opcional(z.string()),
+          arrecadacao: opcional(z.string()),
           preco: opcional(z.string()),
           /** PDF da planta desta fração. */
           planta: opcional(z.string()),

@@ -694,7 +694,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 :is(.title-split, .display, .dofazemos__word-t, .dofazemos__word-n, .pilar__t,
   .pilar__n, .qmeta__v, .faq-list__q h3, .stat__num, .card__title,
   .panel__title, .panel__label, .service h3, .roster__name,
-  .footer-destaque__item a, .fact__v, .apt-row__num, .emodal__title,
+  .footer-destaque__item a, .fact__v, .apt-row__ref, .emodal__title,
   .emodal__info-title, .emodal__fact-value, .testimonials__name,
   .dslider__name, .faq__title, .post-card__titulo, .artigo__titulo, .prosa h2,
   .erro-link__titulo, .nav__list .nav__link){
@@ -2448,18 +2448,20 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
   padding:clamp(14px,1.7vw,22px) clamp(16px,2vw,28px);
   font-family:var(--sans);
 }
-/* O número na display é o mesmo gesto do .fact__v: nesta página, o dado que
-   identifica alguma coisa escreve-se na face dos títulos. */
-.apt-row__num{
+/* A referência na display é o mesmo gesto do .fact__v: nesta página, o dado
+   que identifica alguma coisa escreve-se na face dos títulos. Leva rótulo como
+   os outros campos, alinhado à esquerda porque abre a linha. */
+.apt-row__num{ display:flex; flex-direction:column; align-items:flex-start; gap:.35rem; min-width:0; }
+.apt-row__ref{
   font-family:var(--display); font-size:clamp(1rem,1.4vw,1.2rem);
   color:var(--ink); line-height:1.15;
 }
 .apt-row__fields{
-  display:grid; grid-template-columns:repeat(8,minmax(0,1fr));
+  display:grid; grid-template-columns:repeat(7,minmax(0,1fr));
   gap:clamp(8px,1.2vw,20px);
 }
 .apt-field{ display:flex; flex-direction:column; align-items:center; gap:.35rem; min-width:0; text-align:center; }
-/* Altura de duas linhas, sempre: "Área exterior privativa" quebra e os
+/* Altura de duas linhas, sempre: "Área bruta de construção" quebra e os
    rótulos curtos não, e sem esta reserva o valor de cada campo assentava a
    uma altura diferente do campo ao lado. O rótulo encosta em baixo. */
 .apt-field__label{
@@ -2504,6 +2506,24 @@ a.card, a.panel{ text-decoration:none; color:inherit; }
 .apt-status--reservado{ border-color:var(--ink-soft); color:var(--ink-soft); }
 .apt-status--vendido{ background:var(--ink-faint); color:var(--paper); }
 .apt-status--vazia{ color:var(--ink-faint); min-width:0; padding-inline:0; }
+
+/* "Ver mais" — a classe só é posta pelo script de Tipologias.astro, por isso
+   sem JS nenhuma fração fica escondida. */
+.apt-list--limitada .apt-row[data-extra]{ display:none; }
+.apt-row[data-extra]:focus{ outline:none; }
+.apt-mais{ display:flex; justify-content:center; margin-top:clamp(1.6rem,2.6vw,2.4rem); }
+.apt-mais[hidden]{ display:none; }
+/* <button> e não <a>: sem este reset o browser desenha-lhe contorno e fundo
+   (o mesmo de .contact__form .btn). Fica só o sublinhado do .btn. A seta
+   aponta para baixo — revela o que está por baixo, não leva a outra página —
+   e no hover desce em vez de afastar o texto. */
+.apt-mais .btn{
+  background:none; border:0; border-bottom:1px solid var(--ink);
+  font-family:inherit; cursor:pointer;
+}
+.apt-mais .btn::after{ content:"\2193"; transition:transform .3s var(--ease); }
+.apt-mais .btn:hover{ gap:.7rem; }
+.apt-mais .btn:hover::after{ transform:translateY(3px); }
 
 /* A partir daqui a fila deixa de caber: o número e o estado sobem para uma
    primeira linha (é o par que identifica a fração) e os campos passam a

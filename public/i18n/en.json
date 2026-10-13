@@ -57,15 +57,16 @@
       "ficha": "Development fact sheet",
       "apartamentosTitulo": "Available units",
       "apartamentos": {
-        "tipo": "Type",
-        "tipologia": "Layout",
+        "referencia": "Reference",
         "piso": "Floor",
+        "tipologia": "Layout",
         "areaBruta": "Gross private area",
-        "areaExterior": "Private outdoor area",
+        "areaConstrucao": "Gross construction area",
         "estacionamento": "Parking",
-        "eficiencia": "Energy rating",
+        "arrecadacao": "Storage",
         "preco": "Price",
-        "verPlanta": "View floor plan (PDF)"
+        "verPlanta": "View floor plan (PDF)",
+        "verMais": "Show more"
       },
       "imagens": "Development images",
       "continuar": "Keep exploring",
@@ -398,7 +399,7 @@
       "factos": ["St. Antão do Tojal, Loures", "T2", "14 apartments", "In planning", "Logo Existo", "SF Properties"]
     },
     "empreendimento-loures-residencial": {
-      "nome": "Prime Living",
+      "nome": "Viver",
       "tipologia": "T1, T2, T3, T5 and T6",
       "unidades": "155 apartments",
       "estado": "In planning",
