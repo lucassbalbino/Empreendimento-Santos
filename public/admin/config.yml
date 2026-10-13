@@ -454,8 +454,7 @@ collections:
             widget: object
             fields:
               - { label: "Título", name: title, widget: string }
-              - { label: "Morada", name: morada, widget: text }
-              - { label: "Legenda do mapa", name: mapaLabel, widget: string }
+              - { label: "Título do mapa (leitores de ecrã)", name: mapaLabel, widget: string, hint: "A morada mostrada ao lado do mapa é a do Rodapé (Geral > Rodapé)." }
 
   # ------------------------------------------------- GERAL (header/footer)
   - name: site

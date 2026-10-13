@@ -613,6 +613,11 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    aspect-ratio imposto e sem object-fit, a imagem entra inteira e a coluna
    ajusta-se à sua altura. */
 .split__img--mapa{ aspect-ratio:auto; object-fit:contain; height:auto; }
+/* Mapa interativo (Contactos): ocupa a mesma moldura 4/5 do placeholder que
+   substituiu; abaixo de 760px, com a coluna empilhada, baixa para 4/3 para não
+   encher o ecrã do telemóvel só com mapa. */
+.split__mapa{ aspect-ratio:4/5; width:100%; height:auto; border:0; display:block; }
+@media (max-width:760px){ .split__mapa{ aspect-ratio:4/3; } }
 .split__body .display{ margin:.4rem 0 1.6rem; }
 
 /* Títulos de secção — a mesma tipografia (Fraunces; ver a nota das fontes no

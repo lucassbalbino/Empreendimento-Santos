@@ -32,15 +32,15 @@
   "nap": {
     "_leia": "NAP = Name, Address, Phone. Enquanto `verificado` for false, a morada e o telefone NÃO entram no JSON-LD — publicar um NAP falso contamina o Google Business Profile e os diretórios. Pôr a true só quando os dados forem reais.",
     "verificado": false,
-    "morada": "Av. da Liberdade 120, 3º",
-    "codigoPostal": "1250-146",
-    "localidade": "Lisboa",
+    "morada": "Rua do Centro Empresarial, Escritório 7, Esc 1.1",
+    "codigoPostal": "2710-692",
+    "localidade": "Sintra",
     "regiao": "Lisboa",
     "pais": "PT",
     "telefone": "+351 210 000 000",
     "email": "geral@amsantos.pt",
-    "latitude": null,
-    "longitude": null,
+    "latitude": 38.7617,
+    "longitude": -9.3734,
     "horario": "Mo-Fr 09:00-18:00"
   },
   "paginas": {

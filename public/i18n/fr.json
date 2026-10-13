@@ -227,7 +227,7 @@
   "contactos": {
     "hero": { "title": "Contact" },
     "contacto": { "title": "Parlons de votre projet ?", "texto": "Remplissez le formulaire ou contactez-nous directement. Nous répondons à toutes les demandes dans les plus brefs délais.", "intro": "Entrez en contact avec nous" },
-    "onde": { "title": "Où Nous Trouver", "morada": "Av. da Liberdade 120, 3º\n1250-146 Lisbonne\nPortugal", "mapaLabel": "Carte — Lisbonne, Av. da Liberdade" }
+    "onde": { "title": "Où Nous Trouver" }
   },
   "site": {
     "footer": {

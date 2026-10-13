@@ -5,7 +5,19 @@ import Blob from '../components/Blob.astro';
 import TitleSplit from '../components/TitleSplit.astro';
 import Seam from '../components/Seam.astro';
 import contactos from '../data/contactos.json';
-const moradaLinhas = contactos.onde.morada.split('\n');
+import site from '../data/site.json';
+import seo from '../data/seo.json';
+
+/* A morada é a do rodapé — uma só fonte, para as duas nunca divergirem. */
+const moradaLinhas = site.footer.morada.split('\n');
+
+/* Mapa do OpenStreetMap: sem cookies de terceiros, por isso não precisa de
+   esperar pelo consentimento (o Google Maps precisaria). As coordenadas são as
+   do NAP em seo.json; a janela é ~1,4 km à volta do marcador. */
+const { latitude: lat, longitude: lon } = seo.nap;
+const mapaSrc = lat != null && lon != null
+  ? `https://www.openstreetmap.org/export/embed.html?bbox=${[lon - 0.008, lat - 0.0045, lon + 0.008, lat + 0.0045].map((n) => n.toFixed(4)).join(',')}&layer=mapnik&marker=${lat},${lon}`
+  : null;
 ---
 <Base flat footerDestaque tipoPagina="ContactPage">
   <!-- Página INTEIRA em café: não há hero e as duas secções são as duas
@@ -42,9 +54,13 @@ const moradaLinhas = contactos.onde.morada.split('\n');
         <div class="split">
           <div class="split__body">
             <TitleSplit text={contactos.onde.title} data-i18n="contactos.onde.title" data-i18n-split="1" />
-            <p class="lead" style="margin-top:1rem" data-i18n="contactos.onde.morada" data-i18n-multiline>{moradaLinhas.map((linha, i) => (<>{i > 0 && <br />}{linha}</>))}</p>
+            <p class="lead" style="margin-top:1rem" data-i18n="site.footer.morada" data-i18n-multiline>{moradaLinhas.map((linha, i) => (<>{i > 0 && <br />}{linha}</>))}</p>
           </div>
-          <div class="split__media"><div class="ph ph--dark" data-label={contactos.onde.mapaLabel}></div></div>
+          <div class="split__media">
+            {mapaSrc
+              ? <iframe class="split__mapa" src={mapaSrc} title={contactos.onde.mapaLabel} loading="lazy" referrerpolicy="no-referrer"></iframe>
+              : <div class="ph ph--dark" data-label={contactos.onde.mapaLabel}></div>}
+          </div>
         </div>
       </div>
     </section>
