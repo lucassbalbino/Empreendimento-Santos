@@ -196,13 +196,6 @@
   },
   "equipa": {
     "hero": { "title": "Équipe" },
-    "direcao": {
-      "title": "Qui dirige le groupe",
-      "members": [
-        { "role": "Direction Générale" },
-        { "role": "Direction de la Conception" }
-      ]
-    },
     "equipa": {
       "title": "Qui construit, chaque jour",
       "grupos": [

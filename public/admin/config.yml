@@ -393,18 +393,6 @@ collections:
             fields:
               - { label: "Título", name: title, widget: string }
               - { label: "Imagem de fundo", name: imagem, widget: image, required: false }
-          - label: "Direção"
-            name: direcao
-            widget: object
-            fields:
-              - { label: "Título", name: title, widget: string }
-              - label: "Membros"
-                name: members
-                widget: list
-                summary: "{{fields.name}} — {{fields.role}}"
-                fields:
-                  - { label: "Nome", name: name, widget: string }
-                  - { label: "Função", name: role, widget: string }
           - label: "Equipa (por área)"
             name: equipa
             widget: object

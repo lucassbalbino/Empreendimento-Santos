@@ -203,13 +203,6 @@
   },
   "equipa": {
     "hero": { "title": "Equipa" },
-    "direcao": {
-      "title": "Quem lidera o grupo",
-      "members": [
-        { "role": "Direção-Geral" },
-        { "role": "Direção de Projeto" }
-      ]
-    },
     "equipa": {
       "title": "Quem constrói, todos os dias",
       "grupos": [

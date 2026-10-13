@@ -11,7 +11,7 @@ import { listaDePessoas } from '../utils/schema.js';
 /* Pessoas com nome e função dão o sinal de E-E-A-T que o Google procura num
    negócio de construção: por trás da marca há profissionais identificáveis. */
 const schemaEquipa = [
-  listaDePessoas([...equipa.direcao.members, ...equipa.equipa.grupos.flatMap((g) => g.members)], {
+  listaDePessoas(equipa.equipa.grupos.flatMap((g) => g.members), {
     url: urlAbsoluto('/equipa'),
     nome: 'Equipa Empreendimentos Santos',
   }),
@@ -29,14 +29,6 @@ const schemaEquipa = [
       <div class="container">
         <TitleSplit text={equipa.hero.title} tag="h1" class="hero__title-page title-split--hero" data-i18n="equipa.hero.title" data-i18n-split="1" />
       </div>
-    </div>
-  </section>
-
-  <!-- DIREÇÃO -->
-  <section class="section">
-    <div class="container">
-      <TitleSplit text={equipa.direcao.title} data-i18n="equipa.direcao.title" data-i18n-split="1" />
-      <Team members={equipa.direcao.members} variant="lead" i18nBase="equipa.direcao.members" />
     </div>
   </section>
 

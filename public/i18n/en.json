@@ -196,13 +196,6 @@
   },
   "equipa": {
     "hero": { "title": "Team" },
-    "direcao": {
-      "title": "Who leads the group",
-      "members": [
-        { "role": "Managing Director" },
-        { "role": "Head of Design" }
-      ]
-    },
     "equipa": {
       "title": "Who builds, every day",
       "grupos": [

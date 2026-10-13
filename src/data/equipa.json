@@ -1,12 +1,5 @@
 {
-  "hero": { "title": "Equipa", "imagem": "/images/team-pic.webp" },
-  "direcao": {
-    "title": "Quem lidera o grupo",
-    "members": [
-      { "name": "António M Santos", "role": "Direção-Geral" },
-      { "name": "Marta Sousa", "role": "Direção de Projeto" }
-    ]
-  },
+  "hero": { "title": "Equipa", "imagem": "/images/equipa-escritorio.webp" },
   "equipa": {
     "title": "Quem constrói, todos os dias",
     "grupos": [
