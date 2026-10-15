@@ -131,6 +131,11 @@
      por cima do --type-scale: o cliente pediu-os duas vezes mais 10% abaixo
      (.9 × .9 = .81). */
   --title-scale: .81;
+  /* Teto dos títulos de secção e da hero (.title-split, --fit e --hero): o
+     cliente quer 32px. Abaixo de ~950px de largura a escala fluida já fica
+     por baixo e continua a mandar — fixar 32px no telemóvel faria as palavras longas
+     ("SUSTENTABILIDADE") passarem a largura do ecrã. */
+  --title-max: 32px;
 
   --maxw: 1480px;
   --gutter: clamp(18px, 3.4vw, 52px);
@@ -298,6 +303,19 @@ ul{ list-style:none; }
   max-width:42ch;
 }
 .muted{ color:var(--ink-soft); }
+/* Subtítulo de secção: o parágrafo logo a seguir a um título de secção
+   (TitleSplit/BlockHead) passa a Inter 13px, pedido do cliente. 13px
+   absolutos, fora do --type-scale. A medida sobe para 56ch porque os 34–42ch
+   do .lead, pensados para a Fraunces grande, davam uma coluna de ~250px.
+   Especificidade 0-2-1, para ganhar ao .block-head__text .lead e ao
+   .contadores__text .lead (0-2-0) sem !important. */
+.title-split + p:is(.lead, .muted){
+  font-family:var(--sans);
+  font-weight:400;
+  font-size:13px;
+  line-height:1.6;
+  max-width:56ch;
+}
 
 /* Em fundo escuro o texto secundário (lead, parágrafos, labels, bios) usa
    --ink-soft/--ink-faint, tons pensados para papel branco — sobre o preto
@@ -658,7 +676,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
      possível dentro de uma palavra, por isso a única saída é o corpo encolher
      com o viewport. Era isto que o JS antigo fazia a medir e a reescrever
      font-size; em CSS sai de graça e sem salto no resize. */
-  font-size:calc(clamp(1.6rem, 0.95rem + 3.4vw, 4rem) * var(--type-scale) * var(--title-scale));
+  font-size:min(calc(clamp(1.6rem, 0.95rem + 3.4vw, 4rem) * var(--type-scale) * var(--title-scale)), var(--title-max));
   /* Sem cor própria, de propósito: o título herda do contexto — tinta sobre
      claro, branco sobre a hero e sobre .section--dark. É uma decisão de
      desenho, não um esquecimento: os títulos ficam a preto e branco enquanto
@@ -694,7 +712,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    antes. O max-width em ch nao precisa de descer porque o ch acompanha o
    font-size — a medida encolhe na mesma proporcao e as quebras de linha nao
    mudam. */
-.title-split--hero{ font-size:calc(clamp(1.2rem, 0.46rem + 4.47vw, 4.5rem) * var(--type-scale) * var(--title-scale)); max-width:min(20ch, 100%); }
+.title-split--hero{ font-size:min(calc(clamp(1.2rem, 0.46rem + 4.47vw, 4.5rem) * var(--type-scale) * var(--title-scale)), var(--title-max)); max-width:min(20ch, 100%); }
 
 /* Corte fino da Fraunces em todos os títulos do site (tudo o que lê
    var(--display)). Os parágrafos editoriais em Fraunces — .lead,
@@ -767,7 +785,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .title-split--fit{
   align-self:flex-start; text-align:left; margin:0;
-  font-size:calc(clamp(1.5rem, 1.03rem + 2.63vw, 3.4rem) * var(--type-scale) * var(--title-scale));
+  font-size:min(calc(clamp(1.5rem, 1.03rem + 2.63vw, 3.4rem) * var(--type-scale) * var(--title-scale)), var(--title-max));
   max-width:min(22ch, 100%);
 }
 
