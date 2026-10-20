@@ -1461,6 +1461,11 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   opacity:0; transition:opacity .4s var(--ease); pointer-events:none;
 }
 .card:hover .card__media::after{ opacity:1; }
+/* Card sem link (projetos futuros, ver `clicavel` em utils/projetos.js): sem
+   zoom nem véu, para não prometer um clique que não leva a lado nenhum. */
+.card--static:hover .card__img,
+.card--static:hover .card__media .ph{ transform:none; }
+.card--static:hover .card__media::after{ opacity:0; }
 /* Selo para imagens que ainda não retratam o empreendimento (imagemReal:false). */
 .img-prov{
   position:absolute; top:.7rem; left:.7rem; z-index:2;
@@ -3204,7 +3209,8 @@ button.card{
    parte por linha — mesma técnica do split-reveal.js (ver .line/.line__inner
    mais abaixo) — e precisa de ser "blockificado" para aceitar as .line que o
    split-type insere sem quebrar o layout, tal como os spans do TitleSplit. */
-.dslider__name a{ display:block; color:inherit; transition:color .3s var(--ease); }
+.dslider__name a,
+.dslider__name > span{ display:block; color:inherit; transition:color .3s var(--ease); }
 .dslider__name a:hover{ color:var(--accent-dk); }
 
 /* ---- Rodapé: setas + fila de miniaturas ----

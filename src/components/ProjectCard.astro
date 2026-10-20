@@ -8,11 +8,15 @@
 // vive nesse passe-partout, sempre POR BAIXO da imagem e nunca sobreposta a ela.
 // (Houve aqui um .card__mat a desenhar uma segunda linha em volta de imagem +
 // legenda; saiu por decisão de desenho. Ver o bloco .card em styles.css.)
+// Projeto sem ficha acessível (proj.clicavel false — os futuros): um <div> sem
+// link nem hover; a ficha existe, só não se chega lá a partir daqui.
 const { proj, dark = false, modal = false } = Astro.props;
-const Tag = modal ? 'button' : 'a';
+const Tag = modal ? 'button' : proj.clicavel ? 'a' : 'div';
 const attrs = modal
   ? { type: 'button', class: 'card card--modal', 'data-slug': proj.slug }
-  : { class: 'card', href: `/empreendimentos/${proj.slug}` };
+  : proj.clicavel
+    ? { class: 'card', href: `/empreendimentos/${proj.slug}` }
+    : { class: 'card card--static' };
 const meta = [proj.localizacao, proj.ano].filter(Boolean).join(' · ');
 ---
 <Tag {...attrs}>

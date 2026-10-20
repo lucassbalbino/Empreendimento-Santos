@@ -178,7 +178,8 @@ export function listaDeImoveis(projetos, { url, nome }) {
       '@type': 'ListItem',
       position: i + 1,
       name: p.nome,
-      url: urlAbsoluto('/empreendimentos/' + p.slug),
+      // Sem url nos projetos sem ficha acessível (futuros): o site não liga lá.
+      ...(p.clicavel && { url: urlAbsoluto('/empreendimentos/' + p.slug) }),
     })),
   };
 }

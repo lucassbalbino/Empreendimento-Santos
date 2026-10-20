@@ -35,11 +35,14 @@ function nameSize(nome) {
              O próprio nome é o link para o empreendimento: esta é a única
              passagem da home para a página de detalhe, e sem ela o slide não
              levava a lado nenhum. Sem sublinhado — o link tem de se ler como
-             o nome, não como um botão à parte. -->
+             o nome, não como um botão à parte. Projeto sem ficha acessível
+             (futuros, ver `clicavel` em utils/projetos.js): o nome é texto. -->
         <div class="dslider__info">
           <a class="btn dslider__all" href={href} data-i18n="home.portfolio.botao">{botao}</a>
           <h3 class="dslider__name" style={`--name-size:${nameSize(p.nome)}`}>
-            <a href={`/empreendimentos/${p.slug}`}>{p.nome}</a>
+            {p.clicavel
+              ? <a href={`/empreendimentos/${p.slug}`}>{p.nome}</a>
+              : <span>{p.nome}</span>}
           </h3>
         </div>
       </article>
@@ -124,7 +127,8 @@ function nameSize(nome) {
     // só ao entrar em vista. Alvo é a <a> (texto puro), não o <h3> que a
     // envolve — split-type parte o elemento que recebe, e um <h3> com um link
     // lá dentro não é o mesmo "texto plano" que o resto do site sempre lhe dá.
-    const names = slides.map((s) => s.querySelector('.dslider__name a'));
+    // (<span> em vez de <a> nos projetos sem ficha acessível.)
+    const names = slides.map((s) => s.querySelector('.dslider__name > a, .dslider__name > span'));
     function splitOne(el) {
       const split = new SplitType(el, { types: 'lines' });
       split.lines.forEach((line, i) => {

@@ -12,12 +12,16 @@ import { getCollection } from 'astro:content';
  *  - estado:    estado da obra quando o ficheiro não o fixa;
  *  - comercial: situação comercial imposta pela fase (o Histórico é, por
  *               definição, o que já está vendido) — `null` = a do ficheiro;
- *  - listagem:  página onde o projeto aparece (e para onde volta a migalha).
+ *  - listagem:  página onde o projeto aparece (e para onde volta a migalha);
+ *  - clicavel:  se os cards/slider ligam à ficha. Os futuros NÃO ligam (pedido
+ *               do cliente): a ficha continua a ser gerada no mesmo endereço,
+ *               só não há caminho até ela pelo site. Ao passar o projeto para
+ *               'desenvolvimento' os links aparecem sozinhos.
  */
 export const FASES = {
-  futuro: { estado: 'Em projeto', comercial: null, listagem: { nome: 'Portfólio', caminho: '/portfolio' } },
-  desenvolvimento: { estado: 'Em construção', comercial: null, listagem: { nome: 'Portfólio', caminho: '/portfolio' } },
-  concluido: { estado: 'Concluído', comercial: 'Vendido', listagem: { nome: 'Histórico', caminho: '/historico' } },
+  futuro: { estado: 'Em projeto', comercial: null, clicavel: false, listagem: { nome: 'Portfólio', caminho: '/portfolio' } },
+  desenvolvimento: { estado: 'Em construção', comercial: null, clicavel: true, listagem: { nome: 'Portfólio', caminho: '/portfolio' } },
+  concluido: { estado: 'Concluído', comercial: 'Vendido', clicavel: true, listagem: { nome: 'Histórico', caminho: '/historico' } },
 };
 
 /** Frase de entrega por omissão, a partir do estado da obra e do ano. */
@@ -61,6 +65,7 @@ function normaliza({ id, data }) {
     slug: id,
     estado,
     comercial,
+    clicavel: fase.clicavel,
     entrega: data.entrega ?? ENTREGA[estado](data.ano),
     factos: fichaTecnica(data, estado, comercial),
   };
