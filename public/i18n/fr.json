@@ -384,7 +384,7 @@
       "estado": "En construction",
       "comercial": "Location",
       "entrega": "Livraison prévue en 2028",
-      "resumo": "Comme dans tous nos projets, Valflores Residence naît d'une vision centrée sur le nouveau segment de marché qu'Empreendimentos Santos développe.",
+      "resumo": "À Santa Iria de Azóia, à trois minutes du Palais de Valflores, le Valflores Residence réunira 39 appartements T2 conçus par l'atelier d'architecture Logo Existo et destinés à la location — le nouveau segment de marché qu'Empreendimentos Santos développe. L'essentiel du quotidien est à proximité : le Colégio Bartolomeu Dias et les piscines à trois minutes, les supermarchés Mercadona, Intermarché, Pingo Doce et LIDL à quatre ou cinq, la gare de Santa Iria à cinq et l'aéroport de Lisbonne à douze. La livraison est prévue pour 2028.",
       "factos": ["Santa Iria de Azóia, Loures", "T2", "39 appartements", "En construction", "Logo Existo", "SF Properties"],
       "proximidades": [{ "local": "Palais de Valflores" }, { "local": "Piscines" }, { "local": "Colégio Bartolomeu Dias" }, { "local": "Mercadona" }, { "local": "Intermarché" }, { "local": "Pingo Doce" }, { "local": "LIDL" }, { "local": "Gare de Santa Iria" }, { "local": "Aéroport de Lisbonne" }]
     },
