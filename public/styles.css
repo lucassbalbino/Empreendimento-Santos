@@ -1784,8 +1784,10 @@ body.is-home .site-footer{ position:relative; z-index:1; }
    Somos, texto de cada serviço, texto do contacto) a 18px, pedido do
    cliente. O rodapé e o banner de cookies ficam de fora. Especificidade
    0-2-2, para ganhar ao subtítulo de secção a 13px (.title-split + p.lead,
-   0-2-1). */
-body.is-sobre :is(.split__body > p, .service p, .contact p){ font-size:18px; }
+   0-2-1). A Equipa segue o mesmo padrão: ali o único parágrafo em Inter é
+   o do contacto (as funções da lista são <span>, não parágrafos). */
+body.is-sobre :is(.split__body > p, .service p, .contact p),
+body.is-equipa .contact p{ font-size:18px; }
 
 /* Encaixe ao rolar+gesto: a imagem entra a ocupar a largura da linha
    inteira e encolhe para a coluna enquanto o corpo (título+texto) desliza
@@ -3000,6 +3002,22 @@ button.card{
 .emodal__fact-value{ --fk:1; font-family:var(--display); font-size:calc(1.05rem * var(--type-scale) * var(--fk)); color:var(--ink); text-align:right; }
 .emodal__footer{ margin-top:1.8rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
 .emodal__entrega{ font-size:calc(.8rem * var(--type-scale) * var(--fk)); letter-spacing:.04em; color:var(--ink-faint); }
+
+/* Histórico: cards e painel inline um pouco maiores, em px fixos como o resto
+   da afinação do cliente (nome em Fraunces a 21px, meta em Inter 13px,
+   resumo a 14px como as respostas do FAQ). Os títulos do painel ficam como
+   estavam. Especificidade 0-2-1, para ganhar também ao piso de 13px do
+   telemóvel (0-1-0), que aqui dava tamanhos menores do que estes. */
+body.is-historico .card__title{ font-size:21px; }
+body.is-historico .card__meta{ font-size:13px; }
+body.is-historico .card__tag{ font-size:12px; }
+body.is-historico .emodal__subtitle{ font-size:13px; }
+body.is-historico .emodal__estado{ font-size:11px; }
+body.is-historico .emodal__chip{ font-size:12px; }
+body.is-historico .emodal__resumo{ font-size:14px; }
+body.is-historico .emodal__fact-label{ font-size:11px; }
+body.is-historico .emodal__fact-value{ font-size:18px; }
+body.is-historico .emodal__entrega{ font-size:12px; }
 
 @media (max-width: 760px){
   /* Empilha (imagem no topo, info em baixo) — a grelha já é de 1 coluna aqui. */
