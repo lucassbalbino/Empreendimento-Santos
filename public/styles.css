@@ -2942,6 +2942,7 @@ button.card{
 /* Painel esquerdo — imagem escura com título e chips */
 .emodal__media{ position:relative; min-height:340px; background:var(--dark); overflow:hidden; display:flex; flex-direction:column; }
 .emodal__img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.emodal__img--ghost{ pointer-events:none; will-change:opacity, transform; }
 .emodal__media-grad{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,.78) 0%, rgba(10,10,10,.28) 34%, rgba(10,10,10,.22) 60%, rgba(10,10,10,.9) 100%); }
 .emodal__media-head{ position:relative; z-index:1; padding:clamp(24px,3vw,40px) clamp(24px,3vw,40px) 0; }
 .emodal__title{ --fk:1; font-family:var(--display); font-weight:400; color:#fff; font-size:calc(clamp(1.7rem,3vw,2.5rem) * var(--type-scale) * var(--fk)); line-height:1.08; text-shadow:0 1px 14px rgba(0,0,0,.5); }

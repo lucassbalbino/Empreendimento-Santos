@@ -183,12 +183,61 @@ const modalData = concluidos.map((p) => ({
         if (multi) el.counter.textContent = (galleryIndex + 1) + ' / ' + total;
       }
 
-      function showImage(idx, nome) {
+      // Troca de imagem com motion: uma cópia da foto actual (fantasma) fica por
+      // cima e sai a desvanecer para o lado oposto ao da navegação, enquanto a
+      // nova entra pelo lado de `dir` com um ligeiro zoom a assentar. Sem `dir`
+      // (abertura do painel, troca de idioma) ou com reduced-motion: troca seca.
+      var EASE_SWAP = 'cubic-bezier(.22,.61,.36,1)'; // = --ease
+      var swapToken = 0;
+      function swapImage(src, alt, dir) {
+        var img = el.img;
+        var media = img.parentNode;
+        var ghosts = media.querySelectorAll('.emodal__img--ghost');
+        for (var i = 0; i < ghosts.length; i++) ghosts[i].remove();
+        if (img.getAnimations) img.getAnimations().forEach(function (a) { a.cancel(); });
+
+        if (reduce || !dir || !img.animate || !img.getAttribute('src')) {
+          img.src = src;
+          img.alt = alt;
+          return;
+        }
+
+        var token = ++swapToken;
+        var ghost = img.cloneNode(false);
+        ghost.removeAttribute('id');
+        ghost.className = 'emodal__img emodal__img--ghost';
+        ghost.alt = '';
+        ghost.setAttribute('aria-hidden', 'true');
+        media.insertBefore(ghost, img.nextSibling);
+
+        img.src = src;
+        img.alt = alt;
+        // Só anima depois de a nova foto estar descodificada — até lá o
+        // fantasma tapa-a, por isso nunca se vê o fundo escuro a piscar.
+        var ready = img.decode ? img.decode().catch(function () {}) : Promise.resolve();
+        ready.then(function () {
+          if (token !== swapToken) return;
+          img.animate([
+            { transform: 'translateX(' + (dir * 6) + '%) scale(1.08)' },
+            { transform: 'none' }
+          ], { duration: 1100, easing: EASE_SWAP });
+          var out = ghost.animate([
+            { opacity: 1, transform: 'none' },
+            { opacity: 0, transform: 'translateX(' + (-dir * 6) + '%) scale(1.02)' }
+          ], { duration: 800, easing: EASE_SWAP, fill: 'forwards' });
+          out.onfinish = function () { ghost.remove(); };
+        });
+      }
+
+      function showImage(idx, nome, dir) {
         var total = gallery.length;
         if (!total) return;
         galleryIndex = ((idx % total) + total) % total;
-        el.img.src = gallery[galleryIndex];
-        el.img.alt = (nome || el.title.textContent) + (total > 1 ? ' — imagem ' + (galleryIndex + 1) : '');
+        swapImage(
+          gallery[galleryIndex],
+          (nome || el.title.textContent) + (total > 1 ? ' — imagem ' + (galleryIndex + 1) : ''),
+          dir
+        );
         updateGalleryUI();
       }
 
@@ -441,15 +490,15 @@ const modalData = concluidos.map((p) => ({
         btn.addEventListener('click', function () { close(); });
       });
 
-      el.prev.addEventListener('click', function (e) { e.stopPropagation(); showImage(galleryIndex - 1); });
-      el.next.addEventListener('click', function (e) { e.stopPropagation(); showImage(galleryIndex + 1); });
+      el.prev.addEventListener('click', function (e) { e.stopPropagation(); showImage(galleryIndex - 1, null, -1); });
+      el.next.addEventListener('click', function (e) { e.stopPropagation(); showImage(galleryIndex + 1, null, 1); });
 
       document.addEventListener('keydown', function (e) {
         if (!currentCard) return;
         if (e.key === 'Escape') { close(); return; }
         if (gallery.length < 2) return;
-        if (e.key === 'ArrowLeft') { e.preventDefault(); showImage(galleryIndex - 1); }
-        if (e.key === 'ArrowRight') { e.preventDefault(); showImage(galleryIndex + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); showImage(galleryIndex - 1, null, -1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); showImage(galleryIndex + 1, null, 1); }
       });
 
       // ABERTURA DIRETA POR URL — /historico#<slug>. Os painéis do Histórico na
