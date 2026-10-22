@@ -11,6 +11,9 @@ const {
   /* Rodapé com os contactos em destaque — só a /contactos o pede, depois de
      lhe ter saído a tabela de email e telefones do corpo da página. */
   footerDestaque = false,
+  /* Classe extra no <body>, para regras que só valem numa página
+     (ex.: a /sobre-nos passa "is-sobre"). */
+  paginaClass,
   /* Tudo o que segue é SEO e vai direto para o <Seo>. As páginas estáticas não
      precisam de passar nada — o Seo.astro resolve pelo caminho contra o
      src/data/seo.json. Só as rotas dinâmicas (empreendimentos, blog) passam
@@ -28,7 +31,7 @@ const isHome = Astro.url.pathname === '/';
 // A prop `palette` saiu daqui: servia o andaime de teste da recoloração
 // (palette="test-b46511"), retirado na Task 1. Nenhuma página a passava, por
 // isso a classe palette-* nunca chegou ao <body>.
-const bodyClass = [isHome && 'is-home', flat && 'no-hero'].filter(Boolean).join(' ') || undefined;
+const bodyClass = [isHome && 'is-home', flat && 'no-hero', paginaClass].filter(Boolean).join(' ') || undefined;
 ---
 <!DOCTYPE html>
 <html lang="pt-PT">
