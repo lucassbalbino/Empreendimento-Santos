@@ -460,7 +460,7 @@ ul{ list-style:none; }
 .nav{ display:flex; align-items:center; gap:2rem; }
 .nav__list{ display:flex; align-items:center; gap:1.7rem; }
 .nav__list a{
-  font-size:calc(.74rem * var(--type-scale) * var(--fk)); letter-spacing:.2em; text-transform:uppercase;
+  font-size:11px; letter-spacing:.2em; text-transform:uppercase;
   font-weight:600; color:#fff; opacity:.9; white-space:nowrap;
   transition:color .3s var(--ease), opacity .3s var(--ease);
   position:relative; padding-block:.4rem;
@@ -478,7 +478,7 @@ ul{ list-style:none; }
 .nav__lang-item{ display:flex; align-items:center; }
 .lang-switch{ position:relative; }
 .lang-switch__btn{
-  font-family:inherit; font-size:calc(.74rem * var(--type-scale) * var(--fk)); letter-spacing:.2em; font-weight:700;
+  font-family:inherit; font-size:11px; letter-spacing:.2em; font-weight:700;
   color:#fff; background:none; border:0; cursor:pointer; padding:.3rem .1rem;
   display:inline-flex; align-items:center; gap:.45rem;
   transition:color .3s var(--ease);
@@ -866,7 +866,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   color:var(--ink-soft);
   --fk:1; font-family:var(--serif); font-weight:300;
   line-height:1.5;
-  font-size:min(calc(clamp(1.5rem,2.6vw,2.3rem) * var(--type-scale) * var(--fk) * var(--title-scale)), var(--editorial-max));
+  font-size:21px;
 }
 @media (max-width:1100px){
   .quemsomos__p{ grid-column:5 / 13; }
@@ -880,7 +880,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
      em vez de uma leitura sempre igual de cima a baixo. `column` lê-se como
      UMA lista, na mesma ordem do desktop (que já é uma coluna de 4/12). */
   .quemsomos__meta{ grid-column:1; flex-direction:column; gap:clamp(24px,5.5vw,36px); }
-  .quemsomos__p{ grid-column:1; font-size:min(calc(clamp(1.3rem,5vw,1.7rem) * var(--type-scale) * var(--fk) * var(--title-scale)), var(--editorial-max)); }
+  .quemsomos__p{ grid-column:1; }
 }
 
 /* ---- "O empreendimento" (/empreendimentos/…) ----
@@ -1155,7 +1155,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .faq-list__q::-webkit-details-marker{ display:none; }
 .faq-list__q h3{
   --fk:1; font-family:var(--display); font-weight:500; color:var(--paper);
-  font-size:calc(clamp(1.05rem,1.5vw,1.25rem) * var(--type-scale) * var(--fk)); margin:0;
+  font-size:21px; margin:0;
 }
 .faq-list__chevron{
   width:20px; height:20px; color:rgba(255,255,255,.45); flex-shrink:0;
@@ -1174,7 +1174,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .faq-list__a{
   color:var(--on-dark); line-height:1.7; margin:0; max-width:62ch;
-  font-size:calc(clamp(1rem,1.05vw,1.05rem) * var(--type-scale) * var(--fk));
+  font-size:14px;
   padding:0 clamp(28px,4.6vw,68px) clamp(24px,2.8vw,32px) 0;
 }
 @media (prefers-reduced-motion:reduce){
@@ -1193,6 +1193,13 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 }
 .contadores__text .title-split{ margin-top:0; }
 .contadores__text .lead{ max-width:34ch; }
+/* Exceção ao subtítulo de secção em Inter 13px (.title-split + p.lead):
+   aqui o parágrafo continua Fraunces, a 21px, pedido do cliente. Três
+   classes para ganhar ao 0-2-1 dessa regra. */
+.contadores__text .title-split + p.lead{
+  --fk:1; font-family:var(--serif); font-weight:300;
+  font-size:21px; line-height:1.45; max-width:34ch;
+}
 
 /* Contadores sem cartão: só o número (grande) e o rótulo por baixo, com um
    traço fino a assinalar cada célula — a credencial lê-se pelos números, não
@@ -1224,7 +1231,8 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 
 @media (max-width:1024px){
   .contadores{ grid-template-columns:1fr; }
-  .contadores__text .lead{ max-width:52ch; }
+  .contadores__text .lead,
+  .contadores__text .title-split + p.lead{ max-width:52ch; }
 }
 @media (max-width:520px){
   .facts.facts--contadores{ grid-template-columns:1fr; }
