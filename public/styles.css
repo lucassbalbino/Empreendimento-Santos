@@ -144,11 +144,6 @@
      tal como herda a fonte. Os valores fixos (subtítulos a 13px, teto de
      32px) não leem --fk. */
   --sans-scale: .9;
-  /* Parágrafos editoriais em Fraunces que fazem de subtítulo da secção
-     (.quemsomos__p na home, .emp-editorial__p na página de empreendimento):
-     descem com o título — levam o --title-scale e um teto na mesma razão que
-     tinham face ao título no desenho original (36.8/64px = .575). */
-  --editorial-max: calc(var(--title-max) * .575);
   --fk: var(--sans-scale);
 
   --maxw: 1480px;
@@ -923,52 +918,18 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   column-gap:clamp(20px,2.6vw,40px);
   row-gap:clamp(28px,3.6vw,60px);
   margin-top:clamp(56px,7vw,108px);
-  /* Fonte única dos dois corpos — o segundo parágrafo deriva daqui em vez de
-     repetir o clamp (ver a compensação óptica abaixo). */
-  --emp-p: clamp(1.5rem,2.6vw,2.3rem);
 }
+/* Os dois parágrafos na Fraunces a 21px fixos, em todas as larguras — pedido
+   do cliente. Distinguem-se só pela posição (a escada de colunas abaixo). */
 .emp-editorial__p{
   color:var(--ink-soft);
-  --fk:1; font-family:var(--serif); font-weight:300;
+  font-family:var(--serif); font-weight:300;
+  font-size:21px;
   line-height:1.5;
   text-wrap:pretty;
-  font-size:min(calc(var(--emp-p) * var(--type-scale) * var(--fk) * var(--title-scale)), var(--editorial-max));
 }
 .emp-editorial__p--lead{ grid-column:1 / 10; }
-
-/* Segundo parágrafo na SANS, para os dois se distinguirem pela letra e não só
-   pela posição. O tamanho e o destaque têm de ficar iguais aos do primeiro, e
-   nenhuma das duas coisas se consegue copiando o número do font-size:
-
-   TAMANHO — a Inter tem altura-de-x de .543em contra .462em da Fraunces
-   (medido no browser, com as faces reais). Ao mesmo font-size as minúsculas da
-   Inter saem 18% mais altas e o parágrafo lê-se maior. O factor .85 (=17/20, a
-   razão entre as duas alturas-de-x) iguala o que o olho mede: a altura das
-   minúsculas. É por isso que o número é MENOR para o tamanho ser o MESMO.
-
-   DESTAQUE — mede-se na densidade da mancha, não no número do peso. Em 400 a
-   Inter dava 7.06% de tinta por área contra 5.66% da Fraunces Light (medido
-   sobre três linhas cheias das duas): 25% mais escura, e lia-se como o
-   parágrafo mais forte dos dois. Abrir o espacejamento não resolve uma
-   diferença dessa ordem — para a compensar só com ar seriam precisos .12em de
-   entreletra, que é tipografia espaçada, não texto corrido. A diferença é de
-   haste, por isso corrige-se no peso: 300, agora que o Base.astro pede a Inter
-   por eixo contínuo e o 300 existe mesmo (antes caía em 400 sem avisar).
-   Medido de novo assim: 5.50% contra 5.66% — 3% de diferença, abaixo do que o
-   olho distingue. O .012em de entreletra fica pelo desenho (a Inter ganha
-   textura com um fio de ar a este corpo), já não pela densidade. */
-.emp-editorial__p--tail{
-  grid-column:4 / 13;
-  --fk:var(--sans-scale); font-family:var(--sans);
-  font-weight:300;
-  font-size:min(calc(calc(var(--emp-p) * .85) * var(--type-scale) * var(--fk) * var(--title-scale)), calc(var(--editorial-max) * .85));
-  letter-spacing:.012em;
-  /* Mesma entrelinha EM PÍXEIS do parágrafo de cima: o corpo encolheu .85, a
-     entrelinha cresce na mesma proporção. Com as alturas-de-x já igualadas,
-     isto iguala também o ar entre linhas tal como o olho o mede — um 1.5 tal
-     e qual deixaria as linhas da sans mais apertadas do que as da serifa. */
-  line-height:calc(1.5 / .85);
-}
+.emp-editorial__p--tail{ grid-column:4 / 13; }
 .emp-cta{
   display:flex; justify-content:flex-end;
   margin-top:clamp(28px, 4vw, 56px);
@@ -983,13 +944,7 @@ body.is-home .site-footer{ position:relative; z-index:1; }
   /* Numa coluna não há escada possível nem margem lateral a dar — a esta
      largura qualquer recuo nos dois lados esmagava a medida. O desencontro
      passa a ser só o recuo do segundo parágrafo, com o fio a marcá-lo. */
-  /* O corpo desce pela VARIÁVEL, nunca pelo font-size: as duas regras que a
-     consomem — a base e o `calc(… * .85)` do segundo parágrafo — têm a mesma
-     especificidade que um `.emp-editorial__p{font-size:…}` escrito aqui, e
-     como esta media query vem depois no ficheiro, ganhava às duas. O segundo
-     parágrafo perdia a compensação óptica e a sans voltava a ler-se 18% maior
-     do que a serifa, só no telemóvel. */
-  .emp-editorial{ grid-template-columns:1fr; --emp-p:clamp(1.3rem,5vw,1.7rem); }
+  .emp-editorial{ grid-template-columns:1fr; }
   .emp-editorial__p--lead{ grid-column:1; }
   .emp-editorial__p--tail{
     grid-column:1;
