@@ -1482,6 +1482,16 @@ body.is-home .site-footer{ position:relative; z-index:1; }
 .section--dark .card__meta{ color:var(--on-dark-soft); }
 .section--dark .card__tag{ color:var(--on-dark); background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.18); }
 
+/* Histórico: a página fica branca, mas os cards vestem o castanho dos cards de
+   "Projetos futuros". Lá o castanho é o fundo da secção a ver-se pelo véu de 6%
+   (acima); aqui não há secção escura por trás, por isso o card leva essa mesma
+   cor resultante, opaca — rgb(67,58,52), o valor medido acima. Borda, título,
+   meta e etiqueta repetem os valores de .section--dark .card*. */
+body.is-historico .card--modal{ background:rgb(67,58,52); border-color:rgba(255,255,255,.34); }
+body.is-historico .card--modal .card__title{ color:var(--paper); }
+body.is-historico .card--modal .card__meta{ color:var(--on-dark-soft); }
+body.is-historico .card--modal .card__tag{ color:var(--on-dark); background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.18); }
+
 /* =====================================================================
    PAINÉIS EXPANSÍVEIS (dark section — efeito content-office)
    Fileira de painéis estreitos; ao passar o pointer, o painel apontado
@@ -1977,6 +1987,16 @@ body.is-equipa .contact p{ font-size:18px; }
 .footer-brand .logo{ margin-bottom:1.2rem; }
 .footer-logo{ height:auto; }
 .footer-logo img{ height:60px; width:auto; display:block; }
+/* Logo da SF Properties por baixo da logo AM Santos: link para o site da
+   imobiliária. O ficheiro tem fundo branco e moldura própria, por isso vai tal
+   e qual; o hover sobe-a ligeiramente, como os ícones das redes. */
+/* .footer-brand à frente: no telemóvel, `.footer-col a{display:inline-flex}`
+   (alvos de toque) ganharia a um .footer-sf simples e punha a logo ao lado da
+   AM Santos em vez de por baixo. */
+.footer-brand .footer-sf{ display:block; width:max-content; margin-bottom:1.2rem; transition:transform .35s var(--ease), opacity .35s var(--ease); }
+.footer-sf img{ width:88px; height:88px; display:block; }
+.footer-sf:hover{ transform:translateY(-2px); opacity:.9; }
+.footer-sf:focus-visible{ outline:2px solid var(--accent-dk); outline-offset:3px; }
 .socials{ display:flex; gap:.8rem; margin-top:1.2rem; }
 .socials a{ display:grid; place-items:center; color:var(--on-dark); transition:color .35s var(--ease), transform .35s var(--ease); }
 .socials a svg{ width:26px; height:26px; }
@@ -4463,6 +4483,8 @@ html.is-loading { overflow: hidden; }   /* trava o scroll enquanto carrega */
   .footer-col p, .footer-col a{ line-height:1.5; }
   .footer-brand .logo{ margin-bottom:.8rem; }
   .footer-logo img{ height:44px; }
+  .footer-brand .footer-sf{ margin-bottom:.8rem; }
+  .footer-sf img{ width:68px; height:68px; }
   .socials{ margin-top:.8rem; }
   .check--footer{ margin-top:.7rem; }
   .footer-links{ margin-top:clamp(28px,6vw,40px); padding-top:1.2rem; }

@@ -19,7 +19,8 @@
       "newsletterConsent": "I agree to receive news and communications from Empreendimentos Santos.",
       "instagram": "Instagram",
       "facebook": "Facebook",
-      "linkedin": "LinkedIn"
+      "linkedin": "LinkedIn",
+      "sfProperties": "SF Properties"
     },
     "contactForm": {
       "nome": "Name",
@@ -160,7 +161,8 @@
         { "p": "What does a real estate development company do?", "r": "It oversees the entire process of creating a property — from the site study and architectural design to construction, quality control and meeting deadlines, and handover to the client. At Empreendimentos Santos, the same team stays involved from start to finish, which reduces the gap between what is designed and what is built." },
         { "p": "What sets Empreendimentos Santos apart from other developers?", "r": "20 years in the market, an in-house team spanning architecture, engineering, interior design and property management, and quality control that follows every stage of construction — not just the final handover. That continuity is what keeps the same quality, comfort and sustainability standards across every project." },
         { "p": "How is quality ensured on every project?", "r": "Every development is overseen from design through to completion, with rigorous control over materials and finishes at every stage — the same rigour behind the company's 20-year history." },
-        { "p": "How does sustainability factor into the projects?", "r": "We prioritise energy-efficient solutions and durable materials that reduce environmental impact and long-term maintenance costs — without giving up the comfort or modern architecture that defines every development." }
+        { "p": "How does sustainability factor into the projects?", "r": "We prioritise energy-efficient solutions and durable materials that reduce environmental impact and long-term maintenance costs — without giving up the comfort or modern architecture that defines every development." },
+        { "p": "How are the properties marketed and sold?", "r": "The sale of our properties is handled by SF Properties, the real estate agency that is part of our company's structure. With a specialised sales team, we provide close, personalised support from the first contact through to the completion of the purchase, giving our clients a simple, transparent and secure experience." }
       ]
     },
     "contacto": { "title": "Shall we talk about your next project?", "texto": "Want to learn more about a development or discuss a partnership? Our team responds promptly." }
@@ -227,6 +229,15 @@
             { "role": "General Foreman" },
             { "role": "Rebar Foreman" },
             { "role": "Electrical Foreman" }
+          ]
+        },
+        {
+          "area": "Sales Team",
+          "members": [
+            { "role": "Sales Director" },
+            { "role": "Sales Agent" },
+            { "role": "Sales Agent" },
+            { "role": "Sales Agent" }
           ]
         }
       ]
@@ -330,31 +341,31 @@
       "nome": "Albarraque Condominium",
       "tipologia": "T4",
       "unidades": "9 villas",
-      "estado": "In planning",
+      "estado": "Completed",
       "comercial": "Sold",
-      "entrega": "In planning stage · 2023",
+      "entrega": "Completed in 2023",
       "resumo": "Currently in the planning stage, in partnership with relevant authorities (the Municipal Council and others), the Santos Condominium — Sintra will feature 9 T4 villas each with a private pool, fostering privacy, quality of life and a relationship with natural light.",
-      "factos": ["Albarraque, Sintra", "T4", "9 villas", "In planning / Sold", "Logo Existo", "SF Properties"]
+      "factos": ["Albarraque, Sintra", "T4", "9 villas", "Sold", "Logo Existo", "SF Properties"]
     },
     "empreendimento-residencial-11-villas": {
       "nome": "11 Villas Residential Development",
       "tipologia": "T4 and T5",
       "unidades": "11 villas",
-      "estado": "Under construction",
+      "estado": "Completed",
       "comercial": "Sold",
-      "entrega": "Under construction · 2023",
+      "entrega": "Completed in 2023",
       "resumo": "Currently under construction, the Santos Condominium will feature 11 villas of T4 and T5 typology, each with a private pool, making the courtyard the generating element of the residential space.",
-      "factos": ["Loures", "T4 and T5", "11 villas", "Under construction / Sold", "Logo Existo", "SF Properties"]
+      "factos": ["Loures", "T4 and T5", "11 villas", "Sold", "Logo Existo", "SF Properties"]
     },
     "moradia-unifamiliar-santo-antao-do-tojal": {
       "nome": "Single-Family Home",
       "tipologia": "T4",
       "unidades": "1 villa",
-      "estado": "Under construction",
+      "estado": "Completed",
       "comercial": "Sold",
-      "entrega": "Under construction · 2026",
+      "entrega": "Completed in 2026",
       "resumo": "Currently under construction, a 4-bedroom villa with a private pool, making the courtyard a key element of the residential space and fostering privacy, quality of life and a relationship with natural light.",
-      "factos": ["St. Antão do Tojal, Loures", "T4", "1 villa", "Under construction / Sold", "Logo Existo", "SF Properties"]
+      "factos": ["St. Antão do Tojal, Loures", "T4", "1 villa", "Sold", "Logo Existo", "SF Properties"]
     },
     "valflores-terraces": {
       "nome": "Valflores Terraces",

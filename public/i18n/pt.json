@@ -19,7 +19,8 @@
       "newsletterConsent": "Aceito receber novidades e comunicações da Empreendimentos Santos.",
       "instagram": "Instagram",
       "facebook": "Facebook",
-      "linkedin": "LinkedIn"
+      "linkedin": "LinkedIn",
+      "sfProperties": "SF Properties"
     },
     "contactForm": {
       "nome": "Nome",
@@ -167,7 +168,8 @@
         { "p": "O que faz uma empresa de empreendimentos imobiliários?", "r": "Acompanha todo o processo de criar um imóvel — do estudo do terreno e do projeto de arquitetura à construção, ao controlo de qualidade e cumprimento dos prazos, e à entrega ao cliente. Na Empreendimentos Santos, esse acompanhamento é feito pela mesma equipa do início ao fim, o que reduz desvios entre o que é desenhado e o que é construído." },
         { "p": "O que distingue a Empreendimentos Santos de outras construtoras?", "r": "20 anos de mercado, uma equipa própria de arquitetura, engenharia, decoração e gestão imobiliária, e um controlo de qualidade que acompanha cada fase da obra — não só a entrega final. É essa continuidade que garante os mesmos critérios de qualidade, conforto e sustentabilidade em cada projeto." },
         { "p": "Como é garantida a qualidade em cada projeto?", "r": "Cada empreendimento é acompanhado desde o desenho até à obra concluída, com um controlo rigoroso de materiais e acabamentos em todas as fases — a mesma exigência que sustenta os 20 anos de história da empresa." },
-        { "p": "De que forma a sustentabilidade entra nos projetos?", "r": "Priorizamos soluções energeticamente eficientes e materiais duráveis, que reduzem o impacto ambiental e os custos de manutenção a longo prazo — sem abdicar do conforto ou da arquitetura moderna que define cada empreendimento." }
+        { "p": "De que forma a sustentabilidade entra nos projetos?", "r": "Priorizamos soluções energeticamente eficientes e materiais duráveis, que reduzem o impacto ambiental e os custos de manutenção a longo prazo — sem abdicar do conforto ou da arquitetura moderna que define cada empreendimento." },
+        { "p": "Como é feita a comercialização dos imóveis?", "r": "A comercialização dos nossos imóveis é assegurada pela SF Properties, a imobiliária que integra a estrutura da nossa empresa. Com uma equipa comercial especializada, garantimos um acompanhamento próximo e personalizado, desde o primeiro contacto até à conclusão do processo de compra, proporcionando aos nossos clientes uma experiência simples, transparente e segura." }
       ]
     },
     "contacto": { "title": "Tem interesse num dos nossos projetos?", "texto": "Fale connosco" }
@@ -234,6 +236,15 @@
             { "role": "Encarregado geral" },
             { "role": "Encarregado de ferro" },
             { "role": "Encarregado de instalações elétricas" }
+          ]
+        },
+        {
+          "area": "Equipa comercial",
+          "members": [
+            { "role": "Direção comercial" },
+            { "role": "Agente comercial" },
+            { "role": "Agente comercial" },
+            { "role": "Agente comercial" }
           ]
         }
       ]
@@ -337,31 +348,31 @@
       "nome": "Condomínio Albarraque",
       "tipologia": "T4",
       "unidades": "9 moradias",
-      "estado": "Em projeto",
+      "estado": "Concluído",
       "comercial": "Vendido",
-      "entrega": "Em fase de projeto · 2023",
+      "entrega": "Concluído em 2023",
       "resumo": "Em fase de projeto, em conjunto com entidades (Câmara Municipal e outras), o condomínio Santos — Sintra prevê 9 moradias T4 com piscina privativa em cada fração, promovendo privacidade, qualidade de vida e relação com a luz natural.",
-      "factos": ["Albarraque, Sintra", "T4", "9 moradias", "Em projeto / Vendido", "Logo Existo", "SF Properties"]
+      "factos": ["Albarraque, Sintra", "T4", "9 moradias", "Vendido", "Logo Existo", "SF Properties"]
     },
     "empreendimento-residencial-11-villas": {
       "nome": "Empreendimento Residencial 11 Villas",
       "tipologia": "T4 e T5",
       "unidades": "11 moradias",
-      "estado": "Em construção",
+      "estado": "Concluído",
       "comercial": "Vendido",
-      "entrega": "Em construção · 2023",
+      "entrega": "Concluído em 2023",
       "resumo": "Em fase de construção, o condomínio Santos prevê 11 moradias de tipologia T4 e T5 com piscina privativa em cada unidade, valorizando o pátio como elemento gerador do espaço residencial.",
-      "factos": ["Loures", "T4 e T5", "11 moradias", "Em construção / Vendido", "Logo Existo", "SF Properties"]
+      "factos": ["Loures", "T4 e T5", "11 moradias", "Vendido", "Logo Existo", "SF Properties"]
     },
     "moradia-unifamiliar-santo-antao-do-tojal": {
       "nome": "Moradia Unifamiliar",
       "tipologia": "T4",
       "unidades": "1 moradia",
-      "estado": "Em construção",
+      "estado": "Concluído",
       "comercial": "Vendido",
-      "entrega": "Em construção · 2026",
+      "entrega": "Concluído em 2026",
       "resumo": "Em fase de construção, moradia de 4 quartos com piscina privativa, valorizando o pátio como elemento do espaço residencial, promovendo privacidade, qualidade de vida e relação com a luz natural.",
-      "factos": ["St. Antão do Tojal, Loures", "T4", "1 moradia", "Em construção / Vendido", "Logo Existo", "SF Properties"]
+      "factos": ["St. Antão do Tojal, Loures", "T4", "1 moradia", "Vendido", "Logo Existo", "SF Properties"]
     },
     "valflores-terraces": {
       "nome": "Valflores Terraces",

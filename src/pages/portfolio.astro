@@ -10,9 +10,15 @@ import { porGrupo } from '../utils/projetos.js';
 import { urlAbsoluto } from '../utils/seo.js';
 import { listaDeImoveis } from '../utils/schema.js';
 
+// "Projetos futuros" seguem a ordem manual do campo `ordem` (1 = primeiro); os
+// que não a têm vêm depois, pela ordem automática de porGrupo (sort estável).
+const futuros = [...porGrupo('futuro')].sort(
+  (a, b) => (a.ordem ?? Infinity) - (b.ordem ?? Infinity),
+);
+
 const secoes = [
   { ...portfolio.emDesenvolvimento, i18nBase: 'portfolio.emDesenvolvimento', projetos: porGrupo('desenvolvimento') },
-  { ...portfolio.futuros, i18nBase: 'portfolio.futuros', projetos: porGrupo('futuro') },
+  { ...portfolio.futuros, i18nBase: 'portfolio.futuros', projetos: futuros },
 ];
 
 // CollectionPage + ItemList: é assim que uma página de listagem se descreve.

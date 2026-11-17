@@ -80,6 +80,11 @@ const empreendimentos = defineCollection({
       .default([]),
     /** Desempate na ordenação: primeiro entre os projetos do mesmo ano. */
     destaque: z.boolean().default(false),
+    /**
+     * Posição manual no bloco "Projetos futuros" do Portfólio (1 = primeiro).
+     * Vazio = depois dos numerados, pela ordem automática (ano, destaque, nome).
+     */
+    ordem: opcional(z.number().int().positive()),
     galeria: z.array(z.string()).default([]).transform((l) => l.filter(Boolean)),
     /**
      * Tabela de tipologias — uma linha por fração à venda. Todos os campos são

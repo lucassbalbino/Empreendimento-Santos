@@ -172,6 +172,7 @@ collections:
       - { label: "Mapa de proximidades", name: mapaProximidades, widget: image, required: false, hint: "Mapa com os pontos de interesse à volta. É o mapa mostrado na secção Localização." }
       - { label: "Mapa de localização", name: mapa, widget: image, required: false, hint: "Usado só quando não há mapa de proximidades. Sem nenhum dos dois, mostra um marcador de mapa." }
       - { label: "Destacar", name: destaque, widget: boolean, default: false, hint: "Aparece primeiro entre os projetos do mesmo ano." }
+      - { label: "Ordem nos projetos futuros", name: ordem, widget: number, value_type: int, min: 1, required: false, hint: "Posição no bloco 'Projetos futuros' do Portfólio (1 = primeiro). Vazio = depois dos numerados, pela ordem automática." }
       - label: "Tabela de tipologias"
         name: apartamentos
         widget: list

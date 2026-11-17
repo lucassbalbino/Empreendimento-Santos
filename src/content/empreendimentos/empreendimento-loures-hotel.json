@@ -2,6 +2,7 @@
   "nome": "Collection Hotel",
   "grupo": "futuro",
   "ano": 2030,
+  "ordem": 2,
   "localizacao": "Loures",
   "concelho": "Loures",
   "tipologia": "Hotel · 105 quartos",

@@ -19,7 +19,8 @@
       "newsletterConsent": "J'accepte de recevoir des actualités et communications d'Empreendimentos Santos.",
       "instagram": "Instagram",
       "facebook": "Facebook",
-      "linkedin": "LinkedIn"
+      "linkedin": "LinkedIn",
+      "sfProperties": "SF Properties"
     },
     "contactForm": {
       "nome": "Nom",
@@ -160,7 +161,8 @@
         { "p": "Que fait une entreprise de promotion immobilière ?", "r": "Elle accompagne tout le processus de création d'un bien — de l'étude du terrain et du projet architectural à la construction, au contrôle qualité et au respect des délais, et à la livraison au client. Chez Empreendimentos Santos, ce suivi est assuré par la même équipe du début à la fin, ce qui réduit l'écart entre ce qui est conçu et ce qui est construit." },
         { "p": "Qu'est-ce qui distingue Empreendimentos Santos des autres promoteurs ?", "r": "20 ans sur le marché, une équipe interne d'architecture, d'ingénierie, de décoration et de gestion immobilière, et un contrôle qualité qui suit chaque étape du chantier — pas seulement la livraison finale. Cette continuité garantit les mêmes critères de qualité, de confort et de durabilité sur chaque projet." },
         { "p": "Comment la qualité est-elle garantie sur chaque projet ?", "r": "Chaque projet est suivi de la conception jusqu'à l'achèvement du chantier, avec un contrôle rigoureux des matériaux et des finitions à chaque étape — la même exigence qui soutient les 20 ans d'histoire de l'entreprise." },
-        { "p": "Comment la durabilité s'intègre-t-elle aux projets ?", "r": "Nous privilégions des solutions économes en énergie et des matériaux durables, qui réduisent l'impact environnemental et les coûts d'entretien à long terme — sans renoncer au confort ni à l'architecture moderne qui définit chaque projet." }
+        { "p": "Comment la durabilité s'intègre-t-elle aux projets ?", "r": "Nous privilégions des solutions économes en énergie et des matériaux durables, qui réduisent l'impact environnemental et les coûts d'entretien à long terme — sans renoncer au confort ni à l'architecture moderne qui définit chaque projet." },
+        { "p": "Comment se déroule la commercialisation des biens ?", "r": "La commercialisation de nos biens est assurée par SF Properties, l'agence immobilière qui fait partie de la structure de notre entreprise. Grâce à une équipe commerciale spécialisée, nous garantissons un accompagnement proche et personnalisé, du premier contact jusqu'à la conclusion de l'achat, offrant à nos clients une expérience simple, transparente et sécurisée." }
       ]
     },
     "contacto": { "title": "Parlons de votre prochain projet ?", "texto": "Vous souhaitez découvrir un projet ou discuter d'un partenariat ? Notre équipe vous répondra rapidement." }
@@ -227,6 +229,15 @@
             { "role": "Chef de chantier général" },
             { "role": "Chef d'équipe ferraillage" },
             { "role": "Chef d'équipe électricité" }
+          ]
+        },
+        {
+          "area": "Équipe commerciale",
+          "members": [
+            { "role": "Direction commerciale" },
+            { "role": "Agente commerciale" },
+            { "role": "Agente commerciale" },
+            { "role": "Agente commerciale" }
           ]
         }
       ]
@@ -330,31 +341,31 @@
       "nome": "Résidence Albarraque",
       "tipologia": "T4",
       "unidades": "9 villas",
-      "estado": "En projet",
+      "estado": "Achevé",
       "comercial": "Vendu",
-      "entrega": "En phase de projet · 2023",
+      "entrega": "Achevé en 2023",
       "resumo": "En phase de projet, en collaboration avec différentes entités (mairie et autres), la résidence Santos — Sintra prévoit 9 villas T4 avec piscine privative pour chaque unité, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle.",
-      "factos": ["Albarraque, Sintra", "T4", "9 villas", "En projet / Vendu", "Logo Existo", "SF Properties"]
+      "factos": ["Albarraque, Sintra", "T4", "9 villas", "Vendu", "Logo Existo", "SF Properties"]
     },
     "empreendimento-residencial-11-villas": {
       "nome": "Résidence 11 Villas",
       "tipologia": "T4 et T5",
       "unidades": "11 villas",
-      "estado": "En construction",
+      "estado": "Achevé",
       "comercial": "Vendu",
-      "entrega": "En construction · 2023",
+      "entrega": "Achevé en 2023",
       "resumo": "En phase de construction, la résidence Santos prévoit 11 villas de typologie T4 et T5 avec piscine privative pour chaque unité, valorisant le patio comme élément générateur de l'espace résidentiel.",
-      "factos": ["Loures", "T4 et T5", "11 villas", "En construction / Vendu", "Logo Existo", "SF Properties"]
+      "factos": ["Loures", "T4 et T5", "11 villas", "Vendu", "Logo Existo", "SF Properties"]
     },
     "moradia-unifamiliar-santo-antao-do-tojal": {
       "nome": "Maison individuelle",
       "tipologia": "T4",
       "unidades": "1 villa",
-      "estado": "En construction",
+      "estado": "Achevé",
       "comercial": "Vendu",
-      "entrega": "En construction · 2026",
+      "entrega": "Achevé en 2026",
       "resumo": "En phase de construction, maison de 4 chambres avec piscine privative, valorisant le patio comme élément de l'espace résidentiel, favorisant l'intimité, la qualité de vie et la relation avec la lumière naturelle.",
-      "factos": ["St. Antão do Tojal, Loures", "T4", "1 villa", "En construction / Vendu", "Logo Existo", "SF Properties"]
+      "factos": ["St. Antão do Tojal, Loures", "T4", "1 villa", "Vendu", "Logo Existo", "SF Properties"]
     },
     "valflores-terraces": {
       "nome": "Valflores Terraces",

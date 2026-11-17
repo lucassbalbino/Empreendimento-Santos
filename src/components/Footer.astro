@@ -28,6 +28,11 @@ const { destaque = false } = Astro.props;
     <div class="footer-grid">
       <div class="footer-col footer-brand">
         <span class="logo footer-logo"><img src="/images/logo-ams-santos-h-light.png" alt="Empreendimentos Santos" width="700" height="185" /></span>
+        <!-- SF Properties, a imobiliária do grupo: logo a servir de botão para o
+             site dela — o mesmo endereço e os mesmos atributos do link da navbar. -->
+        <a class="footer-sf" href="https://www.sfproperties.pt/" target="_blank" rel="noopener" aria-label="SF Properties" data-i18n="common.footer.sfProperties" data-i18n-attr="aria-label">
+          <img src="/images/logo-sf-properties.png" alt="" width="240" height="240" loading="lazy" />
+        </a>
         <p data-i18n="site.footer.blurb">{site.footer.blurb}</p>
         <!-- Cada rede só aparece quando tem endereço em site.json (editável no
              CMS): um ícone a apontar para "#" é um link partido. -->

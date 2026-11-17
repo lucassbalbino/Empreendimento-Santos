@@ -32,6 +32,15 @@
           { "name": "Isaias Lopes", "role": "Encarregado de ferro" },
           { "name": "David Muralha", "role": "Encarregado de instalações elétricas" }
         ]
+      },
+      {
+        "area": "Equipa comercial",
+        "members": [
+          { "name": "David Teixeira", "role": "Direção comercial" },
+          { "name": "Cristina Cunha", "role": "Agente comercial" },
+          { "name": "Anabela Pereira", "role": "Agente comercial" },
+          { "name": "Catarina Santos", "role": "Agente comercial" }
+        ]
       }
     ]
   },
