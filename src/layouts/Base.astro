@@ -6,6 +6,9 @@ import PageCurtain from '../components/PageCurtain.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import Seo from '../components/Seo.astro';
 import seoConfig from '../data/seo.json';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import path from 'node:path';
 const {
   flat = false,
   /* Rodapé com os contactos em destaque — só a /contactos o pede, depois de
@@ -32,6 +35,17 @@ const isHome = Astro.url.pathname === '/';
 // (palette="test-b46511"), retirado na Task 1. Nenhuma página a passava, por
 // isso a classe palette-* nunca chegou ao <body>.
 const bodyClass = [isHome && 'is-home', flat && 'no-hero', paginaClass].filter(Boolean).join(' ') || undefined;
+
+// Versão do styles.css no URL (?v=<hash do conteúdo>). O ficheiro vive em
+// public/ com nome fixo, por isso o browser (e o CDN) continuavam a servir a
+// cópia antiga depois de um deploy. Com o hash, cada alteração ao CSS muda o
+// URL e obriga a descarregar a versão nova; sem alterações, a cache mantém-se.
+// (Caminho a partir da raiz do projeto: no build o componente é empacotado
+// noutra pasta, por isso um caminho relativo a este ficheiro não serviria.)
+const cssVersao = createHash('md5')
+  .update(readFileSync(path.join(process.cwd(), 'public', 'styles.css')))
+  .digest('hex')
+  .slice(0, 10);
 ---
 <!DOCTYPE html>
 <html lang="pt-PT">
@@ -74,7 +88,7 @@ const bodyClass = [isHome && 'is-home', flat && 'no-hero', paginaClass].filter(B
        descarrega o ficheiro duas vezes. -->
   <link rel="preload" as="font" type="font/woff2" href="/fonts/fraunces-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin.woff2" crossorigin>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href={`/styles.css?v=${cssVersao}`}>
 
   <!-- Gate do preloader: liga is-loading ANTES do paint, só na 1.ª carga real
        (não em soft-nav nem com prefers-reduced-motion). Evita flash de conteúdo. -->
