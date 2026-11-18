@@ -1492,6 +1492,26 @@ body.is-historico .card--modal .card__title{ color:var(--paper); }
 body.is-historico .card--modal .card__meta{ color:var(--on-dark-soft); }
 body.is-historico .card--modal .card__tag{ color:var(--on-dark); background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.18); }
 
+/* Painel inline do Histórico (abre ao clicar num card): o mesmo castanho dos
+   cards. O lado da imagem já era escuro; muda o lado da informação, com as
+   cores de texto que o site usa sobre .section--dark (título e resumo em
+   --paper, rótulos em --on-dark-soft, acento em --accent-dk, linhas brancas
+   translúcidas, botão como .section--dark .btn). */
+body.is-historico .epanel__inner{ background:rgb(67,58,52); border-color:rgba(255,255,255,.34); }
+body.is-historico .epanel .emodal__close{ color:var(--paper); }
+body.is-historico .epanel .emodal__close:hover{ background:rgba(255,255,255,.10); }
+body.is-historico .epanel .emodal__estado{ color:var(--accent-dk); }
+body.is-historico .epanel .emodal__estado::before{ background:var(--accent-dk); }
+body.is-historico .epanel .emodal__info-title{ color:var(--paper); }
+body.is-historico .epanel .emodal__resumo{ color:var(--paper); }
+body.is-historico .epanel .emodal__fact{ border-color:rgba(255,255,255,.18); }
+body.is-historico .epanel .emodal__fact-label{ color:var(--on-dark-soft); }
+body.is-historico .epanel .emodal__fact-value{ color:var(--paper); }
+body.is-historico .epanel .emodal__entrega{ color:var(--on-dark-soft); }
+body.is-historico .epanel .btn{ color:var(--paper); border-color:rgba(255,255,255,.5); }
+body.is-historico .epanel .btn::before{ background:var(--accent-dk); }
+body.is-historico .epanel .btn:hover{ color:var(--accent-dk); }
+
 /* =====================================================================
    PAINÉIS EXPANSÍVEIS (dark section — efeito content-office)
    Fileira de painéis estreitos; ao passar o pointer, o painel apontado
