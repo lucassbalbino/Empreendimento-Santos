@@ -4,11 +4,8 @@ import Seam from '../components/Seam.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Divider from '../components/Divider.astro';
 import Frame from '../components/Frame.astro';
-import Blob from '../components/Blob.astro';
 import TitleSplit from '../components/TitleSplit.astro';
-import Stats from '../components/Stats.astro';
 import sobre from '../data/sobre.json';
-import home from '../data/home.json';
 ---
 <Base tipoPagina="AboutPage" paginaClass="is-sobre">
   <!-- HERO (interno) -->
@@ -25,8 +22,9 @@ import home from '../data/home.json';
     </div>
   </section>
 
-  <!-- QUEM SOMOS -->
-  <section class="section">
+  <!-- QUEM SOMOS — encosta à secção Serviços (também branca), por isso
+       aperta o fundo para não somar dois --section-y inteiros. -->
+  <section class="section section--tight-bottom">
     <div class="container">
       <div class="split split--reverse split--text-wide">
         <Frame>
@@ -40,32 +38,6 @@ import home from '../data/home.json';
           <TitleSplit text={sobre.quemSomos.title} class="title-split--fit" data-i18n="sobre.quemSomos.title" data-i18n-split="1" />
           <p class="lead" style="margin:1rem 0 1.4rem" data-i18n="sobre.quemSomos.lead">{sobre.quemSomos.lead}</p>
           <Divider />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- O QUE FAZEMOS — grelha de imagens em cascata + parágrafo.
-       Sem costura nas fronteiras: esta secção entra e sai a direito. -->
-  <section class="section section--dark has-blob">
-    <Blob />
-    <div class="container">
-      <div class="split comotrabalhamos">
-        <div class="comotrabalhamos__grid">
-          <div class="comotrabalhamos__col comotrabalhamos__col--a">
-            {[...sobre.oQueFazemos.imagens.colunaA, ...sobre.oQueFazemos.imagens.colunaA].map((src) => (
-              <img src={src} alt="" loading="lazy" />
-            ))}
-          </div>
-          <div class="comotrabalhamos__col comotrabalhamos__col--b">
-            {[...sobre.oQueFazemos.imagens.colunaB, ...sobre.oQueFazemos.imagens.colunaB].map((src) => (
-              <img src={src} alt="" loading="lazy" />
-            ))}
-          </div>
-        </div>
-        <div class="split__body">
-          <TitleSplit text={sobre.oQueFazemos.title} data-i18n="sobre.oQueFazemos.title" data-i18n-split="1" />
-          <Stats items={home.oQueFazemos.stats} class="stats--compact" i18nBase="home.oQueFazemos.stats" />
         </div>
       </div>
     </div>
