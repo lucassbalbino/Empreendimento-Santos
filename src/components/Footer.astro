@@ -30,16 +30,16 @@ const { destaque = false } = Astro.props;
         <!-- Slogan primeiro, logos por baixo. -->
         <p data-i18n="site.footer.blurb">{site.footer.blurb}</p>
         <!-- Logo AM Santos e, ao lado, a SF Properties (a imobiliária do grupo),
-             com a indicação de que é ela quem faz a comercialização por baixo. -->
+             com a indicação de que é ela quem faz a comercialização por cima. -->
         <div class="footer-logos">
           <span class="logo footer-logo"><img src="/images/logo-ams-santos-h-light.png" alt="Empreendimentos Santos" width="700" height="185" /></span>
           <div class="footer-sf">
+            <span class="footer-sf__label" data-i18n="common.footer.comercializacao">Comercialização</span>
             <!-- Logo a servir de botão para o site dela — o mesmo endereço e os
                  mesmos atributos do link da navbar. -->
             <a class="footer-sf__link" href="https://www.sfproperties.pt/" target="_blank" rel="noopener" aria-label="SF Properties" data-i18n="common.footer.sfProperties" data-i18n-attr="aria-label">
-              <img src="/images/logo-sf-properties.png" alt="" width="240" height="240" loading="lazy" />
+              <img src="/images/logo-sf-properties-light.png" alt="" width="343" height="240" loading="lazy" />
             </a>
-            <span class="footer-sf__label" data-i18n="common.footer.comercializacao">Comercialização</span>
           </div>
         </div>
         <!-- Cada rede só aparece quando tem endereço em site.json (editável no
