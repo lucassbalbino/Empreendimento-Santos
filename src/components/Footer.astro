@@ -27,13 +27,21 @@ const { destaque = false } = Astro.props;
     )}
     <div class="footer-grid">
       <div class="footer-col footer-brand">
-        <span class="logo footer-logo"><img src="/images/logo-ams-santos-h-light.png" alt="Empreendimentos Santos" width="700" height="185" /></span>
-        <!-- SF Properties, a imobiliária do grupo: logo a servir de botão para o
-             site dela — o mesmo endereço e os mesmos atributos do link da navbar. -->
-        <a class="footer-sf" href="https://www.sfproperties.pt/" target="_blank" rel="noopener" aria-label="SF Properties" data-i18n="common.footer.sfProperties" data-i18n-attr="aria-label">
-          <img src="/images/logo-sf-properties.png" alt="" width="240" height="240" loading="lazy" />
-        </a>
+        <!-- Slogan primeiro, logos por baixo. -->
         <p data-i18n="site.footer.blurb">{site.footer.blurb}</p>
+        <!-- Logo AM Santos e, ao lado, a SF Properties (a imobiliária do grupo),
+             com a indicação de que é ela quem faz a comercialização por baixo. -->
+        <div class="footer-logos">
+          <span class="logo footer-logo"><img src="/images/logo-ams-santos-h-light.png" alt="Empreendimentos Santos" width="700" height="185" /></span>
+          <div class="footer-sf">
+            <!-- Logo a servir de botão para o site dela — o mesmo endereço e os
+                 mesmos atributos do link da navbar. -->
+            <a class="footer-sf__link" href="https://www.sfproperties.pt/" target="_blank" rel="noopener" aria-label="SF Properties" data-i18n="common.footer.sfProperties" data-i18n-attr="aria-label">
+              <img src="/images/logo-sf-properties.png" alt="" width="240" height="240" loading="lazy" />
+            </a>
+            <span class="footer-sf__label" data-i18n="common.footer.comercializacao">Comercialização</span>
+          </div>
+        </div>
         <!-- Cada rede só aparece quando tem endereço em site.json (editável no
              CMS): um ícone a apontar para "#" é um link partido. -->
         <div class="socials">
